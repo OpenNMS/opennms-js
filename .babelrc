@@ -1,6 +1,10 @@
 {
   "presets": [
-    ["es2015", { "modules": false }]
+    ["latest", { "modules": false }]
   ],
-  "plugins": ["transform-class-properties", "transform-es2015-for-of"]
+  "plugins": [
+    "add-module-exports",
+    "transform-class-properties",
+    "transform-es2015-for-of"
+  ]
 }
