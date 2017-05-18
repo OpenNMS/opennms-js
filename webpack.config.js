@@ -1,5 +1,7 @@
 var webpack = require('webpack');
 var path = require('path');
+var nodeModulesPath = path.resolve(__dirname, 'node_modules');
+
 var isProduction = require('yargs').argv.p;
 
 var libraryName = 'opennms';
@@ -21,12 +23,6 @@ if (isProduction) {
     minimize: false,
     debug: true
   }));
-  /*
-  plugins.push(new webpack.optimize.UglifyJsPlugin({
-    sourceMap: true,
-    minimize: false
-  }));
-  */
   outputFile = libraryName + '.js';
 }
 
@@ -43,11 +39,16 @@ var config = {
   module: {
     loaders: [
       {
-        test: /(\.jsx|\.js)$/,
+        test: /(\.jsx?)$/,
         loader: 'babel-loader'
       },
       {
-        test: /(\.jsx|\.js)$/,
+        test: /(\.tsx?)$/,
+        loader: ['babel-loader', 'ts-loader'],
+        exclude: [/node_modules/, nodeModulesPath]
+      },
+      {
+        test: /(\.jsx?)$/,
         loader: 'eslint-loader',
         exclude: /node_modules/
       }
@@ -56,10 +57,11 @@ var config = {
   resolve: {
     modules: [
       path.resolve('./src'),
+      path.resolve('./build'),
       path.resolve('./'),
-      path.resolve('./node_modules')
+      nodeModulesPath
     ],
-    extensions: ['.webpack.js', '.web.js', '.js']
+    extensions: ['.webpack.js', '.web.js', '.ts', '.js']
   },
   plugins: plugins,
   node: {
