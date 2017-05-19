@@ -6,53 +6,38 @@ var isProduction = require('yargs').argv.p;
 
 var libraryName = 'opennms';
 
-var plugins = [], outputFile;
-
-if (isProduction) {
-  plugins.push(new webpack.LoaderOptionsPlugin({
-    minimize: true,
-    debug: false
-  }));
-  plugins.push(new webpack.optimize.UglifyJsPlugin({
-    sourceMap: true,
-    minimize: true
-  }));
-  outputFile = libraryName + '.min.js';
-} else {
-  plugins.push(new webpack.LoaderOptionsPlugin({
-    minimize: false,
-    debug: true
-  }));
-  outputFile = libraryName + '.js';
-}
-
 var config = {
-  entry: __dirname + '/src/index.js',
+  entry: __dirname + '/src/OpenNMS.ts',
   devtool: 'source-map',
   output: {
     path: __dirname + '/dist',
-    filename: outputFile,
     library: libraryName,
     libraryTarget: 'umd',
     umdNamedDefine: true
   },
   module: {
-    loaders: [
+    rules: [
+      {
+        enforce: 'pre',
+        test: /\.tsx?$/,
+        use: [
+          'tslint-loader'
+        ],
+        exclude: /node_modules/
+      },
       {
         test: /(\.jsx?)$/,
-        loader: 'babel-loader'
+        use: [ 'babel-loader' ]
       },
       {
         test: /(\.tsx?)$/,
-        loader: ['babel-loader', 'ts-loader'],
+        use: [
+          'babel-loader',
+          'ts-loader'
+        ],
         exclude: [/node_modules/, nodeModulesPath]
-      },
-      {
-        test: /(\.jsx?)$/,
-        loader: 'eslint-loader',
-        exclude: /node_modules/
       }
-    ]
+    ],
   },
   resolve: {
     modules: [
@@ -63,11 +48,29 @@ var config = {
     ],
     extensions: ['.webpack.js', '.web.js', '.ts', '.js']
   },
-  plugins: plugins,
+  plugins: [],
   node: {
     global: false,
     process: false
   }
 };
+
+if (isProduction) {
+  config.plugins.push(new webpack.LoaderOptionsPlugin({
+    minimize: true,
+    debug: false
+  }));
+  config.plugins.push(new webpack.optimize.UglifyJsPlugin({
+    sourceMap: true,
+    minimize: true
+  }));
+  config.output.filename = libraryName + '.min.js';
+} else {
+  config.plugins.push(new webpack.LoaderOptionsPlugin({
+    minimize: false,
+    debug: true
+  }));
+  config.output.filename = libraryName + '.js';
+}
 
 module.exports = config;

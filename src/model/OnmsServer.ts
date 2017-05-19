@@ -1,8 +1,7 @@
-/// <reference path="../../typings/index.d.ts" />
-
 // import moment from 'moment/src/moment';
-import * as URI from 'urijs';
+import URI from 'urijs';
 import {UUID} from '../util/UUID';
+import {ServerCapabilities} from '../api/ServerCapabilities';
 
 export class OnmsServer {
   id: string;
@@ -10,8 +9,9 @@ export class OnmsServer {
   url: string;
   username: string;
   password: string;
+  capabilities: ServerCapabilities;
 
-  constructor(name?:string, url?:string, username?:string, password?:string) {
+  constructor(name?: string, url?: string, username?: string, password?: string) {
     this.id = UUID.generate();
     this.name = name;
     this.url = url;
@@ -19,7 +19,7 @@ export class OnmsServer {
     this.password = password;
   }
 
-  relativeUrl(segment?:string) {
+  relativeUrl(segment?: string) {
     if (!this.url) {
       return undefined;
     }

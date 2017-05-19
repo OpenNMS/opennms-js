@@ -1,3 +1,0 @@
---compilers ts:ts-node/register,js:babel-core/register
---colors
---require source-map-support/register

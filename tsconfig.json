@@ -1,13 +1,14 @@
 {
   "compilerOptions": {
     "target": "es6",
-    "module": "commonjs",
+    "module": "es6",
     "moduleResolution": "node",
     "allowSyntheticDefaultImports": true,
     "experimentalDecorators": true,
     "sourceMap": true,
     "allowJs": true,
     "lib": [ "es6", "dom" ],
+    "skipLibCheck": true,
     "outDir": "build"
   },
   "include": [

@@ -1,14 +1,17 @@
 import * as axios from 'axios';
 
 import {OnmsHTTP} from './api/OnmsHTTP';
-import {OnmsError} from './errors/OnmsError';
+import {OnmsError} from './api/OnmsError';
 import {OnmsServer} from './model/OnmsServer';
+import {AxiosHTTP} from './rest/AxiosHTTP';
+
+export { OnmsServer as OnmsServer };
 
 class OnmsAuth {
   username: string;
   password: string;
 
-  constructor(u:string, p:string) {
+  constructor(u: string, p: string) {
     this.username = u;
     this.password = p;
   }
@@ -17,10 +20,8 @@ class OnmsAuth {
 class Options {
   timeout = 10000;
   auth: OnmsAuth;
-  withCredentials: boolean;
 
-  constructor(wc = true, t?: number, a?: OnmsAuth) {
-    this.withCredentials = wc;
+  constructor(t?: number, a?: OnmsAuth) {
     if (t !== undefined) {
       this.timeout = t;
     }
@@ -30,45 +31,31 @@ class Options {
   }
 }
 
-function testUrl(url: string, username: string, password: string, timeout?: number) {
-  let options = new Options(true, timeout);
-
-  if (username && password) {
-    options.auth = new OnmsAuth(username, password);
-  }
-
-  /*
-  var requests = [
-    axios.get('/alarms/count'),
-    axios.get('/rest/alarms/count'),
-    axios.get('/opennms/rest/alarms/count')
-  ];
-  axios.all(requests);
-  */
-}
-
 export class OpenNMS {
-  private _server: OnmsServer;
+  private http: OnmsHTTP;
+  private server: OnmsServer;
 
-  constructor() {
+  constructor(httpImpl?: OnmsHTTP) {
+    if (httpImpl) {
+      this.http = httpImpl;
+    } else {
+      this.http = new AxiosHTTP();
+    }
   }
 
-  get server() {
-    return this._server;
+  public setServer(server: string, name: string, username: string, password: string) {
+      this.server = new OnmsServer(name, server, username, password);
   }
 
   /**
    * @ngdoc method
-   * @description Connect to an OpenNMS server
+   * @description Connect to an OpenNMS URL, query what capabilities it has, and create a server object
    */
-  connect(s?: OnmsServer) {
-    this._server = s;
-    return this._server;
-  }
-
-  toJSON() {
-    return {
-      server: this._server
-    };
+  public static newServer(name: string, url: string, username: string, password: string, timeout?: number) {
+    const opts = new Options(timeout);
+    if (username && password) {
+      opts.auth = new OnmsAuth(username, password);
+    }
+    return new OnmsServer(name, url, username, password);
   }
 }

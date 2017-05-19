@@ -1,11 +1,7 @@
-/// <reference path="../typings/index.d.ts" />
+declare const describe, beforeEach, it, expect;
 
-import 'mocha';
-import * as chai from 'chai';
 import {OpenNMS} from '../src/OpenNMS';
 import {OnmsServer} from '../src/model/OnmsServer';
-
-const expect = chai.expect;
 
 const SERVER_NAME='Demo';
 const SERVER_URL='http://demo.opennms.org/opennms/';
@@ -15,22 +11,18 @@ const SERVER_PASSWORD='demo';
 let opennms, server;
 
 describe('Given an instance of OpenNMS...', function () {
-  before(function () {
+  beforeEach(function () {
     opennms = new OpenNMS();
     server = new OnmsServer(SERVER_NAME, SERVER_URL, SERVER_USER, SERVER_PASSWORD);
   });
   describe('when I have a default OpenNMS object', function () {
     it('it should have no server', () => {
-      expect(opennms.server).to.be.undefined;
+      expect(opennms.server).toBeUndefined();
     });
-    it('it should return a server if I call connect', () => {
-      let ret = opennms.connect(server);
-      expect(ret).not.to.be.undefined;
-      expect(ret).to.be.equal(server);
-    });
-    it('it should have a server property if I call connect', () => {
-      opennms.connect(server);
-      expect(opennms.server).to.be.equal(server);
+    it('it should return a server object if I call newServer', () => {
+      let ret = OpenNMS.newServer(SERVER_NAME, SERVER_URL, SERVER_USER, SERVER_PASSWORD);
+      expect(ret).toBeDefined();
+      expect(ret.url).toEqual(SERVER_URL);
     });
   });
 });

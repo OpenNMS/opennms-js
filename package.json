@@ -14,44 +14,56 @@
     "url": "https://github.com/OpenNMS/opennms-js.git"
   },
   "devDependencies": {
-    "@types/chai": "^3.5.2",
-    "@types/chai-as-promised": "^0.0.30",
-    "@types/mocha": "^2.2.41",
+    "@types/jest": "^19.2.3",
     "@types/node": "^7.0.18",
     "@types/urijs": "^1.15.32",
     "babel-cli": "^6.24.1",
-    "babel-eslint": "^7.2.3",
+    "babel-jest": "^20.0.3",
     "babel-loader": "^7.0.0",
     "babel-plugin-add-module-exports": "^0.2.1",
     "babel-plugin-transform-class-properties": "^6.24.1",
     "babel-plugin-transform-es2015-for-of": "^6.23.0",
-    "babel-plugin-transform-es2015-modules-systemjs": "^6.24.1",
     "babel-plugin-transform-runtime": "^6.23.0",
     "babel-polyfill": "^6.23.0",
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-latest": "^6.24.1",
     "chai": "3.5.0",
-    "eslint": "^3.19.0",
-    "eslint-loader": "^1.7.1",
-    "mocha": "^3.4.1",
-    "source-map-support": "^0.4.15",
+    "husky": "^0.13.3",
+    "jest": "^20.0.3",
+    "regenerator-runtime": "^0.10.5",
+    "ts-jest": "^20.0.4",
     "ts-loader": "^2.0.3",
-    "ts-node": "^3.0.4",
+    "tslint": "^5.2.0",
+    "tslint-loader": "^3.5.3",
     "typescript": "^2.3.2",
     "urijs": "^1.17.1",
     "webpack": "^2.5.1",
     "webpack-closure-compiler": "^2.1.4",
     "yargs": "^8.0.1"
   },
-  "scripts": {
-    "build": "webpack -p --env production",
-    "dev": "webpack --progress --colors",
-    "watch": "webpack --progress --colors --watch",
-    "test": "mocha ./test/*.spec.ts",
-    "watch-test": "mocha -w ./test/*.spec.ts"
+  "jest": {
+    "transform": {
+      "^.+\\.tsx?$": "<rootDir>/node_modules/ts-jest/preprocessor.js"
+    },
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js",
+      "json"
+    ],
+    "testRegex": "(/__tests__/.*|\\.(test|spec))\\.(ts|tsx|js)$"
   },
   "dependencies": {
     "axios": "^0.16.1",
     "moment": "^2.12.0"
+  },
+  "scripts": {
+    "precommit": "jest",
+    "prepush": "jest",
+    "build": "webpack -p --env production",
+    "dev": "webpack --progress --colors",
+    "watch": "webpack --progress --colors --watch",
+    "test": "jest",
+    "watch-test": "jest --watch"
   }
 }
