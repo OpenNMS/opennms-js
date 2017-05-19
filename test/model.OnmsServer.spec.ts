@@ -1,21 +1,27 @@
-import chai from 'chai';
-// import OnmsServer from '../dist/opennms.js';
-import OnmsServer from '../src/model/OnmsServer.js';
+/// <reference path="../typings/index.d.ts" />
 
-chai.expect();
+import 'mocha';
+import * as chai from 'chai';
+import {OpenNMS} from '../src/OpenNMS';
+import {OnmsServer} from '../src/model/OnmsServer';
 
 const expect = chai.expect;
 
-var server, demo = 'http://demo.opennms.org/opennms/';
+const SERVER_NAME='Demo';
+const SERVER_URL='http://demo.opennms.org/opennms/';
+const SERVER_USER='demo';
+const SERVER_PASSWORD='demo';
+
+var server;
 
 describe('Given an instance of OnmsServer...', function () {
   before(function () {
-    server = new OnmsServer('Demo', demo, 'demo', 'demo');
+    server = new OnmsServer(SERVER_NAME, SERVER_URL, SERVER_USER, SERVER_PASSWORD);
   });
 
   describe('when I have a server with just an ID', function () {
     it('it should have an ID', () => {
-      expect(server.id).to.be.defined;
+      expect(server.id).not.to.be.undefined;
       expect(new OnmsServer().id.length).to.be.equal(36);
     });
     it('it should have no URL', () => {
@@ -31,24 +37,24 @@ describe('Given an instance of OnmsServer...', function () {
 
   describe('when I have a properly-configured server object', function () {
     it('it should have an ID', () => {
-      expect(server.id).to.be.defined;
+      expect(server.id).not.to.be.undefined;
       expect(server.id.length).to.be.equal(36);
     });
     it('it should have a URL', () => {
-      expect(server.url).to.be.defined;
-      expect(server.url).to.be.equal(demo);
+      expect(server.url).not.to.be.undefined;
+      expect(server.url).to.be.equal(SERVER_URL);
     });
     it('it should return the base URL when undefined is passed to relativeUrl()', () => {
-      expect(server.relativeUrl()).to.be.defined;
-      expect(server.relativeUrl()).to.be.equal(demo);
+      expect(server.relativeUrl()).not.to.be.undefined;
+      expect(server.relativeUrl()).to.be.equal(SERVER_URL);
     });
     it('it should return a new URL when a value is passed to relativeUrl()', () => {
-      expect(server.relativeUrl('foo')).to.be.defined;
-      expect(server.relativeUrl('foo')).to.be.equal(demo + 'foo');
-      expect(server.relativeUrl('foo/')).to.be.equal(demo + 'foo');
+      expect(server.relativeUrl('foo')).not.to.be.undefined;
+      expect(server.relativeUrl('foo')).to.be.equal(SERVER_URL + 'foo');
+      expect(server.relativeUrl('foo/')).to.be.equal(SERVER_URL + 'foo');
     });
     it('it should have a "host" property', () => {
-      expect(server.host).to.be.defined;
+      expect(server.host).not.to.be.undefined;
       expect(server.host).to.be.equal('demo.opennms.org');
     });
   });
