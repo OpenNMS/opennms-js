@@ -1,4 +1,7 @@
-import {OpenNMS} from '../../src/OpenNMS';
+declare const describe, beforeEach, it, expect;
+
+import {Client} from '../../src/Client';
+import {OnmsAuthConfig} from '../../src/api/OnmsAuthConfig';
 import {OnmsServer} from '../../src/model/OnmsServer';
 
 const SERVER_NAME='Demo';
@@ -6,11 +9,12 @@ const SERVER_URL='http://demo.opennms.org/opennms/';
 const SERVER_USER='demo';
 const SERVER_PASSWORD='demo';
 
-var server;
+var server, auth;
 
 describe('Given an instance of OnmsServer...', function () {
   beforeEach(function () {
-    server = new OnmsServer(SERVER_NAME, SERVER_URL, SERVER_USER, SERVER_PASSWORD);
+    auth = new OnmsAuthConfig(SERVER_USER, SERVER_PASSWORD);
+    server = new OnmsServer(SERVER_NAME, SERVER_URL, auth);
   });
 
   describe('when I have a server with just an ID', function () {
@@ -22,7 +26,7 @@ describe('Given an instance of OnmsServer...', function () {
       expect(new OnmsServer().url).toBeUndefined();
     });
     it('it should return undefined when asking for a relative URL without a URL set', () => {
-      expect(new OnmsServer().relativeUrl()).toBeUndefined();
+      expect(new OnmsServer().resolveURL()).toBeUndefined();
     });
     it('it should not have a "host" property', () => {
       expect(new OnmsServer().host).toBeUndefined();
@@ -38,14 +42,14 @@ describe('Given an instance of OnmsServer...', function () {
       expect(server.url).toBeDefined();
       expect(server.url).toEqual(SERVER_URL);
     });
-    it('it should return the base URL when undefined is passed to relativeUrl()', () => {
-      expect(server.relativeUrl()).toBeDefined();
-      expect(server.relativeUrl()).toEqual(SERVER_URL);
+    it('it should return the base URL when undefined is passed to resolveURL()', () => {
+      expect(server.resolveURL()).toBeDefined();
+      expect(server.resolveURL()).toEqual(SERVER_URL);
     });
-    it('it should return a new URL when a value is passed to relativeUrl()', () => {
-      expect(server.relativeUrl('foo')).toBeDefined();
-      expect(server.relativeUrl('foo')).toEqual(SERVER_URL + 'foo');
-      expect(server.relativeUrl('foo/')).toEqual(SERVER_URL + 'foo');
+    it('it should return a new URL when a value is passed to resolveURL()', () => {
+      expect(server.resolveURL('foo')).toBeDefined();
+      expect(server.resolveURL('foo')).toEqual(SERVER_URL + 'foo');
+      expect(server.resolveURL('foo/')).toEqual(SERVER_URL + 'foo');
     });
     it('it should have a "host" property', () => {
       expect(server.host).toBeDefined();

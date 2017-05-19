@@ -1,43 +1,67 @@
 import axios from 'axios';
 import {AxiosInstance} from 'axios';
-import {OnmsHTTP} from '../api/OnmsHTTP';
+
+import {OnmsAuthConfig} from '../api/OnmsAuthConfig';
 import {OnmsError} from '../api/OnmsError';
+import {OnmsHTTP} from '../api/OnmsHTTP';
+import {OnmsHTTPOptions} from '../api/OnmsHTTPOptions';
 import {OnmsServer} from '../model/OnmsServer';
 
+/**
+ * Implementation of the OnmsHTTP interface using Axios: https://github.com/mzabriskie/axios
+ * @class
+ * @implements OnmsHTTP
+ */
 export class AxiosHTTP implements OnmsHTTP {
-  private _axios: AxiosInstance;
-  _server: OnmsServer;
-  timeout: number;
+  /** how long to wait before giving up on a given request */
+  public timeout: number;
 
-  private get axios() {
-    if (!this._axios) {
-      if (!this.server) {
+  /** the authorization config associated with this ReST client */
+  public options: OnmsHTTPOptions;
+
+  /** the Axios instance we'll use for making ReST calls */
+  private axiosObj: AxiosInstance;
+
+  /** the server metadata we'll use for constructing ReST calls */
+  private serverObj: OnmsServer;
+
+  /** internal method for getting/constructing an Axios object on-demand, based on the current server config */
+  private get impl() {
+    if (!this.axiosObj) {
+      if (!this.serverObj) {
         throw new OnmsError('You must set a server before attempting to make queries using Axios!');
       }
-      this._axios = axios.create({
-        baseURL: this.server.url,
+      this.axiosObj = axios.create({
+        auth: {
+          password: this.serverObj.auth.password || this.options.auth.password,
+          username: this.serverObj.auth.username || this.options.auth.username,
+        },
+        baseURL: this.serverObj.url,
         timeout: this.timeout,
         withCredentials: true,
-        auth: {
-          username: this.server.username,
-          password: this.server.password
-        }
       });
     }
-    return this._axios;
+    return this.axiosObj;
   }
 
+  /** get the server associated with this HTTP implementation */
   public get server() {
-    return this._server;
+    return this.serverObj;
   }
 
   public set server(server: OnmsServer) {
-    this._axios = undefined;
-    this._server = server;
+    this.axiosObj = undefined;
+    this.serverObj = server;
   }
 
+  /**
+   * Create a new AxiosHTTP instance.
+   * @constructor
+   * @param server - a server object for immediate configuration
+   * @param timeout - how long to wait until timing out requests
+   */
   constructor(server?: OnmsServer, timeout = 10000) {
-    this.server = server;
+    this.serverObj = server;
     this.timeout = timeout;
   }
 

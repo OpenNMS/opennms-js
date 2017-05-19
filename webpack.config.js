@@ -1,13 +1,14 @@
 var webpack = require('webpack');
 var path = require('path');
 var nodeModulesPath = path.resolve(__dirname, 'node_modules');
+var TypedocWebpackPlugin = require('typedoc-webpack-plugin');
 
 var isProduction = require('yargs').argv.p;
 
 var libraryName = 'opennms';
 
 var config = {
-  entry: __dirname + '/src/OpenNMS.ts',
+  entry: __dirname + '/src/Client.ts',
   devtool: 'source-map',
   output: {
     path: __dirname + '/dist',
@@ -21,9 +22,14 @@ var config = {
         enforce: 'pre',
         test: /\.tsx?$/,
         use: [
-          'tslint-loader'
+          {
+            loader: 'tslint-loader',
+            options: {
+              typeCheck: true
+            }
+          }
         ],
-        exclude: /node_modules/
+        exclude: [/node_modules/],
       },
       {
         test: /(\.jsx?)$/,
@@ -56,6 +62,10 @@ var config = {
 };
 
 if (isProduction) {
+  var tsconfig = require('./tsconfig.json');
+  tsconfig.mode = 'modules';
+  tsconfig.ignoreCompilerErrors = true;
+
   config.plugins.push(new webpack.LoaderOptionsPlugin({
     minimize: true,
     debug: false
@@ -64,6 +74,7 @@ if (isProduction) {
     sourceMap: true,
     minimize: true
   }));
+  config.plugins.push(new TypedocWebpackPlugin(tsconfig));
   config.output.filename = libraryName + '.min.js';
 } else {
   config.plugins.push(new webpack.LoaderOptionsPlugin({

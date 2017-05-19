@@ -1,11 +1,24 @@
+/**
+ * Represents an OpenNMS.js error.  This will eventually have custom stuff to do... stuff.
+ * @class
+ */
 export class OnmsError {
-  private _error: Error;
+  /** the JS Error class associated with this object */
+  private error: Error;
 
+  /**
+   * Create a new error with the given message.
+   * @constructor
+   * @param message - the message
+   */
   constructor(public message: string) {
-    this._error = new Error(message);
+    this.error = new Error(message);
   }
 
-  toString() {
-    return this._error.message;
+  /**
+   * Returns a string representation of this error.
+   */
+  public toString() {
+    return this.error.message;
   }
 }
