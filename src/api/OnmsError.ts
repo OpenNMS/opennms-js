@@ -1,7 +1,7 @@
 /**
  * Represents an OpenNMS.js error.  This will eventually have custom stuff to do... stuff.
- * @class
- */
+ * @module OnmsError
+ */ /** */
 export class OnmsError {
   /** the JS Error class associated with this object */
   private error: Error;

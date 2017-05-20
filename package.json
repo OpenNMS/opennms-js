@@ -36,6 +36,7 @@
     "tslint": "^5.2.0",
     "tslint-loader": "^3.5.3",
     "typedoc": "^0.7.1",
+    "typedoc-plugin-external-module-name": "^1.0.9",
     "typedoc-webpack-plugin": "^1.1.4",
     "typescript": "^2.3.2",
     "urijs": "^1.17.1",

@@ -11,8 +11,8 @@ export { OnmsServer as OnmsServer };
 
 /**
  * The OpenNMS client.  This is the primary interface to OpenNMS servers.
- * @class
- */
+ * @module Client
+ */ /** */
 export class Client {
   /**
    * Explicitly set the server configuration to use with this client.

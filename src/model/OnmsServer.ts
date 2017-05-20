@@ -7,8 +7,8 @@ import {UUID} from '../util/UUID';
 
 /**
  * Represents a remote OpenNMS server.
- * @class
- */
+ * @module OnmsServer
+ */ /** */
 export class OnmsServer {
   /** A unique identifier for this server */
   public id: string;

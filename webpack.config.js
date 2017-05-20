@@ -1,6 +1,5 @@
 var webpack = require('webpack');
 var path = require('path');
-var nodeModulesPath = path.resolve(__dirname, 'node_modules');
 var TypedocWebpackPlugin = require('typedoc-webpack-plugin');
 
 var isProduction = require('yargs').argv.p;
@@ -41,16 +40,14 @@ var config = {
           'babel-loader',
           'ts-loader'
         ],
-        exclude: [/node_modules/, nodeModulesPath]
+        exclude: [/node_modules/]
       }
     ],
   },
   resolve: {
     modules: [
       path.resolve('./src'),
-      path.resolve('./build'),
-      path.resolve('./'),
-      nodeModulesPath
+      path.resolve('./node_modules')
     ],
     extensions: ['.webpack.js', '.web.js', '.ts', '.js']
   },
@@ -63,8 +60,11 @@ var config = {
 
 if (isProduction) {
   var tsconfig = require('./tsconfig.json');
-  tsconfig.mode = 'modules';
+  tsconfig.name = 'OpenNMS.js';
+  tsconfig.mode = 'file';
   tsconfig.ignoreCompilerErrors = true;
+  tsconfig.exclude = "/**/+(node_modules|test)/**/*";
+  tsconfig.excludeExternals = false;
 
   config.plugins.push(new webpack.LoaderOptionsPlugin({
     minimize: true,

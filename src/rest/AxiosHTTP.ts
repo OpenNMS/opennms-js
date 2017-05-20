@@ -9,9 +9,9 @@ import {OnmsServer} from '../model/OnmsServer';
 
 /**
  * Implementation of the OnmsHTTP interface using Axios: https://github.com/mzabriskie/axios
- * @class
+ * @module AxiosHTTP
  * @implements OnmsHTTP
- */
+ */ /** */
 export class AxiosHTTP implements OnmsHTTP {
   /** how long to wait before giving up on a given request */
   public timeout: number;

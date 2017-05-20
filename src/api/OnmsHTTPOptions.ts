@@ -2,8 +2,8 @@ import {OnmsAuthConfig} from './OnmsAuthConfig';
 
 /**
  * Options to be used when making HTTP ReST calls.
- * @class
- */
+ * @module OnmsHTTPOptions
+ */ /** */
 export class OnmsHTTPOptions {
   /** the authentication config that should be used when no server auth is configured */
   public auth: OnmsAuthConfig;
