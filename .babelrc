@@ -1,11 +1,22 @@
 {
   "presets": [
-    ["latest", { "modules": false }]
+    ["latest", { "modules": false }],
+    ["env", {
+      "targets": {
+        "browsers": [ "last 2 versions", "safari >= 7" ],
+        "node": true
+      }
+    }]
   ],
   "plugins": [
     "add-module-exports",
     "transform-runtime",
     "transform-class-properties",
     "transform-es2015-for-of"
-  ]
+  ],
+  env: {
+    test: {
+      plugins: ["transform-es2015-modules-commonjs"]
+    }
+  }
 }
