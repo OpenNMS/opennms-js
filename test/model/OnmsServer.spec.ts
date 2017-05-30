@@ -17,7 +17,7 @@ describe('Given an instance of OnmsServer...', function () {
     server = new OnmsServer(SERVER_NAME, SERVER_URL, auth);
   });
 
-  describe('when I have a server with just an ID', function () {
+  describe('When I have a server with just an ID...', function () {
     it('it should have an ID', () => {
       expect(server.id).toBeDefined();
       expect(new OnmsServer().id.length).toEqual(36);
@@ -33,7 +33,7 @@ describe('Given an instance of OnmsServer...', function () {
     });
   });
 
-  describe('when I have a properly-configured server object', function () {
+  describe('When I have a properly-configured server object...', function () {
     it('it should have an ID', () => {
       expect(server.id).toBeDefined();
       expect(server.id.length).toEqual(36);

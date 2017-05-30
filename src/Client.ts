@@ -1,13 +1,22 @@
 import * as axios from 'axios';
+import {factory} from './api/Log';
 
 import {OnmsAuthConfig} from './api/OnmsAuthConfig';
 import {OnmsHTTP} from './api/OnmsHTTP';
 import {OnmsHTTPOptions} from './api/OnmsHTTPOptions';
 import {OnmsError} from './api/OnmsError';
+import {OnmsResult} from './api/OnmsResult';
+import {OnmsVersion} from './api/OnmsVersion';
+import {ServerType} from './api/Constants';
+
 import {OnmsServer} from './model/OnmsServer';
+import {ServerMetadata} from './model/ServerMetadata';
+
 import {AxiosHTTP} from './rest/AxiosHTTP';
 
 export { OnmsServer as OnmsServer };
+
+const log = factory.getLogger('Client');
 
 /**
  * The OpenNMS client.  This is the primary interface to OpenNMS servers.
@@ -15,32 +24,46 @@ export { OnmsServer as OnmsServer };
  */ /** */
 export class Client {
   /**
-   * Explicitly set the server configuration to use with this client.
-   * @param url - the URL to the remote server
-   * @param name - the display name to associate with this server
-   * @param username - the user account to authenticate as
-   * @param password - the password to authenticate with
-   */
-  public static getServer(url: string, name: string, username: string, password: string) {
-      return new OnmsServer(name, url, new OnmsAuthConfig(username, password));
-  }
-
-  /**
    * Given an OnmsServer object, query what capabilities it has, and return the capabilities
    * associated with that server.
    *
    * @param server - the server to check
    * @param timeout - how long to wait before giving up when making ReST calls
-   * @param updateCapabilities - update the provided OnmsServer option with the
-   *        detected capabilities
    */
-  public static checkServer(server: OnmsServer, timeout?: number, updateCapabilities?: boolean) {
-    const opts = new OnmsHTTPOptions(timeout);
-    return undefined;
+  public static checkServer(server: OnmsServer, httpImpl?: OnmsHTTP, timeout?: number): Promise<OnmsResult> {
+    const opts = new OnmsHTTPOptions(timeout, server.auth);
+    if (!httpImpl) {
+      if (!Client.http) {
+        throw new OnmsError('No HTTP implementation is configured!');
+      }
+      httpImpl = Client.http;
+    }
+
+    const infoUrl = server.resolveURL('rest/info');
+    log.debug('checking URL: ' + infoUrl);
+    return httpImpl.get(infoUrl, opts).then((ret) => {
+      log.debug('HTTP get returned:' + JSON.stringify(ret));
+      const version = new OnmsVersion(ret.data.version, ret.data.displayVersion);
+      const metadata = new ServerMetadata(version);
+
+      if (ret.data.packageName) {
+        if (ret.data.packageName.toLowerCase() === 'meridian') {
+          metadata.type = ServerType.MERIDIAN;
+        } else {
+          metadata.type = ServerType.HORIZON;
+        }
+      } else {
+        metadata.type = ServerType.UNKNOWN;
+      }
+      return OnmsResult.ok(metadata, ret.message, ret.code);
+    }).catch((err) => {
+      log.warn('HTTP get failed: ' + err.message);
+      return Promise.reject(err);
+    });
   }
 
   /** The OnmsHTTP implementation to be used when making requests */
-  private http: OnmsHTTP;
+  private static http: OnmsHTTP;
 
   /** The remote server to connect to */
   private server: OnmsServer;
@@ -54,9 +77,9 @@ export class Client {
    */
   constructor(httpImpl?: OnmsHTTP) {
     if (httpImpl) {
-      this.http = httpImpl;
+      Client.http = httpImpl;
     } else {
-      this.http = new AxiosHTTP();
+      Client.http = new AxiosHTTP();
     }
   }
 }

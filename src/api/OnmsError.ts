@@ -3,7 +3,10 @@
  * @module OnmsError
  */ /** */
 export class OnmsError {
-  /** the JS Error class associated with this object */
+  /** the error code associated with this error */
+  public code: number;
+
+  /** the JS Error class associated with this error */
   private error: Error;
 
   /**
@@ -11,14 +14,19 @@ export class OnmsError {
    * @constructor
    * @param message - the message
    */
-  constructor(public message: string) {
+  constructor(public message: string, code?: number) {
     this.error = new Error(message);
+    this.code = code;
   }
 
   /**
    * Returns a string representation of this error.
    */
   public toString() {
-    return this.error.message;
+    if (this.code) {
+      return 'Error ' + this.code + ': ' + this.error.message;
+    } else {
+      return 'Error: ' + this.error.message;
+    }
   }
 }

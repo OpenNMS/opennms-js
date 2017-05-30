@@ -1,4 +1,7 @@
+declare const Promise;
+
 import {OnmsHTTPOptions} from './OnmsHTTPOptions';
+import {OnmsResult} from './OnmsResult';
 import {OnmsServer} from '../model/OnmsServer';
 
 /**
@@ -19,6 +22,17 @@ import {OnmsServer} from '../model/OnmsServer';
  */ /** */
 
 export interface OnmsHTTP {
+	/** the server associated with this instance */
 	server: OnmsServer;
+
+	/** the options used when making requests */
 	options: OnmsHTTPOptions;
+
+	/**
+	 * Perform an HTTP get to the provided URL.
+	 * @param url the URL to connect to
+	 * @param options the {@link OnmsHTTPOptions} options to use when connecting
+	 * @returns an {@link OnmsResult} result object
+	 */
+	get(url: string, options?: OnmsHTTPOptions): Promise<OnmsResult>;
 }

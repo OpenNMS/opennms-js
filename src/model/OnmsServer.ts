@@ -2,7 +2,7 @@
 import URI from 'urijs';
 
 import {OnmsAuthConfig} from '../api/OnmsAuthConfig';
-import {ServerCapabilities} from '../api/ServerCapabilities';
+import {ServerMetadata} from './ServerMetadata';
 import {UUID} from '../util/UUID';
 
 /**
@@ -23,7 +23,7 @@ export class OnmsServer {
   public auth: OnmsAuthConfig;
 
   /** The capabilities of the server */
-  public capabilities: ServerCapabilities;
+  public metadata: ServerMetadata;
 
   /**
    * Construct a new OnmsServer object representing a remote server.
