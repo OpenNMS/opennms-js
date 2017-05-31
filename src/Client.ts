@@ -49,11 +49,7 @@ export class Client {
       if (ret.data.packageName) {
         if (ret.data.packageName.toLowerCase() === 'meridian') {
           metadata.type = ServerType.MERIDIAN;
-        } else {
-          metadata.type = ServerType.HORIZON;
         }
-      } else {
-        metadata.type = ServerType.UNKNOWN;
       }
       return OnmsResult.ok(metadata, ret.message, ret.code);
     }).catch((err) => {

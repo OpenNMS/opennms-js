@@ -11,8 +11,6 @@ import {MockHTTP} from './rest/MockHTTP';
 
 import {ServerType} from '../src/api/Constants';
 
-import Enum from 'es6-enum';
-
 const SERVER_NAME='Demo';
 const SERVER_URL='http://demo.opennms.org/opennms/';
 const SERVER_USER='demo';
@@ -20,8 +18,8 @@ const SERVER_PASSWORD='demo';
 
 let opennms, server, auth, mockHTTP;
 
-describe('Given an instance of OpenNMS...', function () {
-  beforeEach(function () {
+describe('Given an instance of OpenNMS...', () => {
+  beforeEach(() => {
     mockHTTP = new MockHTTP();
     opennms = new Client(mockHTTP);
     auth = new OnmsAuthConfig(SERVER_USER, SERVER_PASSWORD);

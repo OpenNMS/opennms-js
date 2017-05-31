@@ -1,5 +1,6 @@
-import Enum from 'es6-enum';
-
-const ServerType = Enum('HORIZON', 'MERIDIAN', 'UNKNOWN');
+const ServerType = Object.freeze({
+  HORIZON: Symbol.for('HORIZON'),
+  MERIDIAN: Symbol.for('MERIDIAN'),
+});
 
 export { ServerType };
