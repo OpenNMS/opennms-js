@@ -1,4 +1,4 @@
-import VersionCompare from 'version_compare';
+import * as VersionCompare from 'version_compare';
 
 /**
  * An OpenNMS version.
