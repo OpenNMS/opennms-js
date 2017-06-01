@@ -8,21 +8,22 @@ import {SuperAgentHTTP} from './rest/SuperAgentHTTP';
 
 import {factory} from './api/Log';
 
+// tslint:disable-next-line
 let program = require('commander');
 
 const log = factory.getLogger('CLI');
 
-let cli = (url) => {
-  let server = new OnmsServer('OpenNMS', url, new OnmsAuthConfig(program.username, program.password));
-  let http = new AxiosHTTP(server);
+const cli = (url) => {
+  const server = new OnmsServer('OpenNMS', url, new OnmsAuthConfig(program.username, program.password));
+  const http = new AxiosHTTP(server);
   Client.checkServer(server, http).then((res) => {
     log.info(res.data);
     return res;
   }).catch((err) => {
-  	return err;
     if (err.stack) {
       log.error(err.stack);
     }
+    return err;
   });
 };
 

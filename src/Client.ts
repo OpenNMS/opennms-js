@@ -1,8 +1,9 @@
 import * as axios from 'axios';
 import {factory} from './api/Log';
 
+import {IOnmsHTTP} from './api/OnmsHTTP';
+
 import {OnmsAuthConfig} from './api/OnmsAuthConfig';
-import {OnmsHTTP} from './api/OnmsHTTP';
 import {OnmsHTTPOptions} from './api/OnmsHTTPOptions';
 import {OnmsError} from './api/OnmsError';
 import {OnmsResult} from './api/OnmsResult';
@@ -30,7 +31,7 @@ export class Client {
    * @param server - the server to check
    * @param timeout - how long to wait before giving up when making ReST calls
    */
-  public static checkServer(server: OnmsServer, httpImpl?: OnmsHTTP, timeout?: number): Promise<OnmsResult> {
+  public static checkServer(server: OnmsServer, httpImpl?: IOnmsHTTP, timeout?: number): Promise<OnmsResult> {
     const opts = new OnmsHTTPOptions(timeout, server.auth);
     if (!httpImpl) {
       if (!Client.http) {
@@ -58,7 +59,7 @@ export class Client {
   }
 
   /** The OnmsHTTP implementation to be used when making requests */
-  private static http: OnmsHTTP;
+  private static http: IOnmsHTTP;
 
   /** The remote server to connect to */
   private server: OnmsServer;
@@ -70,7 +71,7 @@ export class Client {
    *        this will automatically choose the best implementation
    *        based on the environment.
    */
-  constructor(httpImpl?: OnmsHTTP) {
+  constructor(httpImpl?: IOnmsHTTP) {
     if (httpImpl) {
       Client.http = httpImpl;
     } else {

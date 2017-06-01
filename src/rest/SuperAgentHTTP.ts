@@ -1,8 +1,9 @@
 import * as request from 'superagent';
 
+import {IOnmsHTTP} from '../api/OnmsHTTP';
+
 import {AbstractHTTP} from './AbstractHTTP';
 import {OnmsError} from '../api/OnmsError';
-import {OnmsHTTP} from '../api/OnmsHTTP';
 import {OnmsHTTPOptions} from '../api/OnmsHTTPOptions';
 import {OnmsResult} from '../api/OnmsResult';
 import {OnmsServer} from '../model/OnmsServer';
@@ -16,7 +17,7 @@ const log = factory.getLogger('rest.SuperAgentHTTP');
  * @module SuperAgentHTTP
  * @implements OnmsHTTP
  */ /** */
-export class SuperAgentHTTP extends AbstractHTTP implements OnmsHTTP {
+export class SuperAgentHTTP extends AbstractHTTP implements IOnmsHTTP {
   constructor(server?: OnmsServer, timeout = 10000) {
     super(server, timeout);
   }

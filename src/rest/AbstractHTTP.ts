@@ -1,6 +1,7 @@
+import {IOnmsHTTP} from '../api/OnmsHTTP';
+
 import {OnmsAuthConfig} from '../api/OnmsAuthConfig';
 import {OnmsError} from '../api/OnmsError';
-import {OnmsHTTP} from '../api/OnmsHTTP';
 import {OnmsHTTPOptions} from '../api/OnmsHTTPOptions';
 import {OnmsResult} from '../api/OnmsResult';
 import {OnmsServer} from '../model/OnmsServer';
@@ -10,7 +11,7 @@ import {OnmsServer} from '../model/OnmsServer';
  * @module AxiosHTTP
  * @implements OnmsHTTP
  */ /** */
-export class AbstractHTTP implements OnmsHTTP {
+export class AbstractHTTP implements IOnmsHTTP {
   /** how long to wait before giving up on a given request */
   public timeout = 10000;
 

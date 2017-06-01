@@ -1,9 +1,10 @@
 import axios from 'axios';
 import {AxiosInstance, AxiosRequestConfig} from 'axios';
 
+import {IOnmsHTTP} from '../api/OnmsHTTP';
+
 import {AbstractHTTP} from './AbstractHTTP';
 import {OnmsError} from '../api/OnmsError';
-import {OnmsHTTP} from '../api/OnmsHTTP';
 import {OnmsHTTPOptions} from '../api/OnmsHTTPOptions';
 import {OnmsResult} from '../api/OnmsResult';
 import {OnmsServer} from '../model/OnmsServer';
@@ -17,7 +18,7 @@ const log = factory.getLogger('rest.AxiosHTTP');
  * @module AxiosHTTP
  * @implements OnmsHTTP
  */ /** */
-export class AxiosHTTP extends AbstractHTTP implements OnmsHTTP {
+export class AxiosHTTP extends AbstractHTTP implements IOnmsHTTP {
   /** the Axios instance we'll use for making ReST calls */
   private axiosObj: AxiosInstance;
 

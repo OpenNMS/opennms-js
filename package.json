@@ -74,13 +74,14 @@
   },
   "scripts": {
     "precommit": "jest",
-    "prepush": "conventional-changelog-lint --from=origin/master",
+    "prepush": "conventional-changelog-lint --from=origin/master && yarn lint",
     "changelog": "standard-changelog",
     "build": "webpack -p --env production",
     "dev": "webpack --progress --colors",
     "watch": "webpack --progress --colors --watch",
     "test": "jest",
     "watch-test": "jest --watch",
+    "lint": "tslint src'/**/*.ts'",
     "cli": "ts-node src/CLI.ts"
   }
 }
