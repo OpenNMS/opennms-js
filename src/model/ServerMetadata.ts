@@ -20,7 +20,7 @@ export class ServerMetadata {
    */
   constructor(version?: string | OnmsVersion, type?: symbol) {
     if (version instanceof OnmsVersion) {
-      this.version = version;
+      this.version = version || new OnmsVersion('0.0.0');
     } else {
       this.version = new OnmsVersion(version || '0.0.0');
     }
