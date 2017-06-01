@@ -7,7 +7,9 @@ var isProduction = require('yargs').argv.p;
 var libraryName = 'opennms';
 
 var config = {
-  entry: __dirname + '/src/Client.ts',
+  entry: {
+    'opennms': __dirname + '/src/Client.ts',
+  },
   devtool: 'source-map',
   output: {
     path: __dirname + '/dist',
@@ -75,13 +77,13 @@ if (isProduction) {
     minimize: true
   }));
   config.plugins.push(new TypedocWebpackPlugin(tsconfig));
-  config.output.filename = libraryName + '.min.js';
+  config.output.filename = '[name].min.js';
 } else {
   config.plugins.push(new webpack.LoaderOptionsPlugin({
     minimize: false,
     debug: true
   }));
-  config.output.filename = libraryName + '.js';
+  config.output.filename = '[name].js';
 }
 
 module.exports = config;
