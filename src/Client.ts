@@ -42,7 +42,6 @@ export class Client {
     const infoUrl = server.resolveURL('rest/info');
     log.debug('checking URL: ' + infoUrl);
     return httpImpl.get(infoUrl, opts).then((ret) => {
-      log.debug('HTTP get returned:' + JSON.stringify(ret));
       const version = new OnmsVersion(ret.data.version, ret.data.displayVersion);
       const metadata = new ServerMetadata(version);
 
@@ -53,7 +52,7 @@ export class Client {
       }
       return OnmsResult.ok(metadata, ret.message, ret.code);
     }).catch((err) => {
-      log.warn('HTTP get failed: ' + err.message);
+      log.error('HTTP get failed: ' + err.message);
       return Promise.reject(err);
     });
   }
