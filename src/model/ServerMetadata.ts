@@ -50,4 +50,15 @@ export class ServerMetadata {
   public setLocation() {
     return this.version.ge('15.0.2');
   }
+
+  /** a human-readable representation of this version */
+  public toString() {
+    return 'ServerMetadata[version=' + this.version.toString()
+      + ',type=' + this.type.toString()
+      + ',ackAlarms=' + this.ackAlarms()
+      + ',graphs=' + this.graphs()
+      + ',outageSummaries=' + this.outageSummaries()
+      + ',setLocation=' + this.setLocation()
+      + ']';
+  }
 }
