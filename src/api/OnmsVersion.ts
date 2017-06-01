@@ -54,4 +54,9 @@ export class OnmsVersion {
   public gt(compare = '0.0.0') {
     return VersionCompare.gt(this.version, compare);
   }
+
+  /** a human-readable representation of this version */
+  public toString() {
+    return 'OnmsVersion[version=' + this.version + ',displayVersion=' + this.displayVersion + ']';
+  }
 }
