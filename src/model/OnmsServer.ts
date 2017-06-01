@@ -1,5 +1,7 @@
 // import moment from 'moment/src/moment';
-import URI from 'urijs';
+
+// tslint:disable-next-line
+const URI = require('urijs');
 
 import {OnmsAuthConfig} from '../api/OnmsAuthConfig';
 import {ServerMetadata} from './ServerMetadata';
@@ -45,7 +47,10 @@ export class OnmsServer {
     if (!this.url) {
       return undefined;
     }
-    return forFragment ? URI(this.url).segment(forFragment).toString() : this.url;
+    if (forFragment === undefined) {
+      return this.url;
+    }
+    return URI(this.url).segment(forFragment).toString();
   }
 
   /**
