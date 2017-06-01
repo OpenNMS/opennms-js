@@ -1,6 +1,9 @@
 import axios from 'axios';
 import {AxiosInstance, AxiosRequestConfig} from 'axios';
 
+import {log, catRest} from '../api/Log';
+import {Category} from 'typescript-logging';
+
 import {IOnmsHTTP} from '../api/OnmsHTTP';
 
 import {AbstractHTTP} from './AbstractHTTP';
@@ -9,9 +12,7 @@ import {OnmsHTTPOptions} from '../api/OnmsHTTPOptions';
 import {OnmsResult} from '../api/OnmsResult';
 import {OnmsServer} from '../model/OnmsServer';
 
-import {factory} from '../api/Log';
-
-const log = factory.getLogger('rest.AxiosHTTP');
+const catAxios = new Category('axios', catRest);
 
 /**
  * Implementation of the OnmsHTTP interface using Axios: https://github.com/mzabriskie/axios

@@ -1,5 +1,8 @@
 import * as request from 'superagent';
 
+import {log, catRest} from '../api/Log';
+import {Category} from 'typescript-logging';
+
 import {IOnmsHTTP} from '../api/OnmsHTTP';
 
 import {AbstractHTTP} from './AbstractHTTP';
@@ -8,9 +11,7 @@ import {OnmsHTTPOptions} from '../api/OnmsHTTPOptions';
 import {OnmsResult} from '../api/OnmsResult';
 import {OnmsServer} from '../model/OnmsServer';
 
-import {factory} from '../api/Log';
-
-const log = factory.getLogger('rest.SuperAgentHTTP');
+const catAgent = new Category('super-agent', catRest);
 
 /**
  * Implementation of the OnmsHTTP interface using SuperAgent: https://github.com/visionmedia/superagent
@@ -28,7 +29,7 @@ export class SuperAgentHTTP extends AbstractHTTP implements IOnmsHTTP {
       if (response.body) {
         return OnmsResult.ok(response.body, undefined, response.status);
       }
-      log.errorc(() => 'got non-parsed result: ' + JSON.stringify(response));
+      log.errorc(() => 'got non-parsed result: ' + JSON.stringify(response), undefined);
       return OnmsResult.error('unknown response type: ' + response.type, response.status);
     }).catch((err) => {
       let code;

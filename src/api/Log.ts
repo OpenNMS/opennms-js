@@ -1,12 +1,33 @@
-import {LoggerFactory, LoggerFactoryOptions, LFService, LogGroupRule, LogLevel} from 'typescript-logging';
+import {
+  Category,
+  CategoryLogger,
+  CategoryServiceFactory,
+  CategoryDefaultConfiguration,
+  LogLevel,
+} from 'typescript-logging';
 
-// Create options instance and specify 2 LogGroupRules:
-// * One for any logger with a name starting with model, to log on debug
-// * The second one for anything else to log on info
-const options = new LoggerFactoryOptions()
-//  .addLogGroupRule(new LogGroupRule(new RegExp('api.+'), LogLevel.Debug))
-  .addLogGroupRule(new LogGroupRule(new RegExp('.+'), LogLevel.Debug));
+// Optionally change default settings, in this example set default logging to Info.
+// Without changing configuration, categories will log to Error.
+CategoryServiceFactory.setDefaultConfiguration(new CategoryDefaultConfiguration(LogLevel.Info));
 
-// Create a named loggerfactory and pass in the options and export the factory.
-// Named is since version 0.2.+ (it's recommended for future usage)
-export const factory = LFService.createNamedLoggerFactory('LoggerFactory', options);
+// Create categories, they will autoregister themselves.
+// This creates one root logger, with 1 child sub category.
+export const catRoot = new Category('opennms');
+export const catAPI = new Category('api', catRoot);
+export const catModel = new Category('model', catRoot);
+export const catRest = new Category('rest', catRoot);
+export const catUtil = new Category('util', catRoot);
+
+// Get a logger, this can be retrieved for root categories only (in the example above, the 'service' category).
+export const log: CategoryLogger = CategoryServiceFactory.getLogger(catRoot);
+
+export const setLogLevel = (level: LogLevel, cat?: Category) => {
+  if (cat === undefined) {
+    cat = catRoot;
+  }
+  // console.log('setting category ' + cat.name + ' to ' + level.toString());
+  CategoryServiceFactory.getRuntimeSettings().getCategorySettings(cat).logLevel = level;
+  for (const subCat of cat.children) {
+    setLogLevel(level, subCat);
+  }
+};

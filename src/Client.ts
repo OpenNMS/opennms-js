@@ -1,5 +1,7 @@
 import * as axios from 'axios';
-import {factory} from './api/Log';
+
+import {log, catRoot} from './api/Log';
+import {Category} from 'typescript-logging';
 
 import {IOnmsHTTP} from './api/OnmsHTTP';
 
@@ -17,7 +19,7 @@ import {AxiosHTTP} from './rest/AxiosHTTP';
 
 export { OnmsServer as OnmsServer };
 
-const log = factory.getLogger('Client');
+const catClient = new Category('client', catRoot);
 
 /**
  * The OpenNMS client.  This is the primary interface to OpenNMS servers.
@@ -41,7 +43,7 @@ export class Client {
     }
 
     const infoUrl = server.resolveURL('rest/info');
-    log.debug('checking URL: ' + infoUrl);
+    log.debug('checking URL: ' + infoUrl, catClient);
     return httpImpl.get(infoUrl, opts).then((ret) => {
       const version = new OnmsVersion(ret.data.version, ret.data.displayVersion);
       const metadata = new ServerMetadata(version);
@@ -53,7 +55,7 @@ export class Client {
       }
       return OnmsResult.ok(metadata, ret.message, ret.code);
     }).catch((err) => {
-      log.error('HTTP get failed: ' + err.message);
+      log.error('HTTP get failed: ' + err.message, err, catClient);
       return Promise.reject(err);
     });
   }
