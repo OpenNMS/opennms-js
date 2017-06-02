@@ -66,7 +66,8 @@ function CLI() {
       if (options.password) {
         config.password = options.password;
       }
-      const server = new API.OnmsServer('OpenNMS', config.url, new API.OnmsAuthConfig(config.username, config.password));
+      const auth = new API.OnmsAuthConfig(config.username, config.password);
+      const server = new API.OnmsServer('OpenNMS', config.url, auth);
       const http = new Rest.AxiosHTTP(server);
       return Client.checkServer(server, http).then(() => {
         console.log(colors.green('Connection succeeded.'));
@@ -96,7 +97,8 @@ function CLI() {
     .description('List the API capabilities of the OpenNMS server')
     .action(() => {
       const config = readConfig();
-      const server = new API.OnmsServer('OpenNMS', config.url, new API.OnmsAuthConfig(config.username, config.password));
+      const auth = new API.OnmsAuthConfig(config.username, config.password);
+      const server = new API.OnmsServer('OpenNMS', config.url, auth);
       const http = new Rest.AxiosHTTP(server);
       return Client.getMetadata(server, http).then((res) => {
         let c = colors.green;
@@ -136,4 +138,3 @@ function CLI() {
 }
 
 CLI();
-

@@ -11,7 +11,7 @@ import {OnmsServer} from '../api/OnmsServer';
  * @module AxiosHTTP
  * @implements OnmsHTTP
  */ /** */
-export class AbstractHTTP implements IOnmsHTTP {
+export abstract class AbstractHTTP implements IOnmsHTTP {
   /** how long to wait before giving up on a given request */
   public timeout = 10000;
 
@@ -43,12 +43,10 @@ export class AbstractHTTP implements IOnmsHTTP {
   }
 
   /** make an HTTP get call -- this should be overridden by the implementation */
-  public get(url: string, options?: OnmsHTTPOptions) {
-    return Promise.reject(OnmsResult.error('Not yet implemented.'));
-  }
+  public abstract get(url: string, options?: OnmsHTTPOptions): Promise<OnmsResult>;
 
   /** useful for performing an action (like clearing caches) when the server is set */
   protected onSetServer() {
-  	// do nothing by default
+    // do nothing by default
   }
 }
