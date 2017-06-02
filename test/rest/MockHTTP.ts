@@ -12,6 +12,9 @@ export class MockHTTP extends AbstractHTTP {
   		case 'http://demo.opennms.org/opennms/rest/info': {
   			return Promise.resolve(OnmsResult.ok({'packageDescription':'OpenNMS','displayVersion':'19.1.0','packageName':'opennms','version':'19.1.0'}));
   		}
+  		case 'http://demo.opennms.org/opennms/rest/alarms/count': {
+  			return Promise.resolve(OnmsResult.ok(1));
+  		}
   	}
     return Promise.reject(OnmsResult.error('Not yet implemented.'));
   }
