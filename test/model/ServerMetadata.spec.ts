@@ -15,7 +15,7 @@ const expectedResults = {
         ackAlarms: false,
         graphs: false,
         outageSummaries: false,
-        setLocation: false,
+        setNodeLocation: false,
       }
     }
   },
@@ -27,7 +27,7 @@ const expectedResults = {
         ackAlarms: true,
         graphs: false,
         outageSummaries: true,
-        setLocation: false,
+        setNodeLocation: false,
       }
     }
   },
@@ -39,7 +39,7 @@ const expectedResults = {
         ackAlarms: true,
         graphs: false,
         outageSummaries: true,
-        setLocation: false,
+        setNodeLocation: false,
       }
     }
   },
@@ -51,7 +51,7 @@ const expectedResults = {
         ackAlarms: true,
         graphs: false,
         outageSummaries: true,
-        setLocation: true,
+        setNodeLocation: true,
       }
     }
   },
@@ -63,7 +63,7 @@ const expectedResults = {
         ackAlarms: true,
         graphs: true,
         outageSummaries: true,
-        setLocation: true,
+        setNodeLocation: true,
       }
     }
   },
@@ -75,7 +75,7 @@ const expectedResults = {
         ackAlarms: true,
         graphs: false,
         outageSummaries: true,
-        setLocation: true,
+        setNodeLocation: true,
       }
     }
   },

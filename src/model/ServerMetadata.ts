@@ -47,7 +47,7 @@ export class ServerMetadata {
   }
 
   /** does this server support setting the location on a node */
-  public setLocation() {
+  public setNodeLocation() {
     return this.version.ge('15.0.2');
   }
 
@@ -57,7 +57,7 @@ export class ServerMetadata {
       ackAlarms: this.ackAlarms(),
       graphs: this.graphs(),
       outageSummaries: this.outageSummaries(),
-      setLocation: this.setLocation(),
+      setNodeLocation: this.setNodeLocation(),
       type: (this.type === ServerType.MERIDIAN ? 'Meridian' : 'Horizon'),
     };
   }
@@ -69,7 +69,7 @@ export class ServerMetadata {
       + ',ackAlarms=' + this.ackAlarms()
       + ',graphs=' + this.graphs()
       + ',outageSummaries=' + this.outageSummaries()
-      + ',setLocation=' + this.setLocation()
+      + ',setNodeLocation=' + this.setNodeLocation()
       + ']';
   }
 }
