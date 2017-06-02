@@ -1,19 +1,14 @@
 import * as startCase from 'lodash.startcase';
 
-import {Client} from './Client';
-
-import {OnmsAuthConfig} from './api/OnmsAuthConfig';
-import {OnmsServer} from './api/OnmsServer';
-import {ServerType} from './api/Constants';
-
-import {AxiosHTTP} from './rest/AxiosHTTP';
-import {SuperAgentHTTP} from './rest/SuperAgentHTTP';
+import {API, Rest, Client} from './API';
 
 import {log, catRoot, setLogLevel} from './api/Log';
-import {Category,
+import {
+  Category,
   CategoryServiceFactory,
   CategoryDefaultConfiguration,
-  LogLevel} from 'typescript-logging';
+  LogLevel,
+} from 'typescript-logging';
 
 const catCLI = new Category('cli', catRoot);
 
@@ -69,8 +64,8 @@ program
     if (options.password) {
       config.password = options.password;
     }
-    const server = new OnmsServer('OpenNMS', config.url, new OnmsAuthConfig(config.username, config.password));
-    const http = new AxiosHTTP(server);
+    const server = new API.OnmsServer('OpenNMS', config.url, new API.OnmsAuthConfig(config.username, config.password));
+    const http = new Rest.AxiosHTTP(server);
     return Client.checkServer(server, http).then(() => {
       console.log(colors.green('Connection succeeded.'));
       if (!program.config) { // don't write the config if a config was passed in
@@ -99,11 +94,11 @@ program
   .description('List the API capabilities of the OpenNMS server')
   .action(() => {
     const config = readConfig();
-    const server = new OnmsServer('OpenNMS', config.url, new OnmsAuthConfig(config.username, config.password));
-    const http = new AxiosHTTP(server);
+    const server = new API.OnmsServer('OpenNMS', config.url, new API.OnmsAuthConfig(config.username, config.password));
+    const http = new Rest.AxiosHTTP(server);
     return Client.getMetadata(server, http).then((res) => {
       let c = colors.green;
-      if (res.data.type === ServerType.MERIDIAN) {
+      if (res.data.type === API.ServerType.MERIDIAN) {
         console.log(colors.blue('OpenNMS Meridian ' + res.data.version.displayVersion + ' Capabilities:'));
         c = colors.blue;
       } else {

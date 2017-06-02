@@ -8,7 +8,7 @@ var libraryName = 'opennms';
 
 var config = {
   entry: {
-    'opennms': __dirname + '/src/Client.ts',
+    'opennms': __dirname + '/src/API.ts',
   },
   devtool: 'source-map',
   output: {
@@ -55,6 +55,8 @@ var config = {
   },
   plugins: [],
   node: {
+    fs: 'empty',
+    child_process: false,
     global: false,
     process: false
   }

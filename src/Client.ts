@@ -15,9 +15,9 @@ import {ServerType} from './api/Constants';
 import {OnmsServer} from './api/OnmsServer';
 import {ServerMetadata} from './api/ServerMetadata';
 
-import {AxiosHTTP} from './rest/AxiosHTTP';
+import {OnmsAlarm} from './model/OnmsAlarm';
 
-export { OnmsServer as OnmsServer };
+import {AxiosHTTP} from './rest/AxiosHTTP';
 
 const catClient = new Category('client', catRoot);
 
