@@ -5,7 +5,7 @@ const URI = require('urijs');
 
 import {OnmsAuthConfig} from '../api/OnmsAuthConfig';
 import {ServerMetadata} from './ServerMetadata';
-import {UUID} from '../util/UUID';
+import {UUID} from '../internal/UUID';
 
 /**
  * Represents a remote OpenNMS server.
