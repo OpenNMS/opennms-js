@@ -19,6 +19,7 @@ import {OnmsAlarm} from './model/OnmsAlarm';
 
 import {AxiosHTTP} from './rest/AxiosHTTP';
 
+/** @hidden */
 const catClient = new Category('client', catRoot);
 
 /**
