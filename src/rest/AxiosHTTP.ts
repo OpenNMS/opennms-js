@@ -12,6 +12,7 @@ import {OnmsHTTPOptions} from '../api/OnmsHTTPOptions';
 import {OnmsResult} from '../api/OnmsResult';
 import {OnmsServer} from '../api/OnmsServer';
 
+/** @hidden */
 const catAxios = new Category('axios', catRest);
 
 /**
@@ -88,11 +89,11 @@ export class AxiosHTTP extends AbstractHTTP implements IOnmsHTTP {
       }
       this.axiosObj = axios.create({
         auth: {
-          password: options.auth.password || super.server.auth.password || super.options.auth.password,
-          username: options.auth.username || super.server.auth.username || super.options.auth.username,
+          password: options.auth.password || this.server.auth.password || this.options.auth.password,
+          username: options.auth.username || this.server.auth.username || this.options.auth.username,
         },
-        baseURL: super.server.url,
-        timeout: super.timeout,
+        baseURL: this.server.url,
+        timeout: this.timeout,
         withCredentials: true,
       });
     }

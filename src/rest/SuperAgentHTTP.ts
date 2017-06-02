@@ -11,6 +11,7 @@ import {OnmsHTTPOptions} from '../api/OnmsHTTPOptions';
 import {OnmsResult} from '../api/OnmsResult';
 import {OnmsServer} from '../api/OnmsServer';
 
+/** @hidden */
 const catAgent = new Category('super-agent', catRest);
 
 /**
@@ -50,10 +51,10 @@ export class SuperAgentHTTP extends AbstractHTTP implements IOnmsHTTP {
 
     return request[method](url)
       .withCredentials()
-      .timeout(options.timeout || super.timeout || super.options.timeout)
+      .timeout(options.timeout || this.timeout || this.options.timeout)
       .set('Accept', options.accept)
-      .auth(options.auth.username || super.server.auth.username || super.options.auth.username,
-        options.auth.password || super.server.auth.password || super.options.auth.password);
+      .auth(options.auth.username || this.server.auth.username || this.options.auth.username,
+        options.auth.password || this.server.auth.password || this.options.auth.password);
   }
 
 }
