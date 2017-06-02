@@ -51,6 +51,17 @@ export class ServerMetadata {
     return this.version.ge('15.0.2');
   }
 
+  /** a convenient data structure with all capabilities listed */
+  public capabilities() {
+    return {
+      ackAlarms: this.ackAlarms(),
+      graphs: this.graphs(),
+      outageSummaries: this.outageSummaries(),
+      setLocation: this.setLocation(),
+      type: (this.type === ServerType.MERIDIAN ? 'Meridian' : 'Horizon'),
+    };
+  }
+
   /** a human-readable representation of this version */
   public toString() {
     return 'ServerMetadata[version=' + this.version.toString()
