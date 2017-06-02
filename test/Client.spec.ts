@@ -1,5 +1,10 @@
 declare const await, describe, beforeEach, it, expect, jest;
 
+import {log,catRoot,setLogLevel} from '../src/api/Log';
+import {LogLevel} from 'typescript-logging';
+
+setLogLevel(LogLevel.Debug, catRoot);
+
 import {Client} from '../src/Client';
 import {OnmsAuthConfig} from '../src/api/OnmsAuthConfig';
 import {OnmsResult} from '../src/api/OnmsResult';
@@ -29,8 +34,16 @@ describe('Given an instance of OpenNMS...', () => {
     it('it should have no server', () => {
       expect(opennms.server).toBeUndefined();
     });
-    it('it should return a capability object when called on a valid server', () => {
+    it('it should pass when checkServer is called on a valid server', () => {
       let ret = Client.checkServer(server, mockHTTP);
+      expect(ret).toBeDefined();
+      return ret.then((result) => {
+        expect(result).toBeDefined();
+        expect(result).toEqual(true);
+      });
+    });
+    it('it should return a metadata object when getMetadata is called on a valid server', () => {
+      let ret = Client.getMetadata(server, mockHTTP);
       expect(ret).toBeDefined();
       return ret.then((result) => {
         expect(result).toBeDefined();

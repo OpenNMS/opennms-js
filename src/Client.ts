@@ -27,13 +27,41 @@ const catClient = new Category('client', catRoot);
  */ /** */
 export class Client {
   /**
+   * Given an OnmsServer object, check that it can be connected to.
+   *
+   * @param server - the server to check
+   * @param httpImpl - the {@link IOnmsHTTP} implementation to use
+   * @param timeout - how long to wait before giving up when making ReST calls
+   */
+  public static checkServer(server: OnmsServer, httpImpl?: IOnmsHTTP, timeout?: number): Promise<boolean> {
+    const opts = new OnmsHTTPOptions(timeout, server.auth);
+    if (!httpImpl) {
+      if (!Client.http) {
+        throw new OnmsError('No HTTP implementation is configured!');
+      }
+      httpImpl = Client.http;
+    }
+    opts.accept = 'text/plain';
+
+    const infoUrl = server.resolveURL('rest/alarms/count');
+    log.debug('checking URL: ' + infoUrl, catClient);
+    return httpImpl.get(infoUrl, opts).then((ret) => {
+      return true;
+    }).catch((err) => {
+      log.error('HTTP get failed: ' + err.message, err, catClient);
+      return Promise.reject(err);
+    });
+  }
+
+  /**
    * Given an OnmsServer object, query what capabilities it has, and return the capabilities
    * associated with that server.
    *
    * @param server - the server to check
+   * @param httpImpl - the {@link IOnmsHTTP} implementation to use
    * @param timeout - how long to wait before giving up when making ReST calls
    */
-  public static checkServer(server: OnmsServer, httpImpl?: IOnmsHTTP, timeout?: number): Promise<OnmsResult> {
+  public static getMetadata(server: OnmsServer, httpImpl?: IOnmsHTTP, timeout?: number): Promise<OnmsResult> {
     const opts = new OnmsHTTPOptions(timeout, server.auth);
     if (!httpImpl) {
       if (!Client.http) {
