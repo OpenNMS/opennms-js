@@ -7,11 +7,20 @@ import {OnmsVersion} from './api/OnmsVersion';
 import {ServerMetadata} from './api/ServerMetadata';
 import {ServerType} from './api/Constants';
 
+import {OnmsAlarm} from './model/OnmsAlarm';
+import {OnmsAlarmType} from './model/OnmsAlarmType';
+import {OnmsEvent} from './model/OnmsEvent';
+import {OnmsParm} from './model/OnmsParm';
+import {OnmsServiceType} from './model/OnmsServiceType';
+import {OnmsSeverity} from './model/OnmsSeverity';
+import {OnmsTroubleTicketState} from './model/OnmsTroubleTicketState';
+
 import {AxiosHTTP} from './rest/AxiosHTTP';
 import {SuperAgentHTTP} from './rest/SuperAgentHTTP';
 
 import {Client} from './Client';
 
+/** @hidden */
 const API = Object.freeze({
   OnmsAuthConfig,
   OnmsError,
@@ -23,9 +32,22 @@ const API = Object.freeze({
   ServerType,
 });
 
+/** @hidden */
+const Model = Object.freeze({
+  OnmsAlarm,
+  OnmsAlarmType,
+  OnmsEvent,
+  OnmsParm,
+  OnmsServiceType,
+  OnmsSeverity,
+  OnmsTroubleTicketState,
+});
+
+/** @hidden */
 const Rest = Object.freeze({
   AxiosHTTP,
   SuperAgentHTTP,
 });
 
-export {API, Rest, Client};
+/** @hidden */
+export {API, Model, Rest, Client};
