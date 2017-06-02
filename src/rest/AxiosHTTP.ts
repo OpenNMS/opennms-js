@@ -67,6 +67,14 @@ export class AxiosHTTP extends AbstractHTTP implements IOnmsHTTP {
       if (options.timeout) {
         ret.timeout = options.timeout;
       }
+
+      if (options.accept === 'application/json') {
+        ret.responseType = 'json';
+      } else if (options.accept === 'text/plain') {
+        ret.responseType = 'text/plain';
+      } else {
+        throw new OnmsError('Unhandled response type: ' + options.accept);
+      }
     }
 
     return {};

@@ -51,6 +51,7 @@ export class SuperAgentHTTP extends AbstractHTTP implements IOnmsHTTP {
     return request[method](url)
       .withCredentials()
       .timeout(options.timeout || super.timeout || super.options.timeout)
+      .set('Accept', options.accept)
       .auth(options.auth.username || super.server.auth.username || super.options.auth.username,
         options.auth.password || super.server.auth.password || super.options.auth.password);
   }

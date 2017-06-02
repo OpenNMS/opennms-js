@@ -11,6 +11,9 @@ export class OnmsHTTPOptions {
   /** how long to wait for ReST calls to time out */
   public timeout = 10000;
 
+  /** the type of response to accept */
+  public accept = 'application/json';
+
   /**
    * Construct a new OnmsHTTPOptions object.
    * @constructor
