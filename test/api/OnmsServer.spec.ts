@@ -2,7 +2,7 @@ declare const describe, beforeEach, it, expect;
 
 import {Client} from '../../src/Client';
 import {OnmsAuthConfig} from '../../src/api/OnmsAuthConfig';
-import {OnmsServer} from '../../src/model/OnmsServer';
+import {OnmsServer} from '../../src/api/OnmsServer';
 
 const SERVER_NAME='Demo';
 const SERVER_URL='http://demo.opennms.org/opennms/';

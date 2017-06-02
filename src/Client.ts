@@ -12,8 +12,8 @@ import {OnmsResult} from './api/OnmsResult';
 import {OnmsVersion} from './api/OnmsVersion';
 import {ServerType} from './api/Constants';
 
-import {OnmsServer} from './model/OnmsServer';
-import {ServerMetadata} from './model/ServerMetadata';
+import {OnmsServer} from './api/OnmsServer';
+import {ServerMetadata} from './api/ServerMetadata';
 
 import {AxiosHTTP} from './rest/AxiosHTTP';
 

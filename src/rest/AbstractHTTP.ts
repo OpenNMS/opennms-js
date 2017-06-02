@@ -4,7 +4,7 @@ import {OnmsAuthConfig} from '../api/OnmsAuthConfig';
 import {OnmsError} from '../api/OnmsError';
 import {OnmsHTTPOptions} from '../api/OnmsHTTPOptions';
 import {OnmsResult} from '../api/OnmsResult';
-import {OnmsServer} from '../model/OnmsServer';
+import {OnmsServer} from '../api/OnmsServer';
 
 /**
  * Implementation of the OnmsHTTP interface using Axios: https://github.com/mzabriskie/axios

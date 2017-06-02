@@ -10,7 +10,7 @@ import {AbstractHTTP} from './AbstractHTTP';
 import {OnmsError} from '../api/OnmsError';
 import {OnmsHTTPOptions} from '../api/OnmsHTTPOptions';
 import {OnmsResult} from '../api/OnmsResult';
-import {OnmsServer} from '../model/OnmsServer';
+import {OnmsServer} from '../api/OnmsServer';
 
 const catAxios = new Category('axios', catRest);
 

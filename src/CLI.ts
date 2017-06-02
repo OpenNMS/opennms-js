@@ -3,7 +3,7 @@ import * as startCase from 'lodash.startcase';
 import {Client} from './Client';
 
 import {OnmsAuthConfig} from './api/OnmsAuthConfig';
-import {OnmsServer} from './model/OnmsServer';
+import {OnmsServer} from './api/OnmsServer';
 import {ServerType} from './api/Constants';
 
 import {AxiosHTTP} from './rest/AxiosHTTP';

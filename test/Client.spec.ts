@@ -8,9 +8,8 @@ setLogLevel(LogLevel.Debug, catRoot);
 import {Client} from '../src/Client';
 import {OnmsAuthConfig} from '../src/api/OnmsAuthConfig';
 import {OnmsResult} from '../src/api/OnmsResult';
-
-import {OnmsServer} from '../src/model/OnmsServer';
-import {ServerMetadata} from '../src/model/ServerMetadata';
+import {OnmsServer} from '../src/api/OnmsServer';
+import {ServerMetadata} from '../src/api/ServerMetadata';
 
 import {MockHTTP} from './rest/MockHTTP';
 

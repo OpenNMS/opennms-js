@@ -2,7 +2,7 @@ declare const Promise;
 
 import {OnmsHTTPOptions} from './OnmsHTTPOptions';
 import {OnmsResult} from './OnmsResult';
-import {OnmsServer} from '../model/OnmsServer';
+import {OnmsServer} from '../api/OnmsServer';
 
 /**
  * Interface for making ReST calls to an HTTP server.

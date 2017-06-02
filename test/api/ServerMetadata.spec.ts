@@ -2,7 +2,7 @@ declare const describe, beforeEach, it, expect;
 
 import {ServerType} from '../../src/api/Constants';
 import {OnmsVersion} from '../../src/api/OnmsVersion';
-import {ServerMetadata} from '../../src/model/ServerMetadata';
+import {ServerMetadata} from '../../src/api/ServerMetadata';
 
 let metadata;
 
