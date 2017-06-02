@@ -34,5 +34,5 @@ export interface IOnmsHTTP {
    * @param options the {@link OnmsHTTPOptions} options to use when connecting
    * @returns an {@link OnmsResult} result object
    */
-  get(url: string, options?: OnmsHTTPOptions): Promise<OnmsResult>;
+  get(url: string, options?: OnmsHTTPOptions): Promise<OnmsResult<any>>;
 }

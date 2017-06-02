@@ -62,7 +62,8 @@ export class Client {
    * @param httpImpl - the {@link IOnmsHTTP} implementation to use
    * @param timeout - how long to wait before giving up when making ReST calls
    */
-  public static getMetadata(server: OnmsServer, httpImpl?: IOnmsHTTP, timeout?: number): Promise<OnmsResult> {
+  public static getMetadata(server: OnmsServer, httpImpl?: IOnmsHTTP, timeout?: number):
+    Promise<OnmsResult<ServerMetadata>> {
     const opts = new OnmsHTTPOptions(timeout, server.auth);
     if (!httpImpl) {
       if (!Client.http) {

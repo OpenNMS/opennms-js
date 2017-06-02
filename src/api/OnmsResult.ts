@@ -4,7 +4,7 @@ import {OnmsError} from './OnmsError';
  * An {@link OnmsHTTP} query result.
  * @module OnmsResult
  */ /** */
-export class OnmsResult {
+export class OnmsResult<T> {
   /** create a new error result */
   public static error(message: string, code?: number) {
     return new OnmsResult(undefined, message, code);
@@ -16,7 +16,7 @@ export class OnmsResult {
   }
 
   /** the data, if any */
-  public data: any;
+  public data: T;
 
   /** the status message associated with this result */
   public message: string;
@@ -29,7 +29,7 @@ export class OnmsResult {
    * @param message the status message
    * @param code the response code
    */
-  constructor(data: any, message?: string, code?: number) {
+  constructor(data: T, message?: string, code?: number) {
     this.data = data;
     this.message = message;
     this.code = code;

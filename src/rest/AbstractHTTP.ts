@@ -43,7 +43,7 @@ export abstract class AbstractHTTP implements IOnmsHTTP {
   }
 
   /** make an HTTP get call -- this should be overridden by the implementation */
-  public abstract get(url: string, options?: OnmsHTTPOptions): Promise<OnmsResult>;
+  public abstract get(url: string, options?: OnmsHTTPOptions): Promise<OnmsResult<any>>;
 
   /** useful for performing an action (like clearing caches) when the server is set */
   protected onSetServer() {
