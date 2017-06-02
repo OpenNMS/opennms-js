@@ -50,7 +50,7 @@ program
   .option('-d, --debug', 'Enable debug output', () => {
     setLogLevel(LogLevel.Debug);
   })
-  .option('-c, --config <file>', 'Specify a configuration file (default: ~/.opennms-cli.config');
+  .option('-c, --config <file>', 'Specify a configuration file (default: ~/.opennms-cli.config.json)');
 
 // connect (validate server and save config)
 program
@@ -117,7 +117,7 @@ program
         if (cap === 'type') {
           continue;
         }
-        rows.push([startCase(cap), caps[cap]]);
+        rows.push([startCase(cap) + ':', caps[cap]]);
       }
       console.log(cliff.stringifyRows(rows));
       console.log('');
