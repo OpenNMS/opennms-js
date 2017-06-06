@@ -1,5 +1,6 @@
 // import moment from 'moment/src/moment';
 
+/** @hidden */
 // tslint:disable-next-line
 const URI = require('urijs');
 

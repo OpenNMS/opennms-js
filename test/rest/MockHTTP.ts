@@ -1,3 +1,4 @@
+/** @hidden */
 declare const Promise;
 
 import {AbstractHTTP} from '../../src/rest/AbstractHTTP';

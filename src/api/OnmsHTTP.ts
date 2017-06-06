@@ -1,3 +1,4 @@
+/** @hidden */
 declare const Promise;
 
 import {OnmsHTTPOptions} from './OnmsHTTPOptions';

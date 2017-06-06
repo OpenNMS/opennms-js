@@ -6,8 +6,11 @@ import {OnmsHTTPOptions} from '../api/OnmsHTTPOptions';
 import {OnmsResult} from '../api/OnmsResult';
 import {OnmsServer} from '../api/OnmsServer';
 
+/** @hidden */
 // tslint:disable-next-line
 const X2JS = require('x2js');
+
+/** @hidden */
 const xmlParser = new X2JS();
 
 /**
