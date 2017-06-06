@@ -18,6 +18,8 @@ import {OnmsTroubleTicketState} from './model/OnmsTroubleTicketState';
 import {AxiosHTTP} from './rest/AxiosHTTP';
 import {SuperAgentHTTP} from './rest/SuperAgentHTTP';
 
+import {AlarmDAO} from './dao/AlarmDAO';
+
 import {Client} from './Client';
 
 /** @hidden */
@@ -50,4 +52,9 @@ const Rest = Object.freeze({
 });
 
 /** @hidden */
-export {API, Model, Rest, Client};
+const DAO = Object.freeze({
+  AlarmDAO,
+});
+
+/** @hidden */
+export {API, Model, Rest, DAO, Client};
