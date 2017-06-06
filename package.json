@@ -88,6 +88,6 @@
     "lint": "tslint 'src/**/*.ts'",
     "cli": "ts-node src/CLI.ts",
     "docker-build": "yarn && yarn lint && jest --color=false --verbose && webpack --verbose --color=false && webpack -p --env production --verbose --color=false",
-    "docker": "docker run -it --rm --name opennms-js -v `pwd`:/build -w /build node:latest yarn docker-build"
+    "docker": "docker run --rm --name opennms-js -v `pwd`:/build -w /build node:latest yarn docker-build"
   }
 }
