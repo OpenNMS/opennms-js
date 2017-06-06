@@ -50,6 +50,9 @@ export class OnmsServer {
     if (forFragment === undefined) {
       return this.url;
     }
+    if (forFragment.indexOf('/') === 0 || forFragment.indexOf('http') === 0) {
+      return forFragment;
+    }
     return URI(this.url).segment(forFragment).toString();
   }
 
