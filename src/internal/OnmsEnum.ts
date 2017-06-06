@@ -31,4 +31,12 @@ export class OnmsEnum {
     this.l = label;
     Object.freeze(this);
   }
+
+  /** convert to the JSON representation */
+  public toJSON() {
+    return {
+      id: this.i,
+      label: this.l,
+    };
+  }
 }
