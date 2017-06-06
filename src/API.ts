@@ -5,7 +5,7 @@ import {OnmsResult} from './api/OnmsResult';
 import {OnmsServer} from './api/OnmsServer';
 import {OnmsVersion} from './api/OnmsVersion';
 import {ServerMetadata} from './api/ServerMetadata';
-import {ServerType} from './api/Constants';
+import {ServerType, SERVER_TYPES} from './api/ServerType';
 
 import {OnmsAlarm} from './model/OnmsAlarm';
 import {OnmsAlarmType} from './model/OnmsAlarmType';
@@ -30,6 +30,7 @@ const API = Object.freeze({
   OnmsResult,
   OnmsServer,
   OnmsVersion,
+  SERVER_TYPES,
   ServerMetadata,
   ServerType,
 });

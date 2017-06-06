@@ -1,5 +1,5 @@
 import {OnmsVersion} from '../api/OnmsVersion';
-import {ServerType} from '../api/Constants';
+import {ServerType, SERVER_TYPES} from '../api/ServerType';
 
 /**
  * A class that represents the capabilities an OpenNMS server has and other information about it.
@@ -10,7 +10,7 @@ export class ServerMetadata {
   public version: OnmsVersion;
 
   /** the type of server (Horizon, Meridian) */
-  public type: symbol;
+  public type: ServerType;
 
   /**
    * Construct a ServerMetadata object.
@@ -18,13 +18,13 @@ export class ServerMetadata {
    * @param version the version of the server
    * @param type the type of server (Horizon, Meridian)
    */
-  constructor(version?: string | OnmsVersion, type?: symbol) {
+  constructor(version?: string | OnmsVersion, type?: ServerType) {
     if (version instanceof OnmsVersion) {
       this.version = version || new OnmsVersion('0.0.0');
     } else {
       this.version = new OnmsVersion(version || '0.0.0');
     }
-    this.type = type || ServerType.HORIZON;
+    this.type = type || SERVER_TYPES.HORIZON;
   }
 
   /** can you ack alarms through ReST */
@@ -34,7 +34,7 @@ export class ServerMetadata {
 
   /** does this server support graphs (ie, the measurements API) */
   public graphs() {
-    if (this.type && this.type === ServerType.MERIDIAN) {
+    if (this.type && this.type === SERVER_TYPES.MERIDIAN) {
       return this.version.ge('2016.1.0');
     } else {
       return this.version.ge('16.0.0');
@@ -58,7 +58,7 @@ export class ServerMetadata {
       graphs: this.graphs(),
       outageSummaries: this.outageSummaries(),
       setNodeLocation: this.setNodeLocation(),
-      type: (this.type === ServerType.MERIDIAN ? 'Meridian' : 'Horizon'),
+      type: (this.type === SERVER_TYPES.MERIDIAN ? 'Meridian' : 'Horizon'),
     };
   }
 

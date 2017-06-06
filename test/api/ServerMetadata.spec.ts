@@ -1,6 +1,6 @@
 declare const describe, beforeEach, it, expect;
 
-import {ServerType} from '../../src/api/Constants';
+import {ServerType, SERVER_TYPES} from '../../src/api/ServerType';
 import {OnmsVersion} from '../../src/api/OnmsVersion';
 import {ServerMetadata} from '../../src/api/ServerMetadata';
 
@@ -10,7 +10,7 @@ const expectedResults = {
   '0.0.0': {
     newObject: ['0.0.0', undefined],
     tests: {
-      serverType: ServerType.HORIZON,
+      serverType: SERVER_TYPES.HORIZON,
       capabilities: {
         ackAlarms: false,
         graphs: false,
@@ -22,7 +22,7 @@ const expectedResults = {
   '14.0.3': {
     newObject: ['14.0.3', undefined],
     tests: {
-      serverType: ServerType.HORIZON,
+      serverType: SERVER_TYPES.HORIZON,
       capabilities: {
         ackAlarms: true,
         graphs: false,
@@ -34,7 +34,7 @@ const expectedResults = {
   '15.0.0': {
     newObject: ['15.0.0', undefined],
     tests: {
-      serverType: ServerType.HORIZON,
+      serverType: SERVER_TYPES.HORIZON,
       capabilities: {
         ackAlarms: true,
         graphs: false,
@@ -46,7 +46,7 @@ const expectedResults = {
   '15.0.2': {
     newObject: ['15.0.2', undefined],
     tests: {
-      serverType: ServerType.HORIZON,
+      serverType: SERVER_TYPES.HORIZON,
       capabilities: {
         ackAlarms: true,
         graphs: false,
@@ -58,7 +58,7 @@ const expectedResults = {
   '16.0.0': {
     newObject: ['16.0.0', undefined],
     tests: {
-      serverType: ServerType.HORIZON,
+      serverType: SERVER_TYPES.HORIZON,
       capabilities: {
         ackAlarms: true,
         graphs: true,
@@ -68,9 +68,9 @@ const expectedResults = {
     }
   },
   '2015.1.0': {
-    newObject: ['2015.1.0', ServerType.MERIDIAN],
+    newObject: ['2015.1.0', SERVER_TYPES.MERIDIAN],
     tests: {
-      serverType: ServerType.MERIDIAN,
+      serverType: SERVER_TYPES.MERIDIAN,
       capabilities: {
         ackAlarms: true,
         graphs: false,

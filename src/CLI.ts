@@ -108,7 +108,7 @@ function CLI() {
       const http = new Rest.AxiosHTTP(server);
       return Client.getMetadata(server, http).then((res) => {
         let c = colors.green;
-        if (res.data.type === API.ServerType.MERIDIAN) {
+        if (res.data.type === API.SERVER_TYPES.MERIDIAN) {
           console.log(colors.blue('OpenNMS Meridian ' + res.data.version.displayVersion + ' Capabilities:'));
           c = colors.blue;
         } else {
