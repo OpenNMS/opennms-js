@@ -48,9 +48,6 @@ export class Client {
     log.debug('checking URL: ' + infoUrl, catClient);
     return httpImpl.get(infoUrl, opts).then((ret) => {
       return true;
-    }).catch((err) => {
-      log.error('HTTP get failed: ' + err.message, err, catClient);
-      return Promise.reject(err);
     });
   }
 
@@ -84,9 +81,6 @@ export class Client {
         }
       }
       return OnmsResult.ok(metadata, ret.message, ret.code);
-    }).catch((err) => {
-      log.error('HTTP get failed: ' + err.message, err, catClient);
-      return Promise.reject(err);
     });
   }
 

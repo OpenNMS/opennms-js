@@ -32,16 +32,6 @@ export class AxiosHTTP extends AbstractHTTP implements IOnmsHTTP {
   public get(url: string, options?: OnmsHTTPOptions) {
     return this.getImpl(options).get(url, this.getConfig(options)).then((response) => {
       return OnmsResult.ok(response.data, undefined, response.status);
-    }).catch((err) => {
-      let code;
-      let message = err;
-      if (err.response) {
-        code = err.response.status;
-      }
-      if (err.message) {
-        message = err.message;
-      }
-      return Promise.reject(OnmsResult.error(message, code));
     });
   }
 

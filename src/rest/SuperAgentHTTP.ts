@@ -32,14 +32,6 @@ export class SuperAgentHTTP extends AbstractHTTP implements IOnmsHTTP {
       }
       log.errorc(() => 'got non-parsed result: ' + JSON.stringify(response), undefined);
       return OnmsResult.error('unknown response type: ' + response.type, response.status);
-    }).catch((err) => {
-      let code;
-      let message = 'Failed to get ' + url;
-      if (err.response) {
-        code = err.response.status;
-        message = err.response.text;
-      }
-      return Promise.reject(OnmsResult.error(message, code));
     });
   }
 
