@@ -30,8 +30,14 @@ export class AxiosHTTP extends AbstractHTTP implements IOnmsHTTP {
 
   /** make an HTTP get call -- this should be overridden by the implementation */
   public get(url: string, options?: OnmsHTTPOptions) {
-    return this.getImpl(options).get(url, this.getConfig(options)).then((response) => {
-      return OnmsResult.ok(response.data, undefined, response.status);
+    const realUrl = this.server.resolveURL(url);
+    log.debug('getting ' + realUrl);
+    return this.getImpl(options).get(realUrl, this.getConfig(options)).then((response) => {
+      let type;
+      if (response.headers && response.headers['content-type']) {
+        type = response.headers['content-type'];
+      }
+      return OnmsResult.ok(response.data, undefined, response.status, type);
     });
   }
 
@@ -61,11 +67,22 @@ export class AxiosHTTP extends AbstractHTTP implements IOnmsHTTP {
 
       if (options.accept === 'application/json') {
         ret.responseType = 'json';
+        ret.transformResponse = this.transformJSON;
       } else if (options.accept === 'text/plain') {
-        ret.responseType = 'text/plain';
+        ret.responseType = 'text';
+        ret.headers = {
+          Accept: options.accept,
+        };
+      } else if (options.accept === 'application/xml') {
+        ret.responseType = 'text';
+        ret.transformResponse = this.transformXML;
+        ret.headers = {
+          Accept: options.accept,
+        };
       } else {
         throw new OnmsError('Unhandled response type: ' + options.accept);
       }
+      return ret;
     }
 
     return {};
@@ -77,13 +94,14 @@ export class AxiosHTTP extends AbstractHTTP implements IOnmsHTTP {
       if (!this.server) {
         throw new OnmsError('You must set a server before attempting to make queries using Axios!');
       }
+      const allOptions = this.getOptions(options);
       this.axiosObj = axios.create({
         auth: {
-          password: options.auth.password || this.server.auth.password || this.options.auth.password,
-          username: options.auth.username || this.server.auth.username || this.options.auth.username,
+          password: allOptions.auth.password,
+          username: allOptions.auth.username,
         },
         baseURL: this.server.url,
-        timeout: this.timeout,
+        timeout: allOptions.timeout,
         withCredentials: true,
       });
     }
