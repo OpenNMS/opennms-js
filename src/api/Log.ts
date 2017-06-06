@@ -20,6 +20,9 @@ export const catRoot = new Category('opennms');
 export const catAPI = new Category('api', catRoot);
 
 /** @hidden */
+export const catDao = new Category('dao', catRoot);
+
+/** @hidden */
 export const catModel = new Category('model', catRoot);
 
 /** @hidden */
