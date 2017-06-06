@@ -11,12 +11,15 @@ export class OnmsResult<T> {
   }
 
   /** create a new "OK" result */
-  public static ok(response: any, message?: string, code?: number) {
-    return new OnmsResult(response, message || 'OK', code || 200);
+  public static ok(response: any, message?: string, code?: number, type?: string) {
+    return new OnmsResult(response, message || 'OK', code || 200, type);
   }
 
   /** the data, if any */
   public data: T;
+
+  /** the request type, if any */
+  public type: string;
 
   /** the status message associated with this result */
   public message: string;
@@ -29,9 +32,10 @@ export class OnmsResult<T> {
    * @param message the status message
    * @param code the response code
    */
-  constructor(data: T, message?: string, code?: number) {
+  constructor(data: T, message?: string, code?: number, type?: string) {
     this.data = data;
     this.message = message;
     this.code = code;
+    this.type = type;
   }
 }
