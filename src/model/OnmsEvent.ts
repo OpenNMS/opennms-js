@@ -45,8 +45,8 @@ export class OnmsEvent {
   /** the service associated with the event */
   public service: OnmsServiceType;
 
-  /** the parms emitted with this alarm's event */
-  public parms: OnmsParm[];
+  /** the parameters emitted with this alarm's event */
+  public parameters: OnmsParm[];
 
   /** the service name associated with the event */
   public get serviceName() {
