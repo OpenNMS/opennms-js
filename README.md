@@ -1,4 +1,4 @@
-# OpenNMS Javascript API
+# OpenNMS Javascript API [![CircleCI](https://circleci.com/gh/OpenNMS/opennms-js.svg?style=svg)](https://circleci.com/gh/OpenNMS/opennms-js)
 
 A client API for accessing the OpenNMS network monitoring platform.
 
@@ -19,3 +19,4 @@ Then you can run yarn to build or test the project:
 * `yarn watch` - continuously build the development version in `dist/opennms.js`
 * `yarn test` - run the tests
 * `yarn watch-test` - continuously run the tests
+* `yarn cli -- <arguments>` - run the CLI test tool (try `--help` for options)
