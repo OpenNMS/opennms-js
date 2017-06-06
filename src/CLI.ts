@@ -1,6 +1,6 @@
 import * as startCase from 'lodash.startcase';
 
-import {API, Rest, Client} from './API';
+import {API, Rest, DAO, Client} from './API';
 
 import {log, catRoot, setLogLevel} from './api/Log';
 import {
@@ -24,6 +24,18 @@ function CLI() {
 
   const homedir = process.env[(process.platform === 'win32') ? 'USERPROFILE' : 'HOME'];
   const defaultConfigFile = path.join(homedir, '.opennms-cli.config.json');
+
+  /* tslint:disable:object-literal-sort-keys */
+  const COLORS = Object.freeze({
+    INDETERMINATE: 'grey',
+    CLEARED: 'white',
+    NORMAL: 'green',
+    WARNING: 'magenta',
+    MINOR: 'yellow',
+    MAJOR: 'orange',
+    CRITICAL: 'red',
+  });
+  /* tslint:enable:object-literal-sort-keys */
 
   function readConfig() {
     const configfile = program.config || defaultConfigFile;
@@ -75,23 +87,17 @@ function CLI() {
           log.debug('Saving configuration to ' + defaultConfigFile, catCLI);
           fs.writeFileSync(defaultConfigFile, JSON.stringify(config, undefined, 2), { mode: 0o600 });
         }
-        /*
-        if (res.data.type === ServerType.MERIDIAN) {
-          console.log(colors.blue('Connected to OpenNMS Meridian ' + res.data.version.displayVersion));
-        } else {
-          console.log(colors.green('Connected to OpenNMS Horizon ' + res.data.version.displayVersion));
-        }
-        */
         return true;
       }).catch((err) => {
-        if (err.stack) {
-          log.error(err.stack, err, catCLI);
+        if (program.debug) {
+          log.error('Connection failed: ' + err.message, err, catCLI);
+        } else {
+          log.error('Connection failed: ' + err.message, undefined, catCLI);
         }
-        return err;
       });
     });
 
-  // test another option
+  // list server capabilities
   program
     .command('capabilities')
     .description('List the API capabilities of the OpenNMS server')
@@ -122,6 +128,45 @@ function CLI() {
         console.log('');
 
         return res;
+      }).catch((err) => {
+        if (program.debug) {
+          log.error('Capabilities check failed: ' + err.message, err, catCLI);
+        } else {
+          log.error('Capabilities check failed: ' + err.message, undefined, catCLI);
+        }
+      });
+    });
+
+  const alarmHeaders = ['ID', 'Severity', 'Node', 'Count', 'Last', 'Log'];
+
+  const formatAlarms = (alarms) => {
+    return alarms.map((alarm) => {
+      return {
+        count: alarm.count,
+        id: alarm.id,
+        log: (alarm.logMessage && alarm.logMessage.length > 40)
+          ? alarm.logMessage.slice(0, 40) + '...'
+          : alarm.logMessage,
+        node: alarm.nodeLabel,
+        severity: alarm.severity ? colors[COLORS[alarm.severity.label]](alarm.severity.label) : '',
+        time: alarm.lastEventTime ? alarm.lastEventTime.format('YYYY-MM-DD HH:ss') : '',
+      };
+    });
+  };
+
+  // list current alarms
+  program
+    .command('alarms')
+    .description('List current alarms')
+    .action(() => {
+      const config = readConfig();
+      const auth = new API.OnmsAuthConfig(config.username, config.password);
+      const server = new API.OnmsServer('OpenNMS', config.url, auth);
+      const http = new Rest.AxiosHTTP(server);
+      const dao = new DAO.AlarmDAO(http);
+      return dao.get(403236).then((alarm) => {
+        const headers = ['id', 'severity', 'node', 'count', 'time', 'log'];
+        console.log(cliff.stringifyObjectRows(formatAlarms([alarm]), headers, ['red']));
       }).catch((err) => {
         if (err.stack) {
           log.error(err.stack, err, catCLI);
