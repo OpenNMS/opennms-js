@@ -82,6 +82,7 @@
     "changelog": "standard-changelog -i CHANGELOG.md -s -r 0",
     "build": "webpack -p --env production",
     "dev": "webpack --progress --colors",
+    "dist": "yarn lint && yarn test && yarn dev && yarn build",
     "watch": "webpack --progress --colors --watch",
     "test": "jest",
     "watch-test": "jest --watch",
