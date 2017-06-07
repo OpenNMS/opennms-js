@@ -88,9 +88,9 @@ export class OnmsServer {
       return 'OpenNMS '
         + (this.metadata.type === SERVER_TYPES.MERIDIAN ? 'Meridian' : 'Horizon')
         + ' ' + this.metadata.version.displayVersion
-        + ' at ' + this.host;
+        + ' at ' + (this.host || this.url);
     } else {
-      return 'OpenNMS at ' + this.host;
+      return 'OpenNMS at ' + (this.host || this.url);
     }
   }
 }
