@@ -6,6 +6,7 @@ const URI = require('urijs');
 
 import {OnmsAuthConfig} from '../api/OnmsAuthConfig';
 import {ServerMetadata} from './ServerMetadata';
+import {SERVER_TYPES} from './ServerType';
 import {UUID} from '../internal/UUID';
 
 /**
@@ -79,5 +80,17 @@ export class OnmsServer {
       return undefined;
     }
     return URI(this.url).hostname();
+  }
+
+  /** a pretty string representation of this server */
+  public toString() {
+    if (this.metadata) {
+      return 'OpenNMS '
+        + (this.metadata.type === SERVER_TYPES.MERIDIAN ? 'Meridian' : 'Horizon')
+        + ' ' + this.metadata.version.displayVersion
+        + ' at ' + this.host;
+    } else {
+      return 'OpenNMS at ' + this.host;
+    }
   }
 }
