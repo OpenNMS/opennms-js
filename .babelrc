@@ -1,6 +1,6 @@
 {
   "presets": [
-    ["latest", { "modules": false }],
+    ["es2015", { "modules": false }],
     ["env", {
       "targets": {
         "browsers": [ "last 2 versions", "safari >= 7" ],
@@ -9,10 +9,15 @@
     }]
   ],
   "plugins": [
-    "add-module-exports",
-    "transform-runtime",
+    ["transform-runtime", {
+      helpers: false,
+      polyfill: false,
+      regenerator: true
+      }],
     "transform-class-properties",
-    "transform-es2015-for-of"
+    "transform-es2015-destructuring",
+    "transform-es2015-for-of",
+    "transform-object-rest-spread",
   ],
   env: {
     test: {
