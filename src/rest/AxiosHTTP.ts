@@ -18,7 +18,7 @@ const catAxios = new Category('axios', catRest);
 /**
  * Implementation of the OnmsHTTP interface using Axios: https://github.com/mzabriskie/axios
  * @module AxiosHTTP
- * @implements OnmsHTTP
+ * @implements IOnmsHTTP
  */ /** */
 export class AxiosHTTP extends AbstractHTTP implements IOnmsHTTP {
   /** the Axios instance we'll use for making ReST calls */

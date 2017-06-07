@@ -14,9 +14,9 @@ const X2JS = require('x2js');
 const xmlParser = new X2JS();
 
 /**
- * Implementation of the OnmsHTTP interface using Axios: https://github.com/mzabriskie/axios
- * @module AxiosHTTP
- * @implements OnmsHTTP
+ * Abstract implementation of the OnmsHTTP interface meant to be extended
+ * @module AbstractHTTP
+ * @implements IOnmsHTTP
  */ /** */
 export abstract class AbstractHTTP implements IOnmsHTTP {
   /** how long to wait before giving up on a given request */

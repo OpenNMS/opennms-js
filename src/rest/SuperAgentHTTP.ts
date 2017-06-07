@@ -17,7 +17,7 @@ const catAgent = new Category('super-agent', catRest);
 /**
  * Implementation of the OnmsHTTP interface using SuperAgent: https://github.com/visionmedia/superagent
  * @module SuperAgentHTTP
- * @implements OnmsHTTP
+ * @implements IOnmsHTTP
  */ /** */
 export class SuperAgentHTTP extends AbstractHTTP implements IOnmsHTTP {
   constructor(server?: OnmsServer, timeout = 10000) {
