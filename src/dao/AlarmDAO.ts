@@ -1,5 +1,7 @@
 import {AbstractDAO} from './AbstractDAO';
 import {EventDAO} from './EventDAO';
+import {Filter} from './filters/Filter';
+
 import {OnmsAlarm} from '../model/OnmsAlarm';
 import {OnmsParm} from '../model/OnmsParm';
 import {OnmsServiceType} from '../model/OnmsServiceType';
@@ -9,6 +11,7 @@ import {SEVERITIES} from '../model/OnmsSeverity';
 import {TROUBLE_TICKET_STATES} from '../model/OnmsTroubleTicketState';
 
 import {IOnmsHTTP} from '../api/OnmsHTTP';
+import {OnmsError} from '../api/OnmsError';
 import {OnmsHTTPOptions} from '../api/OnmsHTTPOptions';
 
 import {log, catDao} from '../api/Log';
@@ -109,8 +112,12 @@ export class AlarmDAO extends AbstractDAO<number, OnmsAlarm> {
     opts.accept = 'application/xml';
     return this.http.get('rest/alarms/' + id, opts).then((result) => {
       let data = result.data;
-      if (result.type === 'application/xml' && data.alarm) {
-        data = data.alarm;
+      if (result.type === 'application/xml') {
+        if (data.alarm) {
+          data = data.alarm;
+        } else {
+          log.warn('Expected "alarm" property on query response but it was not there...', cat);
+        }
       }
 
       log.trace('data: ' + JSON.stringify(data));
@@ -118,4 +125,27 @@ export class AlarmDAO extends AbstractDAO<number, OnmsAlarm> {
       return this.fromData(data);
     });
   }
+
+  /** get an alarm, given a filter */
+  public find(filter?: Filter<OnmsAlarm>): Promise<OnmsAlarm[]> {
+    const opts = filter ? filter.getOptions() : new OnmsHTTPOptions();
+    opts.accept = 'application/xml';
+    return this.http.get('rest/alarms', opts).then((result) => {
+      let data = result.data;
+      if (result.type === 'application/xml') {
+        if (data.alarms && data.alarms.alarm) {
+          data = data.alarms.alarm;
+        } else {
+          log.warn('Expected "alarms.alarm" property on query response but it was not there...', cat);
+        }
+      }
+      if (!Array.isArray(data)) {
+        throw new OnmsError('Expected an array of alarms but got "' + (typeof data) + '" instead.');
+      }
+      return data.map((alarmData) => {
+        return this.fromData(alarmData);
+      });
+    });
+  }
+
 }

@@ -1,10 +1,13 @@
 import {AbstractDAO} from './AbstractDAO';
+import {Filter} from './filters/Filter';
+
 import {OnmsEvent} from '../model/OnmsEvent';
 import {OnmsParm} from '../model/OnmsParm';
 import {OnmsServiceType} from '../model/OnmsServiceType';
 import {SEVERITIES} from '../model/OnmsSeverity';
 
 import {Util} from '../internal/Util';
+import {OnmsError} from '../api/OnmsError';
 import {OnmsHTTPOptions} from '../api/OnmsHTTPOptions';
 
 import {log, catDao} from '../api/Log';
@@ -73,8 +76,12 @@ export class EventDAO extends AbstractDAO<number, OnmsEvent> {
     opts.accept = 'application/xml';
     return this.http.get('rest/events/' + id, opts).then((result) => {
       let data = result.data;
-      if (result.type === 'application/xml' && data.event) {
-        data = data.event;
+      if (result.type === 'application/xml') {
+        if (data.event) {
+          data = data.event;
+        } else {
+          log.warn('Expected "event" property on query response but it was not there...', cat);
+        }
       }
 
       log.trace('data: ' + JSON.stringify(data));
@@ -82,4 +89,27 @@ export class EventDAO extends AbstractDAO<number, OnmsEvent> {
       return this.fromData(data);
     });
   }
+
+  /** get an event, given a filter */
+  public find(filter?: Filter<OnmsEvent>): Promise<OnmsEvent[]> {
+    const opts = filter ? filter.getOptions() : new OnmsHTTPOptions();
+    opts.accept = 'application/xml';
+    return this.http.get('rest/events', opts).then((result) => {
+      let data = result.data;
+      if (result.type === 'application/xml') {
+        if (data.events && data.events.event) {
+          data = data.events.event;
+        } else {
+          log.warn('Expected "events.event" property on query response but it was not there...', cat);
+        }
+      }
+      if (!Array.isArray(data)) {
+        throw new OnmsError('Expected an array of events but got "' + (typeof data) + '" instead.');
+      }
+      return data.map((eventData) => {
+        return this.fromData(eventData);
+      });
+    });
+  }
+
 }

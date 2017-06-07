@@ -1,3 +1,5 @@
+import {Filter} from './filters/Filter';
+
 import {IOnmsHTTP} from '../api/OnmsHTTP';
 import {OnmsResult} from '../api/OnmsResult';
 
@@ -21,4 +23,7 @@ export abstract class AbstractDAO<K, T> {
 
   /** get a model object given an ID */
   public abstract get(id: K): Promise<T>;
+
+  /** find all model objects given a filter */
+  public abstract find(filter?: Filter<T>): Promise<T[]>;
 }
