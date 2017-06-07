@@ -14,6 +14,9 @@ export class OnmsHTTPOptions {
   /** the type of response to accept */
   public accept = 'application/json';
 
+  /** http parameters to be passed on the URL */
+  public parameters = {} as any;
+
   /**
    * Construct a new OnmsHTTPOptions object.
    * @constructor
