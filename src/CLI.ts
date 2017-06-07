@@ -25,18 +25,6 @@ function CLI() {
   const homedir = process.env[(process.platform === 'win32') ? 'USERPROFILE' : 'HOME'];
   const defaultConfigFile = path.join(homedir, '.opennms-cli.config.json');
 
-  /* tslint:disable:object-literal-sort-keys */
-  const COLORS = Object.freeze({
-    INDETERMINATE: 'grey',
-    CLEARED: 'white',
-    NORMAL: 'green',
-    WARNING: 'magenta',
-    MINOR: 'yellow',
-    MAJOR: 'orange',
-    CRITICAL: 'red',
-  });
-  /* tslint:enable:object-literal-sort-keys */
-
   function readConfig() {
     const configfile = program.config || defaultConfigFile;
     let config;
@@ -139,17 +127,33 @@ function CLI() {
 
   const alarmHeaders = ['ID', 'Severity', 'Node', 'Count', 'Last', 'Log'];
 
+  const colorify = (severity: string) => {
+    switch (severity) {
+      case 'INDETERMINATE': return colors.grey(severity);
+      case 'CLEARED': return colors.white(severity);
+      case 'NORMAL': return colors.green(severity);
+      case 'WARNING': return colors.magenta(severity);
+      case 'MINOR': return colors.yellow(severity);
+      case 'MAJOR': return colors.bold.yellow(severity);
+      case 'CRITICAL': return colors.bold.red(severity);
+      default: return severity;
+    }
+  };
+
+  const logMessageLength = 50;
   const formatAlarms = (alarms) => {
     return alarms.map((alarm) => {
+      const severityLabel = ((alarm.severity && alarm.severity.label) ? alarm.severity.label : '');
+
       return {
         count: alarm.count,
         id: alarm.id,
-        log: (alarm.logMessage && alarm.logMessage.length > 40)
-          ? alarm.logMessage.slice(0, 40) + '...'
+        log: (alarm.logMessage && alarm.logMessage.length > logMessageLength)
+          ? alarm.logMessage.slice(0, logMessageLength) + '…'
           : alarm.logMessage,
-        node: alarm.nodeLabel,
-        severity: alarm.severity ? colors[COLORS[alarm.severity.label]](alarm.severity.label) : '',
-        time: alarm.lastEventTime ? alarm.lastEventTime.format('YYYY-MM-DD HH:ss') : '',
+        node: alarm.nodeLabel || '',
+        severity: colorify(severityLabel),
+        time: (alarm.lastEventTime ? alarm.lastEventTime.format('YYYY-MM-DD HH:ss') : ''),
       };
     });
   };
@@ -164,9 +168,9 @@ function CLI() {
       const server = new API.OnmsServer('OpenNMS', config.url, auth);
       const http = new Rest.AxiosHTTP(server);
       const dao = new DAO.AlarmDAO(http);
-      return dao.get(403236).then((alarm) => {
+      return dao.find().then((alarms) => {
         const headers = ['id', 'severity', 'node', 'count', 'time', 'log'];
-        console.log(cliff.stringifyObjectRows(formatAlarms([alarm]), headers, ['red']));
+        console.log(cliff.stringifyObjectRows(formatAlarms(alarms), headers, ['red']));
       }).catch((err) => {
         if (err.stack) {
           log.error(err.stack, err, catCLI);
