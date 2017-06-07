@@ -55,6 +55,13 @@ export class OnmsVersion {
     return VersionCompare.gt(this.version, compare);
   }
 
+  /**
+   * Create a new {@link OnmsVersion} object from this existing one.
+   */
+  public clone() {
+    return new OnmsVersion(this.version, this.dv);
+  }
+
   /** a human-readable representation of this version */
   public toString() {
     return 'OnmsVersion[version=' + this.version + ',displayVersion=' + this.displayVersion + ']';

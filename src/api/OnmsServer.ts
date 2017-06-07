@@ -62,6 +62,16 @@ export class OnmsServer {
   }
 
   /**
+   * Create a new {@link OnmsServer} object from this existing one.
+   */
+  public clone() {
+    const auth = (this.auth ? this.auth.clone() : undefined);
+    const ret = new OnmsServer(this.name, this.url, auth);
+    ret.metadata = (this.metadata ? this.metadata.clone() : undefined);
+    return ret;
+  }
+
+  /**
    * Return the hostname portion of the URL associated with this server.
    */
   get host() {

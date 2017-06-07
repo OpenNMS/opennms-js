@@ -72,4 +72,11 @@ export class ServerMetadata {
       + ',setNodeLocation=' + this.setNodeLocation()
       + ']';
   }
+
+  /**
+   * Create a new {@link ServerMetadata} object from this existing one.
+   */
+  public clone() {
+    return new ServerMetadata(this.version.clone(), this.type);
+  }
 }
