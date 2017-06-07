@@ -104,4 +104,19 @@ export class Client {
       Client.http = new AxiosHTTP();
     }
   }
+
+  /**
+   * Connect to an OpenNMS server, check what capabilities it has, and return an {@link OnmsServer}
+   * for that connection.
+   */
+  public connect(name: string, url: string, username: string, password: string, timeout?: number) {
+    const server = new OnmsServer(name, url, username, password);
+    return Client.checkServer(server, undefined, timeout).then(() => {
+      return Client.getMetadata(server, undefined, timeout);
+    }).then((result) => {
+      server.metadata = result.data;
+      return server;
+    });
+  }
+
 }
