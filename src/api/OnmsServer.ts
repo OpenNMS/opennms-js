@@ -32,11 +32,15 @@ export class OnmsServer {
    * Construct a new OnmsServer object representing a remote server.
    * @constructor
    */
-  constructor(name?: string, url?: string, auth?: OnmsAuthConfig) {
+  constructor(name?: string, url?: string, auth?: OnmsAuthConfig | string, password?: string) {
     this.id = UUID.generate();
     this.name = name;
     this.url = url;
-    this.auth = auth;
+    if (auth instanceof OnmsAuthConfig) {
+      this.auth = auth;
+    } else {
+      this.auth = new OnmsAuthConfig(auth, password);
+    }
   }
 
   /**
