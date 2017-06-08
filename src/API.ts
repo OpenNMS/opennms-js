@@ -16,6 +16,7 @@ import {OnmsSeverity} from './model/OnmsSeverity';
 import {OnmsTroubleTicketState} from './model/OnmsTroubleTicketState';
 
 import {AxiosHTTP} from './rest/AxiosHTTP';
+import {GrafanaHTTP} from './rest/GrafanaHTTP';
 import {SuperAgentHTTP} from './rest/SuperAgentHTTP';
 
 import {Filter} from './dao/filters/Filter';
@@ -53,6 +54,7 @@ const Model = Object.freeze({
 /** @hidden */
 const Rest = Object.freeze({
   AxiosHTTP,
+  GrafanaHTTP,
   SuperAgentHTTP,
 });
 
