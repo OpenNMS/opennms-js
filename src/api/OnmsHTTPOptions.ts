@@ -12,7 +12,7 @@ export class OnmsHTTPOptions {
   public timeout = 10000;
 
   /** the type of response to accept */
-  public accept = 'application/json';
+  public accept = 'application/xml';
 
   /** http parameters to be passed on the URL */
   public parameters = {} as any;

@@ -62,6 +62,7 @@ export class Client {
   public static getMetadata(server: OnmsServer, httpImpl?: IOnmsHTTP, timeout?: number):
     Promise<OnmsResult<ServerMetadata>> {
     const opts = new OnmsHTTPOptions(timeout, server.auth);
+    opts.accept = 'application/json';
     if (!httpImpl) {
       if (!Client.http) {
         throw new OnmsError('No HTTP implementation is configured!');
