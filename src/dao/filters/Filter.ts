@@ -9,10 +9,10 @@ export class Filter<T> {
   /** how many results to get back by default */
   public limit = 1000;
 
-  /** what type of match to use in queries */
+  /** the default type of match to use in queries */
   public match?: 'any' | 'all';
 
-  /** the type of comparator to use in queries */
+  /** the default comparator to use in queries */
   public comparator?: string;
 
   /** get the HTTP options associated with this filter */
@@ -30,6 +30,6 @@ export class Filter<T> {
       ret.parameters.comparator = this.comparator;
     }
 
-  	return ret;
+    return ret;
   }
 }

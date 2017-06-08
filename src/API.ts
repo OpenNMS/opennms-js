@@ -18,9 +18,13 @@ import {OnmsTroubleTicketState} from './model/OnmsTroubleTicketState';
 import {AxiosHTTP} from './rest/AxiosHTTP';
 import {SuperAgentHTTP} from './rest/SuperAgentHTTP';
 
+import {Filter} from './dao/filters/Filter';
+
 import {AlarmDAO} from './dao/AlarmDAO';
 
 import {Client} from './Client';
+
+/* tslint:disable:object-literal-sort-keys */
 
 /** @hidden */
 const API = Object.freeze({
@@ -54,8 +58,11 @@ const Rest = Object.freeze({
 
 /** @hidden */
 const DAO = Object.freeze({
+  Filter,
   AlarmDAO,
 });
+
+/* tslint:enable:object-literal-sort-keys */
 
 /** @hidden */
 export {API, Model, Rest, DAO, Client};
