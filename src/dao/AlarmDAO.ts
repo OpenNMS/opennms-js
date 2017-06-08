@@ -1,6 +1,6 @@
 import {AbstractDAO} from './AbstractDAO';
 import {EventDAO} from './EventDAO';
-import {Filter} from './filters/Filter';
+import {Filter} from './criteria/Filter';
 
 import {OnmsAlarm} from '../model/OnmsAlarm';
 import {OnmsParm} from '../model/OnmsParm';

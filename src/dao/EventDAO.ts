@@ -1,5 +1,5 @@
 import {AbstractDAO} from './AbstractDAO';
-import {Filter} from './filters/Filter';
+import {Filter} from './criteria/Filter';
 
 import {OnmsEvent} from '../model/OnmsEvent';
 import {OnmsParm} from '../model/OnmsParm';

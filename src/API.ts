@@ -19,7 +19,7 @@ import {AxiosHTTP} from './rest/AxiosHTTP';
 import {GrafanaHTTP} from './rest/GrafanaHTTP';
 import {SuperAgentHTTP} from './rest/SuperAgentHTTP';
 
-import {Filter} from './dao/filters/Filter';
+import {Filter} from './dao/criteria/Filter';
 
 import {AlarmDAO} from './dao/AlarmDAO';
 

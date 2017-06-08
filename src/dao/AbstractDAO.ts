@@ -1,4 +1,4 @@
-import {Filter} from './filters/Filter';
+import {Filter} from './criteria/Filter';
 
 import {IOnmsHTTP} from '../api/OnmsHTTP';
 import {OnmsResult} from '../api/OnmsResult';
