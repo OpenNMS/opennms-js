@@ -1,6 +1,6 @@
 import {Filter} from './criteria/Filter';
 
-import {IOnmsHTTP} from '../api/OnmsHTTP';
+import {IOnmsHTTP} from '../api/IOnmsHTTP';
 import {OnmsResult} from '../api/OnmsResult';
 
 /**

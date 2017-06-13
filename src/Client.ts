@@ -3,7 +3,7 @@ import * as axios from 'axios';
 import {log, catRoot} from './api/Log';
 import {Category} from 'typescript-logging';
 
-import {IOnmsHTTP} from './api/OnmsHTTP';
+import {IOnmsHTTP} from './api/IOnmsHTTP';
 
 import {OnmsAuthConfig} from './api/OnmsAuthConfig';
 import {OnmsHTTPOptions} from './api/OnmsHTTPOptions';

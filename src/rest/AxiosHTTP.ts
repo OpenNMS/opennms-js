@@ -4,7 +4,7 @@ import {AxiosInstance, AxiosRequestConfig} from 'axios';
 import {log, catRest} from '../api/Log';
 import {Category} from 'typescript-logging';
 
-import {IOnmsHTTP} from '../api/OnmsHTTP';
+import {IOnmsHTTP} from '../api/IOnmsHTTP';
 
 import {AbstractHTTP} from './AbstractHTTP';
 import {OnmsError} from '../api/OnmsError';

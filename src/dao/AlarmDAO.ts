@@ -10,7 +10,7 @@ import {ALARM_TYPES} from '../model/OnmsAlarmType';
 import {SEVERITIES} from '../model/OnmsSeverity';
 import {TROUBLE_TICKET_STATES} from '../model/OnmsTroubleTicketState';
 
-import {IOnmsHTTP} from '../api/OnmsHTTP';
+import {IOnmsHTTP} from '../api/IOnmsHTTP';
 import {OnmsError} from '../api/OnmsError';
 import {OnmsHTTPOptions} from '../api/OnmsHTTPOptions';
 

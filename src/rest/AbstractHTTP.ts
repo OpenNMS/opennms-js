@@ -1,4 +1,4 @@
-import {IOnmsHTTP} from '../api/OnmsHTTP';
+import {IOnmsHTTP} from '../api/IOnmsHTTP';
 
 import {OnmsAuthConfig} from '../api/OnmsAuthConfig';
 import {OnmsError} from '../api/OnmsError';
