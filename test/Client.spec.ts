@@ -20,7 +20,7 @@ const SERVER_URL='http://demo.opennms.org/opennms/';
 const SERVER_USER='demo';
 const SERVER_PASSWORD='demo';
 
-let opennms, server, auth, mockHTTP;
+let opennms : Client, server, auth, mockHTTP;
 
 describe('Given an instance of OpenNMS...', () => {
   beforeEach(() => {
@@ -31,7 +31,7 @@ describe('Given an instance of OpenNMS...', () => {
   });
   describe('when I have a default OpenNMS object', () => {
     it('it should have no server', () => {
-      expect(opennms.server).toBeUndefined();
+      expect((<any>opennms).server).toBeUndefined();
     });
     it('it should pass when checkServer is called on a valid server', () => {
       let ret = Client.checkServer(server, mockHTTP);
@@ -50,6 +50,15 @@ describe('Given an instance of OpenNMS...', () => {
         expect(result.data).toBeInstanceOf(ServerMetadata);
         expect(result.data.version.version).toEqual('19.1.0');
         expect(result.data.type).toEqual(SERVER_TYPES.HORIZON);
+      });
+    });
+    it('it should return a server object with metadata when connect is called', () => {
+      const ret = opennms.connect(SERVER_NAME, SERVER_URL, SERVER_USER, SERVER_PASSWORD);
+      expect(ret).toBeDefined();
+      return ret.then((result) => {
+        expect(result).toBeDefined();
+        expect(result).toBeInstanceOf(OnmsServer);
+        expect(result.metadata).toBeInstanceOf(ServerMetadata);
       });
     });
   });
