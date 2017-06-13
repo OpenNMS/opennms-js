@@ -18,6 +18,8 @@
     "transform-es2015-destructuring",
     "transform-es2015-for-of",
     "transform-object-rest-spread",
+    "transform-regenerator",
+    "syntax-async-functions",
   ],
   env: {
     test: {
