@@ -1,10 +1,12 @@
-<a name="0.0.1"></a>
-## 0.0.1 (2017-06-07)
+<a name="0.1.0"></a>
+# 0.1.0 (2017-06-14)
 
 
 ### Bug Fixes
 
 * **model:** fix empty ServerMetadata initialization of version ([4e200f6](https://github.com/OpenNMS/opennms-js/commit/4e200f6))
+* **moment:** fix momentjs usage ([05f3a1f](https://github.com/OpenNMS/opennms-js/commit/05f3a1f))
+* **rest:** HTTP implementation get() debug includes params ([0b4b87f](https://github.com/OpenNMS/opennms-js/commit/0b4b87f))
 * **server:** fix urijs import in node CLI ([98d9320](https://github.com/OpenNMS/opennms-js/commit/98d9320))
 * **version:** fix VersionCompare when imported in node CLI ([3fadab3](https://github.com/OpenNMS/opennms-js/commit/3fadab3))
 
@@ -14,6 +16,7 @@
 * **api:** add capabilities ([eddab57](https://github.com/OpenNMS/opennms-js/commit/eddab57))
 * **api:** add clone() to some API objects ([7b45c11](https://github.com/OpenNMS/opennms-js/commit/7b45c11))
 * **api:** add constants for server type ([725ed3a](https://github.com/OpenNMS/opennms-js/commit/725ed3a))
+* **api:** add full DAO filtering support ([fe2204c](https://github.com/OpenNMS/opennms-js/commit/fe2204c))
 * **api:** add logging using typescript-logging ([8e1bafe](https://github.com/OpenNMS/opennms-js/commit/8e1bafe))
 * **cli:** add a test CLI ([671fbe1](https://github.com/OpenNMS/opennms-js/commit/671fbe1))
 * **cli:** add server info display ([93c8778](https://github.com/OpenNMS/opennms-js/commit/93c8778))
@@ -27,19 +30,24 @@
 * **internal:** add utility for parsing IP addresses ([259c16a](https://github.com/OpenNMS/opennms-js/commit/259c16a))
 * **model:** add additional properties to alarms and events ([253f23b](https://github.com/OpenNMS/opennms-js/commit/253f23b))
 * **model:** add model objects for alarms, events, and more ([b8e76a3](https://github.com/OpenNMS/opennms-js/commit/b8e76a3))
+* **options:** add support for parameters ([21f855c](https://github.com/OpenNMS/opennms-js/commit/21f855c))
+* **rest:** add Filter to the API ([4152329](https://github.com/OpenNMS/opennms-js/commit/4152329))
+* **rest:** add Grafana HTTP adapter ([f8bfed6](https://github.com/OpenNMS/opennms-js/commit/f8bfed6))
 * **rest:** add response-type handling to ReST impls ([9bf2105](https://github.com/OpenNMS/opennms-js/commit/9bf2105))
 * **rest:** add SuperAgent HTTP GET implementation ([71af3f9](https://github.com/OpenNMS/opennms-js/commit/71af3f9))
 * **rest:** add support for transforming JSON and XML responses ([27e5578](https://github.com/OpenNMS/opennms-js/commit/27e5578))
 * **rest:** allow setting the "Accept" type ([5bd300c](https://github.com/OpenNMS/opennms-js/commit/5bd300c))
-* implement Client.checkServer() ([a9993d0](https://github.com/OpenNMS/opennms-js/commit/a9993d0))
 * **rest:** working Axios HTTP GET implementation ([65a5a4d](https://github.com/OpenNMS/opennms-js/commit/65a5a4d))
 * **result:** track response type ([387a0cc](https://github.com/OpenNMS/opennms-js/commit/387a0cc))
 * **server:** add convenience method to get all metadata ([e040e79](https://github.com/OpenNMS/opennms-js/commit/e040e79))
 * **server:** add ServerMetadata.toString() for human-readable version ([b2dc667](https://github.com/OpenNMS/opennms-js/commit/b2dc667))
+* **server:** add toString to OnmsServer ([cb5cf95](https://github.com/OpenNMS/opennms-js/commit/cb5cf95))
 * **server:** handle absolute URLs cleanly ([5a516a2](https://github.com/OpenNMS/opennms-js/commit/5a516a2))
 * **server:** support user/password in OnmsServer constructor ([453f7a5](https://github.com/OpenNMS/opennms-js/commit/453f7a5))
+* **server:** use URL if host does not reselve ([614e0bc](https://github.com/OpenNMS/opennms-js/commit/614e0bc))
 * **servicetype:** make a singleton map of service types ([bed6390](https://github.com/OpenNMS/opennms-js/commit/bed6390))
 * **version:** add toString() for human-readable version ([01060b6](https://github.com/OpenNMS/opennms-js/commit/01060b6))
+* implement Client.checkServer() ([a9993d0](https://github.com/OpenNMS/opennms-js/commit/a9993d0))
 
 
 
