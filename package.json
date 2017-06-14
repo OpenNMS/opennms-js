@@ -1,6 +1,6 @@
 {
   "name": "opennms",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Client API for the OpenNMS network monitoring platform",
   "main": "dist/opennms.js",
   "author": "Benjamin Reed",
