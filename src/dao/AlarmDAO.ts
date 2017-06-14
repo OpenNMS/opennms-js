@@ -1,6 +1,8 @@
 import {AbstractDAO} from './AbstractDAO';
 import {EventDAO} from './EventDAO';
 
+import {Client} from '../Client';
+
 import {OnmsAlarm} from '../model/OnmsAlarm';
 import {OnmsParm} from '../model/OnmsParm';
 import {OnmsServiceType} from '../model/OnmsServiceType';
@@ -32,9 +34,9 @@ export class AlarmDAO extends AbstractDAO<number, OnmsAlarm> {
   /** an event DAO to be used for creating events attached to alarms from API/JSON data */
   private eventDao: EventDAO;
 
-  constructor(httpImpl: IOnmsHTTP) {
-    super(httpImpl);
-    this.eventDao = new EventDAO(httpImpl);
+  constructor(impl: Client | IOnmsHTTP) {
+    super(impl);
+    this.eventDao = new EventDAO(impl);
   }
 
   /** create an alarm object from a JSON object */
@@ -128,7 +130,7 @@ export class AlarmDAO extends AbstractDAO<number, OnmsAlarm> {
   }
 
   /** get an alarm, given a filter */
-  public find(filter?: Filter<OnmsAlarm>): Promise<OnmsAlarm[]> {
+  public find(filter?: Filter): Promise<OnmsAlarm[]> {
     const opts = this.getOptions(filter);
     return this.http.get('rest/alarms', opts).then((result) => {
       let data = result.data;

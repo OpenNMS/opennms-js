@@ -93,7 +93,7 @@ export class EventDAO extends AbstractDAO<number, OnmsEvent> {
   }
 
   /** get an event, given a filter */
-  public find(filter?: Filter<OnmsEvent>): Promise<OnmsEvent[]> {
+  public find(filter?: Filter): Promise<OnmsEvent[]> {
     const opts = this.getOptions(filter);
     return this.http.get('rest/events', opts).then((result) => {
       let data = result.data;

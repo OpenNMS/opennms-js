@@ -177,7 +177,7 @@ function CLI() {
 
       const namePattern = /^(.*?)\s+(eq|ne|ilike|like|gt|lt|ge|le|null|notnull)\s+(.*?)$/i;
       const symbolPattern = /^(.*?)\s*(=|==|!=|>|<|>=|<=)\s*(.*?)$/i;
-      const filter = new API.Filter<any>();
+      const filter = new API.Filter();
 
       for (const f of filters) {
         let match = f.match(namePattern);

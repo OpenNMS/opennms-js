@@ -7,11 +7,13 @@ import {Filter} from '../api/Filter';
 import {Comparator, Comparators} from '../api/Comparator';
 import {OnmsError} from '../api/OnmsError';
 
+/** @hidden */
 const nonExclusiveComparators = [
   Comparators.NULL,
   Comparators.NOTNULL,
 ];
 
+/** @hidden */
 const isExclusive = (comparator) => {
   return nonExclusiveComparators.indexOf(comparator) < 0;
 };
@@ -22,7 +24,7 @@ const isExclusive = (comparator) => {
  */ /** */
 export class V1FilterProcessor implements IFilterProcessor {
   /** given a filter, return a hash of URL parameters */
-  public getParameters(filter: Filter<any>) {
+  public getParameters(filter: Filter) {
     const ret = {} as IHash<string>;
 
     if (filter.limit !== undefined) {

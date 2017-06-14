@@ -1,5 +1,7 @@
 import {IOnmsHTTP} from '../api/IOnmsHTTP';
 
+import {Client} from '../Client';
+
 import {Filter} from '../api/Filter';
 import {OnmsHTTPOptions} from '../api/OnmsHTTPOptions';
 import {OnmsResult} from '../api/OnmsResult';
@@ -15,8 +17,12 @@ export abstract class AbstractDAO<K, T> {
   protected http: IOnmsHTTP;
 
   /** construct a DAO instance */
-  constructor(httpImpl: IOnmsHTTP) {
-    this.http = httpImpl;
+  constructor(impl: Client | IOnmsHTTP) {
+    if (impl instanceof Client) {
+      this.http = (impl as any).http;
+    } else {
+      this.http = impl;
+    }
   }
 
   /** create a model object given a JSON data structure */
@@ -26,10 +32,10 @@ export abstract class AbstractDAO<K, T> {
   public abstract get(id: K): Promise<T>;
 
   /** find all model objects given a filter */
-  public abstract find(filter?: Filter<T>): Promise<T[]>;
+  public abstract find(filter?: Filter): Promise<T[]>;
 
   /** given an optional filter, generate an {@link OnmsHTTPOptions} object for DAO calls */
-  protected getOptions(filter?: Filter<T>): OnmsHTTPOptions {
+  protected getOptions(filter?: Filter): OnmsHTTPOptions {
     const ret = new OnmsHTTPOptions();
     // always use application/xml for now in DAO calls
     ret.accept = 'application/xml';

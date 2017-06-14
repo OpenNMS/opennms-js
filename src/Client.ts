@@ -89,7 +89,7 @@ export class Client {
   private static http: IOnmsHTTP;
 
   /** The remote server to connect to */
-  private server: OnmsServer;
+  public server: OnmsServer;
 
   /**
    * Construct a new OpenNMS client.
@@ -111,12 +111,13 @@ export class Client {
    * for that connection.
    */
   public async connect(name: string, url: string, username: string, password: string, timeout?: number) {
+    const self = this;
     const server = new OnmsServer(name, url, username, password);
     await Client.checkServer(server, undefined, timeout);
     return Client.getMetadata(server, undefined, timeout).then((result) => {
+      self.server = server;
       server.metadata = result.data;
-      return server;
+      return self;
     });
   }
-
 }

@@ -57,8 +57,9 @@ describe('Given an instance of OpenNMS...', () => {
       expect(ret).toBeDefined();
       return ret.then((result) => {
         expect(result).toBeDefined();
-        expect(result).toBeInstanceOf(OnmsServer);
-        expect(result.metadata).toBeInstanceOf(ServerMetadata);
+        expect(result).toBeInstanceOf(Client);
+        expect(result.server).toBeInstanceOf(OnmsServer);
+        expect(result.server.metadata).toBeInstanceOf(ServerMetadata);
       });
     });
   });
