@@ -30,7 +30,7 @@ export class SuperAgentHTTP extends AbstractHTTP implements IOnmsHTTP {
       if (response.body) {
         return OnmsResult.ok(response.body, undefined, response.status, response.type);
       }
-      log.errorc(() => 'got non-parsed result: ' + JSON.stringify(response), undefined);
+      log.errorc(() => 'got non-parsed result: ' + JSON.stringify(response), undefined, catAgent);
       throw new Error('Unknown response type: ' + response.type + ' (status: ' + response.status + ')');
     });
   }
@@ -41,8 +41,14 @@ export class SuperAgentHTTP extends AbstractHTTP implements IOnmsHTTP {
       throw new OnmsError('You must set a server before attempting to make queries using SuperAgent!');
     }
 
+    const realUrl = this.server.resolveURL(url);
     const allOptions = this.getOptions(options);
-    return request[method](this.server.resolveURL(url))
+
+    const urlObj = new URI(realUrl);
+    urlObj.search(options.parameters);
+    log.debug('getting ' + urlObj.toString(), catAgent);
+
+    return request[method](realUrl)
       .withCredentials()
       .timeout(allOptions.timeout)
       .set('Accept', allOptions.accept)

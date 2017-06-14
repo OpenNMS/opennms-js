@@ -1,6 +1,10 @@
 import axios from 'axios';
 import {AxiosInstance, AxiosRequestConfig} from 'axios';
 
+/** @hidden */
+// tslint:disable-next-line
+const URI = require('urijs');
+
 import {log, catRest} from '../api/Log';
 import {Category} from 'typescript-logging';
 
@@ -32,7 +36,11 @@ export class AxiosHTTP extends AbstractHTTP implements IOnmsHTTP {
   public get(url: string, options?: OnmsHTTPOptions) {
     const realUrl = this.server.resolveURL(url);
     const opts = this.getConfig(options);
-    log.debug('getting ' + realUrl + ': ' + JSON.stringify(opts));
+
+    const urlObj = new URI(realUrl);
+    urlObj.search(options.parameters);
+    log.debug('getting ' + urlObj.toString(), catAxios);
+
     return this.getImpl(options).get(realUrl, opts).then((response) => {
       let type;
       if (response.headers && response.headers['content-type']) {
