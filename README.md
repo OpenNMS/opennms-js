@@ -4,18 +4,9 @@ A client API for accessing the OpenNMS network monitoring platform.
 
 # Getting Started
 
-```javascript
-import {API, Model, Rest, DAO, Client} from 'dist/opennms.min.js';
+Information on getting started and how to use the API is in the [HOWTO document](HOWTO.md).
 
-const opennms = new Client();
-opennms.connect('Demo', 'https://demo.opennms.org/opennms', 'demo', 'demo').then((server) => {
-  // we have a valid connection with an OnmsServer object, do something with it
-});
-```
-
-# API Documentation
-
-The API documentation is currently available at [docs.opennms.org](http://docs.opennms.org/opennms-js/branches/master/opennms-js/opennms-js.html).
+The complete API list is available at [docs.opennms.org](http://docs.opennms.org/opennms-js/branches/master/opennms-js/opennms-js.html).
 
 # Changes
 
@@ -33,6 +24,7 @@ Then run yarn to fetch all dependencies:
 
 Then you can run yarn to build or test the project:
 
+* `yarn dist` - run tests and lint, and build the complete tree in `dist/`
 * `yarn dev` - build a development version of the API in `dist/opennms.js`
 * `yarn build` - build a production version of the API in `dist/opennms.min.js`
 * `yarn watch` - continuously build the development version in `dist/opennms.js`
