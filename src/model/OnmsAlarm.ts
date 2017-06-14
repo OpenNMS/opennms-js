@@ -1,4 +1,4 @@
-import * as moment from 'moment';
+import {Moment} from 'moment';
 
 import {OnmsAlarmType} from './OnmsAlarmType';
 import {OnmsEvent} from './OnmsEvent';
@@ -22,7 +22,7 @@ export class OnmsAlarm {
   public ackUser: string;
 
   /** the time this alarm was acknowledged */
-  public ackTime: moment.Moment;
+  public ackTime: Moment;
 
   /** the UEI of the event associated with this alarm */
   public uei: string;
@@ -37,7 +37,7 @@ export class OnmsAlarm {
   public description: string;
 
   /** the first time an event has triggered this alarm */
-  public firstEventTime: moment.Moment;
+  public firstEventTime: Moment;
 
   /** the most recent event that triggered this alarm */
   public lastEvent: OnmsEvent;
@@ -64,10 +64,10 @@ export class OnmsAlarm {
   public service: OnmsServiceType;
 
   /** when the alarm was suppressed */
-  public suppressedTime: moment.Moment;
+  public suppressedTime: Moment;
 
   /** when the alarm will stop being suppressed */
-  public suppressedUntil: moment.Moment;
+  public suppressedUntil: Moment;
 
   /** who the alarm was suppressed by */
   public suppressedBy: string;

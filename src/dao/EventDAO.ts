@@ -14,7 +14,9 @@ import {Severities} from '../model/OnmsSeverity';
 import {log, catDao} from '../api/Log';
 import {Category} from 'typescript-logging';
 
-import * as moment from 'moment';
+/** @hidden */
+// tslint:disable-next-line
+const moment = require('moment');
 
 /** @hidden */
 const cat = new Category('events', catDao);
