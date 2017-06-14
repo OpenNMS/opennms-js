@@ -1,4 +1,4 @@
-import {Comparator, COMPARATORS} from './Comparator';
+import {Comparator} from './Comparator';
 
 /**
  * A query restriction.

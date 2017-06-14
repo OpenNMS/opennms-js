@@ -8,7 +8,7 @@ export class OnmsSeverity extends OnmsEnum {
 
 /* tslint:disable:object-literal-sort-keys */
 /** @hidden */
-export const SEVERITIES = Object.freeze({
+export const Severities = Object.freeze({
   INDETERMINATE: new OnmsSeverity(1, 'INDETERMINATE'),
   CLEARED: new OnmsSeverity(2, 'CLEARED'),
   NORMAL: new OnmsSeverity(3, 'NORMAL'),

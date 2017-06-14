@@ -96,7 +96,7 @@ function CLI() {
       const http = new Rest.AxiosHTTP(server);
       return Client.getMetadata(server, http).then((res) => {
         let c = colors.green;
-        if (res.data.type === API.SERVER_TYPES.MERIDIAN) {
+        if (res.data.type === API.ServerTypes.MERIDIAN) {
           console.log(colors.blue('OpenNMS Meridian ' + res.data.version.displayVersion + ' Capabilities:'));
           c = colors.blue;
         } else {
@@ -200,9 +200,9 @@ function CLI() {
         }
 
         if (attribute && comparator) {
-          for (const type in API.COMPARATORS) {
-            if (API.COMPARATORS.hasOwnProperty(type)) {
-              const comp = API.COMPARATORS[type];
+          for (const type in API.Comparators) {
+            if (API.Comparators.hasOwnProperty(type)) {
+              const comp = API.Comparators[type];
               if (comp.matches(comparator)) {
                 filter.restrictions.push(new API.Restriction(attribute, comp, value));
               }

@@ -9,7 +9,7 @@ import {Util} from '../internal/Util';
 import {OnmsEvent} from '../model/OnmsEvent';
 import {OnmsParm} from '../model/OnmsParm';
 import {OnmsServiceType} from '../model/OnmsServiceType';
-import {SEVERITIES} from '../model/OnmsSeverity';
+import {Severities} from '../model/OnmsSeverity';
 
 import {log, catDao} from '../api/Log';
 import {Category} from 'typescript-logging';
@@ -40,7 +40,7 @@ export class EventDAO extends AbstractDAO<number, OnmsEvent> {
     event.logMessage = data.logMessage;
 
     if (data._severity || data.severity) {
-      event.severity = SEVERITIES[data._severity || data.severity];
+      event.severity = Severities[data._severity || data.severity];
     }
 
     if (data.serviceType) {

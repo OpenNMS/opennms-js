@@ -1,4 +1,4 @@
-import {Comparator, COMPARATORS} from './api/Comparator';
+import {Comparator, Comparators} from './api/Comparator';
 import {Filter} from './api/Filter';
 import {OnmsAuthConfig} from './api/OnmsAuthConfig';
 import {OnmsError} from './api/OnmsError';
@@ -8,19 +8,19 @@ import {OnmsServer} from './api/OnmsServer';
 import {OnmsVersion} from './api/OnmsVersion';
 import {Restriction} from './api/Restriction';
 import {ServerMetadata} from './api/ServerMetadata';
-import {ServerType, SERVER_TYPES} from './api/ServerType';
+import {ServerType, ServerTypes} from './api/ServerType';
 
 import {AlarmDAO} from './dao/AlarmDAO';
 import {EventDAO} from './dao/EventDAO';
 import {V1FilterProcessor} from './dao/V1FilterProcessor';
 
 import {OnmsAlarm} from './model/OnmsAlarm';
-import {OnmsAlarmType} from './model/OnmsAlarmType';
+import {OnmsAlarmType, AlarmTypes} from './model/OnmsAlarmType';
 import {OnmsEvent} from './model/OnmsEvent';
 import {OnmsParm} from './model/OnmsParm';
-import {OnmsServiceType, SERVICE_TYPES} from './model/OnmsServiceType';
-import {OnmsSeverity, SEVERITIES} from './model/OnmsSeverity';
-import {OnmsTroubleTicketState} from './model/OnmsTroubleTicketState';
+import {OnmsServiceType, ServiceTypes} from './model/OnmsServiceType';
+import {OnmsSeverity, Severities} from './model/OnmsSeverity';
+import {OnmsTroubleTicketState, TroubleTicketStates} from './model/OnmsTroubleTicketState';
 
 import {AxiosHTTP} from './rest/AxiosHTTP';
 import {GrafanaHTTP} from './rest/GrafanaHTTP';
@@ -33,7 +33,7 @@ import {Client} from './Client';
 /** @hidden */
 const API = Object.freeze({
   Comparator,
-  COMPARATORS,
+  Comparators,
   Filter,
   OnmsAuthConfig,
   OnmsError,
@@ -44,7 +44,7 @@ const API = Object.freeze({
   Restriction,
   ServerMetadata,
   ServerType,
-  SERVER_TYPES,
+  ServerTypes,
 });
 
 /** @hidden */
@@ -61,10 +61,11 @@ const Model = Object.freeze({
   OnmsEvent,
   OnmsParm,
   OnmsServiceType,
-  SERVICE_TYPES,
+  ServiceTypes,
   OnmsSeverity,
-  SEVERITIES,
+  Severities,
   OnmsTroubleTicketState,
+  TroubleTicketStates,
 });
 
 /** @hidden */

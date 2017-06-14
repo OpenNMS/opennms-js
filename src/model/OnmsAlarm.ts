@@ -1,11 +1,11 @@
 import * as moment from 'moment';
 
-import {OnmsAlarmType, ALARM_TYPES} from './OnmsAlarmType';
+import {OnmsAlarmType} from './OnmsAlarmType';
 import {OnmsEvent} from './OnmsEvent';
 import {OnmsParm} from './OnmsParm';
 import {OnmsServiceType} from './OnmsServiceType';
-import {OnmsSeverity, SEVERITIES} from './OnmsSeverity';
-import {OnmsTroubleTicketState, TROUBLE_TICKET_STATES} from './OnmsTroubleTicketState';
+import {OnmsSeverity} from './OnmsSeverity';
+import {OnmsTroubleTicketState} from './OnmsTroubleTicketState';
 
 /**
  * Represents an OpenNMS alarm.

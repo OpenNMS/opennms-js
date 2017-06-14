@@ -13,7 +13,7 @@ import {ServerMetadata} from '../src/api/ServerMetadata';
 
 import {MockHTTP} from './rest/MockHTTP';
 
-import {ServerType, SERVER_TYPES} from '../src/api/ServerType';
+import {ServerType, ServerTypes} from '../src/api/ServerType';
 
 const SERVER_NAME='Demo';
 const SERVER_URL='http://demo.opennms.org/opennms/';
@@ -49,7 +49,7 @@ describe('Given an instance of OpenNMS...', () => {
         expect(result).toBeInstanceOf(OnmsResult);
         expect(result.data).toBeInstanceOf(ServerMetadata);
         expect(result.data.version.version).toEqual('19.1.0');
-        expect(result.data.type).toEqual(SERVER_TYPES.HORIZON);
+        expect(result.data.type).toEqual(ServerTypes.HORIZON);
       });
     });
     it('it should return a server object with metadata when connect is called', () => {

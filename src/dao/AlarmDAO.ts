@@ -5,9 +5,9 @@ import {OnmsAlarm} from '../model/OnmsAlarm';
 import {OnmsParm} from '../model/OnmsParm';
 import {OnmsServiceType} from '../model/OnmsServiceType';
 
-import {ALARM_TYPES} from '../model/OnmsAlarmType';
-import {SEVERITIES} from '../model/OnmsSeverity';
-import {TROUBLE_TICKET_STATES} from '../model/OnmsTroubleTicketState';
+import {AlarmTypes} from '../model/OnmsAlarmType';
+import {Severities} from '../model/OnmsSeverity';
+import {TroubleTicketStates} from '../model/OnmsTroubleTicketState';
 
 import {Filter} from '../api/Filter';
 import {IOnmsHTTP} from '../api/IOnmsHTTP';
@@ -58,16 +58,16 @@ export class AlarmDAO extends AbstractDAO<number, OnmsAlarm> {
     }
 
     if (data._severity || data.severity) {
-      alarm.severity = SEVERITIES[data._severity || data.severity];
+      alarm.severity = Severities[data._severity || data.severity];
     }
 
     if (data._type || data.type) {
       const type = parseInt(data._type || data.type, 10);
-      alarm.type = ALARM_TYPES[type];
+      alarm.type = AlarmTypes[type];
     }
 
     if (data.troubleTicketState) {
-      alarm.troubleTicketState = TROUBLE_TICKET_STATES[data.troubleTicketState];
+      alarm.troubleTicketState = TroubleTicketStates[data.troubleTicketState];
     }
 
     if (data.serviceType) {

@@ -8,7 +8,7 @@ export class ServerType extends OnmsEnum {
 }
 
 /** @hidden */
-export const SERVER_TYPES = Object.freeze({
+export const ServerTypes = Object.freeze({
   HORIZON: new ServerType(1, 'HORIZON'),
   MERIDIAN: new ServerType(2, 'MERIDIAN'),
 });

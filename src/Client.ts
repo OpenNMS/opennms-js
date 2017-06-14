@@ -10,7 +10,7 @@ import {OnmsHTTPOptions} from './api/OnmsHTTPOptions';
 import {OnmsError} from './api/OnmsError';
 import {OnmsResult} from './api/OnmsResult';
 import {OnmsVersion} from './api/OnmsVersion';
-import {ServerType, SERVER_TYPES} from './api/ServerType';
+import {ServerType, ServerTypes} from './api/ServerType';
 
 import {OnmsServer} from './api/OnmsServer';
 import {ServerMetadata} from './api/ServerMetadata';
@@ -78,7 +78,7 @@ export class Client {
 
       if (ret.data.packageName) {
         if (ret.data.packageName.toLowerCase() === 'meridian') {
-          metadata.type = SERVER_TYPES.MERIDIAN;
+          metadata.type = ServerTypes.MERIDIAN;
         }
       }
       return OnmsResult.ok(metadata, ret.message, ret.code);

@@ -4,12 +4,12 @@ import {OnmsEnum} from '../internal/OnmsEnum';
 import {IFilterProcessor} from '../api/IFilterProcessor';
 
 import {Filter} from '../api/Filter';
-import {Comparator, COMPARATORS} from '../api/Comparator';
+import {Comparator, Comparators} from '../api/Comparator';
 import {OnmsError} from '../api/OnmsError';
 
 const nonExclusiveComparators = [
-  COMPARATORS.NULL,
-  COMPARATORS.NOTNULL,
+  Comparators.NULL,
+  Comparators.NOTNULL,
 ];
 
 const isExclusive = (comparator) => {
@@ -31,11 +31,11 @@ export class V1FilterProcessor implements IFilterProcessor {
 
     for (const restriction of filter.restrictions) {
       switch (restriction.comparator) {
-        case COMPARATORS.NULL: {
+        case Comparators.NULL: {
           ret[restriction.attribute] = 'null';
           break;
         }
-        case COMPARATORS.NOTNULL: {
+        case Comparators.NOTNULL: {
           ret[restriction.attribute] = 'notnull';
           break;
         }

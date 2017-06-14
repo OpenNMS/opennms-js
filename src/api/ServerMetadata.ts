@@ -1,5 +1,5 @@
 import {OnmsVersion} from '../api/OnmsVersion';
-import {ServerType, SERVER_TYPES} from '../api/ServerType';
+import {ServerType, ServerTypes} from '../api/ServerType';
 
 /**
  * A class that represents the capabilities an OpenNMS server has and other information about it.
@@ -24,7 +24,7 @@ export class ServerMetadata {
     } else {
       this.version = new OnmsVersion(version || '0.0.0');
     }
-    this.type = type || SERVER_TYPES.HORIZON;
+    this.type = type || ServerTypes.HORIZON;
   }
 
   /** can you ack alarms through ReST */
@@ -34,7 +34,7 @@ export class ServerMetadata {
 
   /** does this server support graphs (ie, the measurements API) */
   public graphs() {
-    if (this.type && this.type === SERVER_TYPES.MERIDIAN) {
+    if (this.type && this.type === ServerTypes.MERIDIAN) {
       return this.version.ge('2016.1.0');
     } else {
       return this.version.ge('16.0.0');
@@ -64,7 +64,7 @@ export class ServerMetadata {
       graphs: this.graphs(),
       outageSummaries: this.outageSummaries(),
       setNodeLocation: this.setNodeLocation(),
-      type: (this.type === SERVER_TYPES.MERIDIAN ? 'Meridian' : 'Horizon'),
+      type: (this.type === ServerTypes.MERIDIAN ? 'Meridian' : 'Horizon'),
     };
   }
 

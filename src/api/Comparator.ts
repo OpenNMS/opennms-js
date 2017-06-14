@@ -23,7 +23,7 @@ export class Comparator extends OnmsEnum {
 /* tslint:disable:object-literal-sort-keys */
 
 /** @hidden */
-export const COMPARATORS = Object.freeze({
+export const Comparators = Object.freeze({
   EQ: new Comparator(1, 'EQ', '=', '=='),
   NE: new Comparator(2, 'NE', '!='),
   ILIKE: new Comparator(3, 'ILIKE'),

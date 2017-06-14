@@ -9,7 +9,7 @@ export class OnmsTroubleTicketState extends OnmsEnum {
 
 /* tslint:disable:object-literal-sort-keys */
 /** @hidden */
-export const TROUBLE_TICKET_STATES = Object.freeze({
+export const TroubleTicketStates = Object.freeze({
   OPEN: new OnmsTroubleTicketState(0, 'OPEN'),
   CREATE_PENDING: new OnmsTroubleTicketState(1, 'CREATE_PENDING'),
   CREATE_FAILED: new OnmsTroubleTicketState(2, 'CREATE_FAILED'),

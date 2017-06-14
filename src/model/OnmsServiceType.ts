@@ -5,7 +5,7 @@ import {Category} from 'typescript-logging';
 const catServiceType = new Category('service-type', catModel);
 
 /** @hidden */
-export const SERVICE_TYPES = {
+export const ServiceTypes = {
 };
 
 /**
@@ -15,16 +15,16 @@ export const SERVICE_TYPES = {
 export class OnmsServiceType {
   /** get a singleton service type object for the given service */
   public static for(id: number, name: string) {
-    if (SERVICE_TYPES[id]) {
-      if (SERVICE_TYPES[id].name === name) {
-        return SERVICE_TYPES[id];
+    if (ServiceTypes[id]) {
+      if (ServiceTypes[id].name === name) {
+        return ServiceTypes[id];
       } else {
         log.warn('Service type ID ' + id + ' is already cached, but names do not match!'
-          + ' (' + SERVICE_TYPES[id].name + ' != ' + name + ')', catServiceType);
+          + ' (' + ServiceTypes[id].name + ' != ' + name + ')', catServiceType);
       }
     }
-    SERVICE_TYPES[id] = new OnmsServiceType(id, name);
-    return SERVICE_TYPES[id];
+    ServiceTypes[id] = new OnmsServiceType(id, name);
+    return ServiceTypes[id];
   }
 
   /** the service ID */
