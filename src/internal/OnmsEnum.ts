@@ -29,7 +29,6 @@ export class OnmsEnum {
   constructor(id: number, label: string) {
     this.i = id;
     this.l = label;
-    Object.freeze(this);
   }
 
   /** convert to the JSON representation */

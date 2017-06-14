@@ -51,10 +51,16 @@ export class ServerMetadata {
     return this.version.ge('15.0.2');
   }
 
+  /** what version of the ReST API does this server support */
+  public apiVersion() {
+    return 1;
+  }
+
   /** a convenient data structure with all capabilities listed */
   public capabilities() {
     return {
       ackAlarms: this.ackAlarms(),
+      apiVersion: this.apiVersion(),
       graphs: this.graphs(),
       outageSummaries: this.outageSummaries(),
       setNodeLocation: this.setNodeLocation(),
@@ -65,6 +71,7 @@ export class ServerMetadata {
   /** a human-readable representation of this version */
   public toString() {
     return 'ServerMetadata[version=' + this.version.toString()
+      + ',apiVersion=' + this.apiVersion()
       + ',type=' + this.type.toString()
       + ',ackAlarms=' + this.ackAlarms()
       + ',graphs=' + this.graphs()

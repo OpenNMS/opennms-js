@@ -31,8 +31,9 @@ export class AxiosHTTP extends AbstractHTTP implements IOnmsHTTP {
   /** make an HTTP get call -- this should be overridden by the implementation */
   public get(url: string, options?: OnmsHTTPOptions) {
     const realUrl = this.server.resolveURL(url);
-    log.debug('getting ' + realUrl);
-    return this.getImpl(options).get(realUrl, this.getConfig(options)).then((response) => {
+    const opts = this.getConfig(options);
+    log.debug('getting ' + realUrl + ': ' + JSON.stringify(opts));
+    return this.getImpl(options).get(realUrl, opts).then((response) => {
       let type;
       if (response.headers && response.headers['content-type']) {
         type = response.headers['content-type'];
@@ -51,41 +52,44 @@ export class AxiosHTTP extends AbstractHTTP implements IOnmsHTTP {
 
   /** internal method to turn {@link OnmsHTTPOptions} into an {@link AxiosRequestConfig} object. */
   private getConfig(options?: OnmsHTTPOptions): AxiosRequestConfig {
-    if (options) {
-      const ret = {} as AxiosRequestConfig;
+    const allOptions = this.getOptions(options);
 
-      if (options.auth && options.auth.username && options.auth.password) {
-        ret.auth = {
-          password: options.auth.password,
-          username: options.auth.username,
-        };
-      }
+    const ret = {} as AxiosRequestConfig;
 
-      if (options.timeout) {
-        ret.timeout = options.timeout;
-      }
-
-      if (options.accept === 'application/json') {
-        ret.responseType = 'json';
-        ret.transformResponse = this.transformJSON;
-      } else if (options.accept === 'text/plain') {
-        ret.responseType = 'text';
-        ret.headers = {
-          Accept: options.accept,
-        };
-      } else if (options.accept === 'application/xml') {
-        ret.responseType = 'text';
-        ret.transformResponse = this.transformXML;
-        ret.headers = {
-          Accept: options.accept,
-        };
-      } else {
-        throw new OnmsError('Unhandled response type: ' + options.accept);
-      }
-      return ret;
+    if (allOptions.auth && allOptions.auth.username && allOptions.auth.password) {
+      ret.auth = {
+        password: allOptions.auth.password,
+        username: allOptions.auth.username,
+      };
     }
 
-    return {};
+    if (allOptions.timeout) {
+      ret.timeout = allOptions.timeout;
+    }
+
+    if (allOptions.accept === 'application/json') {
+      ret.responseType = 'json';
+      ret.transformResponse = this.transformJSON;
+    } else if (allOptions.accept === 'text/plain') {
+      ret.responseType = 'text';
+      ret.headers = {
+        Accept: allOptions.accept,
+      };
+    } else if (allOptions.accept === 'application/xml') {
+      ret.responseType = 'text';
+      ret.transformResponse = this.transformXML;
+      ret.headers = {
+        Accept: allOptions.accept,
+      };
+    } else {
+      throw new OnmsError('Unhandled response type: ' + allOptions.accept);
+    }
+
+    if (allOptions.parameters) {
+      ret.params = Object.assign({}, allOptions.parameters);
+    }
+
+    return ret;
   }
 
   /** internal method for getting/constructing an Axios object on-demand, based on the current server config */

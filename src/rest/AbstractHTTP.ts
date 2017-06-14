@@ -1,10 +1,13 @@
 import {IOnmsHTTP} from '../api/IOnmsHTTP';
+import {IFilterProcessor} from '../api/IFilterProcessor';
 
 import {OnmsAuthConfig} from '../api/OnmsAuthConfig';
 import {OnmsError} from '../api/OnmsError';
 import {OnmsHTTPOptions} from '../api/OnmsHTTPOptions';
 import {OnmsResult} from '../api/OnmsResult';
 import {OnmsServer} from '../api/OnmsServer';
+
+import {V1FilterProcessor} from '../dao/V1FilterProcessor';
 
 /** @hidden */
 // tslint:disable-next-line
@@ -25,6 +28,9 @@ export abstract class AbstractHTTP implements IOnmsHTTP {
   /** the authorization config associated with this ReST client */
   public options: OnmsHTTPOptions;
 
+  /** the filter processor to use when making DAO requests */
+  public filterProcessor = new V1FilterProcessor() as IFilterProcessor;
+
   /** the server metadata we'll use for constructing ReST calls */
   private serverObj: OnmsServer;
 
@@ -36,6 +42,14 @@ export abstract class AbstractHTTP implements IOnmsHTTP {
   public set server(server: OnmsServer) {
     this.serverObj = server;
     this.onSetServer();
+    if (!this.filterProcessor) {
+      if (this.serverObj && this.serverObj.metadata) {
+        switch (this.serverObj.metadata.apiVersion()) {
+          default:
+            this.filterProcessor = new V1FilterProcessor();
+        }
+      }
+    }
   }
 
   /**

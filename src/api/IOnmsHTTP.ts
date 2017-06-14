@@ -1,9 +1,11 @@
 /** @hidden */
 declare const Promise;
 
+import {IFilterProcessor} from './IFilterProcessor';
+
 import {OnmsHTTPOptions} from './OnmsHTTPOptions';
 import {OnmsResult} from './OnmsResult';
-import {OnmsServer} from '../api/OnmsServer';
+import {OnmsServer} from './OnmsServer';
 
 /**
  * Interface for making ReST calls to an HTTP server.
@@ -28,6 +30,9 @@ export interface IOnmsHTTP {
 
   /** the options used when making requests */
   options: OnmsHTTPOptions;
+
+  /** the filter processor to use when making DAO requests */
+  filterProcessor: IFilterProcessor;
 
   /**
    * Perform an HTTP get to the provided URL.

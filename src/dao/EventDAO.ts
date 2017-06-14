@@ -1,14 +1,15 @@
 import {AbstractDAO} from './AbstractDAO';
-import {Filter} from './criteria/Filter';
+
+import {Filter} from '../api/Filter';
+import {OnmsError} from '../api/OnmsError';
+import {OnmsHTTPOptions} from '../api/OnmsHTTPOptions';
+
+import {Util} from '../internal/Util';
 
 import {OnmsEvent} from '../model/OnmsEvent';
 import {OnmsParm} from '../model/OnmsParm';
 import {OnmsServiceType} from '../model/OnmsServiceType';
 import {SEVERITIES} from '../model/OnmsSeverity';
-
-import {Util} from '../internal/Util';
-import {OnmsError} from '../api/OnmsError';
-import {OnmsHTTPOptions} from '../api/OnmsHTTPOptions';
 
 import {log, catDao} from '../api/Log';
 import {Category} from 'typescript-logging';
@@ -72,8 +73,7 @@ export class EventDAO extends AbstractDAO<number, OnmsEvent> {
 
   /** get an event, given the event's ID */
   public get(id: number): Promise<OnmsEvent> {
-    const opts = new OnmsHTTPOptions();
-    opts.accept = 'application/xml';
+    const opts = this.getOptions();
     return this.http.get('rest/events/' + id, opts).then((result) => {
       let data = result.data;
       if (result.type === 'application/xml') {
@@ -92,17 +92,39 @@ export class EventDAO extends AbstractDAO<number, OnmsEvent> {
 
   /** get an event, given a filter */
   public find(filter?: Filter<OnmsEvent>): Promise<OnmsEvent[]> {
-    const opts = filter ? filter.getOptions() : new OnmsHTTPOptions();
-    opts.accept = 'application/xml';
+    const opts = this.getOptions(filter);
     return this.http.get('rest/events', opts).then((result) => {
       let data = result.data;
+
+      let count = 0;
       if (result.type === 'application/xml') {
-        if (data.events && data.events.event) {
-          data = data.events.event;
+        if (data.events) {
+          if (data.events._totalCount) {
+            count = parseInt(data.events._totalCount, 10);
+          }
+          if (data.events._count) {
+            count = parseInt(data.events._count, 10);
+          }
+          if (count > 0 && data.events.event) {
+            data = data.events.event;
+          } else {
+            data = [];
+          }
+        }
+      } else {
+        if (data.totalCount) {
+          count = parseInt(data.totalCount, 10);
+        }
+        if (data.count) {
+          count = parseInt(data.count, 10);
+        }
+        if (count > 0 && data.event) {
+          data = data.event;
         } else {
-          log.warn('Expected "events.event" property on query response but it was not there...', cat);
+          data = [];
         }
       }
+
       if (!Array.isArray(data)) {
         throw new OnmsError('Expected an array of events but got "' + (typeof data) + '" instead.');
       }

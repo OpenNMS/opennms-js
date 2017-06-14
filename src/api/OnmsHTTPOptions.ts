@@ -1,4 +1,5 @@
 import {OnmsAuthConfig} from './OnmsAuthConfig';
+import {IHash} from '../internal/IHash';
 
 /**
  * Options to be used when making HTTP ReST calls.
@@ -15,7 +16,7 @@ export class OnmsHTTPOptions {
   public accept = 'application/xml';
 
   /** http parameters to be passed on the URL */
-  public parameters = {} as any;
+  public parameters = {} as IHash<string>;
 
   /**
    * Construct a new OnmsHTTPOptions object.

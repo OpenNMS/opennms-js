@@ -34,7 +34,7 @@ export class Client {
    * @param httpImpl - the {@link IOnmsHTTP} implementation to use
    * @param timeout - how long to wait before giving up when making ReST calls
    */
-  public static checkServer(server: OnmsServer, httpImpl?: IOnmsHTTP, timeout?: number): Promise<boolean> {
+  public static async checkServer(server: OnmsServer, httpImpl?: IOnmsHTTP, timeout?: number): Promise<boolean> {
     const opts = new OnmsHTTPOptions(timeout, server.auth);
     if (!httpImpl) {
       if (!Client.http) {
@@ -59,7 +59,7 @@ export class Client {
    * @param httpImpl - the {@link IOnmsHTTP} implementation to use
    * @param timeout - how long to wait before giving up when making ReST calls
    */
-  public static getMetadata(server: OnmsServer, httpImpl?: IOnmsHTTP, timeout?: number):
+  public static async getMetadata(server: OnmsServer, httpImpl?: IOnmsHTTP, timeout?: number):
     Promise<OnmsResult<ServerMetadata>> {
     const opts = new OnmsHTTPOptions(timeout, server.auth);
     opts.accept = 'application/json';
@@ -110,11 +110,10 @@ export class Client {
    * Connect to an OpenNMS server, check what capabilities it has, and return an {@link OnmsServer}
    * for that connection.
    */
-  public connect(name: string, url: string, username: string, password: string, timeout?: number) {
+  public async connect(name: string, url: string, username: string, password: string, timeout?: number) {
     const server = new OnmsServer(name, url, username, password);
-    return Client.checkServer(server, undefined, timeout).then(() => {
-      return Client.getMetadata(server, undefined, timeout);
-    }).then((result) => {
+    await Client.checkServer(server, undefined, timeout);
+    return Client.getMetadata(server, undefined, timeout).then((result) => {
       server.metadata = result.data;
       return server;
     });

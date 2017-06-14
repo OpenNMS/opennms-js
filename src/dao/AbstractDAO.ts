@@ -1,6 +1,7 @@
-import {Filter} from './criteria/Filter';
-
 import {IOnmsHTTP} from '../api/IOnmsHTTP';
+
+import {Filter} from '../api/Filter';
+import {OnmsHTTPOptions} from '../api/OnmsHTTPOptions';
 import {OnmsResult} from '../api/OnmsResult';
 
 /**
@@ -26,4 +27,15 @@ export abstract class AbstractDAO<K, T> {
 
   /** find all model objects given a filter */
   public abstract find(filter?: Filter<T>): Promise<T[]>;
+
+  /** given an optional filter, generate an {@link OnmsHTTPOptions} object for DAO calls */
+  protected getOptions(filter?: Filter<T>): OnmsHTTPOptions {
+    const ret = new OnmsHTTPOptions();
+    // always use application/xml for now in DAO calls
+    ret.accept = 'application/xml';
+    if (filter) {
+      ret.parameters = this.http.filterProcessor.getParameters(filter);
+    }
+    return ret;
+  }
 }

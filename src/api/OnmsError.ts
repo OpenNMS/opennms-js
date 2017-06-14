@@ -6,6 +6,9 @@ export class OnmsError {
   /** the error code associated with this error */
   public code: number;
 
+  /** the stack trace when this error is created */
+  public stack;
+
   /** the JS Error class associated with this error */
   private error: Error;
 
@@ -17,6 +20,7 @@ export class OnmsError {
   constructor(public message: string, code?: number) {
     this.error = new Error(message);
     this.code = code;
+    this.stack = this.error.stack;
   }
 
   /**

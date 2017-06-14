@@ -1,27 +1,30 @@
+import {Comparator, COMPARATORS} from './api/Comparator';
+import {Filter} from './api/Filter';
 import {OnmsAuthConfig} from './api/OnmsAuthConfig';
 import {OnmsError} from './api/OnmsError';
 import {OnmsHTTPOptions} from './api/OnmsHTTPOptions';
 import {OnmsResult} from './api/OnmsResult';
 import {OnmsServer} from './api/OnmsServer';
 import {OnmsVersion} from './api/OnmsVersion';
+import {Restriction} from './api/Restriction';
 import {ServerMetadata} from './api/ServerMetadata';
 import {ServerType, SERVER_TYPES} from './api/ServerType';
+
+import {AlarmDAO} from './dao/AlarmDAO';
+import {EventDAO} from './dao/EventDAO';
+import {V1FilterProcessor} from './dao/V1FilterProcessor';
 
 import {OnmsAlarm} from './model/OnmsAlarm';
 import {OnmsAlarmType} from './model/OnmsAlarmType';
 import {OnmsEvent} from './model/OnmsEvent';
 import {OnmsParm} from './model/OnmsParm';
-import {OnmsServiceType} from './model/OnmsServiceType';
-import {OnmsSeverity} from './model/OnmsSeverity';
+import {OnmsServiceType, SERVICE_TYPES} from './model/OnmsServiceType';
+import {OnmsSeverity, SEVERITIES} from './model/OnmsSeverity';
 import {OnmsTroubleTicketState} from './model/OnmsTroubleTicketState';
 
 import {AxiosHTTP} from './rest/AxiosHTTP';
 import {GrafanaHTTP} from './rest/GrafanaHTTP';
 import {SuperAgentHTTP} from './rest/SuperAgentHTTP';
-
-import {Filter} from './dao/criteria/Filter';
-
-import {AlarmDAO} from './dao/AlarmDAO';
 
 import {Client} from './Client';
 
@@ -29,15 +32,26 @@ import {Client} from './Client';
 
 /** @hidden */
 const API = Object.freeze({
+  Comparator,
+  COMPARATORS,
+  Filter,
   OnmsAuthConfig,
   OnmsError,
   OnmsHTTPOptions,
   OnmsResult,
   OnmsServer,
   OnmsVersion,
-  SERVER_TYPES,
+  Restriction,
   ServerMetadata,
   ServerType,
+  SERVER_TYPES,
+});
+
+/** @hidden */
+const DAO = Object.freeze({
+  AlarmDAO,
+  EventDAO,
+  V1FilterProcessor,
 });
 
 /** @hidden */
@@ -47,7 +61,9 @@ const Model = Object.freeze({
   OnmsEvent,
   OnmsParm,
   OnmsServiceType,
+  SERVICE_TYPES,
   OnmsSeverity,
+  SEVERITIES,
   OnmsTroubleTicketState,
 });
 
@@ -58,13 +74,7 @@ const Rest = Object.freeze({
   SuperAgentHTTP,
 });
 
-/** @hidden */
-const DAO = Object.freeze({
-  Filter,
-  AlarmDAO,
-});
-
 /* tslint:enable:object-literal-sort-keys */
 
 /** @hidden */
-export {API, Model, Rest, DAO, Client};
+export {API, DAO, Model, Rest, Client};

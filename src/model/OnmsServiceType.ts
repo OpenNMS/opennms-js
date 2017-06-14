@@ -5,7 +5,7 @@ import {Category} from 'typescript-logging';
 const catServiceType = new Category('service-type', catModel);
 
 /** @hidden */
-const SERVICE_TYPES = {
+export const SERVICE_TYPES = {
 };
 
 /**

@@ -1,6 +1,6 @@
 import * as startCase from 'lodash.startcase';
 
-import {API, Rest, DAO, Client} from './API';
+import {API, Model, Rest, DAO, Client} from './API';
 
 import {log, catRoot, setLogLevel} from './api/Log';
 import {
@@ -145,12 +145,18 @@ function CLI() {
     return alarms.map((alarm) => {
       const severityLabel = ((alarm.severity && alarm.severity.label) ? alarm.severity.label : '');
 
+      let logMessage = '';
+      if (alarm.logMessage) {
+        logMessage = alarm.logMessage.trim();
+        if (logMessage.length > logMessageLength) {
+          logMessage = logMessage.slice(0, logMessageLength) + '…';
+        }
+      }
+
       return {
         count: alarm.count,
         id: alarm.id,
-        log: (alarm.logMessage && alarm.logMessage.length > logMessageLength)
-          ? alarm.logMessage.slice(0, logMessageLength) + '…'
-          : alarm.logMessage,
+        log: logMessage,
         node: alarm.nodeLabel || '',
         severity: colorify(severityLabel),
         time: (alarm.lastEventTime ? alarm.lastEventTime.format('YYYY-MM-DD HH:ss') : ''),
@@ -160,15 +166,52 @@ function CLI() {
 
   // list current alarms
   program
-    .command('alarms')
+    .command('alarms [filters...]')
     .description('List current alarms')
-    .action(() => {
+    .action((filters) => {
       const config = readConfig();
       const auth = new API.OnmsAuthConfig(config.username, config.password);
       const server = new API.OnmsServer('OpenNMS', config.url, auth);
       const http = new Rest.AxiosHTTP(server);
       const dao = new DAO.AlarmDAO(http);
-      return dao.find().then((alarms) => {
+
+      const namePattern = /^(.*?)\s+(eq|ne|ilike|like|gt|lt|ge|le|null|notnull)\s+(.*?)$/i;
+      const symbolPattern = /^(.*?)\s*(=|==|!=|>|<|>=|<=)\s*(.*?)$/i;
+      const filter = new API.Filter<any>();
+
+      for (const f of filters) {
+        let match = f.match(namePattern);
+        let attribute;
+        let comparator;
+        let value;
+        if (match) {
+          attribute = match[1];
+          comparator = match[2];
+          value = match[3];
+        } else {
+          match = f.match(symbolPattern);
+          if (match) {
+            attribute = match[1];
+            comparator = match[2];
+            value = match[3];
+          } else {
+            log.warn('Unable to parse filter "' + f + '"', catCLI);
+          }
+        }
+
+        if (attribute && comparator) {
+          for (const type in API.COMPARATORS) {
+            if (API.COMPARATORS.hasOwnProperty(type)) {
+              const comp = API.COMPARATORS[type];
+              if (comp.matches(comparator)) {
+                filter.restrictions.push(new API.Restriction(attribute, comp, value));
+              }
+            }
+          }
+        }
+      }
+
+      return dao.find(filter).then((alarms) => {
         const headers = ['id', 'severity', 'node', 'count', 'time', 'log'];
         console.log(cliff.stringifyObjectRows(formatAlarms(alarms), headers, ['red']));
       }).catch((err) => {
