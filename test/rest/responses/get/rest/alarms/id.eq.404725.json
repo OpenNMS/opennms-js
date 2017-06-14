@@ -1,0 +1,169 @@
+{
+    "alarm": [
+        {
+            "ackId": 404725,
+            "count": 1,
+            "description": "<p>Low threshold exceeded for SNMP datasource\n            (memAvailReal + memCached) / memTotalReal * 100.0 on interface 24.126.188.121, parms: label=\"node\" ds=\"(memAvailReal + memCached) / memTotalReal * 100.0\" description=\"Trigger an alert when the sum of the amount of unused real/physical memory plus the amount of real/virtual memory currently allocated as cached memory expressed as a percentage of total system memory reaches or goes below 5% for two consecutive measurement intervals\" value=\"0\" instance=\"node\" instanceLabel=\"node\" resourceId=\"node[67].nodeSnmp[]\" threshold=\"5.0\" trigger=\"2\" rearm=\"10.0\".</p>\n            <p>By default, OpenNMS watches some key parameters\n            on devices in your network and will alert you with\n            an event if certain conditions arise. For example, if\n            the CPU utilization on your Cisco router maintains an\n            inordinately high percentage of utilization for an extended\n            period, an event will be generated. These thresholds are\n            determined and configured based on working experience with\n            real deployments, not vendor recommendation alone.</p>\n            <p>This specific event indicates that a low threshold\n            was exceeded.</p>",
+            "firstEventTime": 1497277478192,
+            "id": 404725,
+            "ifIndex": null,
+            "ipAddress": "24.126.188.121",
+            "lastEvent": {
+                "createTime": 1497277478204,
+                "description": "<p>Low threshold exceeded for SNMP datasource\n            (memAvailReal + memCached) / memTotalReal * 100.0 on interface 24.126.188.121, parms: label=\"node\" ds=\"(memAvailReal + memCached) / memTotalReal * 100.0\" description=\"Trigger an alert when the sum of the amount of unused real/physical memory plus the amount of real/virtual memory currently allocated as cached memory expressed as a percentage of total system memory reaches or goes below 5% for two consecutive measurement intervals\" value=\"0\" instance=\"node\" instanceLabel=\"node\" resourceId=\"node[67].nodeSnmp[]\" threshold=\"5.0\" trigger=\"2\" rearm=\"10.0\".</p>\n            <p>By default, OpenNMS watches some key parameters\n            on devices in your network and will alert you with\n            an event if certain conditions arise. For example, if\n            the CPU utilization on your Cisco router maintains an\n            inordinately high percentage of utilization for an extended\n            period, an event will be generated. These thresholds are\n            determined and configured based on working experience with\n            real deployments, not vendor recommendation alone.</p>\n            <p>This specific event indicates that a low threshold\n            was exceeded.</p>",
+                "display": "Y",
+                "host": "mephesto.internal.opennms.com",
+                "id": 2552061,
+                "ifIndex": null,
+                "ipAddress": "24.126.188.121",
+                "log": "Y",
+                "logMessage": "\n            Low threshold exceeded for SNMP datasource (memAvailReal + memCached) / memTotalReal * 100.0 on interface\n            24.126.188.121, parms: label=\"node\" ds=\"(memAvailReal + memCached) / memTotalReal * 100.0\" description=\"Trigger an alert when the sum of the amount of unused real/physical memory plus the amount of real/virtual memory currently allocated as cached memory expressed as a percentage of total system memory reaches or goes below 5% for two consecutive measurement intervals\" value=\"0\" instance=\"node\" instanceLabel=\"node\" resourceId=\"node[67].nodeSnmp[]\" threshold=\"5.0\" trigger=\"2\" rearm=\"10.0\"\n        ",
+                "nodeId": 67,
+                "nodeLabel": "atlgate",
+                "parameters": [
+                    {
+                        "name": "label",
+                        "type": "string",
+                        "value": "node"
+                    },
+                    {
+                        "name": "ds",
+                        "type": "string",
+                        "value": "(memAvailReal + memCached) / memTotalReal * 100.0"
+                    },
+                    {
+                        "name": "description",
+                        "type": "string",
+                        "value": "Trigger an alert when the sum of the amount of unused real/physical memory plus the amount of real/virtual memory currently allocated as cached memory expressed as a percentage of total system memory reaches or goes below 5% for two consecutive measurement intervals"
+                    },
+                    {
+                        "name": "value",
+                        "type": "string",
+                        "value": "0"
+                    },
+                    {
+                        "name": "instance",
+                        "type": "string",
+                        "value": "node"
+                    },
+                    {
+                        "name": "instanceLabel",
+                        "type": "string",
+                        "value": "node"
+                    },
+                    {
+                        "name": "resourceId",
+                        "type": "string",
+                        "value": "node[67].nodeSnmp[]"
+                    },
+                    {
+                        "name": "threshold",
+                        "type": "string",
+                        "value": "5.0"
+                    },
+                    {
+                        "name": "trigger",
+                        "type": "string",
+                        "value": "2"
+                    },
+                    {
+                        "name": "rearm",
+                        "type": "string",
+                        "value": "10.0"
+                    }
+                ],
+                "serviceType": {
+                    "id": 3,
+                    "name": "SNMP"
+                },
+                "severity": "WARNING",
+                "source": "OpenNMS.Threshd.(memAvailReal + memCached) / memTotalReal * 100.0",
+                "time": 1497277478192,
+                "uei": "uei.opennms.org/threshold/lowThresholdExceeded"
+            },
+            "lastEventTime": 1497277478192,
+            "logMessage": "\n            Low threshold exceeded for SNMP datasource (memAvailReal + memCached) / memTotalReal * 100.0 on interface\n            24.126.188.121, parms: label=\"node\" ds=\"(memAvailReal + memCached) / memTotalReal * 100.0\" description=\"Trigger an alert when the sum of the amount of unused real/physical memory plus the amount of real/virtual memory currently allocated as cached memory expressed as a percentage of total system memory reaches or goes below 5% for two consecutive measurement intervals\" value=\"0\" instance=\"node\" instanceLabel=\"node\" resourceId=\"node[67].nodeSnmp[]\" threshold=\"5.0\" trigger=\"2\" rearm=\"10.0\"\n        ",
+            "managedObjectInstance": null,
+            "managedObjectType": null,
+            "nodeId": 67,
+            "nodeLabel": "atlgate",
+            "ossPrimaryKey": null,
+            "parameters": [
+                {
+                    "name": "label",
+                    "type": "string",
+                    "value": "node"
+                },
+                {
+                    "name": "ds",
+                    "type": "string",
+                    "value": "(memAvailReal + memCached) / memTotalReal * 100.0"
+                },
+                {
+                    "name": "description",
+                    "type": "string",
+                    "value": "Trigger an alert when the sum of the amount of unused real/physical memory plus the amount of real/virtual memory currently allocated as cached memory expressed as a percentage of total system memory reaches or goes below 5% for two consecutive measurement intervals"
+                },
+                {
+                    "name": "value",
+                    "type": "string",
+                    "value": "0"
+                },
+                {
+                    "name": "instance",
+                    "type": "string",
+                    "value": "node"
+                },
+                {
+                    "name": "instanceLabel",
+                    "type": "string",
+                    "value": "node"
+                },
+                {
+                    "name": "resourceId",
+                    "type": "string",
+                    "value": "node[67].nodeSnmp[]"
+                },
+                {
+                    "name": "threshold",
+                    "type": "string",
+                    "value": "5.0"
+                },
+                {
+                    "name": "trigger",
+                    "type": "string",
+                    "value": "2"
+                },
+                {
+                    "name": "rearm",
+                    "type": "string",
+                    "value": "10.0"
+                }
+            ],
+            "qosAlarmState": null,
+            "reductionKey": "uei.opennms.org/threshold/lowThresholdExceeded::67:24.126.188.121:(memAvailReal + memCached) / memTotalReal * 100.0:5.0:2:10.0:node",
+            "reductionKeyMemo": {
+                "author": "david",
+                "body": "David is doing a demo, ignore this.",
+                "created": 1487951255050,
+                "id": 235,
+                "reductionKey": "uei.opennms.org/threshold/lowThresholdExceeded::67:24.126.188.121:(memAvailReal + memCached) / memTotalReal * 100.0:5.0:2:10.0:node",
+                "updated": 1495806508530
+            },
+            "serviceType": {
+                "id": 3,
+                "name": "SNMP"
+            },
+            "severity": "WARNING",
+            "suppressedTime": 1497277478192,
+            "suppressedUntil": 1497277478192,
+            "type": 1,
+            "uei": "uei.opennms.org/threshold/lowThresholdExceeded",
+            "x733AlarmType": null,
+            "x733ProbableCause": 0
+        }
+    ],
+    "count": 1,
+    "offset": null,
+    "totalCount": 1
+}
