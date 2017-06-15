@@ -35,6 +35,16 @@ export class MockHTTP extends AbstractHTTP {
         result.type = 'application/json';
         return Promise.resolve(result);
       }
+      case 'rest/nodes/43': {
+        const result = OnmsResult.ok(require('./responses/get/rest/nodes/43.json'));
+        result.type = 'application/json';
+        return Promise.resolve(result);
+      }
+      case 'rest/nodes?limit=1000&comparator=eq&id=43': {
+        const result = OnmsResult.ok(require('./responses/get/rest/nodes/id.eq.43.json'));
+        result.type = 'application/json';
+        return Promise.resolve(result);
+      }
     }
     return Promise.reject(OnmsResult.error('Not yet implemented: ' + urlObj.toString()));
   }
