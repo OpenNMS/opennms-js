@@ -38,4 +38,9 @@ export class OnmsResult<T> {
     this.code = code;
     this.type = type;
   }
+
+  /** whether this response is a successful response */
+  public isSuccess() {
+    return this.code === 200 || this.code === 204;
+  }
 }
