@@ -4,7 +4,7 @@ import {OnmsEnum} from '../internal/OnmsEnum';
  * Represents a filter comparator.
  * @module Comparator
  */ /** */
-export class Comparator extends OnmsEnum {
+export class Comparator extends OnmsEnum<number> {
   /** aliases for the command-line */
   private aliases = [] as string[];
 

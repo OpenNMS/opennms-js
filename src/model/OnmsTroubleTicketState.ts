@@ -4,7 +4,7 @@ import {OnmsEnum} from '../internal/OnmsEnum';
  * Represents an OpenNMS trouble ticket state.
  * @module OnmsTroubleTicketState
  */ /** */
-export class OnmsTroubleTicketState extends OnmsEnum {
+export class OnmsTroubleTicketState extends OnmsEnum<number> {
 }
 
 /* tslint:disable:object-literal-sort-keys */

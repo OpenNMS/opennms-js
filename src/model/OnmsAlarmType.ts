@@ -4,7 +4,7 @@ import {OnmsEnum} from '../internal/OnmsEnum';
  * Represents an OpenNMS alarm type.
  * @module OnmsAlarmType
  */ /** */
-export class OnmsAlarmType extends OnmsEnum {
+export class OnmsAlarmType extends OnmsEnum<number> {
 }
 
 /** @hidden */

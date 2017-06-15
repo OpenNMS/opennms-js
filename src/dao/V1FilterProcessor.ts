@@ -49,7 +49,7 @@ export class V1FilterProcessor implements IFilterProcessor {
           ret.comparator = comp;
           let value = '' + restriction.value;
           if (restriction.value instanceof OnmsEnum) {
-            value = (restriction.value as OnmsEnum).label;
+            value = (restriction.value as OnmsEnum<any>).label;
           }
           ret[restriction.attribute] = value;
         }

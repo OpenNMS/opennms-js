@@ -3,7 +3,7 @@ import {OnmsEnum} from '../internal/OnmsEnum';
  * Represents an OpenNMS severity.
  * @module OnmsSeverity
  */ /** */
-export class OnmsSeverity extends OnmsEnum {
+export class OnmsSeverity extends OnmsEnum<number> {
 }
 
 /* tslint:disable:object-literal-sort-keys */

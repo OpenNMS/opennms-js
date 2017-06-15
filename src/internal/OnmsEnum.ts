@@ -3,9 +3,9 @@
  * Represents an enumerated type.
  * @module OnmsEnum
  */ /** */
-export class OnmsEnum {
+export class OnmsEnum<T> {
   /** the internal index/id */
-  private i: number;
+  private i: T;
 
   /** the type/label */
   private l: string;
@@ -26,9 +26,19 @@ export class OnmsEnum {
   }
 
   /** construct an enum object with an id and label */
-  constructor(id: number, label: string) {
+  constructor(id: T, label: string) {
     this.i = id;
     this.l = label;
+  }
+
+  /** convert this enum to a string suitable for display */
+  public toDisplayString() {
+    return this.l.charAt(0).toUpperCase() + this.l.slice(1).toLowerCase();
+  }
+
+  /** convert this enum to a string */
+  public toString() {
+    return this.i;
   }
 
   /** convert to the JSON representation */
@@ -38,4 +48,30 @@ export class OnmsEnum {
       label: this.l,
     };
   }
+}
+
+/** convenience function for implementing id-based lookup in enums */
+export function forId(collection: any, id: any) {
+  for (const type in collection) {
+    if (collection.hasOwnProperty(type)) {
+      const collectionId = collection[type].id;
+      if (collectionId === id) {
+        return collection[type];
+      }
+    }
+  }
+  return undefined;
+}
+
+/** convenience function for implementing label-based lookup in enums */
+export function forLabel(collection: any, label: string) {
+  for (const type in collection) {
+    if (collection.hasOwnProperty(type)) {
+      const collectionLabel = collection[type].label;
+      if (collectionLabel && collectionLabel.toLowerCase() === label.toLowerCase()) {
+        return collection[type];
+      }
+    }
+  }
+  return undefined;
 }

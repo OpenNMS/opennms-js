@@ -4,7 +4,7 @@ import {OnmsEnum} from '../internal/OnmsEnum';
  * Represents an OpenNMS server type.
  * @module ServerType
  */ /** */
-export class ServerType extends OnmsEnum {
+export class ServerType extends OnmsEnum<number> {
 }
 
 /** @hidden */
