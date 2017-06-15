@@ -87,14 +87,7 @@ export class EventDAO extends AbstractDAO<number, OnmsEvent> {
     return this.http.get('rest/events', opts).then((result) => {
       let data = result.data;
 
-      let count = 0;
-      if (data.totalCount) {
-        count = parseInt(data.totalCount, 10);
-      }
-      if (data.count) {
-        count = parseInt(data.count, 10);
-      }
-      if (count > 0 && data.event) {
+      if (this.getCount(data) > 0 && data.event) {
         data = data.event;
       } else {
         data = [];

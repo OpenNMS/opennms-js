@@ -124,11 +124,7 @@ export class AlarmDAO extends AbstractDAO<number, OnmsAlarm> {
     return this.http.get('rest/alarms', opts).then((result) => {
       let data = result.data;
 
-      let count = 0;
-      if (data.totalCount) {
-        count = parseInt(data.totalCount, 10);
-      }
-      if (count > 0 && data.alarm) {
+      if (this.getCount(data) > 0 && data.alarm) {
         data = data.alarm;
       } else {
         data = [];

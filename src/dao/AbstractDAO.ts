@@ -6,6 +6,9 @@ import {Filter} from '../api/Filter';
 import {OnmsHTTPOptions} from '../api/OnmsHTTPOptions';
 import {OnmsResult} from '../api/OnmsResult';
 
+import {log, catDao} from '../api/Log';
+import {Category} from 'typescript-logging';
+
 /**
  * Abstract data access layer
  * @module AbstractDAO
@@ -33,6 +36,19 @@ export abstract class AbstractDAO<K, T> {
 
   /** find all model objects given a filter */
   public abstract find(filter?: Filter): Promise<T[]>;
+
+  /** extract the count or totalCount values from response data */
+  protected getCount(data: any) {
+    let count = 0;
+    if (data.count !== undefined) {
+      count = parseInt(data.count, 10);
+    } else if (data.totalCount !== undefined) {
+      count = parseInt(data.totalCount, 10);
+    } else {
+      log.warn('data is missing count and totalCount properties', catDao);
+    }
+    return count;
+  }
 
   /** given an optional filter, generate an {@link OnmsHTTPOptions} object for DAO calls */
   protected getOptions(filter?: Filter): OnmsHTTPOptions {
