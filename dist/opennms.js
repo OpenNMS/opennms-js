@@ -4438,7 +4438,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
     return hooks;
 });
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(6)(module)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(7)(module)))
 
 /***/ }),
 /* 1 */
@@ -5386,6 +5386,70 @@ exports.OnmsError = OnmsError;
 "use strict";
 
 
+Object.defineProperty(exports, "__esModule", { value: true });
+var typescript_logging_1 = __webpack_require__(6);
+// Optionally change default settings, in this example set default logging to Info.
+// Without changing configuration, categories will log to Error.
+typescript_logging_1.CategoryServiceFactory.setDefaultConfiguration(new typescript_logging_1.CategoryDefaultConfiguration(typescript_logging_1.LogLevel.Info));
+// Create categories, they will autoregister themselves.
+// This creates one root logger, with 1 child sub category.
+/** @hidden */
+exports.catRoot = new typescript_logging_1.Category('opennms');
+/** @hidden */
+exports.catAPI = new typescript_logging_1.Category('api', exports.catRoot);
+/** @hidden */
+exports.catDao = new typescript_logging_1.Category('dao', exports.catRoot);
+/** @hidden */
+exports.catModel = new typescript_logging_1.Category('model', exports.catRoot);
+/** @hidden */
+exports.catRest = new typescript_logging_1.Category('rest', exports.catRoot);
+/** @hidden */
+exports.catUtil = new typescript_logging_1.Category('util', exports.catRoot);
+/**
+ * Get a logger, this can be retrieved for root categories only (in the example above, the 'service' category).
+ * @hidden
+ */
+exports.log = typescript_logging_1.CategoryServiceFactory.getLogger(exports.catRoot);
+/** @hidden */
+exports.setLogLevel = function (level, cat) {
+    if (cat === undefined) {
+        cat = exports.catRoot;
+    }
+    // console.log('setting category ' + cat.name + ' to ' + level.toString());
+    typescript_logging_1.CategoryServiceFactory.getRuntimeSettings().getCategorySettings(cat).logLevel = level;
+    var _iteratorNormalCompletion = true;
+    var _didIteratorError = false;
+    var _iteratorError = undefined;
+
+    try {
+        for (var _iterator = cat.children[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+            var subCat = _step.value;
+
+            exports.setLogLevel(level, subCat);
+        }
+    } catch (err) {
+        _didIteratorError = true;
+        _iteratorError = err;
+    } finally {
+        try {
+            if (!_iteratorNormalCompletion && _iterator.return) {
+                _iterator.return();
+            }
+        } finally {
+            if (_didIteratorError) {
+                throw _iteratorError;
+            }
+        }
+    }
+};
+
+/***/ }),
+/* 6 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
 function __export(m) {
     for (var p in m) {
         if (!exports.hasOwnProperty(p)) exports[p] = m[p];
@@ -5457,7 +5521,7 @@ exports.getCategoryControl = getCategoryControl;
 //# sourceMappingURL=typescript-logging.js.map
 
 /***/ }),
-/* 6 */
+/* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5487,70 +5551,6 @@ module.exports = function (module) {
 };
 
 /***/ }),
-/* 7 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", { value: true });
-var typescript_logging_1 = __webpack_require__(5);
-// Optionally change default settings, in this example set default logging to Info.
-// Without changing configuration, categories will log to Error.
-typescript_logging_1.CategoryServiceFactory.setDefaultConfiguration(new typescript_logging_1.CategoryDefaultConfiguration(typescript_logging_1.LogLevel.Info));
-// Create categories, they will autoregister themselves.
-// This creates one root logger, with 1 child sub category.
-/** @hidden */
-exports.catRoot = new typescript_logging_1.Category('opennms');
-/** @hidden */
-exports.catAPI = new typescript_logging_1.Category('api', exports.catRoot);
-/** @hidden */
-exports.catDao = new typescript_logging_1.Category('dao', exports.catRoot);
-/** @hidden */
-exports.catModel = new typescript_logging_1.Category('model', exports.catRoot);
-/** @hidden */
-exports.catRest = new typescript_logging_1.Category('rest', exports.catRoot);
-/** @hidden */
-exports.catUtil = new typescript_logging_1.Category('util', exports.catRoot);
-/**
- * Get a logger, this can be retrieved for root categories only (in the example above, the 'service' category).
- * @hidden
- */
-exports.log = typescript_logging_1.CategoryServiceFactory.getLogger(exports.catRoot);
-/** @hidden */
-exports.setLogLevel = function (level, cat) {
-    if (cat === undefined) {
-        cat = exports.catRoot;
-    }
-    // console.log('setting category ' + cat.name + ' to ' + level.toString());
-    typescript_logging_1.CategoryServiceFactory.getRuntimeSettings().getCategorySettings(cat).logLevel = level;
-    var _iteratorNormalCompletion = true;
-    var _didIteratorError = false;
-    var _iteratorError = undefined;
-
-    try {
-        for (var _iterator = cat.children[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-            var subCat = _step.value;
-
-            exports.setLogLevel(level, subCat);
-        }
-    } catch (err) {
-        _didIteratorError = true;
-        _iteratorError = err;
-    } finally {
-        try {
-            if (!_iteratorNormalCompletion && _iterator.return) {
-                _iterator.return();
-            }
-        } finally {
-            if (_didIteratorError) {
-                throw _iteratorError;
-            }
-        }
-    }
-};
-
-/***/ }),
 /* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -5568,10 +5568,42 @@ Object.defineProperty(exports, "__esModule", { value: true });
  */ /** */
 
 var OnmsEnum = function () {
-    _createClass(OnmsEnum, [{
-        key: "id",
+    /** construct an enum object with an id and label */
+    function OnmsEnum(id, label) {
+        _classCallCheck(this, OnmsEnum);
 
-        /** get the index/id of this enum entry */
+        this.i = id;
+        this.l = label;
+    }
+    /** get the index/id of this enum entry */
+
+
+    _createClass(OnmsEnum, [{
+        key: "toDisplayString",
+
+        /** convert this enum to a string suitable for display */
+        value: function toDisplayString() {
+            return this.l.charAt(0).toUpperCase() + this.l.slice(1).toLowerCase();
+        }
+        /** convert this enum to a string */
+
+    }, {
+        key: "toString",
+        value: function toString() {
+            return this.i;
+        }
+        /** convert to the JSON representation */
+
+    }, {
+        key: "toJSON",
+        value: function toJSON() {
+            return {
+                id: this.i,
+                label: this.l
+            };
+        }
+    }, {
+        key: "id",
         get: function get() {
             return this.i;
         }
@@ -5589,33 +5621,38 @@ var OnmsEnum = function () {
         get: function get() {
             return this.l;
         }
-        /** construct an enum object with an id and label */
-
-    }]);
-
-    function OnmsEnum(id, label) {
-        _classCallCheck(this, OnmsEnum);
-
-        this.i = id;
-        this.l = label;
-    }
-    /** convert to the JSON representation */
-
-
-    _createClass(OnmsEnum, [{
-        key: "toJSON",
-        value: function toJSON() {
-            return {
-                id: this.i,
-                label: this.l
-            };
-        }
     }]);
 
     return OnmsEnum;
 }();
 
 exports.OnmsEnum = OnmsEnum;
+/** convenience function for implementing id-based lookup in enums */
+function forId(collection, id) {
+    for (var type in collection) {
+        if (collection.hasOwnProperty(type)) {
+            var collectionId = collection[type].id;
+            if (collectionId === id) {
+                return collection[type];
+            }
+        }
+    }
+    return undefined;
+}
+exports.forId = forId;
+/** convenience function for implementing label-based lookup in enums */
+function forLabel(collection, label) {
+    for (var type in collection) {
+        if (collection.hasOwnProperty(type)) {
+            var collectionLabel = collection[type].label;
+            if (collectionLabel && collectionLabel.toLowerCase() === label.toLowerCase()) {
+                return collection[type];
+            }
+        }
+    }
+    return undefined;
+}
+exports.forLabel = forLabel;
 
 /***/ }),
 /* 9 */
@@ -5651,7 +5688,14 @@ var OnmsResult = function () {
     /** create a new error result */
 
 
-    _createClass(OnmsResult, null, [{
+    _createClass(OnmsResult, [{
+        key: "isSuccess",
+
+        /** whether this response is a successful response */
+        value: function isSuccess() {
+            return this.code === 200 || this.code === 204;
+        }
+    }], [{
         key: "error",
         value: function error(message, code) {
             return new OnmsResult(undefined, message, code);
@@ -7976,8 +8020,8 @@ var _createClass = function () { function defineProperties(target, props) { for 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var Log_1 = __webpack_require__(7);
-var typescript_logging_1 = __webpack_require__(5);
+var Log_1 = __webpack_require__(5);
+var typescript_logging_1 = __webpack_require__(6);
 /** @hidden */
 var catServiceType = new typescript_logging_1.Category('service-type', Log_1.catModel);
 /** @hidden */
@@ -8419,7 +8463,10 @@ var V1FilterProcessor_1 = __webpack_require__(36);
 // tslint:disable-next-line
 var X2JS = __webpack_require__(246);
 /** @hidden */
-var xmlParser = new X2JS();
+var xmlParser = new X2JS({
+    attributePrefix: '',
+    ignoreRoot: true
+});
 /**
  * Abstract implementation of the OnmsHTTP interface meant to be extended
  * @module AbstractHTTP
@@ -8890,8 +8937,8 @@ var __awaiter = undefined && undefined.__awaiter || function (thisArg, _argument
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var Log_1 = __webpack_require__(7);
-var typescript_logging_1 = __webpack_require__(5);
+var Log_1 = __webpack_require__(5);
+var typescript_logging_1 = __webpack_require__(6);
 var OnmsHTTPOptions_1 = __webpack_require__(18);
 var OnmsError_1 = __webpack_require__(4);
 var OnmsResult_1 = __webpack_require__(9);
@@ -9435,8 +9482,8 @@ var OnmsEvent_1 = __webpack_require__(39);
 var OnmsParm_1 = __webpack_require__(20);
 var OnmsServiceType_1 = __webpack_require__(21);
 var OnmsSeverity_1 = __webpack_require__(22);
-var Log_1 = __webpack_require__(7);
-var typescript_logging_1 = __webpack_require__(5);
+var Log_1 = __webpack_require__(5);
+var typescript_logging_1 = __webpack_require__(6);
 /** @hidden */
 // tslint:disable-next-line
 var moment = __webpack_require__(0);
@@ -9462,7 +9509,7 @@ var EventDAO = function (_AbstractDAO_1$Abstra) {
         /** create an event object from a JSON object */
         value: function fromData(data) {
             var event = new OnmsEvent_1.OnmsEvent();
-            event.id = data._id || data.id;
+            event.id = data.id;
             event.uei = data.uei;
             event.nodeId = data.nodeId;
             event.nodeLabel = data.nodeLabel;
@@ -9472,12 +9519,12 @@ var EventDAO = function (_AbstractDAO_1$Abstra) {
             event.source = data.source;
             event.description = data.description;
             event.logMessage = data.logMessage;
-            if (data._severity || data.severity) {
-                event.severity = OnmsSeverity_1.Severities[data._severity || data.severity];
+            if (data.severity) {
+                event.severity = OnmsSeverity_1.Severities[data.severity];
             }
             if (data.serviceType) {
                 var st = data.serviceType;
-                event.service = OnmsServiceType_1.OnmsServiceType.for(st._id || st.id, st._name || st.name);
+                event.service = OnmsServiceType_1.OnmsServiceType.for(st.id, st.name);
             }
             if (data.parameters) {
                 var parms = data.parameters;
@@ -9496,7 +9543,7 @@ var EventDAO = function (_AbstractDAO_1$Abstra) {
                     for (var _iterator = parms[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
                         var parm = _step.value;
 
-                        parm = new OnmsParm_1.OnmsParm(parm._name || parm.name, parm._type || parm.type, parm._value || parm.value);
+                        parm = new OnmsParm_1.OnmsParm(parm.name, parm.type, parm.value);
                         event.parameters.push(parm);
                     }
                 } catch (err) {
@@ -9525,16 +9572,7 @@ var EventDAO = function (_AbstractDAO_1$Abstra) {
 
             var opts = this.getOptions();
             return this.http.get('rest/events/' + id, opts).then(function (result) {
-                var data = result.data;
-                if (result.type === 'application/xml') {
-                    if (data.event) {
-                        data = data.event;
-                    } else {
-                        Log_1.log.warn('Expected "event" property on query response but it was not there...', cat);
-                    }
-                }
-                Log_1.log.trace('data: ' + JSON.stringify(data));
-                return _this2.fromData(data);
+                return _this2.fromData(result.data);
             });
         }
         /** get an event, given a filter */
@@ -9547,33 +9585,10 @@ var EventDAO = function (_AbstractDAO_1$Abstra) {
             var opts = this.getOptions(filter);
             return this.http.get('rest/events', opts).then(function (result) {
                 var data = result.data;
-                var count = 0;
-                if (result.type === 'application/xml') {
-                    if (data.events) {
-                        if (data.events._totalCount) {
-                            count = parseInt(data.events._totalCount, 10);
-                        }
-                        if (data.events._count) {
-                            count = parseInt(data.events._count, 10);
-                        }
-                        if (count > 0 && data.events.event) {
-                            data = data.events.event;
-                        } else {
-                            data = [];
-                        }
-                    }
+                if (_this3.getCount(data) > 0 && data.event) {
+                    data = data.event;
                 } else {
-                    if (data.totalCount) {
-                        count = parseInt(data.totalCount, 10);
-                    }
-                    if (data.count) {
-                        count = parseInt(data.count, 10);
-                    }
-                    if (count > 0 && data.event) {
-                        data = data.event;
-                    } else {
-                        data = [];
-                    }
+                    data = [];
                 }
                 if (!Array.isArray(data)) {
                     throw new OnmsError_1.OnmsError('Expected an array of events but got "' + (typeof data === "undefined" ? "undefined" : _typeof(data)) + '" instead.');
@@ -9880,8 +9895,8 @@ var axios_1 = __webpack_require__(189);
 /** @hidden */
 // tslint:disable-next-line
 var URI = __webpack_require__(180);
-var Log_1 = __webpack_require__(7);
-var typescript_logging_1 = __webpack_require__(5);
+var Log_1 = __webpack_require__(5);
+var typescript_logging_1 = __webpack_require__(6);
 var AbstractHTTP_1 = __webpack_require__(28);
 var OnmsError_1 = __webpack_require__(4);
 var OnmsResult_1 = __webpack_require__(9);
@@ -25343,6 +25358,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 Object.defineProperty(exports, "__esModule", { value: true });
 var Client_1 = __webpack_require__(30);
 var OnmsHTTPOptions_1 = __webpack_require__(18);
+var Log_1 = __webpack_require__(5);
 /**
  * Abstract data access layer
  * @module AbstractDAO
@@ -25361,10 +25377,25 @@ var AbstractDAO = function () {
             this.http = impl;
         }
     }
-    /** given an optional filter, generate an {@link OnmsHTTPOptions} object for DAO calls */
+    /** extract the count or totalCount values from response data */
 
 
     _createClass(AbstractDAO, [{
+        key: "getCount",
+        value: function getCount(data) {
+            var count = 0;
+            if (data.count !== undefined) {
+                count = parseInt(data.count, 10);
+            } else if (data.totalCount !== undefined) {
+                count = parseInt(data.totalCount, 10);
+            } else {
+                Log_1.log.warn('data is missing count and totalCount properties', Log_1.catDao);
+            }
+            return count;
+        }
+        /** given an optional filter, generate an {@link OnmsHTTPOptions} object for DAO calls */
+
+    }, {
         key: "getOptions",
         value: function getOptions(filter) {
             var ret = new OnmsHTTPOptions_1.OnmsHTTPOptions();
@@ -26026,7 +26057,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
     noConflict: noConflict
   };
 });
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(6)(module)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(7)(module)))
 
 /***/ }),
 /* 179 */
@@ -26288,7 +26319,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
   return SLD;
 });
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(6)(module)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(7)(module)))
 
 /***/ }),
 /* 180 */
@@ -28528,7 +28559,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
   return URI;
 });
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(6)(module)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(7)(module)))
 
 /***/ }),
 /* 181 */
@@ -29065,7 +29096,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 		root.punycode = punycode;
 	}
 })(undefined);
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(6)(module)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(7)(module)))
 
 /***/ }),
 /* 182 */
@@ -29251,8 +29282,8 @@ var OnmsAlarmType_1 = __webpack_require__(38);
 var OnmsSeverity_1 = __webpack_require__(22);
 var OnmsTroubleTicketState_1 = __webpack_require__(40);
 var OnmsError_1 = __webpack_require__(4);
-var Log_1 = __webpack_require__(7);
-var typescript_logging_1 = __webpack_require__(5);
+var Log_1 = __webpack_require__(5);
+var typescript_logging_1 = __webpack_require__(6);
 /** @hidden */
 // tslint:disable-next-line
 var moment = __webpack_require__(0);
@@ -29281,8 +29312,8 @@ var AlarmDAO = function (_AbstractDAO_1$Abstra) {
         key: "fromData",
         value: function fromData(data) {
             var alarm = new OnmsAlarm_1.OnmsAlarm();
-            alarm.id = data._id || data.id;
-            alarm.count = data._count || data.count;
+            alarm.id = data.id;
+            alarm.count = data.count;
             alarm.ackUser = data.ackUser;
             alarm.uei = data.uei;
             alarm.description = data.description;
@@ -29294,14 +29325,14 @@ var AlarmDAO = function (_AbstractDAO_1$Abstra) {
             alarm.nodeId = data.nodeId;
             alarm.nodeLabel = data.nodeLabel;
             alarm.suppressedBy = data.suppressedBy;
-            if (data._ackTime || data.ackTime) {
-                alarm.ackTime = moment(data._ackTime || data.ackTime);
+            if (data.ackTime) {
+                alarm.ackTime = moment(data.ackTime);
             }
-            if (data._severity || data.severity) {
-                alarm.severity = OnmsSeverity_1.Severities[data._severity || data.severity];
+            if (data.severity) {
+                alarm.severity = OnmsSeverity_1.Severities[data.severity];
             }
-            if (data._type || data.type) {
-                var type = parseInt(data._type || data.type, 10);
+            if (data.type) {
+                var type = parseInt(data.type, 10);
                 alarm.type = OnmsAlarmType_1.AlarmTypes[type];
             }
             if (data.troubleTicketState) {
@@ -29309,7 +29340,7 @@ var AlarmDAO = function (_AbstractDAO_1$Abstra) {
             }
             if (data.serviceType) {
                 var st = data.serviceType;
-                alarm.service = OnmsServiceType_1.OnmsServiceType.for(st._id || st.id, st._name || st.name);
+                alarm.service = OnmsServiceType_1.OnmsServiceType.for(st.id, st.name);
             }
             if (data.suppressedTime) {
                 alarm.suppressedTime = moment(data.suppressedTime);
@@ -29334,7 +29365,7 @@ var AlarmDAO = function (_AbstractDAO_1$Abstra) {
                     for (var _iterator = parms[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
                         var parm = _step.value;
 
-                        parm = new OnmsParm_1.OnmsParm(parm._name || parm.name, parm._type || parm.type, parm._value || parm.value);
+                        parm = new OnmsParm_1.OnmsParm(parm.name, parm.type, parm.value);
                         alarm.parameters.push(parm);
                     }
                 } catch (err) {
@@ -29363,16 +29394,7 @@ var AlarmDAO = function (_AbstractDAO_1$Abstra) {
 
             var opts = this.getOptions();
             return this.http.get('rest/alarms/' + id, opts).then(function (result) {
-                var data = result.data;
-                if (result.type === 'application/xml') {
-                    if (data.alarm) {
-                        data = data.alarm;
-                    } else {
-                        Log_1.log.warn('Expected "alarm" property on query response but it was not there...', cat);
-                    }
-                }
-                Log_1.log.trace('data: ' + JSON.stringify(data));
-                return _this2.fromData(data);
+                return _this2.fromData(result.data);
             });
         }
         /** get an alarm, given a filter */
@@ -29385,27 +29407,10 @@ var AlarmDAO = function (_AbstractDAO_1$Abstra) {
             var opts = this.getOptions(filter);
             return this.http.get('rest/alarms', opts).then(function (result) {
                 var data = result.data;
-                var count = 0;
-                if (result.type === 'application/xml') {
-                    if (data.alarms) {
-                        if (data.alarms._totalCount) {
-                            count = parseInt(data.alarms._totalCount, 10);
-                        }
-                        if (count > 0 && data.alarms.alarm) {
-                            data = data.alarms.alarm;
-                        } else {
-                            data = [];
-                        }
-                    }
+                if (_this3.getCount(data) > 0 && data.alarm) {
+                    data = data.alarm;
                 } else {
-                    if (data.totalCount) {
-                        count = parseInt(data.totalCount, 10);
-                    }
-                    if (count > 0 && data.alarm) {
-                        data = data.alarm;
-                    } else {
-                        data = [];
-                    }
+                    data = [];
                 }
                 if (!Array.isArray(data)) {
                     throw new OnmsError_1.OnmsError('Expected an array of alarms but got "' + (typeof data === "undefined" ? "undefined" : _typeof(data)) + '" instead.');
@@ -29438,8 +29443,8 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var Log_1 = __webpack_require__(7);
-var typescript_logging_1 = __webpack_require__(5);
+var Log_1 = __webpack_require__(5);
+var typescript_logging_1 = __webpack_require__(6);
 var AbstractHTTP_1 = __webpack_require__(28);
 var OnmsError_1 = __webpack_require__(4);
 var OnmsResult_1 = __webpack_require__(9);
@@ -29542,8 +29547,8 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 Object.defineProperty(exports, "__esModule", { value: true });
 var request = __webpack_require__(231);
-var Log_1 = __webpack_require__(7);
-var typescript_logging_1 = __webpack_require__(5);
+var Log_1 = __webpack_require__(5);
+var typescript_logging_1 = __webpack_require__(6);
 var AbstractHTTP_1 = __webpack_require__(28);
 var OnmsError_1 = __webpack_require__(4);
 var OnmsResult_1 = __webpack_require__(9);
@@ -34515,7 +34520,7 @@ function property(path) {
 }
 
 module.exports = find;
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(6)(module)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(7)(module)))
 
 /***/ }),
 /* 217 */
@@ -36841,7 +36846,7 @@ function stubFalse() {
 }
 
 module.exports = merge;
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(6)(module)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(7)(module)))
 
 /***/ }),
 /* 219 */
@@ -37591,7 +37596,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 // object, this seems to be the most reliable technique that does not
 // use indirect eval (which violates Content Security Policy).
 (typeof global === "undefined" ? "undefined" : _typeof(global)) === "object" ? global : (typeof window === "undefined" ? "undefined" : _typeof(window)) === "object" ? window : (typeof self === "undefined" ? "undefined" : _typeof(self)) === "object" ? self : undefined);
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(6)(module)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(7)(module)))
 
 /***/ }),
 /* 221 */
