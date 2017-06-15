@@ -43,8 +43,8 @@ export class AlarmDAO extends AbstractDAO<number, OnmsAlarm> {
   public fromData(data: any) {
     const alarm = new OnmsAlarm();
 
-    alarm.id = data._id || data.id;
-    alarm.count = data._count || data.count;
+    alarm.id = data.id;
+    alarm.count = data.count;
     alarm.ackUser = data.ackUser;
     alarm.uei = data.uei;
     alarm.description = data.description;
@@ -57,16 +57,16 @@ export class AlarmDAO extends AbstractDAO<number, OnmsAlarm> {
     alarm.nodeLabel = data.nodeLabel;
     alarm.suppressedBy = data.suppressedBy;
 
-    if (data._ackTime || data.ackTime) {
-      alarm.ackTime = moment(data._ackTime || data.ackTime);
+    if (data.ackTime) {
+      alarm.ackTime = moment(data.ackTime);
     }
 
-    if (data._severity || data.severity) {
-      alarm.severity = Severities[data._severity || data.severity];
+    if (data.severity) {
+      alarm.severity = Severities[data.severity];
     }
 
-    if (data._type || data.type) {
-      const type = parseInt(data._type || data.type, 10);
+    if (data.type) {
+      const type = parseInt(data.type, 10);
       alarm.type = AlarmTypes[type];
     }
 
@@ -76,7 +76,7 @@ export class AlarmDAO extends AbstractDAO<number, OnmsAlarm> {
 
     if (data.serviceType) {
       const st = data.serviceType;
-      alarm.service = OnmsServiceType.for(st._id || st.id, st._name || st.name);
+      alarm.service = OnmsServiceType.for(st.id, st.name);
     }
 
     if (data.suppressedTime) {
@@ -99,9 +99,9 @@ export class AlarmDAO extends AbstractDAO<number, OnmsAlarm> {
 
       for (let parm of parms) {
         parm = new OnmsParm(
-          parm._name || parm.name,
-          parm._type || parm.type,
-          parm._value || parm.value,
+          parm.name,
+          parm.type,
+          parm.value,
         );
         alarm.parameters.push(parm);
       }
@@ -114,18 +114,7 @@ export class AlarmDAO extends AbstractDAO<number, OnmsAlarm> {
   public get(id: number): Promise<OnmsAlarm> {
     const opts = this.getOptions();
     return this.http.get('rest/alarms/' + id, opts).then((result) => {
-      let data = result.data;
-      if (result.type === 'application/xml') {
-        if (data.alarm) {
-          data = data.alarm;
-        } else {
-          log.warn('Expected "alarm" property on query response but it was not there...', cat);
-        }
-      }
-
-      log.trace('data: ' + JSON.stringify(data));
-
-      return this.fromData(data);
+      return this.fromData(result.data);
     });
   }
 
@@ -136,26 +125,13 @@ export class AlarmDAO extends AbstractDAO<number, OnmsAlarm> {
       let data = result.data;
 
       let count = 0;
-      if (result.type === 'application/xml') {
-        if (data.alarms) {
-          if (data.alarms._totalCount) {
-            count = parseInt(data.alarms._totalCount, 10);
-          }
-          if (count > 0 && data.alarms.alarm) {
-            data = data.alarms.alarm;
-          } else {
-            data = [];
-          }
-        }
+      if (data.totalCount) {
+        count = parseInt(data.totalCount, 10);
+      }
+      if (count > 0 && data.alarm) {
+        data = data.alarm;
       } else {
-        if (data.totalCount) {
-          count = parseInt(data.totalCount, 10);
-        }
-        if (count > 0 && data.alarm) {
-          data = data.alarm;
-        } else {
-          data = [];
-        }
+        data = [];
       }
 
       if (!Array.isArray(data)) {

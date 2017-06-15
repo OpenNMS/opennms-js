@@ -30,7 +30,7 @@ export class EventDAO extends AbstractDAO<number, OnmsEvent> {
   public fromData(data: any) {
     const event = new OnmsEvent();
 
-    event.id = data._id || data.id;
+    event.id = data.id;
     event.uei = data.uei;
     event.nodeId = data.nodeId;
     event.nodeLabel = data.nodeLabel;
@@ -41,13 +41,13 @@ export class EventDAO extends AbstractDAO<number, OnmsEvent> {
     event.description = data.description;
     event.logMessage = data.logMessage;
 
-    if (data._severity || data.severity) {
-      event.severity = Severities[data._severity || data.severity];
+    if (data.severity) {
+      event.severity = Severities[data.severity];
     }
 
     if (data.serviceType) {
       const st = data.serviceType;
-      event.service = OnmsServiceType.for(st._id || st.id, st._name || st.name);
+      event.service = OnmsServiceType.for(st.id, st.name);
     }
 
     if (data.parameters) {
@@ -62,9 +62,9 @@ export class EventDAO extends AbstractDAO<number, OnmsEvent> {
 
       for (let parm of parms) {
         parm = new OnmsParm(
-          parm._name || parm.name,
-          parm._type || parm.type,
-          parm._value || parm.value,
+          parm.name,
+          parm.type,
+          parm.value,
         );
         event.parameters.push(parm);
       }
@@ -77,18 +77,7 @@ export class EventDAO extends AbstractDAO<number, OnmsEvent> {
   public get(id: number): Promise<OnmsEvent> {
     const opts = this.getOptions();
     return this.http.get('rest/events/' + id, opts).then((result) => {
-      let data = result.data;
-      if (result.type === 'application/xml') {
-        if (data.event) {
-          data = data.event;
-        } else {
-          log.warn('Expected "event" property on query response but it was not there...', cat);
-        }
-      }
-
-      log.trace('data: ' + JSON.stringify(data));
-
-      return this.fromData(data);
+      return this.fromData(result.data);
     });
   }
 
@@ -99,32 +88,16 @@ export class EventDAO extends AbstractDAO<number, OnmsEvent> {
       let data = result.data;
 
       let count = 0;
-      if (result.type === 'application/xml') {
-        if (data.events) {
-          if (data.events._totalCount) {
-            count = parseInt(data.events._totalCount, 10);
-          }
-          if (data.events._count) {
-            count = parseInt(data.events._count, 10);
-          }
-          if (count > 0 && data.events.event) {
-            data = data.events.event;
-          } else {
-            data = [];
-          }
-        }
+      if (data.totalCount) {
+        count = parseInt(data.totalCount, 10);
+      }
+      if (data.count) {
+        count = parseInt(data.count, 10);
+      }
+      if (count > 0 && data.event) {
+        data = data.event;
       } else {
-        if (data.totalCount) {
-          count = parseInt(data.totalCount, 10);
-        }
-        if (data.count) {
-          count = parseInt(data.count, 10);
-        }
-        if (count > 0 && data.event) {
-          data = data.event;
-        } else {
-          data = [];
-        }
+        data = [];
       }
 
       if (!Array.isArray(data)) {

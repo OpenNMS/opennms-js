@@ -14,7 +14,10 @@ import {V1FilterProcessor} from '../dao/V1FilterProcessor';
 const X2JS = require('x2js');
 
 /** @hidden */
-const xmlParser = new X2JS();
+const xmlParser = new X2JS({
+  attributePrefix: '',
+  ignoreRoot: true,
+});
 
 /**
  * Abstract implementation of the OnmsHTTP interface meant to be extended
