@@ -14,10 +14,6 @@ import {log, catDao} from '../api/Log';
 import {Category} from 'typescript-logging';
 
 /** @hidden */
-// tslint:disable-next-line
-const moment = require('moment');
-
-/** @hidden */
 const cat = new Category('events', catDao);
 
 /**
@@ -25,17 +21,20 @@ const cat = new Category('events', catDao);
  * @module EventDAO
  */ /** */
 export class EventDAO extends AbstractDAO<number, OnmsEvent> {
-  /** create an event object from a JSON object */
+  /**
+   * create an event object from a JSON object
+   * @hidden
+   */
   public fromData(data: any) {
     const event = new OnmsEvent();
 
-    event.id = data.id;
+    event.id = this.toNumber(data.id);
     event.uei = data.uei;
-    event.nodeId = data.nodeId;
+    event.nodeId = this.toNumber(data.nodeId);
     event.nodeLabel = data.nodeLabel;
     event.ipAddress = Util.toIPAddress(data.ipAddress);
-    event.createTime = moment(data.createTime);
-    event.time = moment(data.time);
+    event.createTime = this.toDate(data.createTime);
+    event.time = this.toDate(data.time);
     event.source = data.source;
     event.description = data.description;
     event.logMessage = data.logMessage;
@@ -73,7 +72,7 @@ export class EventDAO extends AbstractDAO<number, OnmsEvent> {
   }
 
   /** get an event, given the event's ID */
-  public get(id: number): Promise<OnmsEvent> {
+  public async get(id: number): Promise<OnmsEvent> {
     const opts = this.getOptions();
     return this.http.get('rest/events/' + id, opts).then((result) => {
       return this.fromData(result.data);
@@ -81,7 +80,7 @@ export class EventDAO extends AbstractDAO<number, OnmsEvent> {
   }
 
   /** get an event, given a filter */
-  public find(filter?: Filter): Promise<OnmsEvent[]> {
+  public async find(filter?: Filter): Promise<OnmsEvent[]> {
     const opts = this.getOptions(filter);
     return this.http.get('rest/events', opts).then((result) => {
       let data = result.data;

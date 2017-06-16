@@ -29,6 +29,20 @@ export class OnmsIpInterface {
   /** the SNMP primary status of the interface */
   public snmpPrimary: OnmsPrimaryType;
 
+  /** the SNMP interface ID associated with this interface */
+  public snmpInterfaceId: number;
+
+  public get snmpInterface() {
+    if (this.node) {
+      for (const iface of this.node.snmpInterfaces) {
+        if (iface.id === this.snmpInterfaceId) {
+          return iface;
+        }
+      }
+    }
+    return undefined;
+  }
+
   /** the node this interface is associated with */
   public node: OnmsNode;
 

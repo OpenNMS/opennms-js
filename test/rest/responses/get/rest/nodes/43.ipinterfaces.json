@@ -1,0 +1,71 @@
+{
+    "count": 2,
+    "ipInterface": [
+        {
+            "hostName": "butters.internal.opennms.com",
+            "id": "2588",
+            "ifIndex": 4,
+            "ipAddress": "172.20.1.14",
+            "isDown": false,
+            "isManaged": "M",
+            "lastCapsdPoll": 1494274999527,
+            "monitoredServiceCount": 5,
+            "nodeId": 43,
+            "snmpInterface": {
+                "collect": true,
+                "collectFlag": "C",
+                "collectionUserSpecified": false,
+                "id": 2986,
+                "ifAdminStatus": 1,
+                "ifAlias": "",
+                "ifDescr": "br0",
+                "ifIndex": 4,
+                "ifName": "br0",
+                "ifOperStatus": 1,
+                "ifSpeed": 0,
+                "ifType": 6,
+                "lastCapsdPoll": 1494274999527,
+                "lastSnmpPoll": null,
+                "netMask": "255.255.255.0",
+                "physAddr": "408d5c5555a2",
+                "poll": false,
+                "pollFlag": "N"
+            },
+            "snmpPrimary": "P"
+        },
+        {
+            "hostName": "192.168.122.1",
+            "id": "90392",
+            "ifIndex": 5,
+            "ipAddress": "192.168.122.1",
+            "isDown": true,
+            "isManaged": "M",
+            "lastCapsdPoll": 1494274999527,
+            "monitoredServiceCount": 0,
+            "nodeId": 43,
+            "snmpInterface": {
+                "collect": true,
+                "collectFlag": "C",
+                "collectionUserSpecified": false,
+                "id": 90390,
+                "ifAdminStatus": 1,
+                "ifAlias": "",
+                "ifDescr": "virbr0",
+                "ifIndex": 5,
+                "ifName": "virbr0",
+                "ifOperStatus": 2,
+                "ifSpeed": 0,
+                "ifType": 6,
+                "lastCapsdPoll": 1494274999527,
+                "lastSnmpPoll": null,
+                "netMask": "255.255.255.0",
+                "physAddr": "7e4aeb09c7ce",
+                "poll": false,
+                "pollFlag": "N"
+            },
+            "snmpPrimary": "N"
+        }
+    ],
+    "offset": null,
+    "totalCount": 2
+}

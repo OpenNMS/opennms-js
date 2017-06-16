@@ -4,6 +4,7 @@ import {OnmsCategory} from './OnmsCategory';
 import {OnmsNodeLabelSource} from './OnmsNodeLabelSource';
 import {OnmsNodeType} from './OnmsNodeType';
 import {OnmsIpInterface} from './OnmsIpInterface';
+import {OnmsSnmpInterface} from './OnmsSnmpInterface';
 
 /**
  * Represents an OpenNMS node.
@@ -78,6 +79,9 @@ export class OnmsNode {
 
   /** the path element associated with this node */
   // public pathElement: PathElement;
+
+  /** the SNMP interfaces on this node */
+  public snmpInterfaces = [] as OnmsSnmpInterface[];
 
   /** the IP interfaces on this node */
   public ipInterfaces = [] as OnmsIpInterface[];

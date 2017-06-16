@@ -16,6 +16,7 @@ import {OnmsServer} from '../../src/api/OnmsServer';
 
 import {OnmsCategory} from '../../src/model/OnmsCategory';
 import {OnmsNodeType} from '../../src/model/OnmsNodeType';
+import {SnmpStatusTypes} from '../../src/model/OnmsSnmpStatusType';
 
 import {NodeDAO} from '../../src/dao/NodeDAO';
 
@@ -40,7 +41,7 @@ describe('NodeDAO', () => {
     opennms = new Client(mockHTTP);
     dao = new NodeDAO(mockHTTP);
   });
-  it('NodeDAO.get(43)', () => {
+  it('NodeDAO.get(43, [recurse=false])', () => {
     return dao.get(43).then((node) => {
       expect(node.id).toEqual(43);
       expect(node.categories.length).toEqual(2);
@@ -49,6 +50,35 @@ describe('NodeDAO', () => {
       expect(node.createTime).toBeInstanceOf(moment);
       expect(node.type).toBeDefined();
       expect(node.type).toBeInstanceOf(OnmsNodeType);
+    });
+  });
+  it('NodeDAO.get(43, recurse=true)', () => {
+    return dao.get(43, true).then((node) => {
+      expect(node.id).toEqual(43);
+      expect(node.categories.length).toEqual(2);
+      expect(node.categories[0]).toBeInstanceOf(OnmsCategory);
+      expect(node.foreignSource).toBeUndefined();
+      expect(node.createTime).toBeInstanceOf(moment);
+      expect(node.type).toBeDefined();
+      expect(node.type).toBeInstanceOf(OnmsNodeType);
+
+      expect(node.snmpInterfaces.length).toEqual(6);
+
+      const snmp = node.snmpInterfaces[2];
+      expect(snmp.ifIndex).toEqual(4);
+      expect(snmp.ifSpeed).toEqual(0);
+      expect(snmp.ifAdminStatus).toEqual(SnmpStatusTypes['1']);
+      expect(snmp.ifOperStatus).toEqual(SnmpStatusTypes['1']);
+      expect(snmp.ifName).toEqual('br0');
+      expect(snmp.physAddr).toBeDefined();
+      expect(snmp.physAddr.toString()).toEqual('40:8D:5C:55:55:A2');
+
+      expect(node.ipInterfaces.length).toEqual(2);
+      const ip = node.ipInterfaces[0];
+      expect(ip.hostname).toEqual('butters.internal.opennms.com');
+      expect(ip.services.length).toEqual(5);
+
+      expect(ip.snmpInterface).toEqual(snmp);
     });
   });
   it('NodeDAO.find(id=43)', () => {

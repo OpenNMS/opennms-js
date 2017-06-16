@@ -45,6 +45,26 @@ export class MockHTTP extends AbstractHTTP {
         result.type = 'application/json';
         return Promise.resolve(result);
       }
+      case 'rest/nodes/43/snmpinterfaces': {
+        const result = OnmsResult.ok(require('./responses/get/rest/nodes/43.snmpinterfaces.json'));
+        result.type = 'application/json';
+        return Promise.resolve(result);
+      }
+      case 'rest/nodes/43/ipinterfaces': {
+        const result = OnmsResult.ok(require('./responses/get/rest/nodes/43.ipinterfaces.json'));
+        result.type = 'application/json';
+        return Promise.resolve(result);
+      }
+      case 'rest/nodes/43/ipinterfaces/172.20.1.14/services': {
+        const result = OnmsResult.ok(require('./responses/get/rest/nodes/43.ipinterfaces.172.20.1.14.services.json'));
+        result.type = 'application/json';
+        return Promise.resolve(result);
+      }
+      case 'rest/nodes/43/ipinterfaces/192.168.122.1/services': {
+        const result = OnmsResult.ok(require('./responses/get/rest/nodes/43.ipinterfaces.192.168.122.1.services.json'));
+        result.type = 'application/json';
+        return Promise.resolve(result);
+      }
     }
     return Promise.reject(OnmsResult.error('Not yet implemented: ' + urlObj.toString()));
   }

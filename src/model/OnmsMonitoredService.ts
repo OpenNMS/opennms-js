@@ -1,6 +1,8 @@
 import {Address4, Address6} from 'ip-address';
 import {Moment} from 'moment';
 
+import {OnmsIpInterface} from './OnmsIpInterface';
+import {OnmsNode} from './OnmsNode';
 import {OnmsServiceType} from './OnmsServiceType';
 import {OnmsServiceStatusType} from './OnmsServiceStatusType';
 
@@ -9,7 +11,7 @@ import {OnmsServiceStatusType} from './OnmsServiceStatusType';
  * @module OnmsMonitoredService
  */ /** */
 export class OnmsMonitoredService {
-  /** the interface ID */
+  /** the service ID */
   public id: number;
 
   /** the last time the service failed */
@@ -18,8 +20,14 @@ export class OnmsMonitoredService {
   /** the last time the service passed */
   public lastGood: Moment;
 
-  /** the service type */
-  public serviceType: OnmsServiceType;
+  /** the node associated with this service */
+  public node: OnmsNode;
+
+  /** the ipInterface associated with this service */
+  public ipInterface: OnmsIpInterface;
+
+  /** the service type associated with this service */
+  public type: OnmsServiceType;
 
   /** the current status */
   public status: OnmsServiceStatusType;

@@ -1,0 +1,82 @@
+{
+    "count": 5,
+    "offset": null,
+    "service": [
+        {
+            "applications": [],
+            "down": false,
+            "lastFail": null,
+            "lastGood": null,
+            "notify": null,
+            "qualifier": null,
+            "serviceType": {
+                "id": 4,
+                "name": "HTTP"
+            },
+            "source": null,
+            "status": "A",
+            "statusLong": "Managed"
+        },
+        {
+            "applications": [],
+            "down": false,
+            "lastFail": null,
+            "lastGood": null,
+            "notify": "Y",
+            "qualifier": null,
+            "serviceType": {
+                "id": 17,
+                "name": "SSH"
+            },
+            "source": "P",
+            "status": "A",
+            "statusLong": "Managed"
+        },
+        {
+            "applications": [],
+            "down": false,
+            "lastFail": null,
+            "lastGood": null,
+            "notify": null,
+            "qualifier": null,
+            "serviceType": {
+                "id": 3,
+                "name": "SNMP"
+            },
+            "source": null,
+            "status": "A",
+            "statusLong": "Managed"
+        },
+        {
+            "applications": [],
+            "down": false,
+            "lastFail": null,
+            "lastGood": null,
+            "notify": null,
+            "qualifier": null,
+            "serviceType": {
+                "id": 15,
+                "name": "SMTP"
+            },
+            "source": null,
+            "status": "A",
+            "statusLong": "Managed"
+        },
+        {
+            "applications": [],
+            "down": false,
+            "lastFail": null,
+            "lastGood": null,
+            "notify": null,
+            "qualifier": null,
+            "serviceType": {
+                "id": 1,
+                "name": "ICMP"
+            },
+            "source": null,
+            "status": "A",
+            "statusLong": "Managed"
+        }
+    ],
+    "totalCount": 5
+}

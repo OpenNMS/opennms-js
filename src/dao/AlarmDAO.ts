@@ -19,10 +19,6 @@ import {log, catDao} from '../api/Log';
 import {Category} from 'typescript-logging';
 
 /** @hidden */
-// tslint:disable-next-line
-const moment = require('moment');
-
-/** @hidden */
 const cat = new Category('alarms', catDao);
 
 /**
@@ -38,26 +34,29 @@ export class AlarmDAO extends AbstractDAO<number, OnmsAlarm> {
     this.eventDao = new EventDAO(impl);
   }
 
-  /** create an alarm object from a JSON object */
+  /**
+   * create an alarm object from a JSON object
+   * @hidden
+   */
   public fromData(data: any) {
     const alarm = new OnmsAlarm();
 
-    alarm.id = data.id;
+    alarm.id = this.toNumber(data.id);
     alarm.count = data.count;
     alarm.ackUser = data.ackUser;
     alarm.uei = data.uei;
     alarm.description = data.description;
-    alarm.firstEventTime = moment(data.firstEventTime);
+    alarm.firstEventTime = this.toDate(data.firstEventTime);
     alarm.lastEvent = this.eventDao.fromData(data.lastEvent);
     alarm.logMessage = data.logMessage;
     alarm.reductionKey = data.reductionKey;
     alarm.troubleTicket = data.troubleTicket;
-    alarm.nodeId = data.nodeId;
+    alarm.nodeId = this.toNumber(data.nodeId);
     alarm.nodeLabel = data.nodeLabel;
     alarm.suppressedBy = data.suppressedBy;
 
     if (data.ackTime) {
-      alarm.ackTime = moment(data.ackTime);
+      alarm.ackTime = this.toDate(data.ackTime);
     }
 
     if (data.severity) {
@@ -65,7 +64,7 @@ export class AlarmDAO extends AbstractDAO<number, OnmsAlarm> {
     }
 
     if (data.type) {
-      const type = parseInt(data.type, 10);
+      const type = this.toNumber(data.type);
       alarm.type = AlarmTypes[type];
     }
 
@@ -79,11 +78,11 @@ export class AlarmDAO extends AbstractDAO<number, OnmsAlarm> {
     }
 
     if (data.suppressedTime) {
-      alarm.suppressedTime = moment(data.suppressedTime);
+      alarm.suppressedTime = this.toDate(data.suppressedTime);
     }
 
     if (data.suppressedUntil) {
-      alarm.suppressedUntil = moment(data.suppressedUntil);
+      alarm.suppressedUntil = this.toDate(data.suppressedUntil);
     }
 
     if (data.parameters) {
@@ -110,7 +109,7 @@ export class AlarmDAO extends AbstractDAO<number, OnmsAlarm> {
   }
 
   /** get an alarm, given the alarm's ID */
-  public get(id: number): Promise<OnmsAlarm> {
+  public async get(id: number): Promise<OnmsAlarm> {
     const opts = this.getOptions();
     return this.http.get('rest/alarms/' + id, opts).then((result) => {
       return this.fromData(result.data);
@@ -118,7 +117,7 @@ export class AlarmDAO extends AbstractDAO<number, OnmsAlarm> {
   }
 
   /** get an alarm, given a filter */
-  public find(filter?: Filter): Promise<OnmsAlarm[]> {
+  public async find(filter?: Filter): Promise<OnmsAlarm[]> {
     const opts = this.getOptions(filter);
     return this.http.get('rest/alarms', opts).then((result) => {
       let data = result.data;
