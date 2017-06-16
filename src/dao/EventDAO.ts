@@ -2,7 +2,6 @@ import {AbstractDAO} from './AbstractDAO';
 
 import {Filter} from '../api/Filter';
 import {OnmsError} from '../api/OnmsError';
-import {OnmsHTTPOptions} from '../api/OnmsHTTPOptions';
 
 import {Util} from '../internal/Util';
 

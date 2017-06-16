@@ -1,8 +1,6 @@
 import {IOnmsHTTP} from '../api/IOnmsHTTP';
 import {IFilterProcessor} from '../api/IFilterProcessor';
 
-import {OnmsAuthConfig} from '../api/OnmsAuthConfig';
-import {OnmsError} from '../api/OnmsError';
 import {OnmsHTTPOptions} from '../api/OnmsHTTPOptions';
 import {OnmsResult} from '../api/OnmsResult';
 import {OnmsServer} from '../api/OnmsServer';

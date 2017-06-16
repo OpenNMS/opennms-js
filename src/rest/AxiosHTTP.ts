@@ -5,16 +5,14 @@ import {AxiosInstance, AxiosRequestConfig} from 'axios';
 // tslint:disable-next-line
 const URI = require('urijs');
 
-import {log, catRest} from '../api/Log';
-import {Category} from 'typescript-logging';
-
-import {IOnmsHTTP} from '../api/IOnmsHTTP';
-
 import {AbstractHTTP} from './AbstractHTTP';
 import {OnmsError} from '../api/OnmsError';
 import {OnmsHTTPOptions} from '../api/OnmsHTTPOptions';
 import {OnmsResult} from '../api/OnmsResult';
 import {OnmsServer} from '../api/OnmsServer';
+
+import {log, catRest} from '../api/Log';
+import {Category} from 'typescript-logging';
 
 /** @hidden */
 const catAxios = new Category('axios', catRest);
@@ -24,7 +22,7 @@ const catAxios = new Category('axios', catRest);
  * @module AxiosHTTP
  * @implements IOnmsHTTP
  */ /** */
-export class AxiosHTTP extends AbstractHTTP implements IOnmsHTTP {
+export class AxiosHTTP extends AbstractHTTP {
   /** the Axios instance we'll use for making ReST calls */
   private axiosObj: AxiosInstance;
 

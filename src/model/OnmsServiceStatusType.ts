@@ -5,14 +5,17 @@ import {OnmsEnum, forId, forLabel} from '../internal/OnmsEnum';
  * @module OnmsServiceStatusType
  */ /** */
 export class OnmsServiceStatusType extends OnmsEnum<string> {
+  /** given an ID, return the matching service status type object */
   public static forId(id: string) {
-    return forId(OnmsServiceStatusTypes, id);
+    return forId(ServiceStatusTypes, id);
   }
 
+  /** given a label, return the matching service status type object */
   public static forLabel(label: string) {
-    return forLabel(OnmsServiceStatusTypes, label);
+    return forLabel(ServiceStatusTypes, label);
   }
 
+  /** whether or not the service is managed */
   public isManaged() {
     return this.id === 'A';
   }
@@ -20,7 +23,7 @@ export class OnmsServiceStatusType extends OnmsEnum<string> {
 
 /* tslint:disable:object-literal-sort-keys */
 /** @hidden */
-export const OnmsServiceStatusTypes = Object.freeze({
+export const ServiceStatusTypes = Object.freeze({
   MANAGED: new OnmsServiceStatusType('A', 'MANAGED'),
   UNMANAGED: new OnmsServiceStatusType('U', 'UNMANAGED'),
   DELETED: new OnmsServiceStatusType('D', 'DELETED'),

@@ -14,7 +14,6 @@ import {TroubleTicketStates} from '../model/OnmsTroubleTicketState';
 import {Filter} from '../api/Filter';
 import {IOnmsHTTP} from '../api/IOnmsHTTP';
 import {OnmsError} from '../api/OnmsError';
-import {OnmsHTTPOptions} from '../api/OnmsHTTPOptions';
 
 import {log, catDao} from '../api/Log';
 import {Category} from 'typescript-logging';

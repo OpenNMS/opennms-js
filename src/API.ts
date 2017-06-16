@@ -12,12 +12,22 @@ import {ServerType, ServerTypes} from './api/ServerType';
 
 import {AlarmDAO} from './dao/AlarmDAO';
 import {EventDAO} from './dao/EventDAO';
+import {NodeDAO} from './dao/NodeDAO';
 import {V1FilterProcessor} from './dao/V1FilterProcessor';
 
 import {OnmsAlarm} from './model/OnmsAlarm';
 import {OnmsAlarmType, AlarmTypes} from './model/OnmsAlarmType';
+import {OnmsCategory, Categories} from './model/OnmsCategory';
 import {OnmsEvent} from './model/OnmsEvent';
+import {OnmsIpInterface} from './model/OnmsIpInterface';
+import {OnmsManagedType, ManagedTypes} from './model/OnmsManagedType';
+import {OnmsMonitoredService} from './model/OnmsMonitoredService';
+import {OnmsNode} from './model/OnmsNode';
+import {OnmsNodeLabelSource, NodeLabelSources} from './model/OnmsNodeLabelSource';
+import {OnmsNodeType, NodeTypes} from './model/OnmsNodeType';
 import {OnmsParm} from './model/OnmsParm';
+import {OnmsPrimaryType, PrimaryTypes} from './model/OnmsPrimaryType';
+import {OnmsServiceStatusType, ServiceStatusTypes} from './model/OnmsServiceStatusType';
 import {OnmsServiceType, ServiceTypes} from './model/OnmsServiceType';
 import {OnmsSeverity, Severities} from './model/OnmsSeverity';
 import {OnmsTroubleTicketState, TroubleTicketStates} from './model/OnmsTroubleTicketState';
@@ -51,6 +61,7 @@ const API = Object.freeze({
 const DAO = Object.freeze({
   AlarmDAO,
   EventDAO,
+  NodeDAO,
   V1FilterProcessor,
 });
 
@@ -58,8 +69,21 @@ const DAO = Object.freeze({
 const Model = Object.freeze({
   OnmsAlarm,
   OnmsAlarmType,
+  OnmsCategory,
+  Categories,
   OnmsEvent,
+  OnmsIpInterface,
+  OnmsManagedType,
+  ManagedTypes,
+  OnmsMonitoredService,
+  OnmsNode,
+  OnmsNodeLabelSource,
+  NodeLabelSources,
   OnmsParm,
+  OnmsPrimaryType,
+  PrimaryTypes,
+  OnmsServiceStatusType,
+  ServiceStatusTypes,
   OnmsServiceType,
   ServiceTypes,
   OnmsSeverity,

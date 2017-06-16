@@ -4,7 +4,7 @@ import {OnmsEnum} from '../internal/OnmsEnum';
 import {IFilterProcessor} from '../api/IFilterProcessor';
 
 import {Filter} from '../api/Filter';
-import {Comparator, Comparators} from '../api/Comparator';
+import {Comparators} from '../api/Comparator';
 import {OnmsError} from '../api/OnmsError';
 
 /** @hidden */

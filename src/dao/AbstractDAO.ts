@@ -4,7 +4,6 @@ import {Client} from '../Client';
 
 import {Filter} from '../api/Filter';
 import {OnmsHTTPOptions} from '../api/OnmsHTTPOptions';
-import {OnmsResult} from '../api/OnmsResult';
 
 import {log, catDao} from '../api/Log';
 import {Category} from 'typescript-logging';

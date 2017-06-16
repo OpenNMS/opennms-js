@@ -1,13 +1,11 @@
-import {log, catRest} from '../api/Log';
-import {Category} from 'typescript-logging';
-
-import {IOnmsHTTP} from '../api/IOnmsHTTP';
-
 import {AbstractHTTP} from './AbstractHTTP';
 import {OnmsError} from '../api/OnmsError';
 import {OnmsHTTPOptions} from '../api/OnmsHTTPOptions';
 import {OnmsResult} from '../api/OnmsResult';
 import {OnmsServer} from '../api/OnmsServer';
+
+import {log, catRest} from '../api/Log';
+import {Category} from 'typescript-logging';
 
 /** @hidden */
 const catGrafana = new Category('grafana', catRest);
@@ -17,7 +15,7 @@ const catGrafana = new Category('grafana', catRest);
  * @module GrafanaHTTP
  * @implements IOnmsHTTP
  */ /** */
-export class GrafanaHTTP extends AbstractHTTP implements IOnmsHTTP {
+export class GrafanaHTTP extends AbstractHTTP {
   /** the Grafana backend object we'll use for making ReST calls */
   private backendSrv: any;
 

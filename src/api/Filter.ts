@@ -1,4 +1,3 @@
-import {OnmsHTTPOptions} from '../api/OnmsHTTPOptions';
 import {Restriction} from './Restriction';
 
 /**

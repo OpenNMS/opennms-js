@@ -1,15 +1,13 @@
 import * as request from 'superagent';
 
-import {log, catRest} from '../api/Log';
-import {Category} from 'typescript-logging';
-
-import {IOnmsHTTP} from '../api/IOnmsHTTP';
-
 import {AbstractHTTP} from './AbstractHTTP';
 import {OnmsError} from '../api/OnmsError';
 import {OnmsHTTPOptions} from '../api/OnmsHTTPOptions';
 import {OnmsResult} from '../api/OnmsResult';
 import {OnmsServer} from '../api/OnmsServer';
+
+import {log, catRest} from '../api/Log';
+import {Category} from 'typescript-logging';
 
 /** @hidden */
 const catAgent = new Category('super-agent', catRest);
@@ -19,7 +17,7 @@ const catAgent = new Category('super-agent', catRest);
  * @module SuperAgentHTTP
  * @implements IOnmsHTTP
  */ /** */
-export class SuperAgentHTTP extends AbstractHTTP implements IOnmsHTTP {
+export class SuperAgentHTTP extends AbstractHTTP {
   constructor(server?: OnmsServer, timeout = 10000) {
     super(server, timeout);
   }

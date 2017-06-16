@@ -1,18 +1,21 @@
 import {OnmsEnum, forId, forLabel} from '../internal/OnmsEnum';
 
 /**
- * Represents an OpenNMS "is managed" type.
+ * Represents an OpenNMS node "is managed" type.
  * @module OnmsManagedType
  */ /** */
 export class OnmsManagedType extends OnmsEnum<string> {
+  /** given an ID, return the matching managed type object */
   public static forId(id: string) {
-    return forId(OnmsManagedTypes, id);
+    return forId(ManagedTypes, id);
   }
 
+  /** given a label, return the matching managed type object */
   public static forLabel(label: string) {
-    return forLabel(OnmsManagedTypes, label);
+    return forLabel(ManagedTypes, label);
   }
 
+  /** whether or not the node is managed */
   public isManaged() {
     return this.id === 'M';
   }
@@ -20,7 +23,7 @@ export class OnmsManagedType extends OnmsEnum<string> {
 
 /* tslint:disable:object-literal-sort-keys */
 /** @hidden */
-export const OnmsManagedTypes = Object.freeze({
+export const ManagedTypes = Object.freeze({
   MANAGED: new OnmsManagedType('M', 'MANAGED'),
   ALIAS: new OnmsManagedType('A', 'ALIAS'),
   DELETED: new OnmsManagedType('D', 'DELETED'),
