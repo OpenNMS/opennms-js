@@ -8,6 +8,10 @@ import {OnmsHTTPOptions} from '../api/OnmsHTTPOptions';
 import {log, catDao} from '../api/Log';
 import {Category} from 'typescript-logging';
 
+/** @hidden */
+// tslint:disable-next-line
+const moment = require('moment');
+
 /**
  * Abstract data access layer
  * @module AbstractDAO
@@ -31,10 +35,10 @@ export abstract class AbstractDAO<K, T> {
   public abstract fromData(data: any): T;
 
   /** get a model object given an ID */
-  public abstract get(id: K): Promise<T>;
+  public abstract async get(id: K): Promise<T>;
 
   /** find all model objects given a filter */
-  public abstract find(filter?: Filter): Promise<T[]>;
+  public abstract async find(filter?: Filter): Promise<T[]>;
 
   /** extract the count or totalCount values from response data */
   protected getCount(data: any) {
@@ -58,5 +62,19 @@ export abstract class AbstractDAO<K, T> {
       ret.parameters = this.http.filterProcessor.getParameters(filter);
     }
     return ret;
+  }
+
+  /** convert the given value to a date, or undefined if it cannot be converted */
+  protected toDate(from: any) {
+    if (from === undefined || from === null || from === '') {
+      return undefined;
+    }
+    return moment(from);
+  }
+
+  /** convert the given value to a number, or undefined if it cannot be converted */
+  protected toNumber(from: any) {
+    const ret = parseInt(from, 10);
+    return isNaN(ret) ? undefined : ret;
   }
 }
