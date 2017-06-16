@@ -5,9 +5,12 @@ import {OnmsEnum, forId, forLabel} from '../internal/OnmsEnum';
  * @module OnmsNodeLabelSource
  */ /** */
 export class OnmsNodeLabelSource extends OnmsEnum<string> {
+  /** given an ID, return the matching node label source object */
   public static forId(id: string) {
     return forId(OnmsNodeLabelSources, id);
   }
+
+  /** given a label, return the matching node label source object */
   public static forLabel(label: string) {
     return forLabel(OnmsNodeLabelSources, label);
   }

@@ -15,7 +15,9 @@ import {ServerType, ServerTypes} from './api/ServerType';
 import {OnmsServer} from './api/OnmsServer';
 import {ServerMetadata} from './api/ServerMetadata';
 
-import {OnmsAlarm} from './model/OnmsAlarm';
+import {AlarmDAO} from './dao/AlarmDAO';
+import {EventDAO} from './dao/EventDAO';
+import {NodeDAO} from './dao/NodeDAO';
 
 import {AxiosHTTP} from './rest/AxiosHTTP';
 
@@ -120,4 +122,20 @@ export class Client {
       return self;
     });
   }
+
+  /** Get an alarm DAO for querying alarms. */
+  public alarms() {
+    return new AlarmDAO(this);
+  }
+
+  /** Get an event DAO for querying events. */
+  public events() {
+    return new EventDAO(this);
+  }
+
+  /** Get a node DAO for querying nodes. */
+  public nodes() {
+    return new NodeDAO(this);
+  }
+
 }
