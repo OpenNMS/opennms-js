@@ -51,6 +51,7 @@ export class OnmsEnum<T> {
 }
 
 /** convenience function for implementing id-based lookup in enums */
+/** @hidden */
 export function forId(collection: any, id: any) {
   for (const type in collection) {
     if (collection.hasOwnProperty(type)) {
@@ -64,6 +65,7 @@ export function forId(collection: any, id: any) {
 }
 
 /** convenience function for implementing label-based lookup in enums */
+/** @hidden */
 export function forLabel(collection: any, label: string) {
   for (const type in collection) {
     if (collection.hasOwnProperty(type)) {
