@@ -42,6 +42,9 @@ import {SuperAgentHTTP} from './rest/SuperAgentHTTP';
 
 import {Client} from './Client';
 
+import {LogLevel} from 'typescript-logging';
+import {setLogLevel} from './api/Log';
+
 /* tslint:disable:object-literal-sort-keys */
 
 /** @hidden */
@@ -59,6 +62,8 @@ const API = Object.freeze({
   ServerMetadata,
   ServerType,
   ServerTypes,
+  LogLevel,
+  setLogLevel,
 });
 
 /** @hidden */
