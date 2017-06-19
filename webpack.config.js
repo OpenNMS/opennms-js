@@ -53,9 +53,14 @@ var config = {
     ],
     extensions: ['.webpack.js', '.web.js', '.ts', '.js']
   },
-  plugins: [],
+  plugins: [
+    new webpack.DefinePlugin({
+      "global.GENTLY": false
+    }),
+  ],
   node: {
     fs: 'empty',
+    __dirname: true,
     child_process: false,
     global: false,
     process: false

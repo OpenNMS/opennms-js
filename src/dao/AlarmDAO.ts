@@ -1,19 +1,17 @@
 import {AbstractDAO} from './AbstractDAO';
 import {EventDAO} from './EventDAO';
 
-import {Client} from '../Client';
-
-import {OnmsAlarm} from '../model/OnmsAlarm';
-import {OnmsParm} from '../model/OnmsParm';
-import {OnmsServiceType} from '../model/OnmsServiceType';
-
-import {AlarmTypes} from '../model/OnmsAlarmType';
-import {Severities} from '../model/OnmsSeverity';
-import {TroubleTicketStates} from '../model/OnmsTroubleTicketState';
-
 import {Filter} from '../api/Filter';
+import {IHasHTTP} from '../api/IHasHTTP';
 import {IOnmsHTTP} from '../api/IOnmsHTTP';
 import {OnmsError} from '../api/OnmsError';
+
+import {OnmsAlarm} from '../model/OnmsAlarm';
+import {AlarmTypes} from '../model/OnmsAlarmType';
+import {OnmsParm} from '../model/OnmsParm';
+import {OnmsServiceType} from '../model/OnmsServiceType';
+import {Severities} from '../model/OnmsSeverity';
+import {TroubleTicketStates} from '../model/OnmsTroubleTicketState';
 
 import {log, catDao} from '../api/Log';
 import {Category} from 'typescript-logging';
@@ -29,7 +27,7 @@ export class AlarmDAO extends AbstractDAO<number, OnmsAlarm> {
   /** an event DAO to be used for creating events attached to alarms from API/JSON data */
   private eventDao: EventDAO;
 
-  constructor(impl: Client | IOnmsHTTP) {
+  constructor(impl: IHasHTTP | IOnmsHTTP) {
     super(impl);
     this.eventDao = new EventDAO(impl);
   }

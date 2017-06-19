@@ -96,15 +96,15 @@ function CLI() {
       const http = new Rest.AxiosHTTP(server);
       return Client.getMetadata(server, http).then((res) => {
         let c = colors.green;
-        if (res.data.type === API.ServerTypes.MERIDIAN) {
-          console.log(colors.blue('OpenNMS Meridian ' + res.data.version.displayVersion + ' Capabilities:'));
+        if (res.type === API.ServerTypes.MERIDIAN) {
+          console.log(colors.blue('OpenNMS Meridian ' + res.version.displayVersion + ' Capabilities:'));
           c = colors.blue;
         } else {
-          console.log(colors.green('OpenNMS Horizon ' + res.data.version.displayVersion + ' Capabilities:'));
+          console.log(colors.green('OpenNMS Horizon ' + res.version.displayVersion + ' Capabilities:'));
         }
         console.log('');
 
-        const caps = res.data.capabilities();
+        const caps = res.capabilities();
         const rows = [];
         for (const cap in caps) {
           if (cap === 'type') {

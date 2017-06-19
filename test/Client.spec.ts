@@ -46,10 +46,9 @@ describe('Given an instance of OpenNMS...', () => {
       expect(ret).toBeDefined();
       return ret.then((result) => {
         expect(result).toBeDefined();
-        expect(result).toBeInstanceOf(OnmsResult);
-        expect(result.data).toBeInstanceOf(ServerMetadata);
-        expect(result.data.version.version).toEqual('19.1.0');
-        expect(result.data.type).toEqual(ServerTypes.HORIZON);
+        expect(result).toBeInstanceOf(ServerMetadata);
+        expect(result.version.version).toEqual('19.1.0');
+        expect(result.type).toEqual(ServerTypes.HORIZON);
       });
     });
     it('it should return a server object with metadata when connect is called', () => {

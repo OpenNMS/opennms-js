@@ -37,20 +37,14 @@ export abstract class AbstractHTTP implements IOnmsHTTP {
 
   /** the server associated with this HTTP implementation */
   public get server() {
+    this.assertFilterProcessorExists();
     return this.serverObj;
   }
 
   public set server(server: OnmsServer) {
     this.serverObj = server;
+    this.assertFilterProcessorExists();
     this.onSetServer();
-    if (!this.filterProcessor) {
-      if (this.serverObj && this.serverObj.metadata) {
-        switch (this.serverObj.metadata.apiVersion()) {
-          default:
-            this.filterProcessor = new V1FilterProcessor();
-        }
-      }
-    }
   }
 
   /**
@@ -62,6 +56,7 @@ export abstract class AbstractHTTP implements IOnmsHTTP {
   constructor(server?: OnmsServer, timeout = 10000) {
     this.serverObj = server;
     this.timeout = timeout;
+    this.assertFilterProcessorExists();
   }
 
   /** make an HTTP get call -- this should be overridden by the implementation */
@@ -87,14 +82,20 @@ export abstract class AbstractHTTP implements IOnmsHTTP {
     }
   }
 
+  /** get the server in the options object, or fall back to the one assigned to the HTTP impl */
+  protected getServer(options?: OnmsHTTPOptions) {
+    return options.server || this.serverObj;
+  }
+
   /** combine all options from the given options, the current server, and the default options */
   protected getOptions(options?: OnmsHTTPOptions) {
     let ret = Object.assign({auth: {}}, this.options);
     if (this.timeout) {
       ret.timeout = this.timeout;
     }
-    if (this.serverObj && this.serverObj.auth) {
-      ret.auth = Object.assign(ret.auth, this.serverObj.auth);
+    const server = this.getServer(options);
+    if (server && server.auth) {
+      ret.auth = Object.assign(ret.auth, server.auth);
     }
     ret = Object.assign(ret, options);
     return ret;
@@ -103,5 +104,17 @@ export abstract class AbstractHTTP implements IOnmsHTTP {
   /** useful for performing an action (like clearing caches) when the server is set */
   protected onSetServer() {
     // do nothing by default
+  }
+
+  /** make sure the filter processor is initialized */
+  private assertFilterProcessorExists() {
+    if (!this.filterProcessor) {
+      if (this.serverObj && this.serverObj.metadata) {
+        switch (this.serverObj.metadata.apiVersion()) {
+          default:
+            this.filterProcessor = new V1FilterProcessor();
+        }
+      }
+    }
   }
 }

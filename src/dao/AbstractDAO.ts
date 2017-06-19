@@ -1,6 +1,5 @@
+import {IHasHTTP} from '../api/IHasHTTP';
 import {IOnmsHTTP} from '../api/IOnmsHTTP';
-
-import {Client} from '../Client';
 
 import {Filter} from '../api/Filter';
 import {OnmsHTTPOptions} from '../api/OnmsHTTPOptions';
@@ -23,12 +22,11 @@ export abstract class AbstractDAO<K, T> {
   protected http: IOnmsHTTP;
 
   /** construct a DAO instance */
-  constructor(impl: Client | IOnmsHTTP) {
-    if (impl instanceof Client) {
-      this.http = (impl as any).http;
-    } else {
-      this.http = impl;
+  constructor(impl: IHasHTTP | IOnmsHTTP) {
+    if ((impl as IHasHTTP).http) {
+      impl = (impl as IHasHTTP).http;
     }
+    this.http = impl as IOnmsHTTP;
   }
 
   /** create a model object given a JSON data structure */

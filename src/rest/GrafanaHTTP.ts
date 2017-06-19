@@ -33,7 +33,7 @@ export class GrafanaHTTP extends AbstractHTTP {
 
   /** make an HTTP get call -- this should be overridden by the implementation */
   public get(url: string, options?: OnmsHTTPOptions) {
-    const realUrl = this.server.resolveURL(url);
+    const realUrl = this.getServer(options).resolveURL(url);
     log.debug('getting ' + realUrl);
     const query = this.getConfig(options);
     query.method = 'GET';

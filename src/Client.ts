@@ -3,6 +3,7 @@ import * as axios from 'axios';
 import {log, catRoot} from './api/Log';
 import {Category} from 'typescript-logging';
 
+import {IHasHTTP} from './api/IHasHTTP';
 import {IOnmsHTTP} from './api/IOnmsHTTP';
 
 import {OnmsAuthConfig} from './api/OnmsAuthConfig';
@@ -28,7 +29,7 @@ const catClient = new Category('client', catRoot);
  * The OpenNMS client.  This is the primary interface to OpenNMS servers.
  * @module Client
  */ /** */
-export class Client {
+export class Client implements IHasHTTP {
   /**
    * Given an OnmsServer object, check that it can be connected to.
    *
@@ -37,20 +38,19 @@ export class Client {
    * @param timeout - how long to wait before giving up when making ReST calls
    */
   public static async checkServer(server: OnmsServer, httpImpl?: IOnmsHTTP, timeout?: number): Promise<boolean> {
-    const opts = new OnmsHTTPOptions(timeout, server.auth);
+    const opts = new OnmsHTTPOptions(timeout, server.auth, server);
     if (!httpImpl) {
-      if (!Client.http) {
+      if (!Client.defaultHttp) {
         throw new OnmsError('No HTTP implementation is configured!');
       }
-      httpImpl = Client.http;
+      httpImpl = Client.defaultHttp;
     }
     opts.accept = 'text/plain';
 
     const infoUrl = server.resolveURL('rest/alarms/count');
-    log.debug('checking URL: ' + infoUrl, catClient);
-    return httpImpl.get(infoUrl, opts).then((ret) => {
-      return true;
-    });
+    log.debug('checkServer: checking URL: ' + infoUrl, catClient);
+    await httpImpl.get(infoUrl, opts);
+    return true;
   }
 
   /**
@@ -62,33 +62,35 @@ export class Client {
    * @param timeout - how long to wait before giving up when making ReST calls
    */
   public static async getMetadata(server: OnmsServer, httpImpl?: IOnmsHTTP, timeout?: number):
-    Promise<OnmsResult<ServerMetadata>> {
-    const opts = new OnmsHTTPOptions(timeout, server.auth);
+    Promise<ServerMetadata> {
+    const opts = new OnmsHTTPOptions(timeout, server.auth, server);
     opts.accept = 'application/json';
     if (!httpImpl) {
-      if (!Client.http) {
-        throw new OnmsError('No HTTP implementation is configured!');
+      if (!Client.defaultHttp) {
+        throw new OnmsError('No default HTTP implementation is configured!');
       }
-      httpImpl = Client.http;
+      httpImpl = Client.defaultHttp;
     }
 
     const infoUrl = server.resolveURL('rest/info');
-    log.debug('checking URL: ' + infoUrl, catClient);
-    return httpImpl.get(infoUrl, opts).then((ret) => {
-      const version = new OnmsVersion(ret.data.version, ret.data.displayVersion);
-      const metadata = new ServerMetadata(version);
+    log.debug('getMetadata: checking URL: ' + infoUrl, catClient);
 
-      if (ret.data.packageName) {
-        if (ret.data.packageName.toLowerCase() === 'meridian') {
-          metadata.type = ServerTypes.MERIDIAN;
-        }
+    const response = await httpImpl.get(infoUrl, opts);
+    const version = new OnmsVersion(response.data.version, response.data.displayVersion);
+    const metadata = new ServerMetadata(version);
+    if (response.data.packageName) {
+      if (response.data.packageName.toLowerCase() === 'meridian') {
+        metadata.type = ServerTypes.MERIDIAN;
       }
-      return OnmsResult.ok(metadata, ret.message, ret.code);
-    });
+    }
+    return metadata;
   }
 
-  /** The OnmsHTTP implementation to be used when making requests */
-  private static http: IOnmsHTTP;
+  /** The default OnmsHTTP implementation to be used when making requests */
+  private static defaultHttp: IOnmsHTTP;
+
+  /** the OnmsHTTP implementation that will be used when making requests */
+  public http: IOnmsHTTP;
 
   /** The remote server to connect to */
   public server: OnmsServer;
@@ -102,10 +104,11 @@ export class Client {
    */
   constructor(httpImpl?: IOnmsHTTP) {
     if (httpImpl) {
-      Client.http = httpImpl;
+      Client.defaultHttp = httpImpl;
     } else {
-      Client.http = new AxiosHTTP();
+      Client.defaultHttp = new AxiosHTTP();
     }
+    this.http = Client.defaultHttp;
   }
 
   /**
@@ -115,12 +118,20 @@ export class Client {
   public async connect(name: string, url: string, username: string, password: string, timeout?: number) {
     const self = this;
     const server = new OnmsServer(name, url, username, password);
+
     await Client.checkServer(server, undefined, timeout);
-    return Client.getMetadata(server, undefined, timeout).then((result) => {
-      self.server = server;
-      server.metadata = result.data;
-      return self;
-    });
+    const metadata = await Client.getMetadata(server, undefined, timeout);
+
+    if (!self.http) {
+      self.http = Client.defaultHttp;
+    }
+    if (!self.http.server) {
+      self.http.server = server;
+    }
+    self.server = server;
+    server.metadata = metadata;
+
+    return self;
   }
 
   /** Get an alarm DAO for querying alarms. */

@@ -1,6 +1,8 @@
 import {AbstractDAO} from './AbstractDAO';
 
 import {Filter} from '../api/Filter';
+import {IHasHTTP} from '../api/IHasHTTP';
+import {IOnmsHTTP} from '../api/IOnmsHTTP';
 import {OnmsError} from '../api/OnmsError';
 
 import {Util} from '../internal/Util';
@@ -31,6 +33,10 @@ const cat = new Category('nodes', catDao);
  * @module NodeDAO
  */ /** */
 export class NodeDAO extends AbstractDAO<number, OnmsNode> {
+  constructor(impl: IHasHTTP | IOnmsHTTP) {
+    super(impl);
+  }
+
   /**
    * create a node object from a JSON object
    * @hidden

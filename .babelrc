@@ -17,13 +17,9 @@
     "transform-class-properties",
     "transform-es2015-destructuring",
     "transform-es2015-for-of",
+    "transform-es2015-modules-commonjs",
     "transform-object-rest-spread",
     "transform-regenerator",
     "syntax-async-functions",
-  ],
-  env: {
-    test: {
-      plugins: ["transform-es2015-modules-commonjs"]
-    }
-  }
+  ]
 }

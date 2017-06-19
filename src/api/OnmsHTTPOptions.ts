@@ -1,4 +1,5 @@
 import {OnmsAuthConfig} from './OnmsAuthConfig';
+import {OnmsServer} from './OnmsServer';
 import {IHash} from '../internal/IHash';
 
 /**
@@ -8,6 +9,9 @@ import {IHash} from '../internal/IHash';
 export class OnmsHTTPOptions {
   /** the authentication config that should be used when no server auth is configured */
   public auth: OnmsAuthConfig;
+
+  /** the server to use if no server is set on the HTTP implementation */
+  public server: OnmsServer;
 
   /** how long to wait for ReST calls to time out */
   public timeout = 10000;
@@ -22,12 +26,15 @@ export class OnmsHTTPOptions {
    * Construct a new OnmsHTTPOptions object.
    * @constructor
    */
-  constructor(timeout?: number, auth?: OnmsAuthConfig) {
+  constructor(timeout?: number, auth?: OnmsAuthConfig, server?: OnmsServer) {
     if (timeout !== undefined) {
       this.timeout = timeout;
     }
     if (auth !== undefined) {
       this.auth = auth;
+    }
+    if (server !== undefined) {
+      this.server = server;
     }
   }
 }

@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {AxiosInstance, AxiosRequestConfig} from 'axios';
+import {AxiosStatic, AxiosInstance, AxiosRequestConfig} from 'axios';
 
 /** @hidden */
 // tslint:disable-next-line
@@ -23,16 +23,20 @@ const catAxios = new Category('axios', catRest);
  * @implements IOnmsHTTP
  */ /** */
 export class AxiosHTTP extends AbstractHTTP {
+  /** the Axios implementation we'll use for making ReST calls */
+  private axiosImpl: AxiosStatic;
+
   /** the Axios instance we'll use for making ReST calls */
   private axiosObj: AxiosInstance;
 
-  constructor(server?: OnmsServer, timeout = 10000) {
+  constructor(server?: OnmsServer, axiosImpl?: AxiosStatic, timeout = 10000) {
     super(server, timeout);
+    this.axiosImpl = axiosImpl || axios;
   }
 
   /** make an HTTP get call -- this should be overridden by the implementation */
   public get(url: string, options?: OnmsHTTPOptions) {
-    const realUrl = this.server.resolveURL(url);
+    const realUrl = this.getServer(options).resolveURL(url);
     const opts = this.getConfig(options);
 
     const urlObj = new URI(realUrl);
@@ -101,16 +105,17 @@ export class AxiosHTTP extends AbstractHTTP {
   /** internal method for getting/constructing an Axios object on-demand, based on the current server config */
   private getImpl(options?: OnmsHTTPOptions) {
     if (!this.axiosObj) {
-      if (!this.server) {
+      const server = this.getServer(options);
+      if (!server) {
         throw new OnmsError('You must set a server before attempting to make queries using Axios!');
       }
       const allOptions = this.getOptions(options);
-      this.axiosObj = axios.create({
+      this.axiosObj = this.axiosImpl.create({
         auth: {
           password: allOptions.auth.password,
           username: allOptions.auth.username,
         },
-        baseURL: this.server.url,
+        baseURL: server.url,
         timeout: allOptions.timeout,
         withCredentials: true,
       });

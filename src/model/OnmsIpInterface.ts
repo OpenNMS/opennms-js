@@ -3,7 +3,6 @@ import {Moment} from 'moment';
 
 import {OnmsManagedType} from './OnmsManagedType';
 import {OnmsMonitoredService} from './OnmsMonitoredService';
-import {OnmsNode} from './OnmsNode';
 import {OnmsPrimaryType} from './OnmsPrimaryType';
 
 /**
@@ -44,7 +43,7 @@ export class OnmsIpInterface {
   }
 
   /** the node this interface is associated with */
-  public node: OnmsNode;
+  public node: any;
 
   /** the services on this interface */
   public services = [] as OnmsMonitoredService[];

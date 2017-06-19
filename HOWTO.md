@@ -26,7 +26,8 @@ new Client().connect('Demo', 'https://demo.opennms.org/opennms', 'demo', 'demo')
   const idRestriction = new Restriction('id', Comparators.GE, 1);
   const filter = new Filter(idRestriction);
   // query all alarms with an ID greater than or equal to 1
-  client.alarms().find(filter).then((alarms) => {
+  return client.alarms().find(filter).then((alarms) => {
+    console.log('got ' + alarms.length + ' alarms.');
     // return all the node IDs associated with the matching alarms
     return alarms.map((alarm) => {
       return alarm.nodeId;
@@ -45,6 +46,11 @@ new Client().connect('Demo', 'https://demo.opennms.org/opennms', 'demo', 'demo')
       console.log('node ' + node.id + ' (' + node.label + ') has '
         + node.ipInterfaces.length + ' IP interfaces');
     });
+    return true;
   });
+}).catch((err) => {
+  console.log('error:',err);
+  console.log(err.stack);
+  throw err;
 });
 ```

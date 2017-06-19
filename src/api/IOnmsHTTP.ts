@@ -10,7 +10,7 @@ import {OnmsServer} from './OnmsServer';
 /**
  * Interface for making ReST calls to an HTTP server.
  * @interface
- * @module OnmsHTTP
+ * @module IOnmsHTTP
  *
  * Notes to implementors:
  * - Implementations of this interface MUST have a constructor that allows an empty

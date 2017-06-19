@@ -1,6 +1,8 @@
 import {AbstractDAO} from './AbstractDAO';
 
 import {Filter} from '../api/Filter';
+import {IHasHTTP} from '../api/IHasHTTP';
+import {IOnmsHTTP} from '../api/IOnmsHTTP';
 import {OnmsError} from '../api/OnmsError';
 
 import {Util} from '../internal/Util';
@@ -21,6 +23,10 @@ const cat = new Category('events', catDao);
  * @module EventDAO
  */ /** */
 export class EventDAO extends AbstractDAO<number, OnmsEvent> {
+  constructor(impl: IHasHTTP | IOnmsHTTP) {
+    super(impl);
+  }
+
   /**
    * create an event object from a JSON object
    * @hidden

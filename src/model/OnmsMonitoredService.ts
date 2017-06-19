@@ -1,8 +1,6 @@
 import {Address4, Address6} from 'ip-address';
 import {Moment} from 'moment';
 
-import {OnmsIpInterface} from './OnmsIpInterface';
-import {OnmsNode} from './OnmsNode';
 import {OnmsServiceType} from './OnmsServiceType';
 import {OnmsServiceStatusType} from './OnmsServiceStatusType';
 
@@ -21,10 +19,10 @@ export class OnmsMonitoredService {
   public lastGood: Moment;
 
   /** the node associated with this service */
-  public node: OnmsNode;
+  public node: any;
 
   /** the ipInterface associated with this service */
-  public ipInterface: OnmsIpInterface;
+  public ipInterface: any;
 
   /** the service type associated with this service */
   public type: OnmsServiceType;

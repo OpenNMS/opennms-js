@@ -1,7 +1,6 @@
 import {Moment} from 'moment';
 
 import {OnmsCollectType} from './OnmsCollectType';
-import {OnmsNode} from './OnmsNode';
 import {OnmsSnmpStatusType} from './OnmsSnmpStatusType';
 import {PhysAddr} from './PhysAddr';
 
@@ -17,7 +16,7 @@ export class OnmsSnmpInterface {
   public physAddr: PhysAddr;
 
   /** the node associated with this interface */
-  public node: OnmsNode;
+  public node: any;
 
   /** the SNMP interface index */
   public ifIndex: number;
