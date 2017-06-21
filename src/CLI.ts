@@ -28,7 +28,7 @@ function CLI() {
   function readConfig() {
     const configfile = program.config || defaultConfigFile;
     let config;
-    if (fs.exists) {
+    if (fs.existsSync(configfile)) {
       config = JSON.parse(fs.readFileSync(configfile));
     } else {
       config = {
