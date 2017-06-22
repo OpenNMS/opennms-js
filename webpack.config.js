@@ -90,6 +90,11 @@ if (isProduction) {
     minimize: false,
     debug: true
   }));
+  config.plugins.push(new webpack.DefinePlugin({
+    "process.env": {
+      NODE_ENV: JSON.stringify("test")
+    }
+  }));
   config.output.filename = '[name].js';
 }
 
