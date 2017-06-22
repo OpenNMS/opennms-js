@@ -87,7 +87,7 @@ describe('NodeDAO', () => {
   });
   it('NodeDAO.find(id=43)', () => {
     const filter = new Filter();
-    filter.restrictions.push(new Restriction('id', Comparators.EQ, 43));
+    filter.withOrRestriction(new Restriction('id', Comparators.EQ, 43));
     return dao.find(filter).then((nodes) => {
       expect(nodes.length).toEqual(1);
     });

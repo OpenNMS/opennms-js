@@ -5,7 +5,10 @@ import {IFilterProcessor} from '../api/IFilterProcessor';
 import {Filter} from '../api/Filter';
 import {Comparator, Comparators} from '../api/Comparator';
 import {Restriction} from '../api/Restriction';
+import {NestedRestriction} from '../api/NestedRestriction';
 import {OnmsError} from '../api/OnmsError';
+import {Operator, Operators} from '../api/Operator';
+import {Clause} from '../api/Clause';
 
 /**
  * OpenNMS V2 ReST filter processor
@@ -26,7 +29,7 @@ export class V2FilterProcessor implements IFilterProcessor {
    * given a comparator, convert it to a correspond comparator
    * that can be used in the FIQL expression
    */
-  private static getFIQLComparator(comparator: Comparator) {
+  private static toFIQLComparator(comparator: Comparator) {
     switch (comparator) {
       case Comparators.EQ:
       case Comparators.NULL:
@@ -50,10 +53,8 @@ export class V2FilterProcessor implements IFilterProcessor {
     }
   }
 
-  /**
-   * given a restriction, compute the value to use in the FIQL expression
-   */
-  private static getFIQLValue(restriction: Restriction) {
+  /** given a restriction, compute the value to use in the FIQL expression */
+  private static toFIQLValue(restriction: Restriction) {
     switch (restriction.comparator) {
       case Comparators.NULL:
       case Comparators.NOTNULL:
@@ -65,6 +66,38 @@ export class V2FilterProcessor implements IFilterProcessor {
     }
   }
 
+  /** given an operator, convert it to the corresponding FIQL operator */
+  private static toFIQLOperator(operator: Operator) {
+    switch (operator) {
+      case Operators.AND:
+        return ';';
+      case Operators.OR:
+        return ',';
+      default:
+        throw new OnmsError('Unsupported operator type: ' + operator);
+    }
+  }
+
+  /** given a list of clauses, recursively generate the FIQL query string */
+  private static toFIQL(clauses: Clause[]) {
+    let search = '';
+    for (const clause of clauses) {
+      if (search.length > 0) {
+        search += V2FilterProcessor.toFIQLOperator(clause.operator);
+      }
+
+      if (clause.restriction instanceof NestedRestriction) {
+        search += '(' + V2FilterProcessor.toFIQL(clause.restriction.clauses) + ')';
+      } else {
+        const restriction = clause.restriction as Restriction;
+        const comp = V2FilterProcessor.toFIQLComparator(restriction.comparator);
+        const value = V2FilterProcessor.toFIQLValue(restriction);
+        search += [restriction.attribute, comp, value].join('');
+      }
+    }
+    return search;
+  }
+
   /** given a filter, return a hash of URL parameters */
   public getParameters(filter: Filter) {
     const ret = {} as IHash<string>;
@@ -73,15 +106,9 @@ export class V2FilterProcessor implements IFilterProcessor {
       ret.limit = '' + filter.limit;
     }
 
-    const terms = [];
-    for (const restriction of filter.restrictions) {
-      const comp = V2FilterProcessor.getFIQLComparator(restriction.comparator);
-      const value = V2FilterProcessor.getFIQLValue(restriction);
-      terms.push([restriction.attribute, comp, value].join(''));
-    }
-
-    if (terms.length > 0) {
-      ret.search = terms.join(';');
+    const search = V2FilterProcessor.toFIQL(filter.clauses);
+    if (search.length > 0) {
+      ret._s = search;
     }
 
     return ret;

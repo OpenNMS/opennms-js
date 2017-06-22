@@ -44,7 +44,7 @@ describe('AlarmDAO', () => {
   });
   it('AlarmDAO.find(id=404725)', () => {
     const filter = new Filter();
-    filter.restrictions.push(new Restriction('id', Comparators.EQ, 404725));
+    filter.withOrRestriction(new Restriction('id', Comparators.EQ, 404725));
     return dao.find(filter).then((alarms) => {
       expect(alarms.length).toEqual(1);
     });

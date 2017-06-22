@@ -5,7 +5,10 @@ import {IFilterProcessor} from '../api/IFilterProcessor';
 
 import {Filter} from '../api/Filter';
 import {Comparators} from '../api/Comparator';
+import {Operators} from '../api/Operator';
 import {OnmsError} from '../api/OnmsError';
+import {Restriction} from '../api/Restriction';
+import {NestedRestriction} from '../api/NestedRestriction';
 
 /** @hidden */
 const nonExclusiveComparators = [
@@ -31,7 +34,16 @@ export class V1FilterProcessor implements IFilterProcessor {
       ret.limit = '' + filter.limit;
     }
 
-    for (const restriction of filter.restrictions) {
+    for (const clause of filter.clauses) {
+      if (clause.operator !== Operators.OR) {
+        throw new OnmsError('V1 only supports OR operators!');
+      }
+
+      if (clause.restriction instanceof NestedRestriction) {
+        throw new OnmsError('V1 does not support nested restrictions!');
+      }
+
+      const restriction = clause.restriction as Restriction;
       switch (restriction.comparator) {
         case Comparators.NULL: {
           ret[restriction.attribute] = 'null';

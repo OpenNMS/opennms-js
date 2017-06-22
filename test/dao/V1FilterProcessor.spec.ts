@@ -5,8 +5,6 @@ import {LogLevel} from 'typescript-logging';
 
 setLogLevel(LogLevel.Debug, catRoot);
 
-import {IFilterProcessor} from '../../src/api/IFilterProcessor';
-
 import {OnmsError} from '../../src/api/OnmsError';
 import {Comparator, Comparators} from '../../src/api/Comparator';
 import {Filter} from '../../src/api/Filter';
@@ -34,7 +32,7 @@ describe('V1FilterProcessor', () => {
   });
   it('alarm filter: id=notnull', () => {
     const filter = new Filter<OnmsAlarm>();
-    filter.restrictions.push(new Restriction('id', Comparators.NOTNULL));
+    filter.withOrRestriction(new Restriction('id', Comparators.NOTNULL));
     const proc = new V1FilterProcessor();
     const params = proc.getParameters(filter);
     expect(Object.keys(params).length).toEqual(2);
@@ -42,8 +40,8 @@ describe('V1FilterProcessor', () => {
   });
   it('alarm filter: id=notnull, ackTime=null', () => {
     const filter = new Filter<OnmsAlarm>();
-    filter.restrictions.push(new Restriction('id', Comparators.NOTNULL));
-    filter.restrictions.push(new Restriction('ackTime', Comparators.NULL));
+    filter.withOrRestriction(new Restriction('id', Comparators.NOTNULL));
+    filter.withOrRestriction(new Restriction('ackTime', Comparators.NULL));
     const proc = new V1FilterProcessor();
     const params = proc.getParameters(filter);
     expect(Object.keys(params).length).toEqual(3);
@@ -52,8 +50,8 @@ describe('V1FilterProcessor', () => {
   });
   it('alarm filter: id=notnull, severity="MINOR"', () => {
     const filter = new Filter<OnmsAlarm>();
-    filter.restrictions.push(new Restriction('id', Comparators.NOTNULL));
-    filter.restrictions.push(new Restriction('severity', Comparators.EQ, 'MINOR'));
+    filter.withOrRestriction(new Restriction('id', Comparators.NOTNULL));
+    filter.withOrRestriction(new Restriction('severity', Comparators.EQ, 'MINOR'));
     const proc = new V1FilterProcessor();
     const params = proc.getParameters(filter);
     expect(Object.keys(params).length).toEqual(4);
@@ -63,8 +61,8 @@ describe('V1FilterProcessor', () => {
   });
   it('alarm filter: id=notnull, severity=OnmsSeverity.MINOR', () => {
     const filter = new Filter<OnmsAlarm>();
-    filter.restrictions.push(new Restriction('id', Comparators.NOTNULL));
-    filter.restrictions.push(new Restriction('severity', Comparators.EQ, Severities.MINOR));
+    filter.withOrRestriction(new Restriction('id', Comparators.NOTNULL));
+    filter.withOrRestriction(new Restriction('severity', Comparators.EQ, Severities.MINOR));
     const proc = new V1FilterProcessor();
     const params = proc.getParameters(filter);
     expect(Object.keys(params).length).toEqual(4);
@@ -74,8 +72,8 @@ describe('V1FilterProcessor', () => {
   });
   it('alarm filter: severity=OnmsSeverity.MINOR, id!=0', () => {
     const filter = new Filter<OnmsAlarm>();
-    filter.restrictions.push(new Restriction('severity', Comparators.EQ, Severities.MINOR));
-    filter.restrictions.push(new Restriction('id', Comparators.NE, 0));
+    filter.withOrRestriction(new Restriction('severity', Comparators.EQ, Severities.MINOR));
+    filter.withOrRestriction(new Restriction('id', Comparators.NE, 0));
     const proc = new V1FilterProcessor();
     expect(() => {
       proc.getParameters(filter);

@@ -202,7 +202,7 @@ function CLI() {
               if (API.Comparators.hasOwnProperty(type)) {
                 const comp = API.Comparators[type];
                 if (comp.matches(comparator)) {
-                  filter.restrictions.push(new API.Restriction(attribute, comp, value));
+                  filter.withOrRestriction(new API.Restriction(attribute, comp, value));
                 }
               }
             }

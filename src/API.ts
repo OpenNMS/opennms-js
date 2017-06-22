@@ -1,5 +1,6 @@
 import {Comparator, Comparators} from './api/Comparator';
 import {Filter} from './api/Filter';
+import {NestedRestriction} from './api/NestedRestriction';
 import {OnmsAuthConfig} from './api/OnmsAuthConfig';
 import {OnmsError} from './api/OnmsError';
 import {OnmsHTTPOptions} from './api/OnmsHTTPOptions';
@@ -53,6 +54,7 @@ const API = Object.freeze({
   Comparator,
   Comparators,
   Filter,
+  NestedRestriction,
   OnmsAuthConfig,
   OnmsError,
   OnmsHTTPOptions,

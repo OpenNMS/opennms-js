@@ -23,17 +23,18 @@ import {
 } from 'dist/opennms.min.js';
 
 new Client().connect('Demo', 'https://demo.opennms.org/opennms', 'demo', 'demo').then((client) => {
-  const idRestriction = new Restriction('id', Comparators.GE, 1);
-  const filter = new Filter(idRestriction);
+  const filter = new Filter()
+    .withOrRestriction(new Restriction('id', Comparators.GE, 1));
   // query all alarms with an ID greater than or equal to 1
   return client.alarms().find(filter).then((alarms) => {
     console.log('got ' + alarms.length + ' alarms.');
-    // return all the node IDs associated with the matching alarms
-    return alarms.map((alarm) => {
+    // return all the (unique) node IDs associated with the matching alarms
+    const allNodeIds = alarms.map((alarm) => {
       return alarm.nodeId;
     }).filter((nodeId) => {
       return nodeId !== undefined;
     });
+    return allNodeIds.filter((v,i,a)=>allNodeIds.indexOf(v)===i);
   }).then((nodeIds) => {
     // for each node ID, request the node info
     return Promise.all(nodeIds.map((nodeId) => {
