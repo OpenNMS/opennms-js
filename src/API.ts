@@ -14,6 +14,7 @@ import {AlarmDAO} from './dao/AlarmDAO';
 import {EventDAO} from './dao/EventDAO';
 import {NodeDAO} from './dao/NodeDAO';
 import {V1FilterProcessor} from './dao/V1FilterProcessor';
+import {V2FilterProcessor} from './dao/V2FilterProcessor';
 
 import {OnmsAlarm} from './model/OnmsAlarm';
 import {OnmsAlarmType, AlarmTypes} from './model/OnmsAlarmType';
@@ -72,6 +73,7 @@ const DAO = Object.freeze({
   EventDAO,
   NodeDAO,
   V1FilterProcessor,
+  V2FilterProcessor,
 });
 
 /** @hidden */

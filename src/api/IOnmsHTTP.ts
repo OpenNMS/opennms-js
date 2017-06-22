@@ -31,9 +31,6 @@ export interface IOnmsHTTP {
   /** the options used when making requests */
   options: OnmsHTTPOptions;
 
-  /** the filter processor to use when making DAO requests */
-  filterProcessor: IFilterProcessor;
-
   /**
    * Perform an HTTP get to the provided URL.
    * @param url the URL to connect to

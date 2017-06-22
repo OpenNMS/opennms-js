@@ -26,12 +26,16 @@ const SERVER_PASSWORD='demo';
 let opennms : Client, server, auth, mockHTTP, dao : AlarmDAO;
 
 describe('AlarmDAO', () => {
-  beforeEach(() => {
+  beforeEach((done) => {
     auth = new OnmsAuthConfig(SERVER_USER, SERVER_PASSWORD);
     server = new OnmsServer(SERVER_NAME, SERVER_URL, auth);
     mockHTTP = new MockHTTP(server);
     opennms = new Client(mockHTTP);
     dao = new AlarmDAO(mockHTTP);
+    Client.getMetadata(server, mockHTTP).then((metadata) => {
+      server.metadata = metadata;
+      done();
+    });
   });
   it('AlarmDAO.get(404725)', () => {
     return dao.get(404725).then((alarm) => {

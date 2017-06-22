@@ -109,7 +109,7 @@ export class AlarmDAO extends AbstractDAO<number, OnmsAlarm> {
   /** get an alarm, given the alarm's ID */
   public async get(id: number): Promise<OnmsAlarm> {
     const opts = this.getOptions();
-    return this.http.get('rest/alarms/' + id, opts).then((result) => {
+    return this.http.get(this.pathToAlarmsEndpoint() + '/' + id, opts).then((result) => {
       return this.fromData(result.data);
     });
   }
@@ -117,7 +117,7 @@ export class AlarmDAO extends AbstractDAO<number, OnmsAlarm> {
   /** get an alarm, given a filter */
   public async find(filter?: Filter): Promise<OnmsAlarm[]> {
     const opts = this.getOptions(filter);
-    return this.http.get('rest/alarms', opts).then((result) => {
+    return this.http.get(this.pathToAlarmsEndpoint(), opts).then((result) => {
       let data = result.data;
 
       if (this.getCount(data) > 0 && data.alarm) {
@@ -135,4 +135,8 @@ export class AlarmDAO extends AbstractDAO<number, OnmsAlarm> {
     });
   }
 
+  /** get the path to the alarms endpoint for the appropriate API version */
+  private pathToAlarmsEndpoint() {
+    return this.getApiVersion() === 2 ? 'api/v2/alarms' : 'rest/alarms';
+  }
 }

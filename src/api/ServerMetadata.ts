@@ -53,7 +53,7 @@ export class ServerMetadata {
 
   /** what version of the ReST API does this server support */
   public apiVersion() {
-    return 1;
+    return this.version.ge('21.0.0') ? 2 : 1;
   }
 
   /** a convenient data structure with all capabilities listed */

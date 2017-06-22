@@ -34,12 +34,16 @@ const SERVER_PASSWORD='demo';
 let opennms : Client, server, auth, mockHTTP, dao : NodeDAO;
 
 describe('NodeDAO', () => {
-  beforeEach(() => {
+  beforeEach((done) => {
     auth = new OnmsAuthConfig(SERVER_USER, SERVER_PASSWORD);
     server = new OnmsServer(SERVER_NAME, SERVER_URL, auth);
     mockHTTP = new MockHTTP(server);
     opennms = new Client(mockHTTP);
     dao = new NodeDAO(mockHTTP);
+    Client.getMetadata(server, mockHTTP).then((metadata) => {
+      server.metadata = metadata;
+      done();
+    });
   });
   it('NodeDAO.get(43, [recurse=false])', () => {
     return dao.get(43).then((node) => {
