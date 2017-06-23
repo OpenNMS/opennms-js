@@ -5,6 +5,7 @@ import {Filter} from '../api/Filter';
 import {IHasHTTP} from '../api/IHasHTTP';
 import {IOnmsHTTP} from '../api/IOnmsHTTP';
 import {OnmsError} from '../api/OnmsError';
+import {OnmsHTTPOptions} from '../api/OnmsHTTPOptions';
 
 import {OnmsAlarm} from '../model/OnmsAlarm';
 import {AlarmTypes} from '../model/OnmsAlarmType';
@@ -133,6 +134,16 @@ export class AlarmDAO extends AbstractDAO<number, OnmsAlarm> {
         return this.fromData(alarmData);
       });
     });
+  }
+
+  /** given an optional filter, generate an {@link OnmsHTTPOptions} object for DAO calls */
+  protected getOptions(filter?: Filter): OnmsHTTPOptions {
+    const options = super.getOptions(filter);
+    // always use application/json for v2 calls
+    if (this.getApiVersion() === 2) {
+      options.accept = 'application/json';
+    }
+    return options;
   }
 
   /** get the path to the alarms endpoint for the appropriate API version */

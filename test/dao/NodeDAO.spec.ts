@@ -20,7 +20,7 @@ import {SnmpStatusTypes} from '../../src/model/OnmsSnmpStatusType';
 
 import {NodeDAO} from '../../src/dao/NodeDAO';
 
-import {MockHTTP} from '../rest/MockHTTP';
+import {MockHTTP19} from '../rest/MockHTTP19';
 
 /** @hidden */
 // tslint:disable-next-line
@@ -37,7 +37,7 @@ describe('NodeDAO', () => {
   beforeEach((done) => {
     auth = new OnmsAuthConfig(SERVER_USER, SERVER_PASSWORD);
     server = new OnmsServer(SERVER_NAME, SERVER_URL, auth);
-    mockHTTP = new MockHTTP(server);
+    mockHTTP = new MockHTTP19(server);
     opennms = new Client(mockHTTP);
     dao = new NodeDAO(mockHTTP);
     Client.getMetadata(server, mockHTTP).then((metadata) => {

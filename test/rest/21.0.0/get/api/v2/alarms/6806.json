@@ -1,0 +1,52 @@
+{
+  "firstEventTime": 1498062027050,
+  "suppressedUntil": 1498062027050,
+  "suppressedTime": 1498062027050,
+  "lastEvent": {
+    "id": 120751,
+    "serviceType": null,
+    "ifIndex": null,
+    "nodeId": 166,
+    "nodeLabel": "wan4",
+    "severity": "MAJOR",
+    "parameters": [{
+      "name": "nodelabel",
+      "value": "wan4",
+      "type": "string"
+    }],
+    "time": 1498062027050,
+    "uei": "uei.opennms.org/nodes/nodeDown",
+    "host": "noise",
+    "source": "OpenNMS.Poller.DefaultPollContext",
+    "createTime": 1498062027183,
+    "description": "<p>All interfaces on node wan4 are\n      down.</p> <p>This event is generated when node\n      outage processing determines that all interfaces on the node\n      are down.</p> <p>New outage records have been\n      created and service level availability calculations will be\n      impacted until this outage is resolved.</p>",
+    "logMessage": "\n      Node wan4 is down. \n    ",
+    "log": "Y",
+    "display": "Y"
+  },
+  "lastEventTime": 1498062027050,
+  "managedObjectInstance": null,
+  "managedObjectType": null,
+  "ossPrimaryKey": null,
+  "qosAlarmState": null,
+  "id": 6806,
+  "description": "<p>All interfaces on node wan4 are\n      down.</p> <p>This event is generated when node\n      outage processing determines that all interfaces on the node\n      are down.</p> <p>New outage records have been\n      created and service level availability calculations will be\n      impacted until this outage is resolved.</p>",
+  "serviceType": null,
+  "ifIndex": null,
+  "uei": "uei.opennms.org/nodes/nodeDown",
+  "nodeId": 166,
+  "nodeLabel": "wan4",
+  "reductionKey": "uei.opennms.org/nodes/nodeDown::166",
+  "x733AlarmType": null,
+  "x733ProbableCause": 0,
+  "ackId": 6806,
+  "type": 1,
+  "count": 1,
+  "severity": "MAJOR",
+  "logMessage": "\n      Node wan4 is down. \n    ",
+  "parameters": [{
+    "name": "nodelabel",
+    "value": "wan4",
+    "type": "string"
+  }]
+}
