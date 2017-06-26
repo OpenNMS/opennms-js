@@ -5,8 +5,6 @@ import {OnmsHTTPOptions} from '../api/OnmsHTTPOptions';
 import {OnmsResult} from '../api/OnmsResult';
 import {OnmsServer} from '../api/OnmsServer';
 
-import {V1FilterProcessor} from '../dao/V1FilterProcessor';
-
 /** @hidden */
 // tslint:disable-next-line
 const X2JS = require('x2js');
@@ -29,21 +27,16 @@ export abstract class AbstractHTTP implements IOnmsHTTP {
   /** the authorization config associated with this ReST client */
   public options: OnmsHTTPOptions;
 
-  /** the filter processor to use when making DAO requests */
-  public filterProcessor = new V1FilterProcessor() as IFilterProcessor;
-
   /** the server metadata we'll use for constructing ReST calls */
   private serverObj: OnmsServer;
 
   /** the server associated with this HTTP implementation */
   public get server() {
-    this.assertFilterProcessorExists();
     return this.serverObj;
   }
 
   public set server(server: OnmsServer) {
     this.serverObj = server;
-    this.assertFilterProcessorExists();
     this.onSetServer();
   }
 
@@ -56,7 +49,6 @@ export abstract class AbstractHTTP implements IOnmsHTTP {
   constructor(server?: OnmsServer, timeout = 10000) {
     this.serverObj = server;
     this.timeout = timeout;
-    this.assertFilterProcessorExists();
   }
 
   /** make an HTTP get call -- this should be overridden by the implementation */
@@ -106,15 +98,4 @@ export abstract class AbstractHTTP implements IOnmsHTTP {
     // do nothing by default
   }
 
-  /** make sure the filter processor is initialized */
-  private assertFilterProcessorExists() {
-    if (!this.filterProcessor) {
-      if (this.serverObj && this.serverObj.metadata) {
-        switch (this.serverObj.metadata.apiVersion()) {
-          default:
-            this.filterProcessor = new V1FilterProcessor();
-        }
-      }
-    }
-  }
 }

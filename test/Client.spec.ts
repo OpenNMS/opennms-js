@@ -11,7 +11,7 @@ import {OnmsResult} from '../src/api/OnmsResult';
 import {OnmsServer} from '../src/api/OnmsServer';
 import {ServerMetadata} from '../src/api/ServerMetadata';
 
-import {MockHTTP} from './rest/MockHTTP';
+import {MockHTTP19} from './rest/MockHTTP19';
 
 import {ServerType, ServerTypes} from '../src/api/ServerType';
 
@@ -24,7 +24,7 @@ let opennms : Client, server, auth, mockHTTP;
 
 describe('Given an instance of OpenNMS...', () => {
   beforeEach(() => {
-    mockHTTP = new MockHTTP();
+    mockHTTP = new MockHTTP19();
     opennms = new Client(mockHTTP);
     auth = new OnmsAuthConfig(SERVER_USER, SERVER_PASSWORD);
     server = new OnmsServer(SERVER_NAME, SERVER_URL, auth);

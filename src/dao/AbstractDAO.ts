@@ -1,11 +1,14 @@
 import {IHasHTTP} from '../api/IHasHTTP';
 import {IOnmsHTTP} from '../api/IOnmsHTTP';
+import {OnmsError} from '../api/OnmsError';
 
 import {Filter} from '../api/Filter';
 import {OnmsHTTPOptions} from '../api/OnmsHTTPOptions';
 
 import {log, catDao} from '../api/Log';
-import {Category} from 'typescript-logging';
+
+import {V1FilterProcessor} from './V1FilterProcessor';
+import {V2FilterProcessor} from './V2FilterProcessor';
 
 /** @hidden */
 // tslint:disable-next-line
@@ -20,6 +23,9 @@ const moment = require('moment');
 export abstract class AbstractDAO<K, T> {
   /** the HTTP implementation to use */
   protected http: IOnmsHTTP;
+
+  /** the filter processor to use when making DAO requests */
+  private filterProcessor;
 
   /** construct a DAO instance */
   constructor(impl: IHasHTTP | IOnmsHTTP) {
@@ -57,7 +63,7 @@ export abstract class AbstractDAO<K, T> {
     // always use application/xml for now in DAO calls
     ret.accept = 'application/xml';
     if (filter) {
-      ret.parameters = this.http.filterProcessor.getParameters(filter);
+      ret.parameters = this.getFilterProcessor().getParameters(filter);
     }
     return ret;
   }
@@ -74,5 +80,27 @@ export abstract class AbstractDAO<K, T> {
   protected toNumber(from: any) {
     const ret = parseInt(from, 10);
     return isNaN(ret) ? undefined : ret;
+  }
+
+  /** retrieve the API version from the underlying server */
+  protected getApiVersion() {
+    if (this.http.server.metadata === undefined) {
+      throw new OnmsError('Server meta-data must be populated prior to making DAO calls.');
+    }
+    return this.http.server.metadata.apiVersion();
+  }
+
+  /** retrieve filter processor for the current API version */
+  protected getFilterProcessor() {
+    if (!this.filterProcessor) {
+      switch (this.getApiVersion()) {
+        case 2:
+          this.filterProcessor = new V2FilterProcessor();
+          break;
+        default:
+          this.filterProcessor = new V1FilterProcessor();
+      }
+    }
+    return this.filterProcessor;
   }
 }

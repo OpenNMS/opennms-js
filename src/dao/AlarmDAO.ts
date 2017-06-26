@@ -5,6 +5,7 @@ import {Filter} from '../api/Filter';
 import {IHasHTTP} from '../api/IHasHTTP';
 import {IOnmsHTTP} from '../api/IOnmsHTTP';
 import {OnmsError} from '../api/OnmsError';
+import {OnmsHTTPOptions} from '../api/OnmsHTTPOptions';
 
 import {OnmsAlarm} from '../model/OnmsAlarm';
 import {AlarmTypes} from '../model/OnmsAlarmType';
@@ -109,7 +110,7 @@ export class AlarmDAO extends AbstractDAO<number, OnmsAlarm> {
   /** get an alarm, given the alarm's ID */
   public async get(id: number): Promise<OnmsAlarm> {
     const opts = this.getOptions();
-    return this.http.get('rest/alarms/' + id, opts).then((result) => {
+    return this.http.get(this.pathToAlarmsEndpoint() + '/' + id, opts).then((result) => {
       return this.fromData(result.data);
     });
   }
@@ -117,7 +118,7 @@ export class AlarmDAO extends AbstractDAO<number, OnmsAlarm> {
   /** get an alarm, given a filter */
   public async find(filter?: Filter): Promise<OnmsAlarm[]> {
     const opts = this.getOptions(filter);
-    return this.http.get('rest/alarms', opts).then((result) => {
+    return this.http.get(this.pathToAlarmsEndpoint(), opts).then((result) => {
       let data = result.data;
 
       if (this.getCount(data) > 0 && data.alarm) {
@@ -135,4 +136,18 @@ export class AlarmDAO extends AbstractDAO<number, OnmsAlarm> {
     });
   }
 
+  /** given an optional filter, generate an {@link OnmsHTTPOptions} object for DAO calls */
+  protected getOptions(filter?: Filter): OnmsHTTPOptions {
+    const options = super.getOptions(filter);
+    // always use application/json for v2 calls
+    if (this.getApiVersion() === 2) {
+      options.accept = 'application/json';
+    }
+    return options;
+  }
+
+  /** get the path to the alarms endpoint for the appropriate API version */
+  private pathToAlarmsEndpoint() {
+    return this.getApiVersion() === 2 ? 'api/v2/alarms' : 'rest/alarms';
+  }
 }

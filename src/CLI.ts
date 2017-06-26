@@ -28,7 +28,7 @@ function CLI() {
   function readConfig() {
     const configfile = program.config || defaultConfigFile;
     let config;
-    if (fs.exists) {
+    if (fs.existsSync(configfile)) {
       config = JSON.parse(fs.readFileSync(configfile));
     } else {
       config = {
@@ -170,55 +170,54 @@ function CLI() {
     .description('List current alarms')
     .action((filters) => {
       const config = readConfig();
-      const auth = new API.OnmsAuthConfig(config.username, config.password);
-      const server = new API.OnmsServer('OpenNMS', config.url, auth);
-      const http = new Rest.AxiosHTTP(server);
-      const dao = new DAO.AlarmDAO(http);
+      new Client().connect('OpenNMS', config.url, config.username, config.password).then((client) => {
+        const dao = new DAO.AlarmDAO(client);
 
-      const namePattern = /^(.*?)\s+(eq|ne|ilike|like|gt|lt|ge|le|null|notnull)\s+(.*?)$/i;
-      const symbolPattern = /^(.*?)\s*(=|==|!=|>|<|>=|<=)\s*(.*?)$/i;
-      const filter = new API.Filter();
+        const namePattern = /^(.*?)\s+(eq|ne|ilike|like|gt|lt|ge|le|null|notnull)\s+(.*?)$/i;
+        const symbolPattern = /^(.*?)\s*(=|==|!=|>|<|>=|<=)\s*(.*?)$/i;
+        const filter = new API.Filter();
 
-      for (const f of filters) {
-        let match = f.match(namePattern);
-        let attribute;
-        let comparator;
-        let value;
-        if (match) {
-          attribute = match[1];
-          comparator = match[2];
-          value = match[3];
-        } else {
-          match = f.match(symbolPattern);
+        for (const f of filters) {
+          let match = f.match(namePattern);
+          let attribute;
+          let comparator;
+          let value;
           if (match) {
             attribute = match[1];
             comparator = match[2];
             value = match[3];
           } else {
-            log.warn('Unable to parse filter "' + f + '"', catCLI);
+            match = f.match(symbolPattern);
+            if (match) {
+              attribute = match[1];
+              comparator = match[2];
+              value = match[3];
+            } else {
+              log.warn('Unable to parse filter "' + f + '"', catCLI);
+            }
           }
-        }
 
-        if (attribute && comparator) {
-          for (const type in API.Comparators) {
-            if (API.Comparators.hasOwnProperty(type)) {
-              const comp = API.Comparators[type];
-              if (comp.matches(comparator)) {
-                filter.restrictions.push(new API.Restriction(attribute, comp, value));
+          if (attribute && comparator) {
+            for (const type in API.Comparators) {
+              if (API.Comparators.hasOwnProperty(type)) {
+                const comp = API.Comparators[type];
+                if (comp.matches(comparator)) {
+                  filter.withOrRestriction(new API.Restriction(attribute, comp, value));
+                }
               }
             }
           }
         }
-      }
 
-      return dao.find(filter).then((alarms) => {
-        const headers = ['id', 'severity', 'node', 'count', 'time', 'log'];
-        console.log(cliff.stringifyObjectRows(formatAlarms(alarms), headers, ['red']));
-      }).catch((err) => {
-        if (err.stack) {
-          log.error(err.stack, err, catCLI);
-        }
-        return err;
+        return dao.find(filter).then((alarms) => {
+          const headers = ['id', 'severity', 'node', 'count', 'time', 'log'];
+          console.log(cliff.stringifyObjectRows(formatAlarms(alarms), headers, ['red']));
+        }).catch((err) => {
+          if (err.stack) {
+            log.error(err.stack, err, catCLI);
+          }
+          return err;
+        });
       });
     });
 
