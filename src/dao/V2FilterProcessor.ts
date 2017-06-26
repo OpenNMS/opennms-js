@@ -59,8 +59,6 @@ export class V2FilterProcessor implements IFilterProcessor {
       case Comparators.NULL:
       case Comparators.NOTNULL:
         return restriction.value === undefined ? V2FilterProcessor.NULL_VALUE : restriction.value;
-      case Comparators.LIKE:
-        return '*' + restriction.value + '*';
       default:
         return restriction.value;
     }

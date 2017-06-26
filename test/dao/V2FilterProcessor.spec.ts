@@ -70,25 +70,25 @@ describe('V2FilterProcessor', () => {
     filter.withOrRestriction(new Restriction('id', Comparators.NE, 0));
     expect(toSearch(filter)).toEqual('severity==5,id!=0');
   });
-  it('alarm filter: uei like somethingWentWrong', () => {
+  it('alarm filter: uei like *somethingWentWrong', () => {
     const filter = new Filter<OnmsAlarm>();
-    filter.withOrRestriction(new Restriction('uei', Comparators.LIKE, 'somethingWentWrong'));
-    expect(toSearch(filter)).toEqual('uei==*somethingWentWrong*');
+    filter.withOrRestriction(new Restriction('uei', Comparators.LIKE, '*somethingWentWrong'));
+    expect(toSearch(filter)).toEqual('uei==*somethingWentWrong');
   });
-  it('alarm filter: severity=OnmsSeverity.MINOR AND id!=0 OR uei like somethingWentWrong', () => {
+  it('alarm filter: severity=OnmsSeverity.MINOR AND id!=0 OR uei like *somethingWentWrong', () => {
     const filter = new Filter<OnmsAlarm>();
     filter.withOrRestriction(new Restriction('severity', Comparators.EQ, Severities.MINOR));
     filter.withAndRestriction(new Restriction('id', Comparators.NE, 0));
-    filter.withOrRestriction(new Restriction('uei', Comparators.LIKE, 'somethingWentWrong'));
-    expect(toSearch(filter)).toEqual('severity==5;id!=0,uei==*somethingWentWrong*');
+    filter.withOrRestriction(new Restriction('uei', Comparators.LIKE, '*somethingWentWrong'));
+    expect(toSearch(filter)).toEqual('severity==5;id!=0,uei==*somethingWentWrong');
   });
-  it('alarm filter: id!=0 AND (severity=OnmsSeverity.MINOR OR uei like somethingWentWrong)', () => {
+  it('alarm filter: id!=0 AND (severity=OnmsSeverity.MINOR OR uei like *somethingWentWrong)', () => {
     const filter = new Filter<OnmsAlarm>()
         .withOrRestriction(new Restriction('id', Comparators.NE, 0))
         .withAndRestriction(new NestedRestriction()
             .withOrRestriction(new Restriction('severity', Comparators.EQ, Severities.MINOR))
-            .withOrRestriction(new Restriction('uei', Comparators.LIKE, 'somethingWentWrong')),
+            .withOrRestriction(new Restriction('uei', Comparators.LIKE, '*somethingWentWrong')),
         );
-    expect(toSearch(filter)).toEqual('id!=0;(severity==5,uei==*somethingWentWrong*)');
+    expect(toSearch(filter)).toEqual('id!=0;(severity==5,uei==*somethingWentWrong)');
   });
 });
