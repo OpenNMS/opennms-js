@@ -1,3 +1,4 @@
+import {Clause} from './api/Clause';
 import {Comparator, Comparators} from './api/Comparator';
 import {Filter} from './api/Filter';
 import {NestedRestriction} from './api/NestedRestriction';
@@ -7,6 +8,7 @@ import {OnmsHTTPOptions} from './api/OnmsHTTPOptions';
 import {OnmsResult} from './api/OnmsResult';
 import {OnmsServer} from './api/OnmsServer';
 import {OnmsVersion} from './api/OnmsVersion';
+import {Operator, Operators} from './api/Operator';
 import {Restriction} from './api/Restriction';
 import {ServerMetadata} from './api/ServerMetadata';
 import {ServerType, ServerTypes} from './api/ServerType';
@@ -51,6 +53,7 @@ import {setLogLevel} from './api/Log';
 
 /** @hidden */
 const API = Object.freeze({
+  Clause,
   Comparator,
   Comparators,
   Filter,
@@ -61,6 +64,8 @@ const API = Object.freeze({
   OnmsResult,
   OnmsServer,
   OnmsVersion,
+  Operator,
+  Operators,
   Restriction,
   ServerMetadata,
   ServerType,
