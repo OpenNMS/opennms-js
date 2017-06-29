@@ -1,5 +1,10 @@
-<a name="0.1.0"></a>
-# 0.1.0 (2017-06-16)
+<a name="0.1.0-alpha.2"></a>
+# [0.1.0-alpha.2](https://github.com/OpenNMS/opennms-js/compare/v0.1.0-alpha.1...v0.1.0-alpha.2) (2017-06-19)
+
+
+
+<a name="0.1.0-alpha.1"></a>
+# [0.1.0-alpha.1](https://github.com/OpenNMS/opennms-js/compare/725ed3a...v0.1.0-alpha.1) (2017-06-19)
 
 
 ### Bug Fixes
@@ -21,6 +26,7 @@
 * **api:** add constants for server type ([725ed3a](https://github.com/OpenNMS/opennms-js/commit/725ed3a))
 * **api:** add full DAO filtering support ([fe2204c](https://github.com/OpenNMS/opennms-js/commit/fe2204c))
 * **api:** add logging using typescript-logging ([8e1bafe](https://github.com/OpenNMS/opennms-js/commit/8e1bafe))
+* **api:** expose LogLevel and setLogLevel in the API ([9a9b512](https://github.com/OpenNMS/opennms-js/commit/9a9b512))
 * **cli:** add a test CLI ([671fbe1](https://github.com/OpenNMS/opennms-js/commit/671fbe1))
 * **cli:** add server info display ([93c8778](https://github.com/OpenNMS/opennms-js/commit/93c8778))
 * **cli:** implement basic (hardcoded) test alarm fetch ([42b10e4](https://github.com/OpenNMS/opennms-js/commit/42b10e4))
