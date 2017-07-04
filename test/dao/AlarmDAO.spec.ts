@@ -77,4 +77,11 @@ describe('AlarmDAO with v2 API', () => {
       expect(alarms[0].id).toEqual(6806);
     });
   });
+  it('AlarmDAO.find(uei=should-not-exist)', () => {
+    const filter = new Filter();
+    filter.withOrRestriction(new Restriction('alarm.uei', Comparators.EQ, 'should-not-exist'));
+    return dao.find(filter).then((alarms) => {
+      expect(alarms.length).toEqual(0);
+    });
+  });
 });

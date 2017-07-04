@@ -57,7 +57,11 @@ export abstract class AbstractHTTP implements IOnmsHTTP {
   /** a convenience method for implementers to use to turn JSON into a javascript object */
   protected transformJSON(data: any) {
     if (typeof data === 'string') {
-      return JSON.parse(data);
+      if (data.length < 1) {
+        return {};
+      } else {
+        return JSON.parse(data);
+      }
     } else {
       // assume it's already parsed
       return data;

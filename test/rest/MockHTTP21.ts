@@ -35,6 +35,9 @@ export class MockHTTP21 extends AbstractHTTP {
         result.type = 'application/json';
         return Promise.resolve(result);
       }
+      case 'api/v2/alarms?limit=1000&_s=alarm.uei%3D%3Dshould-not-exist': {
+        return Promise.resolve(OnmsResult.noContent());
+      }
     }
     return Promise.reject(OnmsResult.error('Not yet implemented: ' + urlObj.toString()));
   }

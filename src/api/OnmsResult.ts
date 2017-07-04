@@ -15,6 +15,12 @@ export class OnmsResult<T> {
     return new OnmsResult(response, message || 'OK', code || 200, type);
   }
 
+  /** create a new "No Content" result */
+  public static noContent() {
+    // Use an empty string for the data
+    return new OnmsResult('', 'No Content', 204);
+  }
+
   /** the data, if any */
   public data: T;
 
