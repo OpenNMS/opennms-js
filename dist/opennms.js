@@ -6429,6 +6429,14 @@ var OnmsResult = function () {
         value: function ok(response, message, code, type) {
             return new OnmsResult(response, message || 'OK', code || 200, type);
         }
+        /** create a new "No Content" result */
+
+    }, {
+        key: "noContent",
+        value: function noContent() {
+            // Use an empty string for the data
+            return new OnmsResult('', 'No Content', 204);
+        }
     }]);
 
     return OnmsResult;
@@ -9073,7 +9081,11 @@ var AbstractHTTP = function () {
         /** a convenience method for implementers to use to turn JSON into a javascript object */
         value: function transformJSON(data) {
             if (typeof data === 'string') {
-                return JSON.parse(data);
+                if (data.length < 1) {
+                    return {};
+                } else {
+                    return JSON.parse(data);
+                }
             } else {
                 // assume it's already parsed
                 return data;
