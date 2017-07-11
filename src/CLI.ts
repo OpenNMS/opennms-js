@@ -32,9 +32,9 @@ function CLI() {
       config = JSON.parse(fs.readFileSync(configfile));
     } else {
       config = {
-        password: undefined,
+        password: 'admin',
         url: undefined,
-        username: undefined,
+        username: 'admin',
       };
     }
     return config;
@@ -58,8 +58,12 @@ function CLI() {
     .action((url, options) => {
       const config = readConfig();
       if (url) {
+        // the user is passing a URL, reset the config
         config.url = url;
+        config.username = 'admin';
+        config.password = 'admin';
       }
+
       if (options.username) {
         config.username = options.username;
       }
@@ -170,7 +174,7 @@ function CLI() {
     .description('List current alarms')
     .action((filters) => {
       const config = readConfig();
-      new Client().connect('OpenNMS', config.url, config.username, config.password).then((client) => {
+      return new Client().connect('OpenNMS', config.url, config.username, config.password).then((client) => {
         const dao = new DAO.AlarmDAO(client);
 
         const namePattern = /^(.*?)\s+(eq|ne|ilike|like|gt|lt|ge|le|null|notnull)\s+(.*?)$/i;

@@ -120,7 +120,7 @@ export class Client implements IHasHTTP {
     const server = new OnmsServer(name, url, username, password);
 
     await Client.checkServer(server, undefined, timeout);
-    const metadata = await Client.getMetadata(server, undefined, timeout);
+    server.metadata = await Client.getMetadata(server, undefined, timeout);
 
     if (!self.http) {
       self.http = Client.defaultHttp;
@@ -129,7 +129,6 @@ export class Client implements IHasHTTP {
       self.http.server = server;
     }
     self.server = server;
-    server.metadata = metadata;
 
     return self;
   }
