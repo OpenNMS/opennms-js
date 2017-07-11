@@ -16,8 +16,8 @@ export class OnmsHTTPOptions {
   /** how long to wait for ReST calls to time out */
   public timeout = 10000;
 
-  /** the type of response to accept */
-  public accept = 'application/xml';
+  /** http headers to be passed to the request */
+  public headers = {} as IHash<string>;
 
   /** http parameters to be passed on the URL */
   public parameters = {} as IHash<string>;

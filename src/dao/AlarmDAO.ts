@@ -145,7 +145,7 @@ export class AlarmDAO extends AbstractDAO<number, OnmsAlarm> {
     const options = super.getOptions(filter);
     // always use application/json for v2 calls
     if (this.getApiVersion() === 2) {
-      options.accept = 'application/json';
+      options.headers.accept = 'application/json';
     }
     return options;
   }

@@ -61,7 +61,7 @@ export abstract class AbstractDAO<K, T> {
   protected getOptions(filter?: Filter): OnmsHTTPOptions {
     const ret = new OnmsHTTPOptions();
     // always use application/xml for now in DAO calls
-    ret.accept = 'application/xml';
+    ret.headers.accept = 'application/xml';
     if (filter) {
       ret.parameters = this.getFilterProcessor().getParameters(filter);
     }

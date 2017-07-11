@@ -40,8 +40,8 @@ export class GrafanaHTTP extends AbstractHTTP {
     query.url = realUrl;
     return this.backendSrv.datasourceRequest(query).then((response) => {
       let type = 'application/xml';
-      if (query && query.headers && query.headers.Accept) {
-        type = query.headers.Accept;
+      if (query && query.headers && query.headers.accept) {
+        type = query.headers.accept;
       }
       if (response.headers && response.headers['content-type']) {
         type = response.headers['content-type'];
@@ -52,30 +52,31 @@ export class GrafanaHTTP extends AbstractHTTP {
 
   /** internal method to turn {@link OnmsHTTPOptions} into a Grafana BackendSrv request object. */
   private getConfig(options?: OnmsHTTPOptions): any {
-    if (options) {
-      const ret = {
-        headers: {
-          Accept: options.accept,
-        },
-      } as any;
+    const allOptions = this.getOptions(options);
+    const ret = {} as any;
 
-      if (options.accept === 'application/json') {
+    if (allOptions.headers) {
+      ret.headers = allOptions.headers;
+    }
+
+    if (ret.headers && ret.headers.accept) {
+      const type = ret.headers.accept;
+      if (type === 'application/json') {
         ret.transformResponse = this.transformJSON;
-      } else if (options.accept === 'text/plain') {
-        // allow, but don't do anything special to it
-      } else if (options.accept === 'application/xml') {
+      } else if (type === 'text/plain') {
+      // allow, but don't do anything special to it
+      } else if (type === 'application/xml') {
         ret.transformResponse = this.transformXML;
       } else {
-        throw new OnmsError('Unhandled response type: ' + options.accept);
+        throw new OnmsError('Unhandled "Accept" header: ' + type);
       }
-
-      if (options.parameters && Object.keys(options.parameters).length > 0) {
-        ret.params = options.parameters;
-      }
-
-      return ret;
     }
-    return {};
+
+    if (allOptions.parameters && Object.keys(allOptions.parameters).length > 0) {
+      ret.params = options.parameters;
+    }
+
+    return ret;
   }
 
 }

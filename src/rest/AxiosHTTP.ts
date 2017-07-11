@@ -77,22 +77,26 @@ export class AxiosHTTP extends AbstractHTTP {
       ret.timeout = allOptions.timeout;
     }
 
-    if (allOptions.accept === 'application/json') {
-      ret.responseType = 'json';
-      ret.transformResponse = this.transformJSON;
-    } else if (allOptions.accept === 'text/plain') {
-      ret.responseType = 'text';
-      ret.headers = {
-        Accept: allOptions.accept,
-      };
-    } else if (allOptions.accept === 'application/xml') {
-      ret.responseType = 'text';
-      ret.transformResponse = this.transformXML;
-      ret.headers = {
-        Accept: allOptions.accept,
-      };
+    if (allOptions.headers) {
+      ret.headers = allOptions.headers;
+    }
+
+    if (ret.headers && ret.headers.accept) {
+      const type = ret.headers.accept;
+      if (type === 'application/json') {
+        ret.responseType = 'json';
+        ret.transformResponse = this.transformJSON;
+      } else if (type === 'text/plain') {
+        ret.responseType = 'text';
+      } else if (type === 'application/xml') {
+        ret.responseType = 'text';
+        ret.transformResponse = this.transformXML;
+      } else {
+        throw new OnmsError('Unhandled "Accept" header: ' + type);
+      }
     } else {
-      throw new OnmsError('Unhandled response type: ' + allOptions.accept);
+      delete ret.responseType;
+      delete ret.transformResponse;
     }
 
     if (allOptions.parameters) {
