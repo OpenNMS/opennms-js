@@ -1,0 +1,79 @@
+{
+  "id": 82416,
+  "description": "A problem has been triggered.",
+  "ifIndex": null,
+  "uei": "uei.opennms.org/alarms/trigger",
+  "serviceType": null,
+  "x733AlarmType": null,
+  "x733ProbableCause": 0,
+  "reductionKey": "uei.opennms.org/alarms/trigger:f5:0.0.0.0:HTTPS_POOL",
+  "ackId": 1,
+  "stickyMemo": {
+    "id": 1,
+    "created": 1499786686515,
+    "body": "sticky",
+    "author": "admin",
+    "updated": 1499786686515
+  },
+  "reductionKeyMemo": {
+    "reductionKey": "uei.opennms.org/alarms/trigger:f5:0.0.0.0:HTTPS_POOL",
+    "id": 2,
+    "created": 1499786689405,
+    "body": "journal",
+    "author": "admin",
+    "updated": 1499786689405
+  },
+  "firstEventTime": 1499716228000,
+  "suppressedUntil": 1499716228000,
+  "suppressedTime": 1499716228000,
+  "lastEvent": {
+    "id": 34,
+    "ifIndex": null,
+    "serviceType": null,
+    "host": "noise",
+    "uei": "uei.opennms.org/alarms/trigger",
+    "time": 1499786650000,
+    "source": "perl_send_event",
+    "createTime": 1499786650999,
+    "description": "A problem has been triggered.",
+    "logMessage": "A problem has been triggered on f5/0.0.0.0/HTTPS_POOL.",
+    "log": "Y",
+    "display": "Y",
+    "severity": "CRITICAL",
+    "parameters": [{
+      "name": "service",
+      "value": "HTTPS_POOL",
+      "type": "string"
+    }, {
+      "name": "ip",
+      "value": "0.0.0.0",
+      "type": "string"
+    }, {
+      "name": "node",
+      "value": "f5",
+      "type": "string"
+    }]
+  },
+  "lastEventTime": 1499786650000,
+  "managedObjectInstance": null,
+  "managedObjectType": null,
+  "ossPrimaryKey": null,
+  "qosAlarmState": null,
+  "type": 1,
+  "count": 2,
+  "severity": "CRITICAL",
+  "logMessage": "A problem has been triggered on f5/0.0.0.0/HTTPS_POOL.",
+  "parameters": [{
+    "name": "service",
+    "value": "HTTPS_POOL",
+    "type": "string"
+  }, {
+    "name": "ip",
+    "value": "0.0.0.0",
+    "type": "string"
+  }, {
+    "name": "node",
+    "value": "f5",
+    "type": "string"
+  }]
+}

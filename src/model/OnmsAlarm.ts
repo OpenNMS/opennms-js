@@ -6,6 +6,7 @@ import {OnmsParm} from './OnmsParm';
 import {OnmsServiceType} from './OnmsServiceType';
 import {OnmsSeverity} from './OnmsSeverity';
 import {OnmsTroubleTicketState} from './OnmsTroubleTicketState';
+import {OnmsMemo} from './OnmsMemo';
 
 /**
  * Represents an OpenNMS alarm.
@@ -74,6 +75,12 @@ export class OnmsAlarm {
 
   /** the parameters emitted with this alarm's event */
   public parameters: OnmsParm[];
+
+  /** sticky memo - a note associated with this specific alarm instance */
+  public sticky: OnmsMemo;
+
+  /** journal memo - a note associated with the reduction key for this alarm */
+  public journal: OnmsMemo;
 
   /** the most recent time the event has triggered this alarm */
   public get lastEventTime() {

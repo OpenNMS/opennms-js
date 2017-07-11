@@ -13,6 +13,7 @@ import {OnmsParm} from '../model/OnmsParm';
 import {OnmsServiceType} from '../model/OnmsServiceType';
 import {Severities} from '../model/OnmsSeverity';
 import {TroubleTicketStates} from '../model/OnmsTroubleTicketState';
+import {OnmsMemo} from '../model/OnmsMemo';
 
 import {log, catDao} from '../api/Log';
 import {Category} from 'typescript-logging';
@@ -104,6 +105,9 @@ export class AlarmDAO extends AbstractDAO<number, OnmsAlarm> {
       }
     }
 
+    alarm.sticky = this.toMemo(data.stickyMemo);
+    alarm.journal = this.toMemo(data.reductionKeyMemo);
+
     return alarm;
   }
 
@@ -150,4 +154,20 @@ export class AlarmDAO extends AbstractDAO<number, OnmsAlarm> {
   private pathToAlarmsEndpoint() {
     return this.getApiVersion() === 2 ? 'api/v2/alarms' : 'rest/alarms';
   }
+
+  /** generate a memo from the given dictionary */
+  private toMemo(data: any): OnmsMemo {
+    if (!data) {
+      return null;
+    }
+
+    const memo = new OnmsMemo();
+    memo.id = data.id;
+    memo.author = data.author;
+    memo.body = data.body;
+    memo.created = this.toDate(data.created);
+    memo.updated = this.toDate(data.updated);
+    return memo;
+  }
+
 }

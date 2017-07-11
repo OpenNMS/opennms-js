@@ -30,6 +30,11 @@ export class MockHTTP21 extends AbstractHTTP {
         result.type = 'application/json';
         return Promise.resolve(result);
       }
+      case 'api/v2/alarms/82416': {
+        const result = OnmsResult.ok(require('./21.0.0/get/api/v2/alarms/82416.json'));
+        result.type = 'application/json';
+        return Promise.resolve(result);
+      }
       case 'api/v2/alarms?limit=1000&_s=alarm.id%3D%3D6806': {
         const result = OnmsResult.ok(require('./21.0.0/get/api/v2/alarms/id.eq.6806.json'));
         result.type = 'application/json';
