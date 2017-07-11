@@ -1,5 +1,6 @@
 import axios from 'axios';
 import {AxiosStatic, AxiosInstance, AxiosRequestConfig} from 'axios';
+import * as qs from 'qs';
 
 /** @hidden */
 // tslint:disable-next-line
@@ -34,16 +35,41 @@ export class AxiosHTTP extends AbstractHTTP {
     this.axiosImpl = axiosImpl || axios;
   }
 
-  /** make an HTTP get call -- this should be overridden by the implementation */
+  /** make an HTTP GET call -- this should be overridden by the implementation */
   public get(url: string, options?: OnmsHTTPOptions) {
     const realUrl = this.getServer(options).resolveURL(url);
     const opts = this.getConfig(options);
 
     const urlObj = new URI(realUrl);
-    urlObj.search(options.parameters);
-    log.debug('getting ' + urlObj.toString(), catAxios);
+    urlObj.search(opts.params);
+    log.debug('GET ' + urlObj.toString(), catAxios);
 
-    return this.getImpl(options).get(realUrl, opts).then((response) => {
+    opts.method = 'get';
+    opts.url = realUrl;
+
+    return this.getImpl(options).request(opts).then((response) => {
+      let type;
+      if (response.headers && response.headers['content-type']) {
+        type = response.headers['content-type'];
+      }
+      return OnmsResult.ok(response.data, undefined, response.status, type);
+    });
+  }
+
+  /** make an HTTP get call -- this should be overridden by the implementation */
+  public put(url: string, options?: OnmsHTTPOptions) {
+    const realUrl = this.getServer(options).resolveURL(url);
+    const opts = this.getConfig(options);
+
+    const urlObj = new URI(realUrl);
+    urlObj.search(opts.params);
+    log.debug('PUT ' + urlObj.toString(), catAxios);
+
+    opts.data = Object.apply({}, opts.params);
+    opts.method = 'put';
+    opts.url = realUrl;
+
+    return this.getImpl(options).request(opts).then((response) => {
       let type;
       if (response.headers && response.headers['content-type']) {
         type = response.headers['content-type'];

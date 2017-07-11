@@ -31,12 +31,31 @@ export class GrafanaHTTP extends AbstractHTTP {
     this.backendSrv = backendSrv;
   }
 
-  /** make an HTTP get call -- this should be overridden by the implementation */
+  /** make an HTTP GET call using the Grafana backendSrv */
   public get(url: string, options?: OnmsHTTPOptions) {
     const realUrl = this.getServer(options).resolveURL(url);
-    log.debug('getting ' + realUrl);
+    log.debug('GET ' + realUrl);
     const query = this.getConfig(options);
     query.method = 'GET';
+    query.url = realUrl;
+    return this.backendSrv.datasourceRequest(query).then((response) => {
+      let type = 'application/xml';
+      if (query && query.headers && query.headers.accept) {
+        type = query.headers.accept;
+      }
+      if (response.headers && response.headers['content-type']) {
+        type = response.headers['content-type'];
+      }
+      return OnmsResult.ok(response.data, undefined, response.status, type);
+    });
+  }
+
+  /** make an HTTP PUT call using the Grafana backendSrv */
+  public put(url: string, options?: OnmsHTTPOptions) {
+    const realUrl = this.getServer(options).resolveURL(url);
+    log.debug('PUT ' + realUrl);
+    const query = this.getConfig(options);
+    query.method = 'PUT';
     query.url = realUrl;
     return this.backendSrv.datasourceRequest(query).then((response) => {
       let type = 'application/xml';
