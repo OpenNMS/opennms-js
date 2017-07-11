@@ -57,6 +57,7 @@ export class GrafanaHTTP extends AbstractHTTP {
     const query = this.getConfig(options);
     query.method = 'PUT';
     query.url = realUrl;
+    query.data = Object.apply({}, query.parameters);
     return this.backendSrv.datasourceRequest(query).then((response) => {
       let type = 'application/xml';
       if (query && query.headers && query.headers.accept) {
@@ -78,17 +79,26 @@ export class GrafanaHTTP extends AbstractHTTP {
       ret.headers = allOptions.headers;
     }
 
-    if (ret.headers && ret.headers.accept) {
-      const type = ret.headers.accept;
-      if (type === 'application/json') {
-        ret.transformResponse = this.transformJSON;
-      } else if (type === 'text/plain') {
-      // allow, but don't do anything special to it
-      } else if (type === 'application/xml') {
-        ret.transformResponse = this.transformXML;
-      } else {
-        throw new OnmsError('Unhandled "Accept" header: ' + type);
-      }
+    ret.headers = ret.headers || {};
+    if (!ret.headers.accept) {
+      ret.headers.accept = 'application/json';
+    }
+    if (!ret.headers['content-type']) {
+      ret.headers['content-type'] = 'application/json;charset=utf-8';
+    }
+
+    const type = ret.headers.accept;
+    if (type === 'application/json') {
+      ret.responseType = 'json';
+      ret.transformResponse = this.transformJSON;
+    } else if (type === 'text/plain') {
+      ret.responseType = 'text';
+      delete ret.transformResponse;
+    } else if (type === 'application/xml') {
+      ret.responseType = 'text';
+      ret.transformResponse = this.transformXML;
+    } else {
+      throw new OnmsError('Unhandled "Accept" header: ' + type);
     }
 
     if (allOptions.parameters && Object.keys(allOptions.parameters).length > 0) {

@@ -50,6 +50,21 @@ describe('AlarmDAO with v1 API', () => {
       expect(alarms.length).toEqual(1);
     });
   });
+  it('AlarmDAO.acknowledge(id=404725)', () => {
+    return dao.acknowledge(404725);
+  });
+  it('AlarmDAO.acknowledge(id=404725, user=ranger)', () => {
+    return dao.acknowledge(404725, 'ranger');
+  });
+  it('AlarmDAO.unacknowledge(id=404725)', () => {
+    return dao.unacknowledge(404725);
+  });
+  it('AlarmDAO.escalate(id=404725)', () => {
+    return dao.escalate(404725);
+  });
+  it('AlarmDAO.clear(id=404725)', () => {
+    return dao.clear(404725);
+  });
 });
 
 describe('AlarmDAO with v2 API', () => {
@@ -90,5 +105,20 @@ describe('AlarmDAO with v2 API', () => {
       expect(alarm.sticky.body).toEqual('sticky');
       expect(alarm.journal.body).toEqual('journal');
     });
+  });
+  it('AlarmDAO.acknowledge(id=404725)', () => {
+    return dao.acknowledge(404725);
+  });
+  it('AlarmDAO.acknowledge(id=404725, user=ranger)', () => {
+    return dao.acknowledge(404725, 'ranger');
+  });
+  it('AlarmDAO.unacknowledge(id=404725)', () => {
+    return dao.unacknowledge(404725);
+  });
+  it('AlarmDAO.escalate(id=404725)', () => {
+    return dao.escalate(404725);
+  });
+  it('AlarmDAO.clear(id=404725)', () => {
+    return dao.clear(404725);
   });
 });
