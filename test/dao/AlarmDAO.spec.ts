@@ -84,4 +84,11 @@ describe('AlarmDAO with v2 API', () => {
       expect(alarms.length).toEqual(0);
     });
   });
+  it('should make the journal and sticky notes available - AlarmDAO.get(82416)', () => {
+    return dao.get(82416).then((alarm) => {
+      expect(alarm.id).toEqual(82416);
+      expect(alarm.sticky.body).toEqual('sticky');
+      expect(alarm.journal.body).toEqual('journal');
+    });
+  });
 });
