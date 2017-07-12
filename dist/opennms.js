@@ -1906,7 +1906,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
         if (!locales[name] && typeof module !== 'undefined' && module && module.exports) {
             try {
                 oldLocale = globalLocale._abbr;
-                __webpack_require__(265)("./" + name);
+                __webpack_require__(266)("./" + name);
                 // because defineLocale currently also sets the global locale, we
                 // want to undo that for lazy loaded locales
                 getSetGlobalLocale(oldLocale);
@@ -5258,8 +5258,8 @@ function __export(m) {
         if (!exports.hasOwnProperty(p)) exports[p] = m[p];
     }
 }
-var LogGroupControl_1 = __webpack_require__(258);
-var CategoryServiceControl_1 = __webpack_require__(257);
+var LogGroupControl_1 = __webpack_require__(259);
+var CategoryServiceControl_1 = __webpack_require__(258);
 var ExtensionHelper_1 = __webpack_require__(17);
 exports.ExtensionHelper = ExtensionHelper_1.ExtensionHelper;
 // Category related
@@ -5269,7 +5269,7 @@ var CategoryConsoleLoggerImpl_1 = __webpack_require__(192);
 exports.CategoryConsoleLoggerImpl = CategoryConsoleLoggerImpl_1.CategoryConsoleLoggerImpl;
 var CategoryDelegateLoggerImpl_1 = __webpack_require__(193);
 exports.CategoryDelegateLoggerImpl = CategoryDelegateLoggerImpl_1.CategoryDelegateLoggerImpl;
-var CategoryLogger_1 = __webpack_require__(260);
+var CategoryLogger_1 = __webpack_require__(261);
 exports.Category = CategoryLogger_1.Category;
 var CategoryMessageBufferImpl_1 = __webpack_require__(194);
 exports.CategoryMessageBufferLoggerImpl = CategoryMessageBufferImpl_1.CategoryMessageBufferLoggerImpl;
@@ -5298,7 +5298,7 @@ exports.LogLevel = LoggerOptions_1.LogLevel;
 var DataStructures_1 = __webpack_require__(7);
 exports.SimpleMap = DataStructures_1.SimpleMap;
 exports.LinkedList = DataStructures_1.LinkedList;
-__export(__webpack_require__(262));
+__export(__webpack_require__(263));
 var MessageUtils_1 = __webpack_require__(21);
 exports.MessageFormatUtils = MessageUtils_1.MessageFormatUtils;
 /*
@@ -7121,7 +7121,7 @@ var DataStructures_1 = __webpack_require__(7);
 var LoggerOptions_1 = __webpack_require__(2);
 var CategoryConsoleLoggerImpl_1 = __webpack_require__(192);
 var CategoryDelegateLoggerImpl_1 = __webpack_require__(193);
-var CategoryExtensionLoggerImpl_1 = __webpack_require__(259);
+var CategoryExtensionLoggerImpl_1 = __webpack_require__(260);
 var CategoryMessageBufferImpl_1 = __webpack_require__(194);
 var ExtensionHelper_1 = __webpack_require__(17);
 /**
@@ -8114,7 +8114,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var VersionCompare = __webpack_require__(263);
+var VersionCompare = __webpack_require__(264);
 /**
  * An OpenNMS version.
  * @module OnmsVersion
@@ -9043,7 +9043,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 Object.defineProperty(exports, "__esModule", { value: true });
 /** @hidden */
 // tslint:disable-next-line
-var X2JS = __webpack_require__(264);
+var X2JS = __webpack_require__(265);
 /** @hidden */
 var xmlParser = new X2JS({
     attributePrefix: '',
@@ -9158,7 +9158,7 @@ exports.AbstractHTTP = AbstractHTTP;
 
 var DataStructures_1 = __webpack_require__(7);
 var LoggerOptions_1 = __webpack_require__(2);
-var LoggerFactoryImpl_1 = __webpack_require__(261);
+var LoggerFactoryImpl_1 = __webpack_require__(262);
 var ExtensionHelper_1 = __webpack_require__(17);
 /**
  * Defines a LogGroupRule, this allows you to either have everything configured the same way
@@ -12063,6 +12063,7 @@ var OnmsParm_1 = __webpack_require__(26);
 var OnmsServiceType_1 = __webpack_require__(16);
 var OnmsSeverity_1 = __webpack_require__(27);
 var OnmsTroubleTicketState_1 = __webpack_require__(60);
+var OnmsMemo_1 = __webpack_require__(256);
 var Log_1 = __webpack_require__(4);
 var typescript_logging_1 = __webpack_require__(6);
 /** @hidden */
@@ -12164,6 +12165,8 @@ var AlarmDAO = function (_AbstractDAO_1$Abstra) {
                     }
                 }
             }
+            alarm.sticky = this.toMemo(data.stickyMemo);
+            alarm.journal = this.toMemo(data.reductionKeyMemo);
             return alarm;
         }
         /** get an alarm, given the alarm's ID */
@@ -12248,6 +12251,22 @@ var AlarmDAO = function (_AbstractDAO_1$Abstra) {
         value: function pathToAlarmsEndpoint() {
             return this.getApiVersion() === 2 ? 'api/v2/alarms' : 'rest/alarms';
         }
+        /** generate a memo from the given dictionary */
+
+    }, {
+        key: "toMemo",
+        value: function toMemo(data) {
+            if (!data) {
+                return null;
+            }
+            var memo = new OnmsMemo_1.OnmsMemo();
+            memo.id = data.id;
+            memo.author = data.author;
+            memo.body = data.body;
+            memo.created = this.toDate(data.created);
+            memo.updated = this.toDate(data.updated);
+            return memo;
+        }
     }]);
 
     return AlarmDAO;
@@ -12313,7 +12332,7 @@ var OnmsManagedType_1 = __webpack_require__(52);
 var OnmsMonitoredService_1 = __webpack_require__(53);
 var OnmsNode_1 = __webpack_require__(54);
 var OnmsNodeLabelSource_1 = __webpack_require__(55);
-var OnmsNodeType_1 = __webpack_require__(256);
+var OnmsNodeType_1 = __webpack_require__(257);
 var OnmsPrimaryType_1 = __webpack_require__(56);
 var OnmsServiceType_1 = __webpack_require__(16);
 var OnmsServiceStatusType_1 = __webpack_require__(57);
@@ -43701,6 +43720,27 @@ exports.UUID = UUID;
 "use strict";
 
 
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+Object.defineProperty(exports, "__esModule", { value: true });
+/**
+ * Represents an OpenNMS memo.
+ * @module OnmsMemo
+ */ /** */
+
+var OnmsMemo = function OnmsMemo() {
+  _classCallCheck(this, OnmsMemo);
+};
+
+exports.OnmsMemo = OnmsMemo;
+
+/***/ }),
+/* 257 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -43754,7 +43794,7 @@ exports.NodeTypes = Object.freeze({
 });
 
 /***/ }),
-/* 257 */
+/* 258 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -43926,7 +43966,7 @@ exports.CategoryServiceControlImpl = CategoryServiceControlImpl;
 //# sourceMappingURL=CategoryServiceControl.js.map
 
 /***/ }),
-/* 258 */
+/* 259 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -44142,7 +44182,7 @@ LoggerFactoryControlImpl._example = "\n  Examples:\n    change({group: \"all\", 
 //# sourceMappingURL=LogGroupControl.js.map
 
 /***/ }),
-/* 259 */
+/* 260 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -44180,7 +44220,7 @@ exports.CategoryExtensionLoggerImpl = CategoryExtensionLoggerImpl;
 //# sourceMappingURL=CategoryExtensionLoggerImpl.js.map
 
 /***/ }),
-/* 260 */
+/* 261 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -44271,7 +44311,7 @@ exports.Category = Category;
 //# sourceMappingURL=CategoryLogger.js.map
 
 /***/ }),
-/* 261 */
+/* 262 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -44381,7 +44421,7 @@ exports.LoggerFactoryImpl = LoggerFactoryImpl;
 //# sourceMappingURL=LoggerFactoryImpl.js.map
 
 /***/ }),
-/* 262 */
+/* 263 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -44657,7 +44697,7 @@ exports.JSONHelper = JSONHelper;
 //# sourceMappingURL=JSONHelper.js.map
 
 /***/ }),
-/* 263 */
+/* 264 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -44783,7 +44823,7 @@ exports.JSONHelper = JSONHelper;
 })( false ? undefined.VersionCompare = {} : exports);
 
 /***/ }),
-/* 264 */
+/* 265 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -45478,7 +45518,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 });
 
 /***/ }),
-/* 265 */
+/* 266 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var map = {
@@ -45727,7 +45767,7 @@ webpackContext.keys = function webpackContextKeys() {
 };
 webpackContext.resolve = webpackContextResolve;
 module.exports = webpackContext;
-webpackContext.id = 265;
+webpackContext.id = 266;
 
 /***/ })
 /******/ ]);

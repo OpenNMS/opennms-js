@@ -1,5 +1,5 @@
 <a name="0.1.0-alpha.3"></a>
-# [0.1.0-alpha.3](https://github.com/OpenNMS/opennms-js/compare/v0.1.0-alpha.2...v0.1.0-alpha.3) (2017-07-05)
+# [0.1.0-alpha.3](https://github.com/OpenNMS/opennms-js/compare/v0.1.0-alpha.2...v0.1.0-alpha.3) (2017-07-12)
 
 
 ### Bug Fixes
@@ -12,6 +12,7 @@
 
 ### Features
 
+* **alarms:** expose the sticky and journal memos ([adbcb3a](https://github.com/OpenNMS/opennms-js/commit/adbcb3a))
 * **v2:** add support for nested restrictions with boolean operators ([09cd705](https://github.com/OpenNMS/opennms-js/commit/09cd705))
 * **v2:** add support for the v2 api ([eb1b165](https://github.com/OpenNMS/opennms-js/commit/eb1b165))
 
