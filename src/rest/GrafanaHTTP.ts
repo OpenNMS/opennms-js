@@ -31,17 +31,37 @@ export class GrafanaHTTP extends AbstractHTTP {
     this.backendSrv = backendSrv;
   }
 
-  /** make an HTTP get call -- this should be overridden by the implementation */
+  /** make an HTTP GET call using the Grafana backendSrv */
   public get(url: string, options?: OnmsHTTPOptions) {
     const realUrl = this.getServer(options).resolveURL(url);
-    log.debug('getting ' + realUrl);
+    log.debug('GET ' + realUrl);
     const query = this.getConfig(options);
     query.method = 'GET';
     query.url = realUrl;
     return this.backendSrv.datasourceRequest(query).then((response) => {
       let type = 'application/xml';
-      if (query && query.headers && query.headers.Accept) {
-        type = query.headers.Accept;
+      if (query && query.headers && query.headers.accept) {
+        type = query.headers.accept;
+      }
+      if (response.headers && response.headers['content-type']) {
+        type = response.headers['content-type'];
+      }
+      return OnmsResult.ok(response.data, undefined, response.status, type);
+    });
+  }
+
+  /** make an HTTP PUT call using the Grafana backendSrv */
+  public put(url: string, options?: OnmsHTTPOptions) {
+    const realUrl = this.getServer(options).resolveURL(url);
+    log.debug('PUT ' + realUrl);
+    const query = this.getConfig(options);
+    query.method = 'PUT';
+    query.url = realUrl;
+    query.data = Object.apply({}, query.parameters);
+    return this.backendSrv.datasourceRequest(query).then((response) => {
+      let type = 'application/xml';
+      if (query && query.headers && query.headers.accept) {
+        type = query.headers.accept;
       }
       if (response.headers && response.headers['content-type']) {
         type = response.headers['content-type'];
@@ -52,30 +72,40 @@ export class GrafanaHTTP extends AbstractHTTP {
 
   /** internal method to turn {@link OnmsHTTPOptions} into a Grafana BackendSrv request object. */
   private getConfig(options?: OnmsHTTPOptions): any {
-    if (options) {
-      const ret = {
-        headers: {
-          Accept: options.accept,
-        },
-      } as any;
+    const allOptions = this.getOptions(options);
+    const ret = {} as any;
 
-      if (options.accept === 'application/json') {
-        ret.transformResponse = this.transformJSON;
-      } else if (options.accept === 'text/plain') {
-        // allow, but don't do anything special to it
-      } else if (options.accept === 'application/xml') {
-        ret.transformResponse = this.transformXML;
-      } else {
-        throw new OnmsError('Unhandled response type: ' + options.accept);
-      }
-
-      if (options.parameters && Object.keys(options.parameters).length > 0) {
-        ret.params = options.parameters;
-      }
-
-      return ret;
+    if (allOptions.headers) {
+      ret.headers = allOptions.headers;
     }
-    return {};
+
+    ret.headers = ret.headers || {};
+    if (!ret.headers.accept) {
+      ret.headers.accept = 'application/json';
+    }
+    if (!ret.headers['content-type']) {
+      ret.headers['content-type'] = 'application/json;charset=utf-8';
+    }
+
+    const type = ret.headers.accept;
+    if (type === 'application/json') {
+      ret.responseType = 'json';
+      ret.transformResponse = this.transformJSON;
+    } else if (type === 'text/plain') {
+      ret.responseType = 'text';
+      delete ret.transformResponse;
+    } else if (type === 'application/xml') {
+      ret.responseType = 'text';
+      ret.transformResponse = this.transformXML;
+    } else {
+      throw new OnmsError('Unhandled "Accept" header: ' + type);
+    }
+
+    if (allOptions.parameters && Object.keys(allOptions.parameters).length > 0) {
+      ret.params = options.parameters;
+    }
+
+    return ret;
   }
 
 }

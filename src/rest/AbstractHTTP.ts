@@ -51,8 +51,11 @@ export abstract class AbstractHTTP implements IOnmsHTTP {
     this.timeout = timeout;
   }
 
-  /** make an HTTP get call -- this should be overridden by the implementation */
+  /** make an HTTP GET call -- this should be overridden by the implementation */
   public abstract get(url: string, options?: OnmsHTTPOptions): Promise<OnmsResult<any>>;
+
+  /** make an HTTP PUT call -- this should be overridden by the implementation */
+  public abstract put(url: string, options?: OnmsHTTPOptions): Promise<OnmsResult<any>>;
 
   /** a convenience method for implementers to use to turn JSON into a javascript object */
   protected transformJSON(data: any) {

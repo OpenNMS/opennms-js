@@ -32,9 +32,9 @@ function CLI() {
       config = JSON.parse(fs.readFileSync(configfile));
     } else {
       config = {
-        password: undefined,
+        password: 'admin',
         url: undefined,
-        username: undefined,
+        username: 'admin',
       };
     }
     return config;
@@ -58,8 +58,12 @@ function CLI() {
     .action((url, options) => {
       const config = readConfig();
       if (url) {
+        // the user is passing a URL, reset the config
         config.url = url;
+        config.username = 'admin';
+        config.password = 'admin';
       }
+
       if (options.username) {
         config.username = options.username;
       }
@@ -170,7 +174,7 @@ function CLI() {
     .description('List current alarms')
     .action((filters) => {
       const config = readConfig();
-      new Client().connect('OpenNMS', config.url, config.username, config.password).then((client) => {
+      return new Client().connect('OpenNMS', config.url, config.username, config.password).then((client) => {
         const dao = new DAO.AlarmDAO(client);
 
         const namePattern = /^(.*?)\s+(eq|ne|ilike|like|gt|lt|ge|le|null|notnull)\s+(.*?)$/i;
@@ -220,6 +224,55 @@ function CLI() {
         });
       });
     });
+
+  const createAlarmAction = (name: string, description: string, ...aliases: string[]) => {
+    const p = program.command(name + ' <id>');
+    for (const alias of aliases) {
+      p.alias(alias);
+    }
+    p.description(description);
+    p.action((id) => {
+      const config = readConfig();
+      return new Client().connect('OpenNMS', config.url, config.username, config.password).then((client) => {
+        return client.alarms()[name](id).then(() => {
+          console.log('Success!');
+          return true;
+        });
+      }).catch((err) => {
+        if (program.debug) {
+          log.error(name + ' failed: ' + err.message, err, catCLI);
+        } else {
+          log.error(name + ' failed: ' + err.message, undefined, catCLI);
+        }
+      });
+    });
+  };
+
+  // ack an alarm
+  program
+    .command('acknowledge <id>')
+    .alias('ack')
+    .description('Acknowledge an alarm')
+    .option('-u, --user <user>', 'Which user to acknowledge as (only administrators can do this)')
+    .action((id, options) => {
+      const config = readConfig();
+      return new Client().connect('OpenNMS', config.url, config.username, config.password).then((client) => {
+        return client.alarms().acknowledge(id, options.user).then(() => {
+          console.log('Success!');
+          return true;
+        });
+      }).catch((err) => {
+        if (program.debug) {
+          log.error('Acknowledge failed: ' + err.message, err, catCLI);
+        } else {
+          log.error('Acknowledge failed: ' + err.message, undefined, catCLI);
+        }
+      });
+    });
+
+  createAlarmAction('unacknowledge', 'Unacknowledge an alarm', 'unack');
+  createAlarmAction('escalate', 'Escalate an alarm');
+  createAlarmAction('clear', 'Clear an alarm');
 
   program.parse(process.argv);
 
