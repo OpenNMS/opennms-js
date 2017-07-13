@@ -10,78 +10,95 @@ const expectedResults = {
   '0.0.0': {
     newObject: ['0.0.0', undefined],
     tests: {
-      serverType: ServerTypes.HORIZON,
       capabilities: {
         ackAlarms: false,
+        apiVersion: 1,
         graphs: false,
         outageSummaries: false,
         setNodeLocation: false,
-      }
-    }
+      },
+      serverType: ServerTypes.HORIZON,
+    },
   },
   '14.0.3': {
     newObject: ['14.0.3', undefined],
     tests: {
-      serverType: ServerTypes.HORIZON,
       capabilities: {
         ackAlarms: true,
+        apiVersion: 1,
         graphs: false,
         outageSummaries: true,
         setNodeLocation: false,
-      }
-    }
+      },
+      serverType: ServerTypes.HORIZON,
+    },
   },
   '15.0.0': {
     newObject: ['15.0.0', undefined],
     tests: {
-      serverType: ServerTypes.HORIZON,
       capabilities: {
         ackAlarms: true,
+        apiVersion: 1,
         graphs: false,
         outageSummaries: true,
         setNodeLocation: false,
-      }
-    }
+      },
+      serverType: ServerTypes.HORIZON,
+    },
   },
   '15.0.2': {
     newObject: ['15.0.2', undefined],
     tests: {
-      serverType: ServerTypes.HORIZON,
       capabilities: {
         ackAlarms: true,
+        apiVersion: 1,
         graphs: false,
         outageSummaries: true,
         setNodeLocation: true,
-      }
-    }
+      },
+      serverType: ServerTypes.HORIZON,
+    },
   },
   '16.0.0': {
     newObject: ['16.0.0', undefined],
     tests: {
-      serverType: ServerTypes.HORIZON,
       capabilities: {
         ackAlarms: true,
+        apiVersion: 1,
         graphs: true,
         outageSummaries: true,
         setNodeLocation: true,
-      }
-    }
+      },
+      serverType: ServerTypes.HORIZON,
+    },
   },
   '2015.1.0': {
     newObject: ['2015.1.0', ServerTypes.MERIDIAN],
     tests: {
-      serverType: ServerTypes.MERIDIAN,
       capabilities: {
         ackAlarms: true,
+        apiVersion: 1,
         graphs: false,
         outageSummaries: true,
         setNodeLocation: true,
-      }
-    }
+      },
+      serverType: ServerTypes.MERIDIAN,
+    },
+  },
+  '21.0.0': {
+    newObject: ['21.0.0', undefined],
+    tests: {
+      capabilities: {
+        ackAlarms: true,
+        apiVersion: 2,
+        graphs: true,
+        outageSummaries: true,
+        setNodeLocation: true,
+      },
+      serverType: ServerTypes.HORIZON,
+    },
   },
 };
-
-//console.log(JSON.stringify(expectedResults, undefined, 5));
 
 for (let ver in expectedResults) {
   let suite = expectedResults[ver];
