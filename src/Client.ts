@@ -45,7 +45,7 @@ export class Client implements IHasHTTP {
       }
       httpImpl = Client.defaultHttp;
     }
-    opts.accept = 'text/plain';
+    opts.headers.accept = 'text/plain';
 
     const infoUrl = server.resolveURL('rest/alarms/count');
     log.debug('checkServer: checking URL: ' + infoUrl, catClient);
@@ -64,7 +64,7 @@ export class Client implements IHasHTTP {
   public static async getMetadata(server: OnmsServer, httpImpl?: IOnmsHTTP, timeout?: number):
     Promise<ServerMetadata> {
     const opts = new OnmsHTTPOptions(timeout, server.auth, server);
-    opts.accept = 'application/json';
+    opts.headers.accept = 'application/json';
     if (!httpImpl) {
       if (!Client.defaultHttp) {
         throw new OnmsError('No default HTTP implementation is configured!');
@@ -120,7 +120,7 @@ export class Client implements IHasHTTP {
     const server = new OnmsServer(name, url, username, password);
 
     await Client.checkServer(server, undefined, timeout);
-    const metadata = await Client.getMetadata(server, undefined, timeout);
+    server.metadata = await Client.getMetadata(server, undefined, timeout);
 
     if (!self.http) {
       self.http = Client.defaultHttp;
@@ -129,7 +129,6 @@ export class Client implements IHasHTTP {
       self.http.server = server;
     }
     self.server = server;
-    server.metadata = metadata;
 
     return self;
   }

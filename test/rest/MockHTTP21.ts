@@ -46,4 +46,41 @@ export class MockHTTP21 extends AbstractHTTP {
     }
     return Promise.reject(OnmsResult.error('Not yet implemented: ' + urlObj.toString()));
   }
+
+  public put(url: string, options?: OnmsHTTPOptions) {
+    const urlObj = new URI(url);
+    if (options && options.parameters) {
+      urlObj.search(options.parameters);
+    }
+
+    switch(urlObj.toString()) {
+      case 'api/v2/alarms/404725?ack=true': {
+        const result = OnmsResult.ok('');
+        result.type = 'text/plain';
+        return Promise.resolve(result);
+      }
+      case 'api/v2/alarms/404725?ack=true&ackUser=ranger': {
+        const result = OnmsResult.ok('');
+        result.type = 'text/plain';
+        return Promise.resolve(result);
+      }
+      case 'api/v2/alarms/404725?ack=false': {
+        const result = OnmsResult.ok('');
+        result.type = 'text/plain';
+        return Promise.resolve(result);
+      }
+      case 'api/v2/alarms/404725?escalate=true': {
+        const result = OnmsResult.ok('');
+        result.type = 'text/plain';
+        return Promise.resolve(result);
+      }
+      case 'api/v2/alarms/404725?clear=true': {
+        const result = OnmsResult.ok('');
+        result.type = 'text/plain';
+        return Promise.resolve(result);
+      }
+    }
+
+    return Promise.reject(OnmsResult.error('Not yet implemented: PUT ' + urlObj.toString()));
+  }
 }

@@ -42,7 +42,6 @@ import {PhysAddr} from './model/PhysAddr';
 
 import {AxiosHTTP} from './rest/AxiosHTTP';
 import {GrafanaHTTP} from './rest/GrafanaHTTP';
-import {SuperAgentHTTP} from './rest/SuperAgentHTTP';
 
 import {Client} from './Client';
 
@@ -120,7 +119,6 @@ const Model = Object.freeze({
 const Rest = Object.freeze({
   AxiosHTTP,
   GrafanaHTTP,
-  SuperAgentHTTP,
 });
 
 /* tslint:enable:object-literal-sort-keys */

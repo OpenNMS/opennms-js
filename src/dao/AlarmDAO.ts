@@ -3,9 +3,11 @@ import {EventDAO} from './EventDAO';
 
 import {Filter} from '../api/Filter';
 import {IHasHTTP} from '../api/IHasHTTP';
+import {IHash} from '../internal/IHash';
 import {IOnmsHTTP} from '../api/IOnmsHTTP';
 import {OnmsError} from '../api/OnmsError';
 import {OnmsHTTPOptions} from '../api/OnmsHTTPOptions';
+import {OnmsResult} from '../api/OnmsResult';
 
 import {OnmsAlarm} from '../model/OnmsAlarm';
 import {AlarmTypes} from '../model/OnmsAlarmType';
@@ -111,7 +113,12 @@ export class AlarmDAO extends AbstractDAO<number, OnmsAlarm> {
     return alarm;
   }
 
-  /** get an alarm, given the alarm's ID */
+  /**
+   * Fetch an alarm.
+   *
+   * @param {number} id - the alarm's ID
+   * @return an {@link OnmsAlarm}
+   */
   public async get(id: number): Promise<OnmsAlarm> {
     const opts = this.getOptions();
     return this.http.get(this.pathToAlarmsEndpoint() + '/' + id, opts).then((result) => {
@@ -119,7 +126,12 @@ export class AlarmDAO extends AbstractDAO<number, OnmsAlarm> {
     });
   }
 
-  /** get an alarm, given a filter */
+  /**
+   * Find matching alarms.
+   *
+   * @param {Filter} filter - the filter to use when querying
+   * @return an array of {@link OnmsAlarm}s
+   */
   public async find(filter?: Filter): Promise<OnmsAlarm[]> {
     const opts = this.getOptions(filter);
     return this.http.get(this.pathToAlarmsEndpoint(), opts).then((result) => {
@@ -140,14 +152,76 @@ export class AlarmDAO extends AbstractDAO<number, OnmsAlarm> {
     });
   }
 
+  /**
+   * Acknowledge an alarm.
+   *
+   * @param {number} id - the alarm ID
+   * @param {string=} user - the user to ack the alarm as (only administrators have the right to do this)
+   */
+  public async acknowledge(id: number, user?: string): Promise<void> {
+    const parameters = {} as IHash<string>;
+    parameters.ack = 'true';
+    if (user !== undefined) {
+      parameters.ackUser = user;
+    }
+    return this.put(this.pathToAlarmsEndpoint() + '/' + id, parameters);
+  }
+
+  /**
+   * Un-acknowledge an alarm.
+   *
+   * @param {number} id - the alarm ID
+   */
+  public async unacknowledge(id: number): Promise<void> {
+    const parameters = {} as IHash<string>;
+    parameters.ack = 'false';
+    return this.put(this.pathToAlarmsEndpoint() + '/' + id, parameters);
+  }
+
+  /**
+   * Escalate an alarm.
+   *
+   * @param {number} id - the alarm ID
+   */
+  public async escalate(id: number): Promise<void> {
+    const parameters = {} as IHash<string>;
+    parameters.escalate = 'true';
+    return this.put(this.pathToAlarmsEndpoint() + '/' + id, parameters);
+  }
+
+  /**
+   * Clear an alarm.
+   *
+   * @param {number} id - the alarm ID
+   */
+  public async clear(id: number): Promise<void> {
+    const parameters = {} as IHash<string>;
+    parameters.clear = 'true';
+    return this.put(this.pathToAlarmsEndpoint() + '/' + id, parameters);
+  }
+
   /** given an optional filter, generate an {@link OnmsHTTPOptions} object for DAO calls */
   protected getOptions(filter?: Filter): OnmsHTTPOptions {
     const options = super.getOptions(filter);
     // always use application/json for v2 calls
     if (this.getApiVersion() === 2) {
-      options.accept = 'application/json';
+      options.headers.accept = 'application/json';
     }
     return options;
+  }
+
+  /** call a PUT request in the format the alarm ack API expects */
+  private async put(url: string, parameters = {} as IHash<string>): Promise<void> {
+    const opts = this.getOptions();
+    opts.headers['content-type'] = 'application/x-www-form-urlencoded';
+    opts.headers.accept = null;
+    opts.parameters = parameters;
+    return this.http.put(url, opts).then((result) => {
+      if (!result.isSuccess) {
+        throw result;
+      }
+      return;
+    });
   }
 
   /** get the path to the alarms endpoint for the appropriate API version */
