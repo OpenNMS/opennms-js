@@ -14,6 +14,8 @@
 ### Features
 
 * **alarms:** expose the sticky and journal memos ([adbcb3a](https://github.com/OpenNMS/opennms-js/commit/adbcb3a))
+* **dao:** add alarm ack/unack/escalate/clear support ([f44f8d7](https://github.com/OpenNMS/opennms-js/commit/f44f8d7))
+* **rest:** add PUT support ([b50d99e](https://github.com/OpenNMS/opennms-js/commit/b50d99e))
 * **v2:** add support for nested restrictions with boolean operators ([09cd705](https://github.com/OpenNMS/opennms-js/commit/09cd705))
 * **v2:** add support for the v2 api ([eb1b165](https://github.com/OpenNMS/opennms-js/commit/eb1b165))
 
