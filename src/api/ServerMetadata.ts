@@ -53,7 +53,11 @@ export class ServerMetadata {
 
   /** what version of the ReST API does this server support */
   public apiVersion() {
-    return this.version.ge('21.0.0') ? 2 : 1;
+    if (this.type && this.type === ServerTypes.MERIDIAN) {
+      return this.version.ge('2017.1.0') ? 2 : 1;
+    } else {
+      return this.version.ge('21.0.0') ? 2 : 1;
+    }
   }
 
   /** a convenient data structure with all capabilities listed */
