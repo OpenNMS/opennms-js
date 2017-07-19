@@ -2,6 +2,7 @@ import axios from 'axios';
 import {AxiosStatic, AxiosInstance, AxiosRequestConfig} from 'axios';
 import * as qs from 'qs';
 
+/** @hidden */
 declare const IS_WEB;
 
 /** @hidden */

@@ -129,4 +129,3 @@ function createConfig(options) {
 }
 
 module.exports = createVariants({}, variants, createConfig);
-console.log('exports: ' + JSON.stringify(module.exports, undefined, 2));
