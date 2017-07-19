@@ -2,9 +2,21 @@ var webpack = require('webpack');
 var path = require('path');
 var TypedocWebpackPlugin = require('typedoc-webpack-plugin');
 
+var createVariants = require('parallel-webpack').createVariants;
+
+var clonedeep = require('lodash.clonedeep');
+
 var isProduction = require('yargs').argv.p;
 
 var libraryName = 'opennms';
+
+var variants = {
+  web: [ true, false ],
+};
+
+if (isProduction) {
+  variants.production = [ true, false ];
+}
 
 var config = {
   entry: {
@@ -13,7 +25,6 @@ var config = {
   devtool: 'source-map',
   output: {
     path: __dirname + '/dist',
-    library: libraryName,
     libraryTarget: 'umd',
     umdNamedDefine: true
   },
@@ -54,9 +65,11 @@ var config = {
     extensions: ['.webpack.js', '.web.js', '.ts', '.js']
   },
   plugins: [
+/*
     new webpack.DefinePlugin({
       "global.GENTLY": false
     }),
+*/
   ],
   node: {
     fs: 'empty',
@@ -67,35 +80,53 @@ var config = {
   }
 };
 
-if (isProduction) {
-  var tsconfig = require('./tsconfig.json');
-  tsconfig.name = 'OpenNMS.js';
-  tsconfig.mode = 'file';
-  tsconfig.ignoreCompilerErrors = true;
-  tsconfig.exclude = "/**/+(node_modules|test)/**/*";
-  tsconfig.excludeExternals = false;
+function createConfig(options) {
+  var myconf = clonedeep(config);
+  myconf.output.filename = '[name]';
+  var defs = {
+    'IS_WEB': options.web,
+    'IS_PRODUCTION': options.production,
+  };
 
-  config.plugins.push(new webpack.LoaderOptionsPlugin({
-    minimize: true,
-    debug: false
-  }));
-  config.plugins.push(new webpack.optimize.UglifyJsPlugin({
-    sourceMap: true,
-    minimize: true
-  }));
-  config.plugins.push(new TypedocWebpackPlugin(tsconfig));
-  config.output.filename = '[name].min.js';
-} else {
-  config.plugins.push(new webpack.LoaderOptionsPlugin({
-    minimize: false,
-    debug: true
-  }));
-  config.plugins.push(new webpack.DefinePlugin({
-    "process.env": {
-      NODE_ENV: JSON.stringify("test")
-    }
-  }));
-  config.output.filename = '[name].js';
+  if (options.web) {
+    myconf.target = 'web';
+  } else {
+    myconf.target = 'node';
+    myconf.node = { process: false };
+    myconf.output.filename += '.node';
+  }
+
+  if (options.production) {
+    var tsconfig = require('./tsconfig.json');
+    tsconfig.name = 'OpenNMS.js';
+    tsconfig.mode = 'file';
+    tsconfig.ignoreCompilerErrors = true;
+    tsconfig.exclude = "/**/+(node_modules|test)/**/*";
+    tsconfig.excludeExternals = false;
+    defs['global.GENTLY'] = false;
+  
+    myconf.plugins.push(new webpack.LoaderOptionsPlugin({
+      minimize: true,
+      debug: false
+    }));
+    myconf.plugins.push(new webpack.optimize.UglifyJsPlugin({
+      sourceMap: true,
+      minimize: true
+    }));
+    myconf.plugins.push(new TypedocWebpackPlugin(tsconfig));
+    myconf.output.filename += '.min';
+  } else {
+    myconf.plugins.push(new webpack.LoaderOptionsPlugin({
+      minimize: false,
+      debug: true
+    }));
+  }
+
+  myconf.plugins.push(new webpack.DefinePlugin(defs));
+  myconf.output.filename += '.js';
+
+  return myconf;
 }
 
-module.exports = config;
+module.exports = createVariants({}, variants, createConfig);
+console.log('exports: ' + JSON.stringify(module.exports, undefined, 2));

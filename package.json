@@ -36,6 +36,8 @@
     "conventional-changelog-lint": "^1.1.9",
     "husky": "^0.13.3",
     "jest": "^20.0.3",
+    "lodash.clonedeep": "^4.5.0",
+    "parallel-webpack": "^2.0.0",
     "regenerator-runtime": "^0.10.5",
     "standard-changelog": "^1.0.1",
     "ts-jest": "^20.0.4",
@@ -85,13 +87,13 @@
     "changelog": "standard-changelog -i CHANGELOG.md -s -r 0",
     "build": "webpack -p --env production",
     "dev": "webpack --progress --colors",
-    "dist": "yarn lint && yarn test && yarn dev && yarn build",
+    "dist": "yarn lint && yarn test && yarn build",
     "watch": "webpack --progress --colors --watch",
     "test": "jest",
     "watch-test": "jest --watch",
     "lint": "tslint 'src/**/*.ts'",
     "cli": "ts-node src/CLI.ts",
-    "docker-build": "yarn && yarn lint && jest --color=false --verbose && webpack --verbose --color=false && webpack -p --env production --verbose --color=false && ./fix-ownership.sh",
+    "docker-build": "yarn && yarn lint && jest --color=false --verbose && webpack -p --env production --verbose --color=false && ./fix-ownership.sh",
     "docker": "docker run --rm --name opennms-js -v `pwd`:/build -w /build node:latest yarn docker-build"
   }
 }
