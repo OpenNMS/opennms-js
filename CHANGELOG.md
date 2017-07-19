@@ -1,11 +1,12 @@
 <a name="0.1.0-alpha.3"></a>
-# [0.1.0-alpha.3](https://github.com/OpenNMS/opennms-js/compare/v0.1.0-alpha.2...v0.1.0-alpha.3) (2017-07-13)
+# [0.1.0-alpha.3](https://github.com/OpenNMS/opennms-js/compare/v0.1.0-alpha.2...v0.1.0-alpha.3) (2017-07-19)
 
 
 ### Bug Fixes
 
 * **browser:** fix error when using the dev .js file in a browser ([ee7d22a](https://github.com/OpenNMS/opennms-js/commit/ee7d22a))
 * **cli:** only attempt to read the configuration file if it exists ([2339c6d](https://github.com/OpenNMS/opennms-js/commit/2339c6d))
+* **rest:** generate a node version with webpack ([58d2938](https://github.com/OpenNMS/opennms-js/commit/58d2938))
 * **v2:** consider the server type when comparing the version numbers ([e2c03ee](https://github.com/OpenNMS/opennms-js/commit/e2c03ee))
 * **v2:** fix handling of 204 codes ([a352ea8](https://github.com/OpenNMS/opennms-js/commit/a352ea8))
 * **v2:** remove the implicit wildcards ([4940010](https://github.com/OpenNMS/opennms-js/commit/4940010))
