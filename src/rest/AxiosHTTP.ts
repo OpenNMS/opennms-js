@@ -2,6 +2,8 @@ import axios from 'axios';
 import {AxiosStatic, AxiosInstance, AxiosRequestConfig} from 'axios';
 import * as qs from 'qs';
 
+declare const IS_WEB;
+
 /** @hidden */
 // tslint:disable-next-line
 const URI = require('urijs');
@@ -145,6 +147,13 @@ export class AxiosHTTP extends AbstractHTTP {
       }
       const allOptions = this.getOptions(options);
       this.axiosObj = this.axiosImpl.create({
+        adapter: () => {
+          if (IS_WEB) {
+            return require('axios/lib/adapters/xhr');
+          } else {
+            return require('axios/lib/adapters/http');
+          }
+        },
         auth: {
           password: allOptions.auth.password,
           username: allOptions.auth.username,
