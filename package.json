@@ -85,7 +85,7 @@
     "precommit": "jest",
     "prepush": "conventional-changelog-lint --from=origin/master && yarn lint",
     "changelog": "standard-changelog -i CHANGELOG.md -s -r 0",
-    "build": "webpack -p --env production",
+    "build": "webpack --define process.env.NODE_ENV=production --env production",
     "dev": "webpack --progress --colors",
     "dist": "yarn lint && yarn test && yarn build",
     "watch": "webpack --progress --colors --watch",
@@ -93,7 +93,7 @@
     "watch-test": "jest --watch",
     "lint": "tslint 'src/**/*.ts'",
     "cli": "ts-node src/CLI.ts",
-    "docker-build": "yarn && yarn lint && jest --color=false --verbose && webpack -p --env production --verbose --color=false && ./fix-ownership.sh",
+    "docker-build": "yarn && yarn lint && jest --color=false --verbose && webpack --define process.env.NODE_ENV=production --env production --verbose --color=false && ./fix-ownership.sh",
     "docker": "docker run --rm --name opennms-js -v `pwd`:/build -w /build node:latest yarn docker-build"
   }
 }
