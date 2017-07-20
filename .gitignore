@@ -34,4 +34,5 @@ profile.cov
 grafana
 .notouch
 
+dist/opennms.*
 dist/docs
