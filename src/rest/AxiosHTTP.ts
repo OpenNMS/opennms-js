@@ -3,9 +3,6 @@ import {AxiosStatic, AxiosInstance, AxiosRequestConfig} from 'axios';
 import * as qs from 'qs';
 
 /** @hidden */
-declare const IS_WEB;
-
-/** @hidden */
 // tslint:disable-next-line
 const URI = require('urijs');
 
@@ -147,14 +144,8 @@ export class AxiosHTTP extends AbstractHTTP {
         throw new OnmsError('You must set a server before attempting to make queries using Axios!');
       }
       const allOptions = this.getOptions(options);
-      this.axiosObj = this.axiosImpl.create({
-        adapter: () => {
-          if (IS_WEB) {
-            return require('axios/lib/adapters/xhr');
-          } else {
-            return require('axios/lib/adapters/http');
-          }
-        },
+
+      const axiosOpts = {
         auth: {
           password: allOptions.auth.password,
           username: allOptions.auth.username,
@@ -162,7 +153,15 @@ export class AxiosHTTP extends AbstractHTTP {
         baseURL: server.url,
         timeout: allOptions.timeout,
         withCredentials: true,
-      });
+      } as AxiosRequestConfig;
+
+      if (typeof XMLHttpRequest !== 'undefined') {
+        axiosOpts.adapter = require('axios/lib/adapters/xhr.js');
+      } else if (typeof process !== 'undefined') {
+        axiosOpts.adapter = require('axios/lib/adapters/http.js');
+      }
+
+      this.axiosObj = this.axiosImpl.create(axiosOpts);
     }
     return this.axiosObj;
   }
