@@ -5260,10 +5260,10 @@ function __export(m) {
 }
 var LogGroupControl_1 = __webpack_require__(250);
 var CategoryServiceControl_1 = __webpack_require__(249);
-var ExtensionHelper_1 = __webpack_require__(16);
+var ExtensionHelper_1 = __webpack_require__(17);
 exports.ExtensionHelper = ExtensionHelper_1.ExtensionHelper;
 // Category related
-var AbstractCategoryLogger_1 = __webpack_require__(17);
+var AbstractCategoryLogger_1 = __webpack_require__(18);
 exports.AbstractCategoryLogger = AbstractCategoryLogger_1.AbstractCategoryLogger;
 var CategoryConsoleLoggerImpl_1 = __webpack_require__(190);
 exports.CategoryConsoleLoggerImpl = CategoryConsoleLoggerImpl_1.CategoryConsoleLoggerImpl;
@@ -5273,7 +5273,7 @@ var CategoryLogger_1 = __webpack_require__(252);
 exports.Category = CategoryLogger_1.Category;
 var CategoryMessageBufferImpl_1 = __webpack_require__(192);
 exports.CategoryMessageBufferLoggerImpl = CategoryMessageBufferImpl_1.CategoryMessageBufferLoggerImpl;
-var CategoryService_1 = __webpack_require__(18);
+var CategoryService_1 = __webpack_require__(19);
 exports.CategoryDefaultConfiguration = CategoryService_1.CategoryDefaultConfiguration;
 exports.CategoryRuntimeSettings = CategoryService_1.CategoryRuntimeSettings;
 exports.CategoryServiceFactory = CategoryService_1.CategoryServiceFactory;
@@ -5281,7 +5281,7 @@ var LoggerFactoryService_1 = __webpack_require__(35);
 exports.LoggerFactoryOptions = LoggerFactoryService_1.LoggerFactoryOptions;
 exports.LFService = LoggerFactoryService_1.LFService;
 exports.LogGroupRule = LoggerFactoryService_1.LogGroupRule;
-var AbstractLogger_1 = __webpack_require__(19);
+var AbstractLogger_1 = __webpack_require__(20);
 exports.AbstractLogger = AbstractLogger_1.AbstractLogger;
 var ConsoleLoggerImpl_1 = __webpack_require__(193);
 exports.ConsoleLoggerImpl = ConsoleLoggerImpl_1.ConsoleLoggerImpl;
@@ -5299,7 +5299,7 @@ var DataStructures_1 = __webpack_require__(7);
 exports.SimpleMap = DataStructures_1.SimpleMap;
 exports.LinkedList = DataStructures_1.LinkedList;
 __export(__webpack_require__(254));
-var MessageUtils_1 = __webpack_require__(20);
+var MessageUtils_1 = __webpack_require__(21);
 exports.MessageFormatUtils = MessageUtils_1.MessageFormatUtils;
 /*
  Functions to export on TSL libarary var.
@@ -6529,7 +6529,178 @@ exports.OnmsServiceType = OnmsServiceType;
 "use strict";
 
 
-module.exports = __webpack_require__(233);
+var utils = __webpack_require__(3);
+var settle = __webpack_require__(212);
+var buildURL = __webpack_require__(215);
+var parseHeaders = __webpack_require__(221);
+var isURLSameOrigin = __webpack_require__(219);
+var createError = __webpack_require__(63);
+var btoa = typeof window !== 'undefined' && window.btoa && window.btoa.bind(window) || __webpack_require__(214);
+
+module.exports = function xhrAdapter(config) {
+  return new Promise(function dispatchXhrRequest(resolve, reject) {
+    var requestData = config.data;
+    var requestHeaders = config.headers;
+
+    if (utils.isFormData(requestData)) {
+      delete requestHeaders['Content-Type']; // Let the browser set it
+    }
+
+    var request = new XMLHttpRequest();
+    var loadEvent = 'onreadystatechange';
+    var xDomain = false;
+
+    // For IE 8/9 CORS support
+    // Only supports POST and GET calls and doesn't returns the response headers.
+    // DON'T do this for testing b/c XMLHttpRequest is mocked, not XDomainRequest.
+    if (production !== 'test' && typeof window !== 'undefined' && window.XDomainRequest && !('withCredentials' in request) && !isURLSameOrigin(config.url)) {
+      request = new window.XDomainRequest();
+      loadEvent = 'onload';
+      xDomain = true;
+      request.onprogress = function handleProgress() {};
+      request.ontimeout = function handleTimeout() {};
+    }
+
+    // HTTP basic authentication
+    if (config.auth) {
+      var username = config.auth.username || '';
+      var password = config.auth.password || '';
+      requestHeaders.Authorization = 'Basic ' + btoa(username + ':' + password);
+    }
+
+    request.open(config.method.toUpperCase(), buildURL(config.url, config.params, config.paramsSerializer), true);
+
+    // Set the request timeout in MS
+    request.timeout = config.timeout;
+
+    // Listen for ready state
+    request[loadEvent] = function handleLoad() {
+      if (!request || request.readyState !== 4 && !xDomain) {
+        return;
+      }
+
+      // The request errored out and we didn't get a response, this will be
+      // handled by onerror instead
+      // With one exception: request that using file: protocol, most browsers
+      // will return status as 0 even though it's a successful request
+      if (request.status === 0 && !(request.responseURL && request.responseURL.indexOf('file:') === 0)) {
+        return;
+      }
+
+      // Prepare the response
+      var responseHeaders = 'getAllResponseHeaders' in request ? parseHeaders(request.getAllResponseHeaders()) : null;
+      var responseData = !config.responseType || config.responseType === 'text' ? request.responseText : request.response;
+      var response = {
+        data: responseData,
+        // IE sends 1223 instead of 204 (https://github.com/mzabriskie/axios/issues/201)
+        status: request.status === 1223 ? 204 : request.status,
+        statusText: request.status === 1223 ? 'No Content' : request.statusText,
+        headers: responseHeaders,
+        config: config,
+        request: request
+      };
+
+      settle(resolve, reject, response);
+
+      // Clean up request
+      request = null;
+    };
+
+    // Handle low level network errors
+    request.onerror = function handleError() {
+      // Real errors are hidden from us by the browser
+      // onerror should only fire if it's a network error
+      reject(createError('Network Error', config, null, request));
+
+      // Clean up request
+      request = null;
+    };
+
+    // Handle timeout
+    request.ontimeout = function handleTimeout() {
+      reject(createError('timeout of ' + config.timeout + 'ms exceeded', config, 'ECONNABORTED', request));
+
+      // Clean up request
+      request = null;
+    };
+
+    // Add xsrf header
+    // This is only done if running in a standard browser environment.
+    // Specifically not if we're in a web worker, or react-native.
+    if (utils.isStandardBrowserEnv()) {
+      var cookies = __webpack_require__(217);
+
+      // Add xsrf header
+      var xsrfValue = (config.withCredentials || isURLSameOrigin(config.url)) && config.xsrfCookieName ? cookies.read(config.xsrfCookieName) : undefined;
+
+      if (xsrfValue) {
+        requestHeaders[config.xsrfHeaderName] = xsrfValue;
+      }
+    }
+
+    // Add headers to the request
+    if ('setRequestHeader' in request) {
+      utils.forEach(requestHeaders, function setRequestHeader(val, key) {
+        if (typeof requestData === 'undefined' && key.toLowerCase() === 'content-type') {
+          // Remove Content-Type if data is undefined
+          delete requestHeaders[key];
+        } else {
+          // Otherwise add header to the request
+          request.setRequestHeader(key, val);
+        }
+      });
+    }
+
+    // Add withCredentials to request if needed
+    if (config.withCredentials) {
+      request.withCredentials = true;
+    }
+
+    // Add responseType to request if needed
+    if (config.responseType) {
+      try {
+        request.responseType = config.responseType;
+      } catch (e) {
+        // Expected DOMException thrown by browsers not compatible XMLHttpRequest Level 2.
+        // But, this can be suppressed for 'json' type as it can be parsed by default 'transformResponse' function.
+        if (config.responseType !== 'json') {
+          throw e;
+        }
+      }
+    }
+
+    // Handle progress if needed
+    if (typeof config.onDownloadProgress === 'function') {
+      request.addEventListener('progress', config.onDownloadProgress);
+    }
+
+    // Not all browsers support upload events
+    if (typeof config.onUploadProgress === 'function' && request.upload) {
+      request.upload.addEventListener('progress', config.onUploadProgress);
+    }
+
+    if (config.cancelToken) {
+      // Handle cancellation
+      config.cancelToken.promise.then(function onCanceled(cancel) {
+        if (!request) {
+          return;
+        }
+
+        request.abort();
+        reject(cancel);
+        // Clean up request
+        request = null;
+      });
+    }
+
+    if (requestData === undefined) {
+      requestData = null;
+    }
+
+    // Send the request
+    request.send(requestData);
+  });
+};
 
 /***/ }),
 /* 16 */
@@ -6538,9 +6709,18 @@ module.exports = __webpack_require__(233);
 "use strict";
 
 
-var CategoryService_1 = __webpack_require__(18);
+module.exports = __webpack_require__(233);
+
+/***/ }),
+/* 17 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var CategoryService_1 = __webpack_require__(19);
 var LoggerOptions_1 = __webpack_require__(2);
-var MessageUtils_1 = __webpack_require__(20);
+var MessageUtils_1 = __webpack_require__(21);
 var ExtensionHelper = function () {
     function ExtensionHelper() {}
     // Private constructor
@@ -6736,14 +6916,14 @@ exports.ExtensionHelper = ExtensionHelper;
 //# sourceMappingURL=ExtensionHelper.js.map
 
 /***/ }),
-/* 17 */
+/* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 var DataStructures_1 = __webpack_require__(7);
-var MessageUtils_1 = __webpack_require__(20);
+var MessageUtils_1 = __webpack_require__(21);
 var LoggerOptions_1 = __webpack_require__(2);
 var CategoryLogMessageImpl = function () {
     function CategoryLogMessageImpl(message, error, categories, date, level, logFormat, ready) {
@@ -7043,7 +7223,7 @@ exports.AbstractCategoryLogger = AbstractCategoryLogger;
 //# sourceMappingURL=AbstractCategoryLogger.js.map
 
 /***/ }),
-/* 18 */
+/* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7055,7 +7235,7 @@ var CategoryConsoleLoggerImpl_1 = __webpack_require__(190);
 var CategoryDelegateLoggerImpl_1 = __webpack_require__(191);
 var CategoryExtensionLoggerImpl_1 = __webpack_require__(251);
 var CategoryMessageBufferImpl_1 = __webpack_require__(192);
-var ExtensionHelper_1 = __webpack_require__(16);
+var ExtensionHelper_1 = __webpack_require__(17);
 /**
  * RuntimeSettings for a category, at runtime these are associated to a category.
  */
@@ -7508,7 +7688,7 @@ exports.CategoryServiceFactory = CategoryServiceFactory;
 //# sourceMappingURL=CategoryService.js.map
 
 /***/ }),
-/* 19 */
+/* 20 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7516,7 +7696,7 @@ exports.CategoryServiceFactory = CategoryServiceFactory;
 
 var LoggerOptions_1 = __webpack_require__(2);
 var DataStructures_1 = __webpack_require__(7);
-var MessageUtils_1 = __webpack_require__(20);
+var MessageUtils_1 = __webpack_require__(21);
 var LogMessageInternalImpl = function () {
     function LogMessageInternalImpl(loggerName, message, errorAsStack, error, logGroupRule, date, level, ready) {
         this._errorAsStack = null;
@@ -7770,7 +7950,7 @@ exports.AbstractLogger = AbstractLogger;
 //# sourceMappingURL=AbstractLogger.js.map
 
 /***/ }),
-/* 20 */
+/* 21 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7924,7 +8104,7 @@ exports.MessageFormatUtils = MessageFormatUtils;
 //# sourceMappingURL=MessageUtils.js.map
 
 /***/ }),
-/* 21 */
+/* 22 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7993,7 +8173,7 @@ exports.Comparators = Object.freeze({
 });
 
 /***/ }),
-/* 22 */
+/* 23 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8035,7 +8215,7 @@ function OnmsHTTPOptions(timeout, auth, server) {
 exports.OnmsHTTPOptions = OnmsHTTPOptions;
 
 /***/ }),
-/* 23 */
+/* 24 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8103,7 +8283,7 @@ var OnmsResult = function () {
 exports.OnmsResult = OnmsResult;
 
 /***/ }),
-/* 24 */
+/* 25 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8215,13 +8395,13 @@ var OnmsVersion = function () {
 exports.OnmsVersion = OnmsVersion;
 
 /***/ }),
-/* 25 */
+/* 26 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var _regenerator = __webpack_require__(15);
+var _regenerator = __webpack_require__(16);
 
 var _regenerator2 = _interopRequireDefault(_regenerator);
 
@@ -8266,9 +8446,9 @@ var AbstractDAO_1 = __webpack_require__(33);
 var OnmsError_1 = __webpack_require__(5);
 var Util_1 = __webpack_require__(34);
 var OnmsEvent_1 = __webpack_require__(48);
-var OnmsParm_1 = __webpack_require__(26);
+var OnmsParm_1 = __webpack_require__(27);
 var OnmsServiceType_1 = __webpack_require__(14);
-var OnmsSeverity_1 = __webpack_require__(27);
+var OnmsSeverity_1 = __webpack_require__(28);
 var Log_1 = __webpack_require__(4);
 var typescript_logging_1 = __webpack_require__(6);
 /** @hidden */
@@ -8421,7 +8601,7 @@ var EventDAO = function (_AbstractDAO_1$Abstra) {
 exports.EventDAO = EventDAO;
 
 /***/ }),
-/* 26 */
+/* 27 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8484,7 +8664,7 @@ var OnmsParm = function () {
 exports.OnmsParm = OnmsParm;
 
 /***/ }),
-/* 27 */
+/* 28 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8529,186 +8709,6 @@ exports.Severities = Object.freeze({
 });
 
 /***/ }),
-/* 28 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var utils = __webpack_require__(3);
-var settle = __webpack_require__(212);
-var buildURL = __webpack_require__(215);
-var parseHeaders = __webpack_require__(221);
-var isURLSameOrigin = __webpack_require__(219);
-var createError = __webpack_require__(63);
-var btoa = typeof window !== 'undefined' && window.btoa && window.btoa.bind(window) || __webpack_require__(214);
-
-module.exports = function xhrAdapter(config) {
-  return new Promise(function dispatchXhrRequest(resolve, reject) {
-    var requestData = config.data;
-    var requestHeaders = config.headers;
-
-    if (utils.isFormData(requestData)) {
-      delete requestHeaders['Content-Type']; // Let the browser set it
-    }
-
-    var request = new XMLHttpRequest();
-    var loadEvent = 'onreadystatechange';
-    var xDomain = false;
-
-    // For IE 8/9 CORS support
-    // Only supports POST and GET calls and doesn't returns the response headers.
-    // DON'T do this for testing b/c XMLHttpRequest is mocked, not XDomainRequest.
-    if (production !== 'test' && typeof window !== 'undefined' && window.XDomainRequest && !('withCredentials' in request) && !isURLSameOrigin(config.url)) {
-      request = new window.XDomainRequest();
-      loadEvent = 'onload';
-      xDomain = true;
-      request.onprogress = function handleProgress() {};
-      request.ontimeout = function handleTimeout() {};
-    }
-
-    // HTTP basic authentication
-    if (config.auth) {
-      var username = config.auth.username || '';
-      var password = config.auth.password || '';
-      requestHeaders.Authorization = 'Basic ' + btoa(username + ':' + password);
-    }
-
-    request.open(config.method.toUpperCase(), buildURL(config.url, config.params, config.paramsSerializer), true);
-
-    // Set the request timeout in MS
-    request.timeout = config.timeout;
-
-    // Listen for ready state
-    request[loadEvent] = function handleLoad() {
-      if (!request || request.readyState !== 4 && !xDomain) {
-        return;
-      }
-
-      // The request errored out and we didn't get a response, this will be
-      // handled by onerror instead
-      // With one exception: request that using file: protocol, most browsers
-      // will return status as 0 even though it's a successful request
-      if (request.status === 0 && !(request.responseURL && request.responseURL.indexOf('file:') === 0)) {
-        return;
-      }
-
-      // Prepare the response
-      var responseHeaders = 'getAllResponseHeaders' in request ? parseHeaders(request.getAllResponseHeaders()) : null;
-      var responseData = !config.responseType || config.responseType === 'text' ? request.responseText : request.response;
-      var response = {
-        data: responseData,
-        // IE sends 1223 instead of 204 (https://github.com/mzabriskie/axios/issues/201)
-        status: request.status === 1223 ? 204 : request.status,
-        statusText: request.status === 1223 ? 'No Content' : request.statusText,
-        headers: responseHeaders,
-        config: config,
-        request: request
-      };
-
-      settle(resolve, reject, response);
-
-      // Clean up request
-      request = null;
-    };
-
-    // Handle low level network errors
-    request.onerror = function handleError() {
-      // Real errors are hidden from us by the browser
-      // onerror should only fire if it's a network error
-      reject(createError('Network Error', config, null, request));
-
-      // Clean up request
-      request = null;
-    };
-
-    // Handle timeout
-    request.ontimeout = function handleTimeout() {
-      reject(createError('timeout of ' + config.timeout + 'ms exceeded', config, 'ECONNABORTED', request));
-
-      // Clean up request
-      request = null;
-    };
-
-    // Add xsrf header
-    // This is only done if running in a standard browser environment.
-    // Specifically not if we're in a web worker, or react-native.
-    if (utils.isStandardBrowserEnv()) {
-      var cookies = __webpack_require__(217);
-
-      // Add xsrf header
-      var xsrfValue = (config.withCredentials || isURLSameOrigin(config.url)) && config.xsrfCookieName ? cookies.read(config.xsrfCookieName) : undefined;
-
-      if (xsrfValue) {
-        requestHeaders[config.xsrfHeaderName] = xsrfValue;
-      }
-    }
-
-    // Add headers to the request
-    if ('setRequestHeader' in request) {
-      utils.forEach(requestHeaders, function setRequestHeader(val, key) {
-        if (typeof requestData === 'undefined' && key.toLowerCase() === 'content-type') {
-          // Remove Content-Type if data is undefined
-          delete requestHeaders[key];
-        } else {
-          // Otherwise add header to the request
-          request.setRequestHeader(key, val);
-        }
-      });
-    }
-
-    // Add withCredentials to request if needed
-    if (config.withCredentials) {
-      request.withCredentials = true;
-    }
-
-    // Add responseType to request if needed
-    if (config.responseType) {
-      try {
-        request.responseType = config.responseType;
-      } catch (e) {
-        // Expected DOMException thrown by browsers not compatible XMLHttpRequest Level 2.
-        // But, this can be suppressed for 'json' type as it can be parsed by default 'transformResponse' function.
-        if (config.responseType !== 'json') {
-          throw e;
-        }
-      }
-    }
-
-    // Handle progress if needed
-    if (typeof config.onDownloadProgress === 'function') {
-      request.addEventListener('progress', config.onDownloadProgress);
-    }
-
-    // Not all browsers support upload events
-    if (typeof config.onUploadProgress === 'function' && request.upload) {
-      request.upload.addEventListener('progress', config.onUploadProgress);
-    }
-
-    if (config.cancelToken) {
-      // Handle cancellation
-      config.cancelToken.promise.then(function onCanceled(cancel) {
-        if (!request) {
-          return;
-        }
-
-        request.abort();
-        reject(cancel);
-        // Clean up request
-        request = null;
-      });
-    }
-
-    if (requestData === undefined) {
-      requestData = null;
-    }
-
-    // Send the request
-    request.send(requestData);
-  });
-};
-
-/***/ }),
 /* 29 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -8732,10 +8732,10 @@ function getDefaultAdapter() {
   var adapter;
   if (typeof XMLHttpRequest !== 'undefined') {
     // For browsers use XHR adapter
-    adapter = __webpack_require__(28);
+    adapter = __webpack_require__(15);
   } else if (typeof process !== 'undefined') {
     // For node use HTTP adapter
-    adapter = __webpack_require__(28);
+    adapter = __webpack_require__(15);
   }
   return adapter;
 }
@@ -9036,7 +9036,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 Object.defineProperty(exports, "__esModule", { value: true });
 var OnmsError_1 = __webpack_require__(5);
-var OnmsHTTPOptions_1 = __webpack_require__(22);
+var OnmsHTTPOptions_1 = __webpack_require__(23);
 var Log_1 = __webpack_require__(4);
 var V1FilterProcessor_1 = __webpack_require__(42);
 var V2FilterProcessor_1 = __webpack_require__(43);
@@ -9196,7 +9196,7 @@ exports.Util = Util;
 var DataStructures_1 = __webpack_require__(7);
 var LoggerOptions_1 = __webpack_require__(2);
 var LoggerFactoryImpl_1 = __webpack_require__(253);
-var ExtensionHelper_1 = __webpack_require__(16);
+var ExtensionHelper_1 = __webpack_require__(17);
 /**
  * Defines a LogGroupRule, this allows you to either have everything configured the same way
  * or for example loggers that start with name model. It allows you to group loggers together
@@ -9700,7 +9700,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var OnmsVersion_1 = __webpack_require__(24);
+var OnmsVersion_1 = __webpack_require__(25);
 var ServerType_1 = __webpack_require__(13);
 /**
  * A class that represents the capabilities an OpenNMS server has and other information about it.
@@ -9812,7 +9812,7 @@ exports.ServerMetadata = ServerMetadata;
 "use strict";
 
 
-var _regenerator = __webpack_require__(15);
+var _regenerator = __webpack_require__(16);
 
 var _regenerator2 = _interopRequireDefault(_regenerator);
 
@@ -9856,13 +9856,13 @@ var __awaiter = undefined && undefined.__awaiter || function (thisArg, _argument
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var AbstractDAO_1 = __webpack_require__(33);
-var EventDAO_1 = __webpack_require__(25);
+var EventDAO_1 = __webpack_require__(26);
 var OnmsError_1 = __webpack_require__(5);
 var OnmsAlarm_1 = __webpack_require__(44);
 var OnmsAlarmType_1 = __webpack_require__(45);
-var OnmsParm_1 = __webpack_require__(26);
+var OnmsParm_1 = __webpack_require__(27);
 var OnmsServiceType_1 = __webpack_require__(14);
-var OnmsSeverity_1 = __webpack_require__(27);
+var OnmsSeverity_1 = __webpack_require__(28);
 var OnmsTroubleTicketState_1 = __webpack_require__(58);
 var OnmsMemo_1 = __webpack_require__(247);
 var Log_1 = __webpack_require__(4);
@@ -10241,7 +10241,7 @@ exports.AlarmDAO = AlarmDAO;
 "use strict";
 
 
-var _regenerator = __webpack_require__(15);
+var _regenerator = __webpack_require__(16);
 
 var _regenerator2 = _interopRequireDefault(_regenerator);
 
@@ -10690,7 +10690,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 Object.defineProperty(exports, "__esModule", { value: true });
 var OnmsEnum_1 = __webpack_require__(1);
-var Comparator_1 = __webpack_require__(21);
+var Comparator_1 = __webpack_require__(22);
 var Operator_1 = __webpack_require__(12);
 var OnmsError_1 = __webpack_require__(5);
 var NestedRestriction_1 = __webpack_require__(11);
@@ -10796,7 +10796,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var Comparator_1 = __webpack_require__(21);
+var Comparator_1 = __webpack_require__(22);
 var NestedRestriction_1 = __webpack_require__(11);
 var OnmsError_1 = __webpack_require__(5);
 var Operator_1 = __webpack_require__(12);
@@ -11774,7 +11774,7 @@ var axios_1 = __webpack_require__(205);
 var URI = __webpack_require__(197);
 var AbstractHTTP_1 = __webpack_require__(189);
 var OnmsError_1 = __webpack_require__(5);
-var OnmsResult_1 = __webpack_require__(23);
+var OnmsResult_1 = __webpack_require__(24);
 var Log_1 = __webpack_require__(4);
 var typescript_logging_1 = __webpack_require__(6);
 /** @hidden */
@@ -11905,14 +11905,7 @@ var AxiosHTTP = function (_AbstractHTTP_1$Abstr) {
                     throw new OnmsError_1.OnmsError('You must set a server before attempting to make queries using Axios!');
                 }
                 var allOptions = this.getOptions(options);
-                this.axiosObj = this.axiosImpl.create({
-                    adapter: function adapter() {
-                        if (true) {
-                            return __webpack_require__(28);
-                        } else {
-                            return require('axios/lib/adapters/http');
-                        }
-                    },
+                var axiosOpts = {
                     auth: {
                         password: allOptions.auth.password,
                         username: allOptions.auth.username
@@ -11920,7 +11913,13 @@ var AxiosHTTP = function (_AbstractHTTP_1$Abstr) {
                     baseURL: server.url,
                     timeout: allOptions.timeout,
                     withCredentials: true
-                });
+                };
+                if (typeof XMLHttpRequest !== 'undefined') {
+                    axiosOpts.adapter = __webpack_require__(15);
+                } else if (typeof process !== 'undefined') {
+                    axiosOpts.adapter = __webpack_require__(15);
+                }
+                this.axiosObj = this.axiosImpl.create(axiosOpts);
             }
             return this.axiosObj;
         }
@@ -27217,7 +27216,7 @@ var __extends = undefined && undefined.__extends || function (d, b) {
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 var LoggerOptions_1 = __webpack_require__(2);
-var AbstractCategoryLogger_1 = __webpack_require__(17);
+var AbstractCategoryLogger_1 = __webpack_require__(18);
 /**
  * Simple logger, that logs to the console. If the console is unavailable will throw an exception.
  */
@@ -27447,7 +27446,7 @@ var __extends = undefined && undefined.__extends || function (d, b) {
     }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-var AbstractCategoryLogger_1 = __webpack_require__(17);
+var AbstractCategoryLogger_1 = __webpack_require__(18);
 /**
  * Logger which buffers all messages, use with care due to possible high memory footprint.
  * Can be convenient in some cases. Call toString() for full output, or cast to this class
@@ -27492,7 +27491,7 @@ var __extends = undefined && undefined.__extends || function (d, b) {
     }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-var AbstractLogger_1 = __webpack_require__(19);
+var AbstractLogger_1 = __webpack_require__(20);
 var LoggerOptions_1 = __webpack_require__(2);
 /**
  * Simple logger, that logs to the console. If the console is unavailable will throw exception.
@@ -27567,7 +27566,7 @@ var __extends = undefined && undefined.__extends || function (d, b) {
     }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-var AbstractLogger_1 = __webpack_require__(19);
+var AbstractLogger_1 = __webpack_require__(20);
 /**
  * Logger which buffers all messages, use with care due to possible high memory footprint.
  * Can be convenient in some cases. Call toString() for full output, or cast to this class
@@ -30930,7 +30929,7 @@ module.exports = __webpack_amd_options__;
 "use strict";
 
 
-var _regenerator = __webpack_require__(15);
+var _regenerator = __webpack_require__(16);
 
 var _regenerator2 = _interopRequireDefault(_regenerator);
 
@@ -30967,14 +30966,14 @@ var __awaiter = undefined && undefined.__awaiter || function (thisArg, _argument
 Object.defineProperty(exports, "__esModule", { value: true });
 var Log_1 = __webpack_require__(4);
 var typescript_logging_1 = __webpack_require__(6);
-var OnmsHTTPOptions_1 = __webpack_require__(22);
+var OnmsHTTPOptions_1 = __webpack_require__(23);
 var OnmsError_1 = __webpack_require__(5);
-var OnmsVersion_1 = __webpack_require__(24);
+var OnmsVersion_1 = __webpack_require__(25);
 var ServerType_1 = __webpack_require__(13);
 var OnmsServer_1 = __webpack_require__(38);
 var ServerMetadata_1 = __webpack_require__(39);
 var AlarmDAO_1 = __webpack_require__(40);
-var EventDAO_1 = __webpack_require__(25);
+var EventDAO_1 = __webpack_require__(26);
 var NodeDAO_1 = __webpack_require__(41);
 var AxiosHTTP_1 = __webpack_require__(60);
 /** @hidden */
@@ -31292,7 +31291,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 Object.defineProperty(exports, "__esModule", { value: true });
 var AbstractHTTP_1 = __webpack_require__(189);
 var OnmsError_1 = __webpack_require__(5);
-var OnmsResult_1 = __webpack_require__(23);
+var OnmsResult_1 = __webpack_require__(24);
 var Log_1 = __webpack_require__(4);
 var typescript_logging_1 = __webpack_require__(6);
 /** @hidden */
@@ -41642,21 +41641,21 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
 Object.defineProperty(exports, "__esModule", { value: true });
 var Clause_1 = __webpack_require__(36);
-var Comparator_1 = __webpack_require__(21);
+var Comparator_1 = __webpack_require__(22);
 var Filter_1 = __webpack_require__(202);
 var NestedRestriction_1 = __webpack_require__(11);
 var OnmsAuthConfig_1 = __webpack_require__(37);
 var OnmsError_1 = __webpack_require__(5);
-var OnmsHTTPOptions_1 = __webpack_require__(22);
-var OnmsResult_1 = __webpack_require__(23);
+var OnmsHTTPOptions_1 = __webpack_require__(23);
+var OnmsResult_1 = __webpack_require__(24);
 var OnmsServer_1 = __webpack_require__(38);
-var OnmsVersion_1 = __webpack_require__(24);
+var OnmsVersion_1 = __webpack_require__(25);
 var Operator_1 = __webpack_require__(12);
 var Restriction_1 = __webpack_require__(203);
 var ServerMetadata_1 = __webpack_require__(39);
 var ServerType_1 = __webpack_require__(13);
 var AlarmDAO_1 = __webpack_require__(40);
-var EventDAO_1 = __webpack_require__(25);
+var EventDAO_1 = __webpack_require__(26);
 var NodeDAO_1 = __webpack_require__(41);
 var V1FilterProcessor_1 = __webpack_require__(42);
 var V2FilterProcessor_1 = __webpack_require__(43);
@@ -41670,11 +41669,11 @@ var OnmsManagedType_1 = __webpack_require__(50);
 var OnmsMonitoredService_1 = __webpack_require__(51);
 var OnmsNode_1 = __webpack_require__(52);
 var OnmsNodeLabelSource_1 = __webpack_require__(53);
-var OnmsParm_1 = __webpack_require__(26);
+var OnmsParm_1 = __webpack_require__(27);
 var OnmsPrimaryType_1 = __webpack_require__(54);
 var OnmsServiceStatusType_1 = __webpack_require__(55);
 var OnmsServiceType_1 = __webpack_require__(14);
-var OnmsSeverity_1 = __webpack_require__(27);
+var OnmsSeverity_1 = __webpack_require__(28);
 var OnmsSnmpInterface_1 = __webpack_require__(56);
 var OnmsSnmpStatusType_1 = __webpack_require__(57);
 var OnmsTroubleTicketState_1 = __webpack_require__(58);
@@ -41894,7 +41893,7 @@ exports.NodeTypes = Object.freeze({
 
 
 var DataStructures_1 = __webpack_require__(7);
-var CategoryService_1 = __webpack_require__(18);
+var CategoryService_1 = __webpack_require__(19);
 var LoggerOptions_1 = __webpack_require__(2);
 /**
  * Implementation class for CategoryServiceControl.
@@ -42289,8 +42288,8 @@ var __extends = undefined && undefined.__extends || function (d, b) {
     }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-var ExtensionHelper_1 = __webpack_require__(16);
-var AbstractCategoryLogger_1 = __webpack_require__(17);
+var ExtensionHelper_1 = __webpack_require__(17);
+var AbstractCategoryLogger_1 = __webpack_require__(18);
 /**
  * This class should not be used directly, it is used for communication with the extension only.
  */
@@ -42320,7 +42319,7 @@ exports.CategoryExtensionLoggerImpl = CategoryExtensionLoggerImpl;
 
 
 var LoggerOptions_1 = __webpack_require__(2);
-var CategoryService_1 = __webpack_require__(18);
+var CategoryService_1 = __webpack_require__(19);
 /**
  * Category for use with categorized logging.
  * At minimum you need one category, which will serve as the root category.
@@ -42415,7 +42414,7 @@ var LoggerOptions_1 = __webpack_require__(2);
 var LoggerFactoryService_1 = __webpack_require__(35);
 var ConsoleLoggerImpl_1 = __webpack_require__(193);
 var MessageBufferLoggerImpl_1 = __webpack_require__(194);
-var AbstractLogger_1 = __webpack_require__(19);
+var AbstractLogger_1 = __webpack_require__(20);
 var LoggerFactoryImpl = function () {
     function LoggerFactoryImpl(name, options) {
         this._loggers = new DataStructures_1.SimpleMap();
