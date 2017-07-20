@@ -64,13 +64,7 @@ var config = {
     ],
     extensions: ['.webpack.js', '.web.js', '.ts', '.js']
   },
-  plugins: [
-/*
-    new webpack.DefinePlugin({
-      "global.GENTLY": false
-    }),
-*/
-  ],
+  plugins: [],
   node: {
     fs: 'empty',
     __dirname: true,
@@ -97,12 +91,6 @@ function createConfig(options) {
   }
 
   if (options.production) {
-    var tsconfig = require('./tsconfig.json');
-    tsconfig.name = 'OpenNMS.js';
-    tsconfig.mode = 'file';
-    tsconfig.ignoreCompilerErrors = true;
-    tsconfig.exclude = "/**/+(node_modules|test)/**/*";
-    tsconfig.excludeExternals = false;
     defs['global.GENTLY'] = false;
   
     myconf.plugins.push(new webpack.LoaderOptionsPlugin({
@@ -111,15 +99,22 @@ function createConfig(options) {
     }));
     myconf.plugins.push(new webpack.optimize.UglifyJsPlugin({
       sourceMap: true,
-      minimize: true
+      mangle: true,
+      minimize: true,
+      compress: true,
     }));
-    myconf.plugins.push(new TypedocWebpackPlugin(tsconfig));
     myconf.output.filename += '.min';
-  } else {
-    myconf.plugins.push(new webpack.LoaderOptionsPlugin({
-      minimize: false,
-      debug: true
-    }));
+  }
+
+  if (!options.web && options.production) {
+    // generate documentation
+    var tsconfig = require('./tsconfig.json');
+    tsconfig.name = 'OpenNMS.js';
+    tsconfig.mode = 'file';
+    tsconfig.ignoreCompilerErrors = true;
+    tsconfig.exclude = "/**/+(node_modules|test)/**/*";
+    tsconfig.excludeExternals = false;
+    myconf.plugins.push(new TypedocWebpackPlugin(tsconfig));
   }
 
   myconf.plugins.push(new webpack.DefinePlugin(defs));
