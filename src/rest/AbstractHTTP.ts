@@ -8,12 +8,6 @@ import {OnmsHTTPOptions} from '../api/OnmsHTTPOptions';
 import {OnmsResult} from '../api/OnmsResult';
 import {OnmsServer} from '../api/OnmsServer';
 
-/** @hidden */
-declare const IS_WEB: boolean;
-
-/** @hidden */
-const isWeb = typeof(IS_WEB) === 'undefined' ? false : IS_WEB;
-
 if (!global.window) {
   global.window = {} as Window;
 }
