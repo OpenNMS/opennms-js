@@ -6,7 +6,7 @@ var createVariants = require('parallel-webpack').createVariants;
 
 var clonedeep = require('lodash.clonedeep');
 
-var isProduction = require('yargs').argv.p;
+var isProduction = require('yargs').argv.env === 'production';
 
 var libraryName = 'opennms';
 
@@ -106,7 +106,10 @@ function createConfig(options) {
     myconf.output.filename += '.min';
   }
 
-  if (!options.web && options.production) {
+  myconf.plugins.push(new webpack.DefinePlugin(defs));
+  myconf.plugins.push(new webpack.ProvidePlugin({X2JS: 'x2js'}));
+
+  if (options.production && !options.web) {
     // generate documentation
     var tsconfig = require('./tsconfig.json');
     tsconfig.name = 'OpenNMS.js';
@@ -116,9 +119,6 @@ function createConfig(options) {
     tsconfig.excludeExternals = false;
     myconf.plugins.push(new TypedocWebpackPlugin(tsconfig));
   }
-
-  myconf.plugins.push(new webpack.DefinePlugin(defs));
-  myconf.plugins.push(new webpack.ProvidePlugin({X2JS: 'x2js'}));
 
   myconf.output.filename += '.js';
 
