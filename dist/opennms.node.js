@@ -14763,10 +14763,11 @@ exports.simpleGroup = function (addressString, offset) {
   // An array of bytes the size of the pool will be passed to init()
   var rng_psize = 256;
 
-  BigInteger.SecureRandom = SecureRandom;
-  BigInteger.BigInteger = BigInteger;
   if (true) {
-    exports = module.exports = BigInteger;
+    exports = module.exports = {
+      BigInteger: BigInteger,
+      SecureRandom: SecureRandom
+    };
   } else {
     this.BigInteger = BigInteger;
     this.SecureRandom = SecureRandom;
