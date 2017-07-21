@@ -2,8 +2,10 @@
 
 # Getting Started
 
+If you are using TypeScript, you can import the API directly:
+
 ```javascript
-import {API, Model, Rest, DAO, Client} from 'dist/opennms.min.js';
+import {API, Model, Rest, DAO, Client} from 'opennms/src/API';
 
 new Client().connect('Demo', 'https://demo.opennms.org/opennms', 'demo', 'demo').then((client) => {
   // do something
@@ -12,15 +14,17 @@ new Client().connect('Demo', 'https://demo.opennms.org/opennms', 'demo', 'demo')
 
 # Making Queries
 
-To make a query, OpenNMS.js provides a number of DAO APIs for accessing data through rest queries.  To do so, you first connect (as above), and then call into the appropriate DAO to query.
+To make a query, OpenNMS.js provides a number of DAO APIs for accessing data through ReST.
+To do so, you first connect (like above), and then call into the appropriate DAO to query.
+Here's an example in Node.js:
 
 ```javascript
-import {
-  Client,
-  API.Comparators as Comparators,
-  API.Filter as Filter,
-  API.Restriction as Restriction,
-} from 'dist/opennms.min.js';
+const opennms = require('./dist/opennms.node');
+
+const Client = opennms.Client;
+const Comparators = opennms.API.Comparators;
+const Filter = opennms.API.Filter;
+const Restriction = opennms.API.Restriction;
 
 new Client().connect('Demo', 'https://demo.opennms.org/opennms', 'demo', 'demo').then((client) => {
   const filter = new Filter()
