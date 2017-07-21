@@ -98,7 +98,11 @@ export class EventDAO extends AbstractDAO<number, OnmsEvent> {
       }
 
       if (!Array.isArray(data)) {
-        throw new OnmsError('Expected an array of events but got "' + (typeof data) + '" instead.');
+        if (data.nodeId) {
+          data = [data];
+        } else {
+          throw new OnmsError('Expected an array of events but got "' + (typeof data) + '" instead.');
+        }
       }
       return data.map((eventData) => {
         return this.fromData(eventData);

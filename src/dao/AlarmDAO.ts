@@ -144,7 +144,11 @@ export class AlarmDAO extends AbstractDAO<number, OnmsAlarm> {
       }
 
       if (!Array.isArray(data)) {
-        throw new OnmsError('Expected an array of alarms but got "' + (typeof data) + '" instead.');
+        if (data.nodeId) {
+          data = [data];
+        } else {
+          throw new OnmsError('Expected an array of alarms but got "' + (typeof data) + '" instead.');
+        }
       }
       return data.map((alarmData) => {
         return this.fromData(alarmData);

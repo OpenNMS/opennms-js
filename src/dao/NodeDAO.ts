@@ -186,7 +186,11 @@ export class NodeDAO extends AbstractDAO<number, OnmsNode> {
       }
 
       if (!Array.isArray(data)) {
-        throw new OnmsError('Expected an array of nodes but got "' + (typeof data) + '" instead.');
+        if (data.id) {
+          data = [data];
+        } else {
+          throw new OnmsError('Expected an array of nodes but got "' + (typeof data) + '" instead.');
+        }
       }
       return data.map((nodeData) => {
         return this.fromData(nodeData);
@@ -237,7 +241,11 @@ export class NodeDAO extends AbstractDAO<number, OnmsNode> {
       }
 
       if (!Array.isArray(data)) {
-        throw new OnmsError('Expected an array of IP interfaces but got "' + (typeof data) + '" instead.');
+        if (data.nodeId) {
+          data = [data];
+        } else {
+          throw new OnmsError('Expected an array of IP interfaces but got "' + (typeof data) + '" instead.');
+        }
       }
       return data.map((ifaceData) => {
         return this.fromIpInterfaceData(ifaceData);
@@ -261,7 +269,11 @@ export class NodeDAO extends AbstractDAO<number, OnmsNode> {
       }
 
       if (!Array.isArray(data)) {
-        throw new OnmsError('Expected an array of SNMP interfaces but got "' + (typeof data) + '" instead.');
+        if (data.ifName) {
+          data = [data];
+        } else {
+          throw new OnmsError('Expected an array of SNMP interfaces but got "' + (typeof data) + '" instead.');
+        }
       }
       return data.map((ifaceData) => {
         return this.fromSnmpData(ifaceData);
@@ -293,7 +305,11 @@ export class NodeDAO extends AbstractDAO<number, OnmsNode> {
       }
 
       if (!Array.isArray(data)) {
-        throw new OnmsError('Expected an array of services but got "' + (typeof data) + '" instead.');
+        if (data.lastGood) {
+          data = [data];
+        } else {
+          throw new OnmsError('Expected an array of services but got "' + (typeof data) + '" instead.');
+        }
       }
       return data.map((ifaceData) => {
         return this.fromServiceData(ifaceData);
