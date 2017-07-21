@@ -1,3 +1,6 @@
+// tslint:disable-next-line
+/// <reference path="../../typings/index.d.ts" />
+
 import {IOnmsHTTP} from '../api/IOnmsHTTP';
 import {IFilterProcessor} from '../api/IFilterProcessor';
 
@@ -5,12 +8,21 @@ import {OnmsHTTPOptions} from '../api/OnmsHTTPOptions';
 import {OnmsResult} from '../api/OnmsResult';
 import {OnmsServer} from '../api/OnmsServer';
 
+if (!global.window) {
+  global.window = {} as Window;
+}
+if (!global.window.DOMParser) {
+  // tslint:disable-next-line
+  global.window.DOMParser = require('xmldom').DOMParser;
+}
+
 /** @hidden */
 // tslint:disable-next-line
 const X2JS = require('x2js');
 
 /** @hidden */
 const xmlParser = new X2JS({
+  arrayAccessForm: 'property',
   attributePrefix: '',
   ignoreRoot: true,
 });

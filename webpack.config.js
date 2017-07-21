@@ -118,6 +118,8 @@ function createConfig(options) {
   }
 
   myconf.plugins.push(new webpack.DefinePlugin(defs));
+  myconf.plugins.push(new webpack.ProvidePlugin({X2JS: 'x2js'}));
+
   myconf.output.filename += '.js';
 
   return myconf;
