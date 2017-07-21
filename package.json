@@ -84,7 +84,6 @@
   },
   "scripts": {
     "precommit": "jest",
-    "prepush": "conventional-changelog-lint --from=origin/master && yarn lint",
     "changelog": "standard-changelog -i CHANGELOG.md -s -r 0",
     "build": "webpack --define process.env.NODE_ENV=production --env production",
     "dev": "webpack --progress --colors",
