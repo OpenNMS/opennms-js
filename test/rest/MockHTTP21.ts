@@ -79,6 +79,16 @@ export class MockHTTP21 extends AbstractHTTP {
         result.type = 'text/plain';
         return Promise.resolve(result);
       }
+      case 'api/v2/alarms/404725?ticketId=abcde': {
+        const result = OnmsResult.ok('');
+        result.type = 'text/plain';
+        return Promise.resolve(result);
+      }
+      case 'api/v2/alarms/404725?ticketState=RESOLVED': {
+        const result = OnmsResult.ok('');
+        result.type = 'text/plain';
+        return Promise.resolve(result);
+      }
     }
 
     return Promise.reject(OnmsResult.error('Not yet implemented: PUT ' + urlObj.toString()));

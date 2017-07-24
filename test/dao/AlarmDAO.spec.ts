@@ -16,6 +16,9 @@ import {Restriction} from '../../src/api/Restriction';
 
 import {AlarmDAO} from '../../src/dao/AlarmDAO';
 
+import {OnmsAlarm} from '../../src/model/OnmsAlarm';
+import {TroubleTicketStates} from '../../src/model/OnmsTroubleTicketState';
+
 import {MockHTTP19} from '../rest/MockHTTP19';
 import {MockHTTP21} from '../rest/MockHTTP21';
 
@@ -50,20 +53,33 @@ describe('AlarmDAO with v1 API', () => {
       expect(alarms.length).toEqual(1);
     });
   });
-  it('AlarmDAO.acknowledge(id=404725)', () => {
-    return dao.acknowledge(404725);
+
+  for (const method of ['acknowledge', 'unacknowledge', 'escalate', 'clear']) {
+    it('AlarmDAO.' + method + '(id=404725)', () => {
+      return dao[method](404725);
+    });
+    it('AlarmDAO.' + method + '(OnmsAlarm(404725))', () => {
+      const alarm = new OnmsAlarm();
+      alarm.id=404725;
+      return dao[method](alarm);
+    });
+  }
+
+  it('AlarmDAO.setTTicketId(alarmId=404725, ticketId=abcde)', () => {
+    return dao.setTTicketId(404725, 'abcde');
   });
-  it('AlarmDAO.acknowledge(id=404725, user=ranger)', () => {
-    return dao.acknowledge(404725, 'ranger');
+  it('AlarmDAO.setTTicketId(alarm=OnmsAlarm(404725), ticketId=abcde)', () => {
+    const alarm = new OnmsAlarm();
+    alarm.id=404725;
+    return dao.setTTicketId(alarm, 'abcde');
   });
-  it('AlarmDAO.unacknowledge(id=404725)', () => {
-    return dao.unacknowledge(404725);
+  it('AlarmDAO.setTTicketState(alarmId=404725, ticketState=RESOLVED)', () => {
+    return dao.setTTicketState(404725, TroubleTicketStates.RESOLVED);
   });
-  it('AlarmDAO.escalate(id=404725)', () => {
-    return dao.escalate(404725);
-  });
-  it('AlarmDAO.clear(id=404725)', () => {
-    return dao.clear(404725);
+  it('AlarmDAO.setTTicketState(alarm=OnmsAlarm(404725), ticketState=RESOLVED)', () => {
+    const alarm = new OnmsAlarm();
+    alarm.id=404725;
+    return dao.setTTicketState(alarm, TroubleTicketStates.RESOLVED);
   });
 });
 
@@ -106,19 +122,32 @@ describe('AlarmDAO with v2 API', () => {
       expect(alarm.journal.body).toEqual('journal');
     });
   });
-  it('AlarmDAO.acknowledge(id=404725)', () => {
-    return dao.acknowledge(404725);
+
+  for (const method of ['acknowledge', 'unacknowledge', 'escalate', 'clear']) {
+    it('AlarmDAO.' + method + '(id=404725)', () => {
+      return dao[method](404725);
+    });
+    it('AlarmDAO.' + method + '(OnmsAlarm(404725))', () => {
+      const alarm = new OnmsAlarm();
+      alarm.id=404725;
+      return dao[method](alarm);
+    });
+  }
+
+  it('AlarmDAO.setTTicketId(alarmId=404725, ticketId=abcde)', () => {
+    return dao.setTTicketId(404725, 'abcde');
   });
-  it('AlarmDAO.acknowledge(id=404725, user=ranger)', () => {
-    return dao.acknowledge(404725, 'ranger');
+  it('AlarmDAO.setTTicketId(alarm=OnmsAlarm(404725), ticketId=abcde)', () => {
+    const alarm = new OnmsAlarm();
+    alarm.id=404725;
+    return dao.setTTicketId(alarm, 'abcde');
   });
-  it('AlarmDAO.unacknowledge(id=404725)', () => {
-    return dao.unacknowledge(404725);
+  it('AlarmDAO.setTTicketState(alarmId=404725, ticketState=RESOLVED)', () => {
+    return dao.setTTicketState(404725, TroubleTicketStates.RESOLVED);
   });
-  it('AlarmDAO.escalate(id=404725)', () => {
-    return dao.escalate(404725);
-  });
-  it('AlarmDAO.clear(id=404725)', () => {
-    return dao.clear(404725);
+  it('AlarmDAO.setTTicketState(alarm=OnmsAlarm(404725), ticketState=RESOLVED)', () => {
+    const alarm = new OnmsAlarm();
+    alarm.id=404725;
+    return dao.setTTicketState(alarm, TroubleTicketStates.RESOLVED);
   });
 });
