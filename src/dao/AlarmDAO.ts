@@ -14,7 +14,7 @@ import {AlarmTypes} from '../model/OnmsAlarmType';
 import {OnmsParm} from '../model/OnmsParm';
 import {OnmsServiceType} from '../model/OnmsServiceType';
 import {Severities} from '../model/OnmsSeverity';
-import {TroubleTicketStates} from '../model/OnmsTroubleTicketState';
+import {OnmsTroubleTicketState, TroubleTicketStates} from '../model/OnmsTroubleTicketState';
 import {OnmsMemo} from '../model/OnmsMemo';
 
 import {log, catDao} from '../api/Log';
@@ -116,6 +116,7 @@ export class AlarmDAO extends AbstractDAO<number, OnmsAlarm> {
   /**
    * Fetch an alarm.
    *
+   * @version ReST v1+
    * @param {number} id - the alarm's ID
    * @return an {@link OnmsAlarm}
    */
@@ -129,6 +130,7 @@ export class AlarmDAO extends AbstractDAO<number, OnmsAlarm> {
   /**
    * Find matching alarms.
    *
+   * @version ReST v1+
    * @param {Filter} filter - the filter to use when querying
    * @return an array of {@link OnmsAlarm}s
    */
@@ -159,49 +161,89 @@ export class AlarmDAO extends AbstractDAO<number, OnmsAlarm> {
   /**
    * Acknowledge an alarm.
    *
-   * @param {number} id - the alarm ID
+   * @version ReST v1+
+   * @param {number|OnmsAlarm} id - the {@link OnmsAlarm} or alarm ID
    * @param {string=} user - the user to ack the alarm as (only administrators have the right to do this)
    */
-  public async acknowledge(id: number, user?: string): Promise<void> {
+  public async acknowledge(alarm: number|OnmsAlarm, user?: string): Promise<void> {
+    const alarmId = (typeof(alarm) === 'number' ? alarm : alarm.id);
     const parameters = {} as IHash<string>;
     parameters.ack = 'true';
     if (user !== undefined) {
       parameters.ackUser = user;
     }
-    return this.put(this.pathToAlarmsEndpoint() + '/' + id, parameters);
+    return this.put(this.pathToAlarmsEndpoint() + '/' + alarmId, parameters);
   }
 
   /**
    * Un-acknowledge an alarm.
    *
-   * @param {number} id - the alarm ID
+   * @version ReST v1+
+   * @param {number|OnmsAlarm} alarm - the {@link OnmsAlarm} or alarm ID
    */
-  public async unacknowledge(id: number): Promise<void> {
+  public async unacknowledge(alarm: number|OnmsAlarm): Promise<void> {
+    const alarmId = (typeof(alarm) === 'number' ? alarm : alarm.id);
     const parameters = {} as IHash<string>;
     parameters.ack = 'false';
-    return this.put(this.pathToAlarmsEndpoint() + '/' + id, parameters);
+    return this.put(this.pathToAlarmsEndpoint() + '/' + alarmId, parameters);
   }
 
   /**
    * Escalate an alarm.
    *
-   * @param {number} id - the alarm ID
+   * @version ReST v1+
+   * @param {number|OnsmAlarm} alarm - the {@link OnmsAlarm} or alarm ID
    */
-  public async escalate(id: number): Promise<void> {
+  public async escalate(alarm: number|OnmsAlarm): Promise<void> {
+    const alarmId = (typeof(alarm) === 'number' ? alarm : alarm.id);
     const parameters = {} as IHash<string>;
     parameters.escalate = 'true';
-    return this.put(this.pathToAlarmsEndpoint() + '/' + id, parameters);
+    return this.put(this.pathToAlarmsEndpoint() + '/' + alarmId, parameters);
   }
 
   /**
    * Clear an alarm.
    *
-   * @param {number} id - the alarm ID
+   * @version ReST v1+
+   * @param {number|OnmsAlarm} alarm - the {@link OnmsAlarm} or alarm ID
    */
-  public async clear(id: number): Promise<void> {
+  public async clear(alarm: number|OnmsAlarm): Promise<void> {
+    const alarmId = (typeof(alarm) === 'number' ? alarm : alarm.id);
     const parameters = {} as IHash<string>;
     parameters.clear = 'true';
-    return this.put(this.pathToAlarmsEndpoint() + '/' + id, parameters);
+    return this.put(this.pathToAlarmsEndpoint() + '/' + alarmId, parameters);
+  }
+
+  /**
+   * Associate a ticket ID with the alarm.
+   *
+   * @version ReST v1+
+   * @deprecated Please use the Rest v2 {@link AlarmDAO#createTicket} method
+   *             instead to invoke an OpenNMS ticketer plugin.
+   * @param {number|OnmsAlarm} alarm - the {@link OnmsAlarm} or alarm ID
+   * @param {string} ticketId - the ticket ID
+   */
+  public async setTTicketId(alarm: number|OnmsAlarm, ticketId: string): Promise<void> {
+    const alarmId = (typeof(alarm) === 'number' ? alarm : alarm.id);
+    const parameters = {} as IHash<string>;
+    parameters.ticketId = ticketId;
+    return this.put(this.pathToAlarmsEndpoint() + '/' + alarmId, parameters);
+  }
+
+  /**
+   * Update the state of the ticket associated with the alarm.
+   *
+   * @version ReST v1+
+   * @deprecated Please use the Rest v2 {@link AlarmDAO#createTicket} method
+   *             instead to invoke an OpenNMS ticketer plugin.
+   * @param {number|OnmsAlarm} alarm - the {@link OnmsAlarm} or alarm ID
+   * @param {string} state - the ticket state
+   */
+  public async setTTicketState(alarm: number|OnmsAlarm, state: OnmsTroubleTicketState): Promise<void> {
+    const alarmId = (typeof(alarm) === 'number' ? alarm : alarm.id);
+    const parameters = {} as IHash<string>;
+    parameters.ticketState = state.label;
+    return this.put(this.pathToAlarmsEndpoint() + '/' + alarmId, parameters);
   }
 
   /** given an optional filter, generate an {@link OnmsHTTPOptions} object for DAO calls */
