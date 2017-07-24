@@ -4497,7 +4497,7 @@ var OnmsEnum = function () {
         get: function get() {
             return this.i;
         }
-        /** an alias for {@link #id} */
+        /** an alias for [[OnmsEnum.id]] */
 
     }, {
         key: "index",
@@ -8047,7 +8047,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 Object.defineProperty(exports, "__esModule", { value: true });
 /**
- * An {@link OnmsHTTP} query result.
+ * An [[IOnmsHTTP]] query result.
  * @module OnmsResult
  */ /** */
 
@@ -8274,7 +8274,7 @@ var typescript_logging_1 = __webpack_require__(6);
 /** @hidden */
 var cat = new typescript_logging_1.Category('events', Log_1.catDao);
 /**
- * Data access for {@link OnmsEvent} objects
+ * Data access for [[OnmsEvent]] objects
  * @module EventDAO
  */ /** */
 
@@ -8924,7 +8924,7 @@ var AbstractDAO = function () {
             }
             return count;
         }
-        /** given an optional filter, generate an {@link OnmsHTTPOptions} object for DAO calls */
+        /** given an optional filter, generate an [[OnmsHTTPOptions]] object for DAO calls */
 
     }, {
         key: "getOptions",
@@ -9015,7 +9015,7 @@ var Util = function () {
         key: "toIPAddress",
 
         /**
-         * Convert an IP address string to an {@link Address4} or {@link Address6} object.
+         * Convert an IP address string to an [[Address4]] or [[Address6]] object.
          */
         value: function toIPAddress(addr) {
             if (addr) {
@@ -9417,7 +9417,7 @@ var OnmsAuthConfig = function () {
     this.password = password;
   }
   /**
-   * Create a new {@link OnmsAuthConfig} object from this existing one.
+   * Create a new config object from this existing one.
    */
 
 
@@ -9495,7 +9495,7 @@ var OnmsServer = function () {
             return URI(this.url).segment(forFragment).toString();
         }
         /**
-         * Create a new {@link OnmsServer} object from this existing one.
+         * Create a new server object from this existing one.
          */
 
     }, {
@@ -9638,7 +9638,7 @@ var ServerMetadata = function () {
             return 'ServerMetadata[version=' + this.version.toString() + ',apiVersion=' + this.apiVersion() + ',type=' + this.type.toString() + ',ackAlarms=' + this.ackAlarms() + ',graphs=' + this.graphs() + ',outageSummaries=' + this.outageSummaries() + ',setNodeLocation=' + this.setNodeLocation() + ']';
         }
         /**
-         * Create a new {@link ServerMetadata} object from this existing one.
+         * Create a new metadata object from this existing one.
          */
 
     }, {
@@ -9718,7 +9718,7 @@ var typescript_logging_1 = __webpack_require__(6);
 /** @hidden */
 var cat = new typescript_logging_1.Category('alarms', Log_1.catDao);
 /**
- * Data access for {@link OnmsAlarm} objects
+ * Data access for [[OnmsAlarm]] objects
  * @module AlarmDAO
  */ /** */
 
@@ -9821,8 +9821,9 @@ var AlarmDAO = function (_AbstractDAO_1$Abstra) {
         /**
          * Fetch an alarm.
          *
+         * @version ReST v1+
          * @param {number} id - the alarm's ID
-         * @return an {@link OnmsAlarm}
+         * @return an [[OnmsAlarm]]
          */
 
     }, {
@@ -9852,8 +9853,9 @@ var AlarmDAO = function (_AbstractDAO_1$Abstra) {
         /**
          * Find matching alarms.
          *
+         * @version ReST v1+
          * @param {Filter} filter - the filter to use when querying
-         * @return an array of {@link OnmsAlarm}s
+         * @return an array of [[OnmsAlarm]] objects
          */
 
     }, {
@@ -9898,28 +9900,30 @@ var AlarmDAO = function (_AbstractDAO_1$Abstra) {
         /**
          * Acknowledge an alarm.
          *
-         * @param {number} id - the alarm ID
+         * @version ReST v1+
+         * @param {number|OnmsAlarm} id - the [[OnmsAlarm]] or alarm ID
          * @param {string=} user - the user to ack the alarm as (only administrators have the right to do this)
          */
 
     }, {
         key: "acknowledge",
-        value: function acknowledge(id, user) {
+        value: function acknowledge(alarm, user) {
             return __awaiter(this, void 0, void 0, _regenerator2.default.mark(function _callee3() {
-                var parameters;
+                var alarmId, parameters;
                 return _regenerator2.default.wrap(function _callee3$(_context3) {
                     while (1) {
                         switch (_context3.prev = _context3.next) {
                             case 0:
+                                alarmId = typeof alarm === 'number' ? alarm : alarm.id;
                                 parameters = {};
 
                                 parameters.ack = 'true';
                                 if (user !== undefined) {
                                     parameters.ackUser = user;
                                 }
-                                return _context3.abrupt("return", this.put(this.pathToAlarmsEndpoint() + '/' + id, parameters));
+                                return _context3.abrupt("return", this.put(this.pathToAlarmsEndpoint() + '/' + alarmId, parameters));
 
-                            case 4:
+                            case 5:
                             case "end":
                                 return _context3.stop();
                         }
@@ -9930,24 +9934,26 @@ var AlarmDAO = function (_AbstractDAO_1$Abstra) {
         /**
          * Un-acknowledge an alarm.
          *
-         * @param {number} id - the alarm ID
+         * @version ReST v1+
+         * @param {number|OnmsAlarm} alarm - the [[OnmsAlarm]] or alarm ID
          */
 
     }, {
         key: "unacknowledge",
-        value: function unacknowledge(id) {
+        value: function unacknowledge(alarm) {
             return __awaiter(this, void 0, void 0, _regenerator2.default.mark(function _callee4() {
-                var parameters;
+                var alarmId, parameters;
                 return _regenerator2.default.wrap(function _callee4$(_context4) {
                     while (1) {
                         switch (_context4.prev = _context4.next) {
                             case 0:
+                                alarmId = typeof alarm === 'number' ? alarm : alarm.id;
                                 parameters = {};
 
                                 parameters.ack = 'false';
-                                return _context4.abrupt("return", this.put(this.pathToAlarmsEndpoint() + '/' + id, parameters));
+                                return _context4.abrupt("return", this.put(this.pathToAlarmsEndpoint() + '/' + alarmId, parameters));
 
-                            case 3:
+                            case 4:
                             case "end":
                                 return _context4.stop();
                         }
@@ -9958,24 +9964,26 @@ var AlarmDAO = function (_AbstractDAO_1$Abstra) {
         /**
          * Escalate an alarm.
          *
-         * @param {number} id - the alarm ID
+         * @version ReST v1+
+         * @param {number|OnsmAlarm} alarm - the [[OnmsAlarm]] or alarm ID
          */
 
     }, {
         key: "escalate",
-        value: function escalate(id) {
+        value: function escalate(alarm) {
             return __awaiter(this, void 0, void 0, _regenerator2.default.mark(function _callee5() {
-                var parameters;
+                var alarmId, parameters;
                 return _regenerator2.default.wrap(function _callee5$(_context5) {
                     while (1) {
                         switch (_context5.prev = _context5.next) {
                             case 0:
+                                alarmId = typeof alarm === 'number' ? alarm : alarm.id;
                                 parameters = {};
 
                                 parameters.escalate = 'true';
-                                return _context5.abrupt("return", this.put(this.pathToAlarmsEndpoint() + '/' + id, parameters));
+                                return _context5.abrupt("return", this.put(this.pathToAlarmsEndpoint() + '/' + alarmId, parameters));
 
-                            case 3:
+                            case 4:
                             case "end":
                                 return _context5.stop();
                         }
@@ -9986,24 +9994,26 @@ var AlarmDAO = function (_AbstractDAO_1$Abstra) {
         /**
          * Clear an alarm.
          *
-         * @param {number} id - the alarm ID
+         * @version ReST v1+
+         * @param {number|OnmsAlarm} alarm - the [[OnmsAlarm]] or alarm ID
          */
 
     }, {
         key: "clear",
-        value: function clear(id) {
+        value: function clear(alarm) {
             return __awaiter(this, void 0, void 0, _regenerator2.default.mark(function _callee6() {
-                var parameters;
+                var alarmId, parameters;
                 return _regenerator2.default.wrap(function _callee6$(_context6) {
                     while (1) {
                         switch (_context6.prev = _context6.next) {
                             case 0:
+                                alarmId = typeof alarm === 'number' ? alarm : alarm.id;
                                 parameters = {};
 
                                 parameters.clear = 'true';
-                                return _context6.abrupt("return", this.put(this.pathToAlarmsEndpoint() + '/' + id, parameters));
+                                return _context6.abrupt("return", this.put(this.pathToAlarmsEndpoint() + '/' + alarmId, parameters));
 
-                            case 3:
+                            case 4:
                             case "end":
                                 return _context6.stop();
                         }
@@ -10011,7 +10021,69 @@ var AlarmDAO = function (_AbstractDAO_1$Abstra) {
                 }, _callee6, this);
             }));
         }
-        /** given an optional filter, generate an {@link OnmsHTTPOptions} object for DAO calls */
+        /**
+         * Associate a ticket ID with the alarm.
+         *
+         * @version ReST v1+
+         * @param {number|OnmsAlarm} alarm - the [[OnmsAlarm]] or alarm ID
+         * @param {string} ticketId - the ticket ID
+         */
+
+    }, {
+        key: "setTTicketId",
+        value: function setTTicketId(alarm, ticketId) {
+            return __awaiter(this, void 0, void 0, _regenerator2.default.mark(function _callee7() {
+                var alarmId, parameters;
+                return _regenerator2.default.wrap(function _callee7$(_context7) {
+                    while (1) {
+                        switch (_context7.prev = _context7.next) {
+                            case 0:
+                                alarmId = typeof alarm === 'number' ? alarm : alarm.id;
+                                parameters = {};
+
+                                parameters.ticketId = ticketId;
+                                return _context7.abrupt("return", this.put(this.pathToAlarmsEndpoint() + '/' + alarmId, parameters));
+
+                            case 4:
+                            case "end":
+                                return _context7.stop();
+                        }
+                    }
+                }, _callee7, this);
+            }));
+        }
+        /**
+         * Update the state of the ticket associated with the alarm.
+         *
+         * @version ReST v1+
+         * @param {number|OnmsAlarm} alarm - the [[OnmsAlarm]] or alarm ID
+         * @param {string} state - the ticket state
+         */
+
+    }, {
+        key: "setTTicketState",
+        value: function setTTicketState(alarm, state) {
+            return __awaiter(this, void 0, void 0, _regenerator2.default.mark(function _callee8() {
+                var alarmId, parameters;
+                return _regenerator2.default.wrap(function _callee8$(_context8) {
+                    while (1) {
+                        switch (_context8.prev = _context8.next) {
+                            case 0:
+                                alarmId = typeof alarm === 'number' ? alarm : alarm.id;
+                                parameters = {};
+
+                                parameters.ticketState = state.label;
+                                return _context8.abrupt("return", this.put(this.pathToAlarmsEndpoint() + '/' + alarmId, parameters));
+
+                            case 4:
+                            case "end":
+                                return _context8.stop();
+                        }
+                    }
+                }, _callee8, this);
+            }));
+        }
+        /** given an optional filter, generate an [[OnmsHTTPOptions]] object for DAO calls */
 
     }, {
         key: "getOptions",
@@ -10030,18 +10102,18 @@ var AlarmDAO = function (_AbstractDAO_1$Abstra) {
         value: function put(url) {
             var parameters = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
 
-            return __awaiter(this, void 0, void 0, _regenerator2.default.mark(function _callee7() {
+            return __awaiter(this, void 0, void 0, _regenerator2.default.mark(function _callee9() {
                 var opts;
-                return _regenerator2.default.wrap(function _callee7$(_context7) {
+                return _regenerator2.default.wrap(function _callee9$(_context9) {
                     while (1) {
-                        switch (_context7.prev = _context7.next) {
+                        switch (_context9.prev = _context9.next) {
                             case 0:
                                 opts = this.getOptions();
 
                                 opts.headers['content-type'] = 'application/x-www-form-urlencoded';
                                 opts.headers.accept = null;
                                 opts.parameters = parameters;
-                                return _context7.abrupt("return", this.http.put(url, opts).then(function (result) {
+                                return _context9.abrupt("return", this.http.put(url, opts).then(function (result) {
                                     if (!result.isSuccess) {
                                         throw result;
                                     }
@@ -10050,10 +10122,10 @@ var AlarmDAO = function (_AbstractDAO_1$Abstra) {
 
                             case 5:
                             case "end":
-                                return _context7.stop();
+                                return _context9.stop();
                         }
                     }
-                }, _callee7, this);
+                }, _callee9, this);
             }));
         }
         /** get the path to the alarms endpoint for the appropriate API version */
@@ -10156,7 +10228,7 @@ var typescript_logging_1 = __webpack_require__(6);
 /** @hidden */
 var cat = new typescript_logging_1.Category('nodes', Log_1.catDao);
 /**
- * Data access for {@link OnmsNode} objects
+ * Data access for [[OnmsNode]] objects
  * @module NodeDAO
  */ /** */
 
@@ -11709,7 +11781,7 @@ var AxiosHTTP = function (_AbstractHTTP_1$Abstr) {
             });
         }
         /**
-         * Clear the configured {@link AxiosInstance} so we create a new one when the server changes.
+         * Clear the configured [[AxiosInstance]] so we create a new one when the server changes.
          */
 
     }, {
@@ -11718,7 +11790,7 @@ var AxiosHTTP = function (_AbstractHTTP_1$Abstr) {
             _get(AxiosHTTP.prototype.__proto__ || Object.getPrototypeOf(AxiosHTTP.prototype), "onSetServer", this).call(this);
             this.axiosObj = undefined;
         }
-        /** internal method to turn {@link OnmsHTTPOptions} into an {@link AxiosRequestConfig} object. */
+        /** internal method to turn [[OnmsHTTPOptions]] into an [[AxiosRequestConfig]] object. */
 
     }, {
         key: "getConfig",
@@ -33023,7 +33095,7 @@ var Client = function () {
          * Given an OnmsServer object, check that it can be connected to.
          *
          * @param server - the server to check
-         * @param httpImpl - the {@link IOnmsHTTP} implementation to use
+         * @param httpImpl - the [[IOnmsHTTP]] implementation to use
          * @param timeout - how long to wait before giving up when making ReST calls
          */
         value: function checkServer(server, httpImpl, timeout) {
@@ -33074,7 +33146,7 @@ var Client = function () {
          * associated with that server.
          *
          * @param server - the server to check
-         * @param httpImpl - the {@link IOnmsHTTP} implementation to use
+         * @param httpImpl - the [[IOnmsHTTP]] implementation to use
          * @param timeout - how long to wait before giving up when making ReST calls
          */
 
@@ -33154,7 +33226,7 @@ var Client = function () {
         this.http = Client.defaultHttp;
     }
     /**
-     * Connect to an OpenNMS server, check what capabilities it has, and return an {@link OnmsServer}
+     * Connect to an OpenNMS server, check what capabilities it has, and return an [[OnmsServer]]
      * for that connection.
      */
 
@@ -33396,7 +33468,7 @@ var GrafanaHTTP = function (_AbstractHTTP_1$Abstr) {
                 return OnmsResult_1.OnmsResult.ok(response.data, undefined, response.status, type);
             });
         }
-        /** internal method to turn {@link OnmsHTTPOptions} into a Grafana BackendSrv request object. */
+        /** internal method to turn [[OnmsHTTPOptions]] into a Grafana BackendSrv request object. */
 
     }, {
         key: "getConfig",

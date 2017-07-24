@@ -110,6 +110,8 @@
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-protected"><a href="alarmdao.html#getoptions" class="tsd-kind-icon">get<wbr>Options</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><a href="alarmdao.html#pathtoalarmsendpoint" class="tsd-kind-icon">path<wbr>ToAlarms<wbr>Endpoint</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><a href="alarmdao.html#put" class="tsd-kind-icon">put</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="alarmdao.html#settticketid" class="tsd-kind-icon">setTTicket<wbr>Id</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="alarmdao.html#settticketstate" class="tsd-kind-icon">setTTicket<wbr>State</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected"><a href="alarmdao.html#todate" class="tsd-kind-icon">to<wbr>Date</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><a href="alarmdao.html#tomemo" class="tsd-kind-icon">to<wbr>Memo</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected"><a href="alarmdao.html#tonumber" class="tsd-kind-icon">to<wbr>Number</a></li>
@@ -132,7 +134,7 @@
 							<aside class="tsd-sources">
 								<p>Overrides <a href="abstractdao.html">AbstractDAO</a>.<a href="abstractdao.html#constructor">constructor</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/a6cfd5f/src/dao/AlarmDAO.ts#L32">dao/AlarmDAO.ts:32</a></li>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/89250f9/src/dao/AlarmDAO.ts#L32">dao/AlarmDAO.ts:32</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -154,7 +156,7 @@
 					<div class="tsd-signature tsd-kind-icon">event<wbr>Dao<span class="tsd-signature-symbol">:</span> <a href="eventdao.html" class="tsd-signature-type">EventDAO</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/a6cfd5f/src/dao/AlarmDAO.ts#L32">dao/AlarmDAO.ts:32</a></li>
+							<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/89250f9/src/dao/AlarmDAO.ts#L32">dao/AlarmDAO.ts:32</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -170,7 +172,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="abstractdao.html">AbstractDAO</a>.<a href="abstractdao.html#http">http</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/a6cfd5f/src/dao/AbstractDAO.ts#L25">dao/AbstractDAO.ts:25</a></li>
+							<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/89250f9/src/dao/AbstractDAO.ts#L25">dao/AbstractDAO.ts:25</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -186,27 +188,29 @@
 					<a name="acknowledge" class="tsd-anchor"></a>
 					<h3>acknowledge</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">acknowledge<span class="tsd-signature-symbol">(</span>id<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, user<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">acknowledge<span class="tsd-signature-symbol">(</span>alarm<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> | </span><a href="onmsalarm.html" class="tsd-signature-type">OnmsAlarm</a>, user<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/a6cfd5f/src/dao/AlarmDAO.ts#L165">dao/AlarmDAO.ts:165</a></li>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/89250f9/src/dao/AlarmDAO.ts#L168">dao/AlarmDAO.ts:168</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
 									<p>Acknowledge an alarm.</p>
 								</div>
+								<dl class="tsd-comment-tags">
+									<dt>version</dt>
+									<dd><p>ReST v1+</p>
+									</dd>
+								</dl>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>id: <span class="tsd-signature-type">number</span></h5>
-									<div class="tsd-comment tsd-typography">
-										<p>the alarm ID</p>
-									</div>
+									<h5>alarm: <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> | </span><a href="onmsalarm.html" class="tsd-signature-type">OnmsAlarm</a></h5>
 								</li>
 								<li>
 									<h5><span class="tsd-flag ts-flagOptional">Optional</span> user: <span class="tsd-signature-type">string</span></h5>
@@ -223,26 +227,31 @@
 					<a name="clear" class="tsd-anchor"></a>
 					<h3>clear</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">clear<span class="tsd-signature-symbol">(</span>id<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">clear<span class="tsd-signature-symbol">(</span>alarm<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> | </span><a href="onmsalarm.html" class="tsd-signature-type">OnmsAlarm</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/a6cfd5f/src/dao/AlarmDAO.ts#L201">dao/AlarmDAO.ts:201</a></li>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/89250f9/src/dao/AlarmDAO.ts#L210">dao/AlarmDAO.ts:210</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
 									<p>Clear an alarm.</p>
 								</div>
+								<dl class="tsd-comment-tags">
+									<dt>version</dt>
+									<dd><p>ReST v1+</p>
+									</dd>
+								</dl>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>id: <span class="tsd-signature-type">number</span></h5>
+									<h5>alarm: <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> | </span><a href="onmsalarm.html" class="tsd-signature-type">OnmsAlarm</a></h5>
 									<div class="tsd-comment tsd-typography">
-										<p>the alarm ID</p>
+										<p>the <a href="onmsalarm.html">OnmsAlarm</a> or alarm ID</p>
 									</div>
 								</li>
 							</ul>
@@ -254,26 +263,31 @@
 					<a name="escalate" class="tsd-anchor"></a>
 					<h3>escalate</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">escalate<span class="tsd-signature-symbol">(</span>id<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">escalate<span class="tsd-signature-symbol">(</span>alarm<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> | </span><a href="onmsalarm.html" class="tsd-signature-type">OnmsAlarm</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/a6cfd5f/src/dao/AlarmDAO.ts#L190">dao/AlarmDAO.ts:190</a></li>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/89250f9/src/dao/AlarmDAO.ts#L197">dao/AlarmDAO.ts:197</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
 									<p>Escalate an alarm.</p>
 								</div>
+								<dl class="tsd-comment-tags">
+									<dt>version</dt>
+									<dd><p>ReST v1+</p>
+									</dd>
+								</dl>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>id: <span class="tsd-signature-type">number</span></h5>
+									<h5>alarm: <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> | </span><a href="onmsalarm.html" class="tsd-signature-type">OnmsAlarm</a></h5>
 									<div class="tsd-comment tsd-typography">
-										<p>the alarm ID</p>
+										<p>the <a href="onmsalarm.html">OnmsAlarm</a> or alarm ID</p>
 									</div>
 								</li>
 							</ul>
@@ -292,13 +306,18 @@
 							<aside class="tsd-sources">
 								<p>Overrides <a href="abstractdao.html">AbstractDAO</a>.<a href="abstractdao.html#find">find</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/a6cfd5f/src/dao/AlarmDAO.ts#L135">dao/AlarmDAO.ts:135</a></li>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/89250f9/src/dao/AlarmDAO.ts#L137">dao/AlarmDAO.ts:137</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
 									<p>Find matching alarms.</p>
 								</div>
+								<dl class="tsd-comment-tags">
+									<dt>version</dt>
+									<dd><p>ReST v1+</p>
+									</dd>
+								</dl>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
@@ -310,7 +329,7 @@
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="onmsalarm.html" class="tsd-signature-type">OnmsAlarm</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></h4>
-							<p>an array of <a href="onmsalarm.html">OnmsAlarm</a>s</p>
+							<p>an array of <a href="onmsalarm.html">OnmsAlarm</a> objects</p>
 						</li>
 					</ul>
 				</section>
@@ -325,13 +344,18 @@
 							<aside class="tsd-sources">
 								<p>Overrides <a href="abstractdao.html">AbstractDAO</a>.<a href="abstractdao.html#get">get</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/a6cfd5f/src/dao/AlarmDAO.ts#L122">dao/AlarmDAO.ts:122</a></li>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/89250f9/src/dao/AlarmDAO.ts#L123">dao/AlarmDAO.ts:123</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
 									<p>Fetch an alarm.</p>
 								</div>
+								<dl class="tsd-comment-tags">
+									<dt>version</dt>
+									<dd><p>ReST v1+</p>
+									</dd>
+								</dl>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
@@ -358,7 +382,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="abstractdao.html">AbstractDAO</a>.<a href="abstractdao.html#getapiversion">getApiVersion</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/a6cfd5f/src/dao/AbstractDAO.ts#L86">dao/AbstractDAO.ts:86</a></li>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/89250f9/src/dao/AbstractDAO.ts#L86">dao/AbstractDAO.ts:86</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -384,7 +408,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="abstractdao.html">AbstractDAO</a>.<a href="abstractdao.html#getcount">getCount</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/a6cfd5f/src/dao/AbstractDAO.ts#L48">dao/AbstractDAO.ts:48</a></li>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/89250f9/src/dao/AbstractDAO.ts#L48">dao/AbstractDAO.ts:48</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -413,7 +437,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="abstractdao.html">AbstractDAO</a>.<a href="abstractdao.html#getfilterprocessor">getFilterProcessor</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/a6cfd5f/src/dao/AbstractDAO.ts#L94">dao/AbstractDAO.ts:94</a></li>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/89250f9/src/dao/AbstractDAO.ts#L94">dao/AbstractDAO.ts:94</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -436,7 +460,7 @@
 							<aside class="tsd-sources">
 								<p>Overrides <a href="abstractdao.html">AbstractDAO</a>.<a href="abstractdao.html#getoptions">getOptions</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/a6cfd5f/src/dao/AlarmDAO.ts#L208">dao/AlarmDAO.ts:208</a></li>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/89250f9/src/dao/AlarmDAO.ts#L246">dao/AlarmDAO.ts:246</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -464,7 +488,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/a6cfd5f/src/dao/AlarmDAO.ts#L232">dao/AlarmDAO.ts:232</a></li>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/89250f9/src/dao/AlarmDAO.ts#L270">dao/AlarmDAO.ts:270</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -489,7 +513,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/a6cfd5f/src/dao/AlarmDAO.ts#L218">dao/AlarmDAO.ts:218</a></li>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/89250f9/src/dao/AlarmDAO.ts#L256">dao/AlarmDAO.ts:256</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -510,6 +534,90 @@
 						</li>
 					</ul>
 				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="settticketid" class="tsd-anchor"></a>
+					<h3>setTTicket<wbr>Id</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">setTTicket<wbr>Id<span class="tsd-signature-symbol">(</span>alarm<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> | </span><a href="onmsalarm.html" class="tsd-signature-type">OnmsAlarm</a>, ticketId<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/89250f9/src/dao/AlarmDAO.ts#L224">dao/AlarmDAO.ts:224</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Associate a ticket ID with the alarm.</p>
+								</div>
+								<dl class="tsd-comment-tags">
+									<dt>version</dt>
+									<dd><p>ReST v1+</p>
+									</dd>
+								</dl>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>alarm: <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> | </span><a href="onmsalarm.html" class="tsd-signature-type">OnmsAlarm</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>the <a href="onmsalarm.html">OnmsAlarm</a> or alarm ID</p>
+									</div>
+								</li>
+								<li>
+									<h5>ticketId: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>the ticket ID</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="settticketstate" class="tsd-anchor"></a>
+					<h3>setTTicket<wbr>State</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">setTTicket<wbr>State<span class="tsd-signature-symbol">(</span>alarm<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> | </span><a href="onmsalarm.html" class="tsd-signature-type">OnmsAlarm</a>, state<span class="tsd-signature-symbol">: </span><a href="onmstroubleticketstate.html" class="tsd-signature-type">OnmsTroubleTicketState</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/89250f9/src/dao/AlarmDAO.ts#L238">dao/AlarmDAO.ts:238</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Update the state of the ticket associated with the alarm.</p>
+								</div>
+								<dl class="tsd-comment-tags">
+									<dt>version</dt>
+									<dd><p>ReST v1+</p>
+									</dd>
+								</dl>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>alarm: <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> | </span><a href="onmsalarm.html" class="tsd-signature-type">OnmsAlarm</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>the <a href="onmsalarm.html">OnmsAlarm</a> or alarm ID</p>
+									</div>
+								</li>
+								<li>
+									<h5>state: <a href="onmstroubleticketstate.html" class="tsd-signature-type">OnmsTroubleTicketState</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>the ticket state</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
 					<a name="todate" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagProtected">Protected</span> to<wbr>Date</h3>
@@ -521,7 +629,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="abstractdao.html">AbstractDAO</a>.<a href="abstractdao.html#todate">toDate</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/a6cfd5f/src/dao/AbstractDAO.ts#L72">dao/AbstractDAO.ts:72</a></li>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/89250f9/src/dao/AbstractDAO.ts#L72">dao/AbstractDAO.ts:72</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -549,7 +657,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/a6cfd5f/src/dao/AlarmDAO.ts#L237">dao/AlarmDAO.ts:237</a></li>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/89250f9/src/dao/AlarmDAO.ts#L275">dao/AlarmDAO.ts:275</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -578,7 +686,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="abstractdao.html">AbstractDAO</a>.<a href="abstractdao.html#tonumber">toNumber</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/a6cfd5f/src/dao/AbstractDAO.ts#L80">dao/AbstractDAO.ts:80</a></li>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/89250f9/src/dao/AbstractDAO.ts#L80">dao/AbstractDAO.ts:80</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -600,26 +708,31 @@
 					<a name="unacknowledge" class="tsd-anchor"></a>
 					<h3>unacknowledge</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">unacknowledge<span class="tsd-signature-symbol">(</span>id<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">unacknowledge<span class="tsd-signature-symbol">(</span>alarm<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> | </span><a href="onmsalarm.html" class="tsd-signature-type">OnmsAlarm</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/a6cfd5f/src/dao/AlarmDAO.ts#L179">dao/AlarmDAO.ts:179</a></li>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/89250f9/src/dao/AlarmDAO.ts#L184">dao/AlarmDAO.ts:184</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
 									<p>Un-acknowledge an alarm.</p>
 								</div>
+								<dl class="tsd-comment-tags">
+									<dt>version</dt>
+									<dd><p>ReST v1+</p>
+									</dd>
+								</dl>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>id: <span class="tsd-signature-type">number</span></h5>
+									<h5>alarm: <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> | </span><a href="onmsalarm.html" class="tsd-signature-type">OnmsAlarm</a></h5>
 									<div class="tsd-comment tsd-typography">
-										<p>the alarm ID</p>
+										<p>the <a href="onmsalarm.html">OnmsAlarm</a> or alarm ID</p>
 									</div>
 								</li>
 							</ul>
@@ -685,6 +798,12 @@
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-private">
 								<a href="alarmdao.html#put" class="tsd-kind-icon">put</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="alarmdao.html#settticketid" class="tsd-kind-icon">setTTicket<wbr>Id</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="alarmdao.html#settticketstate" class="tsd-kind-icon">setTTicket<wbr>State</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
 								<a href="alarmdao.html#todate" class="tsd-kind-icon">to<wbr>Date</a>

@@ -1,5 +1,10 @@
 <a name="0.1.0-alpha.4"></a>
-# [0.1.0-alpha.4](https://github.com/OpenNMS/opennms-js/compare/v0.1.0-alpha.3...v0.1.0-alpha.4) (2017-07-21)
+# [0.1.0-alpha.4](https://github.com/OpenNMS/opennms-js/compare/v0.1.0-alpha.3...v0.1.0-alpha.4) (2017-07-24)
+
+
+### Features
+
+* **dao:** add alarm setTTicketId/setTTicketState ([bb429f6](https://github.com/OpenNMS/opennms-js/commit/bb429f6))
 
 
 
