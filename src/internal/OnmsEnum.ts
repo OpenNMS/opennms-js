@@ -15,7 +15,7 @@ export class OnmsEnum<T> {
     return this.i;
   }
 
-  /** an alias for {@link #id} */
+  /** an alias for [[OnmsEnum.id]] */
   get index() {
     return this.i;
   }

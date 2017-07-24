@@ -70,7 +70,7 @@ export class GrafanaHTTP extends AbstractHTTP {
     });
   }
 
-  /** internal method to turn {@link OnmsHTTPOptions} into a Grafana BackendSrv request object. */
+  /** internal method to turn [[OnmsHTTPOptions]] into a Grafana BackendSrv request object. */
   private getConfig(options?: OnmsHTTPOptions): any {
     const allOptions = this.getOptions(options);
     const ret = {} as any;

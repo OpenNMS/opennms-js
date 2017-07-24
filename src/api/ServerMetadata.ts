@@ -85,7 +85,7 @@ export class ServerMetadata {
   }
 
   /**
-   * Create a new {@link ServerMetadata} object from this existing one.
+   * Create a new metadata object from this existing one.
    */
   public clone() {
     return new ServerMetadata(this.version.clone(), this.type);

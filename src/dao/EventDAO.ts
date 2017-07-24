@@ -19,7 +19,7 @@ import {Category} from 'typescript-logging';
 const cat = new Category('events', catDao);
 
 /**
- * Data access for {@link OnmsEvent} objects
+ * Data access for [[OnmsEvent]] objects
  * @module EventDAO
  */ /** */
 export class EventDAO extends AbstractDAO<number, OnmsEvent> {

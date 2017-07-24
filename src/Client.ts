@@ -34,7 +34,7 @@ export class Client implements IHasHTTP {
    * Given an OnmsServer object, check that it can be connected to.
    *
    * @param server - the server to check
-   * @param httpImpl - the {@link IOnmsHTTP} implementation to use
+   * @param httpImpl - the [[IOnmsHTTP]] implementation to use
    * @param timeout - how long to wait before giving up when making ReST calls
    */
   public static async checkServer(server: OnmsServer, httpImpl?: IOnmsHTTP, timeout?: number): Promise<boolean> {
@@ -58,7 +58,7 @@ export class Client implements IHasHTTP {
    * associated with that server.
    *
    * @param server - the server to check
-   * @param httpImpl - the {@link IOnmsHTTP} implementation to use
+   * @param httpImpl - the [[IOnmsHTTP]] implementation to use
    * @param timeout - how long to wait before giving up when making ReST calls
    */
   public static async getMetadata(server: OnmsServer, httpImpl?: IOnmsHTTP, timeout?: number):
@@ -112,7 +112,7 @@ export class Client implements IHasHTTP {
   }
 
   /**
-   * Connect to an OpenNMS server, check what capabilities it has, and return an {@link OnmsServer}
+   * Connect to an OpenNMS server, check what capabilities it has, and return an [[OnmsServer]]
    * for that connection.
    */
   public async connect(name: string, url: string, username: string, password: string, timeout?: number) {

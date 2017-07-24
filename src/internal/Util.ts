@@ -7,7 +7,7 @@ import {Address4, Address6} from 'ip-address';
 export class Util {
 
   /**
-   * Convert an IP address string to an {@link Address4} or {@link Address6} object.
+   * Convert an IP address string to an [[Address4]] or [[Address6]] object.
    */
   public static toIPAddress(addr?: string) {
     if (addr) {
