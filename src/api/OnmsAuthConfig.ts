@@ -19,7 +19,7 @@ export class OnmsAuthConfig {
   }
 
   /**
-   * Create a new {@link OnmsAuthConfig} object from this existing one.
+   * Create a new config object from this existing one.
    */
   public clone() {
     return new OnmsAuthConfig(this.username, this.password);

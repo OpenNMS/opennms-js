@@ -1,7 +1,7 @@
 import {OnmsError} from './OnmsError';
 
 /**
- * An {@link OnmsHTTP} query result.
+ * An [[IOnmsHTTP]] query result.
  * @module OnmsResult
  */ /** */
 export class OnmsResult<T> {

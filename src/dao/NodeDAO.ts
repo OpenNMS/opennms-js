@@ -29,7 +29,7 @@ import {Category} from 'typescript-logging';
 const cat = new Category('nodes', catDao);
 
 /**
- * Data access for {@link OnmsNode} objects
+ * Data access for [[OnmsNode]] objects
  * @module NodeDAO
  */ /** */
 export class NodeDAO extends AbstractDAO<number, OnmsNode> {

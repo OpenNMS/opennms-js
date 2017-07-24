@@ -57,7 +57,7 @@ export abstract class AbstractDAO<K, T> {
     return count;
   }
 
-  /** given an optional filter, generate an {@link OnmsHTTPOptions} object for DAO calls */
+  /** given an optional filter, generate an [[OnmsHTTPOptions]] object for DAO calls */
   protected getOptions(filter?: Filter): OnmsHTTPOptions {
     const ret = new OnmsHTTPOptions();
     // always use application/xml for now in DAO calls

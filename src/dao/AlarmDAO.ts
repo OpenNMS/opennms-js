@@ -24,7 +24,7 @@ import {Category} from 'typescript-logging';
 const cat = new Category('alarms', catDao);
 
 /**
- * Data access for {@link OnmsAlarm} objects
+ * Data access for [[OnmsAlarm]] objects
  * @module AlarmDAO
  */ /** */
 export class AlarmDAO extends AbstractDAO<number, OnmsAlarm> {
@@ -118,7 +118,7 @@ export class AlarmDAO extends AbstractDAO<number, OnmsAlarm> {
    *
    * @version ReST v1+
    * @param {number} id - the alarm's ID
-   * @return an {@link OnmsAlarm}
+   * @return an [[OnmsAlarm]]
    */
   public async get(id: number): Promise<OnmsAlarm> {
     const opts = this.getOptions();
@@ -132,7 +132,7 @@ export class AlarmDAO extends AbstractDAO<number, OnmsAlarm> {
    *
    * @version ReST v1+
    * @param {Filter} filter - the filter to use when querying
-   * @return an array of {@link OnmsAlarm}s
+   * @return an array of [[OnmsAlarm]] objects
    */
   public async find(filter?: Filter): Promise<OnmsAlarm[]> {
     const opts = this.getOptions(filter);
@@ -162,7 +162,7 @@ export class AlarmDAO extends AbstractDAO<number, OnmsAlarm> {
    * Acknowledge an alarm.
    *
    * @version ReST v1+
-   * @param {number|OnmsAlarm} id - the {@link OnmsAlarm} or alarm ID
+   * @param {number|OnmsAlarm} id - the [[OnmsAlarm]] or alarm ID
    * @param {string=} user - the user to ack the alarm as (only administrators have the right to do this)
    */
   public async acknowledge(alarm: number|OnmsAlarm, user?: string): Promise<void> {
@@ -179,7 +179,7 @@ export class AlarmDAO extends AbstractDAO<number, OnmsAlarm> {
    * Un-acknowledge an alarm.
    *
    * @version ReST v1+
-   * @param {number|OnmsAlarm} alarm - the {@link OnmsAlarm} or alarm ID
+   * @param {number|OnmsAlarm} alarm - the [[OnmsAlarm]] or alarm ID
    */
   public async unacknowledge(alarm: number|OnmsAlarm): Promise<void> {
     const alarmId = (typeof(alarm) === 'number' ? alarm : alarm.id);
@@ -192,7 +192,7 @@ export class AlarmDAO extends AbstractDAO<number, OnmsAlarm> {
    * Escalate an alarm.
    *
    * @version ReST v1+
-   * @param {number|OnsmAlarm} alarm - the {@link OnmsAlarm} or alarm ID
+   * @param {number|OnsmAlarm} alarm - the [[OnmsAlarm]] or alarm ID
    */
   public async escalate(alarm: number|OnmsAlarm): Promise<void> {
     const alarmId = (typeof(alarm) === 'number' ? alarm : alarm.id);
@@ -205,7 +205,7 @@ export class AlarmDAO extends AbstractDAO<number, OnmsAlarm> {
    * Clear an alarm.
    *
    * @version ReST v1+
-   * @param {number|OnmsAlarm} alarm - the {@link OnmsAlarm} or alarm ID
+   * @param {number|OnmsAlarm} alarm - the [[OnmsAlarm]] or alarm ID
    */
   public async clear(alarm: number|OnmsAlarm): Promise<void> {
     const alarmId = (typeof(alarm) === 'number' ? alarm : alarm.id);
@@ -218,9 +218,7 @@ export class AlarmDAO extends AbstractDAO<number, OnmsAlarm> {
    * Associate a ticket ID with the alarm.
    *
    * @version ReST v1+
-   * @deprecated Please use the Rest v2 {@link AlarmDAO#createTicket} method
-   *             instead to invoke an OpenNMS ticketer plugin.
-   * @param {number|OnmsAlarm} alarm - the {@link OnmsAlarm} or alarm ID
+   * @param {number|OnmsAlarm} alarm - the [[OnmsAlarm]] or alarm ID
    * @param {string} ticketId - the ticket ID
    */
   public async setTTicketId(alarm: number|OnmsAlarm, ticketId: string): Promise<void> {
@@ -234,9 +232,7 @@ export class AlarmDAO extends AbstractDAO<number, OnmsAlarm> {
    * Update the state of the ticket associated with the alarm.
    *
    * @version ReST v1+
-   * @deprecated Please use the Rest v2 {@link AlarmDAO#createTicket} method
-   *             instead to invoke an OpenNMS ticketer plugin.
-   * @param {number|OnmsAlarm} alarm - the {@link OnmsAlarm} or alarm ID
+   * @param {number|OnmsAlarm} alarm - the [[OnmsAlarm]] or alarm ID
    * @param {string} state - the ticket state
    */
   public async setTTicketState(alarm: number|OnmsAlarm, state: OnmsTroubleTicketState): Promise<void> {
@@ -246,7 +242,7 @@ export class AlarmDAO extends AbstractDAO<number, OnmsAlarm> {
     return this.put(this.pathToAlarmsEndpoint() + '/' + alarmId, parameters);
   }
 
-  /** given an optional filter, generate an {@link OnmsHTTPOptions} object for DAO calls */
+  /** given an optional filter, generate an [[OnmsHTTPOptions]] object for DAO calls */
   protected getOptions(filter?: Filter): OnmsHTTPOptions {
     const options = super.getOptions(filter);
     // always use application/json for v2 calls

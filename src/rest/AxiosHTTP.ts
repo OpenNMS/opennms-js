@@ -79,14 +79,14 @@ export class AxiosHTTP extends AbstractHTTP {
   }
 
   /**
-   * Clear the configured {@link AxiosInstance} so we create a new one when the server changes.
+   * Clear the configured [[AxiosInstance]] so we create a new one when the server changes.
    */
   protected onSetServer() {
     super.onSetServer();
     this.axiosObj = undefined;
   }
 
-  /** internal method to turn {@link OnmsHTTPOptions} into an {@link AxiosRequestConfig} object. */
+  /** internal method to turn [[OnmsHTTPOptions]] into an [[AxiosRequestConfig]] object. */
   private getConfig(options?: OnmsHTTPOptions): AxiosRequestConfig {
     const allOptions = this.getOptions(options);
 

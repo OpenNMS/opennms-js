@@ -3,8 +3,8 @@ import {IOnmsHTTP} from './IOnmsHTTP';
 /**
  * Interface for a class that has an HTTP object.
  *
- * This exists to avoid import loops between the DAOs (that need to easily access {@link IOnmsHTTP})
- * and the {@link Client} which needs to contain an {@link IOnmsHTTP}.
+ * This exists to avoid import loops between the DAOs (that need to easily access [[IOnmsHTTP]])
+ * and the [[Client]] which needs to contain an [[IOnmsHTTP]].
  *
  * @interface
  * @module IHasHTTP

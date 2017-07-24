@@ -61,7 +61,7 @@ export class OnmsServer {
   }
 
   /**
-   * Create a new {@link OnmsServer} object from this existing one.
+   * Create a new server object from this existing one.
    */
   public clone() {
     const auth = (this.auth ? this.auth.clone() : undefined);

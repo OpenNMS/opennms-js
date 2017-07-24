@@ -34,16 +34,16 @@ export interface IOnmsHTTP {
   /**
    * Perform an HTTP GET to the provided URL.
    * @param url the URL to connect to
-   * @param options the {@link OnmsHTTPOptions} options to use when connecting
-   * @returns an {@link OnmsResult} result object
+   * @param options the [[OnmsHTTPOptions]] options to use when connecting
+   * @returns an [[OnmsResult]] result object
    */
   get(url: string, options?: OnmsHTTPOptions): Promise<OnmsResult<any>>;
 
   /**
    * Perform an HTTP PUT to the provided URL.
    * @param url the URL to connect to
-   * @param options the {@link OnmsHTTPOptions} options to use when connecting
-   * @returns an {@link OnmsResult} result object
+   * @param options the [[OnmsHTTPOptions]] options to use when connecting
+   * @returns an [[OnmsResult]] result object
    */
   put(url: string, options?: OnmsHTTPOptions): Promise<OnmsResult<any>>;
 }
