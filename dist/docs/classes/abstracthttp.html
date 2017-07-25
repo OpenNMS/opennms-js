@@ -66,6 +66,18 @@
 <div class="container container-main">
 	<div class="row">
 		<div class="col-8 col-content">
+			<section class="tsd-panel tsd-comment">
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>Abstract implementation of the OnmsHTTP interface meant to be extended by a concrete class.</p>
+					</div>
+					<dl class="tsd-comment-tags">
+						<dt>implements</dt>
+						<dd><p>IOnmsHTTP</p>
+						</dd>
+					</dl>
+				</div>
+			</section>
 			<section class="tsd-panel tsd-hierarchy">
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
@@ -102,7 +114,6 @@
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="abstracthttp.html#options" class="tsd-kind-icon">options</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="abstracthttp.html#serverobj" class="tsd-kind-icon">server<wbr>Obj</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="abstracthttp.html#timeout" class="tsd-kind-icon">timeout</a></li>
 							</ul>
 						</section>
@@ -139,12 +150,12 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/89250f9/src/rest/AbstractHTTP.ts#L53">rest/AbstractHTTP.ts:53</a></li>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/22176db/src/rest/AbstractHTTP.ts#L56">rest/AbstractHTTP.ts:56</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Create a new AbstractHTTP instance.</p>
+									<p>Create a new HTTP instance.</p>
 								</div>
 								<dl class="tsd-comment-tags">
 									<dt>constructor</dt>
@@ -157,7 +168,7 @@
 									<h5><span class="tsd-flag ts-flagOptional">Optional</span> server: <a href="onmsserver.html" class="tsd-signature-type">OnmsServer</a></h5>
 									<div class="tsd-comment tsd-typography">
 										<div class="lead">
-											<p>a server object for immediate configuration</p>
+											<p>A server object for immediate configuration.</p>
 										</div>
 									</div>
 								</li>
@@ -165,7 +176,7 @@
 									<h5><span class="tsd-flag ts-flagDefault value">Default value</span> timeout: <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> =&nbsp;10000</span></h5>
 									<div class="tsd-comment tsd-typography">
 										<div class="lead">
-											<p>how long to wait until timing out requests</p>
+											<p>How long to wait until timing out requests.</p>
 										</div>
 									</div>
 								</li>
@@ -184,27 +195,12 @@
 					<aside class="tsd-sources">
 						<p>Implementation of <a href="../interfaces/ionmshttp.html">IOnmsHTTP</a>.<a href="../interfaces/ionmshttp.html#options">options</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/89250f9/src/rest/AbstractHTTP.ts#L40">rest/AbstractHTTP.ts:40</a></li>
+							<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/22176db/src/rest/AbstractHTTP.ts#L40">rest/AbstractHTTP.ts:40</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>the authorization config associated with this ReST client</p>
-						</div>
-					</div>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
-					<a name="serverobj" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagPrivate">Private</span> server<wbr>Obj</h3>
-					<div class="tsd-signature tsd-kind-icon">server<wbr>Obj<span class="tsd-signature-symbol">:</span> <a href="onmsserver.html" class="tsd-signature-type">OnmsServer</a></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/89250f9/src/rest/AbstractHTTP.ts#L43">rest/AbstractHTTP.ts:43</a></li>
-						</ul>
-					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>the server metadata we&#39;ll use for constructing ReST calls</p>
+							<p>The default set of HTTP options associated with this ReST client.</p>
 						</div>
 					</div>
 				</section>
@@ -214,12 +210,12 @@
 					<div class="tsd-signature tsd-kind-icon">timeout<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> =&nbsp;10000</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/89250f9/src/rest/AbstractHTTP.ts#L37">rest/AbstractHTTP.ts:37</a></li>
+							<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/22176db/src/rest/AbstractHTTP.ts#L37">rest/AbstractHTTP.ts:37</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>how long to wait before giving up on a given request</p>
+							<p>The default amount of time to wait before giving up on a request.</p>
 						</div>
 					</div>
 				</section>
@@ -237,12 +233,12 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/89250f9/src/rest/AbstractHTTP.ts#L46">rest/AbstractHTTP.ts:46</a></li>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/22176db/src/rest/AbstractHTTP.ts#L49">rest/AbstractHTTP.ts:49</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>the server associated with this HTTP implementation</p>
+									<p>The server associated with this HTTP implementation.</p>
 								</div>
 							</div>
 							<h4 class="tsd-returns-title">Returns <a href="onmsserver.html" class="tsd-signature-type">OnmsServer</a></h4>
@@ -250,12 +246,12 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/89250f9/src/rest/AbstractHTTP.ts#L50">rest/AbstractHTTP.ts:50</a></li>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/22176db/src/rest/AbstractHTTP.ts#L53">rest/AbstractHTTP.ts:53</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>the server associated with this HTTP implementation</p>
+									<p>The server associated with this HTTP implementation.</p>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -282,12 +278,12 @@
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/ionmshttp.html">IOnmsHTTP</a>.<a href="../interfaces/ionmshttp.html#get">get</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/89250f9/src/rest/AbstractHTTP.ts#L67">rest/AbstractHTTP.ts:67</a></li>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/22176db/src/rest/AbstractHTTP.ts#L70">rest/AbstractHTTP.ts:70</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>make an HTTP GET call -- this should be overridden by the implementation</p>
+									<p>Make an HTTP GET call. This must be implemented by the concrete implementation.</p>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -307,18 +303,20 @@
 					<a name="getoptions" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagProtected">Protected</span> get<wbr>Options</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-protected">
-						<li class="tsd-signature tsd-kind-icon">get<wbr>Options<span class="tsd-signature-symbol">(</span>options<span class="tsd-signature-symbol">?: </span><a href="onmshttpoptions.html" class="tsd-signature-type">OnmsHTTPOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Options<span class="tsd-signature-symbol">(</span>options<span class="tsd-signature-symbol">?: </span><a href="onmshttpoptions.html" class="tsd-signature-type">OnmsHTTPOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="onmshttpoptions.html" class="tsd-signature-type">OnmsHTTPOptions</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/89250f9/src/rest/AbstractHTTP.ts#L102">rest/AbstractHTTP.ts:102</a></li>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/22176db/src/rest/AbstractHTTP.ts#L119">rest/AbstractHTTP.ts:119</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>combine all options from the given options, the current server, and the default options</p>
+									<p>Get the union of <a href="onmshttpoptions.html">OnmsHTTPOptions</a> based on the passed options, defaults,
+										and options in the <a href="onmsserver.html">OnmsServer</a> associated with this request.  Order of
+									precedence is passed options -&gt; server options -&gt; default options.</p>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -327,7 +325,7 @@
 									<h5><span class="tsd-flag ts-flagOptional">Optional</span> options: <a href="onmshttpoptions.html" class="tsd-signature-type">OnmsHTTPOptions</a></h5>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
+							<h4 class="tsd-returns-title">Returns <a href="onmshttpoptions.html" class="tsd-signature-type">OnmsHTTPOptions</a></h4>
 						</li>
 					</ul>
 				</section>
@@ -341,12 +339,14 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/89250f9/src/rest/AbstractHTTP.ts#L97">rest/AbstractHTTP.ts:97</a></li>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/22176db/src/rest/AbstractHTTP.ts#L110">rest/AbstractHTTP.ts:110</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>get the server in the options object, or fall back to the one assigned to the HTTP impl</p>
+									<p>Get the <a href="onmsserver.html">OnmsServer</a> object that should be used for making requests.  Favors the one
+										passed in the <a href="onmshttpoptions.html">OnmsHTTPOptions</a>, otherwise it falls back to the default server associated
+									with the HTTP implementation.</p>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -369,12 +369,13 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/89250f9/src/rest/AbstractHTTP.ts#L116">rest/AbstractHTTP.ts:116</a></li>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/22176db/src/rest/AbstractHTTP.ts#L136">rest/AbstractHTTP.ts:136</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>useful for performing an action (like clearing caches) when the server is set</p>
+									<p>Implementers should override this method if they have actions that need to be performed
+									(like clearing a cache) when server settings change.</p>
 								</div>
 							</div>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -392,12 +393,12 @@
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/ionmshttp.html">IOnmsHTTP</a>.<a href="../interfaces/ionmshttp.html#put">put</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/89250f9/src/rest/AbstractHTTP.ts#L70">rest/AbstractHTTP.ts:70</a></li>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/22176db/src/rest/AbstractHTTP.ts#L73">rest/AbstractHTTP.ts:73</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>make an HTTP PUT call -- this should be overridden by the implementation</p>
+									<p>Make an HTTP PUT call. This must be overridden by the concrete implementation.</p>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -423,12 +424,13 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/89250f9/src/rest/AbstractHTTP.ts#L73">rest/AbstractHTTP.ts:73</a></li>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/22176db/src/rest/AbstractHTTP.ts#L79">rest/AbstractHTTP.ts:79</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>a convenience method for implementers to use to turn JSON into a javascript object</p>
+									<p>A convenience method for implementers to use to turn JSON into a javascript object.
+									Use this to process a JSON response before returning it in an <a href="onmsresult.html">OnmsResult</a> object.</p>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -451,12 +453,13 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/89250f9/src/rest/AbstractHTTP.ts#L87">rest/AbstractHTTP.ts:87</a></li>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/22176db/src/rest/AbstractHTTP.ts#L96">rest/AbstractHTTP.ts:96</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>a convenience method for implementers to use to turn XML into a javascript object</p>
+									<p>A convenience method for implementers to use to turn XML into a javascript object.
+									Use this to process an XML response before returning it in an <a href="onmsresult.html">OnmsResult</a> object.</p>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -491,9 +494,6 @@
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class">
 								<a href="abstracthttp.html#options" class="tsd-kind-icon">options</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
-								<a href="abstracthttp.html#serverobj" class="tsd-kind-icon">server<wbr>Obj</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class">
 								<a href="abstracthttp.html#timeout" class="tsd-kind-icon">timeout</a>

@@ -66,6 +66,13 @@
 <div class="container container-main">
 	<div class="row">
 		<div class="col-8 col-content">
+			<section class="tsd-panel tsd-comment">
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>An OpenNMS version.</p>
+					</div>
+				</div>
+			</section>
 			<section class="tsd-panel tsd-hierarchy">
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
@@ -85,16 +92,10 @@
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
-							<h3>Properties</h3>
-							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="onmsversion.html#dv" class="tsd-kind-icon">dv</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class"><a href="onmsversion.html#version" class="tsd-kind-icon">version</a></li>
-							</ul>
-						</section>
-						<section class="tsd-index-section ">
 							<h3>Accessors</h3>
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-accessor tsd-parent-kind-class"><a href="onmsversion.html#displayversion" class="tsd-kind-icon">display<wbr>Version</a></li>
+								<li class="tsd-kind-accessor tsd-parent-kind-class"><a href="onmsversion.html#version" class="tsd-kind-icon">version</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
@@ -124,12 +125,12 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/89250f9/src/api/OnmsVersion.ts#L21">api/OnmsVersion.ts:21</a></li>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/22176db/src/api/OnmsVersion.ts#L36">api/OnmsVersion.ts:36</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>construct a new version</p>
+									<p>Construct a new version.</p>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -138,7 +139,7 @@
 									<h5><span class="tsd-flag ts-flagOptional">Optional</span> version: <span class="tsd-signature-type">string</span></h5>
 									<div class="tsd-comment tsd-typography">
 										<div class="lead">
-											<p>the numeric version (x.x.x format)</p>
+											<p>The numeric version.</p>
 										</div>
 									</div>
 								</li>
@@ -146,7 +147,8 @@
 									<h5><span class="tsd-flag ts-flagOptional">Optional</span> displayVersion: <span class="tsd-signature-type">string</span></h5>
 									<div class="tsd-comment tsd-typography">
 										<div class="lead">
-											<p>the full version (including, eg, x.x.x-SNAPSHOT)</p>
+											<p>The full display version
+											(including extra designators like <code>x.x.x-SNAPSHOT</code>).</p>
 										</div>
 									</div>
 								</li>
@@ -154,39 +156,6 @@
 							<h4 class="tsd-returns-title">Returns <a href="onmsversion.html" class="tsd-signature-type">OnmsVersion</a></h4>
 						</li>
 					</ul>
-				</section>
-			</section>
-			<section class="tsd-panel-group tsd-member-group ">
-				<h2>Properties</h2>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
-					<a name="dv" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagPrivate">Private</span> dv</h3>
-					<div class="tsd-signature tsd-kind-icon">dv<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/89250f9/src/api/OnmsVersion.ts#L21">api/OnmsVersion.ts:21</a></li>
-						</ul>
-					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>the internal display version</p>
-						</div>
-					</div>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
-					<a name="version" class="tsd-anchor"></a>
-					<h3>version</h3>
-					<div class="tsd-signature tsd-kind-icon">version<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/89250f9/src/api/OnmsVersion.ts#L9">api/OnmsVersion.ts:9</a></li>
-						</ul>
-					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>the numeric version (x.x.x format)</p>
-						</div>
-					</div>
 				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
@@ -202,12 +171,12 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/89250f9/src/api/OnmsVersion.ts#L12">api/OnmsVersion.ts:12</a></li>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/22176db/src/api/OnmsVersion.ts#L18">api/OnmsVersion.ts:18</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>the display version</p>
+									<p>The display version (ex: <code>19.0.0-SNAPSHOT</code>).</p>
 								</div>
 							</div>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
@@ -215,18 +184,60 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/89250f9/src/api/OnmsVersion.ts#L16">api/OnmsVersion.ts:16</a></li>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/22176db/src/api/OnmsVersion.ts#L22">api/OnmsVersion.ts:22</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>the display version</p>
+									<p>The display version (ex: <code>19.0.0-SNAPSHOT</code>).</p>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>displayVersion: <span class="tsd-signature-type">string</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-accessor tsd-parent-kind-class">
+					<a name="version" class="tsd-anchor"></a>
+					<h3>version</h3>
+					<ul class="tsd-signatures tsd-kind-accessor tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> version<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li>
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">set</span> version<span class="tsd-signature-symbol">(</span>ver<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/22176db/src/api/OnmsVersion.ts#L9">api/OnmsVersion.ts:9</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>The numeric version (ex: <code>19.0.0</code>).</p>
+								</div>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
+						</li>
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/22176db/src/api/OnmsVersion.ts#L13">api/OnmsVersion.ts:13</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>The numeric version (ex: <code>19.0.0</code>).</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>ver: <span class="tsd-signature-type">string</span></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -246,12 +257,12 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/89250f9/src/api/OnmsVersion.ts#L61">api/OnmsVersion.ts:61</a></li>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/22176db/src/api/OnmsVersion.ts#L87">api/OnmsVersion.ts:87</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Create a new <a href="onmsversion.html">OnmsVersion</a> object from this existing one.</p>
+									<p>Create a new version object from this existing one.</p>
 								</div>
 							</div>
 							<h4 class="tsd-returns-title">Returns <a href="onmsversion.html" class="tsd-signature-type">OnmsVersion</a></h4>
@@ -268,12 +279,12 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/89250f9/src/api/OnmsVersion.ts#L44">api/OnmsVersion.ts:44</a></li>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/22176db/src/api/OnmsVersion.ts#L66">api/OnmsVersion.ts:66</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>this version is equal to the passed version</p>
+									<p>Returns true if this version is equal to the passed version.</p>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -296,12 +307,12 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/89250f9/src/api/OnmsVersion.ts#L49">api/OnmsVersion.ts:49</a></li>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/22176db/src/api/OnmsVersion.ts#L73">api/OnmsVersion.ts:73</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>this version is greater than or equal to the passed version</p>
+									<p>Returns true if this version is greater than or equal to the passed version.</p>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -324,12 +335,12 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/89250f9/src/api/OnmsVersion.ts#L54">api/OnmsVersion.ts:54</a></li>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/22176db/src/api/OnmsVersion.ts#L80">api/OnmsVersion.ts:80</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>this version is greater than the passed version</p>
+									<p>Returns true if this version is greater than the passed version.</p>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -352,12 +363,12 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/89250f9/src/api/OnmsVersion.ts#L39">api/OnmsVersion.ts:39</a></li>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/22176db/src/api/OnmsVersion.ts#L59">api/OnmsVersion.ts:59</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>this version is less than or equal to the passed version</p>
+									<p>Returns true if this version is less than or equal to the passed version.</p>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -380,12 +391,12 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/89250f9/src/api/OnmsVersion.ts#L34">api/OnmsVersion.ts:34</a></li>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/22176db/src/api/OnmsVersion.ts#L52">api/OnmsVersion.ts:52</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>this version is less than the passed version</p>
+									<p>Returns true if this version is less than the passed version.</p>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -408,12 +419,12 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/89250f9/src/api/OnmsVersion.ts#L66">api/OnmsVersion.ts:66</a></li>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/22176db/src/api/OnmsVersion.ts#L92">api/OnmsVersion.ts:92</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>a human-readable representation of this version</p>
+									<p>A human-readable representation of this version.</p>
 								</div>
 							</div>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
@@ -440,14 +451,11 @@
 							<li class=" tsd-kind-constructor tsd-parent-kind-class">
 								<a href="onmsversion.html#constructor" class="tsd-kind-icon">constructor</a>
 							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
-								<a href="onmsversion.html#dv" class="tsd-kind-icon">dv</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class">
-								<a href="onmsversion.html#version" class="tsd-kind-icon">version</a>
-							</li>
 							<li class=" tsd-kind-accessor tsd-parent-kind-class">
 								<a href="onmsversion.html#displayversion" class="tsd-kind-icon">display<wbr>Version</a>
+							</li>
+							<li class=" tsd-kind-accessor tsd-parent-kind-class">
+								<a href="onmsversion.html#version" class="tsd-kind-icon">version</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="onmsversion.html#clone" class="tsd-kind-icon">clone</a>

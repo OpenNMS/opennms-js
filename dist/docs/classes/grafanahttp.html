@@ -66,6 +66,18 @@
 <div class="container container-main">
 	<div class="row">
 		<div class="col-8 col-content">
+			<section class="tsd-panel tsd-comment">
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>Implementation of the <a href="../interfaces/ionmshttp.html">IOnmsHTTP</a> interface for Grafana.</p>
+					</div>
+					<dl class="tsd-comment-tags">
+						<dt>implements</dt>
+						<dd><p>IOnmsHTTP</p>
+						</dd>
+					</dl>
+				</div>
+			</section>
 			<section class="tsd-panel tsd-hierarchy">
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
@@ -95,10 +107,9 @@
 								<li class="tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite"><a href="grafanahttp.html#constructor" class="tsd-kind-icon">constructor</a></li>
 							</ul>
 						</section>
-						<section class="tsd-index-section ">
+						<section class="tsd-index-section tsd-is-inherited">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="grafanahttp.html#backendsrv" class="tsd-kind-icon">backend<wbr>Srv</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="grafanahttp.html#options" class="tsd-kind-icon">options</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="grafanahttp.html#timeout" class="tsd-kind-icon">timeout</a></li>
 							</ul>
@@ -113,7 +124,6 @@
 							<h3>Methods</h3>
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite"><a href="grafanahttp.html#get" class="tsd-kind-icon">get</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><a href="grafanahttp.html#getconfig" class="tsd-kind-icon">get<wbr>Config</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected"><a href="grafanahttp.html#getoptions" class="tsd-kind-icon">get<wbr>Options</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected"><a href="grafanahttp.html#getserver" class="tsd-kind-icon">get<wbr>Server</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected"><a href="grafanahttp.html#onsetserver" class="tsd-kind-icon">on<wbr>Set<wbr>Server</a></li>
@@ -138,12 +148,12 @@
 							<aside class="tsd-sources">
 								<p>Overrides <a href="abstracthttp.html">AbstractHTTP</a>.<a href="abstracthttp.html#constructor">constructor</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/89250f9/src/rest/GrafanaHTTP.ts#L20">rest/GrafanaHTTP.ts:20</a></li>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/22176db/src/rest/GrafanaHTTP.ts#L23">rest/GrafanaHTTP.ts:23</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Construct a new GrafanaHTTP implementation</p>
+									<p>Construct a new GrafanaHTTP implementation.</p>
 								</div>
 								<dl class="tsd-comment-tags">
 									<dt>constructor</dt>
@@ -156,7 +166,7 @@
 									<h5>backendSrv: <span class="tsd-signature-type">any</span></h5>
 									<div class="tsd-comment tsd-typography">
 										<div class="lead">
-											<p>the Grafana BackendSrv object to use for requests</p>
+											<p>The Grafana BackendSrv object to use for requests.</p>
 										</div>
 									</div>
 								</li>
@@ -164,7 +174,7 @@
 									<h5><span class="tsd-flag ts-flagOptional">Optional</span> server: <a href="onmsserver.html" class="tsd-signature-type">OnmsServer</a></h5>
 									<div class="tsd-comment tsd-typography">
 										<div class="lead">
-											<p>the OpenNMS server to make requests to</p>
+											<p>The OpenNMS server to make requests to.</p>
 										</div>
 									</div>
 								</li>
@@ -174,23 +184,8 @@
 					</ul>
 				</section>
 			</section>
-			<section class="tsd-panel-group tsd-member-group ">
+			<section class="tsd-panel-group tsd-member-group tsd-is-inherited">
 				<h2>Properties</h2>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
-					<a name="backendsrv" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagPrivate">Private</span> backend<wbr>Srv</h3>
-					<div class="tsd-signature tsd-kind-icon">backend<wbr>Srv<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/89250f9/src/rest/GrafanaHTTP.ts#L20">rest/GrafanaHTTP.ts:20</a></li>
-						</ul>
-					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>the Grafana backend object we&#39;ll use for making ReST calls</p>
-						</div>
-					</div>
-				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
 					<a name="options" class="tsd-anchor"></a>
 					<h3>options</h3>
@@ -199,12 +194,12 @@
 						<p>Implementation of <a href="../interfaces/ionmshttp.html">IOnmsHTTP</a>.<a href="../interfaces/ionmshttp.html#options">options</a></p>
 						<p>Inherited from <a href="abstracthttp.html">AbstractHTTP</a>.<a href="abstracthttp.html#options">options</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/89250f9/src/rest/AbstractHTTP.ts#L40">rest/AbstractHTTP.ts:40</a></li>
+							<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/22176db/src/rest/AbstractHTTP.ts#L40">rest/AbstractHTTP.ts:40</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>the authorization config associated with this ReST client</p>
+							<p>The default set of HTTP options associated with this ReST client.</p>
 						</div>
 					</div>
 				</section>
@@ -215,12 +210,12 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="abstracthttp.html">AbstractHTTP</a>.<a href="abstracthttp.html#timeout">timeout</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/89250f9/src/rest/AbstractHTTP.ts#L37">rest/AbstractHTTP.ts:37</a></li>
+							<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/22176db/src/rest/AbstractHTTP.ts#L37">rest/AbstractHTTP.ts:37</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>how long to wait before giving up on a given request</p>
+							<p>The default amount of time to wait before giving up on a request.</p>
 						</div>
 					</div>
 				</section>
@@ -239,12 +234,12 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="abstracthttp.html">AbstractHTTP</a>.<a href="abstracthttp.html#server">server</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/89250f9/src/rest/AbstractHTTP.ts#L46">rest/AbstractHTTP.ts:46</a></li>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/22176db/src/rest/AbstractHTTP.ts#L49">rest/AbstractHTTP.ts:49</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>the server associated with this HTTP implementation</p>
+									<p>The server associated with this HTTP implementation.</p>
 								</div>
 							</div>
 							<h4 class="tsd-returns-title">Returns <a href="onmsserver.html" class="tsd-signature-type">OnmsServer</a></h4>
@@ -253,12 +248,12 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="abstracthttp.html">AbstractHTTP</a>.<a href="abstracthttp.html#server">server</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/89250f9/src/rest/AbstractHTTP.ts#L50">rest/AbstractHTTP.ts:50</a></li>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/22176db/src/rest/AbstractHTTP.ts#L53">rest/AbstractHTTP.ts:53</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>the server associated with this HTTP implementation</p>
+									<p>The server associated with this HTTP implementation.</p>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -286,12 +281,12 @@
 								<p>Implementation of <a href="../interfaces/ionmshttp.html">IOnmsHTTP</a>.<a href="../interfaces/ionmshttp.html#get">get</a></p>
 								<p>Overrides <a href="abstracthttp.html">AbstractHTTP</a>.<a href="abstracthttp.html#get">get</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/89250f9/src/rest/GrafanaHTTP.ts#L35">rest/GrafanaHTTP.ts:35</a></li>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/22176db/src/rest/GrafanaHTTP.ts#L37">rest/GrafanaHTTP.ts:37</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>make an HTTP GET call using the Grafana backendSrv</p>
+									<p>Make an HTTP GET call using the Grafana <code>BackendSrv</code>.</p>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -307,51 +302,25 @@
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-private">
-					<a name="getconfig" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagPrivate">Private</span> get<wbr>Config</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-private">
-						<li class="tsd-signature tsd-kind-icon">get<wbr>Config<span class="tsd-signature-symbol">(</span>options<span class="tsd-signature-symbol">?: </span><a href="onmshttpoptions.html" class="tsd-signature-type">OnmsHTTPOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/89250f9/src/rest/GrafanaHTTP.ts#L74">rest/GrafanaHTTP.ts:74</a></li>
-								</ul>
-							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>internal method to turn <a href="onmshttpoptions.html">OnmsHTTPOptions</a> into a Grafana BackendSrv request object.</p>
-								</div>
-							</div>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5><span class="tsd-flag ts-flagOptional">Optional</span> options: <a href="onmshttpoptions.html" class="tsd-signature-type">OnmsHTTPOptions</a></h5>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
-						</li>
-					</ul>
-				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
 					<a name="getoptions" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagProtected">Protected</span> get<wbr>Options</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
-						<li class="tsd-signature tsd-kind-icon">get<wbr>Options<span class="tsd-signature-symbol">(</span>options<span class="tsd-signature-symbol">?: </span><a href="onmshttpoptions.html" class="tsd-signature-type">OnmsHTTPOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Options<span class="tsd-signature-symbol">(</span>options<span class="tsd-signature-symbol">?: </span><a href="onmshttpoptions.html" class="tsd-signature-type">OnmsHTTPOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="onmshttpoptions.html" class="tsd-signature-type">OnmsHTTPOptions</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="abstracthttp.html">AbstractHTTP</a>.<a href="abstracthttp.html#getoptions">getOptions</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/89250f9/src/rest/AbstractHTTP.ts#L102">rest/AbstractHTTP.ts:102</a></li>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/22176db/src/rest/AbstractHTTP.ts#L119">rest/AbstractHTTP.ts:119</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>combine all options from the given options, the current server, and the default options</p>
+									<p>Get the union of <a href="onmshttpoptions.html">OnmsHTTPOptions</a> based on the passed options, defaults,
+										and options in the <a href="onmsserver.html">OnmsServer</a> associated with this request.  Order of
+									precedence is passed options -&gt; server options -&gt; default options.</p>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -360,7 +329,7 @@
 									<h5><span class="tsd-flag ts-flagOptional">Optional</span> options: <a href="onmshttpoptions.html" class="tsd-signature-type">OnmsHTTPOptions</a></h5>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
+							<h4 class="tsd-returns-title">Returns <a href="onmshttpoptions.html" class="tsd-signature-type">OnmsHTTPOptions</a></h4>
 						</li>
 					</ul>
 				</section>
@@ -375,12 +344,14 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="abstracthttp.html">AbstractHTTP</a>.<a href="abstracthttp.html#getserver">getServer</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/89250f9/src/rest/AbstractHTTP.ts#L97">rest/AbstractHTTP.ts:97</a></li>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/22176db/src/rest/AbstractHTTP.ts#L110">rest/AbstractHTTP.ts:110</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>get the server in the options object, or fall back to the one assigned to the HTTP impl</p>
+									<p>Get the <a href="onmsserver.html">OnmsServer</a> object that should be used for making requests.  Favors the one
+										passed in the <a href="onmshttpoptions.html">OnmsHTTPOptions</a>, otherwise it falls back to the default server associated
+									with the HTTP implementation.</p>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -404,12 +375,13 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="abstracthttp.html">AbstractHTTP</a>.<a href="abstracthttp.html#onsetserver">onSetServer</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/89250f9/src/rest/AbstractHTTP.ts#L116">rest/AbstractHTTP.ts:116</a></li>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/22176db/src/rest/AbstractHTTP.ts#L136">rest/AbstractHTTP.ts:136</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>useful for performing an action (like clearing caches) when the server is set</p>
+									<p>Implementers should override this method if they have actions that need to be performed
+									(like clearing a cache) when server settings change.</p>
 								</div>
 							</div>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -428,12 +400,12 @@
 								<p>Implementation of <a href="../interfaces/ionmshttp.html">IOnmsHTTP</a>.<a href="../interfaces/ionmshttp.html#put">put</a></p>
 								<p>Overrides <a href="abstracthttp.html">AbstractHTTP</a>.<a href="abstracthttp.html#put">put</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/89250f9/src/rest/GrafanaHTTP.ts#L54">rest/GrafanaHTTP.ts:54</a></li>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/22176db/src/rest/GrafanaHTTP.ts#L56">rest/GrafanaHTTP.ts:56</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>make an HTTP PUT call using the Grafana backendSrv</p>
+									<p>Make an HTTP PUT call using the Grafana <code>BackendSrv</code>.</p>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -460,12 +432,13 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="abstracthttp.html">AbstractHTTP</a>.<a href="abstracthttp.html#transformjson">transformJSON</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/89250f9/src/rest/AbstractHTTP.ts#L73">rest/AbstractHTTP.ts:73</a></li>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/22176db/src/rest/AbstractHTTP.ts#L79">rest/AbstractHTTP.ts:79</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>a convenience method for implementers to use to turn JSON into a javascript object</p>
+									<p>A convenience method for implementers to use to turn JSON into a javascript object.
+									Use this to process a JSON response before returning it in an <a href="onmsresult.html">OnmsResult</a> object.</p>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -489,12 +462,13 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="abstracthttp.html">AbstractHTTP</a>.<a href="abstracthttp.html#transformxml">transformXML</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/89250f9/src/rest/AbstractHTTP.ts#L87">rest/AbstractHTTP.ts:87</a></li>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/22176db/src/rest/AbstractHTTP.ts#L96">rest/AbstractHTTP.ts:96</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>a convenience method for implementers to use to turn XML into a javascript object</p>
+									<p>A convenience method for implementers to use to turn XML into a javascript object.
+									Use this to process an XML response before returning it in an <a href="onmsresult.html">OnmsResult</a> object.</p>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -527,9 +501,6 @@
 							<li class=" tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite">
 								<a href="grafanahttp.html#constructor" class="tsd-kind-icon">constructor</a>
 							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
-								<a href="grafanahttp.html#backendsrv" class="tsd-kind-icon">backend<wbr>Srv</a>
-							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
 								<a href="grafanahttp.html#options" class="tsd-kind-icon">options</a>
 							</li>
@@ -541,9 +512,6 @@
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
 								<a href="grafanahttp.html#get" class="tsd-kind-icon">get</a>
-							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-private">
-								<a href="grafanahttp.html#getconfig" class="tsd-kind-icon">get<wbr>Config</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
 								<a href="grafanahttp.html#getoptions" class="tsd-kind-icon">get<wbr>Options</a>

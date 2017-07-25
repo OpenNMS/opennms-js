@@ -66,6 +66,13 @@
 <div class="container container-main">
 	<div class="row">
 		<div class="col-8 col-content">
+			<section class="tsd-panel tsd-comment">
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>Represents an OpenNMS.js error.  This will eventually have custom stuff to do... stuff.</p>
+					</div>
+				</div>
+			</section>
 			<section class="tsd-panel tsd-hierarchy">
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
@@ -114,12 +121,12 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/89250f9/src/api/OnmsError.ts#L13">api/OnmsError.ts:13</a></li>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/22176db/src/api/OnmsError.ts#L13">api/OnmsError.ts:13</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Create a new error with the given message.</p>
+									<p>Create a new error.</p>
 								</div>
 								<dl class="tsd-comment-tags">
 									<dt>constructor</dt>
@@ -132,12 +139,17 @@
 									<h5>message: <span class="tsd-signature-type">string</span></h5>
 									<div class="tsd-comment tsd-typography">
 										<div class="lead">
-											<p>the message</p>
+											<p>The error message.</p>
 										</div>
 									</div>
 								</li>
 								<li>
 									<h5><span class="tsd-flag ts-flagOptional">Optional</span> code: <span class="tsd-signature-type">number</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<div class="lead">
+											<p>An optional error code to associate with the error.</p>
+										</div>
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="onmserror.html" class="tsd-signature-type">OnmsError</a></h4>
@@ -153,12 +165,12 @@
 					<div class="tsd-signature tsd-kind-icon">code<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/89250f9/src/api/OnmsError.ts#L7">api/OnmsError.ts:7</a></li>
+							<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/22176db/src/api/OnmsError.ts#L7">api/OnmsError.ts:7</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>the error code associated with this error</p>
+							<p>The error code associated with this error.</p>
 						</div>
 					</div>
 				</section>
@@ -168,12 +180,12 @@
 					<div class="tsd-signature tsd-kind-icon">error<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Error</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/89250f9/src/api/OnmsError.ts#L13">api/OnmsError.ts:13</a></li>
+							<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/22176db/src/api/OnmsError.ts#L13">api/OnmsError.ts:13</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>the JS Error class associated with this error</p>
+							<p>The JS Error class associated with this error.</p>
 						</div>
 					</div>
 				</section>
@@ -183,12 +195,12 @@
 					<div class="tsd-signature tsd-kind-icon">message<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/89250f9/src/api/OnmsError.ts#L20">api/OnmsError.ts:20</a></li>
+							<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/22176db/src/api/OnmsError.ts#L21">api/OnmsError.ts:21</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>the message</p>
+							<p>The error message.</p>
 						</div>
 					</div>
 				</section>
@@ -198,12 +210,12 @@
 					<div class="tsd-signature tsd-kind-icon">stack<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/89250f9/src/api/OnmsError.ts#L10">api/OnmsError.ts:10</a></li>
+							<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/22176db/src/api/OnmsError.ts#L10">api/OnmsError.ts:10</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>the stack trace when this error is created</p>
+							<p>The stack trace when this error is created.</p>
 						</div>
 					</div>
 				</section>
@@ -220,7 +232,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/89250f9/src/api/OnmsError.ts#L29">api/OnmsError.ts:29</a></li>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/22176db/src/api/OnmsError.ts#L30">api/OnmsError.ts:30</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">

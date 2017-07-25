@@ -4455,7 +4455,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 /**
  * Represents an enumerated type.
  * @module OnmsEnum
- */ /** */
+ */
 
 var OnmsEnum = function () {
     /** construct an enum object with an id and label */
@@ -5209,13 +5209,14 @@ Object.defineProperty(exports, "__esModule", { value: true });
 /**
  * Represents an OpenNMS.js error.  This will eventually have custom stuff to do... stuff.
  * @module OnmsError
- */ /** */
+ */
 
 var OnmsError = function () {
     /**
-     * Create a new error with the given message.
+     * Create a new error.
      * @constructor
-     * @param message - the message
+     * @param message - The error message.
+     * @param code - An optional error code to associate with the error.
      */
     function OnmsError(message, code) {
         _classCallCheck(this, OnmsError);
@@ -6328,7 +6329,7 @@ var NestedRestriction = function () {
     function NestedRestriction() {
         _classCallCheck(this, NestedRestriction);
 
-        /** the clauses containing the nested restrictions and their logical operators */
+        /** The clauses containing the nested restrictions and their logical operators. */
         this.clauses = [];
 
         for (var _len = arguments.length, clauses = Array(_len), _key = 0; _key < _len; _key++) {
@@ -6337,7 +6338,7 @@ var NestedRestriction = function () {
 
         this.clauses = clauses;
     }
-    /** adds an additional restriction using the logical OR operator */
+    /** Adds an additional restriction using the logical OR operator. */
 
 
     _createClass(NestedRestriction, [{
@@ -6345,14 +6346,14 @@ var NestedRestriction = function () {
         value: function withOrRestriction(restriction) {
             return this.withClause(new Clause_1.Clause(restriction, Operator_1.Operators.OR));
         }
-        /** adds an additional restriction using the logical AND operator */
+        /** Adds an additional restriction using the logical AND operator. */
 
     }, {
         key: "withAndRestriction",
         value: function withAndRestriction(restriction) {
             return this.withClause(new Clause_1.Clause(restriction, Operator_1.Operators.AND));
         }
-        /** adds an additional clause */
+        /** Adds an additional clause. */
 
     }, {
         key: "withClause",
@@ -6387,7 +6388,7 @@ var OnmsEnum_1 = __webpack_require__(1);
 /**
  * Represents a filter comparator.
  * @module Comparator
- */ /** */
+ */
 
 var Operator = function (_OnmsEnum_1$OnmsEnum) {
     _inherits(Operator, _OnmsEnum_1$OnmsEnum);
@@ -6395,7 +6396,7 @@ var Operator = function (_OnmsEnum_1$OnmsEnum) {
     function Operator(id, label) {
         _classCallCheck(this, Operator);
 
-        /** aliases for the command-line */
+        /** Aliases for the command-line. */
         var _this = _possibleConstructorReturn(this, (Operator.__proto__ || Object.getPrototypeOf(Operator)).call(this, id, label));
 
         _this.aliases = [];
@@ -6407,7 +6408,7 @@ var Operator = function (_OnmsEnum_1$OnmsEnum) {
         _this.aliases = aliases;
         return _this;
     }
-    /** whether this comparator matches the given comparator string */
+    /** Whether this comparator matches the given comparator string. */
 
 
     _createClass(Operator, [{
@@ -6422,11 +6423,15 @@ var Operator = function (_OnmsEnum_1$OnmsEnum) {
 
 exports.Operator = Operator;
 /* tslint:disable:object-literal-sort-keys */
-/** @hidden */
-exports.Operators = Object.freeze({
+var Operators = {
+    /** AND (all must match) */
     AND: new Operator(1, 'AND'),
+    /** OR (at least one must match) */
     OR: new Operator(2, 'OR')
-});
+};
+/** @hidden */
+var frozen = Object.freeze(Operators);
+exports.Operators = frozen;
 
 /***/ }),
 /* 13 */
@@ -6446,26 +6451,30 @@ var OnmsEnum_1 = __webpack_require__(1);
 /**
  * Represents an OpenNMS server type.
  * @module ServerType
- */ /** */
+ */
 
 var ServerType = function (_OnmsEnum_1$OnmsEnum) {
-  _inherits(ServerType, _OnmsEnum_1$OnmsEnum);
+    _inherits(ServerType, _OnmsEnum_1$OnmsEnum);
 
-  function ServerType() {
-    _classCallCheck(this, ServerType);
+    function ServerType() {
+        _classCallCheck(this, ServerType);
 
-    return _possibleConstructorReturn(this, (ServerType.__proto__ || Object.getPrototypeOf(ServerType)).apply(this, arguments));
-  }
+        return _possibleConstructorReturn(this, (ServerType.__proto__ || Object.getPrototypeOf(ServerType)).apply(this, arguments));
+    }
 
-  return ServerType;
+    return ServerType;
 }(OnmsEnum_1.OnmsEnum);
 
 exports.ServerType = ServerType;
+var ServerTypes = {
+    /** OpenNMS Horizon */
+    HORIZON: new ServerType(1, 'HORIZON'),
+    /** OpenNMS Meridian */
+    MERIDIAN: new ServerType(2, 'MERIDIAN')
+};
 /** @hidden */
-exports.ServerTypes = Object.freeze({
-  HORIZON: new ServerType(1, 'HORIZON'),
-  MERIDIAN: new ServerType(2, 'MERIDIAN')
-});
+var frozen = Object.freeze(ServerTypes);
+exports.ServerTypes = frozen;
 
 /***/ }),
 /* 14 */
@@ -6488,13 +6497,13 @@ exports.ServiceTypes = {};
 /**
  * Represents an OpenNMS service.
  * @module OnmsServiceType
- */ /** */
+ */
 
 var OnmsServiceType = function () {
     _createClass(OnmsServiceType, null, [{
         key: "for",
 
-        /** get a singleton service type object for the given service */
+        /** Get a singleton service type object for the given service. */
         value: function _for(id, name) {
             if (exports.ServiceTypes[id]) {
                 if (exports.ServiceTypes[id].name === name) {
@@ -6506,7 +6515,7 @@ var OnmsServiceType = function () {
             exports.ServiceTypes[id] = new OnmsServiceType(id, name);
             return exports.ServiceTypes[id];
         }
-        /** given an ID and name, construct a service type */
+        /** Given an ID and name, construct a service type. */
 
     }]);
 
@@ -7943,7 +7952,7 @@ var OnmsEnum_1 = __webpack_require__(1);
 /**
  * Represents a filter comparator.
  * @module Comparator
- */ /** */
+ */
 
 var Comparator = function (_OnmsEnum_1$OnmsEnum) {
     _inherits(Comparator, _OnmsEnum_1$OnmsEnum);
@@ -7951,7 +7960,7 @@ var Comparator = function (_OnmsEnum_1$OnmsEnum) {
     function Comparator(id, label) {
         _classCallCheck(this, Comparator);
 
-        /** aliases for the command-line */
+        /** Aliases for the command-line. */
         var _this = _possibleConstructorReturn(this, (Comparator.__proto__ || Object.getPrototypeOf(Comparator)).call(this, id, label));
 
         _this.aliases = [];
@@ -7963,7 +7972,7 @@ var Comparator = function (_OnmsEnum_1$OnmsEnum) {
         _this.aliases = aliases;
         return _this;
     }
-    /** whether this comparator matches the given comparator string */
+    /** Whether this comparator matches the given comparator string. */
 
 
     _createClass(Comparator, [{
@@ -7978,19 +7987,31 @@ var Comparator = function (_OnmsEnum_1$OnmsEnum) {
 
 exports.Comparator = Comparator;
 /* tslint:disable:object-literal-sort-keys */
-/** @hidden */
-exports.Comparators = Object.freeze({
+var Comparators = {
+    /** Equals (`=` or `==`) */
     EQ: new Comparator(1, 'EQ', '=', '=='),
+    /** Not Equals (`!=`) */
     NE: new Comparator(2, 'NE', '!='),
+    /** Case-Insensitive Substring Match (`ILIKE`) */
     ILIKE: new Comparator(3, 'ILIKE'),
+    /** Case-Sensitive Substring Match (`LIKE`) */
     LIKE: new Comparator(4, 'LIKE'),
+    /** Greater Than (`>`) */
     GT: new Comparator(5, 'GT', '>'),
+    /** Less Than (`<`) */
     LT: new Comparator(6, 'LT', '<'),
+    /** Greater Than or Equal To (`>=`) */
     GE: new Comparator(7, 'GE', '>='),
+    /** Less Than or Equal To (`<=`) */
     LE: new Comparator(8, 'LE', '<='),
+    /** Is Null (`NULL`) */
     NULL: new Comparator(9, 'NULL'),
+    /** Is Not Null (`NOTNULL`) */
     NOTNULL: new Comparator(10, 'NOTNULL')
-});
+};
+/** @hidden */
+var frozen = Object.freeze(Comparators);
+exports.Comparators = frozen;
 
 /***/ }),
 /* 22 */
@@ -8005,7 +8026,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 /**
  * Options to be used when making HTTP ReST calls.
  * @module OnmsHTTPOptions
- */ /** */
+ */
 
 var OnmsHTTPOptions =
 /**
@@ -8015,11 +8036,11 @@ var OnmsHTTPOptions =
 function OnmsHTTPOptions(timeout, auth, server) {
     _classCallCheck(this, OnmsHTTPOptions);
 
-    /** how long to wait for ReST calls to time out */
+    /** How long to wait for ReST calls to time out. */
     this.timeout = 10000;
-    /** http headers to be passed to the request */
+    /** HTTP headers to be passed to the request. */
     this.headers = {};
-    /** http parameters to be passed on the URL */
+    /** HTTP parameters to be passed on the URL. */
     this.parameters = {};
     if (timeout !== undefined) {
         this.timeout = timeout;
@@ -8049,13 +8070,15 @@ Object.defineProperty(exports, "__esModule", { value: true });
 /**
  * An [[IOnmsHTTP]] query result.
  * @module OnmsResult
- */ /** */
+ */
 
 var OnmsResult = function () {
     /**
-     * construct a new result
-     * @param message the status message
-     * @param code the response code
+     * Construct a new result.
+     * @param data The payload of the response.
+     * @param message The status message associated with the result.
+     * @param code The response code of the response.
+     * @param type The request type of the response.
      */
     function OnmsResult(data, message, code, type) {
         _classCallCheck(this, OnmsResult);
@@ -8065,13 +8088,13 @@ var OnmsResult = function () {
         this.code = code;
         this.type = type;
     }
-    /** create a new error result */
+    /** Create a new error result. */
 
 
     _createClass(OnmsResult, [{
         key: "isSuccess",
 
-        /** whether this response is a successful response */
+        /** Whether this result is considered successful. */
         value: function isSuccess() {
             return this.code === 200 || this.code === 204;
         }
@@ -8080,14 +8103,14 @@ var OnmsResult = function () {
         value: function error(message, code) {
             return new OnmsResult(undefined, message, code);
         }
-        /** create a new "OK" result */
+        /** Create a new success result. */
 
     }, {
         key: "ok",
         value: function ok(response, message, code, type) {
             return new OnmsResult(response, message || 'OK', code || 200, type);
         }
-        /** create a new "No Content" result */
+        /** Create a new "No Content" result. */
 
     }, {
         key: "noContent",
@@ -8118,13 +8141,23 @@ var VersionCompare = __webpack_require__(268);
 /**
  * An OpenNMS version.
  * @module OnmsVersion
- */ /** */
+ */
 
 var OnmsVersion = function () {
     _createClass(OnmsVersion, [{
-        key: "displayVersion",
+        key: "version",
 
-        /** the display version */
+        /** The numeric version (ex: `19.0.0`). */
+        get: function get() {
+            return this.rv;
+        },
+        set: function set(ver) {
+            this.rv = ver;
+        }
+        /** The display version (ex: `19.0.0-SNAPSHOT`). */
+
+    }, {
+        key: "displayVersion",
         get: function get() {
             return this.dv || this.version;
         },
@@ -8132,9 +8165,10 @@ var OnmsVersion = function () {
             this.dv = displayVersion;
         }
         /**
-         * construct a new version
-         * @param version the numeric version (x.x.x format)
-         * @param displayVersion the full version (including, eg, x.x.x-SNAPSHOT)
+         * Construct a new version.
+         * @param version - The numeric version.
+         * @param displayVersion - The full display version
+         *                         (including extra designators like `x.x.x-SNAPSHOT`).
          */
 
     }]);
@@ -8145,7 +8179,9 @@ var OnmsVersion = function () {
         this.version = version || '0.0.0';
         this.displayVersion = displayVersion;
     }
-    /** this version is less than the passed version */
+    /**
+     * Returns true if this version is less than the passed version.
+     */
 
 
     _createClass(OnmsVersion, [{
@@ -8155,7 +8191,9 @@ var OnmsVersion = function () {
 
             return VersionCompare.lt(this.version, compare);
         }
-        /** this version is less than or equal to the passed version */
+        /**
+         * Returns true if this version is less than or equal to the passed version.
+         */
 
     }, {
         key: "le",
@@ -8164,7 +8202,9 @@ var OnmsVersion = function () {
 
             return VersionCompare.lte(this.version, compare);
         }
-        /** this version is equal to the passed version */
+        /**
+         * Returns true if this version is equal to the passed version.
+         */
 
     }, {
         key: "eq",
@@ -8173,7 +8213,9 @@ var OnmsVersion = function () {
 
             return VersionCompare.matches(this.version, compare);
         }
-        /** this version is greater than or equal to the passed version */
+        /**
+         * Returns true if this version is greater than or equal to the passed version.
+         */
 
     }, {
         key: "ge",
@@ -8182,7 +8224,9 @@ var OnmsVersion = function () {
 
             return VersionCompare.gte(this.version, compare);
         }
-        /** this version is greater than the passed version */
+        /**
+         * Returns true if this version is greater than the passed version.
+         */
 
     }, {
         key: "gt",
@@ -8192,7 +8236,7 @@ var OnmsVersion = function () {
             return VersionCompare.gt(this.version, compare);
         }
         /**
-         * Create a new {@link OnmsVersion} object from this existing one.
+         * Create a new version object from this existing one.
          */
 
     }, {
@@ -8200,7 +8244,7 @@ var OnmsVersion = function () {
         value: function clone() {
             return new OnmsVersion(this.version, this.dv);
         }
-        /** a human-readable representation of this version */
+        /** A human-readable representation of this version. */
 
     }, {
         key: "toString",
@@ -8274,9 +8318,9 @@ var typescript_logging_1 = __webpack_require__(6);
 /** @hidden */
 var cat = new typescript_logging_1.Category('events', Log_1.catDao);
 /**
- * Data access for [[OnmsEvent]] objects
+ * Data access for [[OnmsEvent]] objects.
  * @module EventDAO
- */ /** */
+ */
 
 var EventDAO = function (_AbstractDAO_1$Abstra) {
     _inherits(EventDAO, _AbstractDAO_1$Abstra);
@@ -8286,13 +8330,80 @@ var EventDAO = function (_AbstractDAO_1$Abstra) {
 
         return _possibleConstructorReturn(this, (EventDAO.__proto__ || Object.getPrototypeOf(EventDAO)).call(this, impl));
     }
-    /**
-     * create an event object from a JSON object
-     * @hidden
-     */
+    /** Get an event, given the event's ID. */
 
 
     _createClass(EventDAO, [{
+        key: "get",
+        value: function get(id) {
+            return __awaiter(this, void 0, void 0, _regenerator2.default.mark(function _callee() {
+                var _this2 = this;
+
+                var opts;
+                return _regenerator2.default.wrap(function _callee$(_context) {
+                    while (1) {
+                        switch (_context.prev = _context.next) {
+                            case 0:
+                                opts = this.getOptions();
+                                return _context.abrupt("return", this.http.get('rest/events/' + id, opts).then(function (result) {
+                                    return _this2.fromData(result.data);
+                                }));
+
+                            case 2:
+                            case "end":
+                                return _context.stop();
+                        }
+                    }
+                }, _callee, this);
+            }));
+        }
+        /** Get an event, given a filter. */
+
+    }, {
+        key: "find",
+        value: function find(filter) {
+            return __awaiter(this, void 0, void 0, _regenerator2.default.mark(function _callee2() {
+                var _this3 = this;
+
+                var opts;
+                return _regenerator2.default.wrap(function _callee2$(_context2) {
+                    while (1) {
+                        switch (_context2.prev = _context2.next) {
+                            case 0:
+                                opts = this.getOptions(filter);
+                                return _context2.abrupt("return", this.http.get('rest/events', opts).then(function (result) {
+                                    var data = result.data;
+                                    if (_this3.getCount(data) > 0 && data.event) {
+                                        data = data.event;
+                                    } else {
+                                        data = [];
+                                    }
+                                    if (!Array.isArray(data)) {
+                                        if (data.nodeId) {
+                                            data = [data];
+                                        } else {
+                                            throw new OnmsError_1.OnmsError('Expected an array of events but got "' + (typeof data === "undefined" ? "undefined" : _typeof(data)) + '" instead.');
+                                        }
+                                    }
+                                    return data.map(function (eventData) {
+                                        return _this3.fromData(eventData);
+                                    });
+                                }));
+
+                            case 2:
+                            case "end":
+                                return _context2.stop();
+                        }
+                    }
+                }, _callee2, this);
+            }));
+        }
+        /**
+         * Create an event object from a JSON object.
+         * @hidden
+         */
+
+    }, {
         key: "fromData",
         value: function fromData(data) {
             var event = new OnmsEvent_1.OnmsEvent();
@@ -8350,73 +8461,6 @@ var EventDAO = function (_AbstractDAO_1$Abstra) {
             }
             return event;
         }
-        /** get an event, given the event's ID */
-
-    }, {
-        key: "get",
-        value: function get(id) {
-            return __awaiter(this, void 0, void 0, _regenerator2.default.mark(function _callee() {
-                var _this2 = this;
-
-                var opts;
-                return _regenerator2.default.wrap(function _callee$(_context) {
-                    while (1) {
-                        switch (_context.prev = _context.next) {
-                            case 0:
-                                opts = this.getOptions();
-                                return _context.abrupt("return", this.http.get('rest/events/' + id, opts).then(function (result) {
-                                    return _this2.fromData(result.data);
-                                }));
-
-                            case 2:
-                            case "end":
-                                return _context.stop();
-                        }
-                    }
-                }, _callee, this);
-            }));
-        }
-        /** get an event, given a filter */
-
-    }, {
-        key: "find",
-        value: function find(filter) {
-            return __awaiter(this, void 0, void 0, _regenerator2.default.mark(function _callee2() {
-                var _this3 = this;
-
-                var opts;
-                return _regenerator2.default.wrap(function _callee2$(_context2) {
-                    while (1) {
-                        switch (_context2.prev = _context2.next) {
-                            case 0:
-                                opts = this.getOptions(filter);
-                                return _context2.abrupt("return", this.http.get('rest/events', opts).then(function (result) {
-                                    var data = result.data;
-                                    if (_this3.getCount(data) > 0 && data.event) {
-                                        data = data.event;
-                                    } else {
-                                        data = [];
-                                    }
-                                    if (!Array.isArray(data)) {
-                                        if (data.nodeId) {
-                                            data = [data];
-                                        } else {
-                                            throw new OnmsError_1.OnmsError('Expected an array of events but got "' + (typeof data === "undefined" ? "undefined" : _typeof(data)) + '" instead.');
-                                        }
-                                    }
-                                    return data.map(function (eventData) {
-                                        return _this3.fromData(eventData);
-                                    });
-                                }));
-
-                            case 2:
-                            case "end":
-                                return _context2.stop();
-                        }
-                    }
-                }, _callee2, this);
-            }));
-        }
     }]);
 
     return EventDAO;
@@ -8440,7 +8484,7 @@ var Util_1 = __webpack_require__(34);
 /**
  * Represents an OpenNMS event or alarm parameter.
  * @module OnmsParm
- */ /** */
+ */
 
 var OnmsParm = function () {
     _createClass(OnmsParm, [{
@@ -8505,7 +8549,7 @@ var OnmsEnum_1 = __webpack_require__(1);
 /**
  * Represents an OpenNMS severity.
  * @module OnmsSeverity
- */ /** */
+ */
 
 var OnmsSeverity = function (_OnmsEnum_1$OnmsEnum) {
     _inherits(OnmsSeverity, _OnmsEnum_1$OnmsEnum);
@@ -8521,8 +8565,7 @@ var OnmsSeverity = function (_OnmsEnum_1$OnmsEnum) {
 
 exports.OnmsSeverity = OnmsSeverity;
 /* tslint:disable:object-literal-sort-keys */
-/** @hidden */
-exports.Severities = Object.freeze({
+var Severities = {
     INDETERMINATE: new OnmsSeverity(1, 'INDETERMINATE'),
     CLEARED: new OnmsSeverity(2, 'CLEARED'),
     NORMAL: new OnmsSeverity(3, 'NORMAL'),
@@ -8530,7 +8573,10 @@ exports.Severities = Object.freeze({
     MINOR: new OnmsSeverity(5, 'MINOR'),
     MAJOR: new OnmsSeverity(6, 'MAJOR'),
     CRITICAL: new OnmsSeverity(7, 'CRITICAL')
-});
+};
+/** @hidden */
+var frozen = Object.freeze(Severities);
+exports.Severities = frozen;
 
 /***/ }),
 /* 28 */
@@ -8892,30 +8938,47 @@ var V2FilterProcessor_1 = __webpack_require__(43);
 // tslint:disable-next-line
 var moment = __webpack_require__(0);
 /**
- * Abstract data access layer
+ * An abstract data access layer API, meant to (somewhat) mirror the DAO interfaces
+ * inside OpenNMS.  Used to retrieve model data like alarms, events, etc. from the
+ * OpenNMS ReST API in a consistent way.
+ *
  * @module AbstractDAO
  * @param K the ID/key type (number, string, etc.)
  * @param T the model type (OnmsAlarm, OnmsEvent, etc.)
- */ /** */
+ */
 
 var AbstractDAO = function () {
-    /** construct a DAO instance */
+    /**
+     * Construct a DAO instance.
+     *
+     * @param impl - The HTTP implementation to use.  It is also legal to pass any object
+     *               conforming to the [[IHasHTTP]] interface (like a [[Client]]).
+     */
     function AbstractDAO(impl) {
         _classCallCheck(this, AbstractDAO);
 
         if (impl.http) {
             impl = impl.http;
         }
-        this.http = impl;
+        this.httpImpl = impl;
     }
-    /** extract the count or totalCount values from response data */
+    /**
+     * The HTTP implementation to use internally when making DAO requests.
+     */
 
 
     _createClass(AbstractDAO, [{
         key: "getCount",
+
+        /**
+         * A convenience method to make it easy for implementers to extract the count
+         * (or totalCount) values from response data.
+         */
         value: function getCount(data) {
             var count = 0;
-            if (data.count !== undefined) {
+            if (typeof data === 'number') {
+                count = data;
+            } else if (data.count !== undefined) {
                 count = parseInt(data.count, 10);
             } else if (data.totalCount !== undefined) {
                 count = parseInt(data.totalCount, 10);
@@ -8924,7 +8987,10 @@ var AbstractDAO = function () {
             }
             return count;
         }
-        /** given an optional filter, generate an [[OnmsHTTPOptions]] object for DAO calls */
+        /**
+         * Create an [[OnmsHTTPOptions]] object for DAO calls given an optional filter.
+         * @param filter - the filter to use
+         */
 
     }, {
         key: "getOptions",
@@ -8933,11 +8999,13 @@ var AbstractDAO = function () {
             // always use application/xml for now in DAO calls
             ret.headers.accept = 'application/xml';
             if (filter) {
-                ret.parameters = this.getFilterProcessor().getParameters(filter);
+                ret.parameters = this.filterProcessor.getParameters(filter);
             }
             return ret;
         }
-        /** convert the given value to a date, or undefined if it cannot be converted */
+        /**
+         * Convert the given value to a date, or undefined if it cannot be converted.
+         */
 
     }, {
         key: "toDate",
@@ -8947,7 +9015,9 @@ var AbstractDAO = function () {
             }
             return moment(from);
         }
-        /** convert the given value to a number, or undefined if it cannot be converted */
+        /**
+         * Convert the given value to a number, or undefined if it cannot be converted.
+         */
 
     }, {
         key: "toNumber",
@@ -8955,31 +9025,42 @@ var AbstractDAO = function () {
             var ret = parseInt(from, 10);
             return isNaN(ret) ? undefined : ret;
         }
-        /** retrieve the API version from the underlying server */
+        /**
+         * Retrieve the API version from the currently configured server.
+         */
 
     }, {
         key: "getApiVersion",
         value: function getApiVersion() {
-            if (this.http.server.metadata === undefined) {
+            if (this.http === undefined || this.http.server === undefined || this.http.server.metadata === undefined) {
                 throw new OnmsError_1.OnmsError('Server meta-data must be populated prior to making DAO calls.');
             }
             return this.http.server.metadata.apiVersion();
         }
-        /** retrieve filter processor for the current API version */
-
     }, {
-        key: "getFilterProcessor",
-        value: function getFilterProcessor() {
-            if (!this.filterProcessor) {
+        key: "http",
+        get: function get() {
+            return this.httpImpl;
+        },
+        set: function set(impl) {
+            this.httpImpl = impl;
+        }
+    }, {
+        key: "filterProcessor",
+        get: function get() {
+            if (!this.filterProcessorImpl) {
                 switch (this.getApiVersion()) {
                     case 2:
-                        this.filterProcessor = new V2FilterProcessor_1.V2FilterProcessor();
+                        this.filterProcessorImpl = new V2FilterProcessor_1.V2FilterProcessor();
                         break;
                     default:
-                        this.filterProcessor = new V1FilterProcessor_1.V1FilterProcessor();
+                        this.filterProcessorImpl = new V1FilterProcessor_1.V1FilterProcessor();
                 }
             }
-            return this.filterProcessor;
+            return this.filterProcessorImpl;
+        },
+        set: function set(impl) {
+            this.filterProcessorImpl = impl;
         }
     }]);
 
@@ -9004,7 +9085,7 @@ var ip_address_1 = __webpack_require__(236);
 /**
  * A utility class for random stuff.
  * @module Util
- */ /** */
+ */
 
 var Util = function () {
     function Util() {
@@ -9377,7 +9458,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 /**
  * A restriction and boolean operator pair.
  * @module Clause
- */ /** */
+ */
 
 var Clause = function Clause(restriction, operator) {
     _classCallCheck(this, Clause);
@@ -9403,7 +9484,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 /**
  * Represents server authentication config.
  * @module OnmsAuthConfig
- */ /** */
+ */
 
 var OnmsAuthConfig = function () {
   /**
@@ -9454,12 +9535,27 @@ var UUID_1 = __webpack_require__(259);
 /**
  * Represents a remote OpenNMS server.
  * @module OnmsServer
- */ /** */
+ */
 
 var OnmsServer = function () {
     /**
      * Construct a new OnmsServer object representing a remote server.
+     * @example
+     * <caption>provide a pre-existing [[OnmsAuthConfig]] for auth</caption>
+     * ```javascript
+     * const server = new OnmsServer('Test', 'https://myserver/opennms/', auth);
+     * ```
+     * @example
+     * <caption>provide a username and password for auth</caption>
+     * ```javascript
+     * const server = new OnmsServer('Test', 'https://myserver/opennms/', 'admin', 'admin');
+     * ```
      * @constructor
+     * @param name - A name for the server suitable for display.
+     * @param url - The URL to the server.
+     * @param auth - An [[OnmsAuthConfig]], or the username to authorize as.
+     * @param password - The password to authorize with if a username was
+     *                   supplied to the `auth` parameter.
      */
     function OnmsServer(name, url, auth, password) {
         _classCallCheck(this, OnmsServer);
@@ -9475,8 +9571,8 @@ var OnmsServer = function () {
     }
     /**
      * Given a relative URL fragment, construct a URL for that fragment on the server.
-     * @param forFragment - the URL fragment to append to the server URL
-     * @returns a complete URL
+     * @param forFragment - The URL fragment to append to the server URL.
+     * @returns A complete URL.
      */
 
 
@@ -9507,13 +9603,13 @@ var OnmsServer = function () {
             return ret;
         }
         /**
-         * Return the hostname portion of the URL associated with this server.
+         * Get the hostname portion of the URL associated with this server.
          */
 
     }, {
         key: "toString",
 
-        /** a pretty string representation of this server */
+        /** A string representation of this server suitable for display. */
         value: function toString() {
             if (this.metadata) {
                 return 'OpenNMS ' + (this.metadata.type === ServerType_1.ServerTypes.MERIDIAN ? 'Meridian' : 'Horizon') + ' ' + this.metadata.version.displayVersion + ' at ' + (this.host || this.url);
@@ -9553,7 +9649,7 @@ var ServerType_1 = __webpack_require__(13);
 /**
  * A class that represents the capabilities an OpenNMS server has and other information about it.
  * @module ServerMetadata
- */ /** */
+ */
 
 var ServerMetadata = function () {
     /**
@@ -9572,7 +9668,7 @@ var ServerMetadata = function () {
         }
         this.type = type || ServerType_1.ServerTypes.HORIZON;
     }
-    /** can you ack alarms through ReST */
+    /** Can you ack alarms through ReST? */
 
 
     _createClass(ServerMetadata, [{
@@ -9580,7 +9676,7 @@ var ServerMetadata = function () {
         value: function ackAlarms() {
             return this.version.ge('14.0.0');
         }
-        /** does this server support graphs (ie, the measurements API) */
+        /** Does this server support graphs? (ie, the measurements API) */
 
     }, {
         key: "graphs",
@@ -9591,21 +9687,21 @@ var ServerMetadata = function () {
                 return this.version.ge('16.0.0');
             }
         }
-        /** does this server support outage summaries */
+        /** Does this server support outage summaries? */
 
     }, {
         key: "outageSummaries",
         value: function outageSummaries() {
             return this.version.ge('14.0.3');
         }
-        /** does this server support setting the location on a node */
+        /** Does this server support setting the location on a node? */
 
     }, {
         key: "setNodeLocation",
         value: function setNodeLocation() {
             return this.version.ge('15.0.2');
         }
-        /** what version of the ReST API does this server support */
+        /** What version of the ReST API does this server support? */
 
     }, {
         key: "apiVersion",
@@ -9616,7 +9712,7 @@ var ServerMetadata = function () {
                 return this.version.ge('21.0.0') ? 2 : 1;
             }
         }
-        /** a convenient data structure with all capabilities listed */
+        /** Returs a convenient data structure with all capabilities listed. */
 
     }, {
         key: "capabilities",
@@ -9630,7 +9726,7 @@ var ServerMetadata = function () {
                 type: this.type === ServerType_1.ServerTypes.MERIDIAN ? 'Meridian' : 'Horizon'
             };
         }
-        /** a human-readable representation of this version */
+        /** A human-readable representation of the metadata. */
 
     }, {
         key: "toString",
@@ -9718,9 +9814,9 @@ var typescript_logging_1 = __webpack_require__(6);
 /** @hidden */
 var cat = new typescript_logging_1.Category('alarms', Log_1.catDao);
 /**
- * Data access for [[OnmsAlarm]] objects
+ * Data access for [[OnmsAlarm]] objects.
  * @module AlarmDAO
- */ /** */
+ */
 
 var AlarmDAO = function (_AbstractDAO_1$Abstra) {
     _inherits(AlarmDAO, _AbstractDAO_1$Abstra);
@@ -9734,12 +9830,278 @@ var AlarmDAO = function (_AbstractDAO_1$Abstra) {
         return _this;
     }
     /**
-     * create an alarm object from a JSON object
-     * @hidden
+     * Fetch an alarm.
+     *
+     * @version ReST v1+
+     * @param {number} id - The alarm's ID.
+     * @return An [[OnmsAlarm]].
      */
 
 
     _createClass(AlarmDAO, [{
+        key: "get",
+        value: function get(id) {
+            return __awaiter(this, void 0, void 0, _regenerator2.default.mark(function _callee() {
+                var _this2 = this;
+
+                var opts;
+                return _regenerator2.default.wrap(function _callee$(_context) {
+                    while (1) {
+                        switch (_context.prev = _context.next) {
+                            case 0:
+                                opts = this.getOptions();
+                                return _context.abrupt("return", this.http.get(this.pathToAlarmsEndpoint() + '/' + id, opts).then(function (result) {
+                                    return _this2.fromData(result.data);
+                                }));
+
+                            case 2:
+                            case "end":
+                                return _context.stop();
+                        }
+                    }
+                }, _callee, this);
+            }));
+        }
+        /**
+         * Find matching alarms.
+         *
+         * @version ReST v1+
+         * @param {Filter} filter - The filter to use when querying.
+         * @return An array of [[OnmsAlarm]] objects.
+         */
+
+    }, {
+        key: "find",
+        value: function find(filter) {
+            return __awaiter(this, void 0, void 0, _regenerator2.default.mark(function _callee2() {
+                var _this3 = this;
+
+                var opts;
+                return _regenerator2.default.wrap(function _callee2$(_context2) {
+                    while (1) {
+                        switch (_context2.prev = _context2.next) {
+                            case 0:
+                                opts = this.getOptions(filter);
+                                return _context2.abrupt("return", this.http.get(this.pathToAlarmsEndpoint(), opts).then(function (result) {
+                                    var data = result.data;
+                                    if (_this3.getCount(data) > 0 && data.alarm) {
+                                        data = data.alarm;
+                                    } else {
+                                        data = [];
+                                    }
+                                    if (!Array.isArray(data)) {
+                                        if (data.nodeId) {
+                                            data = [data];
+                                        } else {
+                                            throw new OnmsError_1.OnmsError('Expected an array of alarms but got "' + (typeof data === "undefined" ? "undefined" : _typeof(data)) + '" instead.');
+                                        }
+                                    }
+                                    return data.map(function (alarmData) {
+                                        return _this3.fromData(alarmData);
+                                    });
+                                }));
+
+                            case 2:
+                            case "end":
+                                return _context2.stop();
+                        }
+                    }
+                }, _callee2, this);
+            }));
+        }
+        /**
+         * Acknowledge an alarm.
+         *
+         * @version ReST v1+
+         * @param {number|OnmsAlarm} id - The [[OnmsAlarm]] or alarm ID.
+         * @param {string=} user - The user to ack the alarm as.
+         *                  (Only administrators have the right to do this.)
+         */
+
+    }, {
+        key: "acknowledge",
+        value: function acknowledge(alarm, user) {
+            return __awaiter(this, void 0, void 0, _regenerator2.default.mark(function _callee3() {
+                var alarmId, parameters;
+                return _regenerator2.default.wrap(function _callee3$(_context3) {
+                    while (1) {
+                        switch (_context3.prev = _context3.next) {
+                            case 0:
+                                alarmId = typeof alarm === 'number' ? alarm : alarm.id;
+                                parameters = {};
+
+                                parameters.ack = 'true';
+                                if (user !== undefined) {
+                                    parameters.ackUser = user;
+                                }
+                                return _context3.abrupt("return", this.put(this.pathToAlarmsEndpoint() + '/' + alarmId, parameters));
+
+                            case 5:
+                            case "end":
+                                return _context3.stop();
+                        }
+                    }
+                }, _callee3, this);
+            }));
+        }
+        /**
+         * Un-acknowledge an alarm.
+         *
+         * @version ReST v1+
+         * @param {number|OnmsAlarm} alarm - The [[OnmsAlarm]] or alarm ID.
+         */
+
+    }, {
+        key: "unacknowledge",
+        value: function unacknowledge(alarm) {
+            return __awaiter(this, void 0, void 0, _regenerator2.default.mark(function _callee4() {
+                var alarmId, parameters;
+                return _regenerator2.default.wrap(function _callee4$(_context4) {
+                    while (1) {
+                        switch (_context4.prev = _context4.next) {
+                            case 0:
+                                alarmId = typeof alarm === 'number' ? alarm : alarm.id;
+                                parameters = {};
+
+                                parameters.ack = 'false';
+                                return _context4.abrupt("return", this.put(this.pathToAlarmsEndpoint() + '/' + alarmId, parameters));
+
+                            case 4:
+                            case "end":
+                                return _context4.stop();
+                        }
+                    }
+                }, _callee4, this);
+            }));
+        }
+        /**
+         * Escalate an alarm.
+         *
+         * @version ReST v1+
+         * @param {number|OnsmAlarm} alarm - The [[OnmsAlarm]] or alarm ID.
+         */
+
+    }, {
+        key: "escalate",
+        value: function escalate(alarm) {
+            return __awaiter(this, void 0, void 0, _regenerator2.default.mark(function _callee5() {
+                var alarmId, parameters;
+                return _regenerator2.default.wrap(function _callee5$(_context5) {
+                    while (1) {
+                        switch (_context5.prev = _context5.next) {
+                            case 0:
+                                alarmId = typeof alarm === 'number' ? alarm : alarm.id;
+                                parameters = {};
+
+                                parameters.escalate = 'true';
+                                return _context5.abrupt("return", this.put(this.pathToAlarmsEndpoint() + '/' + alarmId, parameters));
+
+                            case 4:
+                            case "end":
+                                return _context5.stop();
+                        }
+                    }
+                }, _callee5, this);
+            }));
+        }
+        /**
+         * Clear an alarm.
+         *
+         * @version ReST v1+
+         * @param {number|OnmsAlarm} alarm - The [[OnmsAlarm]] or alarm ID.
+         */
+
+    }, {
+        key: "clear",
+        value: function clear(alarm) {
+            return __awaiter(this, void 0, void 0, _regenerator2.default.mark(function _callee6() {
+                var alarmId, parameters;
+                return _regenerator2.default.wrap(function _callee6$(_context6) {
+                    while (1) {
+                        switch (_context6.prev = _context6.next) {
+                            case 0:
+                                alarmId = typeof alarm === 'number' ? alarm : alarm.id;
+                                parameters = {};
+
+                                parameters.clear = 'true';
+                                return _context6.abrupt("return", this.put(this.pathToAlarmsEndpoint() + '/' + alarmId, parameters));
+
+                            case 4:
+                            case "end":
+                                return _context6.stop();
+                        }
+                    }
+                }, _callee6, this);
+            }));
+        }
+        /**
+         * Associate a ticket ID with the alarm.
+         *
+         * @version ReST v1+
+         * @param {number|OnmsAlarm} alarm - The [[OnmsAlarm]] or alarm ID.
+         * @param {string} ticketId - The ticket ID.
+         */
+
+    }, {
+        key: "setTTicketId",
+        value: function setTTicketId(alarm, ticketId) {
+            return __awaiter(this, void 0, void 0, _regenerator2.default.mark(function _callee7() {
+                var alarmId, parameters;
+                return _regenerator2.default.wrap(function _callee7$(_context7) {
+                    while (1) {
+                        switch (_context7.prev = _context7.next) {
+                            case 0:
+                                alarmId = typeof alarm === 'number' ? alarm : alarm.id;
+                                parameters = {};
+
+                                parameters.ticketId = ticketId;
+                                return _context7.abrupt("return", this.put(this.pathToAlarmsEndpoint() + '/' + alarmId, parameters));
+
+                            case 4:
+                            case "end":
+                                return _context7.stop();
+                        }
+                    }
+                }, _callee7, this);
+            }));
+        }
+        /**
+         * Update the state of the ticket associated with the alarm.
+         *
+         * @version ReST v1+
+         * @param {number|OnmsAlarm} alarm - The [[OnmsAlarm]] or alarm ID.
+         * @param {string} state - The ticket state.
+         */
+
+    }, {
+        key: "setTTicketState",
+        value: function setTTicketState(alarm, state) {
+            return __awaiter(this, void 0, void 0, _regenerator2.default.mark(function _callee8() {
+                var alarmId, parameters;
+                return _regenerator2.default.wrap(function _callee8$(_context8) {
+                    while (1) {
+                        switch (_context8.prev = _context8.next) {
+                            case 0:
+                                alarmId = typeof alarm === 'number' ? alarm : alarm.id;
+                                parameters = {};
+
+                                parameters.ticketState = state.label;
+                                return _context8.abrupt("return", this.put(this.pathToAlarmsEndpoint() + '/' + alarmId, parameters));
+
+                            case 4:
+                            case "end":
+                                return _context8.stop();
+                        }
+                    }
+                }, _callee8, this);
+            }));
+        }
+        /**
+         * Generate an alarm object from the given dictionary.
+         * @hidden
+         */
+
+    }, {
         key: "fromData",
         value: function fromData(data) {
             var alarm = new OnmsAlarm_1.OnmsAlarm();
@@ -9819,271 +10181,28 @@ var AlarmDAO = function (_AbstractDAO_1$Abstra) {
             return alarm;
         }
         /**
-         * Fetch an alarm.
-         *
-         * @version ReST v1+
-         * @param {number} id - the alarm's ID
-         * @return an [[OnmsAlarm]]
+         * Generate a memo from the given dictionary.
+         * @hidden
          */
 
     }, {
-        key: "get",
-        value: function get(id) {
-            return __awaiter(this, void 0, void 0, _regenerator2.default.mark(function _callee() {
-                var _this2 = this;
-
-                var opts;
-                return _regenerator2.default.wrap(function _callee$(_context) {
-                    while (1) {
-                        switch (_context.prev = _context.next) {
-                            case 0:
-                                opts = this.getOptions();
-                                return _context.abrupt("return", this.http.get(this.pathToAlarmsEndpoint() + '/' + id, opts).then(function (result) {
-                                    return _this2.fromData(result.data);
-                                }));
-
-                            case 2:
-                            case "end":
-                                return _context.stop();
-                        }
-                    }
-                }, _callee, this);
-            }));
+        key: "toMemo",
+        value: function toMemo(data) {
+            if (!data) {
+                return null;
+            }
+            var memo = new OnmsMemo_1.OnmsMemo();
+            memo.id = data.id;
+            memo.author = data.author;
+            memo.body = data.body;
+            memo.created = this.toDate(data.created);
+            memo.updated = this.toDate(data.updated);
+            return memo;
         }
         /**
-         * Find matching alarms.
-         *
-         * @version ReST v1+
-         * @param {Filter} filter - the filter to use when querying
-         * @return an array of [[OnmsAlarm]] objects
+         * Given an optional filter, generate an [[OnmsHTTPOptions]] object for DAO calls.
+         * @hidden
          */
-
-    }, {
-        key: "find",
-        value: function find(filter) {
-            return __awaiter(this, void 0, void 0, _regenerator2.default.mark(function _callee2() {
-                var _this3 = this;
-
-                var opts;
-                return _regenerator2.default.wrap(function _callee2$(_context2) {
-                    while (1) {
-                        switch (_context2.prev = _context2.next) {
-                            case 0:
-                                opts = this.getOptions(filter);
-                                return _context2.abrupt("return", this.http.get(this.pathToAlarmsEndpoint(), opts).then(function (result) {
-                                    var data = result.data;
-                                    if (_this3.getCount(data) > 0 && data.alarm) {
-                                        data = data.alarm;
-                                    } else {
-                                        data = [];
-                                    }
-                                    if (!Array.isArray(data)) {
-                                        if (data.nodeId) {
-                                            data = [data];
-                                        } else {
-                                            throw new OnmsError_1.OnmsError('Expected an array of alarms but got "' + (typeof data === "undefined" ? "undefined" : _typeof(data)) + '" instead.');
-                                        }
-                                    }
-                                    return data.map(function (alarmData) {
-                                        return _this3.fromData(alarmData);
-                                    });
-                                }));
-
-                            case 2:
-                            case "end":
-                                return _context2.stop();
-                        }
-                    }
-                }, _callee2, this);
-            }));
-        }
-        /**
-         * Acknowledge an alarm.
-         *
-         * @version ReST v1+
-         * @param {number|OnmsAlarm} id - the [[OnmsAlarm]] or alarm ID
-         * @param {string=} user - the user to ack the alarm as (only administrators have the right to do this)
-         */
-
-    }, {
-        key: "acknowledge",
-        value: function acknowledge(alarm, user) {
-            return __awaiter(this, void 0, void 0, _regenerator2.default.mark(function _callee3() {
-                var alarmId, parameters;
-                return _regenerator2.default.wrap(function _callee3$(_context3) {
-                    while (1) {
-                        switch (_context3.prev = _context3.next) {
-                            case 0:
-                                alarmId = typeof alarm === 'number' ? alarm : alarm.id;
-                                parameters = {};
-
-                                parameters.ack = 'true';
-                                if (user !== undefined) {
-                                    parameters.ackUser = user;
-                                }
-                                return _context3.abrupt("return", this.put(this.pathToAlarmsEndpoint() + '/' + alarmId, parameters));
-
-                            case 5:
-                            case "end":
-                                return _context3.stop();
-                        }
-                    }
-                }, _callee3, this);
-            }));
-        }
-        /**
-         * Un-acknowledge an alarm.
-         *
-         * @version ReST v1+
-         * @param {number|OnmsAlarm} alarm - the [[OnmsAlarm]] or alarm ID
-         */
-
-    }, {
-        key: "unacknowledge",
-        value: function unacknowledge(alarm) {
-            return __awaiter(this, void 0, void 0, _regenerator2.default.mark(function _callee4() {
-                var alarmId, parameters;
-                return _regenerator2.default.wrap(function _callee4$(_context4) {
-                    while (1) {
-                        switch (_context4.prev = _context4.next) {
-                            case 0:
-                                alarmId = typeof alarm === 'number' ? alarm : alarm.id;
-                                parameters = {};
-
-                                parameters.ack = 'false';
-                                return _context4.abrupt("return", this.put(this.pathToAlarmsEndpoint() + '/' + alarmId, parameters));
-
-                            case 4:
-                            case "end":
-                                return _context4.stop();
-                        }
-                    }
-                }, _callee4, this);
-            }));
-        }
-        /**
-         * Escalate an alarm.
-         *
-         * @version ReST v1+
-         * @param {number|OnsmAlarm} alarm - the [[OnmsAlarm]] or alarm ID
-         */
-
-    }, {
-        key: "escalate",
-        value: function escalate(alarm) {
-            return __awaiter(this, void 0, void 0, _regenerator2.default.mark(function _callee5() {
-                var alarmId, parameters;
-                return _regenerator2.default.wrap(function _callee5$(_context5) {
-                    while (1) {
-                        switch (_context5.prev = _context5.next) {
-                            case 0:
-                                alarmId = typeof alarm === 'number' ? alarm : alarm.id;
-                                parameters = {};
-
-                                parameters.escalate = 'true';
-                                return _context5.abrupt("return", this.put(this.pathToAlarmsEndpoint() + '/' + alarmId, parameters));
-
-                            case 4:
-                            case "end":
-                                return _context5.stop();
-                        }
-                    }
-                }, _callee5, this);
-            }));
-        }
-        /**
-         * Clear an alarm.
-         *
-         * @version ReST v1+
-         * @param {number|OnmsAlarm} alarm - the [[OnmsAlarm]] or alarm ID
-         */
-
-    }, {
-        key: "clear",
-        value: function clear(alarm) {
-            return __awaiter(this, void 0, void 0, _regenerator2.default.mark(function _callee6() {
-                var alarmId, parameters;
-                return _regenerator2.default.wrap(function _callee6$(_context6) {
-                    while (1) {
-                        switch (_context6.prev = _context6.next) {
-                            case 0:
-                                alarmId = typeof alarm === 'number' ? alarm : alarm.id;
-                                parameters = {};
-
-                                parameters.clear = 'true';
-                                return _context6.abrupt("return", this.put(this.pathToAlarmsEndpoint() + '/' + alarmId, parameters));
-
-                            case 4:
-                            case "end":
-                                return _context6.stop();
-                        }
-                    }
-                }, _callee6, this);
-            }));
-        }
-        /**
-         * Associate a ticket ID with the alarm.
-         *
-         * @version ReST v1+
-         * @param {number|OnmsAlarm} alarm - the [[OnmsAlarm]] or alarm ID
-         * @param {string} ticketId - the ticket ID
-         */
-
-    }, {
-        key: "setTTicketId",
-        value: function setTTicketId(alarm, ticketId) {
-            return __awaiter(this, void 0, void 0, _regenerator2.default.mark(function _callee7() {
-                var alarmId, parameters;
-                return _regenerator2.default.wrap(function _callee7$(_context7) {
-                    while (1) {
-                        switch (_context7.prev = _context7.next) {
-                            case 0:
-                                alarmId = typeof alarm === 'number' ? alarm : alarm.id;
-                                parameters = {};
-
-                                parameters.ticketId = ticketId;
-                                return _context7.abrupt("return", this.put(this.pathToAlarmsEndpoint() + '/' + alarmId, parameters));
-
-                            case 4:
-                            case "end":
-                                return _context7.stop();
-                        }
-                    }
-                }, _callee7, this);
-            }));
-        }
-        /**
-         * Update the state of the ticket associated with the alarm.
-         *
-         * @version ReST v1+
-         * @param {number|OnmsAlarm} alarm - the [[OnmsAlarm]] or alarm ID
-         * @param {string} state - the ticket state
-         */
-
-    }, {
-        key: "setTTicketState",
-        value: function setTTicketState(alarm, state) {
-            return __awaiter(this, void 0, void 0, _regenerator2.default.mark(function _callee8() {
-                var alarmId, parameters;
-                return _regenerator2.default.wrap(function _callee8$(_context8) {
-                    while (1) {
-                        switch (_context8.prev = _context8.next) {
-                            case 0:
-                                alarmId = typeof alarm === 'number' ? alarm : alarm.id;
-                                parameters = {};
-
-                                parameters.ticketState = state.label;
-                                return _context8.abrupt("return", this.put(this.pathToAlarmsEndpoint() + '/' + alarmId, parameters));
-
-                            case 4:
-                            case "end":
-                                return _context8.stop();
-                        }
-                    }
-                }, _callee8, this);
-            }));
-        }
-        /** given an optional filter, generate an [[OnmsHTTPOptions]] object for DAO calls */
 
     }, {
         key: "getOptions",
@@ -10095,7 +10214,10 @@ var AlarmDAO = function (_AbstractDAO_1$Abstra) {
             }
             return options;
         }
-        /** call a PUT request in the format the alarm ack API expects */
+        /**
+         * Call a PUT request in the format the alarm ack API expects.
+         * @hidden
+         */
 
     }, {
         key: "put",
@@ -10128,28 +10250,15 @@ var AlarmDAO = function (_AbstractDAO_1$Abstra) {
                 }, _callee9, this);
             }));
         }
-        /** get the path to the alarms endpoint for the appropriate API version */
+        /**
+         * Get the path to the alarms endpoint for the appropriate API version.
+         * @hidden
+         */
 
     }, {
         key: "pathToAlarmsEndpoint",
         value: function pathToAlarmsEndpoint() {
             return this.getApiVersion() === 2 ? 'api/v2/alarms' : 'rest/alarms';
-        }
-        /** generate a memo from the given dictionary */
-
-    }, {
-        key: "toMemo",
-        value: function toMemo(data) {
-            if (!data) {
-                return null;
-            }
-            var memo = new OnmsMemo_1.OnmsMemo();
-            memo.id = data.id;
-            memo.author = data.author;
-            memo.body = data.body;
-            memo.created = this.toDate(data.created);
-            memo.updated = this.toDate(data.updated);
-            return memo;
         }
     }]);
 
@@ -10228,9 +10337,9 @@ var typescript_logging_1 = __webpack_require__(6);
 /** @hidden */
 var cat = new typescript_logging_1.Category('nodes', Log_1.catDao);
 /**
- * Data access for [[OnmsNode]] objects
+ * Data access for [[OnmsNode]] objects.
  * @module NodeDAO
- */ /** */
+ */
 
 var NodeDAO = function (_AbstractDAO_1$Abstra) {
     _inherits(NodeDAO, _AbstractDAO_1$Abstra);
@@ -10241,12 +10350,274 @@ var NodeDAO = function (_AbstractDAO_1$Abstra) {
         return _possibleConstructorReturn(this, (NodeDAO.__proto__ || Object.getPrototypeOf(NodeDAO)).call(this, impl));
     }
     /**
-     * create a node object from a JSON object
-     * @hidden
+     * Get an node, given the node's ID.
+     *
+     * @param id - The node's ID.
+     * @param recurse - Optionally fetch all sub-model objects. (ipInterface, etc.)
      */
 
 
     _createClass(NodeDAO, [{
+        key: "get",
+        value: function get(id) {
+            var recurse = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
+
+            return __awaiter(this, void 0, void 0, _regenerator2.default.mark(function _callee() {
+                var _this2 = this;
+
+                var opts;
+                return _regenerator2.default.wrap(function _callee$(_context) {
+                    while (1) {
+                        switch (_context.prev = _context.next) {
+                            case 0:
+                                opts = this.getOptions();
+                                return _context.abrupt("return", this.http.get('rest/nodes/' + id, opts).then(function (result) {
+                                    var node = _this2.fromData(result.data);
+                                    if (recurse) {
+                                        return _this2.fetch(node);
+                                    } else {
+                                        return node;
+                                    }
+                                }));
+
+                            case 2:
+                            case "end":
+                                return _context.stop();
+                        }
+                    }
+                }, _callee, this);
+            }));
+        }
+        /** Search for nodes, given an optional filter. */
+
+    }, {
+        key: "find",
+        value: function find(filter) {
+            return __awaiter(this, void 0, void 0, _regenerator2.default.mark(function _callee2() {
+                var _this3 = this;
+
+                var opts;
+                return _regenerator2.default.wrap(function _callee2$(_context2) {
+                    while (1) {
+                        switch (_context2.prev = _context2.next) {
+                            case 0:
+                                opts = this.getOptions(filter);
+                                return _context2.abrupt("return", this.http.get('rest/nodes', opts).then(function (result) {
+                                    var data = result.data;
+                                    if (_this3.getCount(data) > 0 && data.node) {
+                                        data = data.node;
+                                    } else {
+                                        data = [];
+                                    }
+                                    if (!Array.isArray(data)) {
+                                        if (data.id) {
+                                            data = [data];
+                                        } else {
+                                            throw new OnmsError_1.OnmsError('Expected an array of nodes but got "' + (typeof data === "undefined" ? "undefined" : _typeof(data)) + '" instead.');
+                                        }
+                                    }
+                                    return data.map(function (nodeData) {
+                                        return _this3.fromData(nodeData);
+                                    });
+                                }));
+
+                            case 2:
+                            case "end":
+                                return _context2.stop();
+                        }
+                    }
+                }, _callee2, this);
+            }));
+        }
+        /** Given a node, fetch all the sub-model objects for that node. (ipInterfaces, snmpInterfaces, etc.) */
+
+    }, {
+        key: "fetch",
+        value: function fetch(node) {
+            return __awaiter(this, void 0, void 0, _regenerator2.default.mark(function _callee3() {
+                var _this4 = this;
+
+                return _regenerator2.default.wrap(function _callee3$(_context3) {
+                    while (1) {
+                        switch (_context3.prev = _context3.next) {
+                            case 0:
+                                return _context3.abrupt("return", this.snmpInterfaces(node).then(function (si) {
+                                    node.snmpInterfaces = si;
+                                    si.forEach(function (iface) {
+                                        iface.node = node;
+                                    });
+                                    return _this4.ipInterfaces(node).then(function (ifaces) {
+                                        node.ipInterfaces = ifaces;
+                                        ifaces.forEach(function (iface) {
+                                            iface.node = node;
+                                        });
+                                        return Promise.all(ifaces.map(function (iface) {
+                                            return _this4.services(node, iface).then(function (services) {
+                                                iface.services = services;
+                                                services.forEach(function (service) {
+                                                    service.node = node;
+                                                    service.ipInterface = iface;
+                                                });
+                                            });
+                                        })).then(function () {
+                                            return node;
+                                        });
+                                    });
+                                }));
+
+                            case 1:
+                            case "end":
+                                return _context3.stop();
+                        }
+                    }
+                }, _callee3, this);
+            }));
+        }
+        /** Given a node, get the IP interfaces for that node. */
+
+    }, {
+        key: "ipInterfaces",
+        value: function ipInterfaces(node, filter) {
+            return __awaiter(this, void 0, void 0, _regenerator2.default.mark(function _callee4() {
+                var _this5 = this;
+
+                var opts;
+                return _regenerator2.default.wrap(function _callee4$(_context4) {
+                    while (1) {
+                        switch (_context4.prev = _context4.next) {
+                            case 0:
+                                opts = this.getOptions(filter);
+
+                                if (node instanceof OnmsNode_1.OnmsNode) {
+                                    node = node.id;
+                                }
+                                return _context4.abrupt("return", this.http.get('rest/nodes/' + node + '/ipinterfaces', opts).then(function (result) {
+                                    var data = result.data;
+                                    if (_this5.getCount(data) > 0 && data.ipInterface) {
+                                        data = data.ipInterface;
+                                    } else {
+                                        data = [];
+                                    }
+                                    if (!Array.isArray(data)) {
+                                        if (data.nodeId) {
+                                            data = [data];
+                                        } else {
+                                            throw new OnmsError_1.OnmsError('Expected an array of IP interfaces but got "' + (typeof data === "undefined" ? "undefined" : _typeof(data)) + '" instead.');
+                                        }
+                                    }
+                                    return data.map(function (ifaceData) {
+                                        return _this5.fromIpInterfaceData(ifaceData);
+                                    });
+                                }));
+
+                            case 3:
+                            case "end":
+                                return _context4.stop();
+                        }
+                    }
+                }, _callee4, this);
+            }));
+        }
+        /** Given a node, get the SNMP interfaces for that node. */
+
+    }, {
+        key: "snmpInterfaces",
+        value: function snmpInterfaces(node, filter) {
+            return __awaiter(this, void 0, void 0, _regenerator2.default.mark(function _callee5() {
+                var _this6 = this;
+
+                var opts;
+                return _regenerator2.default.wrap(function _callee5$(_context5) {
+                    while (1) {
+                        switch (_context5.prev = _context5.next) {
+                            case 0:
+                                opts = this.getOptions(filter);
+
+                                if (node instanceof OnmsNode_1.OnmsNode) {
+                                    node = node.id;
+                                }
+                                return _context5.abrupt("return", this.http.get('rest/nodes/' + node + '/snmpinterfaces', opts).then(function (result) {
+                                    var data = result.data;
+                                    if (_this6.getCount(data) > 0 && data.snmpInterface) {
+                                        data = data.snmpInterface;
+                                    } else {
+                                        data = [];
+                                    }
+                                    if (!Array.isArray(data)) {
+                                        if (data.ifName) {
+                                            data = [data];
+                                        } else {
+                                            throw new OnmsError_1.OnmsError('Expected an array of SNMP interfaces but got "' + (typeof data === "undefined" ? "undefined" : _typeof(data)) + '" instead.');
+                                        }
+                                    }
+                                    return data.map(function (ifaceData) {
+                                        return _this6.fromSnmpData(ifaceData);
+                                    });
+                                }));
+
+                            case 3:
+                            case "end":
+                                return _context5.stop();
+                        }
+                    }
+                }, _callee5, this);
+            }));
+        }
+        /** Given a node, get the IP interfaces for that node. */
+
+    }, {
+        key: "services",
+        value: function services(node, ipInterface, filter) {
+            return __awaiter(this, void 0, void 0, _regenerator2.default.mark(function _callee6() {
+                var _this7 = this;
+
+                var opts, url;
+                return _regenerator2.default.wrap(function _callee6$(_context6) {
+                    while (1) {
+                        switch (_context6.prev = _context6.next) {
+                            case 0:
+                                opts = this.getOptions(filter);
+
+                                if (node instanceof OnmsNode_1.OnmsNode) {
+                                    node = node.id;
+                                }
+                                if (ipInterface instanceof OnmsIpInterface_1.OnmsIpInterface && ipInterface.ipAddress) {
+                                    ipInterface = ipInterface.ipAddress.address;
+                                }
+                                url = 'rest/nodes/' + node + '/ipinterfaces/' + ipInterface + '/services';
+                                return _context6.abrupt("return", this.http.get(url, opts).then(function (result) {
+                                    var data = result.data;
+                                    if (_this7.getCount(data) > 0 && data.service) {
+                                        data = data.service;
+                                    } else {
+                                        data = [];
+                                    }
+                                    if (!Array.isArray(data)) {
+                                        if (data.lastGood) {
+                                            data = [data];
+                                        } else {
+                                            throw new OnmsError_1.OnmsError('Expected an array of services but got "' + (typeof data === "undefined" ? "undefined" : _typeof(data)) + '" instead.');
+                                        }
+                                    }
+                                    return data.map(function (ifaceData) {
+                                        return _this7.fromServiceData(ifaceData);
+                                    });
+                                }));
+
+                            case 5:
+                            case "end":
+                                return _context6.stop();
+                        }
+                    }
+                }, _callee6, this);
+            }));
+        }
+        /**
+         * Create a node object from a JSON object.
+         * @hidden
+         */
+
+    }, {
         key: "fromData",
         value: function fromData(data) {
             var node = new OnmsNode_1.OnmsNode();
@@ -10349,267 +10720,6 @@ var NodeDAO = function (_AbstractDAO_1$Abstra) {
             }
             return service;
         }
-        /**
-         * get an node, given the node's ID
-         *
-         * @param id the node's ID
-         * @param recurse optionally fetch all sub-model objects (ipInterface, etc.)
-         */
-
-    }, {
-        key: "get",
-        value: function get(id) {
-            var recurse = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
-
-            return __awaiter(this, void 0, void 0, _regenerator2.default.mark(function _callee() {
-                var _this2 = this;
-
-                var opts;
-                return _regenerator2.default.wrap(function _callee$(_context) {
-                    while (1) {
-                        switch (_context.prev = _context.next) {
-                            case 0:
-                                opts = this.getOptions();
-                                return _context.abrupt("return", this.http.get('rest/nodes/' + id, opts).then(function (result) {
-                                    var node = _this2.fromData(result.data);
-                                    if (recurse) {
-                                        return _this2.fetch(node);
-                                    } else {
-                                        return node;
-                                    }
-                                }));
-
-                            case 2:
-                            case "end":
-                                return _context.stop();
-                        }
-                    }
-                }, _callee, this);
-            }));
-        }
-        /** search for nodes, given a filter */
-
-    }, {
-        key: "find",
-        value: function find(filter) {
-            return __awaiter(this, void 0, void 0, _regenerator2.default.mark(function _callee2() {
-                var _this3 = this;
-
-                var opts;
-                return _regenerator2.default.wrap(function _callee2$(_context2) {
-                    while (1) {
-                        switch (_context2.prev = _context2.next) {
-                            case 0:
-                                opts = this.getOptions(filter);
-                                return _context2.abrupt("return", this.http.get('rest/nodes', opts).then(function (result) {
-                                    var data = result.data;
-                                    if (_this3.getCount(data) > 0 && data.node) {
-                                        data = data.node;
-                                    } else {
-                                        data = [];
-                                    }
-                                    if (!Array.isArray(data)) {
-                                        if (data.id) {
-                                            data = [data];
-                                        } else {
-                                            throw new OnmsError_1.OnmsError('Expected an array of nodes but got "' + (typeof data === "undefined" ? "undefined" : _typeof(data)) + '" instead.');
-                                        }
-                                    }
-                                    return data.map(function (nodeData) {
-                                        return _this3.fromData(nodeData);
-                                    });
-                                }));
-
-                            case 2:
-                            case "end":
-                                return _context2.stop();
-                        }
-                    }
-                }, _callee2, this);
-            }));
-        }
-        /** given a node, fetch all the sub-model objects for that node (ipInterfaces, snmpInterfaces, etc.) */
-
-    }, {
-        key: "fetch",
-        value: function fetch(node) {
-            return __awaiter(this, void 0, void 0, _regenerator2.default.mark(function _callee3() {
-                var _this4 = this;
-
-                return _regenerator2.default.wrap(function _callee3$(_context3) {
-                    while (1) {
-                        switch (_context3.prev = _context3.next) {
-                            case 0:
-                                return _context3.abrupt("return", this.snmpInterfaces(node).then(function (si) {
-                                    node.snmpInterfaces = si;
-                                    si.forEach(function (iface) {
-                                        iface.node = node;
-                                    });
-                                    return _this4.ipInterfaces(node).then(function (ifaces) {
-                                        node.ipInterfaces = ifaces;
-                                        ifaces.forEach(function (iface) {
-                                            iface.node = node;
-                                        });
-                                        return Promise.all(ifaces.map(function (iface) {
-                                            return _this4.services(node, iface).then(function (services) {
-                                                iface.services = services;
-                                                services.forEach(function (service) {
-                                                    service.node = node;
-                                                    service.ipInterface = iface;
-                                                });
-                                            });
-                                        })).then(function () {
-                                            return node;
-                                        });
-                                    });
-                                }));
-
-                            case 1:
-                            case "end":
-                                return _context3.stop();
-                        }
-                    }
-                }, _callee3, this);
-            }));
-        }
-        /** given a node, get the IP interfaces for that node */
-
-    }, {
-        key: "ipInterfaces",
-        value: function ipInterfaces(node, filter) {
-            return __awaiter(this, void 0, void 0, _regenerator2.default.mark(function _callee4() {
-                var _this5 = this;
-
-                var opts;
-                return _regenerator2.default.wrap(function _callee4$(_context4) {
-                    while (1) {
-                        switch (_context4.prev = _context4.next) {
-                            case 0:
-                                opts = this.getOptions(filter);
-
-                                if (node instanceof OnmsNode_1.OnmsNode) {
-                                    node = node.id;
-                                }
-                                return _context4.abrupt("return", this.http.get('rest/nodes/' + node + '/ipinterfaces', opts).then(function (result) {
-                                    var data = result.data;
-                                    if (_this5.getCount(data) > 0 && data.ipInterface) {
-                                        data = data.ipInterface;
-                                    } else {
-                                        data = [];
-                                    }
-                                    if (!Array.isArray(data)) {
-                                        if (data.nodeId) {
-                                            data = [data];
-                                        } else {
-                                            throw new OnmsError_1.OnmsError('Expected an array of IP interfaces but got "' + (typeof data === "undefined" ? "undefined" : _typeof(data)) + '" instead.');
-                                        }
-                                    }
-                                    return data.map(function (ifaceData) {
-                                        return _this5.fromIpInterfaceData(ifaceData);
-                                    });
-                                }));
-
-                            case 3:
-                            case "end":
-                                return _context4.stop();
-                        }
-                    }
-                }, _callee4, this);
-            }));
-        }
-        /** given a node, get the SNMP interfaces for that node */
-
-    }, {
-        key: "snmpInterfaces",
-        value: function snmpInterfaces(node, filter) {
-            return __awaiter(this, void 0, void 0, _regenerator2.default.mark(function _callee5() {
-                var _this6 = this;
-
-                var opts;
-                return _regenerator2.default.wrap(function _callee5$(_context5) {
-                    while (1) {
-                        switch (_context5.prev = _context5.next) {
-                            case 0:
-                                opts = this.getOptions(filter);
-
-                                if (node instanceof OnmsNode_1.OnmsNode) {
-                                    node = node.id;
-                                }
-                                return _context5.abrupt("return", this.http.get('rest/nodes/' + node + '/snmpinterfaces', opts).then(function (result) {
-                                    var data = result.data;
-                                    if (_this6.getCount(data) > 0 && data.snmpInterface) {
-                                        data = data.snmpInterface;
-                                    } else {
-                                        data = [];
-                                    }
-                                    if (!Array.isArray(data)) {
-                                        if (data.ifName) {
-                                            data = [data];
-                                        } else {
-                                            throw new OnmsError_1.OnmsError('Expected an array of SNMP interfaces but got "' + (typeof data === "undefined" ? "undefined" : _typeof(data)) + '" instead.');
-                                        }
-                                    }
-                                    return data.map(function (ifaceData) {
-                                        return _this6.fromSnmpData(ifaceData);
-                                    });
-                                }));
-
-                            case 3:
-                            case "end":
-                                return _context5.stop();
-                        }
-                    }
-                }, _callee5, this);
-            }));
-        }
-        /** given a node, get the IP interfaces for that node */
-
-    }, {
-        key: "services",
-        value: function services(node, ipInterface, filter) {
-            return __awaiter(this, void 0, void 0, _regenerator2.default.mark(function _callee6() {
-                var _this7 = this;
-
-                var opts;
-                return _regenerator2.default.wrap(function _callee6$(_context6) {
-                    while (1) {
-                        switch (_context6.prev = _context6.next) {
-                            case 0:
-                                opts = this.getOptions(filter);
-
-                                if (node instanceof OnmsNode_1.OnmsNode) {
-                                    node = node.id;
-                                }
-                                if (ipInterface instanceof OnmsIpInterface_1.OnmsIpInterface && ipInterface.ipAddress) {
-                                    ipInterface = ipInterface.ipAddress.address;
-                                }
-                                return _context6.abrupt("return", this.http.get('rest/nodes/' + node + '/ipinterfaces/' + ipInterface + '/services', opts).then(function (result) {
-                                    var data = result.data;
-                                    if (_this7.getCount(data) > 0 && data.service) {
-                                        data = data.service;
-                                    } else {
-                                        data = [];
-                                    }
-                                    if (!Array.isArray(data)) {
-                                        if (data.lastGood) {
-                                            data = [data];
-                                        } else {
-                                            throw new OnmsError_1.OnmsError('Expected an array of services but got "' + (typeof data === "undefined" ? "undefined" : _typeof(data)) + '" instead.');
-                                        }
-                                    }
-                                    return data.map(function (ifaceData) {
-                                        return _this7.fromServiceData(ifaceData);
-                                    });
-                                }));
-
-                            case 4:
-                            case "end":
-                                return _context6.stop();
-                        }
-                    }
-                }, _callee6, this);
-            }));
-        }
     }]);
 
     return NodeDAO;
@@ -10641,9 +10751,9 @@ var isExclusive = function isExclusive(comparator) {
     return nonExclusiveComparators.indexOf(comparator) < 0;
 };
 /**
- * OpenNMS V1 ReST filter processor
+ * Converts a [[Filter]] into ReSTv1 parameters.
  * @module V1FilterProcessor
- */ /** */
+ */
 
 var V1FilterProcessor = function () {
     function V1FilterProcessor() {
@@ -10653,7 +10763,7 @@ var V1FilterProcessor = function () {
     _createClass(V1FilterProcessor, [{
         key: "getParameters",
 
-        /** given a filter, return a hash of URL parameters */
+        /** Given a filter, return a hash of URL parameters. */
         value: function getParameters(filter) {
             var ret = {};
             if (filter.limit !== undefined) {
@@ -10741,9 +10851,9 @@ var NestedRestriction_1 = __webpack_require__(11);
 var OnmsError_1 = __webpack_require__(5);
 var Operator_1 = __webpack_require__(12);
 /**
- * OpenNMS V2 ReST filter processor
+ * Converts a [[Filter]] into ReSTv2 FIQL parameters.
  * @module V2FilterProcessor
- */ /** */
+ */
 
 var V2FilterProcessor = function () {
     function V2FilterProcessor() {
@@ -10753,7 +10863,7 @@ var V2FilterProcessor = function () {
     _createClass(V2FilterProcessor, [{
         key: "getParameters",
 
-        /** given a filter, return a hash of URL parameters */
+        /** Given a filter, return a hash of URL parameters. */
         value: function getParameters(filter) {
             var ret = {};
             if (filter.limit !== undefined) {
@@ -10769,8 +10879,8 @@ var V2FilterProcessor = function () {
         key: "toFIQLComparator",
 
         /**
-         * given a comparator, convert it to a correspond comparator
-         * that can be used in the FIQL expression
+         * Given a comparator, convert it to a correspond comparator
+         * that can be used in the FIQL expression.
          */
         value: function toFIQLComparator(comparator) {
             switch (comparator) {
@@ -10795,7 +10905,7 @@ var V2FilterProcessor = function () {
                     throw new OnmsError_1.OnmsError('Unsupported comparator type: ' + comparator);
             }
         }
-        /** given a restriction, compute the value to use in the FIQL expression */
+        /** Given a restriction, compute the value to use in the FIQL expression. */
 
     }, {
         key: "toFIQLValue",
@@ -10808,7 +10918,7 @@ var V2FilterProcessor = function () {
                     return restriction.value;
             }
         }
-        /** given an operator, convert it to the corresponding FIQL operator */
+        /** Given an operator, convert it to the corresponding FIQL operator. */
 
     }, {
         key: "toFIQLOperator",
@@ -10822,7 +10932,7 @@ var V2FilterProcessor = function () {
                     throw new OnmsError_1.OnmsError('Unsupported operator type: ' + operator);
             }
         }
-        /** given a list of clauses, recursively generate the FIQL query string */
+        /** Given a list of clauses, recursively generate the FIQL query string. */
 
     }, {
         key: "toFIQL",
@@ -10869,13 +10979,13 @@ var V2FilterProcessor = function () {
 
     return V2FilterProcessor;
 }();
-/** constant used to represent null values in the V2 API */
+/** Constant used to represent null values in the V2 API. */
 
 
 V2FilterProcessor.NULL_VALUE = "\0";
-/** constant used to represent null dates in the V2 API
- *  this must be explicitly set as the restriction value when using
- *  either the NULL or NOTNULL comparators on date fields
+/** Constant used to represent null dates in the V2 API.
+ *  This must be explicitly set as the restriction value when using
+ *  either the NULL or NOTNULL comparators on date fields.
  */
 V2FilterProcessor.NULL_DATE = '1970-01-01T00:00:00.000+0000';
 exports.V2FilterProcessor = V2FilterProcessor;
@@ -10895,7 +11005,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 /**
  * Represents an OpenNMS alarm.
  * @module OnmsAlarm
- */ /** */
+ */
 
 var OnmsAlarm = function () {
     function OnmsAlarm() {
@@ -10937,27 +11047,32 @@ var OnmsEnum_1 = __webpack_require__(1);
 /**
  * Represents an OpenNMS alarm type.
  * @module OnmsAlarmType
- */ /** */
+ */
 
 var OnmsAlarmType = function (_OnmsEnum_1$OnmsEnum) {
-  _inherits(OnmsAlarmType, _OnmsEnum_1$OnmsEnum);
+    _inherits(OnmsAlarmType, _OnmsEnum_1$OnmsEnum);
 
-  function OnmsAlarmType() {
-    _classCallCheck(this, OnmsAlarmType);
+    function OnmsAlarmType() {
+        _classCallCheck(this, OnmsAlarmType);
 
-    return _possibleConstructorReturn(this, (OnmsAlarmType.__proto__ || Object.getPrototypeOf(OnmsAlarmType)).apply(this, arguments));
-  }
+        return _possibleConstructorReturn(this, (OnmsAlarmType.__proto__ || Object.getPrototypeOf(OnmsAlarmType)).apply(this, arguments));
+    }
 
-  return OnmsAlarmType;
+    return OnmsAlarmType;
 }(OnmsEnum_1.OnmsEnum);
 
 exports.OnmsAlarmType = OnmsAlarmType;
+var AlarmTypes = {
+    /** Possible Resolution */
+    1: new OnmsAlarmType(1, 'possible resolution'),
+    /** Resolution Event */
+    2: new OnmsAlarmType(2, 'resolution event'),
+    /** No Possible Resolution */
+    3: new OnmsAlarmType(3, 'no possible resolution')
+};
 /** @hidden */
-exports.AlarmTypes = Object.freeze({
-  1: new OnmsAlarmType(1, 'possible resolution'),
-  2: new OnmsAlarmType(2, 'resolution event'),
-  3: new OnmsAlarmType(3, 'no possible resolution')
-});
+var frozen = Object.freeze(AlarmTypes);
+exports.AlarmTypes = frozen;
 
 /***/ }),
 /* 46 */
@@ -10980,13 +11095,13 @@ exports.Categories = {};
 /**
  * Represents an OpenNMS category.
  * @module OnmsCategory
- */ /** */
+ */
 
 var OnmsCategory = function () {
     _createClass(OnmsCategory, null, [{
         key: "for",
 
-        /** get a singleton category object for the given category */
+        /** Get a singleton category object for the given category. */
         value: function _for(id, name) {
             if (exports.Categories[id]) {
                 if (exports.Categories[id].name === name) {
@@ -10998,7 +11113,7 @@ var OnmsCategory = function () {
             exports.Categories[id] = new OnmsCategory(id, name);
             return exports.Categories[id];
         }
-        /** given an ID and name, construct a service type */
+        /** Given an ID and name, construct a service type. */
 
     }]);
 
@@ -11034,7 +11149,7 @@ var OnmsEnum_1 = __webpack_require__(1);
 /**
  * Represents an OpenNMS SNMP interface "should collect" type.
  * @module OnmsCollectType
- */ /** */
+ */
 
 var OnmsCollectType = function (_OnmsEnum_1$OnmsEnum) {
     _inherits(OnmsCollectType, _OnmsEnum_1$OnmsEnum);
@@ -11057,14 +11172,14 @@ var OnmsCollectType = function (_OnmsEnum_1$OnmsEnum) {
 
         /** given an ID, return the matching collect type object */
         value: function forId(id) {
-            return OnmsEnum_1.forId(exports.CollectTypes, id);
+            return OnmsEnum_1.forId(CollectTypes, id);
         }
         /** given a label, return the matching collect type object */
 
     }, {
         key: "forLabel",
         value: function forLabel(label) {
-            return OnmsEnum_1.forLabel(exports.CollectTypes, label);
+            return OnmsEnum_1.forLabel(CollectTypes, label);
         }
     }]);
 
@@ -11073,13 +11188,19 @@ var OnmsCollectType = function (_OnmsEnum_1$OnmsEnum) {
 
 exports.OnmsCollectType = OnmsCollectType;
 /* tslint:disable:object-literal-sort-keys */
-/** @hidden */
-exports.CollectTypes = Object.freeze({
+var CollectTypes = {
+    /** Collection Enabled */
     COLLECT: new OnmsCollectType('C', 'COLLECT'),
+    /** User has forced collection */
     FORCE_COLLECT: new OnmsCollectType('UC', 'FORCE_COLLECT'),
+    /** Collection is disabled */
     DO_NOT_COLLECT: new OnmsCollectType('N', 'DO_NOT_COLLECT'),
+    /** User has forced collection to be disabled */
     FORCE_DO_NOT_COLLECT: new OnmsCollectType('UN', 'FORCE_DO_NOT_COLLECT')
-});
+};
+/** @hidden */
+var frozen = Object.freeze(CollectTypes);
+exports.CollectTypes = frozen;
 
 /***/ }),
 /* 48 */
@@ -11096,7 +11217,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 /**
  * Represents an OpenNMS event.
  * @module OnmsEvent
- */ /** */
+ */
 
 var OnmsEvent = function () {
     function OnmsEvent() {
@@ -11135,7 +11256,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 /**
  * Represents an OpenNMS IP interface.
  * @module OnmsIpInterface
- */ /** */
+ */
 
 var OnmsIpInterface = function () {
     function OnmsIpInterface() {
@@ -11205,7 +11326,7 @@ var OnmsEnum_1 = __webpack_require__(1);
 /**
  * Represents an OpenNMS node "is managed" type.
  * @module OnmsManagedType
- */ /** */
+ */
 
 var OnmsManagedType = function (_OnmsEnum_1$OnmsEnum) {
     _inherits(OnmsManagedType, _OnmsEnum_1$OnmsEnum);
@@ -11219,23 +11340,23 @@ var OnmsManagedType = function (_OnmsEnum_1$OnmsEnum) {
     _createClass(OnmsManagedType, [{
         key: "isManaged",
 
-        /** whether or not the node is managed */
+        /** Whether or not the node is managed. */
         value: function isManaged() {
             return this.id === 'M';
         }
     }], [{
         key: "forId",
 
-        /** given an ID, return the matching managed type object */
+        /** Given an ID, return the matching managed type object. */
         value: function forId(id) {
-            return OnmsEnum_1.forId(exports.ManagedTypes, id);
+            return OnmsEnum_1.forId(ManagedTypes, id);
         }
-        /** given a label, return the matching managed type object */
+        /** Given a label, return the matching managed type object. */
 
     }, {
         key: "forLabel",
         value: function forLabel(label) {
-            return OnmsEnum_1.forLabel(exports.ManagedTypes, label);
+            return OnmsEnum_1.forLabel(ManagedTypes, label);
         }
     }]);
 
@@ -11244,16 +11365,25 @@ var OnmsManagedType = function (_OnmsEnum_1$OnmsEnum) {
 
 exports.OnmsManagedType = OnmsManagedType;
 /* tslint:disable:object-literal-sort-keys */
-/** @hidden */
-exports.ManagedTypes = Object.freeze({
+var ManagedTypes = {
+    /** Interface is managed */
     MANAGED: new OnmsManagedType('M', 'MANAGED'),
+    /** Interface is an alias */
     ALIAS: new OnmsManagedType('A', 'ALIAS'),
+    /** Interface is deleted */
     DELETED: new OnmsManagedType('D', 'DELETED'),
+    /** Interface is not managed */
     UNMANAGED: new OnmsManagedType('U', 'UNMANAGED'),
+    /** User has forced management to be disabled */
     FORCE_UNMANAGED: new OnmsManagedType('F', 'FORCE_UNMANAGED'),
+    /** Interface is not polled */
     NOT_POLLED: new OnmsManagedType('N', 'NOT_POLLED'),
+    /** Interface should only be polled remotely */
     REMOTE_ONLY: new OnmsManagedType('X', 'REMOTE_ONLY')
-});
+};
+/** @hidden */
+var frozen = Object.freeze(ManagedTypes);
+exports.ManagedTypes = frozen;
 
 /***/ }),
 /* 51 */
@@ -11268,7 +11398,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 /**
  * Represents an OpenNMS monitored service.
  * @module OnmsMonitoredService
- */ /** */
+ */
 
 var OnmsMonitoredService = function OnmsMonitoredService() {
   _classCallCheck(this, OnmsMonitoredService);
@@ -11289,7 +11419,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 /**
  * Represents an OpenNMS node.
  * @module OnmsNode
- */ /** */
+ */
 
 var OnmsNode = function OnmsNode() {
     _classCallCheck(this, OnmsNode);
@@ -11336,7 +11466,7 @@ var OnmsEnum_1 = __webpack_require__(1);
 /**
  * Represents an OpenNMS node label source.
  * @module OnmsNodeLabelSource
- */ /** */
+ */
 
 var OnmsNodeLabelSource = function (_OnmsEnum_1$OnmsEnum) {
     _inherits(OnmsNodeLabelSource, _OnmsEnum_1$OnmsEnum);
@@ -11350,16 +11480,16 @@ var OnmsNodeLabelSource = function (_OnmsEnum_1$OnmsEnum) {
     _createClass(OnmsNodeLabelSource, null, [{
         key: "forId",
 
-        /** given an ID, return the matching node label source object */
+        /** Given an ID, return the matching node label source object. */
         value: function forId(id) {
-            return OnmsEnum_1.forId(exports.NodeLabelSources, id);
+            return OnmsEnum_1.forId(NodeLabelSources, id);
         }
-        /** given a label, return the matching node label source object */
+        /** Given a label, return the matching node label source object. */
 
     }, {
         key: "forLabel",
         value: function forLabel(label) {
-            return OnmsEnum_1.forLabel(exports.NodeLabelSources, label);
+            return OnmsEnum_1.forLabel(NodeLabelSources, label);
         }
     }]);
 
@@ -11368,15 +11498,23 @@ var OnmsNodeLabelSource = function (_OnmsEnum_1$OnmsEnum) {
 
 exports.OnmsNodeLabelSource = OnmsNodeLabelSource;
 /* tslint:disable:object-literal-sort-keys */
-/** @hidden */
-exports.NodeLabelSources = Object.freeze({
+var NodeLabelSources = {
+    /** Node label is set by the user. */
     USER: new OnmsNodeLabelSource('U', 'USER'),
+    /** Node label was retrieved from NETBIOS/Windows */
     NETBIOS: new OnmsNodeLabelSource('N', 'NETBIOS'),
+    /** Node label is the node's hostname */
     HOSTNAME: new OnmsNodeLabelSource('H', 'HOSTNAME'),
+    /** Node label is the node's SNMP sysname */
     SYSNAME: new OnmsNodeLabelSource('S', 'SYSNAME'),
+    /** Node label is the node's primary IP address */
     ADDRESS: new OnmsNodeLabelSource('A', 'ADDRESS'),
+    /** Node label source is unknown */
     UNKNOWN: new OnmsNodeLabelSource(' ', 'UNKNOWN')
-});
+};
+/** @hidden */
+var frozen = Object.freeze(NodeLabelSources);
+exports.NodeLabelSources = frozen;
 
 /***/ }),
 /* 54 */
@@ -11398,7 +11536,7 @@ var OnmsEnum_1 = __webpack_require__(1);
 /**
  * Represents an OpenNMS "SNMP primary" type.
  * @module OnmsPrimaryType
- */ /** */
+ */
 
 var OnmsPrimaryType = function (_OnmsEnum_1$OnmsEnum) {
     _inherits(OnmsPrimaryType, _OnmsEnum_1$OnmsEnum);
@@ -11412,23 +11550,23 @@ var OnmsPrimaryType = function (_OnmsEnum_1$OnmsEnum) {
     _createClass(OnmsPrimaryType, [{
         key: "isPrimary",
 
-        /** whether or not the interface is a primary SNMP interface */
+        /** Whether or not the interface is a primary SNMP interface. */
         value: function isPrimary() {
             return this.id === 'P';
         }
     }], [{
         key: "forId",
 
-        /** given an ID, return the matching primary type object */
+        /** Given an ID, return the matching primary type object. */
         value: function forId(id) {
-            return OnmsEnum_1.forId(exports.PrimaryTypes, id);
+            return OnmsEnum_1.forId(PrimaryTypes, id);
         }
-        /** given a label, return the matching primary type object */
+        /** Given a label, return the matching primary type object. */
 
     }, {
         key: "forLabel",
         value: function forLabel(label) {
-            return OnmsEnum_1.forLabel(exports.PrimaryTypes, label);
+            return OnmsEnum_1.forLabel(PrimaryTypes, label);
         }
     }]);
 
@@ -11437,12 +11575,17 @@ var OnmsPrimaryType = function (_OnmsEnum_1$OnmsEnum) {
 
 exports.OnmsPrimaryType = OnmsPrimaryType;
 /* tslint:disable:object-literal-sort-keys */
-/** @hidden */
-exports.PrimaryTypes = Object.freeze({
+var PrimaryTypes = {
+    /** Primary SNMP interface */
     PRIMARY: new OnmsPrimaryType('P', 'PRIMARY'),
+    /** Secondary SNMP interface */
     SECONDARY: new OnmsPrimaryType('S', 'SECONDARY'),
+    /** SNMP interface is not eligible for collection */
     NOT_ELIGIBLE: new OnmsPrimaryType('N', 'NOT_ELIGIBLE')
-});
+};
+/** @hidden */
+var frozen = Object.freeze(PrimaryTypes);
+exports.PrimaryTypes = frozen;
 
 /***/ }),
 /* 55 */
@@ -11464,7 +11607,7 @@ var OnmsEnum_1 = __webpack_require__(1);
 /**
  * Represents an OpenNMS monitored service status type.
  * @module OnmsServiceStatusType
- */ /** */
+ */
 
 var OnmsServiceStatusType = function (_OnmsEnum_1$OnmsEnum) {
     _inherits(OnmsServiceStatusType, _OnmsEnum_1$OnmsEnum);
@@ -11478,23 +11621,23 @@ var OnmsServiceStatusType = function (_OnmsEnum_1$OnmsEnum) {
     _createClass(OnmsServiceStatusType, [{
         key: "isManaged",
 
-        /** whether or not the service is managed */
+        /** Whether or not the service is managed. */
         value: function isManaged() {
             return this.id === 'A';
         }
     }], [{
         key: "forId",
 
-        /** given an ID, return the matching service status type object */
+        /** Given an ID, return the matching service status type object. */
         value: function forId(id) {
-            return OnmsEnum_1.forId(exports.ServiceStatusTypes, id);
+            return OnmsEnum_1.forId(ServiceStatusTypes, id);
         }
-        /** given a label, return the matching service status type object */
+        /** Given a label, return the matching service status type object. */
 
     }, {
         key: "forLabel",
         value: function forLabel(label) {
-            return OnmsEnum_1.forLabel(exports.ServiceStatusTypes, label);
+            return OnmsEnum_1.forLabel(ServiceStatusTypes, label);
         }
     }]);
 
@@ -11503,17 +11646,27 @@ var OnmsServiceStatusType = function (_OnmsEnum_1$OnmsEnum) {
 
 exports.OnmsServiceStatusType = OnmsServiceStatusType;
 /* tslint:disable:object-literal-sort-keys */
-/** @hidden */
-exports.ServiceStatusTypes = Object.freeze({
+var ServiceStatusTypes = {
+    /** Service is managed */
     MANAGED: new OnmsServiceStatusType('A', 'MANAGED'),
+    /** Service is unmanaged */
     UNMANAGED: new OnmsServiceStatusType('U', 'UNMANAGED'),
+    /** Service has been deleted */
     DELETED: new OnmsServiceStatusType('D', 'DELETED'),
+    /** User has forced the service to be unmanaged */
     FORCED_UNMANAGED: new OnmsServiceStatusType('F', 'FORCED_UNMANAGED'),
+    /** Service is not monitored */
     NOT_MONITORED: new OnmsServiceStatusType('N', 'NOT_MONITORED'),
+    /** Service is temporarily unmanaged, rescan to resume */
     RESCAN_TO_RESUME: new OnmsServiceStatusType('R', 'RESCAN_TO_RESUME'),
+    /** Service is managed, rescan to suspend monitoring */
     RESCAN_TO_SUSPEND: new OnmsServiceStatusType('S', 'RESCAN_TO_SUSPEND'),
+    /** Service should only be monitored from remote locations */
     REMOTELY_MONITORED: new OnmsServiceStatusType('X', 'REMOTELY_MONITORED')
-});
+};
+/** @hidden */
+var frozen = Object.freeze(ServiceStatusTypes);
+exports.ServiceStatusTypes = frozen;
 
 /***/ }),
 /* 56 */
@@ -11528,7 +11681,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 /**
  * Represents an OpenNMS SNMP interface.
  * @module OnmsSnmpInterface
- */ /** */
+ */
 
 var OnmsSnmpInterface = function OnmsSnmpInterface() {
   _classCallCheck(this, OnmsSnmpInterface);
@@ -11556,7 +11709,7 @@ var OnmsEnum_1 = __webpack_require__(1);
 /**
  * Represents an OpenNMS SNMP admin/oper status type.
  * @module OnmsSnmpStatusType
- */ /** */
+ */
 
 var OnmsSnmpStatusType = function (_OnmsEnum_1$OnmsEnum) {
     _inherits(OnmsSnmpStatusType, _OnmsEnum_1$OnmsEnum);
@@ -11570,16 +11723,16 @@ var OnmsSnmpStatusType = function (_OnmsEnum_1$OnmsEnum) {
     _createClass(OnmsSnmpStatusType, null, [{
         key: "forId",
 
-        /** given an ID, return the matching snmp status type object */
+        /** Given an ID, return the matching snmp status type object. */
         value: function forId(id) {
-            return OnmsEnum_1.forId(exports.SnmpStatusTypes, id);
+            return OnmsEnum_1.forId(SnmpStatusTypes, id);
         }
-        /** given a label, return the matching snmp status type object */
+        /** Given a label, return the matching snmp status type object. */
 
     }, {
         key: "forLabel",
         value: function forLabel(label) {
-            return OnmsEnum_1.forLabel(exports.SnmpStatusTypes, label);
+            return OnmsEnum_1.forLabel(SnmpStatusTypes, label);
         }
     }]);
 
@@ -11588,12 +11741,17 @@ var OnmsSnmpStatusType = function (_OnmsEnum_1$OnmsEnum) {
 
 exports.OnmsSnmpStatusType = OnmsSnmpStatusType;
 /* tslint:disable:object-literal-sort-keys */
-/** @hidden */
-exports.SnmpStatusTypes = Object.freeze({
+var SnmpStatusTypes = {
+    /** Device is up */
     1: new OnmsSnmpStatusType(1, 'UP'),
+    /** Device is down */
     2: new OnmsSnmpStatusType(2, 'DOWN'),
+    /** Device is in "testing" mode */
     3: new OnmsSnmpStatusType(3, 'TESTING')
-});
+};
+/** @hidden */
+var frozen = Object.freeze(SnmpStatusTypes);
+exports.SnmpStatusTypes = frozen;
 
 /***/ }),
 /* 58 */
@@ -11613,7 +11771,7 @@ var OnmsEnum_1 = __webpack_require__(1);
 /**
  * Represents an OpenNMS trouble ticket state.
  * @module OnmsTroubleTicketState
- */ /** */
+ */
 
 var OnmsTroubleTicketState = function (_OnmsEnum_1$OnmsEnum) {
     _inherits(OnmsTroubleTicketState, _OnmsEnum_1$OnmsEnum);
@@ -11629,8 +11787,7 @@ var OnmsTroubleTicketState = function (_OnmsEnum_1$OnmsEnum) {
 
 exports.OnmsTroubleTicketState = OnmsTroubleTicketState;
 /* tslint:disable:object-literal-sort-keys */
-/** @hidden */
-exports.TroubleTicketStates = Object.freeze({
+var TroubleTicketStates = {
     OPEN: new OnmsTroubleTicketState(0, 'OPEN'),
     CREATE_PENDING: new OnmsTroubleTicketState(1, 'CREATE_PENDING'),
     CREATE_FAILED: new OnmsTroubleTicketState(2, 'CREATE_FAILED'),
@@ -11645,7 +11802,10 @@ exports.TroubleTicketStates = Object.freeze({
     CANCELLED: new OnmsTroubleTicketState(11, 'CANCELLED'),
     CANCEL_PENDING: new OnmsTroubleTicketState(12, 'CANCEL_PENDING'),
     CANCEL_FAILED: new OnmsTroubleTicketState(13, 'CANCEL_FAILED')
-});
+};
+/** @hidden */
+var frozen = Object.freeze(TroubleTicketStates);
+exports.TroubleTicketStates = frozen;
 
 /***/ }),
 /* 59 */
@@ -11662,7 +11822,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 /**
  * Represents a physical (MAC) address.
  * @module PhysAddr
- */ /** */
+ */
 
 var PhysAddr = function () {
     function PhysAddr(addr) {
@@ -11670,7 +11830,7 @@ var PhysAddr = function () {
 
         this.addr = addr.toUpperCase().replace(/[^0-9A-F]/g, '');
     }
-    /** displayable string */
+    /** A human-readable string suitable for display. */
 
 
     _createClass(PhysAddr, [{
@@ -11720,14 +11880,20 @@ var typescript_logging_1 = __webpack_require__(6);
 /** @hidden */
 var catAxios = new typescript_logging_1.Category('axios', Log_1.catRest);
 /**
- * Implementation of the OnmsHTTP interface using Axios: https://github.com/mzabriskie/axios
+ * Implementation of the [[IOnmsHTTP]] interface using Axios: https://github.com/mzabriskie/axios
  * @module AxiosHTTP
  * @implements IOnmsHTTP
- */ /** */
+ */
 
 var AxiosHTTP = function (_AbstractHTTP_1$Abstr) {
     _inherits(AxiosHTTP, _AbstractHTTP_1$Abstr);
 
+    /**
+     * Construct an AxiosHTTP instance.
+     * @param server - The server to connect to.
+     * @param axiosImpl - The Axios implementation class to use.
+     * @param timeout - The default timeout for ReST connections.
+     */
     function AxiosHTTP(server, axiosImpl) {
         var timeout = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 10000;
 
@@ -11738,7 +11904,9 @@ var AxiosHTTP = function (_AbstractHTTP_1$Abstr) {
         _this.axiosImpl = axiosImpl || axios_1.default;
         return _this;
     }
-    /** make an HTTP GET call -- this should be overridden by the implementation */
+    /**
+     * Make an HTTP GET call using `axios.request({method:'get'})`.
+     */
 
 
     _createClass(AxiosHTTP, [{
@@ -11759,7 +11927,9 @@ var AxiosHTTP = function (_AbstractHTTP_1$Abstr) {
                 return OnmsResult_1.OnmsResult.ok(response.data, undefined, response.status, type);
             });
         }
-        /** make an HTTP get call -- this should be overridden by the implementation */
+        /**
+         * Make an HTTP put call using `axios.request({method:'put'})`.
+         */
 
     }, {
         key: "put",
@@ -11781,7 +11951,8 @@ var AxiosHTTP = function (_AbstractHTTP_1$Abstr) {
             });
         }
         /**
-         * Clear the configured [[AxiosInstance]] so we create a new one when the server changes.
+         * Clear the current [[AxiosInstance]] so it is recreated on next request with the
+         * new server configuration.
          */
 
     }, {
@@ -11790,7 +11961,10 @@ var AxiosHTTP = function (_AbstractHTTP_1$Abstr) {
             _get(AxiosHTTP.prototype.__proto__ || Object.getPrototypeOf(AxiosHTTP.prototype), "onSetServer", this).call(this);
             this.axiosObj = undefined;
         }
-        /** internal method to turn [[OnmsHTTPOptions]] into an [[AxiosRequestConfig]] object. */
+        /**
+         * Internal method to turn [[OnmsHTTPOptions]] into an [[AxiosRequestConfig]] object.
+         * @hidden
+         */
 
     }, {
         key: "getConfig",
@@ -11834,7 +12008,11 @@ var AxiosHTTP = function (_AbstractHTTP_1$Abstr) {
             }
             return ret;
         }
-        /** internal method for getting/constructing an Axios object on-demand, based on the current server config */
+        /**
+         * Internal method for getting/constructing an Axios object on-demand,
+         * based on the current server configuration.
+         * @hidden
+         */
 
     }, {
         key: "getImpl",
@@ -14835,11 +15013,10 @@ exports.simpleGroup = function (addressString, offset) {
   // An array of bytes the size of the pool will be passed to init()
   var rng_psize = 256;
 
+  BigInteger.SecureRandom = SecureRandom;
+  BigInteger.BigInteger = BigInteger;
   if (true) {
-    exports = module.exports = {
-      BigInteger: BigInteger,
-      SecureRandom: SecureRandom
-    };
+    exports = module.exports = BigInteger;
   } else {
     this.BigInteger = BigInteger;
     this.SecureRandom = SecureRandom;
@@ -28014,35 +28191,38 @@ var xmlParser = new X2JS({
     ignoreRoot: true
 });
 /**
- * Abstract implementation of the OnmsHTTP interface meant to be extended
+ * Abstract implementation of the OnmsHTTP interface meant to be extended by a concrete class.
  * @module AbstractHTTP
  * @implements IOnmsHTTP
- */ /** */
+ */
 
 var AbstractHTTP = function () {
     /**
-     * Create a new AbstractHTTP instance.
+     * Create a new HTTP instance.
      * @constructor
-     * @param server - a server object for immediate configuration
-     * @param timeout - how long to wait until timing out requests
+     * @param server - A server object for immediate configuration.
+     * @param timeout - How long to wait until timing out requests.
      */
     function AbstractHTTP(server) {
         var timeout = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 10000;
 
         _classCallCheck(this, AbstractHTTP);
 
-        /** how long to wait before giving up on a given request */
+        /** The default amount of time to wait before giving up on a request. */
         this.timeout = 10000;
         this.serverObj = server;
         this.timeout = timeout;
     }
-    /** the server associated with this HTTP implementation */
+    /** The server associated with this HTTP implementation. */
 
 
     _createClass(AbstractHTTP, [{
         key: "transformJSON",
 
-        /** a convenience method for implementers to use to turn JSON into a javascript object */
+        /**
+         * A convenience method for implementers to use to turn JSON into a javascript object.
+         * Use this to process a JSON response before returning it in an [[OnmsResult]] object.
+         */
         value: function transformJSON(data) {
             if (typeof data === 'string') {
                 if (data.length < 1) {
@@ -28055,7 +28235,10 @@ var AbstractHTTP = function () {
                 return data;
             }
         }
-        /** a convenience method for implementers to use to turn XML into a javascript object */
+        /**
+         * A convenience method for implementers to use to turn XML into a javascript object.
+         * Use this to process an XML response before returning it in an [[OnmsResult]] object.
+         */
 
     }, {
         key: "transformXML",
@@ -28067,14 +28250,22 @@ var AbstractHTTP = function () {
                 return data;
             }
         }
-        /** get the server in the options object, or fall back to the one assigned to the HTTP impl */
+        /**
+         * Get the [[OnmsServer]] object that should be used for making requests.  Favors the one
+         * passed in the [[OnmsHTTPOptions]], otherwise it falls back to the default server associated
+         * with the HTTP implementation.
+         */
 
     }, {
         key: "getServer",
         value: function getServer(options) {
             return options.server || this.serverObj;
         }
-        /** combine all options from the given options, the current server, and the default options */
+        /**
+         * Get the union of [[OnmsHTTPOptions]] based on the passed options, defaults,
+         * and options in the [[OnmsServer]] associated with this request.  Order of
+         * precedence is passed options -> server options -> default options.
+         */
 
     }, {
         key: "getOptions",
@@ -28090,7 +28281,10 @@ var AbstractHTTP = function () {
             ret = Object.assign(ret, options);
             return ret;
         }
-        /** useful for performing an action (like clearing caches) when the server is set */
+        /**
+         * Implementers should override this method if they have actions that need to be performed
+         * (like clearing a cache) when server settings change.
+         */
 
     }, {
         key: "onSetServer",
@@ -33085,7 +33279,7 @@ var catClient = new typescript_logging_1.Category('client', Log_1.catRoot);
 /**
  * The OpenNMS client.  This is the primary interface to OpenNMS servers.
  * @module Client
- */ /** */
+ */
 
 var Client = function () {
     _createClass(Client, null, [{
@@ -33316,7 +33510,7 @@ var NestedRestriction_1 = __webpack_require__(11);
  * A query filter for DAOs.
  * @module Filter
  * @param T the model type (OnmsAlarm, OnmsEvent, etc.)
- */ /** */
+ */
 
 var Filter = function (_NestedRestriction_1$) {
     _inherits(Filter, _NestedRestriction_1$);
@@ -33352,7 +33546,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 /**
  * A query restriction.
  * @module Restriction
- */ /** */
+ */
 
 var Restriction = function () {
     function Restriction(attribute, comparator, value) {
@@ -33362,7 +33556,7 @@ var Restriction = function () {
         this.comparator = comparator;
         this.value = value;
     }
-    /** human-readable string for this restriction */
+    /** A human-readable string for this restriction. */
 
 
     _createClass(Restriction, [{
@@ -33401,20 +33595,19 @@ var typescript_logging_1 = __webpack_require__(6);
 /** @hidden */
 var catGrafana = new typescript_logging_1.Category('grafana', Log_1.catRest);
 /**
- * Implementation of the OnmsHTTP interface for Grafana
+ * Implementation of the [[IOnmsHTTP]] interface for Grafana.
  * @module GrafanaHTTP
  * @implements IOnmsHTTP
- */ /** */
+ */
 
 var GrafanaHTTP = function (_AbstractHTTP_1$Abstr) {
     _inherits(GrafanaHTTP, _AbstractHTTP_1$Abstr);
 
     /**
-     * Construct a new GrafanaHTTP implementation
+     * Construct a new GrafanaHTTP implementation.
      * @constructor
-     * @param backendSrv the Grafana BackendSrv object to use for requests
-     * @param server the OpenNMS server to make requests to
-     * @param timeout
+     * @param backendSrv - The Grafana BackendSrv object to use for requests.
+     * @param server - The OpenNMS server to make requests to.
      */
     function GrafanaHTTP(backendSrv, server) {
         _classCallCheck(this, GrafanaHTTP);
@@ -33424,7 +33617,7 @@ var GrafanaHTTP = function (_AbstractHTTP_1$Abstr) {
         _this.backendSrv = backendSrv;
         return _this;
     }
-    /** make an HTTP GET call using the Grafana backendSrv */
+    /** Make an HTTP GET call using the Grafana `BackendSrv`. */
 
 
     _createClass(GrafanaHTTP, [{
@@ -33446,7 +33639,7 @@ var GrafanaHTTP = function (_AbstractHTTP_1$Abstr) {
                 return OnmsResult_1.OnmsResult.ok(response.data, undefined, response.status, type);
             });
         }
-        /** make an HTTP PUT call using the Grafana backendSrv */
+        /** Make an HTTP PUT call using the Grafana `BackendSrv`. */
 
     }, {
         key: "put",
@@ -33468,7 +33661,10 @@ var GrafanaHTTP = function (_AbstractHTTP_1$Abstr) {
                 return OnmsResult_1.OnmsResult.ok(response.data, undefined, response.status, type);
             });
         }
-        /** internal method to turn [[OnmsHTTPOptions]] into a Grafana BackendSrv request object. */
+        /**
+         * Internal method to turn [[OnmsHTTPOptions]] into a Grafana `BackendSrv` request object.
+         * @hidden
+         */
 
     }, {
         key: "getConfig",
@@ -33514,84 +33710,7 @@ exports.GrafanaHTTP = GrafanaHTTP;
 /* 216 */
 /***/ (function(module, exports) {
 
-module.exports = {
-	"name": "axios",
-	"version": "0.16.2",
-	"description": "Promise based HTTP client for the browser and node.js",
-	"main": "index.js",
-	"scripts": {
-		"test": "grunt test",
-		"start": "node ./sandbox/server.js",
-		"build": "NODE_ENV=production grunt build",
-		"preversion": "npm test",
-		"version": "npm run build && grunt version && git add -A dist && git add CHANGELOG.md bower.json package.json",
-		"postversion": "git push && git push --tags",
-		"examples": "node ./examples/server.js",
-		"coveralls": "cat coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js"
-	},
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/mzabriskie/axios.git"
-	},
-	"keywords": [
-		"xhr",
-		"http",
-		"ajax",
-		"promise",
-		"node"
-	],
-	"author": "Matt Zabriskie",
-	"license": "MIT",
-	"bugs": {
-		"url": "https://github.com/mzabriskie/axios/issues"
-	},
-	"homepage": "https://github.com/mzabriskie/axios",
-	"devDependencies": {
-		"coveralls": "^2.11.9",
-		"es6-promise": "^4.0.5",
-		"grunt": "^1.0.1",
-		"grunt-banner": "^0.6.0",
-		"grunt-cli": "^1.2.0",
-		"grunt-contrib-clean": "^1.0.0",
-		"grunt-contrib-nodeunit": "^1.0.0",
-		"grunt-contrib-watch": "^1.0.0",
-		"grunt-eslint": "^19.0.0",
-		"grunt-karma": "^2.0.0",
-		"grunt-ts": "^6.0.0-beta.3",
-		"grunt-webpack": "^1.0.18",
-		"istanbul-instrumenter-loader": "^1.0.0",
-		"jasmine-core": "^2.4.1",
-		"karma": "^1.3.0",
-		"karma-chrome-launcher": "^2.0.0",
-		"karma-coverage": "^1.0.0",
-		"karma-firefox-launcher": "^1.0.0",
-		"karma-jasmine": "^1.0.2",
-		"karma-jasmine-ajax": "^0.1.13",
-		"karma-opera-launcher": "^1.0.0",
-		"karma-phantomjs-launcher": "^1.0.0",
-		"karma-safari-launcher": "^1.0.0",
-		"karma-sauce-launcher": "^1.1.0",
-		"karma-sinon": "^1.0.5",
-		"karma-sourcemap-loader": "^0.3.7",
-		"karma-webpack": "^1.7.0",
-		"load-grunt-tasks": "^3.5.2",
-		"minimist": "^1.2.0",
-		"phantomjs-prebuilt": "^2.1.7",
-		"sinon": "^1.17.4",
-		"webpack": "^1.13.1",
-		"webpack-dev-server": "^1.14.1",
-		"url-search-params": "^0.6.1",
-		"typescript": "^2.0.3"
-	},
-	"browser": {
-		"./lib/adapters/http.js": "./lib/adapters/xhr.js"
-	},
-	"typings": "./index.d.ts",
-	"dependencies": {
-		"follow-redirects": "^1.2.3",
-		"is-buffer": "^1.1.5"
-	}
-};
+module.exports = {"name":"axios","version":"0.16.2","description":"Promise based HTTP client for the browser and node.js","main":"index.js","scripts":{"test":"grunt test","start":"node ./sandbox/server.js","build":"NODE_ENV=production grunt build","preversion":"npm test","version":"npm run build && grunt version && git add -A dist && git add CHANGELOG.md bower.json package.json","postversion":"git push && git push --tags","examples":"node ./examples/server.js","coveralls":"cat coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js"},"repository":{"type":"git","url":"https://github.com/mzabriskie/axios.git"},"keywords":["xhr","http","ajax","promise","node"],"author":"Matt Zabriskie","license":"MIT","bugs":{"url":"https://github.com/mzabriskie/axios/issues"},"homepage":"https://github.com/mzabriskie/axios","devDependencies":{"coveralls":"^2.11.9","es6-promise":"^4.0.5","grunt":"^1.0.1","grunt-banner":"^0.6.0","grunt-cli":"^1.2.0","grunt-contrib-clean":"^1.0.0","grunt-contrib-nodeunit":"^1.0.0","grunt-contrib-watch":"^1.0.0","grunt-eslint":"^19.0.0","grunt-karma":"^2.0.0","grunt-ts":"^6.0.0-beta.3","grunt-webpack":"^1.0.18","istanbul-instrumenter-loader":"^1.0.0","jasmine-core":"^2.4.1","karma":"^1.3.0","karma-chrome-launcher":"^2.0.0","karma-coverage":"^1.0.0","karma-firefox-launcher":"^1.0.0","karma-jasmine":"^1.0.2","karma-jasmine-ajax":"^0.1.13","karma-opera-launcher":"^1.0.0","karma-phantomjs-launcher":"^1.0.0","karma-safari-launcher":"^1.0.0","karma-sauce-launcher":"^1.1.0","karma-sinon":"^1.0.5","karma-sourcemap-loader":"^0.3.7","karma-webpack":"^1.7.0","load-grunt-tasks":"^3.5.2","minimist":"^1.2.0","phantomjs-prebuilt":"^2.1.7","sinon":"^1.17.4","webpack":"^1.13.1","webpack-dev-server":"^1.14.1","url-search-params":"^0.6.1","typescript":"^2.0.3"},"browser":{"./lib/adapters/http.js":"./lib/adapters/xhr.js"},"typings":"./index.d.ts","dependencies":{"follow-redirects":"^1.2.3","is-buffer":"^1.1.5"}}
 
 /***/ }),
 /* 217 */
@@ -44433,7 +44552,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 /**
  * A utility class for generating UUIDs.
  * @module UUID
- */ /** */
+ */
 
 var UUID = function () {
     function UUID() {
@@ -44477,7 +44596,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 /**
  * Represents an OpenNMS memo.
  * @module OnmsMemo
- */ /** */
+ */
 
 var OnmsMemo = function OnmsMemo() {
   _classCallCheck(this, OnmsMemo);
@@ -44505,7 +44624,7 @@ var OnmsEnum_1 = __webpack_require__(1);
 /**
  * Represents an OpenNMS node type.
  * @module OnmsNodeType
- */ /** */
+ */
 
 var OnmsNodeType = function (_OnmsEnum_1$OnmsEnum) {
     _inherits(OnmsNodeType, _OnmsEnum_1$OnmsEnum);
@@ -44519,16 +44638,16 @@ var OnmsNodeType = function (_OnmsEnum_1$OnmsEnum) {
     _createClass(OnmsNodeType, null, [{
         key: "forId",
 
-        /** given an ID (A, D, etc.), return the corresponding node type object */
+        /** Given an ID (A, D, etc.), return the corresponding node type object. */
         value: function forId(id) {
-            return OnmsEnum_1.forId(exports.NodeTypes, id);
+            return OnmsEnum_1.forId(NodeTypes, id);
         }
-        /** given a label (ACTIVE, etc.), return the corresponding node type object */
+        /** Given a label (ACTIVE, etc.), return the corresponding node type object. */
 
     }, {
         key: "forLabel",
         value: function forLabel(label) {
-            return OnmsEnum_1.forLabel(exports.NodeTypes, label);
+            return OnmsEnum_1.forLabel(NodeTypes, label);
         }
     }]);
 
@@ -44537,12 +44656,17 @@ var OnmsNodeType = function (_OnmsEnum_1$OnmsEnum) {
 
 exports.OnmsNodeType = OnmsNodeType;
 /* tslint:disable:object-literal-sort-keys */
-/** @hidden */
-exports.NodeTypes = Object.freeze({
+var NodeTypes = {
+    /** Node is active */
     ACTIVE: new OnmsNodeType('A', 'ACTIVE'),
+    /** Node is disabled */
     DELETED: new OnmsNodeType('D', 'DELETED'),
+    /** Node state is unknown */
     UNKNOWN: new OnmsNodeType(' ', 'UNKNOWN')
-});
+};
+/** @hidden */
+var frozen = Object.freeze(NodeTypes);
+exports.NodeTypes = frozen;
 
 /***/ }),
 /* 262 */
