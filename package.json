@@ -89,6 +89,7 @@
     "build": "webpack --define process.env.NODE_ENV=production --env production",
     "dev": "webpack --progress --colors",
     "dist": "yarn lint && yarn test && yarn build",
+    "docs": "webpack --env docs",
     "watch": "webpack --progress --colors --watch",
     "test": "jest",
     "watch-test": "jest --watch",

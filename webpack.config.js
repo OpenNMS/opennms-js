@@ -6,7 +6,9 @@ var createVariants = require('parallel-webpack').createVariants;
 
 var clonedeep = require('lodash.clonedeep');
 
-var isProduction = require('yargs').argv.env === 'production';
+var argv = require('yargs').argv;
+var isProduction = argv.env === 'production';
+var justDocs = argv.env === 'docs';
 
 var libraryName = 'opennms';
 
@@ -16,6 +18,13 @@ var variants = {
 
 if (isProduction) {
   variants.production = [ true, false ];
+}
+
+if (justDocs) {
+  variants = {
+    web: [true],
+    docs: [true],
+  };
 }
 
 var config = {
@@ -109,7 +118,8 @@ function createConfig(options) {
   myconf.plugins.push(new webpack.DefinePlugin(defs));
   myconf.plugins.push(new webpack.ProvidePlugin({X2JS: 'x2js'}));
 
-  if (options.production && !options.web) {
+  // build docs either on a dedicated doc build, or during production node.js build
+  if (justDocs || (options.production && !options.web)) {
     // generate documentation
     var tsconfig = require('./tsconfig.json');
     tsconfig.name = 'OpenNMS.js';
@@ -121,6 +131,8 @@ function createConfig(options) {
   }
 
   myconf.output.filename += '.js';
+
+  console.log('Building variant: web=' + (!!options.web) + ', production=' + (!!options.production) + ', docs=' +    (!!options.docs));
 
   return myconf;
 }

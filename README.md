@@ -27,6 +27,7 @@ Then you can run yarn to build or test the project:
 * `yarn dist` - run tests and lint, and build the complete tree in `dist/`
 * `yarn dev` - build a development version of the API in `dist/opennms.js` and `dist/opennms.node.js`
 * `yarn build` - build the development and production versions of the API in `dist/`
+* `yarn docs` - build the docs in `dist/docs/`
 * `yarn watch` - continuously build the development version in `dist/opennms.js`
 * `yarn test` - run the tests
 * `yarn watch-test` - continuously run the tests
