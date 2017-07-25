@@ -23,7 +23,7 @@ import {NodeDAO} from './dao/NodeDAO';
 import {AxiosHTTP} from './rest/AxiosHTTP';
 
 /** @hidden */
-const catClient = new Category('client', catRoot);
+export const cat = new Category('client', catRoot);
 
 /**
  * The OpenNMS client.  This is the primary interface to OpenNMS servers.
@@ -48,7 +48,7 @@ export class Client implements IHasHTTP {
     opts.headers.accept = 'text/plain';
 
     const infoUrl = server.resolveURL('rest/alarms/count');
-    log.debug('checkServer: checking URL: ' + infoUrl, catClient);
+    log.debug('checkServer: checking URL: ' + infoUrl, cat);
     await httpImpl.get(infoUrl, opts);
     return true;
   }
@@ -73,7 +73,7 @@ export class Client implements IHasHTTP {
     }
 
     const infoUrl = server.resolveURL('rest/info');
-    log.debug('getMetadata: checking URL: ' + infoUrl, catClient);
+    log.debug('getMetadata: checking URL: ' + infoUrl, cat);
 
     const response = await httpImpl.get(infoUrl, opts);
     const version = new OnmsVersion(response.data.version, response.data.displayVersion);
