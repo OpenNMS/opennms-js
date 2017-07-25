@@ -70,7 +70,7 @@ export class AxiosHTTP extends AbstractHTTP {
         type = response.headers['content-type'];
       }
       return OnmsResult.ok(response.data, undefined, response.status, type);
-    });
+    }).catch(this.handleError);
   }
 
   /**
@@ -94,7 +94,7 @@ export class AxiosHTTP extends AbstractHTTP {
         type = response.headers['content-type'];
       }
       return OnmsResult.ok(response.data, undefined, response.status, type);
-    });
+    }).catch(this.handleError);
   }
 
   /**
@@ -117,7 +117,7 @@ export class AxiosHTTP extends AbstractHTTP {
         type = response.headers['content-type'];
       }
       return OnmsResult.ok(response.data, undefined, response.status, type);
-    });
+    }).catch(this.handleError);
   }
 
   /**

@@ -51,7 +51,7 @@ export class GrafanaHTTP extends AbstractHTTP {
         type = response.headers['content-type'];
       }
       return OnmsResult.ok(response.data, undefined, response.status, type);
-    });
+    }).catch(this.handleError);
   }
 
   /** Make an HTTP PUT call using the Grafana `BackendSrv`. */
@@ -71,7 +71,7 @@ export class GrafanaHTTP extends AbstractHTTP {
         type = response.headers['content-type'];
       }
       return OnmsResult.ok(response.data, undefined, response.status, type);
-    });
+    }).catch(this.handleError);
   }
 
   /** Make an HTTP POST call using the Grafana `BackendSrv`. */
@@ -90,7 +90,7 @@ export class GrafanaHTTP extends AbstractHTTP {
         type = response.headers['content-type'];
       }
       return OnmsResult.ok(response.data, undefined, response.status, type);
-    });
+    }).catch(this.handleError);
   }
 
   /**
