@@ -1,6 +1,7 @@
 import axios from 'axios';
 import {AxiosStatic, AxiosInstance, AxiosRequestConfig} from 'axios';
 import * as qs from 'qs';
+import clonedeep from 'lodash.clonedeep';
 
 /** @hidden */
 // tslint:disable-next-line
@@ -73,7 +74,7 @@ export class AxiosHTTP extends AbstractHTTP {
   }
 
   /**
-   * Make an HTTP put call using `axios.request({method:'put'})`.
+   * Make an HTTP PUT call using `axios.request({method:'put'})`.
    */
   public put(url: string, options?: OnmsHTTPOptions) {
     const realUrl = this.getServer(options).resolveURL(url);
@@ -126,10 +127,11 @@ export class AxiosHTTP extends AbstractHTTP {
     }
 
     if (allOptions.headers) {
-      ret.headers = allOptions.headers;
+      ret.headers = clonedeep(allOptions.headers);
+    } else {
+      ret.headers = {};
     }
 
-    ret.headers = ret.headers || {};
     if (!ret.headers.accept) {
       ret.headers.accept = 'application/json';
     }
@@ -152,7 +154,7 @@ export class AxiosHTTP extends AbstractHTTP {
     }
 
     if (allOptions.parameters) {
-      ret.params = Object.assign({}, allOptions.parameters);
+      ret.params = clonedeep(allOptions.parameters);
     }
 
     return ret;
