@@ -7,7 +7,7 @@ import {PhysAddr} from './PhysAddr';
 /**
  * Represents an OpenNMS SNMP interface.
  * @module OnmsSnmpInterface
- */ /** */
+ */
 export class OnmsSnmpInterface {
   /** the interface ID */
   public id: number;

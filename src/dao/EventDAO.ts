@@ -19,16 +19,49 @@ import {Category} from 'typescript-logging';
 const cat = new Category('events', catDao);
 
 /**
- * Data access for [[OnmsEvent]] objects
+ * Data access for [[OnmsEvent]] objects.
  * @module EventDAO
- */ /** */
+ */
 export class EventDAO extends AbstractDAO<number, OnmsEvent> {
   constructor(impl: IHasHTTP | IOnmsHTTP) {
     super(impl);
   }
 
+  /** Get an event, given the event's ID. */
+  public async get(id: number): Promise<OnmsEvent> {
+    const opts = this.getOptions();
+    return this.http.get('rest/events/' + id, opts).then((result) => {
+      return this.fromData(result.data);
+    });
+  }
+
+  /** Get an event, given a filter. */
+  public async find(filter?: Filter): Promise<OnmsEvent[]> {
+    const opts = this.getOptions(filter);
+    return this.http.get('rest/events', opts).then((result) => {
+      let data = result.data;
+
+      if (this.getCount(data) > 0 && data.event) {
+        data = data.event;
+      } else {
+        data = [];
+      }
+
+      if (!Array.isArray(data)) {
+        if (data.nodeId) {
+          data = [data];
+        } else {
+          throw new OnmsError('Expected an array of events but got "' + (typeof data) + '" instead.');
+        }
+      }
+      return data.map((eventData) => {
+        return this.fromData(eventData);
+      });
+    });
+  }
+
   /**
-   * create an event object from a JSON object
+   * Create an event object from a JSON object.
    * @hidden
    */
   public fromData(data: any) {
@@ -75,39 +108,6 @@ export class EventDAO extends AbstractDAO<number, OnmsEvent> {
     }
 
     return event;
-  }
-
-  /** get an event, given the event's ID */
-  public async get(id: number): Promise<OnmsEvent> {
-    const opts = this.getOptions();
-    return this.http.get('rest/events/' + id, opts).then((result) => {
-      return this.fromData(result.data);
-    });
-  }
-
-  /** get an event, given a filter */
-  public async find(filter?: Filter): Promise<OnmsEvent[]> {
-    const opts = this.getOptions(filter);
-    return this.http.get('rest/events', opts).then((result) => {
-      let data = result.data;
-
-      if (this.getCount(data) > 0 && data.event) {
-        data = data.event;
-      } else {
-        data = [];
-      }
-
-      if (!Array.isArray(data)) {
-        if (data.nodeId) {
-          data = [data];
-        } else {
-          throw new OnmsError('Expected an array of events but got "' + (typeof data) + '" instead.');
-        }
-      }
-      return data.map((eventData) => {
-        return this.fromData(eventData);
-      });
-    });
   }
 
 }

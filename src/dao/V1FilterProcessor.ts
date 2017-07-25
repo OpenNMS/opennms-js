@@ -22,11 +22,11 @@ const isExclusive = (comparator) => {
 };
 
 /**
- * OpenNMS V1 ReST filter processor
+ * Converts a [[Filter]] into ReSTv1 parameters.
  * @module V1FilterProcessor
- */ /** */
+ */
 export class V1FilterProcessor implements IFilterProcessor {
-  /** given a filter, return a hash of URL parameters */
+  /** Given a filter, return a hash of URL parameters. */
   public getParameters(filter: Filter) {
     const ret = {} as IHash<string>;
 

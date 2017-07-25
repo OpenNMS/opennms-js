@@ -48,7 +48,7 @@
     "typedoc": "^0.7.1",
     "typedoc-plugin-external-module-name": "^1.0.9",
     "typedoc-webpack-plugin": "^1.1.4",
-    "typescript": "^2.3.4",
+    "typescript": "2.x",
     "urijs": "^1.17.1",
     "webpack": "^2.5.1",
     "webpack-closure-compiler": "^2.1.4",
@@ -82,12 +82,16 @@
     "x2js": "^3.1.1",
     "xmldom": "^0.1.27"
   },
+  "resolutions": {
+    "typescript": "^2.x"
+  },
   "scripts": {
     "precommit": "jest",
     "changelog": "standard-changelog -i CHANGELOG.md -s -r 0",
     "build": "webpack --define process.env.NODE_ENV=production --env production",
     "dev": "webpack --progress --colors",
     "dist": "yarn lint && yarn test && yarn build",
+    "docs": "webpack --env docs",
     "watch": "webpack --progress --colors --watch",
     "test": "jest",
     "watch-test": "jest --watch",

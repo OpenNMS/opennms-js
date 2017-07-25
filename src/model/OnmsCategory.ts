@@ -11,9 +11,9 @@ export const Categories = {
 /**
  * Represents an OpenNMS category.
  * @module OnmsCategory
- */ /** */
+ */
 export class OnmsCategory {
-  /** get a singleton category object for the given category */
+  /** Get a singleton category object for the given category. */
   public static for(id: number, name: string) {
     if (Categories[id]) {
       if (Categories[id].name === name) {
@@ -27,13 +27,13 @@ export class OnmsCategory {
     return Categories[id];
   }
 
-  /** the service ID */
+  /** The service ID. */
   public id: number;
 
-  /** the service name */
+  /** The service name. */
   public name: string;
 
-  /** given an ID and name, construct a service type */
+  /** Given an ID and name, construct a service type. */
   constructor(id: number, name: string) {
     this.id = id;
     this.name = name;

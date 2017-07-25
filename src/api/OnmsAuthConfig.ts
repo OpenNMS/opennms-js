@@ -1,12 +1,12 @@
 /**
  * Represents server authentication config.
  * @module OnmsAuthConfig
- */ /** */
+ */
 export class OnmsAuthConfig {
-  /** The password to authenticate with */
+  /** The password to authenticate with. */
   public password: string;
 
-  /** The username to connect as */
+  /** The username to connect as. */
   public username: string;
 
   /**

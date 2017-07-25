@@ -3,7 +3,7 @@ import {Address4, Address6} from 'ip-address';
 /**
  * A utility class for random stuff.
  * @module Util
- */ /** */
+ */
 export class Util {
 
   /**

@@ -8,7 +8,7 @@ import {OnmsPrimaryType} from './OnmsPrimaryType';
 /**
  * Represents an OpenNMS IP interface.
  * @module OnmsIpInterface
- */ /** */
+ */
 export class OnmsIpInterface {
   /** the interface ID */
   public id: number;

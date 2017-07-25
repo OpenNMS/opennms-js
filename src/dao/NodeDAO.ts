@@ -29,16 +29,181 @@ import {Category} from 'typescript-logging';
 const cat = new Category('nodes', catDao);
 
 /**
- * Data access for [[OnmsNode]] objects
+ * Data access for [[OnmsNode]] objects.
  * @module NodeDAO
- */ /** */
+ */
 export class NodeDAO extends AbstractDAO<number, OnmsNode> {
   constructor(impl: IHasHTTP | IOnmsHTTP) {
     super(impl);
   }
 
   /**
-   * create a node object from a JSON object
+   * Get an node, given the node's ID.
+   *
+   * @param id - The node's ID.
+   * @param recurse - Optionally fetch all sub-model objects. (ipInterface, etc.)
+   */
+  public async get(id: number, recurse = false): Promise<OnmsNode> {
+    const opts = this.getOptions();
+
+    return this.http.get('rest/nodes/' + id, opts).then((result) => {
+      const node = this.fromData(result.data);
+
+      if (recurse) {
+        return this.fetch(node);
+      } else {
+        return node;
+      }
+    });
+  }
+
+  /** Search for nodes, given an optional filter. */
+  public async find(filter?: Filter): Promise<OnmsNode[]> {
+    const opts = this.getOptions(filter);
+    return this.http.get('rest/nodes', opts).then((result) => {
+      let data = result.data;
+
+      if (this.getCount(data) > 0 && data.node) {
+        data = data.node;
+      } else {
+        data = [];
+      }
+
+      if (!Array.isArray(data)) {
+        if (data.id) {
+          data = [data];
+        } else {
+          throw new OnmsError('Expected an array of nodes but got "' + (typeof data) + '" instead.');
+        }
+      }
+      return data.map((nodeData) => {
+        return this.fromData(nodeData);
+      });
+    });
+  }
+
+  /** Given a node, fetch all the sub-model objects for that node. (ipInterfaces, snmpInterfaces, etc.) */
+  public async fetch(node: OnmsNode): Promise<OnmsNode> {
+    return this.snmpInterfaces(node).then((si) => {
+      node.snmpInterfaces = si;
+      si.forEach((iface) => {
+        iface.node = node;
+      });
+      return this.ipInterfaces(node).then((ifaces) => {
+        node.ipInterfaces = ifaces;
+        ifaces.forEach((iface) => {
+          iface.node = node;
+        });
+        return Promise.all(ifaces.map((iface) => {
+          return this.services(node, iface).then((services) => {
+            iface.services = services;
+            services.forEach((service) => {
+              service.node = node;
+              service.ipInterface = iface;
+            });
+          });
+        })).then(() => {
+          return node;
+        });
+      });
+    });
+  }
+
+  /** Given a node, get the IP interfaces for that node. */
+  public async ipInterfaces(node: number | OnmsNode, filter?: Filter): Promise<OnmsIpInterface[]> {
+    const opts = this.getOptions(filter);
+    if (node instanceof OnmsNode) {
+      node = node.id;
+    }
+    return this.http.get('rest/nodes/' + node + '/ipinterfaces', opts).then((result) => {
+      let data = result.data;
+
+      if (this.getCount(data) > 0 && data.ipInterface) {
+        data = data.ipInterface;
+      } else {
+        data = [];
+      }
+
+      if (!Array.isArray(data)) {
+        if (data.nodeId) {
+          data = [data];
+        } else {
+          throw new OnmsError('Expected an array of IP interfaces but got "' + (typeof data) + '" instead.');
+        }
+      }
+      return data.map((ifaceData) => {
+        return this.fromIpInterfaceData(ifaceData);
+      });
+    });
+  }
+
+  /** Given a node, get the SNMP interfaces for that node. */
+  public async snmpInterfaces(node: number | OnmsNode, filter?: Filter): Promise<OnmsSnmpInterface[]> {
+    const opts = this.getOptions(filter);
+    if (node instanceof OnmsNode) {
+      node = node.id;
+    }
+    return this.http.get('rest/nodes/' + node + '/snmpinterfaces', opts).then((result) => {
+      let data = result.data;
+
+      if (this.getCount(data) > 0 && data.snmpInterface) {
+        data = data.snmpInterface;
+      } else {
+        data = [];
+      }
+
+      if (!Array.isArray(data)) {
+        if (data.ifName) {
+          data = [data];
+        } else {
+          throw new OnmsError('Expected an array of SNMP interfaces but got "' + (typeof data) + '" instead.');
+        }
+      }
+      return data.map((ifaceData) => {
+        return this.fromSnmpData(ifaceData);
+      });
+    });
+  }
+
+  /** Given a node, get the IP interfaces for that node. */
+  public async services(
+    node: number | OnmsNode,
+    ipInterface: string | OnmsIpInterface,
+    filter?: Filter,
+  ): Promise<OnmsMonitoredService[]> {
+
+    const opts = this.getOptions(filter);
+    if (node instanceof OnmsNode) {
+      node = node.id;
+    }
+    if (ipInterface instanceof OnmsIpInterface && ipInterface.ipAddress) {
+      ipInterface = ipInterface.ipAddress.address;
+    }
+    const url = 'rest/nodes/' + node + '/ipinterfaces/' + ipInterface + '/services';
+    return this.http.get(url, opts).then((result) => {
+      let data = result.data;
+
+      if (this.getCount(data) > 0 && data.service) {
+        data = data.service;
+      } else {
+        data = [];
+      }
+
+      if (!Array.isArray(data)) {
+        if (data.lastGood) {
+          data = [data];
+        } else {
+          throw new OnmsError('Expected an array of services but got "' + (typeof data) + '" instead.');
+        }
+      }
+      return data.map((ifaceData) => {
+        return this.fromServiceData(ifaceData);
+      });
+    });
+  }
+
+  /**
+   * Create a node object from a JSON object.
    * @hidden
    */
   public fromData(data: any): OnmsNode {
@@ -151,170 +316,6 @@ export class NodeDAO extends AbstractDAO<number, OnmsNode> {
     }
 
     return service;
-  }
-
-  /**
-   * get an node, given the node's ID
-   *
-   * @param id the node's ID
-   * @param recurse optionally fetch all sub-model objects (ipInterface, etc.)
-   */
-  public async get(id: number, recurse = false): Promise<OnmsNode> {
-    const opts = this.getOptions();
-
-    return this.http.get('rest/nodes/' + id, opts).then((result) => {
-      const node = this.fromData(result.data);
-
-      if (recurse) {
-        return this.fetch(node);
-      } else {
-        return node;
-      }
-    });
-  }
-
-  /** search for nodes, given a filter */
-  public async find(filter?: Filter): Promise<OnmsNode[]> {
-    const opts = this.getOptions(filter);
-    return this.http.get('rest/nodes', opts).then((result) => {
-      let data = result.data;
-
-      if (this.getCount(data) > 0 && data.node) {
-        data = data.node;
-      } else {
-        data = [];
-      }
-
-      if (!Array.isArray(data)) {
-        if (data.id) {
-          data = [data];
-        } else {
-          throw new OnmsError('Expected an array of nodes but got "' + (typeof data) + '" instead.');
-        }
-      }
-      return data.map((nodeData) => {
-        return this.fromData(nodeData);
-      });
-    });
-  }
-
-  /** given a node, fetch all the sub-model objects for that node (ipInterfaces, snmpInterfaces, etc.) */
-  public async fetch(node: OnmsNode): Promise<OnmsNode> {
-    return this.snmpInterfaces(node).then((si) => {
-      node.snmpInterfaces = si;
-      si.forEach((iface) => {
-        iface.node = node;
-      });
-      return this.ipInterfaces(node).then((ifaces) => {
-        node.ipInterfaces = ifaces;
-        ifaces.forEach((iface) => {
-          iface.node = node;
-        });
-        return Promise.all(ifaces.map((iface) => {
-          return this.services(node, iface).then((services) => {
-            iface.services = services;
-            services.forEach((service) => {
-              service.node = node;
-              service.ipInterface = iface;
-            });
-          });
-        })).then(() => {
-          return node;
-        });
-      });
-    });
-  }
-
-  /** given a node, get the IP interfaces for that node */
-  public async ipInterfaces(node: number | OnmsNode, filter?: Filter): Promise<OnmsIpInterface[]> {
-    const opts = this.getOptions(filter);
-    if (node instanceof OnmsNode) {
-      node = node.id;
-    }
-    return this.http.get('rest/nodes/' + node + '/ipinterfaces', opts).then((result) => {
-      let data = result.data;
-
-      if (this.getCount(data) > 0 && data.ipInterface) {
-        data = data.ipInterface;
-      } else {
-        data = [];
-      }
-
-      if (!Array.isArray(data)) {
-        if (data.nodeId) {
-          data = [data];
-        } else {
-          throw new OnmsError('Expected an array of IP interfaces but got "' + (typeof data) + '" instead.');
-        }
-      }
-      return data.map((ifaceData) => {
-        return this.fromIpInterfaceData(ifaceData);
-      });
-    });
-  }
-
-  /** given a node, get the SNMP interfaces for that node */
-  public async snmpInterfaces(node: number | OnmsNode, filter?: Filter): Promise<OnmsSnmpInterface[]> {
-    const opts = this.getOptions(filter);
-    if (node instanceof OnmsNode) {
-      node = node.id;
-    }
-    return this.http.get('rest/nodes/' + node + '/snmpinterfaces', opts).then((result) => {
-      let data = result.data;
-
-      if (this.getCount(data) > 0 && data.snmpInterface) {
-        data = data.snmpInterface;
-      } else {
-        data = [];
-      }
-
-      if (!Array.isArray(data)) {
-        if (data.ifName) {
-          data = [data];
-        } else {
-          throw new OnmsError('Expected an array of SNMP interfaces but got "' + (typeof data) + '" instead.');
-        }
-      }
-      return data.map((ifaceData) => {
-        return this.fromSnmpData(ifaceData);
-      });
-    });
-  }
-
-  /** given a node, get the IP interfaces for that node */
-  public async services(
-    node: number | OnmsNode,
-    ipInterface: string | OnmsIpInterface,
-    filter?: Filter,
-  ): Promise<OnmsMonitoredService[]> {
-
-    const opts = this.getOptions(filter);
-    if (node instanceof OnmsNode) {
-      node = node.id;
-    }
-    if (ipInterface instanceof OnmsIpInterface && ipInterface.ipAddress) {
-      ipInterface = ipInterface.ipAddress.address;
-    }
-    return this.http.get('rest/nodes/' + node + '/ipinterfaces/' + ipInterface + '/services', opts).then((result) => {
-      let data = result.data;
-
-      if (this.getCount(data) > 0 && data.service) {
-        data = data.service;
-      } else {
-        data = [];
-      }
-
-      if (!Array.isArray(data)) {
-        if (data.lastGood) {
-          data = [data];
-        } else {
-          throw new OnmsError('Expected an array of services but got "' + (typeof data) + '" instead.');
-        }
-      }
-      return data.map((ifaceData) => {
-        return this.fromServiceData(ifaceData);
-      });
-    });
   }
 
 }

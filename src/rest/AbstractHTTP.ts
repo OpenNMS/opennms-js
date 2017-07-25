@@ -28,21 +28,24 @@ const xmlParser = new X2JS({
 });
 
 /**
- * Abstract implementation of the OnmsHTTP interface meant to be extended
+ * Abstract implementation of the OnmsHTTP interface meant to be extended by a concrete class.
  * @module AbstractHTTP
  * @implements IOnmsHTTP
- */ /** */
+ */
 export abstract class AbstractHTTP implements IOnmsHTTP {
-  /** how long to wait before giving up on a given request */
+  /** The default amount of time to wait before giving up on a request. */
   public timeout = 10000;
 
-  /** the authorization config associated with this ReST client */
+  /** The default set of HTTP options associated with this ReST client. */
   public options: OnmsHTTPOptions;
 
-  /** the server metadata we'll use for constructing ReST calls */
+  /**
+   * The server metadata we'll use for constructing ReST calls.
+   * @hidden
+   */
   private serverObj: OnmsServer;
 
-  /** the server associated with this HTTP implementation */
+  /** The server associated with this HTTP implementation. */
   public get server() {
     return this.serverObj;
   }
@@ -53,23 +56,26 @@ export abstract class AbstractHTTP implements IOnmsHTTP {
   }
 
   /**
-   * Create a new AbstractHTTP instance.
+   * Create a new HTTP instance.
    * @constructor
-   * @param server - a server object for immediate configuration
-   * @param timeout - how long to wait until timing out requests
+   * @param server - A server object for immediate configuration.
+   * @param timeout - How long to wait until timing out requests.
    */
   constructor(server?: OnmsServer, timeout = 10000) {
     this.serverObj = server;
     this.timeout = timeout;
   }
 
-  /** make an HTTP GET call -- this should be overridden by the implementation */
+  /** Make an HTTP GET call. This must be implemented by the concrete implementation. */
   public abstract get(url: string, options?: OnmsHTTPOptions): Promise<OnmsResult<any>>;
 
-  /** make an HTTP PUT call -- this should be overridden by the implementation */
+  /** Make an HTTP PUT call. This must be overridden by the concrete implementation. */
   public abstract put(url: string, options?: OnmsHTTPOptions): Promise<OnmsResult<any>>;
 
-  /** a convenience method for implementers to use to turn JSON into a javascript object */
+  /**
+   * A convenience method for implementers to use to turn JSON into a javascript object.
+   * Use this to process a JSON response before returning it in an [[OnmsResult]] object.
+   */
   protected transformJSON(data: any) {
     if (typeof data === 'string') {
       if (data.length < 1) {
@@ -83,7 +89,10 @@ export abstract class AbstractHTTP implements IOnmsHTTP {
     }
   }
 
-  /** a convenience method for implementers to use to turn XML into a javascript object */
+  /**
+   * A convenience method for implementers to use to turn XML into a javascript object.
+   * Use this to process an XML response before returning it in an [[OnmsResult]] object.
+   */
   protected transformXML(data: any) {
     if (typeof data === 'string') {
       return xmlParser.xml2js(data);
@@ -93,14 +102,22 @@ export abstract class AbstractHTTP implements IOnmsHTTP {
     }
   }
 
-  /** get the server in the options object, or fall back to the one assigned to the HTTP impl */
+  /**
+   * Get the [[OnmsServer]] object that should be used for making requests.  Favors the one
+   * passed in the [[OnmsHTTPOptions]], otherwise it falls back to the default server associated
+   * with the HTTP implementation.
+   */
   protected getServer(options?: OnmsHTTPOptions) {
     return options.server || this.serverObj;
   }
 
-  /** combine all options from the given options, the current server, and the default options */
-  protected getOptions(options?: OnmsHTTPOptions) {
-    let ret = Object.assign({auth: {}}, this.options);
+  /**
+   * Get the union of [[OnmsHTTPOptions]] based on the passed options, defaults,
+   * and options in the [[OnmsServer]] associated with this request.  Order of
+   * precedence is passed options -> server options -> default options.
+   */
+  protected getOptions(options?: OnmsHTTPOptions): OnmsHTTPOptions {
+    let ret = Object.assign({auth: {}}, this.options) as OnmsHTTPOptions;
     if (this.timeout) {
       ret.timeout = this.timeout;
     }
@@ -112,7 +129,10 @@ export abstract class AbstractHTTP implements IOnmsHTTP {
     return ret;
   }
 
-  /** useful for performing an action (like clearing caches) when the server is set */
+  /**
+   * Implementers should override this method if they have actions that need to be performed
+   * (like clearing a cache) when server settings change.
+   */
   protected onSetServer() {
     // do nothing by default
   }

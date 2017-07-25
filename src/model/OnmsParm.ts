@@ -3,7 +3,7 @@ import {Util} from '../internal/Util';
 /**
  * Represents an OpenNMS event or alarm parameter.
  * @module OnmsParm
- */ /** */
+ */
 export class OnmsParm {
   /** the name of the parm */
   public name: string;

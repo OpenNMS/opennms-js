@@ -3,13 +3,19 @@ import {OnmsEnum} from '../internal/OnmsEnum';
 /**
  * Represents an OpenNMS alarm type.
  * @module OnmsAlarmType
- */ /** */
+ */
 export class OnmsAlarmType extends OnmsEnum<number> {
 }
 
-/** @hidden */
-export const AlarmTypes = Object.freeze({
+const AlarmTypes = {
+  /** Possible Resolution */
   1: new OnmsAlarmType(1, 'possible resolution'),
+  /** Resolution Event */
   2: new OnmsAlarmType(2, 'resolution event'),
+  /** No Possible Resolution */
   3: new OnmsAlarmType(3, 'no possible resolution'),
-});
+};
+
+/** @hidden */
+const frozen = Object.freeze(AlarmTypes);
+export {frozen as AlarmTypes};

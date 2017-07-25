@@ -11,9 +11,9 @@ export const ServiceTypes = {
 /**
  * Represents an OpenNMS service.
  * @module OnmsServiceType
- */ /** */
+ */
 export class OnmsServiceType {
-  /** get a singleton service type object for the given service */
+  /** Get a singleton service type object for the given service. */
   public static for(id: number, name: string) {
     if (ServiceTypes[id]) {
       if (ServiceTypes[id].name === name) {
@@ -27,13 +27,13 @@ export class OnmsServiceType {
     return ServiceTypes[id];
   }
 
-  /** the service ID */
+  /** The service ID. */
   public id: number;
 
-  /** the service name */
+  /** The service name. */
   public name: string;
 
-  /** given an ID and name, construct a service type */
+  /** Given an ID and name, construct a service type. */
   constructor(id: number, name: string) {
     this.id = id;
     this.name = name;

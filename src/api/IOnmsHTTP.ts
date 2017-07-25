@@ -22,28 +22,27 @@ import {OnmsServer} from './OnmsServer';
  * - Implementations SHOULD prefer the auth in the OnmsServer (if available)
  *   over the one in the OnmsHTTPOptions, but should fall back if no auth
  *   configuration is supplied in the server property.
- */ /** */
-
+ */
 export interface IOnmsHTTP {
-  /** the server associated with this instance */
+  /** The server associated with this instance. */
   server: OnmsServer;
 
-  /** the options used when making requests */
+  /** The default options used when making requests with this instance. */
   options: OnmsHTTPOptions;
 
   /**
    * Perform an HTTP GET to the provided URL.
-   * @param url the URL to connect to
-   * @param options the [[OnmsHTTPOptions]] options to use when connecting
-   * @returns an [[OnmsResult]] result object
+   * @param url The URL to connect to.
+   * @param options The [[OnmsHTTPOptions]] options to use when connecting.
+   * @returns An [[OnmsResult]] result object.
    */
   get(url: string, options?: OnmsHTTPOptions): Promise<OnmsResult<any>>;
 
   /**
    * Perform an HTTP PUT to the provided URL.
-   * @param url the URL to connect to
-   * @param options the [[OnmsHTTPOptions]] options to use when connecting
-   * @returns an [[OnmsResult]] result object
+   * @param url The URL to connect to.
+   * @param options The [[OnmsHTTPOptions]] options to use when connecting.
+   * @returns An [[OnmsResult]] result object.
    */
   put(url: string, options?: OnmsHTTPOptions): Promise<OnmsResult<any>>;
 }

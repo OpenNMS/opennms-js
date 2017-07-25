@@ -1,16 +1,16 @@
 /**
  * Represents a physical (MAC) address.
  * @module PhysAddr
- */ /** */
+ */
 export class PhysAddr {
-  /** the MAC address string */
+  /** The MAC address string. */
   public addr: string;
 
   constructor(addr: string) {
     this.addr = addr.toUpperCase().replace(/[^0-9A-F]/g, '');
   }
 
-  /** displayable string */
+  /** A human-readable string suitable for display. */
   public toString() {
     const asArray = this.addr.split('');
     if (asArray.length === 12) {

@@ -3,12 +3,18 @@ import * as VersionCompare from 'version_compare';
 /**
  * An OpenNMS version.
  * @module OnmsVersion
- */ /** */
+ */
 export class OnmsVersion {
-  /** the numeric version (x.x.x format) */
-  public version: string;
+  /** The numeric version (ex: `19.0.0`). */
+  public get version() {
+    return this.rv;
+  }
 
-  /** the display version */
+  public set version(ver: string) {
+    this.rv = ver;
+  }
+
+  /** The display version (ex: `19.0.0-SNAPSHOT`). */
   public get displayVersion() {
     return this.dv || this.version;
   }
@@ -17,52 +23,72 @@ export class OnmsVersion {
     this.dv = displayVersion;
   }
 
-  /** the internal display version */
+  /**
+   * The internal raw version.
+   * @hidden
+   */
+  private rv: string;
+
+  /**
+   * The internal display version.
+   * @hidden
+   */
   private dv: string;
 
   /**
-   * construct a new version
-   * @param version the numeric version (x.x.x format)
-   * @param displayVersion the full version (including, eg, x.x.x-SNAPSHOT)
+   * Construct a new version.
+   * @param version - The numeric version.
+   * @param displayVersion - The full display version
+   *                         (including extra designators like `x.x.x-SNAPSHOT`).
    */
   constructor(version?: string, displayVersion?: string) {
     this.version = version || '0.0.0';
     this.displayVersion = displayVersion;
   }
 
-  /** this version is less than the passed version */
+  /**
+   * Returns true if this version is less than the passed version.
+   */
   public lt(compare = '0.0.0') {
     return VersionCompare.lt(this.version, compare);
   }
 
-  /** this version is less than or equal to the passed version */
+  /**
+   * Returns true if this version is less than or equal to the passed version.
+   */
   public le(compare = '0.0.0') {
     return VersionCompare.lte(this.version, compare);
   }
 
-  /** this version is equal to the passed version */
+  /**
+   * Returns true if this version is equal to the passed version.
+   */
   public eq(compare = '0.0.0') {
     return VersionCompare.matches(this.version, compare);
   }
 
-  /** this version is greater than or equal to the passed version */
+  /**
+   * Returns true if this version is greater than or equal to the passed version.
+   */
   public ge(compare = '0.0.0') {
     return VersionCompare.gte(this.version, compare);
   }
 
-  /** this version is greater than the passed version */
+  /**
+   * Returns true if this version is greater than the passed version.
+   */
   public gt(compare = '0.0.0') {
     return VersionCompare.gt(this.version, compare);
   }
 
   /**
-   * Create a new {@link OnmsVersion} object from this existing one.
+   * Create a new version object from this existing one.
    */
   public clone() {
     return new OnmsVersion(this.version, this.dv);
   }
 
-  /** a human-readable representation of this version */
+  /** A human-readable representation of this version. */
   public toString() {
     return 'OnmsVersion[version=' + this.version + ',displayVersion=' + this.displayVersion + ']';
   }
