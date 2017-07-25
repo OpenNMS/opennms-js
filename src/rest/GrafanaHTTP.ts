@@ -7,7 +7,7 @@ import {OnmsServer} from '../api/OnmsServer';
 import {log, catRest} from '../api/Log';
 import {Category} from 'typescript-logging';
 
-import clonedeep from 'lodash.clonedeep';
+import * as clonedeep from 'lodash.clonedeep';
 
 /** @hidden */
 const catGrafana = new Category('grafana', catRest);

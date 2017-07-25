@@ -108,7 +108,10 @@ export abstract class AbstractHTTP implements IOnmsHTTP {
    * with the HTTP implementation.
    */
   protected getServer(options?: OnmsHTTPOptions) {
-    return options.server || this.serverObj;
+    if (options && options.server) {
+      return options.server;
+    }
+    return this.serverObj;
   }
 
   /**
