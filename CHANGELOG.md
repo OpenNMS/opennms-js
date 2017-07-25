@@ -2,8 +2,14 @@
 # [0.1.0-alpha.4](https://github.com/OpenNMS/opennms-js/compare/v0.1.0-alpha.3...v0.1.0-alpha.4) (2017-07-25)
 
 
+### Bug Fixes
+
+* **rest:** make sure passed options don't leak ([9b9dee4](https://github.com/OpenNMS/opennms-js/commit/9b9dee4))
+
+
 ### Features
 
+* **api:** consider 202 a successful HTTP response ([d21e5e1](https://github.com/OpenNMS/opennms-js/commit/d21e5e1))
 * **dao:** add alarm setTTicketId/setTTicketState ([bb429f6](https://github.com/OpenNMS/opennms-js/commit/bb429f6))
 
 
