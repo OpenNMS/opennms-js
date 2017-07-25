@@ -3,8 +3,6 @@ declare const await, describe, beforeEach, it, expect, jest;
 import {log,catRoot,setLogLevel} from '../../src/api/Log';
 import {LogLevel} from 'typescript-logging';
 
-setLogLevel(LogLevel.Debug, catRoot);
-
 import {Comparators} from '../../src/api/Comparator';
 import {Filter} from '../../src/api/Filter';
 import {Restriction} from '../../src/api/Restriction';
