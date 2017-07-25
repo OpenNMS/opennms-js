@@ -45,4 +45,12 @@ export interface IOnmsHTTP {
    * @returns An [[OnmsResult]] result object.
    */
   put(url: string, options?: OnmsHTTPOptions): Promise<OnmsResult<any>>;
+
+  /**
+   * Perform an HTTP POST to the provided URL.
+   * @param url The URL to connect to.
+   * @param options The [[OnmsHTTPOptions]] options to use when connecting.
+   * @returns An [[OnmsResult]] result object.
+   */
+  post(url: string, options?: OnmsHTTPOptions): Promise<OnmsResult<any>>;
 }

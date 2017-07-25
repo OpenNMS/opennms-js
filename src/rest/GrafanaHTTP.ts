@@ -74,6 +74,25 @@ export class GrafanaHTTP extends AbstractHTTP {
     });
   }
 
+  /** Make an HTTP POST call using the Grafana `BackendSrv`. */
+  public post(url: string, options?: OnmsHTTPOptions) {
+    const realUrl = this.getServer(options).resolveURL(url);
+    log.debug('PUT ' + realUrl);
+    const query = this.getConfig(options);
+    query.method = 'POST';
+    query.url = realUrl;
+    return this.backendSrv.datasourceRequest(query).then((response) => {
+      let type = 'application/xml';
+      if (query && query.headers && query.headers.accept) {
+        type = query.headers.accept;
+      }
+      if (response.headers && response.headers['content-type']) {
+        type = response.headers['content-type'];
+      }
+      return OnmsResult.ok(response.data, undefined, response.status, type);
+    });
+  }
+
   /**
    * Internal method to turn [[OnmsHTTPOptions]] into a Grafana `BackendSrv` request object.
    * @hidden
@@ -113,6 +132,9 @@ export class GrafanaHTTP extends AbstractHTTP {
       ret.params = clonedeep(allOptions.parameters);
     }
 
+    if (allOptions.data) {
+      ret.data = clonedeep(allOptions.data);
+    }
     return ret;
   }
 

@@ -98,6 +98,29 @@ export class AxiosHTTP extends AbstractHTTP {
   }
 
   /**
+   * Make an HTTP POST call using `axios.request({method:'post'})`.
+   */
+  public post(url: string, options?: OnmsHTTPOptions) {
+    const realUrl = this.getServer(options).resolveURL(url);
+    const opts = this.getConfig(options);
+
+    const urlObj = new URI(realUrl);
+    urlObj.search(opts.params);
+    log.debug('POST ' + urlObj.toString(), catAxios);
+
+    opts.method = 'post';
+    opts.url = realUrl;
+
+    return this.getImpl(options).request(opts).then((response) => {
+      let type;
+      if (response.headers && response.headers['content-type']) {
+        type = response.headers['content-type'];
+      }
+      return OnmsResult.ok(response.data, undefined, response.status, type);
+    });
+  }
+
+  /**
    * Clear the current [[AxiosInstance]] so it is recreated on next request with the
    * new server configuration.
    */
@@ -155,6 +178,10 @@ export class AxiosHTTP extends AbstractHTTP {
 
     if (allOptions.parameters) {
       ret.params = clonedeep(allOptions.parameters);
+    }
+
+    if (allOptions.data) {
+      ret.data = clonedeep(allOptions.data);
     }
 
     return ret;

@@ -22,6 +22,9 @@ export class OnmsHTTPOptions {
   /** HTTP parameters to be passed on the URL. */
   public parameters = {} as IHash<string>;
 
+  /** HTTP data to be passed when POSTing */
+  public data: any;
+
   /**
    * Construct a new OnmsHTTPOptions object.
    * @constructor

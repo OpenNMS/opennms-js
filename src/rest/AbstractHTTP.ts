@@ -72,6 +72,9 @@ export abstract class AbstractHTTP implements IOnmsHTTP {
   /** Make an HTTP PUT call. This must be overridden by the concrete implementation. */
   public abstract put(url: string, options?: OnmsHTTPOptions): Promise<OnmsResult<any>>;
 
+  /** Make an HTTP POST call. This must be overridden by the concrete implementation. */
+  public abstract post(url: string, options?: OnmsHTTPOptions): Promise<OnmsResult<any>>;
+
   /**
    * A convenience method for implementers to use to turn JSON into a javascript object.
    * Use this to process a JSON response before returning it in an [[OnmsResult]] object.
