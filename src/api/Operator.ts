@@ -3,9 +3,9 @@ import {OnmsEnum} from '../internal/OnmsEnum';
 /**
  * Represents a filter comparator.
  * @module Comparator
- */ /** */
+ */
 export class Operator extends OnmsEnum<number> {
-  /** aliases for the command-line */
+  /** Aliases for the command-line. */
   private aliases = [] as string[];
 
   constructor(id: number, label: string, ...aliases: string[]) {
@@ -13,7 +13,7 @@ export class Operator extends OnmsEnum<number> {
     this.aliases = aliases;
   }
 
-  /** whether this comparator matches the given comparator string */
+  /** Whether this comparator matches the given comparator string. */
   public matches(comparator: string) {
     return (comparator.toLowerCase() === this.label.toLowerCase())
       || this.aliases.indexOf(comparator) >= 0;
@@ -22,8 +22,15 @@ export class Operator extends OnmsEnum<number> {
 
 /* tslint:disable:object-literal-sort-keys */
 
-/** @hidden */
-export const Operators = Object.freeze({
+const Operators = {
+  /** AND (all must match) */
   AND: new Operator(1, 'AND'),
+
+  /** OR (at least one must match) */
   OR: new Operator(2, 'OR'),
-});
+};
+
+/** @hidden */
+const frozen = Object.freeze(Operators);
+
+export {frozen as Operators};

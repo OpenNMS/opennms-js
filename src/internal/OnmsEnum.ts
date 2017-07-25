@@ -2,7 +2,7 @@
 /**
  * Represents an enumerated type.
  * @module OnmsEnum
- */ /** */
+ */
 export class OnmsEnum<T> {
   /** the internal index/id */
   private i: T;

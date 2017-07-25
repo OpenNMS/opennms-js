@@ -9,7 +9,7 @@ import {OnmsSnmpInterface} from './OnmsSnmpInterface';
 /**
  * Represents an OpenNMS node.
  * @module OnmsNode
- */ /** */
+ */
 export class OnmsNode {
   /** the node ID */
   public id: number;

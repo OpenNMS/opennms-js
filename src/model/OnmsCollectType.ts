@@ -3,7 +3,7 @@ import {OnmsEnum, forId, forLabel} from '../internal/OnmsEnum';
 /**
  * Represents an OpenNMS SNMP interface "should collect" type.
  * @module OnmsCollectType
- */ /** */
+ */
 export class OnmsCollectType extends OnmsEnum<string> {
   /** given an ID, return the matching collect type object */
   public static forId(id: string) {
@@ -22,10 +22,17 @@ export class OnmsCollectType extends OnmsEnum<string> {
 }
 
 /* tslint:disable:object-literal-sort-keys */
-/** @hidden */
-export const CollectTypes = Object.freeze({
+const CollectTypes = {
+  /** Collection Enabled */
   COLLECT: new OnmsCollectType('C', 'COLLECT'),
+  /** User has forced collection */
   FORCE_COLLECT: new OnmsCollectType('UC', 'FORCE_COLLECT'),
+  /** Collection is disabled */
   DO_NOT_COLLECT: new OnmsCollectType('N', 'DO_NOT_COLLECT'),
+  /** User has forced collection to be disabled */
   FORCE_DO_NOT_COLLECT: new OnmsCollectType('UN', 'FORCE_DO_NOT_COLLECT'),
-});
+};
+
+/** @hidden */
+const frozen = Object.freeze(CollectTypes);
+export {frozen as CollectTypes};

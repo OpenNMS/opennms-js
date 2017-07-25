@@ -3,40 +3,42 @@ import {OnmsError} from './OnmsError';
 /**
  * An [[IOnmsHTTP]] query result.
  * @module OnmsResult
- */ /** */
+ */
 export class OnmsResult<T> {
-  /** create a new error result */
+  /** Create a new error result. */
   public static error(message: string, code?: number) {
     return new OnmsResult(undefined, message, code);
   }
 
-  /** create a new "OK" result */
+  /** Create a new success result. */
   public static ok(response: any, message?: string, code?: number, type?: string) {
     return new OnmsResult(response, message || 'OK', code || 200, type);
   }
 
-  /** create a new "No Content" result */
+  /** Create a new "No Content" result. */
   public static noContent() {
     // Use an empty string for the data
     return new OnmsResult('', 'No Content', 204);
   }
 
-  /** the data, if any */
+  /** The data, if any. */
   public data: T;
 
-  /** the request type, if any */
+  /** The request type, if any. */
   public type: string;
 
-  /** the status message associated with this result */
+  /** The status message associated with this result. */
   public message: string;
 
-  /** the response code associated with this result */
+  /** The response code associated with this result. */
   public code: number;
 
   /**
-   * construct a new result
-   * @param message the status message
-   * @param code the response code
+   * Construct a new result.
+   * @param data The payload of the response.
+   * @param message The status message associated with the result.
+   * @param code The response code of the response.
+   * @param type The request type of the response.
    */
   constructor(data: T, message?: string, code?: number, type?: string) {
     this.data = data;
@@ -45,7 +47,7 @@ export class OnmsResult<T> {
     this.type = type;
   }
 
-  /** whether this response is a successful response */
+  /** Whether this result is considered successful. */
   public isSuccess() {
     return this.code === 200 || this.code === 204;
   }

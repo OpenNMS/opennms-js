@@ -3,23 +3,29 @@ import {OnmsEnum, forId, forLabel} from '../internal/OnmsEnum';
 /**
  * Represents an OpenNMS node type.
  * @module OnmsNodeType
- */ /** */
+ */
 export class OnmsNodeType extends OnmsEnum<string> {
-  /** given an ID (A, D, etc.), return the corresponding node type object */
+  /** Given an ID (A, D, etc.), return the corresponding node type object. */
   public static forId(id: string) {
     return forId(NodeTypes, id);
   }
 
-  /** given a label (ACTIVE, etc.), return the corresponding node type object */
+  /** Given a label (ACTIVE, etc.), return the corresponding node type object. */
   public static forLabel(label: string) {
     return forLabel(NodeTypes, label);
   }
 }
 
 /* tslint:disable:object-literal-sort-keys */
-/** @hidden */
-export const NodeTypes = Object.freeze({
+const NodeTypes = {
+  /** Node is active */
   ACTIVE: new OnmsNodeType('A', 'ACTIVE'),
+  /** Node is disabled */
   DELETED: new OnmsNodeType('D', 'DELETED'),
+  /** Node state is unknown */
   UNKNOWN: new OnmsNodeType(' ', 'UNKNOWN'),
-});
+};
+
+/** @hidden */
+const frozen = Object.freeze(NodeTypes);
+export {frozen as NodeTypes};

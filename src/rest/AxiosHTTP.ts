@@ -19,23 +19,39 @@ import {Category} from 'typescript-logging';
 const catAxios = new Category('axios', catRest);
 
 /**
- * Implementation of the OnmsHTTP interface using Axios: https://github.com/mzabriskie/axios
+ * Implementation of the [[IOnmsHTTP]] interface using Axios: https://github.com/mzabriskie/axios
  * @module AxiosHTTP
  * @implements IOnmsHTTP
- */ /** */
+ */
 export class AxiosHTTP extends AbstractHTTP {
-  /** the Axios implementation we'll use for making ReST calls */
+  /**
+   * The Axios implementation class we'll use for making ReST calls.  This is necessary
+   * to make sure we end up with the correct backend (XMLHttpRequest or Node.js 'http')
+   * at runtime.
+   * @hidden
+   */
   private axiosImpl: AxiosStatic;
 
-  /** the Axios instance we'll use for making ReST calls */
+  /**
+   * The Axios instance we'll use for making ReST calls.  This will be reinitialized whenever
+   * the server configuration changes.
+   */
   private axiosObj: AxiosInstance;
 
+  /**
+   * Construct an AxiosHTTP instance.
+   * @param server - The server to connect to.
+   * @param axiosImpl - The Axios implementation class to use.
+   * @param timeout - The default timeout for ReST connections.
+   */
   constructor(server?: OnmsServer, axiosImpl?: AxiosStatic, timeout = 10000) {
     super(server, timeout);
     this.axiosImpl = axiosImpl || axios;
   }
 
-  /** make an HTTP GET call -- this should be overridden by the implementation */
+  /**
+   * Make an HTTP GET call using `axios.request({method:'get'})`.
+   */
   public get(url: string, options?: OnmsHTTPOptions) {
     const realUrl = this.getServer(options).resolveURL(url);
     const opts = this.getConfig(options);
@@ -56,7 +72,9 @@ export class AxiosHTTP extends AbstractHTTP {
     });
   }
 
-  /** make an HTTP get call -- this should be overridden by the implementation */
+  /**
+   * Make an HTTP put call using `axios.request({method:'put'})`.
+   */
   public put(url: string, options?: OnmsHTTPOptions) {
     const realUrl = this.getServer(options).resolveURL(url);
     const opts = this.getConfig(options);
@@ -79,14 +97,18 @@ export class AxiosHTTP extends AbstractHTTP {
   }
 
   /**
-   * Clear the configured [[AxiosInstance]] so we create a new one when the server changes.
+   * Clear the current [[AxiosInstance]] so it is recreated on next request with the
+   * new server configuration.
    */
   protected onSetServer() {
     super.onSetServer();
     this.axiosObj = undefined;
   }
 
-  /** internal method to turn [[OnmsHTTPOptions]] into an [[AxiosRequestConfig]] object. */
+  /**
+   * Internal method to turn [[OnmsHTTPOptions]] into an [[AxiosRequestConfig]] object.
+   * @hidden
+   */
   private getConfig(options?: OnmsHTTPOptions): AxiosRequestConfig {
     const allOptions = this.getOptions(options);
 
@@ -136,7 +158,11 @@ export class AxiosHTTP extends AbstractHTTP {
     return ret;
   }
 
-  /** internal method for getting/constructing an Axios object on-demand, based on the current server config */
+  /**
+   * Internal method for getting/constructing an Axios object on-demand,
+   * based on the current server configuration.
+   * @hidden
+   */
   private getImpl(options?: OnmsHTTPOptions) {
     if (!this.axiosObj) {
       const server = this.getServer(options);

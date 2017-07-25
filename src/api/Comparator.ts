@@ -3,9 +3,9 @@ import {OnmsEnum} from '../internal/OnmsEnum';
 /**
  * Represents a filter comparator.
  * @module Comparator
- */ /** */
+ */
 export class Comparator extends OnmsEnum<number> {
-  /** aliases for the command-line */
+  /** Aliases for the command-line. */
   private aliases = [] as string[];
 
   constructor(id: number, label: string, ...aliases: string[]) {
@@ -13,7 +13,7 @@ export class Comparator extends OnmsEnum<number> {
     this.aliases = aliases;
   }
 
-  /** whether this comparator matches the given comparator string */
+  /** Whether this comparator matches the given comparator string. */
   public matches(comparator: string) {
     return (comparator.toLowerCase() === this.label.toLowerCase())
       || this.aliases.indexOf(comparator) >= 0;
@@ -22,17 +22,35 @@ export class Comparator extends OnmsEnum<number> {
 
 /* tslint:disable:object-literal-sort-keys */
 
-/** @hidden */
-export const Comparators = Object.freeze({
+const Comparators = {
+  /** Equals (`=` or `==`) */
   EQ: new Comparator(1, 'EQ', '=', '=='),
+
+  /** Not Equals (`!=`) */
   NE: new Comparator(2, 'NE', '!='),
+
+  /** Case-Insensitive Substring Match (`ILIKE`) */
   ILIKE: new Comparator(3, 'ILIKE'),
+
+  /** Case-Sensitive Substring Match (`LIKE`) */
   LIKE: new Comparator(4, 'LIKE'),
+
+  /** Greater Than (`>`) */
   GT: new Comparator(5, 'GT', '>'),
+
+  /** Less Than (`<`) */
   LT: new Comparator(6, 'LT', '<'),
+
+  /** Greater Than or Equal To (`>=`) */
   GE: new Comparator(7, 'GE', '>='),
+
+  /** Less Than or Equal To (`<=`) */
   LE: new Comparator(8, 'LE', '<='),
+
+  /** Is Null (`NULL`) */
   NULL: new Comparator(9, 'NULL'),
+
+  /** Is Not Null (`NOTNULL`) */
   NOTNULL: new Comparator(10, 'NOTNULL'),
 
   /*
@@ -44,4 +62,8 @@ export const Comparators = Object.freeze({
   IPLIKE: new Comparator(17, 'IPLIKE'),
   SQL: new Comparator(16, 'SQL'),
   */
-});
+};
+
+/** @hidden */
+const frozen = Object.freeze(Comparators);
+export {frozen as Comparators};

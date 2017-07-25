@@ -28,7 +28,7 @@ const catClient = new Category('client', catRoot);
 /**
  * The OpenNMS client.  This is the primary interface to OpenNMS servers.
  * @module Client
- */ /** */
+ */
 export class Client implements IHasHTTP {
   /**
    * Given an OnmsServer object, check that it can be connected to.

@@ -1,3 +1,4 @@
+import {IFilterProcessor} from '../api/IFilterProcessor';
 import {IHasHTTP} from '../api/IHasHTTP';
 import {IOnmsHTTP} from '../api/IOnmsHTTP';
 import {OnmsError} from '../api/OnmsError';
@@ -14,40 +15,94 @@ import {V2FilterProcessor} from './V2FilterProcessor';
 // tslint:disable-next-line
 const moment = require('moment');
 
+/** @hidden */
+// tslint:disable-next-line
+import {Moment} from 'moment';
+
 /**
- * Abstract data access layer
+ * An abstract data access layer API, meant to (somewhat) mirror the DAO interfaces
+ * inside OpenNMS.  Used to retrieve model data like alarms, events, etc. from the
+ * OpenNMS ReST API in a consistent way.
+ *
  * @module AbstractDAO
  * @param K the ID/key type (number, string, etc.)
  * @param T the model type (OnmsAlarm, OnmsEvent, etc.)
- */ /** */
+ */
 export abstract class AbstractDAO<K, T> {
-  /** the HTTP implementation to use */
-  protected http: IOnmsHTTP;
+  /**
+   * The [[IOnmsHTTP]] implementation to use internally when making DAO requests.
+   * @hidden
+   */
+  private httpImpl: IOnmsHTTP;
 
-  /** the filter processor to use when making DAO requests */
-  private filterProcessor;
+  /**
+   * The [[IFilterProcessor]] to use internally when making DAO requests.
+   * @hidden
+   */
+  private filterProcessorImpl;
 
-  /** construct a DAO instance */
-  constructor(impl: IHasHTTP | IOnmsHTTP) {
+  /**
+   * Construct a DAO instance.
+   *
+   * @param impl - The HTTP implementation to use.  It is also legal to pass any object
+   *               conforming to the [[IHasHTTP]] interface (like a [[Client]]).
+   */
+  constructor(impl: IOnmsHTTP | IHasHTTP) {
     if ((impl as IHasHTTP).http) {
       impl = (impl as IHasHTTP).http;
     }
-    this.http = impl as IOnmsHTTP;
+    this.httpImpl = impl as IOnmsHTTP;
   }
 
-  /** create a model object given a JSON data structure */
-  public abstract fromData(data: any): T;
+  /**
+   * The HTTP implementation to use internally when making DAO requests.
+   */
+  public get http() {
+    return this.httpImpl;
+  }
 
-  /** get a model object given an ID */
+  public set http(impl: IOnmsHTTP) {
+    this.httpImpl = impl;
+  }
+
+  public get filterProcessor() {
+    if (!this.filterProcessorImpl) {
+      switch (this.getApiVersion()) {
+        case 2:
+          this.filterProcessorImpl = new V2FilterProcessor();
+          break;
+        default:
+          this.filterProcessorImpl = new V1FilterProcessor();
+      }
+    }
+    return this.filterProcessorImpl;
+  }
+
+  public set filterProcessor(impl: IFilterProcessor) {
+    this.filterProcessorImpl = impl;
+  }
+
+  /**
+   * Retrieve a model object.
+   * @param id - the ID of the object
+   */
   public abstract async get(id: K): Promise<T>;
 
-  /** find all model objects given a filter */
+  /**
+   * Find all model objects given an optional filter.
+   * @param filter - the filter to use when retrieving a list of model objects
+   */
   public abstract async find(filter?: Filter): Promise<T[]>;
 
-  /** extract the count or totalCount values from response data */
-  protected getCount(data: any) {
+  /**
+   * A convenience method to make it easy for implementers to extract the count
+   * (or totalCount) values from response data.
+   */
+  protected getCount(data: any): number {
     let count = 0;
-    if (data.count !== undefined) {
+    if (typeof(data) === 'number') {
+      count = data;
+    } else if (data.count !== undefined) {
       count = parseInt(data.count, 10);
     } else if (data.totalCount !== undefined) {
       count = parseInt(data.totalCount, 10);
@@ -57,50 +112,45 @@ export abstract class AbstractDAO<K, T> {
     return count;
   }
 
-  /** given an optional filter, generate an [[OnmsHTTPOptions]] object for DAO calls */
+  /**
+   * Create an [[OnmsHTTPOptions]] object for DAO calls given an optional filter.
+   * @param filter - the filter to use
+   */
   protected getOptions(filter?: Filter): OnmsHTTPOptions {
     const ret = new OnmsHTTPOptions();
     // always use application/xml for now in DAO calls
     ret.headers.accept = 'application/xml';
     if (filter) {
-      ret.parameters = this.getFilterProcessor().getParameters(filter);
+      ret.parameters = this.filterProcessor.getParameters(filter);
     }
     return ret;
   }
 
-  /** convert the given value to a date, or undefined if it cannot be converted */
-  protected toDate(from: any) {
+  /**
+   * Convert the given value to a date, or undefined if it cannot be converted.
+   */
+  protected toDate(from: any): Moment|undefined {
     if (from === undefined || from === null || from === '') {
       return undefined;
     }
     return moment(from);
   }
 
-  /** convert the given value to a number, or undefined if it cannot be converted */
-  protected toNumber(from: any) {
+  /**
+   * Convert the given value to a number, or undefined if it cannot be converted.
+   */
+  protected toNumber(from: any): number|undefined {
     const ret = parseInt(from, 10);
     return isNaN(ret) ? undefined : ret;
   }
 
-  /** retrieve the API version from the underlying server */
-  protected getApiVersion() {
-    if (this.http.server.metadata === undefined) {
+  /**
+   * Retrieve the API version from the currently configured server.
+   */
+  protected getApiVersion(): number {
+    if (this.http === undefined || this.http.server === undefined || this.http.server.metadata === undefined) {
       throw new OnmsError('Server meta-data must be populated prior to making DAO calls.');
     }
     return this.http.server.metadata.apiVersion();
-  }
-
-  /** retrieve filter processor for the current API version */
-  protected getFilterProcessor() {
-    if (!this.filterProcessor) {
-      switch (this.getApiVersion()) {
-        case 2:
-          this.filterProcessor = new V2FilterProcessor();
-          break;
-        default:
-          this.filterProcessor = new V1FilterProcessor();
-      }
-    }
-    return this.filterProcessor;
   }
 }

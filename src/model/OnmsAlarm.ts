@@ -11,7 +11,7 @@ import {OnmsMemo} from './OnmsMemo';
 /**
  * Represents an OpenNMS alarm.
  * @module OnmsAlarm
- */ /** */
+ */
 export class OnmsAlarm {
   /** the alarm ID */
   public id: number;

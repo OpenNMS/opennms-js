@@ -3,13 +3,12 @@ import {OnmsEnum} from '../internal/OnmsEnum';
 /**
  * Represents an OpenNMS trouble ticket state.
  * @module OnmsTroubleTicketState
- */ /** */
+ */
 export class OnmsTroubleTicketState extends OnmsEnum<number> {
 }
 
 /* tslint:disable:object-literal-sort-keys */
-/** @hidden */
-export const TroubleTicketStates = Object.freeze({
+const TroubleTicketStates = {
   OPEN: new OnmsTroubleTicketState(0, 'OPEN'),
   CREATE_PENDING: new OnmsTroubleTicketState(1, 'CREATE_PENDING'),
   CREATE_FAILED: new OnmsTroubleTicketState(2, 'CREATE_FAILED'),
@@ -24,4 +23,8 @@ export const TroubleTicketStates = Object.freeze({
   CANCELLED: new OnmsTroubleTicketState(11, 'CANCELLED'),
   CANCEL_PENDING: new OnmsTroubleTicketState(12, 'CANCEL_PENDING'),
   CANCEL_FAILED: new OnmsTroubleTicketState(13, 'CANCEL_FAILED'),
-});
+};
+
+/** @hidden */
+const frozen = Object.freeze(TroubleTicketStates);
+export {frozen as TroubleTicketStates};

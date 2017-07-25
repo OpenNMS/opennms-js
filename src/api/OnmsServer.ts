@@ -10,18 +10,18 @@ import {UUID} from '../internal/UUID';
 /**
  * Represents a remote OpenNMS server.
  * @module OnmsServer
- */ /** */
+ */
 export class OnmsServer {
-  /** A unique identifier for this server */
+  /** A unique identifier for this server. */
   public id: string;
 
-  /** A name associated with this server (undefined is allowed) */
-  public name: string;
+  /** An optional name associated with this server. */
+  public name?: string;
 
-  /** The base URL to the server */
+  /** The base URL to the server. */
   public url: string;
 
-  /** The authorization configuration associated with the server */
+  /** The authorization configuration associated with the server. */
   public auth: OnmsAuthConfig;
 
   /** The capabilities of the server */
@@ -29,7 +29,22 @@ export class OnmsServer {
 
   /**
    * Construct a new OnmsServer object representing a remote server.
+   * @example
+   * <caption>provide a pre-existing [[OnmsAuthConfig]] for auth</caption>
+   * ```javascript
+   * const server = new OnmsServer('Test', 'https://myserver/opennms/', auth);
+   * ```
+   * @example
+   * <caption>provide a username and password for auth</caption>
+   * ```javascript
+   * const server = new OnmsServer('Test', 'https://myserver/opennms/', 'admin', 'admin');
+   * ```
    * @constructor
+   * @param name - A name for the server suitable for display.
+   * @param url - The URL to the server.
+   * @param auth - An [[OnmsAuthConfig]], or the username to authorize as.
+   * @param password - The password to authorize with if a username was
+   *                   supplied to the `auth` parameter.
    */
   constructor(name?: string, url?: string, auth?: OnmsAuthConfig | string, password?: string) {
     this.id = UUID.generate();
@@ -44,8 +59,8 @@ export class OnmsServer {
 
   /**
    * Given a relative URL fragment, construct a URL for that fragment on the server.
-   * @param forFragment - the URL fragment to append to the server URL
-   * @returns a complete URL
+   * @param forFragment - The URL fragment to append to the server URL.
+   * @returns A complete URL.
    */
   public resolveURL(forFragment?: string) {
     if (!this.url) {
@@ -71,7 +86,7 @@ export class OnmsServer {
   }
 
   /**
-   * Return the hostname portion of the URL associated with this server.
+   * Get the hostname portion of the URL associated with this server.
    */
   get host() {
     if (!this.url) {
@@ -80,7 +95,7 @@ export class OnmsServer {
     return URI(this.url).hostname();
   }
 
-  /** a pretty string representation of this server */
+  /** A string representation of this server suitable for display. */
   public toString() {
     if (this.metadata) {
       return 'OpenNMS '

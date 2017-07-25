@@ -11,23 +11,23 @@ import {Operator, Operators} from '../api/Operator';
 import {Clause} from '../api/Clause';
 
 /**
- * OpenNMS V2 ReST filter processor
+ * Converts a [[Filter]] into ReSTv2 FIQL parameters.
  * @module V2FilterProcessor
- */ /** */
+ */
 export class V2FilterProcessor implements IFilterProcessor {
 
-  /** constant used to represent null values in the V2 API */
+  /** Constant used to represent null values in the V2 API. */
   public static NULL_VALUE = '\u0000';
 
-  /** constant used to represent null dates in the V2 API
-   *  this must be explicitly set as the restriction value when using
-   *  either the NULL or NOTNULL comparators on date fields
+  /** Constant used to represent null dates in the V2 API.
+   *  This must be explicitly set as the restriction value when using
+   *  either the NULL or NOTNULL comparators on date fields.
    */
   public static NULL_DATE = '1970-01-01T00:00:00.000+0000';
 
   /**
-   * given a comparator, convert it to a correspond comparator
-   * that can be used in the FIQL expression
+   * Given a comparator, convert it to a correspond comparator
+   * that can be used in the FIQL expression.
    */
   private static toFIQLComparator(comparator: Comparator) {
     switch (comparator) {
@@ -53,7 +53,7 @@ export class V2FilterProcessor implements IFilterProcessor {
     }
   }
 
-  /** given a restriction, compute the value to use in the FIQL expression */
+  /** Given a restriction, compute the value to use in the FIQL expression. */
   private static toFIQLValue(restriction: Restriction) {
     switch (restriction.comparator) {
       case Comparators.NULL:
@@ -64,7 +64,7 @@ export class V2FilterProcessor implements IFilterProcessor {
     }
   }
 
-  /** given an operator, convert it to the corresponding FIQL operator */
+  /** Given an operator, convert it to the corresponding FIQL operator. */
   private static toFIQLOperator(operator: Operator) {
     switch (operator) {
       case Operators.AND:
@@ -76,7 +76,7 @@ export class V2FilterProcessor implements IFilterProcessor {
     }
   }
 
-  /** given a list of clauses, recursively generate the FIQL query string */
+  /** Given a list of clauses, recursively generate the FIQL query string. */
   private static toFIQL(clauses: Clause[]) {
     let search = '';
     for (const clause of clauses) {
@@ -96,7 +96,7 @@ export class V2FilterProcessor implements IFilterProcessor {
     return search;
   }
 
-  /** given a filter, return a hash of URL parameters */
+  /** Given a filter, return a hash of URL parameters. */
   public getParameters(filter: Filter) {
     const ret = {} as IHash<string>;
 

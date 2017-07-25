@@ -7,7 +7,7 @@ import {OnmsServiceStatusType} from './OnmsServiceStatusType';
 /**
  * Represents an OpenNMS monitored service.
  * @module OnmsMonitoredService
- */ /** */
+ */
 export class OnmsMonitoredService {
   /** the service ID */
   public id: number;

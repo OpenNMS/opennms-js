@@ -7,7 +7,7 @@ import {OnmsSeverity} from './OnmsSeverity';
 /**
  * Represents an OpenNMS event.
  * @module OnmsEvent
- */ /** */
+ */
 export class OnmsEvent {
   /** the event ID */
   public id: number;

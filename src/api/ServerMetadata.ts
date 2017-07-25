@@ -4,12 +4,12 @@ import {ServerType, ServerTypes} from '../api/ServerType';
 /**
  * A class that represents the capabilities an OpenNMS server has and other information about it.
  * @module ServerMetadata
- */ /** */
+ */
 export class ServerMetadata {
-  /** the version of the server */
+  /** The version of the server. */
   public version: OnmsVersion;
 
-  /** the type of server (Horizon, Meridian) */
+  /** The type of server (Horizon, Meridian). */
   public type: ServerType;
 
   /**
@@ -27,12 +27,12 @@ export class ServerMetadata {
     this.type = type || ServerTypes.HORIZON;
   }
 
-  /** can you ack alarms through ReST */
+  /** Can you ack alarms through ReST? */
   public ackAlarms() {
     return this.version.ge('14.0.0');
   }
 
-  /** does this server support graphs (ie, the measurements API) */
+  /** Does this server support graphs? (ie, the measurements API) */
   public graphs() {
     if (this.type && this.type === ServerTypes.MERIDIAN) {
       return this.version.ge('2016.1.0');
@@ -41,17 +41,17 @@ export class ServerMetadata {
     }
   }
 
-  /** does this server support outage summaries */
+  /** Does this server support outage summaries? */
   public outageSummaries() {
     return this.version.ge('14.0.3');
   }
 
-  /** does this server support setting the location on a node */
+  /** Does this server support setting the location on a node? */
   public setNodeLocation() {
     return this.version.ge('15.0.2');
   }
 
-  /** what version of the ReST API does this server support */
+  /** What version of the ReST API does this server support? */
   public apiVersion() {
     if (this.type && this.type === ServerTypes.MERIDIAN) {
       return this.version.ge('2017.1.0') ? 2 : 1;
@@ -60,7 +60,7 @@ export class ServerMetadata {
     }
   }
 
-  /** a convenient data structure with all capabilities listed */
+  /** Returs a convenient data structure with all capabilities listed. */
   public capabilities() {
     return {
       ackAlarms: this.ackAlarms(),
@@ -72,7 +72,7 @@ export class ServerMetadata {
     };
   }
 
-  /** a human-readable representation of this version */
+  /** A human-readable representation of the metadata. */
   public toString() {
     return 'ServerMetadata[version=' + this.version.toString()
       + ',apiVersion=' + this.apiVersion()

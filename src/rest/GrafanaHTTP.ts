@@ -11,27 +11,29 @@ import {Category} from 'typescript-logging';
 const catGrafana = new Category('grafana', catRest);
 
 /**
- * Implementation of the OnmsHTTP interface for Grafana
+ * Implementation of the [[IOnmsHTTP]] interface for Grafana.
  * @module GrafanaHTTP
  * @implements IOnmsHTTP
- */ /** */
+ */
 export class GrafanaHTTP extends AbstractHTTP {
-  /** the Grafana backend object we'll use for making ReST calls */
+  /**
+   * The Grafana backend object we'll use for making ReST calls.
+   * @hidden
+   */
   private backendSrv: any;
 
   /**
-   * Construct a new GrafanaHTTP implementation
+   * Construct a new GrafanaHTTP implementation.
    * @constructor
-   * @param backendSrv the Grafana BackendSrv object to use for requests
-   * @param server the OpenNMS server to make requests to
-   * @param timeout
+   * @param backendSrv - The Grafana BackendSrv object to use for requests.
+   * @param server - The OpenNMS server to make requests to.
    */
   constructor(backendSrv: any, server?: OnmsServer) {
     super(server, undefined);
     this.backendSrv = backendSrv;
   }
 
-  /** make an HTTP GET call using the Grafana backendSrv */
+  /** Make an HTTP GET call using the Grafana `BackendSrv`. */
   public get(url: string, options?: OnmsHTTPOptions) {
     const realUrl = this.getServer(options).resolveURL(url);
     log.debug('GET ' + realUrl);
@@ -50,7 +52,7 @@ export class GrafanaHTTP extends AbstractHTTP {
     });
   }
 
-  /** make an HTTP PUT call using the Grafana backendSrv */
+  /** Make an HTTP PUT call using the Grafana `BackendSrv`. */
   public put(url: string, options?: OnmsHTTPOptions) {
     const realUrl = this.getServer(options).resolveURL(url);
     log.debug('PUT ' + realUrl);
@@ -70,7 +72,10 @@ export class GrafanaHTTP extends AbstractHTTP {
     });
   }
 
-  /** internal method to turn [[OnmsHTTPOptions]] into a Grafana BackendSrv request object. */
+  /**
+   * Internal method to turn [[OnmsHTTPOptions]] into a Grafana `BackendSrv` request object.
+   * @hidden
+   */
   private getConfig(options?: OnmsHTTPOptions): any {
     const allOptions = this.getOptions(options);
     const ret = {} as any;

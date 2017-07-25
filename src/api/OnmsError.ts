@@ -1,21 +1,22 @@
 /**
  * Represents an OpenNMS.js error.  This will eventually have custom stuff to do... stuff.
  * @module OnmsError
- */ /** */
+ */
 export class OnmsError {
-  /** the error code associated with this error */
+  /** The error code associated with this error. */
   public code: number;
 
-  /** the stack trace when this error is created */
+  /** The stack trace when this error is created. */
   public stack;
 
-  /** the JS Error class associated with this error */
+  /** The JS Error class associated with this error. */
   private error: Error;
 
   /**
-   * Create a new error with the given message.
+   * Create a new error.
    * @constructor
-   * @param message - the message
+   * @param message - The error message.
+   * @param code - An optional error code to associate with the error.
    */
   constructor(public message: string, code?: number) {
     this.error = new Error(message);

@@ -5,21 +5,21 @@ import {IHash} from '../internal/IHash';
 /**
  * Options to be used when making HTTP ReST calls.
  * @module OnmsHTTPOptions
- */ /** */
+ */
 export class OnmsHTTPOptions {
-  /** the authentication config that should be used when no server auth is configured */
+  /** The authentication config that should be used when no auth is associated with the [[OnmsServer]]. */
   public auth: OnmsAuthConfig;
 
-  /** the server to use if no server is set on the HTTP implementation */
+  /** The server to use if no server is set on the HTTP implementation. */
   public server: OnmsServer;
 
-  /** how long to wait for ReST calls to time out */
+  /** How long to wait for ReST calls to time out. */
   public timeout = 10000;
 
-  /** http headers to be passed to the request */
+  /** HTTP headers to be passed to the request. */
   public headers = {} as IHash<string>;
 
-  /** http parameters to be passed on the URL */
+  /** HTTP parameters to be passed on the URL. */
   public parameters = {} as IHash<string>;
 
   /**

@@ -2,13 +2,12 @@ import {OnmsEnum} from '../internal/OnmsEnum';
 /**
  * Represents an OpenNMS severity.
  * @module OnmsSeverity
- */ /** */
+ */
 export class OnmsSeverity extends OnmsEnum<number> {
 }
 
 /* tslint:disable:object-literal-sort-keys */
-/** @hidden */
-export const Severities = Object.freeze({
+const Severities = {
   INDETERMINATE: new OnmsSeverity(1, 'INDETERMINATE'),
   CLEARED: new OnmsSeverity(2, 'CLEARED'),
   NORMAL: new OnmsSeverity(3, 'NORMAL'),
@@ -16,4 +15,8 @@ export const Severities = Object.freeze({
   MINOR: new OnmsSeverity(5, 'MINOR'),
   MAJOR: new OnmsSeverity(6, 'MAJOR'),
   CRITICAL: new OnmsSeverity(7, 'CRITICAL'),
-});
+};
+
+/** @hidden */
+const frozen = Object.freeze(Severities);
+export {frozen as Severities};

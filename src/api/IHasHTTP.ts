@@ -8,9 +8,8 @@ import {IOnmsHTTP} from './IOnmsHTTP';
  *
  * @interface
  * @module IHasHTTP
- */ /** */
-
+ */
 export interface IHasHTTP {
-  /** the HTTP implementation this object should contain */
+  /** The HTTP implementation this object should contain. */
   http: IOnmsHTTP;
 }
