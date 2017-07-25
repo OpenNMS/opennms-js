@@ -7,6 +7,8 @@ import {OnmsServer} from '../api/OnmsServer';
 import {log, catRest} from '../api/Log';
 import {Category} from 'typescript-logging';
 
+import clonedeep from 'lodash.clonedeep';
+
 /** @hidden */
 const catGrafana = new Category('grafana', catRest);
 
@@ -81,10 +83,11 @@ export class GrafanaHTTP extends AbstractHTTP {
     const ret = {} as any;
 
     if (allOptions.headers) {
-      ret.headers = allOptions.headers;
+      ret.headers = clonedeep(allOptions.headers);
+    } else {
+      ret.headers = {};
     }
 
-    ret.headers = ret.headers || {};
     if (!ret.headers.accept) {
       ret.headers.accept = 'application/json';
     }
@@ -107,7 +110,7 @@ export class GrafanaHTTP extends AbstractHTTP {
     }
 
     if (allOptions.parameters && Object.keys(allOptions.parameters).length > 0) {
-      ret.params = options.parameters;
+      ret.params = clonedeep(allOptions.parameters);
     }
 
     return ret;

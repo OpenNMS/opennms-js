@@ -49,6 +49,6 @@ export class OnmsResult<T> {
 
   /** Whether this result is considered successful. */
   public isSuccess() {
-    return this.code === 200 || this.code === 204;
+    return this.code === 200 || this.code === 202 || this.code === 204;
   }
 }
