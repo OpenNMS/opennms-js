@@ -4,7 +4,7 @@ A client API for accessing the OpenNMS network monitoring platform.
 
 # Getting Started
 
-Information on getting started and how to use the API is in the [HOWTO document](HOWTO.md).
+Information on getting started and how to use the API is in the [HOWTO document](https://github.com/OpenNMS/opennms-js/blob/master/HOWTO.md).
 
 The complete API list is available at [docs.opennms.org](http://docs.opennms.org/opennms-js/branches/master/opennms-js/opennms-js.html).
 
