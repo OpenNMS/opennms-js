@@ -11,7 +11,7 @@ import {
 } from 'typescript-logging';
 
 /** @hidden */
-function CLI() {
+const CLI = () => {
   const catCLI = new Category('cli', catRoot);
 
   // tslint:disable
@@ -25,7 +25,7 @@ function CLI() {
   const homedir = process.env[(process.platform === 'win32') ? 'USERPROFILE' : 'HOME'];
   const defaultConfigFile = path.join(homedir, '.opennms-cli.config.json');
 
-  function readConfig() {
+  const readConfig = () => {
     const configfile = program.config || defaultConfigFile;
     let config;
     if (fs.existsSync(configfile)) {
@@ -38,7 +38,24 @@ function CLI() {
       };
     }
     return config;
-  }
+  };
+
+  const handleError = (message, err) => {
+    let realError: any = new Error(message);
+    if (err instanceof API.OnmsResult) {
+      realError = new API.OnmsError(message + ': ' + err.message, err.code);
+    } else if (err.message) {
+      realError = new API.OnmsError(message + ': ' + err.message);
+    } else if (Object.prototype.toString.call(err) === '[object String]') {
+      realError = new API.OnmsError(message + ': ' + err);
+    }
+    if (program.debug) {
+      log.error(realError.message, realError, catCLI);
+    } else {
+      log.error(realError.message, undefined, catCLI);
+    }
+    return realError;
+  };
 
   /* tslint:disable:no-console */
 
@@ -81,11 +98,7 @@ function CLI() {
         }
         return true;
       }).catch((err) => {
-        if (program.debug) {
-          log.error('Connection failed: ' + err.message, err, catCLI);
-        } else {
-          log.error('Connection failed: ' + err.message, undefined, catCLI);
-        }
+        return handleError('Server check failed', err);
       });
     });
 
@@ -121,11 +134,7 @@ function CLI() {
 
         return res;
       }).catch((err) => {
-        if (program.debug) {
-          log.error('Capabilities check failed: ' + err.message, err, catCLI);
-        } else {
-          log.error('Capabilities check failed: ' + err.message, undefined, catCLI);
-        }
+        return handleError('Capabilities check failed', err);
       });
     });
 
@@ -216,12 +225,9 @@ function CLI() {
         return dao.find(filter).then((alarms) => {
           const headers = ['id', 'severity', 'node', 'count', 'time', 'log'];
           console.log(cliff.stringifyObjectRows(formatAlarms(alarms), headers, ['red']));
-        }).catch((err) => {
-          if (err.stack) {
-            log.error(err.stack, err, catCLI);
-          }
-          return err;
         });
+      }).catch((err) => {
+        return handleError('Alarm list failed', err);
       });
     });
 
@@ -232,6 +238,7 @@ function CLI() {
     }
     p.description(description);
     p.action((id) => {
+      id = parseInt(id, 10);
       const config = readConfig();
       return new Client().connect('OpenNMS', config.url, config.username, config.password).then((client) => {
         return client.alarms()[name](id).then(() => {
@@ -239,11 +246,7 @@ function CLI() {
           return true;
         });
       }).catch((err) => {
-        if (program.debug) {
-          log.error(name + ' failed: ' + err.message, err, catCLI);
-        } else {
-          log.error(name + ' failed: ' + err.message, undefined, catCLI);
-        }
+        return handleError(name + ' failed', err);
       });
     });
   };
@@ -255,6 +258,7 @@ function CLI() {
     .description('Acknowledge an alarm')
     .option('-u, --user <user>', 'Which user to acknowledge as (only administrators can do this)')
     .action((id, options) => {
+      id = parseInt(id, 10);
       const config = readConfig();
       return new Client().connect('OpenNMS', config.url, config.username, config.password).then((client) => {
         return client.alarms().acknowledge(id, options.user).then(() => {
@@ -262,11 +266,7 @@ function CLI() {
           return true;
         });
       }).catch((err) => {
-        if (program.debug) {
-          log.error('Acknowledge failed: ' + err.message, err, catCLI);
-        } else {
-          log.error('Acknowledge failed: ' + err.message, undefined, catCLI);
-        }
+        return handleError('Acknowledge failed', err);
       });
     });
 
@@ -274,11 +274,19 @@ function CLI() {
   createAlarmAction('escalate', 'Escalate an alarm');
   createAlarmAction('clear', 'Clear an alarm');
 
+  createAlarmAction('createTicket', 'Create a trouble ticket for an alarm', 'create');
+  createAlarmAction('triggerTicketUpdate', 'Trigger a trouble ticket update for an alarm', 'update');
+  createAlarmAction('closeTicket', 'Close a trouble ticket for an alarm', 'close');
+
   program.parse(process.argv);
 
   if (!process.argv.slice(2).length) {
     program.outputHelp();
   }
-}
+};
+
+process.on('unhandledRejection', (reason, p) => {
+  console.log('Unhandled Rejection at: Promise', p, 'reason:', reason);
+});
 
 CLI();
