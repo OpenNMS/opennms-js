@@ -107,7 +107,7 @@ export abstract class AbstractDAO<K, T> {
     } else if (data.totalCount !== undefined) {
       count = parseInt(data.totalCount, 10);
     } else {
-      log.warn('data is missing count and totalCount properties', catDao);
+      log.debug('data is missing count and totalCount properties', catDao);
     }
     return count;
   }
