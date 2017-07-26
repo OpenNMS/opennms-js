@@ -1,9 +1,12 @@
 <a name="0.1.0-alpha.4"></a>
-# [0.1.0-alpha.4](https://github.com/OpenNMS/opennms-js/compare/v0.1.0-alpha.3...v0.1.0-alpha.4) (2017-07-25)
+# [0.1.0-alpha.4](https://github.com/OpenNMS/opennms-js/compare/v0.1.0-alpha.3...v0.1.0-alpha.4) (2017-07-26)
 
 
 ### Bug Fixes
 
+* **log:** bump logging of missing count down to DEBUG ([00b3e1b](https://github.com/OpenNMS/opennms-js/commit/00b3e1b))
+* **rest:** fix clonedeep import in the CLI ([e2e9d79](https://github.com/OpenNMS/opennms-js/commit/e2e9d79))
+* **rest:** fix crash when options is undefined in getServer ([7768b48](https://github.com/OpenNMS/opennms-js/commit/7768b48))
 * **rest:** make sure passed options don't leak ([9b9dee4](https://github.com/OpenNMS/opennms-js/commit/9b9dee4))
 
 

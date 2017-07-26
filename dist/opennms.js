@@ -9139,7 +9139,7 @@ var AbstractDAO = function () {
             } else if (data.totalCount !== undefined) {
                 count = parseInt(data.totalCount, 10);
             } else {
-                Log_1.log.warn('data is missing count and totalCount properties', Log_1.catDao);
+                Log_1.log.debug('data is missing count and totalCount properties', Log_1.catDao);
             }
             return count;
         }
@@ -12039,7 +12039,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 Object.defineProperty(exports, "__esModule", { value: true });
 var axios_1 = __webpack_require__(207);
-var lodash_clonedeep_1 = __webpack_require__(69);
+var clonedeep = __webpack_require__(69);
 /** @hidden */
 // tslint:disable-next-line
 var URI = __webpack_require__(198);
@@ -12152,7 +12152,7 @@ var AxiosHTTP = function (_AbstractHTTP_1$Abstr) {
                 ret.timeout = allOptions.timeout;
             }
             if (allOptions.headers) {
-                ret.headers = lodash_clonedeep_1.default(allOptions.headers);
+                ret.headers = clonedeep(allOptions.headers);
             } else {
                 ret.headers = {};
             }
@@ -12176,7 +12176,7 @@ var AxiosHTTP = function (_AbstractHTTP_1$Abstr) {
                 throw new OnmsError_1.OnmsError('Unhandled "Accept" header: ' + type);
             }
             if (allOptions.parameters) {
-                ret.params = lodash_clonedeep_1.default(allOptions.parameters);
+                ret.params = clonedeep(allOptions.parameters);
             }
             return ret;
         }
@@ -29198,7 +29198,10 @@ var AbstractHTTP = function () {
     }, {
         key: "getServer",
         value: function getServer(options) {
-            return options.server || this.serverObj;
+            if (options && options.server) {
+                return options.server;
+            }
+            return this.serverObj;
         }
         /**
          * Get the union of [[OnmsHTTPOptions]] based on the passed options, defaults,
@@ -34251,7 +34254,7 @@ var EventDAO_1 = __webpack_require__(26);
 var NodeDAO_1 = __webpack_require__(41);
 var AxiosHTTP_1 = __webpack_require__(60);
 /** @hidden */
-var catClient = new typescript_logging_1.Category('client', Log_1.catRoot);
+exports.cat = new typescript_logging_1.Category('client', Log_1.catRoot);
 /**
  * The OpenNMS client.  This is the primary interface to OpenNMS servers.
  * @module Client
@@ -34296,7 +34299,7 @@ var Client = function () {
                                 opts.headers.accept = 'text/plain';
                                 infoUrl = server.resolveURL('rest/alarms/count');
 
-                                Log_1.log.debug('checkServer: checking URL: ' + infoUrl, catClient);
+                                Log_1.log.debug('checkServer: checking URL: ' + infoUrl, exports.cat);
                                 _context.next = 10;
                                 return httpImpl.get(infoUrl, opts);
 
@@ -34351,7 +34354,7 @@ var Client = function () {
                             case 6:
                                 infoUrl = server.resolveURL('rest/info');
 
-                                Log_1.log.debug('getMetadata: checking URL: ' + infoUrl, catClient);
+                                Log_1.log.debug('getMetadata: checking URL: ' + infoUrl, exports.cat);
                                 _context2.next = 10;
                                 return httpImpl.get(infoUrl, opts);
 
@@ -34568,7 +34571,7 @@ var OnmsError_1 = __webpack_require__(5);
 var OnmsResult_1 = __webpack_require__(24);
 var Log_1 = __webpack_require__(4);
 var typescript_logging_1 = __webpack_require__(6);
-var lodash_clonedeep_1 = __webpack_require__(69);
+var clonedeep = __webpack_require__(69);
 /** @hidden */
 var catGrafana = new typescript_logging_1.Category('grafana', Log_1.catRest);
 /**
@@ -34649,7 +34652,7 @@ var GrafanaHTTP = function (_AbstractHTTP_1$Abstr) {
             var allOptions = this.getOptions(options);
             var ret = {};
             if (allOptions.headers) {
-                ret.headers = lodash_clonedeep_1.default(allOptions.headers);
+                ret.headers = clonedeep(allOptions.headers);
             } else {
                 ret.headers = {};
             }
@@ -34673,7 +34676,7 @@ var GrafanaHTTP = function (_AbstractHTTP_1$Abstr) {
                 throw new OnmsError_1.OnmsError('Unhandled "Accept" header: ' + type);
             }
             if (allOptions.parameters && Object.keys(allOptions.parameters).length > 0) {
-                ret.params = lodash_clonedeep_1.default(allOptions.parameters);
+                ret.params = clonedeep(allOptions.parameters);
             }
             return ret;
         }
