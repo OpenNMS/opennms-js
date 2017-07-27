@@ -8,12 +8,12 @@ import {OnmsHTTPOptions} from '../api/OnmsHTTPOptions';
 import {OnmsResult} from '../api/OnmsResult';
 import {OnmsServer} from '../api/OnmsServer';
 
-if (!global.window) {
+if (global && !global.window) {
   global.window = {} as Window;
-}
-if (!global.window.DOMParser) {
-  // tslint:disable-next-line
-  global.window.DOMParser = require('xmldom').DOMParser;
+  if (!global.window.DOMParser) {
+    // tslint:disable-next-line
+    global.window.DOMParser = require('xmldom').DOMParser;
+  }
 }
 
 /** @hidden */
