@@ -29113,12 +29113,12 @@ var _createClass = function () { function defineProperties(target, props) { for 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 Object.defineProperty(exports, "__esModule", { value: true });
-if (!global.window) {
+if (global && !global.window) {
     global.window = {};
-}
-if (!global.window.DOMParser) {
-    // tslint:disable-next-line
-    global.window.DOMParser = __webpack_require__(259).DOMParser;
+    if (!global.window.DOMParser) {
+        // tslint:disable-next-line
+        global.window.DOMParser = __webpack_require__(259).DOMParser;
+    }
 }
 /** @hidden */
 // tslint:disable-next-line
