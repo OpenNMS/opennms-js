@@ -78,7 +78,7 @@ var config = {
     fs: 'empty',
     __dirname: true,
     child_process: false,
-    global: false,
+    global: true,
     process: false
   }
 };
