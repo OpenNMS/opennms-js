@@ -5218,27 +5218,48 @@ var OnmsError = function () {
      * @param message - The error message.
      * @param code - An optional error code to associate with the error.
      */
-    function OnmsError(message, code) {
+    function OnmsError(mess, code) {
         _classCallCheck(this, OnmsError);
 
-        this.message = message;
-        this.error = new Error(message);
-        this.code = code;
-        this.stack = this.error.stack;
+        this.mess = mess;
+        this.errorObj = new Error(mess);
+        this.statusCode = code;
+        this.stack = this.errorObj.stack;
     }
-    /**
-     * Returns a string representation of this error.
-     */
+    /** The error code associated with this error. */
 
 
     _createClass(OnmsError, [{
         key: "toString",
+
+        /**
+         * Returns a string representation of this error.
+         */
         value: function toString() {
             if (this.code) {
-                return 'Error ' + this.code + ': ' + this.error.message;
+                return 'Error ' + this.code + ': ' + this.message;
             } else {
-                return 'Error: ' + this.error.message;
+                return 'Error: ' + this.message;
             }
+        }
+    }, {
+        key: "code",
+        get: function get() {
+            return this.statusCode;
+        }
+        /** The JS Error class associated with this error. */
+
+    }, {
+        key: "error",
+        get: function get() {
+            return this.errorObj;
+        }
+        /** The error message. */
+
+    }, {
+        key: "message",
+        get: function get() {
+            return this.errorObj.message;
         }
     }]);
 
@@ -5261,10 +5282,10 @@ function __export(m) {
 }
 var LogGroupControl_1 = __webpack_require__(253);
 var CategoryServiceControl_1 = __webpack_require__(252);
-var ExtensionHelper_1 = __webpack_require__(18);
+var ExtensionHelper_1 = __webpack_require__(20);
 exports.ExtensionHelper = ExtensionHelper_1.ExtensionHelper;
 // Category related
-var AbstractCategoryLogger_1 = __webpack_require__(19);
+var AbstractCategoryLogger_1 = __webpack_require__(21);
 exports.AbstractCategoryLogger = AbstractCategoryLogger_1.AbstractCategoryLogger;
 var CategoryConsoleLoggerImpl_1 = __webpack_require__(192);
 exports.CategoryConsoleLoggerImpl = CategoryConsoleLoggerImpl_1.CategoryConsoleLoggerImpl;
@@ -5274,7 +5295,7 @@ var CategoryLogger_1 = __webpack_require__(255);
 exports.Category = CategoryLogger_1.Category;
 var CategoryMessageBufferImpl_1 = __webpack_require__(194);
 exports.CategoryMessageBufferLoggerImpl = CategoryMessageBufferImpl_1.CategoryMessageBufferLoggerImpl;
-var CategoryService_1 = __webpack_require__(20);
+var CategoryService_1 = __webpack_require__(22);
 exports.CategoryDefaultConfiguration = CategoryService_1.CategoryDefaultConfiguration;
 exports.CategoryRuntimeSettings = CategoryService_1.CategoryRuntimeSettings;
 exports.CategoryServiceFactory = CategoryService_1.CategoryServiceFactory;
@@ -5282,7 +5303,7 @@ var LoggerFactoryService_1 = __webpack_require__(36);
 exports.LoggerFactoryOptions = LoggerFactoryService_1.LoggerFactoryOptions;
 exports.LFService = LoggerFactoryService_1.LFService;
 exports.LogGroupRule = LoggerFactoryService_1.LogGroupRule;
-var AbstractLogger_1 = __webpack_require__(21);
+var AbstractLogger_1 = __webpack_require__(23);
 exports.AbstractLogger = AbstractLogger_1.AbstractLogger;
 var ConsoleLoggerImpl_1 = __webpack_require__(195);
 exports.ConsoleLoggerImpl = ConsoleLoggerImpl_1.ConsoleLoggerImpl;
@@ -5300,7 +5321,7 @@ var DataStructures_1 = __webpack_require__(8);
 exports.SimpleMap = DataStructures_1.SimpleMap;
 exports.LinkedList = DataStructures_1.LinkedList;
 __export(__webpack_require__(257));
-var MessageUtils_1 = __webpack_require__(22);
+var MessageUtils_1 = __webpack_require__(24);
 exports.MessageFormatUtils = MessageUtils_1.MessageFormatUtils;
 /*
  Functions to export on TSL libarary var.
@@ -6348,7 +6369,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var Operator_1 = __webpack_require__(13);
+var Operator_1 = __webpack_require__(15);
 var Clause_1 = __webpack_require__(37);
 /**
  * Nested query restrictions.
@@ -6400,6 +6421,118 @@ exports.NestedRestriction = NestedRestriction;
 
 /***/ }),
 /* 13 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+Object.defineProperty(exports, "__esModule", { value: true });
+/**
+ * Options to be used when making HTTP ReST calls.
+ * @module OnmsHTTPOptions
+ */
+
+var OnmsHTTPOptions =
+/**
+ * Construct a new OnmsHTTPOptions object.
+ * @constructor
+ */
+function OnmsHTTPOptions(timeout, auth, server) {
+    _classCallCheck(this, OnmsHTTPOptions);
+
+    /** How long to wait for ReST calls to time out. */
+    this.timeout = 10000;
+    /** HTTP headers to be passed to the request. */
+    this.headers = {};
+    /** HTTP parameters to be passed on the URL. */
+    this.parameters = {};
+    if (timeout !== undefined) {
+        this.timeout = timeout;
+    }
+    if (auth !== undefined) {
+        this.auth = auth;
+    }
+    if (server !== undefined) {
+        this.server = server;
+    }
+};
+
+exports.OnmsHTTPOptions = OnmsHTTPOptions;
+
+/***/ }),
+/* 14 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+Object.defineProperty(exports, "__esModule", { value: true });
+/**
+ * An [[IOnmsHTTP]] query result.
+ * @module OnmsResult
+ */
+
+var OnmsResult = function () {
+    /**
+     * Construct a new result.
+     * @param data The payload of the response.
+     * @param message The status message associated with the result.
+     * @param code The response code of the response.
+     * @param type The request type of the response.
+     */
+    function OnmsResult(data, message, code, type) {
+        _classCallCheck(this, OnmsResult);
+
+        this.data = data;
+        this.message = message;
+        this.code = code;
+        this.type = type;
+    }
+    /** Create a new error result. */
+
+
+    _createClass(OnmsResult, [{
+        key: "isSuccess",
+
+        /** Whether this result is considered successful. */
+        value: function isSuccess() {
+            return this.code === 200 || this.code === 202 || this.code === 204;
+        }
+    }], [{
+        key: "error",
+        value: function error(message, code) {
+            return new OnmsResult(undefined, message, code);
+        }
+        /** Create a new success result. */
+
+    }, {
+        key: "ok",
+        value: function ok(response, message, code, type) {
+            return new OnmsResult(response, message || 'OK', code || 200, type);
+        }
+        /** Create a new "No Content" result. */
+
+    }, {
+        key: "noContent",
+        value: function noContent() {
+            // Use an empty string for the data
+            return new OnmsResult('', 'No Content', 204);
+        }
+    }]);
+
+    return OnmsResult;
+}();
+
+exports.OnmsResult = OnmsResult;
+
+/***/ }),
+/* 15 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6464,7 +6597,7 @@ var frozen = Object.freeze(Operators);
 exports.Operators = frozen;
 
 /***/ }),
-/* 14 */
+/* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6507,7 +6640,7 @@ var frozen = Object.freeze(ServerTypes);
 exports.ServerTypes = frozen;
 
 /***/ }),
-/* 15 */
+/* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6562,7 +6695,7 @@ var OnmsServiceType = function () {
 exports.OnmsServiceType = OnmsServiceType;
 
 /***/ }),
-/* 16 */
+/* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6742,7 +6875,7 @@ module.exports = function xhrAdapter(config) {
 };
 
 /***/ }),
-/* 17 */
+/* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6751,15 +6884,15 @@ module.exports = function xhrAdapter(config) {
 module.exports = __webpack_require__(236);
 
 /***/ }),
-/* 18 */
+/* 20 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var CategoryService_1 = __webpack_require__(20);
+var CategoryService_1 = __webpack_require__(22);
 var LoggerOptions_1 = __webpack_require__(2);
-var MessageUtils_1 = __webpack_require__(22);
+var MessageUtils_1 = __webpack_require__(24);
 var ExtensionHelper = function () {
     function ExtensionHelper() {}
     // Private constructor
@@ -6955,14 +7088,14 @@ exports.ExtensionHelper = ExtensionHelper;
 //# sourceMappingURL=ExtensionHelper.js.map
 
 /***/ }),
-/* 19 */
+/* 21 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 var DataStructures_1 = __webpack_require__(8);
-var MessageUtils_1 = __webpack_require__(22);
+var MessageUtils_1 = __webpack_require__(24);
 var LoggerOptions_1 = __webpack_require__(2);
 var CategoryLogMessageImpl = function () {
     function CategoryLogMessageImpl(message, error, categories, date, level, logFormat, ready) {
@@ -7262,7 +7395,7 @@ exports.AbstractCategoryLogger = AbstractCategoryLogger;
 //# sourceMappingURL=AbstractCategoryLogger.js.map
 
 /***/ }),
-/* 20 */
+/* 22 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7274,7 +7407,7 @@ var CategoryConsoleLoggerImpl_1 = __webpack_require__(192);
 var CategoryDelegateLoggerImpl_1 = __webpack_require__(193);
 var CategoryExtensionLoggerImpl_1 = __webpack_require__(254);
 var CategoryMessageBufferImpl_1 = __webpack_require__(194);
-var ExtensionHelper_1 = __webpack_require__(18);
+var ExtensionHelper_1 = __webpack_require__(20);
 /**
  * RuntimeSettings for a category, at runtime these are associated to a category.
  */
@@ -7727,7 +7860,7 @@ exports.CategoryServiceFactory = CategoryServiceFactory;
 //# sourceMappingURL=CategoryService.js.map
 
 /***/ }),
-/* 21 */
+/* 23 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7735,7 +7868,7 @@ exports.CategoryServiceFactory = CategoryServiceFactory;
 
 var LoggerOptions_1 = __webpack_require__(2);
 var DataStructures_1 = __webpack_require__(8);
-var MessageUtils_1 = __webpack_require__(22);
+var MessageUtils_1 = __webpack_require__(24);
 var LogMessageInternalImpl = function () {
     function LogMessageInternalImpl(loggerName, message, errorAsStack, error, logGroupRule, date, level, ready) {
         this._errorAsStack = null;
@@ -7989,7 +8122,7 @@ exports.AbstractLogger = AbstractLogger;
 //# sourceMappingURL=AbstractLogger.js.map
 
 /***/ }),
-/* 22 */
+/* 24 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8143,7 +8276,7 @@ exports.MessageFormatUtils = MessageFormatUtils;
 //# sourceMappingURL=MessageUtils.js.map
 
 /***/ }),
-/* 23 */
+/* 25 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8222,118 +8355,6 @@ var Comparators = {
 /** @hidden */
 var frozen = Object.freeze(Comparators);
 exports.Comparators = frozen;
-
-/***/ }),
-/* 24 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-Object.defineProperty(exports, "__esModule", { value: true });
-/**
- * Options to be used when making HTTP ReST calls.
- * @module OnmsHTTPOptions
- */
-
-var OnmsHTTPOptions =
-/**
- * Construct a new OnmsHTTPOptions object.
- * @constructor
- */
-function OnmsHTTPOptions(timeout, auth, server) {
-    _classCallCheck(this, OnmsHTTPOptions);
-
-    /** How long to wait for ReST calls to time out. */
-    this.timeout = 10000;
-    /** HTTP headers to be passed to the request. */
-    this.headers = {};
-    /** HTTP parameters to be passed on the URL. */
-    this.parameters = {};
-    if (timeout !== undefined) {
-        this.timeout = timeout;
-    }
-    if (auth !== undefined) {
-        this.auth = auth;
-    }
-    if (server !== undefined) {
-        this.server = server;
-    }
-};
-
-exports.OnmsHTTPOptions = OnmsHTTPOptions;
-
-/***/ }),
-/* 25 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-Object.defineProperty(exports, "__esModule", { value: true });
-/**
- * An [[IOnmsHTTP]] query result.
- * @module OnmsResult
- */
-
-var OnmsResult = function () {
-    /**
-     * Construct a new result.
-     * @param data The payload of the response.
-     * @param message The status message associated with the result.
-     * @param code The response code of the response.
-     * @param type The request type of the response.
-     */
-    function OnmsResult(data, message, code, type) {
-        _classCallCheck(this, OnmsResult);
-
-        this.data = data;
-        this.message = message;
-        this.code = code;
-        this.type = type;
-    }
-    /** Create a new error result. */
-
-
-    _createClass(OnmsResult, [{
-        key: "isSuccess",
-
-        /** Whether this result is considered successful. */
-        value: function isSuccess() {
-            return this.code === 200 || this.code === 202 || this.code === 204;
-        }
-    }], [{
-        key: "error",
-        value: function error(message, code) {
-            return new OnmsResult(undefined, message, code);
-        }
-        /** Create a new success result. */
-
-    }, {
-        key: "ok",
-        value: function ok(response, message, code, type) {
-            return new OnmsResult(response, message || 'OK', code || 200, type);
-        }
-        /** Create a new "No Content" result. */
-
-    }, {
-        key: "noContent",
-        value: function noContent() {
-            // Use an empty string for the data
-            return new OnmsResult('', 'No Content', 204);
-        }
-    }]);
-
-    return OnmsResult;
-}();
-
-exports.OnmsResult = OnmsResult;
 
 /***/ }),
 /* 26 */
@@ -8475,7 +8496,7 @@ exports.OnmsVersion = OnmsVersion;
 "use strict";
 
 
-var _regenerator = __webpack_require__(17);
+var _regenerator = __webpack_require__(19);
 
 var _regenerator2 = _interopRequireDefault(_regenerator);
 
@@ -8521,7 +8542,7 @@ var OnmsError_1 = __webpack_require__(5);
 var Util_1 = __webpack_require__(35);
 var OnmsEvent_1 = __webpack_require__(49);
 var OnmsParm_1 = __webpack_require__(28);
-var OnmsServiceType_1 = __webpack_require__(15);
+var OnmsServiceType_1 = __webpack_require__(17);
 var OnmsSeverity_1 = __webpack_require__(29);
 var Log_1 = __webpack_require__(4);
 var typescript_logging_1 = __webpack_require__(6);
@@ -8812,10 +8833,10 @@ function getDefaultAdapter() {
   var adapter;
   if (typeof XMLHttpRequest !== 'undefined') {
     // For browsers use XHR adapter
-    adapter = __webpack_require__(16);
+    adapter = __webpack_require__(18);
   } else if (typeof process !== 'undefined') {
     // For node use HTTP adapter
-    adapter = __webpack_require__(16);
+    adapter = __webpack_require__(18);
   }
   return adapter;
 }
@@ -9116,7 +9137,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 Object.defineProperty(exports, "__esModule", { value: true });
 var OnmsError_1 = __webpack_require__(5);
-var OnmsHTTPOptions_1 = __webpack_require__(24);
+var OnmsHTTPOptions_1 = __webpack_require__(13);
 var Log_1 = __webpack_require__(4);
 var V1FilterProcessor_1 = __webpack_require__(43);
 var V2FilterProcessor_1 = __webpack_require__(44);
@@ -9311,7 +9332,7 @@ exports.Util = Util;
 var DataStructures_1 = __webpack_require__(8);
 var LoggerOptions_1 = __webpack_require__(2);
 var LoggerFactoryImpl_1 = __webpack_require__(256);
-var ExtensionHelper_1 = __webpack_require__(18);
+var ExtensionHelper_1 = __webpack_require__(20);
 /**
  * Defines a LogGroupRule, this allows you to either have everything configured the same way
  * or for example loggers that start with name model. It allows you to group loggers together
@@ -9716,7 +9737,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 // tslint:disable-next-line
 var URI = __webpack_require__(199);
 var OnmsAuthConfig_1 = __webpack_require__(38);
-var ServerType_1 = __webpack_require__(14);
+var ServerType_1 = __webpack_require__(16);
 var UUID_1 = __webpack_require__(249);
 /**
  * Represents a remote OpenNMS server.
@@ -9831,7 +9852,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 Object.defineProperty(exports, "__esModule", { value: true });
 var OnmsVersion_1 = __webpack_require__(26);
-var ServerType_1 = __webpack_require__(14);
+var ServerType_1 = __webpack_require__(16);
 /**
  * A class that represents the capabilities an OpenNMS server has and other information about it.
  * @module ServerMetadata
@@ -9942,7 +9963,7 @@ exports.ServerMetadata = ServerMetadata;
 "use strict";
 
 
-var _regenerator = __webpack_require__(17);
+var _regenerator = __webpack_require__(19);
 
 var _regenerator2 = _interopRequireDefault(_regenerator);
 
@@ -9988,10 +10009,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var AbstractDAO_1 = __webpack_require__(34);
 var EventDAO_1 = __webpack_require__(27);
 var OnmsError_1 = __webpack_require__(5);
+var OnmsHTTPOptions_1 = __webpack_require__(13);
 var OnmsAlarm_1 = __webpack_require__(45);
 var OnmsAlarmType_1 = __webpack_require__(46);
 var OnmsParm_1 = __webpack_require__(28);
-var OnmsServiceType_1 = __webpack_require__(15);
+var OnmsServiceType_1 = __webpack_require__(17);
 var OnmsSeverity_1 = __webpack_require__(29);
 var OnmsTroubleTicketState_1 = __webpack_require__(59);
 var OnmsMemo_1 = __webpack_require__(250);
@@ -10283,6 +10305,147 @@ var AlarmDAO = function (_AbstractDAO_1$Abstra) {
             }));
         }
         /**
+         * Create a trouble ticket for the specified alarm.
+         *
+         * @version ReST v2
+         * @param {number|OnmsAlarm} alarm - The [[OnmsAlarm]] or alarm ID.
+         */
+
+    }, {
+        key: "createTicket",
+        value: function createTicket(alarm) {
+            return __awaiter(this, void 0, void 0, _regenerator2.default.mark(function _callee9() {
+                var _this4 = this;
+
+                var alarmId, options;
+                return _regenerator2.default.wrap(function _callee9$(_context9) {
+                    while (1) {
+                        switch (_context9.prev = _context9.next) {
+                            case 0:
+                                if (!(this.getApiVersion() === 1)) {
+                                    _context9.next = 2;
+                                    break;
+                                }
+
+                                throw new OnmsError_1.OnmsError('Create/Update/Close ticket is only available in OpenNMS ' + 'versions that support the ReSTv2 API.');
+
+                            case 2:
+                                alarmId = typeof alarm === 'number' ? alarm : alarm.id;
+                                options = new OnmsHTTPOptions_1.OnmsHTTPOptions();
+
+                                options.headers.accept = 'text/plain';
+                                return _context9.abrupt("return", this.http.post(this.pathToAlarmsEndpoint() + '/' + alarmId + '/ticket/create', options).then(function () {
+                                    Log_1.log.debug('Ticket creation pending.', cat);
+                                }).catch(function (err) {
+                                    if (err.code === 501) {
+                                        Log_1.log.warn('Trouble ticketing is not enabled on ' + _this4.http.server.toString());
+                                    }
+                                    throw err;
+                                }));
+
+                            case 6:
+                            case "end":
+                                return _context9.stop();
+                        }
+                    }
+                }, _callee9, this);
+            }));
+        }
+        /**
+         * Notify OpenNMS it should fetch updated ticket state for an alarm from the remote ticketing system.
+         *
+         * @version ReST v2
+         * @param {number|OnmsAlarm} alarm - The [[OnmsAlarm]] or alarm ID.
+         */
+
+    }, {
+        key: "triggerTicketUpdate",
+        value: function triggerTicketUpdate(alarm) {
+            return __awaiter(this, void 0, void 0, _regenerator2.default.mark(function _callee10() {
+                var _this5 = this;
+
+                var alarmId, options;
+                return _regenerator2.default.wrap(function _callee10$(_context10) {
+                    while (1) {
+                        switch (_context10.prev = _context10.next) {
+                            case 0:
+                                if (!(this.getApiVersion() === 1)) {
+                                    _context10.next = 2;
+                                    break;
+                                }
+
+                                throw new OnmsError_1.OnmsError('Create/Update/Close ticket is only available in OpenNMS ' + 'versions that support the ReSTv2 API.');
+
+                            case 2:
+                                alarmId = typeof alarm === 'number' ? alarm : alarm.id;
+                                options = new OnmsHTTPOptions_1.OnmsHTTPOptions();
+
+                                options.headers.accept = 'text/plain';
+                                return _context10.abrupt("return", this.http.post(this.pathToAlarmsEndpoint() + '/' + alarmId + '/ticket/update', options).then(function () {
+                                    Log_1.log.debug('Ticket update pending.', cat);
+                                }).catch(function (err) {
+                                    if (err.code === 501) {
+                                        Log_1.log.warn('Trouble ticketing is not enabled on ' + _this5.http.server.toString());
+                                    }
+                                    throw err;
+                                }));
+
+                            case 6:
+                            case "end":
+                                return _context10.stop();
+                        }
+                    }
+                }, _callee10, this);
+            }));
+        }
+        /**
+         * Close the ticket associated with the given alarm.
+         *
+         * @version ReST v2
+         * @param {number|OnmsAlarm} alarm - The [[OnmsAlarm]] or alarm ID.
+         */
+
+    }, {
+        key: "closeTicket",
+        value: function closeTicket(alarm) {
+            return __awaiter(this, void 0, void 0, _regenerator2.default.mark(function _callee11() {
+                var _this6 = this;
+
+                var alarmId, options;
+                return _regenerator2.default.wrap(function _callee11$(_context11) {
+                    while (1) {
+                        switch (_context11.prev = _context11.next) {
+                            case 0:
+                                if (!(this.getApiVersion() === 1)) {
+                                    _context11.next = 2;
+                                    break;
+                                }
+
+                                throw new OnmsError_1.OnmsError('Create/Update/Close ticket is only available in OpenNMS ' + 'versions that support the ReSTv2 API.');
+
+                            case 2:
+                                alarmId = typeof alarm === 'number' ? alarm : alarm.id;
+                                options = new OnmsHTTPOptions_1.OnmsHTTPOptions();
+
+                                options.headers.accept = 'text/plain';
+                                return _context11.abrupt("return", this.http.post(this.pathToAlarmsEndpoint() + '/' + alarmId + '/ticket/close', options).then(function () {
+                                    Log_1.log.debug('Ticket close pending.', cat);
+                                }).catch(function (err) {
+                                    if (err.code === 501) {
+                                        Log_1.log.warn('Trouble ticketing is not enabled on ' + _this6.http.server.toString());
+                                    }
+                                    throw err;
+                                }));
+
+                            case 6:
+                            case "end":
+                                return _context11.stop();
+                        }
+                    }
+                }, _callee11, this);
+            }));
+        }
+        /**
          * Generate an alarm object from the given dictionary.
          * @hidden
          */
@@ -10410,18 +10573,18 @@ var AlarmDAO = function (_AbstractDAO_1$Abstra) {
         value: function put(url) {
             var parameters = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
 
-            return __awaiter(this, void 0, void 0, _regenerator2.default.mark(function _callee9() {
+            return __awaiter(this, void 0, void 0, _regenerator2.default.mark(function _callee12() {
                 var opts;
-                return _regenerator2.default.wrap(function _callee9$(_context9) {
+                return _regenerator2.default.wrap(function _callee12$(_context12) {
                     while (1) {
-                        switch (_context9.prev = _context9.next) {
+                        switch (_context12.prev = _context12.next) {
                             case 0:
                                 opts = this.getOptions();
 
                                 opts.headers['content-type'] = 'application/x-www-form-urlencoded';
                                 opts.headers.accept = null;
                                 opts.parameters = parameters;
-                                return _context9.abrupt("return", this.http.put(url, opts).then(function (result) {
+                                return _context12.abrupt("return", this.http.put(url, opts).then(function (result) {
                                     if (!result.isSuccess) {
                                         throw result;
                                     }
@@ -10430,10 +10593,10 @@ var AlarmDAO = function (_AbstractDAO_1$Abstra) {
 
                             case 5:
                             case "end":
-                                return _context9.stop();
+                                return _context12.stop();
                         }
                     }
-                }, _callee9, this);
+                }, _callee12, this);
             }));
         }
         /**
@@ -10460,7 +10623,7 @@ exports.AlarmDAO = AlarmDAO;
 "use strict";
 
 
-var _regenerator = __webpack_require__(17);
+var _regenerator = __webpack_require__(19);
 
 var _regenerator2 = _interopRequireDefault(_regenerator);
 
@@ -10513,7 +10676,7 @@ var OnmsNode_1 = __webpack_require__(53);
 var OnmsNodeLabelSource_1 = __webpack_require__(54);
 var OnmsNodeType_1 = __webpack_require__(251);
 var OnmsPrimaryType_1 = __webpack_require__(55);
-var OnmsServiceType_1 = __webpack_require__(15);
+var OnmsServiceType_1 = __webpack_require__(17);
 var OnmsServiceStatusType_1 = __webpack_require__(56);
 var OnmsSnmpInterface_1 = __webpack_require__(57);
 var OnmsSnmpStatusType_1 = __webpack_require__(58);
@@ -10926,8 +11089,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 Object.defineProperty(exports, "__esModule", { value: true });
 var OnmsEnum_1 = __webpack_require__(1);
-var Comparator_1 = __webpack_require__(23);
-var Operator_1 = __webpack_require__(13);
+var Comparator_1 = __webpack_require__(25);
+var Operator_1 = __webpack_require__(15);
 var OnmsError_1 = __webpack_require__(5);
 var NestedRestriction_1 = __webpack_require__(12);
 /** @hidden */
@@ -11032,10 +11195,10 @@ var _createClass = function () { function defineProperties(target, props) { for 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var Comparator_1 = __webpack_require__(23);
+var Comparator_1 = __webpack_require__(25);
 var NestedRestriction_1 = __webpack_require__(12);
 var OnmsError_1 = __webpack_require__(5);
-var Operator_1 = __webpack_require__(13);
+var Operator_1 = __webpack_require__(15);
 /**
  * Converts a [[Filter]] into ReSTv2 FIQL parameters.
  * @module V2FilterProcessor
@@ -12075,7 +12238,7 @@ var clonedeep = __webpack_require__(70);
 var URI = __webpack_require__(199);
 var AbstractHTTP_1 = __webpack_require__(191);
 var OnmsError_1 = __webpack_require__(5);
-var OnmsResult_1 = __webpack_require__(25);
+var OnmsResult_1 = __webpack_require__(14);
 var Log_1 = __webpack_require__(4);
 var typescript_logging_1 = __webpack_require__(6);
 /** @hidden */
@@ -12126,7 +12289,7 @@ var AxiosHTTP = function (_AbstractHTTP_1$Abstr) {
                     type = response.headers['content-type'];
                 }
                 return OnmsResult_1.OnmsResult.ok(response.data, undefined, response.status, type);
-            });
+            }).catch(this.handleError);
         }
         /**
          * Make an HTTP PUT call using `axios.request({method:'put'})`.
@@ -12149,7 +12312,29 @@ var AxiosHTTP = function (_AbstractHTTP_1$Abstr) {
                     type = response.headers['content-type'];
                 }
                 return OnmsResult_1.OnmsResult.ok(response.data, undefined, response.status, type);
-            });
+            }).catch(this.handleError);
+        }
+        /**
+         * Make an HTTP POST call using `axios.request({method:'post'})`.
+         */
+
+    }, {
+        key: "post",
+        value: function post(url, options) {
+            var realUrl = this.getServer(options).resolveURL(url);
+            var opts = this.getConfig(options);
+            var urlObj = new URI(realUrl);
+            urlObj.search(opts.params);
+            Log_1.log.debug('POST ' + urlObj.toString(), catAxios);
+            opts.method = 'post';
+            opts.url = realUrl;
+            return this.getImpl(options).request(opts).then(function (response) {
+                var type = void 0;
+                if (response.headers && response.headers['content-type']) {
+                    type = response.headers['content-type'];
+                }
+                return OnmsResult_1.OnmsResult.ok(response.data, undefined, response.status, type);
+            }).catch(this.handleError);
         }
         /**
          * Clear the current [[AxiosInstance]] so it is recreated on next request with the
@@ -12208,6 +12393,9 @@ var AxiosHTTP = function (_AbstractHTTP_1$Abstr) {
             if (allOptions.parameters) {
                 ret.params = clonedeep(allOptions.parameters);
             }
+            if (allOptions.data) {
+                ret.data = clonedeep(allOptions.data);
+            }
             return ret;
         }
         /**
@@ -12235,9 +12423,9 @@ var AxiosHTTP = function (_AbstractHTTP_1$Abstr) {
                     withCredentials: true
                 };
                 if (typeof XMLHttpRequest !== 'undefined') {
-                    axiosOpts.adapter = __webpack_require__(16);
+                    axiosOpts.adapter = __webpack_require__(18);
                 } else if (typeof process !== 'undefined') {
-                    axiosOpts.adapter = __webpack_require__(16);
+                    axiosOpts.adapter = __webpack_require__(18);
                 }
                 this.axiosObj = this.axiosImpl.create(axiosOpts);
             }
@@ -29145,6 +29333,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 Object.defineProperty(exports, "__esModule", { value: true });
+var OnmsResult_1 = __webpack_require__(14);
 if (global && !global.window) {
     global.window = {};
     if (!global.window.DOMParser) {
@@ -29262,9 +29451,31 @@ var AbstractHTTP = function () {
 
     }, {
         key: "onSetServer",
-        value: function onSetServer() {
-            // do nothing by default
+        value: function onSetServer() {}
+        // do nothing by default
+
+        /**
+         * A callback to handle any request errors.
+         * @hidden
+         */
+
+    }, {
+        key: "handleError",
+        value: function handleError(err) {
+            var message = AbstractHTTP.extractMessage(err);
+            var status = AbstractHTTP.extractStatus(err);
+            if (status) {
+                throw OnmsResult_1.OnmsResult.error(message, status);
+            } else {
+                throw OnmsResult_1.OnmsResult.error('An unknown error has occurred: ' + message);
+            }
         }
+        /* tslint:disable:member-ordering */
+        /**
+         * Attempt to determine an error message from an error response.
+         * @hidden
+         */
+
     }, {
         key: "server",
         get: function get() {
@@ -29273,6 +29484,41 @@ var AbstractHTTP = function () {
         set: function set(server) {
             this.serverObj = server;
             this.onSetServer();
+        }
+    }], [{
+        key: "extractMessage",
+        value: function extractMessage(err) {
+            if (err) {
+                if (err.message) {
+                    return err.message;
+                } else if (err.response) {
+                    return this.extractMessage(err.response);
+                } else if (err.data && Object.prototype.toString.call(err) === '[object String]') {
+                    return err.data;
+                } else if (err.statusText) {
+                    return err.statusText;
+                }
+                return JSON.stringify(err);
+            }
+            return 'no error message';
+        }
+        /**
+         * Attempt to determine an error status code from an error response.
+         * @hidden
+         */
+
+    }, {
+        key: "extractStatus",
+        value: function extractStatus(err) {
+            var status = void 0;
+            if (err.code) {
+                status = err.code;
+            } else if (err.status) {
+                status = err.status;
+            } else if (err.response && err.response.status) {
+                status = err.response.status;
+            }
+            return status;
         }
     }]);
 
@@ -29298,7 +29544,7 @@ var __extends = undefined && undefined.__extends || function (d, b) {
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 var LoggerOptions_1 = __webpack_require__(2);
-var AbstractCategoryLogger_1 = __webpack_require__(19);
+var AbstractCategoryLogger_1 = __webpack_require__(21);
 /**
  * Simple logger, that logs to the console. If the console is unavailable will throw an exception.
  */
@@ -29528,7 +29774,7 @@ var __extends = undefined && undefined.__extends || function (d, b) {
     }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-var AbstractCategoryLogger_1 = __webpack_require__(19);
+var AbstractCategoryLogger_1 = __webpack_require__(21);
 /**
  * Logger which buffers all messages, use with care due to possible high memory footprint.
  * Can be convenient in some cases. Call toString() for full output, or cast to this class
@@ -29573,7 +29819,7 @@ var __extends = undefined && undefined.__extends || function (d, b) {
     }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-var AbstractLogger_1 = __webpack_require__(21);
+var AbstractLogger_1 = __webpack_require__(23);
 var LoggerOptions_1 = __webpack_require__(2);
 /**
  * Simple logger, that logs to the console. If the console is unavailable will throw exception.
@@ -29648,7 +29894,7 @@ var __extends = undefined && undefined.__extends || function (d, b) {
     }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-var AbstractLogger_1 = __webpack_require__(21);
+var AbstractLogger_1 = __webpack_require__(23);
 /**
  * Logger which buffers all messages, use with care due to possible high memory footprint.
  * Can be convenient in some cases. Call toString() for full output, or cast to this class
@@ -34240,7 +34486,7 @@ module.exports = __webpack_amd_options__;
 "use strict";
 
 
-var _regenerator = __webpack_require__(17);
+var _regenerator = __webpack_require__(19);
 
 var _regenerator2 = _interopRequireDefault(_regenerator);
 
@@ -34277,10 +34523,10 @@ var __awaiter = undefined && undefined.__awaiter || function (thisArg, _argument
 Object.defineProperty(exports, "__esModule", { value: true });
 var Log_1 = __webpack_require__(4);
 var typescript_logging_1 = __webpack_require__(6);
-var OnmsHTTPOptions_1 = __webpack_require__(24);
+var OnmsHTTPOptions_1 = __webpack_require__(13);
 var OnmsError_1 = __webpack_require__(5);
 var OnmsVersion_1 = __webpack_require__(26);
-var ServerType_1 = __webpack_require__(14);
+var ServerType_1 = __webpack_require__(16);
 var OnmsServer_1 = __webpack_require__(39);
 var ServerMetadata_1 = __webpack_require__(40);
 var AlarmDAO_1 = __webpack_require__(41);
@@ -34602,7 +34848,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 Object.defineProperty(exports, "__esModule", { value: true });
 var AbstractHTTP_1 = __webpack_require__(191);
 var OnmsError_1 = __webpack_require__(5);
-var OnmsResult_1 = __webpack_require__(25);
+var OnmsResult_1 = __webpack_require__(14);
 var Log_1 = __webpack_require__(4);
 var typescript_logging_1 = __webpack_require__(6);
 var clonedeep = __webpack_require__(70);
@@ -34651,7 +34897,7 @@ var GrafanaHTTP = function (_AbstractHTTP_1$Abstr) {
                     type = response.headers['content-type'];
                 }
                 return OnmsResult_1.OnmsResult.ok(response.data, undefined, response.status, type);
-            });
+            }).catch(this.handleError);
         }
         /** Make an HTTP PUT call using the Grafana `BackendSrv`. */
 
@@ -34673,7 +34919,28 @@ var GrafanaHTTP = function (_AbstractHTTP_1$Abstr) {
                     type = response.headers['content-type'];
                 }
                 return OnmsResult_1.OnmsResult.ok(response.data, undefined, response.status, type);
-            });
+            }).catch(this.handleError);
+        }
+        /** Make an HTTP POST call using the Grafana `BackendSrv`. */
+
+    }, {
+        key: "post",
+        value: function post(url, options) {
+            var realUrl = this.getServer(options).resolveURL(url);
+            Log_1.log.debug('PUT ' + realUrl);
+            var query = this.getConfig(options);
+            query.method = 'POST';
+            query.url = realUrl;
+            return this.backendSrv.datasourceRequest(query).then(function (response) {
+                var type = 'application/xml';
+                if (query && query.headers && query.headers.accept) {
+                    type = query.headers.accept;
+                }
+                if (response.headers && response.headers['content-type']) {
+                    type = response.headers['content-type'];
+                }
+                return OnmsResult_1.OnmsResult.ok(response.data, undefined, response.status, type);
+            }).catch(this.handleError);
         }
         /**
          * Internal method to turn [[OnmsHTTPOptions]] into a Grafana `BackendSrv` request object.
@@ -34711,6 +34978,9 @@ var GrafanaHTTP = function (_AbstractHTTP_1$Abstr) {
             }
             if (allOptions.parameters && Object.keys(allOptions.parameters).length > 0) {
                 ret.params = clonedeep(allOptions.parameters);
+            }
+            if (allOptions.data) {
+                ret.data = clonedeep(allOptions.data);
             }
             return ret;
         }
@@ -44957,19 +45227,19 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
 Object.defineProperty(exports, "__esModule", { value: true });
 var Clause_1 = __webpack_require__(37);
-var Comparator_1 = __webpack_require__(23);
+var Comparator_1 = __webpack_require__(25);
 var Filter_1 = __webpack_require__(205);
 var NestedRestriction_1 = __webpack_require__(12);
 var OnmsAuthConfig_1 = __webpack_require__(38);
 var OnmsError_1 = __webpack_require__(5);
-var OnmsHTTPOptions_1 = __webpack_require__(24);
-var OnmsResult_1 = __webpack_require__(25);
+var OnmsHTTPOptions_1 = __webpack_require__(13);
+var OnmsResult_1 = __webpack_require__(14);
 var OnmsServer_1 = __webpack_require__(39);
 var OnmsVersion_1 = __webpack_require__(26);
-var Operator_1 = __webpack_require__(13);
+var Operator_1 = __webpack_require__(15);
 var Restriction_1 = __webpack_require__(206);
 var ServerMetadata_1 = __webpack_require__(40);
-var ServerType_1 = __webpack_require__(14);
+var ServerType_1 = __webpack_require__(16);
 var AlarmDAO_1 = __webpack_require__(41);
 var EventDAO_1 = __webpack_require__(27);
 var NodeDAO_1 = __webpack_require__(42);
@@ -44988,7 +45258,7 @@ var OnmsNodeLabelSource_1 = __webpack_require__(54);
 var OnmsParm_1 = __webpack_require__(28);
 var OnmsPrimaryType_1 = __webpack_require__(55);
 var OnmsServiceStatusType_1 = __webpack_require__(56);
-var OnmsServiceType_1 = __webpack_require__(15);
+var OnmsServiceType_1 = __webpack_require__(17);
 var OnmsSeverity_1 = __webpack_require__(29);
 var OnmsSnmpInterface_1 = __webpack_require__(57);
 var OnmsSnmpStatusType_1 = __webpack_require__(58);
@@ -45214,7 +45484,7 @@ exports.NodeTypes = frozen;
 
 
 var DataStructures_1 = __webpack_require__(8);
-var CategoryService_1 = __webpack_require__(20);
+var CategoryService_1 = __webpack_require__(22);
 var LoggerOptions_1 = __webpack_require__(2);
 /**
  * Implementation class for CategoryServiceControl.
@@ -45609,8 +45879,8 @@ var __extends = undefined && undefined.__extends || function (d, b) {
     }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-var ExtensionHelper_1 = __webpack_require__(18);
-var AbstractCategoryLogger_1 = __webpack_require__(19);
+var ExtensionHelper_1 = __webpack_require__(20);
+var AbstractCategoryLogger_1 = __webpack_require__(21);
 /**
  * This class should not be used directly, it is used for communication with the extension only.
  */
@@ -45640,7 +45910,7 @@ exports.CategoryExtensionLoggerImpl = CategoryExtensionLoggerImpl;
 
 
 var LoggerOptions_1 = __webpack_require__(2);
-var CategoryService_1 = __webpack_require__(20);
+var CategoryService_1 = __webpack_require__(22);
 /**
  * Category for use with categorized logging.
  * At minimum you need one category, which will serve as the root category.
@@ -45735,7 +46005,7 @@ var LoggerOptions_1 = __webpack_require__(2);
 var LoggerFactoryService_1 = __webpack_require__(36);
 var ConsoleLoggerImpl_1 = __webpack_require__(195);
 var MessageBufferLoggerImpl_1 = __webpack_require__(196);
-var AbstractLogger_1 = __webpack_require__(21);
+var AbstractLogger_1 = __webpack_require__(23);
 var LoggerFactoryImpl = function () {
     function LoggerFactoryImpl(name, options) {
         this._loggers = new DataStructures_1.SimpleMap();
