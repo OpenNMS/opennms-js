@@ -93,4 +93,34 @@ export class MockHTTP21 extends AbstractHTTP {
 
     return Promise.reject(OnmsResult.error('Not yet implemented: PUT ' + urlObj.toString()));
   }
+
+  public post(url: string, options?: OnmsHTTPOptions) {
+    const urlObj = new URI(url);
+    if (options && options.parameters) {
+      urlObj.search(options.parameters);
+    }
+
+    switch(urlObj.toString()) {
+      case 'api/v2/alarms/404725/ticket/create': {
+        const result = OnmsResult.ok('');
+        result.type = 'text/plain';
+        result.code = 202;
+        return Promise.resolve(result);
+      }
+      case 'api/v2/alarms/404725/ticket/update': {
+        const result = OnmsResult.ok('');
+        result.type = 'text/plain';
+        result.code = 202;
+        return Promise.resolve(result);
+      }
+      case 'api/v2/alarms/404725/ticket/close': {
+        const result = OnmsResult.ok('');
+        result.type = 'text/plain';
+        result.code = 202;
+        return Promise.resolve(result);
+      }
+    }
+
+    return Promise.reject(OnmsResult.error('Not yet implemented: POST ' + urlObj.toString()));
+  }
 }
