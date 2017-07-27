@@ -9,6 +9,7 @@
 * **rest:** fix crash when options is undefined in getServer ([7768b48](https://github.com/OpenNMS/opennms-js/commit/7768b48))
 * **rest:** make sure passed options don't leak ([9b9dee4](https://github.com/OpenNMS/opennms-js/commit/9b9dee4))
 * **rest:** only set up global if it exists (eg, Node.js, not browser) ([7a1b2c3](https://github.com/OpenNMS/opennms-js/commit/7a1b2c3))
+* **rest:** webpack still needs to fake global for browsers ([8f7fa5a](https://github.com/OpenNMS/opennms-js/commit/8f7fa5a))
 
 
 ### Features
