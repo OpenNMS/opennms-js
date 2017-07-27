@@ -170,6 +170,81 @@ export class AlarmDAO extends AbstractDAO<number, OnmsAlarm> {
   }
 
   /**
+   * Create a trouble ticket for the specified alarm.
+   *
+   * @version ReST v2
+   * @param {number|OnmsAlarm} alarm - The [[OnmsAlarm]] or alarm ID.
+   */
+  public async createTicket(alarm: number|OnmsAlarm): Promise<void> {
+    if (this.getApiVersion() === 1) {
+      throw new OnmsError('Create/Update/Close ticket is only available in OpenNMS ' +
+        'versions that support the ReSTv2 API.');
+    }
+
+    const alarmId = (typeof(alarm) === 'number' ? alarm : alarm.id);
+    const options = new OnmsHTTPOptions();
+    options.headers.accept = 'text/plain';
+    return this.http.post(this.pathToAlarmsEndpoint() + '/' + alarmId + '/ticket/create', options).then(() => {
+      log.debug('Ticket creation pending.', cat);
+    }).catch((err: OnmsResult<OnmsAlarm>) => {
+      if (err.code === 501) {
+        log.warn('Trouble ticketing is not enabled on ' + this.http.server.toString());
+      }
+      throw err;
+    });
+  }
+
+  /**
+   * Notify OpenNMS it should fetch updated ticket state for an alarm from the remote ticketing system.
+   *
+   * @version ReST v2
+   * @param {number|OnmsAlarm} alarm - The [[OnmsAlarm]] or alarm ID.
+   */
+  public async triggerTicketUpdate(alarm: number|OnmsAlarm): Promise<void> {
+    if (this.getApiVersion() === 1) {
+      throw new OnmsError('Create/Update/Close ticket is only available in OpenNMS ' +
+        'versions that support the ReSTv2 API.');
+    }
+
+    const alarmId = (typeof(alarm) === 'number' ? alarm : alarm.id);
+    const options = new OnmsHTTPOptions();
+    options.headers.accept = 'text/plain';
+    return this.http.post(this.pathToAlarmsEndpoint() + '/' + alarmId + '/ticket/update', options).then(() => {
+      log.debug('Ticket update pending.', cat);
+    }).catch((err: OnmsResult<OnmsAlarm>) => {
+      if (err.code === 501) {
+        log.warn('Trouble ticketing is not enabled on ' + this.http.server.toString());
+      }
+      throw err;
+    });
+  }
+
+  /**
+   * Close the ticket associated with the given alarm.
+   *
+   * @version ReST v2
+   * @param {number|OnmsAlarm} alarm - The [[OnmsAlarm]] or alarm ID.
+   */
+  public async closeTicket(alarm: number|OnmsAlarm): Promise<void> {
+    if (this.getApiVersion() === 1) {
+      throw new OnmsError('Create/Update/Close ticket is only available in OpenNMS ' +
+        'versions that support the ReSTv2 API.');
+    }
+
+    const alarmId = (typeof(alarm) === 'number' ? alarm : alarm.id);
+    const options = new OnmsHTTPOptions();
+    options.headers.accept = 'text/plain';
+    return this.http.post(this.pathToAlarmsEndpoint() + '/' + alarmId + '/ticket/close', options).then(() => {
+      log.debug('Ticket close pending.', cat);
+    }).catch((err: OnmsResult<OnmsAlarm>) => {
+      if (err.code === 501) {
+        log.warn('Trouble ticketing is not enabled on ' + this.http.server.toString());
+      }
+      throw err;
+    });
+  }
+
+  /**
    * Generate an alarm object from the given dictionary.
    * @hidden
    */

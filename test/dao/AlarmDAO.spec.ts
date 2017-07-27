@@ -7,6 +7,7 @@ import {Client} from '../../src/Client';
 
 import {OnmsAuthConfig} from '../../src/api/OnmsAuthConfig';
 import {OnmsServer} from '../../src/api/OnmsServer';
+import {OnmsResult} from '../../src/api/OnmsResult';
 
 import {Comparators} from '../../src/api/Comparator';
 import {Filter} from '../../src/api/Filter';
@@ -79,6 +80,16 @@ describe('AlarmDAO with v1 API', () => {
     alarm.id=404725;
     return dao.setTTicketState(alarm, TroubleTicketStates.RESOLVED);
   });
+
+  it('AlarmDAO.createTicket(404725) should reject', () => {
+    return expect(dao.createTicket(404725)).rejects.toBeDefined();
+  });
+  it('AlarmDAO.triggerTicketUpdate(404725) should reject', () => {
+    return expect(dao.triggerTicketUpdate(404725)).rejects.toBeDefined();
+  });
+  it('AlarmDAO.closeTicket(404725) should reject', () => {
+    return expect(dao.closeTicket(404725)).rejects.toBeDefined();
+  });
 });
 
 describe('AlarmDAO with v2 API', () => {
@@ -147,5 +158,21 @@ describe('AlarmDAO with v2 API', () => {
     const alarm = new OnmsAlarm();
     alarm.id=404725;
     return dao.setTTicketState(alarm, TroubleTicketStates.RESOLVED);
+  });
+
+  it('AlarmDAO.createTicket(404725) should return a 202', () => {
+    return expect(dao.createTicket(404725).then(() => {
+      return true;
+    })).resolves.toBeTruthy();
+  });
+  it('AlarmDAO.triggerTicketUpdate(404725) should reject', () => {
+    return expect(dao.triggerTicketUpdate(404725).then(() => {
+      return true;
+    })).resolves.toBeTruthy();
+  });
+  it('AlarmDAO.closeTicket(404725) should reject', () => {
+    return expect(dao.closeTicket(404725).then(() => {
+      return true;
+    })).resolves.toBeTruthy();
   });
 });

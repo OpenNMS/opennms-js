@@ -72,6 +72,9 @@ export abstract class AbstractHTTP implements IOnmsHTTP {
   /** Make an HTTP PUT call. This must be overridden by the concrete implementation. */
   public abstract put(url: string, options?: OnmsHTTPOptions): Promise<OnmsResult<any>>;
 
+  /** Make an HTTP POST call. This must be overridden by the concrete implementation. */
+  public abstract post(url: string, options?: OnmsHTTPOptions): Promise<OnmsResult<any>>;
+
   /**
    * A convenience method for implementers to use to turn JSON into a javascript object.
    * Use this to process a JSON response before returning it in an [[OnmsResult]] object.
@@ -138,6 +141,58 @@ export abstract class AbstractHTTP implements IOnmsHTTP {
    */
   protected onSetServer() {
     // do nothing by default
+  }
+
+  /**
+   * A callback to handle any request errors.
+   * @hidden
+   */
+  protected handleError(err: any): never {
+    const message = AbstractHTTP.extractMessage(err);
+    const status = AbstractHTTP.extractStatus(err);
+    if (status) {
+      throw OnmsResult.error(message, status);
+    } else {
+      throw OnmsResult.error('An unknown error has occurred: ' + message);
+    }
+  }
+
+  /* tslint:disable:member-ordering */
+
+  /**
+   * Attempt to determine an error message from an error response.
+   * @hidden
+   */
+  protected static extractMessage(err: any): string {
+    if (err) {
+      if (err.message) {
+        return err.message;
+      } else if (err.response) {
+        return this.extractMessage(err.response);
+      } else if (err.data && Object.prototype.toString.call(err) === '[object String]') {
+        return err.data;
+      } else if (err.statusText) {
+        return err.statusText;
+      }
+      return JSON.stringify(err);
+    }
+    return 'no error message';
+  }
+
+  /**
+   * Attempt to determine an error status code from an error response.
+   * @hidden
+   */
+  protected static extractStatus(err: any): number {
+    let status;
+    if (err.code) {
+      status = err.code;
+    } else if (err.status) {
+      status = err.status;
+    } else if (err.response && err.response.status) {
+      status = err.response.status;
+    }
+    return status;
   }
 
 }

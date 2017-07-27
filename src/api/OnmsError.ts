@@ -3,14 +3,38 @@
  * @module OnmsError
  */
 export class OnmsError {
-  /** The error code associated with this error. */
-  public code: number;
+  /**
+   * The response status code, if any.
+   * @hidden
+   */
+  private statusCode: number;
 
-  /** The stack trace when this error is created. */
-  public stack;
+  /**
+   * We need a real JS Error because it can't be subclassed.
+   * @hidden
+   */
+  private errorObj: Error;
+
+  /**
+   * The stack trace so this object is loggable.
+   * @hidden
+   */
+  private stack;
+
+  /** The error code associated with this error. */
+  public get code() {
+    return this.statusCode;
+  }
 
   /** The JS Error class associated with this error. */
-  private error: Error;
+  public get error() {
+    return this.errorObj;
+  }
+
+  /** The error message. */
+  public get message() {
+    return this.errorObj.message;
+  }
 
   /**
    * Create a new error.
@@ -18,10 +42,10 @@ export class OnmsError {
    * @param message - The error message.
    * @param code - An optional error code to associate with the error.
    */
-  constructor(public message: string, code?: number) {
-    this.error = new Error(message);
-    this.code = code;
-    this.stack = this.error.stack;
+  constructor(public mess: string, code?: number) {
+    this.errorObj = new Error(mess);
+    this.statusCode = code;
+    this.stack = this.errorObj.stack;
   }
 
   /**
@@ -29,9 +53,9 @@ export class OnmsError {
    */
   public toString() {
     if (this.code) {
-      return 'Error ' + this.code + ': ' + this.error.message;
+      return 'Error ' + this.code + ': ' + this.message;
     } else {
-      return 'Error: ' + this.error.message;
+      return 'Error: ' + this.message;
     }
   }
 }
