@@ -119,7 +119,8 @@ function createConfig(options) {
   myconf.plugins.push(new webpack.ProvidePlugin({X2JS: 'x2js'}));
 
   // build docs either on a dedicated doc build, or during production node.js build
-  if (justDocs || (options.production && !options.web)) {
+  var buildDocs = justDocs || (options.production && !options.web);
+  if (buildDocs) {
     // generate documentation
     var tsconfig = require('./tsconfig.json');
     tsconfig.name = 'OpenNMS.js';
@@ -132,7 +133,7 @@ function createConfig(options) {
 
   myconf.output.filename += '.js';
 
-  console.log('Building variant: web=' + (!!options.web) + ', production=' + (!!options.production) + ', docs=' +    (!!options.docs));
+  console.log('Building variant: web=' + (!!options.web) + ', production=' + (!!options.production) + ', docs=' + buildDocs);
 
   return myconf;
 }
