@@ -135,4 +135,9 @@ export class MockHTTP19 extends AbstractHTTP {
 
     return Promise.reject(OnmsResult.error('Not yet implemented: POST ' + urlObj.toString()));
   }
+
+  public httpDelete(url: string, options?: OnmsHTTPOptions): Promise<OnmsResult<any>> {
+    const urlObj = new URI(url);
+    return Promise.reject(OnmsResult.error('Not yet implemented: DELETE ' + urlObj.toString()));
+  }
 }
