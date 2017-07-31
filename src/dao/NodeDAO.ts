@@ -319,6 +319,14 @@ export class NodeDAO extends AbstractDAO<number, OnmsNode> {
   }
 
   /**
+   * The path to the node search properties endpoint.
+   */
+  protected searchPropertyPath(): string {
+    throw new OnmsError('Search properties are not supported in Node ReSTv2 yet.');
+    // return this.pathToNodesEndpoint() + '/properties';
+  }
+
+  /**
    * Get the path to the nodes endpoint for the appropriate API version.
    * @hidden
    */

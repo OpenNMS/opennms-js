@@ -8,6 +8,7 @@ import {IOnmsHTTP} from '../api/IOnmsHTTP';
 import {OnmsError} from '../api/OnmsError';
 import {OnmsHTTPOptions} from '../api/OnmsHTTPOptions';
 import {OnmsResult} from '../api/OnmsResult';
+import {SearchProperty} from '../api/SearchProperty';
 
 import {OnmsAlarm} from '../model/OnmsAlarm';
 import {AlarmTypes} from '../model/OnmsAlarmType';
@@ -383,6 +384,13 @@ export class AlarmDAO extends AbstractDAO<number, OnmsAlarm> {
     memo.created = this.toDate(data.created);
     memo.updated = this.toDate(data.updated);
     return memo;
+  }
+
+  /**
+   * The path to the alarm search properties endpoint.
+   */
+  protected searchPropertyPath() {
+    return this.pathToAlarmsEndpoint() + '/properties';
   }
 
   /**

@@ -43,6 +43,11 @@ export class MockHTTP21 extends AbstractHTTP {
       case 'api/v2/alarms?limit=1000&_s=alarm.uei%3D%3Dshould-not-exist': {
         return Promise.resolve(OnmsResult.noContent());
       }
+      case 'api/v2/alarms/properties': {
+        const result = OnmsResult.ok(require('./21.0.0/get/api/v2/alarms/properties.json'));
+        result.type = 'application/json';
+        return Promise.resolve(result);
+      }
       case 'api/v2/nodes/81': {
         const result = OnmsResult.ok(require('./21.0.0/get/api/v2/nodes/81.json'));
         result.type = 'application/json';

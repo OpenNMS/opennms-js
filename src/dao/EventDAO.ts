@@ -111,6 +111,13 @@ export class EventDAO extends AbstractDAO<number, OnmsEvent> {
   }
 
   /**
+   * The path to the event search properties endpoint.
+   */
+  protected searchPropertyPath() {
+    return this.pathToEventsEndpoint() + '/properties';
+  }
+
+  /**
    * Get the path to the events endpoint for the appropriate API version.
    * @hidden
    */

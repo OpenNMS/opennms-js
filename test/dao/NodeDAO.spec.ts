@@ -91,6 +91,9 @@ describe('NodeDAO with v1 API', () => {
       expect(nodes.length).toEqual(1);
     });
   });
+  it('NodeDAO.properties() should reject', () => {
+    return expect(dao.searchProperties()).rejects.toBeDefined();
+  });
 });
 
 describe('NodeDAO with v2 API', () => {
@@ -152,4 +155,7 @@ describe('NodeDAO with v2 API', () => {
     });
   });
   */
+  it('NodeDAO.properties() should reject until it is implemented', () => {
+    return expect(dao.searchProperties()).rejects.toBeDefined();
+  });
 });
