@@ -90,6 +90,19 @@ describe('AlarmDAO with v1 API', () => {
   it('AlarmDAO.closeTicket(404725) should reject', () => {
     return expect(dao.closeTicket(404725)).rejects.toBeDefined();
   });
+
+  it('AlarmDAO.saveStickyMemo(404725, "test") should reject', () => {
+    return expect(dao.saveStickyMemo(404725, 'test')).rejects.toBeDefined();
+  });
+  it('AlarmDAO.saveJournalMemo(404725, "test") should reject', () => {
+    return expect(dao.saveJournalMemo(404725, 'test')).rejects.toBeDefined();
+  });
+  it('AlarmDAO.deleteStickyMemo(404725) should reject', () => {
+    return expect(dao.deleteStickyMemo(404725)).rejects.toBeDefined();
+  });
+  it('AlarmDAO.deleteJournalMemo(404725) should reject', () => {
+    return expect(dao.deleteJournalMemo(404725)).rejects.toBeDefined();
+  });
 });
 
 describe('AlarmDAO with v2 API', () => {
@@ -172,6 +185,27 @@ describe('AlarmDAO with v2 API', () => {
   });
   it('AlarmDAO.closeTicket(404725) should reject', () => {
     return expect(dao.closeTicket(404725).then(() => {
+      return true;
+    })).resolves.toBeTruthy();
+  });
+
+  it('AlarmDAO.saveStickyMemo(404725, "test") should return a 204', () => {
+    return expect(dao.saveStickyMemo(404725, 'test').then(() => {
+      return true;
+    })).resolves.toBeTruthy();
+  });
+  it('AlarmDAO.saveJournalMemo(404725, "test") should return a 204', () => {
+    return expect(dao.saveJournalMemo(404725, 'test').then(() => {
+      return true;
+    })).resolves.toBeTruthy();
+  });
+  it('AlarmDAO.deleteStickyMemo(404725) should return a 204', () => {
+    return expect(dao.deleteStickyMemo(404725).then(() => {
+      return true;
+    })).resolves.toBeTruthy();
+  });
+  it('AlarmDAO.deleteJournalMemo(404725) should return a 204', () => {
+    return expect(dao.deleteJournalMemo(404725).then(() => {
       return true;
     })).resolves.toBeTruthy();
   });
