@@ -1,5 +1,5 @@
 <a name="0.1.0-alpha.4"></a>
-# 0.1.0-alpha.4 (2017-07-27)
+# 0.1.0-alpha.4 (2017-07-31)
 
 
 ### Bug Fixes
@@ -31,6 +31,7 @@
 
 ### Features
 
+* **alarms:** add support for manipulating journal and sticky memos ([875e268](https://github.com/OpenNMS/opennms-js/commit/875e268))
 * **alarms:** expose the sticky and journal memos ([adbcb3a](https://github.com/OpenNMS/opennms-js/commit/adbcb3a))
 * **alarms:** implement ticket create/update/close ([93ff386](https://github.com/OpenNMS/opennms-js/commit/93ff386))
 * **api:** add capabilities ([eddab57](https://github.com/OpenNMS/opennms-js/commit/eddab57))
@@ -76,13 +77,13 @@
 * **server:** add ServerMetadata.toString() for human-readable version ([b2dc667](https://github.com/OpenNMS/opennms-js/commit/b2dc667))
 * **server:** add toString to OnmsServer ([cb5cf95](https://github.com/OpenNMS/opennms-js/commit/cb5cf95))
 * **server:** handle absolute URLs cleanly ([5a516a2](https://github.com/OpenNMS/opennms-js/commit/5a516a2))
-* implement Client.checkServer() ([a9993d0](https://github.com/OpenNMS/opennms-js/commit/a9993d0))
 * **server:** support user/password in OnmsServer constructor ([453f7a5](https://github.com/OpenNMS/opennms-js/commit/453f7a5))
 * **server:** use URL if host does not reselve ([614e0bc](https://github.com/OpenNMS/opennms-js/commit/614e0bc))
 * **servicetype:** make a singleton map of service types ([bed6390](https://github.com/OpenNMS/opennms-js/commit/bed6390))
 * **v2:** add support for nested restrictions with boolean operators ([09cd705](https://github.com/OpenNMS/opennms-js/commit/09cd705))
 * **v2:** add support for the v2 api ([eb1b165](https://github.com/OpenNMS/opennms-js/commit/eb1b165))
 * **version:** add toString() for human-readable version ([01060b6](https://github.com/OpenNMS/opennms-js/commit/01060b6))
+* implement Client.checkServer() ([a9993d0](https://github.com/OpenNMS/opennms-js/commit/a9993d0))
 
 
 

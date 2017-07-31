@@ -10260,6 +10260,112 @@ var AlarmDAO = function (_AbstractDAO_1$Abstra) {
             }));
         }
         /**
+         * Create or update the sticky memo associated with the alarm.
+         *
+         * @version ReST v2
+         * @param {number|OnmsAlarm} alarm - The [[OnmsAlarm]] or alarm ID.
+         * @param {string} body - The memo body
+         * @param {string=} user - The user to update the memo as.
+         *                  (Only administrators have the right to do this.)
+         */
+
+    }, {
+        key: "saveStickyMemo",
+        value: function saveStickyMemo(alarm, body, user) {
+            return __awaiter(this, void 0, void 0, _regenerator2.default.mark(function _callee12() {
+                return _regenerator2.default.wrap(function _callee12$(_context12) {
+                    while (1) {
+                        switch (_context12.prev = _context12.next) {
+                            case 0:
+                                return _context12.abrupt("return", this.saveMemo('memo', alarm, body, user));
+
+                            case 1:
+                            case "end":
+                                return _context12.stop();
+                        }
+                    }
+                }, _callee12, this);
+            }));
+        }
+        /**
+         * Create or update the journal memo associated with the alarm.
+         *
+         * @version ReST v2
+         * @param {number|OnmsAlarm} alarm - The [[OnmsAlarm]] or alarm ID.
+         * @param {string} body - The memo body
+         * @param {string=} user - The user to update the memo as.
+         *                  (Only administrators have the right to do this.)
+         */
+
+    }, {
+        key: "saveJournalMemo",
+        value: function saveJournalMemo(alarm, body, user) {
+            return __awaiter(this, void 0, void 0, _regenerator2.default.mark(function _callee13() {
+                return _regenerator2.default.wrap(function _callee13$(_context13) {
+                    while (1) {
+                        switch (_context13.prev = _context13.next) {
+                            case 0:
+                                return _context13.abrupt("return", this.saveMemo('journal', alarm, body, user));
+
+                            case 1:
+                            case "end":
+                                return _context13.stop();
+                        }
+                    }
+                }, _callee13, this);
+            }));
+        }
+        /**
+         * Delete the sticky memo ticket associated with the given alarm.
+         *
+         * @version ReST v2
+         * @param {number|OnmsAlarm} alarm - The [[OnmsAlarm]] or alarm ID.
+         */
+
+    }, {
+        key: "deleteStickyMemo",
+        value: function deleteStickyMemo(alarm) {
+            return __awaiter(this, void 0, void 0, _regenerator2.default.mark(function _callee14() {
+                return _regenerator2.default.wrap(function _callee14$(_context14) {
+                    while (1) {
+                        switch (_context14.prev = _context14.next) {
+                            case 0:
+                                return _context14.abrupt("return", this.deleteMemo('memo', alarm));
+
+                            case 1:
+                            case "end":
+                                return _context14.stop();
+                        }
+                    }
+                }, _callee14, this);
+            }));
+        }
+        /**
+         * Delete the journal memo ticket associated with the given alarm.
+         *
+         * @version ReST v2
+         * @param {number|OnmsAlarm} alarm - The [[OnmsAlarm]] or alarm ID.
+         */
+
+    }, {
+        key: "deleteJournalMemo",
+        value: function deleteJournalMemo(alarm) {
+            return __awaiter(this, void 0, void 0, _regenerator2.default.mark(function _callee15() {
+                return _regenerator2.default.wrap(function _callee15$(_context15) {
+                    while (1) {
+                        switch (_context15.prev = _context15.next) {
+                            case 0:
+                                return _context15.abrupt("return", this.deleteMemo('journal', alarm));
+
+                            case 1:
+                            case "end":
+                                return _context15.stop();
+                        }
+                    }
+                }, _callee15, this);
+            }));
+        }
+        /**
          * Generate an alarm object from the given dictionary.
          * @hidden
          */
@@ -10387,18 +10493,18 @@ var AlarmDAO = function (_AbstractDAO_1$Abstra) {
         value: function put(url) {
             var parameters = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
 
-            return __awaiter(this, void 0, void 0, _regenerator2.default.mark(function _callee12() {
+            return __awaiter(this, void 0, void 0, _regenerator2.default.mark(function _callee16() {
                 var opts;
-                return _regenerator2.default.wrap(function _callee12$(_context12) {
+                return _regenerator2.default.wrap(function _callee16$(_context16) {
                     while (1) {
-                        switch (_context12.prev = _context12.next) {
+                        switch (_context16.prev = _context16.next) {
                             case 0:
                                 opts = this.getOptions();
 
                                 opts.headers['content-type'] = 'application/x-www-form-urlencoded';
                                 opts.headers.accept = null;
                                 opts.parameters = parameters;
-                                return _context12.abrupt("return", this.http.put(url, opts).then(function (result) {
+                                return _context16.abrupt("return", this.http.put(url, opts).then(function (result) {
                                     if (!result.isSuccess) {
                                         throw result;
                                     }
@@ -10407,10 +10513,46 @@ var AlarmDAO = function (_AbstractDAO_1$Abstra) {
 
                             case 5:
                             case "end":
-                                return _context12.stop();
+                                return _context16.stop();
                         }
                     }
-                }, _callee12, this);
+                }, _callee16, this);
+            }));
+        }
+        /**
+         * Call a DELETE request in the format the alarm ack API expects.
+         * @hidden
+         */
+
+    }, {
+        key: "httpDelete",
+        value: function httpDelete(url) {
+            var parameters = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+
+            return __awaiter(this, void 0, void 0, _regenerator2.default.mark(function _callee17() {
+                var opts;
+                return _regenerator2.default.wrap(function _callee17$(_context17) {
+                    while (1) {
+                        switch (_context17.prev = _context17.next) {
+                            case 0:
+                                opts = this.getOptions();
+
+                                opts.headers['content-type'] = 'application/x-www-form-urlencoded';
+                                opts.headers.accept = null;
+                                opts.parameters = parameters;
+                                return _context17.abrupt("return", this.http.httpDelete(url, opts).then(function (result) {
+                                    if (!result.isSuccess) {
+                                        throw result;
+                                    }
+                                    return;
+                                }));
+
+                            case 5:
+                            case "end":
+                                return _context17.stop();
+                        }
+                    }
+                }, _callee17, this);
             }));
         }
         /**
@@ -10422,6 +10564,78 @@ var AlarmDAO = function (_AbstractDAO_1$Abstra) {
         key: "pathToAlarmsEndpoint",
         value: function pathToAlarmsEndpoint() {
             return this.getApiVersion() === 2 ? 'api/v2/alarms' : 'rest/alarms';
+        }
+        /**
+         * Save a journal or sticky memo.
+         * @hidden
+         */
+
+    }, {
+        key: "saveMemo",
+        value: function saveMemo(type, alarm, body, user) {
+            return __awaiter(this, void 0, void 0, _regenerator2.default.mark(function _callee18() {
+                var alarmId, parameters;
+                return _regenerator2.default.wrap(function _callee18$(_context18) {
+                    while (1) {
+                        switch (_context18.prev = _context18.next) {
+                            case 0:
+                                if (!(this.getApiVersion() === 1)) {
+                                    _context18.next = 2;
+                                    break;
+                                }
+
+                                throw new OnmsError_1.OnmsError('Save/Delete memo is only available in OpenNMS ' + 'versions that support the ReSTv2 API.');
+
+                            case 2:
+                                alarmId = typeof alarm === 'number' ? alarm : alarm.id;
+                                parameters = {};
+
+                                parameters.body = body;
+                                if (user !== undefined) {
+                                    parameters.user = user;
+                                }
+                                return _context18.abrupt("return", this.put(this.pathToAlarmsEndpoint() + '/' + alarmId + '/' + type, parameters));
+
+                            case 7:
+                            case "end":
+                                return _context18.stop();
+                        }
+                    }
+                }, _callee18, this);
+            }));
+        }
+        /**
+         * Delete a journal or sticky memo
+         * @hidden
+         */
+
+    }, {
+        key: "deleteMemo",
+        value: function deleteMemo(type, alarm) {
+            return __awaiter(this, void 0, void 0, _regenerator2.default.mark(function _callee19() {
+                var alarmId;
+                return _regenerator2.default.wrap(function _callee19$(_context19) {
+                    while (1) {
+                        switch (_context19.prev = _context19.next) {
+                            case 0:
+                                if (!(this.getApiVersion() === 1)) {
+                                    _context19.next = 2;
+                                    break;
+                                }
+
+                                throw new OnmsError_1.OnmsError('Save/Delete memo is only available in OpenNMS ' + 'versions that support the ReSTv2 API.');
+
+                            case 2:
+                                alarmId = typeof alarm === 'number' ? alarm : alarm.id;
+                                return _context19.abrupt("return", this.httpDelete(this.pathToAlarmsEndpoint() + '/' + alarmId + '/' + type));
+
+                            case 4:
+                            case "end":
+                                return _context19.stop();
+                        }
+                    }
+                }, _callee19, this);
+            }));
         }
     }]);
 
@@ -12141,6 +12355,28 @@ var AxiosHTTP = function (_AbstractHTTP_1$Abstr) {
             urlObj.search(opts.params);
             Log_1.log.debug('POST ' + urlObj.toString(), catAxios);
             opts.method = 'post';
+            opts.url = realUrl;
+            return this.getImpl(options).request(opts).then(function (response) {
+                var type = void 0;
+                if (response.headers && response.headers['content-type']) {
+                    type = response.headers['content-type'];
+                }
+                return OnmsResult_1.OnmsResult.ok(response.data, undefined, response.status, type);
+            }).catch(this.handleError);
+        }
+        /**
+         * Make an HTTP DELETE call using `axios.request({method:'delete'})`.
+         */
+
+    }, {
+        key: "httpDelete",
+        value: function httpDelete(url, options) {
+            var realUrl = this.getServer(options).resolveURL(url);
+            var opts = this.getConfig(options);
+            var urlObj = new URI(realUrl);
+            urlObj.search(opts.params);
+            Log_1.log.debug('DELETE ' + urlObj.toString(), catAxios);
+            opts.method = 'delete';
             opts.url = realUrl;
             return this.getImpl(options).request(opts).then(function (response) {
                 var type = void 0;
@@ -35663,9 +35899,30 @@ var GrafanaHTTP = function (_AbstractHTTP_1$Abstr) {
         key: "post",
         value: function post(url, options) {
             var realUrl = this.getServer(options).resolveURL(url);
-            Log_1.log.debug('PUT ' + realUrl);
+            Log_1.log.debug('POST ' + realUrl);
             var query = this.getConfig(options);
             query.method = 'POST';
+            query.url = realUrl;
+            return this.backendSrv.datasourceRequest(query).then(function (response) {
+                var type = 'application/xml';
+                if (query && query.headers && query.headers.accept) {
+                    type = query.headers.accept;
+                }
+                if (response.headers && response.headers['content-type']) {
+                    type = response.headers['content-type'];
+                }
+                return OnmsResult_1.OnmsResult.ok(response.data, undefined, response.status, type);
+            }).catch(this.handleError);
+        }
+        /** Make an HTTP DELETE call using the Grafana `BackendSrv`. */
+
+    }, {
+        key: "httpDelete",
+        value: function httpDelete(url, options) {
+            var realUrl = this.getServer(options).resolveURL(url);
+            Log_1.log.debug('DELETE ' + realUrl);
+            var query = this.getConfig(options);
+            query.method = 'DELETE';
             query.url = realUrl;
             return this.backendSrv.datasourceRequest(query).then(function (response) {
                 var type = 'application/xml';
