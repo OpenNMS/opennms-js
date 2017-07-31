@@ -19,6 +19,7 @@ import {SnmpStatusTypes} from '../../src/model/OnmsSnmpStatusType';
 import {NodeDAO} from '../../src/dao/NodeDAO';
 
 import {MockHTTP19} from '../rest/MockHTTP19';
+import {MockHTTP21} from '../rest/MockHTTP21';
 
 /** @hidden */
 // tslint:disable-next-line
@@ -31,7 +32,7 @@ const SERVER_PASSWORD='demo';
 
 let opennms : Client, server, auth, mockHTTP, dao : NodeDAO;
 
-describe('NodeDAO', () => {
+describe('NodeDAO with v1 API', () => {
   beforeEach((done) => {
     auth = new OnmsAuthConfig(SERVER_USER, SERVER_PASSWORD);
     server = new OnmsServer(SERVER_NAME, SERVER_URL, auth);
@@ -90,4 +91,65 @@ describe('NodeDAO', () => {
       expect(nodes.length).toEqual(1);
     });
   });
+});
+
+describe('NodeDAO with v2 API', () => {
+  beforeEach((done) => {
+    auth = new OnmsAuthConfig(SERVER_USER, SERVER_PASSWORD);
+    server = new OnmsServer(SERVER_NAME, SERVER_URL, auth);
+    mockHTTP = new MockHTTP21(server);
+    opennms = new Client(mockHTTP);
+    dao = new NodeDAO(mockHTTP);
+    Client.getMetadata(server, mockHTTP).then((metadata) => {
+      server.metadata = metadata;
+      done();
+    });
+  });
+  it('NodeDAO.get(81, [recurse=false])', () => {
+    return dao.get(81).then((node) => {
+      expect(node.id).toEqual(81);
+      expect(node.categories.length).toEqual(1);
+      expect(node.categories[0]).toBeInstanceOf(OnmsCategory);
+      expect(node.foreignSource).toEqual('test');
+      expect(node.createTime).toBeInstanceOf(moment);
+      expect(node.type).toBeDefined();
+      expect(node.type).toBeInstanceOf(OnmsNodeType);
+    });
+  });
+  it('NodeDAO.get(81, recurse=true)', () => {
+    return dao.get(81, true).then((node) => {
+      expect(node.id).toEqual(81);
+      expect(node.categories.length).toEqual(1);
+      expect(node.categories[0]).toBeInstanceOf(OnmsCategory);
+      expect(node.foreignSource).toEqual('test');
+      expect(node.createTime).toBeInstanceOf(moment);
+      expect(node.type).toBeDefined();
+      expect(node.type).toBeInstanceOf(OnmsNodeType);
+
+      expect(node.snmpInterfaces.length).toEqual(10);
+
+      const snmp = node.snmpInterfaces[2];
+      expect(snmp.ifIndex).toEqual(3);
+      expect(snmp.ifSpeed).toEqual(0);
+      expect(snmp.ifAdminStatus).toEqual(SnmpStatusTypes['2']);
+      expect(snmp.ifOperStatus).toEqual(SnmpStatusTypes['2']);
+      expect(snmp.ifName).toEqual('stf0');
+
+      expect(node.ipInterfaces.length).toEqual(2);
+      const ip = node.ipInterfaces[1];
+      expect(ip.hostname).toEqual('172.20.1.110');
+      expect(ip.services.length).toEqual(3);
+
+      expect(ip.snmpInterface).toBeUndefined();
+    });
+  });
+  /** find is currently broken in v2
+  it('NodeDAO.find(id=81)', () => {
+    const filter = new Filter();
+    filter.withOrRestriction(new Restriction('id', Comparators.EQ, 81));
+    return dao.find(filter).then((nodes) => {
+      expect(nodes.length).toEqual(1);
+    });
+  });
+  */
 });
