@@ -270,6 +270,46 @@ const CLI = () => {
       });
     });
 
+  // save a sticky memo
+  program
+      .command('saveSticky <id>')
+      .alias('sticky')
+      .description('Create or update the sticky memo associated with the alarm')
+      .option('-u, --user <user>', 'Which user to update the memo as (only administrators can do this)')
+      .option('-b, --body <body>', 'Memo body')
+      .action((id, options) => {
+          id = parseInt(id, 10);
+          const config = readConfig();
+          return new Client().connect('OpenNMS', config.url, config.username, config.password).then((client) => {
+              return client.alarms().saveStickyMemo(id, options.body, options.user).then(() => {
+                  console.log('Success!');
+                  return true;
+              });
+          }).catch((err) => {
+              return handleError('Save failed', err);
+          });
+      });
+
+  // save a journal memo
+  program
+      .command('saveJournal <id>')
+      .alias('journal')
+      .description('Create or update the journal memo associated with the alarm')
+      .option('-u, --user <user>', 'Which user to update the memo as (only administrators can do this)')
+      .option('-b, --body <body>', 'Memo body')
+      .action((id, options) => {
+          id = parseInt(id, 10);
+          const config = readConfig();
+          return new Client().connect('OpenNMS', config.url, config.username, config.password).then((client) => {
+              return client.alarms().saveJournalMemo(id, options.body, options.user).then(() => {
+                  console.log('Success!');
+                  return true;
+              });
+          }).catch((err) => {
+              return handleError('Save failed', err);
+          });
+      });
+
   createAlarmAction('unacknowledge', 'Unacknowledge an alarm', 'unack');
   createAlarmAction('escalate', 'Escalate an alarm');
   createAlarmAction('clear', 'Clear an alarm');
@@ -277,6 +317,9 @@ const CLI = () => {
   createAlarmAction('createTicket', 'Create a trouble ticket for an alarm', 'create');
   createAlarmAction('triggerTicketUpdate', 'Trigger a trouble ticket update for an alarm', 'update');
   createAlarmAction('closeTicket', 'Close a trouble ticket for an alarm', 'close');
+
+  createAlarmAction('deleteStickyMemo', 'Delete the sticky memo for an alarm', 'deleteSticky');
+  createAlarmAction('deleteJournalMemo', 'Delete the journal memo for an alarm', 'deleteJournal');
 
   program.parse(process.argv);
 

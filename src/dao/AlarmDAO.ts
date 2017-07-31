@@ -245,6 +245,52 @@ export class AlarmDAO extends AbstractDAO<number, OnmsAlarm> {
   }
 
   /**
+   * Create or update the sticky memo associated with the alarm.
+   *
+   * @version ReST v2
+   * @param {number|OnmsAlarm} alarm - The [[OnmsAlarm]] or alarm ID.
+   * @param {string} body - The memo body
+   * @param {string=} user - The user to update the memo as.
+   *                  (Only administrators have the right to do this.)
+   */
+  public async saveStickyMemo(alarm: number|OnmsAlarm, body: string, user?: string): Promise<void> {
+    return this.saveMemo('memo', alarm, body, user);
+  }
+
+  /**
+   * Create or update the journal memo associated with the alarm.
+   *
+   * @version ReST v2
+   * @param {number|OnmsAlarm} alarm - The [[OnmsAlarm]] or alarm ID.
+   * @param {string} body - The memo body
+   * @param {string=} user - The user to update the memo as.
+   *                  (Only administrators have the right to do this.)
+   */
+  public async saveJournalMemo(alarm: number|OnmsAlarm, body: string, user?: string): Promise<void> {
+    return this.saveMemo('journal', alarm, body, user);
+  }
+
+  /**
+   * Delete the sticky memo ticket associated with the given alarm.
+   *
+   * @version ReST v2
+   * @param {number|OnmsAlarm} alarm - The [[OnmsAlarm]] or alarm ID.
+   */
+  public async deleteStickyMemo(alarm: number|OnmsAlarm): Promise<void> {
+    return this.deleteMemo('memo', alarm);
+  }
+
+  /**
+   * Delete the journal memo ticket associated with the given alarm.
+   *
+   * @version ReST v2
+   * @param {number|OnmsAlarm} alarm - The [[OnmsAlarm]] or alarm ID.
+   */
+  public async deleteJournalMemo(alarm: number|OnmsAlarm): Promise<void> {
+    return this.deleteMemo('journal', alarm);
+  }
+
+  /**
    * Generate an alarm object from the given dictionary.
    * @hidden
    */
@@ -370,11 +416,61 @@ export class AlarmDAO extends AbstractDAO<number, OnmsAlarm> {
   }
 
   /**
+   * Call a DELETE request in the format the alarm ack API expects.
+   * @hidden
+   */
+  private async httpDelete(url: string, parameters = {} as IHash<string>): Promise<void> {
+      const opts = this.getOptions();
+      opts.headers['content-type'] = 'application/x-www-form-urlencoded';
+      opts.headers.accept = null;
+      opts.parameters = parameters;
+      return this.http.httpDelete(url, opts).then((result) => {
+          if (!result.isSuccess) {
+              throw result;
+          }
+          return;
+      });
+  }
+
+  /**
    * Get the path to the alarms endpoint for the appropriate API version.
    * @hidden
    */
   private pathToAlarmsEndpoint() {
     return this.getApiVersion() === 2 ? 'api/v2/alarms' : 'rest/alarms';
+  }
+
+  /**
+   * Save a journal or sticky memo.
+   * @hidden
+   */
+  private async saveMemo(type: string, alarm: number|OnmsAlarm, body: string, user?: string): Promise<void> {
+    if (this.getApiVersion() === 1) {
+      throw new OnmsError('Save/Delete memo is only available in OpenNMS ' +
+          'versions that support the ReSTv2 API.');
+    }
+
+    const alarmId = (typeof(alarm) === 'number' ? alarm : alarm.id);
+    const parameters = {} as IHash<string>;
+    parameters.body = body;
+    if (user !== undefined) {
+      parameters.user = user;
+    }
+    return this.put(this.pathToAlarmsEndpoint() + '/' + alarmId + '/' + type, parameters);
+  }
+
+  /**
+   * Delete a journal or sticky memo
+   * @hidden
+   */
+  private async deleteMemo(type: string, alarm: number|OnmsAlarm): Promise<void> {
+    if (this.getApiVersion() === 1) {
+      throw new OnmsError('Save/Delete memo is only available in OpenNMS ' +
+          'versions that support the ReSTv2 API.');
+    }
+
+    const alarmId = (typeof(alarm) === 'number' ? alarm : alarm.id);
+    return this.httpDelete(this.pathToAlarmsEndpoint() + '/' + alarmId + '/' + type);
   }
 
 }

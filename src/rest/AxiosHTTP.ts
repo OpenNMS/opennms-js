@@ -121,6 +121,29 @@ export class AxiosHTTP extends AbstractHTTP {
   }
 
   /**
+   * Make an HTTP DELETE call using `axios.request({method:'delete'})`.
+   */
+  public httpDelete(url: string, options?: OnmsHTTPOptions) {
+    const realUrl = this.getServer(options).resolveURL(url);
+    const opts = this.getConfig(options);
+
+    const urlObj = new URI(realUrl);
+    urlObj.search(opts.params);
+    log.debug('DELETE ' + urlObj.toString(), catAxios);
+
+    opts.method = 'delete';
+    opts.url = realUrl;
+
+    return this.getImpl(options).request(opts).then((response) => {
+        let type;
+        if (response.headers && response.headers['content-type']) {
+            type = response.headers['content-type'];
+        }
+        return OnmsResult.ok(response.data, undefined, response.status, type);
+    }).catch(this.handleError);
+  }
+
+  /**
    * Clear the current [[AxiosInstance]] so it is recreated on next request with the
    * new server configuration.
    */
