@@ -63,7 +63,7 @@ export class NodeDAO extends AbstractDAO<number, OnmsNode> {
     return this.http.get(this.pathToNodesEndpoint(), opts).then((result) => {
       let data = result.data;
 
-      if (this.getCount(data) > 0 && data.node) {
+      if (data !== null && this.getCount(data) > 0 && data.node) {
         data = data.node;
       } else {
         data = [];

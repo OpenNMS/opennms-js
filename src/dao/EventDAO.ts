@@ -41,7 +41,7 @@ export class EventDAO extends AbstractDAO<number, OnmsEvent> {
     return this.http.get(this.pathToEventsEndpoint(), opts).then((result) => {
       let data = result.data;
 
-      if (this.getCount(data) > 0 && data.event) {
+      if (data !== null && this.getCount(data) > 0 && data.event) {
         data = data.event;
       } else {
         data = [];

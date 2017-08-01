@@ -80,7 +80,7 @@ export class AlarmDAO extends AbstractDAO<number, OnmsAlarm> {
   public getData(result: any): OnmsAlarm[] {
       let data = result.data;
 
-      if (this.getCount(data) > 0 && data.alarm) {
+      if (data !== null && this.getCount(data) > 0 && data.alarm) {
         data = data.alarm;
       } else {
         data = [];
