@@ -1,0 +1,71 @@
+{
+    "count": 2,
+    "ipInterface": [
+        {
+            "hostName": "127.0.0.1",
+            "id": "1957",
+            "ifIndex": 1,
+            "ipAddress": "127.0.0.1",
+            "isDown": false,
+            "isManaged": "M",
+            "lastCapsdPoll": 1501532685099,
+            "monitoredServiceCount": 5,
+            "nodeId": 81,
+            "snmpInterface": {
+                "collect": false,
+                "collectFlag": "N",
+                "collectionUserSpecified": false,
+                "id": 1959,
+                "ifAdminStatus": 1,
+                "ifAlias": "",
+                "ifDescr": "lo0",
+                "ifIndex": 1,
+                "ifName": "lo0",
+                "ifOperStatus": 1,
+                "ifSpeed": 0,
+                "ifType": 24,
+                "lastCapsdPoll": 1501532685099,
+                "lastSnmpPoll": null,
+                "netMask": "255.0.0.0",
+                "physAddr": null,
+                "poll": false,
+                "pollFlag": "N"
+            },
+            "snmpPrimary": "P"
+        },
+        {
+            "hostName": "172.20.1.110",
+            "id": "2139",
+            "ifIndex": 6,
+            "ipAddress": "172.20.1.110",
+            "isDown": false,
+            "isManaged": "M",
+            "lastCapsdPoll": 1501532685099,
+            "monitoredServiceCount": 3,
+            "nodeId": 81,
+            "snmpInterface": {
+                "collect": true,
+                "collectFlag": "C",
+                "collectionUserSpecified": false,
+                "id": 2018,
+                "ifAdminStatus": 1,
+                "ifAlias": "",
+                "ifDescr": "en0",
+                "ifIndex": 6,
+                "ifName": "en0",
+                "ifOperStatus": 1,
+                "ifSpeed": 304200000,
+                "ifType": 6,
+                "lastCapsdPoll": 1501532685099,
+                "lastSnmpPoll": null,
+                "netMask": "255.255.255.0",
+                "physAddr": "000f241fa144",
+                "poll": false,
+                "pollFlag": "N"
+            },
+            "snmpPrimary": "N"
+        }
+    ],
+    "offset": null,
+    "totalCount": 2
+}

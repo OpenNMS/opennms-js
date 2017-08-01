@@ -12,6 +12,7 @@ import {OnmsResult} from '../../src/api/OnmsResult';
 import {Comparators} from '../../src/api/Comparator';
 import {Filter} from '../../src/api/Filter';
 import {Restriction} from '../../src/api/Restriction';
+import {SearchPropertyTypes} from '../../src/api/SearchPropertyType';
 
 import {AlarmDAO} from '../../src/dao/AlarmDAO';
 
@@ -53,6 +54,9 @@ describe('AlarmDAO with v1 API', () => {
     return dao.find(filter).then((alarms) => {
       expect(alarms.length).toEqual(1);
     });
+  });
+  it('AlarmDAO.searchProperties() should reject', () => {
+    return expect(dao.searchProperties()).rejects.toBeDefined();
   });
 
   for (const method of ['acknowledge', 'unacknowledge', 'escalate', 'clear']) {
@@ -174,6 +178,14 @@ describe('AlarmDAO with v2 API', () => {
       expect(alarm.id).toEqual(82416);
       expect(alarm.sticky.body).toEqual('sticky');
       expect(alarm.journal.body).toEqual('journal');
+    });
+  });
+  it('AlarmDAO.searchProperties() should return a list of SearchProperty objects', () => {
+    return dao.searchProperties().then((props) => {
+      expect(props).toBeDefined();
+      expect(props).toHaveLength(165);
+      expect(props[0].id).toEqual('alarmAckTime');
+      expect(props[0].type).toEqual(SearchPropertyTypes.TIMESTAMP);
     });
   });
 

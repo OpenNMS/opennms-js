@@ -1,0 +1,82 @@
+{
+    "count": 5,
+    "offset": null,
+    "service": [
+        {
+            "applications": [],
+            "down": false,
+            "lastFail": null,
+            "lastGood": null,
+            "notify": null,
+            "qualifier": null,
+            "serviceType": {
+                "id": 2,
+                "name": "SNMP"
+            },
+            "source": null,
+            "status": "A",
+            "statusLong": "Managed"
+        },
+        {
+            "applications": [],
+            "down": false,
+            "lastFail": null,
+            "lastGood": null,
+            "notify": null,
+            "qualifier": null,
+            "serviceType": {
+                "id": 1,
+                "name": "ICMP"
+            },
+            "source": null,
+            "status": "A",
+            "statusLong": "Managed"
+        },
+        {
+            "applications": [],
+            "down": false,
+            "lastFail": null,
+            "lastGood": null,
+            "notify": null,
+            "qualifier": null,
+            "serviceType": {
+                "id": 5,
+                "name": "StrafePing"
+            },
+            "source": null,
+            "status": "A",
+            "statusLong": "Managed"
+        },
+        {
+            "applications": [],
+            "down": false,
+            "lastFail": null,
+            "lastGood": null,
+            "notify": null,
+            "qualifier": null,
+            "serviceType": {
+                "id": 3,
+                "name": "OpenNMS-JVM"
+            },
+            "source": null,
+            "status": "A",
+            "statusLong": "Managed"
+        },
+        {
+            "applications": [],
+            "down": false,
+            "lastFail": null,
+            "lastGood": null,
+            "notify": null,
+            "qualifier": null,
+            "serviceType": {
+                "id": 4,
+                "name": "SSH"
+            },
+            "source": null,
+            "status": "A",
+            "statusLong": "Managed"
+        }
+    ],
+    "totalCount": 5
+}
