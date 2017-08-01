@@ -7,25 +7,14 @@ import {IFilterProcessor} from '../api/IFilterProcessor';
 import {OnmsHTTPOptions} from '../api/OnmsHTTPOptions';
 import {OnmsResult} from '../api/OnmsResult';
 import {OnmsServer} from '../api/OnmsServer';
-
-if (global && !global.window) {
-  global.window = {} as Window;
-  if (!global.window.DOMParser) {
-    // tslint:disable-next-line
-    global.window.DOMParser = require('xmldom').DOMParser;
-  }
-}
+import {XmlTransformer} from './XmlTransformer';
+import {JsonTransformer} from './JsonTransformer';
 
 /** @hidden */
-// tslint:disable-next-line
-const X2JS = require('x2js');
+const xmlTransformer = new XmlTransformer();
 
 /** @hidden */
-const xmlParser = new X2JS({
-  arrayAccessForm: 'property',
-  attributePrefix: '',
-  ignoreRoot: true,
-});
+const jsonTransformer = new JsonTransformer();
 
 /**
  * Abstract implementation of the OnmsHTTP interface meant to be extended by a concrete class.
@@ -83,29 +72,15 @@ export abstract class AbstractHTTP implements IOnmsHTTP {
    * Use this to process a JSON response before returning it in an [[OnmsResult]] object.
    */
   protected transformJSON(data: any) {
-    if (typeof data === 'string') {
-      if (data.length < 1) {
-        return {};
-      } else {
-        return JSON.parse(data);
-      }
-    } else {
-      // assume it's already parsed
-      return data;
-    }
+    return jsonTransformer.transform(data);
   }
 
-  /**
-   * A convenience method for implementers to use to turn XML into a javascript object.
-   * Use this to process an XML response before returning it in an [[OnmsResult]] object.
-   */
+    /**
+     * A convenience method for implementers to use to turn XML into a javascript object.
+     * Use this to process an XML response before returning it in an [[OnmsResult]] object.
+     */
   protected transformXML(data: any) {
-    if (typeof data === 'string') {
-      return xmlParser.xml2js(data);
-    } else {
-      // assume it's already parsed
-      return data;
-    }
+    return xmlTransformer.transform(data);
   }
 
   /**

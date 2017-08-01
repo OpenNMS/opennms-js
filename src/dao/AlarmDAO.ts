@@ -63,6 +63,20 @@ export class AlarmDAO extends AbstractDAO<number, OnmsAlarm> {
   public async find(filter?: Filter): Promise<OnmsAlarm[]> {
     const opts = this.getOptions(filter);
     return this.http.get(this.pathToAlarmsEndpoint(), opts).then((result) => {
+      const data = this.getData(result);
+      return data.map((alarmData) => {
+        return this.fromData(alarmData);
+      });
+    });
+  }
+
+    /**
+     * Extracts the data from an HTTP Request result.
+     *
+     * @param result the HTTP Request result.
+     * @returns An array of [[OnmsAlarm]] objects.
+     */
+  public getData(result: any): OnmsAlarm[] {
       let data = result.data;
 
       if (this.getCount(data) > 0 && data.alarm) {
@@ -72,16 +86,13 @@ export class AlarmDAO extends AbstractDAO<number, OnmsAlarm> {
       }
 
       if (!Array.isArray(data)) {
-        if (data.nodeId) {
+        if (data.id) {
           data = [data];
         } else {
           throw new OnmsError('Expected an array of alarms but got "' + (typeof data) + '" instead.');
         }
       }
-      return data.map((alarmData) => {
-        return this.fromData(alarmData);
-      });
-    });
+      return data;
   }
 
   /**
