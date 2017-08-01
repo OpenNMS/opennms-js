@@ -1,5 +1,5 @@
 <a name="0.1.0-alpha.4"></a>
-# 0.1.0-alpha.4 (2017-07-31)
+# 0.1.0-alpha.4 (2017-08-01)
 
 
 ### Bug Fixes
@@ -7,8 +7,10 @@
 * **api:** add missing exports to API, clean up imports ([36f8125](https://github.com/OpenNMS/opennms-js/commit/36f8125))
 * **browser:** fix error when using the dev .js file in a browser ([ee7d22a](https://github.com/OpenNMS/opennms-js/commit/ee7d22a))
 * **cli:** only attempt to read the configuration file if it exists ([2339c6d](https://github.com/OpenNMS/opennms-js/commit/2339c6d))
+* **dao:** fix handling of 204s in Grafana - the data is null ([55028cb](https://github.com/OpenNMS/opennms-js/commit/55028cb))
 * **dao:** handle single-entry array responses ([6c66be6](https://github.com/OpenNMS/opennms-js/commit/6c66be6))
 * **enum:** fix handling of number indexes ([c3638a6](https://github.com/OpenNMS/opennms-js/commit/c3638a6))
+* **js-10:** Handle single alarm (xml) result properly ([544c174](https://github.com/OpenNMS/opennms-js/commit/544c174))
 * **log:** bump logging of missing count down to DEBUG ([00b3e1b](https://github.com/OpenNMS/opennms-js/commit/00b3e1b))
 * **model:** fix empty ServerMetadata initialization of version ([4e200f6](https://github.com/OpenNMS/opennms-js/commit/4e200f6))
 * **moment:** fix momentjs usage ([05f3a1f](https://github.com/OpenNMS/opennms-js/commit/05f3a1f))
@@ -53,8 +55,10 @@
 * **dao:** add find method to DAO ([e68baa1](https://github.com/OpenNMS/opennms-js/commit/e68baa1))
 * **dao:** add node sub-model support ([6b2577f](https://github.com/OpenNMS/opennms-js/commit/6b2577f))
 * **dao:** add preliminary NodeDAO and models ([81f52f3](https://github.com/OpenNMS/opennms-js/commit/81f52f3))
+* **dao:** add ReSTv2 support to event and node DAOs ([c524493](https://github.com/OpenNMS/opennms-js/commit/c524493))
 * **dao:** add simple alarm and event DAOs ([c962fc2](https://github.com/OpenNMS/opennms-js/commit/c962fc2))
 * **dao:** add utility method for getting the result count ([2c548b5](https://github.com/OpenNMS/opennms-js/commit/2c548b5))
+* **dao:** implement querying ReSTv2 search properties ([a588325](https://github.com/OpenNMS/opennms-js/commit/a588325))
 * **enum:** add a toJSON() representation ([1d51f24](https://github.com/OpenNMS/opennms-js/commit/1d51f24))
 * **internal:** add utility for parsing IP addresses ([259c16a](https://github.com/OpenNMS/opennms-js/commit/259c16a))
 * **model:** add a MAC address (PhysAddr) object ([6a724e8](https://github.com/OpenNMS/opennms-js/commit/6a724e8))
@@ -76,6 +80,7 @@
 * **server:** add convenience method to get all metadata ([e040e79](https://github.com/OpenNMS/opennms-js/commit/e040e79))
 * **server:** add ServerMetadata.toString() for human-readable version ([b2dc667](https://github.com/OpenNMS/opennms-js/commit/b2dc667))
 * **server:** add toString to OnmsServer ([cb5cf95](https://github.com/OpenNMS/opennms-js/commit/cb5cf95))
+* implement Client.checkServer() ([a9993d0](https://github.com/OpenNMS/opennms-js/commit/a9993d0))
 * **server:** handle absolute URLs cleanly ([5a516a2](https://github.com/OpenNMS/opennms-js/commit/5a516a2))
 * **server:** support user/password in OnmsServer constructor ([453f7a5](https://github.com/OpenNMS/opennms-js/commit/453f7a5))
 * **server:** use URL if host does not reselve ([614e0bc](https://github.com/OpenNMS/opennms-js/commit/614e0bc))
@@ -83,7 +88,6 @@
 * **v2:** add support for nested restrictions with boolean operators ([09cd705](https://github.com/OpenNMS/opennms-js/commit/09cd705))
 * **v2:** add support for the v2 api ([eb1b165](https://github.com/OpenNMS/opennms-js/commit/eb1b165))
 * **version:** add toString() for human-readable version ([01060b6](https://github.com/OpenNMS/opennms-js/commit/01060b6))
-* implement Client.checkServer() ([a9993d0](https://github.com/OpenNMS/opennms-js/commit/a9993d0))
 
 
 
