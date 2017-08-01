@@ -43,6 +43,41 @@ export class MockHTTP21 extends AbstractHTTP {
       case 'api/v2/alarms?limit=1000&_s=alarm.uei%3D%3Dshould-not-exist': {
         return Promise.resolve(OnmsResult.noContent());
       }
+      case 'api/v2/alarms/properties': {
+        const result = OnmsResult.ok(require('./21.0.0/get/api/v2/alarms/properties.json'));
+        result.type = 'application/json';
+        return Promise.resolve(result);
+      }
+      case 'api/v2/nodes/81': {
+        const result = OnmsResult.ok(require('./21.0.0/get/api/v2/nodes/81.json'));
+        result.type = 'application/json';
+        return Promise.resolve(result);
+      }
+      case 'api/v2/nodes/81/snmpinterfaces': {
+        const result = OnmsResult.ok(require('./21.0.0/get/api/v2/nodes/81.snmpinterfaces.json'));
+        result.type = 'application/json';
+        return Promise.resolve(result);
+      }
+      case 'api/v2/nodes/81/ipinterfaces': {
+        const result = OnmsResult.ok(require('./21.0.0/get/api/v2/nodes/81.ipinterfaces.json'));
+        result.type = 'application/json';
+        return Promise.resolve(result);
+      }
+      case 'api/v2/nodes/81/ipinterfaces/127.0.0.1/services': {
+        const result = OnmsResult.ok(require('./21.0.0/get/api/v2/nodes/81.ipinterfaces.127.0.0.1.services.json'));
+        result.type = 'application/json';
+        return Promise.resolve(result);
+      }
+      case 'api/v2/nodes/81/ipinterfaces/172.20.1.110/services': {
+        const result = OnmsResult.ok(require('./21.0.0/get/api/v2/nodes/81.ipinterfaces.172.20.1.110.services.json'));
+        result.type = 'application/json';
+        return Promise.resolve(result);
+      }
+      case 'api/v2/nodes?limit=1000&_s=id%3D%3D81': {
+        const result = OnmsResult.ok(require('./21.0.0/get/api/v2/nodes/81.ipinterfaces.172.20.1.110.services.json'));
+        result.type = 'application/json';
+        return Promise.resolve(result);
+      }
     }
     return Promise.reject(OnmsResult.error('Not yet implemented: ' + urlObj.toString()));
   }

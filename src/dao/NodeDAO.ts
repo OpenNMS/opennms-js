@@ -46,7 +46,7 @@ export class NodeDAO extends AbstractDAO<number, OnmsNode> {
   public async get(id: number, recurse = false): Promise<OnmsNode> {
     const opts = this.getOptions();
 
-    return this.http.get('rest/nodes/' + id, opts).then((result) => {
+    return this.http.get(this.pathToNodesEndpoint() + '/' + id, opts).then((result) => {
       const node = this.fromData(result.data);
 
       if (recurse) {
@@ -60,10 +60,10 @@ export class NodeDAO extends AbstractDAO<number, OnmsNode> {
   /** Search for nodes, given an optional filter. */
   public async find(filter?: Filter): Promise<OnmsNode[]> {
     const opts = this.getOptions(filter);
-    return this.http.get('rest/nodes', opts).then((result) => {
+    return this.http.get(this.pathToNodesEndpoint(), opts).then((result) => {
       let data = result.data;
 
-      if (this.getCount(data) > 0 && data.node) {
+      if (data !== null && this.getCount(data) > 0 && data.node) {
         data = data.node;
       } else {
         data = [];
@@ -115,7 +115,7 @@ export class NodeDAO extends AbstractDAO<number, OnmsNode> {
     if (node instanceof OnmsNode) {
       node = node.id;
     }
-    return this.http.get('rest/nodes/' + node + '/ipinterfaces', opts).then((result) => {
+    return this.http.get(this.pathToNodesEndpoint() + '/' + node + '/ipinterfaces', opts).then((result) => {
       let data = result.data;
 
       if (this.getCount(data) > 0 && data.ipInterface) {
@@ -143,7 +143,7 @@ export class NodeDAO extends AbstractDAO<number, OnmsNode> {
     if (node instanceof OnmsNode) {
       node = node.id;
     }
-    return this.http.get('rest/nodes/' + node + '/snmpinterfaces', opts).then((result) => {
+    return this.http.get(this.pathToNodesEndpoint() + '/' + node + '/snmpinterfaces', opts).then((result) => {
       let data = result.data;
 
       if (this.getCount(data) > 0 && data.snmpInterface) {
@@ -179,7 +179,7 @@ export class NodeDAO extends AbstractDAO<number, OnmsNode> {
     if (ipInterface instanceof OnmsIpInterface && ipInterface.ipAddress) {
       ipInterface = ipInterface.ipAddress.address;
     }
-    const url = 'rest/nodes/' + node + '/ipinterfaces/' + ipInterface + '/services';
+    const url = this.pathToNodesEndpoint() + '/' + node + '/ipinterfaces/' + ipInterface + '/services';
     return this.http.get(url, opts).then((result) => {
       let data = result.data;
 
@@ -318,4 +318,19 @@ export class NodeDAO extends AbstractDAO<number, OnmsNode> {
     return service;
   }
 
+  /**
+   * The path to the node search properties endpoint.
+   */
+  protected searchPropertyPath(): string {
+    throw new OnmsError('Search properties are not supported in Node ReSTv2 yet.');
+    // return this.pathToNodesEndpoint() + '/properties';
+  }
+
+  /**
+   * Get the path to the nodes endpoint for the appropriate API version.
+   * @hidden
+   */
+  private pathToNodesEndpoint() {
+    return this.getApiVersion() === 2 ? 'api/v2/nodes' : 'rest/nodes';
+  }
 }

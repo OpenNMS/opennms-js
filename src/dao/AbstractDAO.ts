@@ -5,6 +5,8 @@ import {OnmsError} from '../api/OnmsError';
 
 import {Filter} from '../api/Filter';
 import {OnmsHTTPOptions} from '../api/OnmsHTTPOptions';
+import {SearchProperty} from '../api/SearchProperty';
+import {SearchPropertyType} from '../api/SearchPropertyType';
 
 import {log, catDao} from '../api/Log';
 
@@ -95,6 +97,42 @@ export abstract class AbstractDAO<K, T> {
   public abstract async find(filter?: Filter): Promise<T[]>;
 
   /**
+   * Get the list properties that can be used in queries.
+   * @version ReST v2
+   */
+  public async searchProperties(): Promise<SearchProperty[]> {
+    if (this.getApiVersion() === 1) {
+      throw new OnmsError('Search property metadata is only available in OpenNMS ' +
+        'versions that support the ReSTv2 API.');
+    }
+
+    const opts = this.getOptions();
+    opts.headers.accept = 'application/json';
+    return this.http.get(this.searchPropertyPath(), opts).then((result) => {
+      let data = result.data;
+
+      if (this.getCount(data) > 0 && data.searchProperty) {
+        data = data.searchProperty;
+      } else {
+        data = [];
+      }
+
+      if (!Array.isArray(data)) {
+        throw new OnmsError('Expected an array of search properties but got "' +
+          (typeof data) + '" instead: ' + this.searchPropertyPath());
+      }
+      return data.map((prop) => {
+        return this.toSearchProperty(prop);
+      });
+    });
+  }
+
+  /**
+   * The path to retrieve search properties for this DAO.
+   */
+  protected abstract searchPropertyPath(): string;
+
+  /**
    * A convenience method to make it easy for implementers to extract the count
    * (or totalCount) values from response data.
    */
@@ -142,6 +180,23 @@ export abstract class AbstractDAO<K, T> {
   protected toNumber(from: any): number|undefined {
     const ret = parseInt(from, 10);
     return isNaN(ret) ? undefined : ret;
+  }
+
+  /**
+   * Generate a [[SearchProperty]] from the given dictionary.
+   * @hidden
+   */
+  protected toSearchProperty(data: any): SearchProperty {
+    if (!data) {
+      return null;
+    }
+
+    const prop = new SearchProperty();
+    prop.id = data.id;
+    prop.name = data.name;
+    prop.orderBy = !!data.orderBy;
+    prop.type = SearchPropertyType.forId(data.type);
+    return prop;
   }
 
   /**

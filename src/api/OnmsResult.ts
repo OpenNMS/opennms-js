@@ -17,8 +17,8 @@ export class OnmsResult<T> {
 
   /** Create a new "No Content" result. */
   public static noContent() {
-    // Use an empty string for the data
-    return new OnmsResult('', 'No Content', 204);
+    // Use a null string for the data
+    return new OnmsResult(null, 'No Content', 204);
   }
 
   /** The data, if any. */

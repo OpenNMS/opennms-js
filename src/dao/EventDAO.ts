@@ -30,7 +30,7 @@ export class EventDAO extends AbstractDAO<number, OnmsEvent> {
   /** Get an event, given the event's ID. */
   public async get(id: number): Promise<OnmsEvent> {
     const opts = this.getOptions();
-    return this.http.get('rest/events/' + id, opts).then((result) => {
+    return this.http.get(this.pathToEventsEndpoint() + '/' + id, opts).then((result) => {
       return this.fromData(result.data);
     });
   }
@@ -38,17 +38,17 @@ export class EventDAO extends AbstractDAO<number, OnmsEvent> {
   /** Get an event, given a filter. */
   public async find(filter?: Filter): Promise<OnmsEvent[]> {
     const opts = this.getOptions(filter);
-    return this.http.get('rest/events', opts).then((result) => {
+    return this.http.get(this.pathToEventsEndpoint(), opts).then((result) => {
       let data = result.data;
 
-      if (this.getCount(data) > 0 && data.event) {
+      if (data !== null && this.getCount(data) > 0 && data.event) {
         data = data.event;
       } else {
         data = [];
       }
 
       if (!Array.isArray(data)) {
-        if (data.nodeId) {
+        if (data.id) {
           data = [data];
         } else {
           throw new OnmsError('Expected an array of events but got "' + (typeof data) + '" instead.');
@@ -108,6 +108,21 @@ export class EventDAO extends AbstractDAO<number, OnmsEvent> {
     }
 
     return event;
+  }
+
+  /**
+   * The path to the event search properties endpoint.
+   */
+  protected searchPropertyPath() {
+    return this.pathToEventsEndpoint() + '/properties';
+  }
+
+  /**
+   * Get the path to the events endpoint for the appropriate API version.
+   * @hidden
+   */
+  private pathToEventsEndpoint() {
+    return this.getApiVersion() === 2 ? 'api/v2/events' : 'rest/events';
   }
 
 }

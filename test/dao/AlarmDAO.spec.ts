@@ -12,11 +12,14 @@ import {OnmsResult} from '../../src/api/OnmsResult';
 import {Comparators} from '../../src/api/Comparator';
 import {Filter} from '../../src/api/Filter';
 import {Restriction} from '../../src/api/Restriction';
+import {SearchPropertyTypes} from '../../src/api/SearchPropertyType';
 
 import {AlarmDAO} from '../../src/dao/AlarmDAO';
 
 import {OnmsAlarm} from '../../src/model/OnmsAlarm';
 import {TroubleTicketStates} from '../../src/model/OnmsTroubleTicketState';
+
+import {XmlTransformer} from '../../src/rest/XmlTransformer';
 
 import {MockHTTP19} from '../rest/MockHTTP19';
 import {MockHTTP21} from '../rest/MockHTTP21';
@@ -51,6 +54,9 @@ describe('AlarmDAO with v1 API', () => {
     return dao.find(filter).then((alarms) => {
       expect(alarms.length).toEqual(1);
     });
+  });
+  it('AlarmDAO.searchProperties() should reject', () => {
+    return expect(dao.searchProperties()).rejects.toBeDefined();
   });
 
   for (const method of ['acknowledge', 'unacknowledge', 'escalate', 'clear']) {
@@ -101,7 +107,37 @@ describe('AlarmDAO with v1 API', () => {
     return expect(dao.deleteStickyMemo(404725)).rejects.toBeDefined();
   });
   it('AlarmDAO.deleteJournalMemo(404725) should reject', () => {
-    return expect(dao.deleteJournalMemo(404725)).rejects.toBeDefined();
+      return expect(dao.deleteJournalMemo(404725)).rejects.toBeDefined();
+  });
+  describe('getData()', () => {
+      it('Can handle single alarm. See JS-10', () => {
+          const rawData = '<?xml version="1.0" encoding="UTF-8"?>\n' +
+          '<alarms count="1" totalCount="1">\n' +
+          '    <alarm type="1" count="1" id="1" severity="CRITICAL">\n' +
+          '        <description>A problem has been triggered.</description>\n' +
+          '        <firstEventTime>2017-07-28T20:41:46.236Z</firstEventTime>\n' +
+          '        <lastEvent display="Y" log="Y" id="17" severity="CRITICAL">\n' +
+          '            <createTime>2017-07-28T20:41:46.239Z</createTime>\n' +
+          '            <description>A problem has been triggered.</description>\n' +
+          '            <logMessage>A problem has been triggered on //.</logMessage>\n' +
+          '            <source>ReST</source>\n' +
+          '            <time>2017-07-28T20:41:46.236Z</time>\n' +
+          '            <uei>uei.opennms.org/alarms/trigger</uei>\n' +
+          '        </lastEvent>\n' +
+          '        <lastEventTime>2017-07-28T20:41:46.236Z</lastEventTime>\n' +
+          '        <logMessage>A problem has been triggered on //.</logMessage>\n' +
+          '        <reductionKey>uei.opennms.org/alarms/trigger:::</reductionKey>\n' +
+          '        <suppressedTime>2017-07-28T20:41:46.236Z</suppressedTime>\n' +
+          '        <suppressedUntil>2017-07-28T20:41:46.236Z</suppressedUntil>\n' +
+          '        <uei>uei.opennms.org/alarms/trigger</uei>\n' +
+          '        <x733ProbableCause>0</x733ProbableCause>\n' +
+          '    </alarm>\n' +
+          '</alarms>';
+          const jsonObject = new XmlTransformer().transform(rawData);
+
+          // if this passes, no exception was thrown
+          dao.getData({ data: jsonObject });
+      });
   });
 });
 
@@ -142,6 +178,14 @@ describe('AlarmDAO with v2 API', () => {
       expect(alarm.id).toEqual(82416);
       expect(alarm.sticky.body).toEqual('sticky');
       expect(alarm.journal.body).toEqual('journal');
+    });
+  });
+  it('AlarmDAO.searchProperties() should return a list of SearchProperty objects', () => {
+    return dao.searchProperties().then((props) => {
+      expect(props).toBeDefined();
+      expect(props).toHaveLength(165);
+      expect(props[0].id).toEqual('alarmAckTime');
+      expect(props[0].type).toEqual(SearchPropertyTypes.TIMESTAMP);
     });
   });
 
