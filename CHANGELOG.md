@@ -1,5 +1,5 @@
 <a name="0.1.0-alpha.4"></a>
-# 0.1.0-alpha.4 (2017-08-01)
+# 0.1.0-alpha.4 (2017-08-02)
 
 
 ### Bug Fixes
@@ -11,6 +11,7 @@
 * **dao:** handle single-entry array responses ([6c66be6](https://github.com/OpenNMS/opennms-js/commit/6c66be6))
 * **enum:** fix handling of number indexes ([c3638a6](https://github.com/OpenNMS/opennms-js/commit/c3638a6))
 * **js-10:** Handle single alarm (xml) result properly ([544c174](https://github.com/OpenNMS/opennms-js/commit/544c174))
+* **js-12:** Make breakpoints work ([13fb9ae](https://github.com/OpenNMS/opennms-js/commit/13fb9ae))
 * **log:** bump logging of missing count down to DEBUG ([00b3e1b](https://github.com/OpenNMS/opennms-js/commit/00b3e1b))
 * **model:** fix empty ServerMetadata initialization of version ([4e200f6](https://github.com/OpenNMS/opennms-js/commit/4e200f6))
 * **moment:** fix momentjs usage ([05f3a1f](https://github.com/OpenNMS/opennms-js/commit/05f3a1f))

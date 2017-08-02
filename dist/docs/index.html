@@ -87,6 +87,10 @@
 					<li><code>yarn watch-test</code> - continuously run the tests</li>
 					<li><code>yarn cli -- &lt;arguments&gt;</code> - run the CLI test tool (try <code>--help</code> for options)</li>
 				</ul>
+				<h1 id="debugging-tests">Debugging Tests</h1>
+				<p>On MAC OS X with WebStorm v2017.2 debugging tests may not work.
+					See <a href="https://github.com/facebook/jest/issues/1652">https://github.com/facebook/jest/issues/1652</a> for more details.
+				The described solution there is to add <code>--env jest-environment-node-debug</code> as argument to the runtime configuration.</p>
 			</div>
 		</div>
 		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
