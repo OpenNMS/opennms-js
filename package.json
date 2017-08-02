@@ -36,6 +36,7 @@
     "conventional-changelog-lint": "^1.1.9",
     "husky": "^0.13.3",
     "jest": "^20.0.3",
+    "jest-environment-node-debug": "^2.0.0",
     "lodash.clonedeep": "^4.5.0",
     "parallel-webpack": "^2.0.0",
     "regenerator-runtime": "^0.10.5",

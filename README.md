@@ -32,3 +32,9 @@ Then you can run yarn to build or test the project:
 * `yarn test` - run the tests
 * `yarn watch-test` - continuously run the tests
 * `yarn cli -- <arguments>` - run the CLI test tool (try `--help` for options)
+
+# Debugging Tests
+
+On MAC OS X with WebStorm v2017.2 debugging tests may not work.
+See https://github.com/facebook/jest/issues/1652 for more details.
+The described solution there is to add `--env jest-environment-node-debug` as argument to the runtime configuration.
