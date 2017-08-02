@@ -5,6 +5,7 @@
 ### Bug Fixes
 
 * **api:** add missing exports to API, clean up imports ([36f8125](https://github.com/OpenNMS/opennms-js/commit/36f8125))
+* **api:** handle Meridian properly in useJson ([740cdf1](https://github.com/OpenNMS/opennms-js/commit/740cdf1))
 * **browser:** fix error when using the dev .js file in a browser ([ee7d22a](https://github.com/OpenNMS/opennms-js/commit/ee7d22a))
 * **cli:** only attempt to read the configuration file if it exists ([2339c6d](https://github.com/OpenNMS/opennms-js/commit/2339c6d))
 * **dao:** fix handling of 204s in Grafana - the data is null ([55028cb](https://github.com/OpenNMS/opennms-js/commit/55028cb))

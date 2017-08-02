@@ -10047,7 +10047,11 @@ var ServerMetadata = function () {
     }, {
         key: "useJson",
         value: function useJson() {
-            return this.version.ge('19.0.0');
+            if (this.type && this.type === ServerType_1.ServerTypes.MERIDIAN) {
+                return this.version.ge('2017.0.0');
+            } else {
+                return this.version.ge('19.0.0');
+            }
         }
         /** What version of the ReST API does this server support? */
 
