@@ -9306,8 +9306,13 @@ var AbstractDAO = function () {
         key: "getOptions",
         value: function getOptions(filter) {
             var ret = new OnmsHTTPOptions_1.OnmsHTTPOptions();
-            // always use application/xml for now in DAO calls
-            ret.headers.accept = 'application/xml';
+            if (this.useJson()) {
+                ret.headers.accept = 'application/json';
+            } else {
+                // always use application/xml in DAO calls when we're not sure how
+                // usable JSON output will be.
+                ret.headers.accept = 'application/xml';
+            }
             if (filter) {
                 ret.parameters = this.filterProcessor.getParameters(filter);
             }
@@ -9334,6 +9339,14 @@ var AbstractDAO = function () {
         value: function toNumber(from) {
             var ret = parseInt(from, 10);
             return isNaN(ret) ? undefined : ret;
+        }
+    }, {
+        key: "useJson",
+        value: function useJson() {
+            if (this.http === undefined || this.http.server === undefined || this.http.server.metadata === undefined) {
+                throw new OnmsError_1.OnmsError('Server meta-data must be populated prior to making DAO calls.');
+            }
+            return this.http.server.metadata.useJson();
         }
         /**
          * Generate a [[SearchProperty]] from the given dictionary.
@@ -10028,6 +10041,13 @@ var ServerMetadata = function () {
         key: "setNodeLocation",
         value: function setNodeLocation() {
             return this.version.ge('15.0.2');
+        }
+        /** Is it safe to use JSON for most operations? */
+
+    }, {
+        key: "useJson",
+        value: function useJson() {
+            return this.version.ge('19.0.0');
         }
         /** What version of the ReST API does this server support? */
 
