@@ -51,6 +51,11 @@ export class ServerMetadata {
     return this.version.ge('15.0.2');
   }
 
+  /** Is it safe to use JSON for most operations? */
+  public useJson() {
+    return this.version.ge('19.0.0');
+  }
+
   /** What version of the ReST API does this server support? */
   public apiVersion() {
     if (this.type && this.type === ServerTypes.MERIDIAN) {

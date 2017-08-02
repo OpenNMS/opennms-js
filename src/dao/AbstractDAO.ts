@@ -156,8 +156,13 @@ export abstract class AbstractDAO<K, T> {
    */
   protected getOptions(filter?: Filter): OnmsHTTPOptions {
     const ret = new OnmsHTTPOptions();
-    // always use application/xml for now in DAO calls
-    ret.headers.accept = 'application/xml';
+    if (this.useJson()) {
+      ret.headers.accept = 'application/json';
+    } else {
+      // always use application/xml in DAO calls when we're not sure how
+      // usable JSON output will be.
+      ret.headers.accept = 'application/xml';
+    }
     if (filter) {
       ret.parameters = this.filterProcessor.getParameters(filter);
     }
@@ -180,6 +185,13 @@ export abstract class AbstractDAO<K, T> {
   protected toNumber(from: any): number|undefined {
     const ret = parseInt(from, 10);
     return isNaN(ret) ? undefined : ret;
+  }
+
+  protected useJson(): boolean {
+    if (this.http === undefined || this.http.server === undefined || this.http.server.metadata === undefined) {
+      throw new OnmsError('Server meta-data must be populated prior to making DAO calls.');
+    }
+    return this.http.server.metadata.useJson();
   }
 
   /**
