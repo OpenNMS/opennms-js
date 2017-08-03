@@ -85,6 +85,19 @@ const expectedResults = {
       serverType: ServerTypes.MERIDIAN,
     },
   },
+  '2016.1.5': {
+    newObject: ['2016.1.5', ServerTypes.MERIDIAN],
+    tests: {
+      capabilities: {
+        ackAlarms: true,
+        apiVersion: 1,
+        graphs: true,
+        outageSummaries: true,
+        setNodeLocation: true,
+      },
+      serverType: ServerTypes.MERIDIAN,
+    },
+  },
   '21.0.0': {
     newObject: ['21.0.0', undefined],
     tests: {
