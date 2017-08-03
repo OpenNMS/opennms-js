@@ -16,4 +16,7 @@ export class SearchProperty {
 
   /** the property type */
   public type: SearchPropertyType;
+
+  /** the values if any */
+  public values: any;
 }

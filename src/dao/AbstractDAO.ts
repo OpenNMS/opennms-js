@@ -208,6 +208,7 @@ export abstract class AbstractDAO<K, T> {
     prop.name = data.name;
     prop.orderBy = !!data.orderBy;
     prop.type = SearchPropertyType.forId(data.type);
+    prop.values = data.values;
     return prop;
   }
 
