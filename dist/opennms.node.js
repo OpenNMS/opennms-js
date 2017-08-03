@@ -5282,10 +5282,10 @@ function __export(m) {
 }
 var LogGroupControl_1 = __webpack_require__(268);
 var CategoryServiceControl_1 = __webpack_require__(267);
-var ExtensionHelper_1 = __webpack_require__(18);
+var ExtensionHelper_1 = __webpack_require__(19);
 exports.ExtensionHelper = ExtensionHelper_1.ExtensionHelper;
 // Category related
-var AbstractCategoryLogger_1 = __webpack_require__(19);
+var AbstractCategoryLogger_1 = __webpack_require__(20);
 exports.AbstractCategoryLogger = AbstractCategoryLogger_1.AbstractCategoryLogger;
 var CategoryConsoleLoggerImpl_1 = __webpack_require__(197);
 exports.CategoryConsoleLoggerImpl = CategoryConsoleLoggerImpl_1.CategoryConsoleLoggerImpl;
@@ -5295,7 +5295,7 @@ var CategoryLogger_1 = __webpack_require__(270);
 exports.Category = CategoryLogger_1.Category;
 var CategoryMessageBufferImpl_1 = __webpack_require__(199);
 exports.CategoryMessageBufferLoggerImpl = CategoryMessageBufferImpl_1.CategoryMessageBufferLoggerImpl;
-var CategoryService_1 = __webpack_require__(20);
+var CategoryService_1 = __webpack_require__(21);
 exports.CategoryDefaultConfiguration = CategoryService_1.CategoryDefaultConfiguration;
 exports.CategoryRuntimeSettings = CategoryService_1.CategoryRuntimeSettings;
 exports.CategoryServiceFactory = CategoryService_1.CategoryServiceFactory;
@@ -5303,7 +5303,7 @@ var LoggerFactoryService_1 = __webpack_require__(35);
 exports.LoggerFactoryOptions = LoggerFactoryService_1.LoggerFactoryOptions;
 exports.LFService = LoggerFactoryService_1.LFService;
 exports.LogGroupRule = LoggerFactoryService_1.LogGroupRule;
-var AbstractLogger_1 = __webpack_require__(21);
+var AbstractLogger_1 = __webpack_require__(22);
 exports.AbstractLogger = AbstractLogger_1.AbstractLogger;
 var ConsoleLoggerImpl_1 = __webpack_require__(200);
 exports.ConsoleLoggerImpl = ConsoleLoggerImpl_1.ConsoleLoggerImpl;
@@ -5321,7 +5321,7 @@ var DataStructures_1 = __webpack_require__(7);
 exports.SimpleMap = DataStructures_1.SimpleMap;
 exports.LinkedList = DataStructures_1.LinkedList;
 __export(__webpack_require__(272));
-var MessageUtils_1 = __webpack_require__(22);
+var MessageUtils_1 = __webpack_require__(23);
 exports.MessageFormatUtils = MessageUtils_1.MessageFormatUtils;
 /*
  Functions to export on TSL libarary var.
@@ -6347,8 +6347,89 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
 Object.defineProperty(exports, "__esModule", { value: true });
-var Operator_1 = __webpack_require__(15);
+var OnmsEnum_1 = __webpack_require__(1);
+/**
+ * Represents a filter comparator.
+ * @module Comparator
+ */
+
+var Comparator = function (_OnmsEnum_1$OnmsEnum) {
+    _inherits(Comparator, _OnmsEnum_1$OnmsEnum);
+
+    function Comparator(id, label) {
+        _classCallCheck(this, Comparator);
+
+        /** Aliases for the command-line. */
+        var _this = _possibleConstructorReturn(this, (Comparator.__proto__ || Object.getPrototypeOf(Comparator)).call(this, id, label));
+
+        _this.aliases = [];
+
+        for (var _len = arguments.length, aliases = Array(_len > 2 ? _len - 2 : 0), _key = 2; _key < _len; _key++) {
+            aliases[_key - 2] = arguments[_key];
+        }
+
+        _this.aliases = aliases;
+        return _this;
+    }
+    /** Whether this comparator matches the given comparator string. */
+
+
+    _createClass(Comparator, [{
+        key: "matches",
+        value: function matches(comparator) {
+            return comparator.toLowerCase() === this.label.toLowerCase() || this.aliases.indexOf(comparator) >= 0;
+        }
+    }]);
+
+    return Comparator;
+}(OnmsEnum_1.OnmsEnum);
+
+exports.Comparator = Comparator;
+/* tslint:disable:object-literal-sort-keys */
+var Comparators = {
+    /** Equals (`=` or `==`) */
+    EQ: new Comparator(1, 'EQ', '=', '=='),
+    /** Not Equals (`!=`) */
+    NE: new Comparator(2, 'NE', '!='),
+    /** Case-Insensitive Substring Match (`ILIKE`) */
+    ILIKE: new Comparator(3, 'ILIKE'),
+    /** Case-Sensitive Substring Match (`LIKE`) */
+    LIKE: new Comparator(4, 'LIKE'),
+    /** Greater Than (`>`) */
+    GT: new Comparator(5, 'GT', '>'),
+    /** Less Than (`<`) */
+    LT: new Comparator(6, 'LT', '<'),
+    /** Greater Than or Equal To (`>=`) */
+    GE: new Comparator(7, 'GE', '>='),
+    /** Less Than or Equal To (`<=`) */
+    LE: new Comparator(8, 'LE', '<='),
+    /** Is Null (`NULL`) */
+    NULL: new Comparator(9, 'NULL'),
+    /** Is Not Null (`NOTNULL`) */
+    NOTNULL: new Comparator(10, 'NOTNULL')
+};
+/** @hidden */
+var frozen = Object.freeze(Comparators);
+exports.Comparators = frozen;
+
+/***/ }),
+/* 13 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var Operator_1 = __webpack_require__(16);
 var Clause_1 = __webpack_require__(36);
 /**
  * Nested query restrictions.
@@ -6399,7 +6480,7 @@ var NestedRestriction = function () {
 exports.NestedRestriction = NestedRestriction;
 
 /***/ }),
-/* 13 */
+/* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6441,7 +6522,7 @@ function OnmsHTTPOptions(timeout, auth, server) {
 exports.OnmsHTTPOptions = OnmsHTTPOptions;
 
 /***/ }),
-/* 14 */
+/* 15 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6511,7 +6592,7 @@ var OnmsResult = function () {
 exports.OnmsResult = OnmsResult;
 
 /***/ }),
-/* 15 */
+/* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6576,7 +6657,7 @@ var frozen = Object.freeze(Operators);
 exports.Operators = frozen;
 
 /***/ }),
-/* 16 */
+/* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6619,7 +6700,7 @@ var frozen = Object.freeze(ServerTypes);
 exports.ServerTypes = frozen;
 
 /***/ }),
-/* 17 */
+/* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6674,15 +6755,15 @@ var OnmsServiceType = function () {
 exports.OnmsServiceType = OnmsServiceType;
 
 /***/ }),
-/* 18 */
+/* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var CategoryService_1 = __webpack_require__(20);
+var CategoryService_1 = __webpack_require__(21);
 var LoggerOptions_1 = __webpack_require__(2);
-var MessageUtils_1 = __webpack_require__(22);
+var MessageUtils_1 = __webpack_require__(23);
 var ExtensionHelper = function () {
     function ExtensionHelper() {}
     // Private constructor
@@ -6878,14 +6959,14 @@ exports.ExtensionHelper = ExtensionHelper;
 //# sourceMappingURL=ExtensionHelper.js.map
 
 /***/ }),
-/* 19 */
+/* 20 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 var DataStructures_1 = __webpack_require__(7);
-var MessageUtils_1 = __webpack_require__(22);
+var MessageUtils_1 = __webpack_require__(23);
 var LoggerOptions_1 = __webpack_require__(2);
 var CategoryLogMessageImpl = function () {
     function CategoryLogMessageImpl(message, error, categories, date, level, logFormat, ready) {
@@ -7185,7 +7266,7 @@ exports.AbstractCategoryLogger = AbstractCategoryLogger;
 //# sourceMappingURL=AbstractCategoryLogger.js.map
 
 /***/ }),
-/* 20 */
+/* 21 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7197,7 +7278,7 @@ var CategoryConsoleLoggerImpl_1 = __webpack_require__(197);
 var CategoryDelegateLoggerImpl_1 = __webpack_require__(198);
 var CategoryExtensionLoggerImpl_1 = __webpack_require__(269);
 var CategoryMessageBufferImpl_1 = __webpack_require__(199);
-var ExtensionHelper_1 = __webpack_require__(18);
+var ExtensionHelper_1 = __webpack_require__(19);
 /**
  * RuntimeSettings for a category, at runtime these are associated to a category.
  */
@@ -7650,7 +7731,7 @@ exports.CategoryServiceFactory = CategoryServiceFactory;
 //# sourceMappingURL=CategoryService.js.map
 
 /***/ }),
-/* 21 */
+/* 22 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7658,7 +7739,7 @@ exports.CategoryServiceFactory = CategoryServiceFactory;
 
 var LoggerOptions_1 = __webpack_require__(2);
 var DataStructures_1 = __webpack_require__(7);
-var MessageUtils_1 = __webpack_require__(22);
+var MessageUtils_1 = __webpack_require__(23);
 var LogMessageInternalImpl = function () {
     function LogMessageInternalImpl(loggerName, message, errorAsStack, error, logGroupRule, date, level, ready) {
         this._errorAsStack = null;
@@ -7912,7 +7993,7 @@ exports.AbstractLogger = AbstractLogger;
 //# sourceMappingURL=AbstractLogger.js.map
 
 /***/ }),
-/* 22 */
+/* 23 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8064,87 +8145,6 @@ var MessageFormatUtils = function () {
 }();
 exports.MessageFormatUtils = MessageFormatUtils;
 //# sourceMappingURL=MessageUtils.js.map
-
-/***/ }),
-/* 23 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-Object.defineProperty(exports, "__esModule", { value: true });
-var OnmsEnum_1 = __webpack_require__(1);
-/**
- * Represents a filter comparator.
- * @module Comparator
- */
-
-var Comparator = function (_OnmsEnum_1$OnmsEnum) {
-    _inherits(Comparator, _OnmsEnum_1$OnmsEnum);
-
-    function Comparator(id, label) {
-        _classCallCheck(this, Comparator);
-
-        /** Aliases for the command-line. */
-        var _this = _possibleConstructorReturn(this, (Comparator.__proto__ || Object.getPrototypeOf(Comparator)).call(this, id, label));
-
-        _this.aliases = [];
-
-        for (var _len = arguments.length, aliases = Array(_len > 2 ? _len - 2 : 0), _key = 2; _key < _len; _key++) {
-            aliases[_key - 2] = arguments[_key];
-        }
-
-        _this.aliases = aliases;
-        return _this;
-    }
-    /** Whether this comparator matches the given comparator string. */
-
-
-    _createClass(Comparator, [{
-        key: "matches",
-        value: function matches(comparator) {
-            return comparator.toLowerCase() === this.label.toLowerCase() || this.aliases.indexOf(comparator) >= 0;
-        }
-    }]);
-
-    return Comparator;
-}(OnmsEnum_1.OnmsEnum);
-
-exports.Comparator = Comparator;
-/* tslint:disable:object-literal-sort-keys */
-var Comparators = {
-    /** Equals (`=` or `==`) */
-    EQ: new Comparator(1, 'EQ', '=', '=='),
-    /** Not Equals (`!=`) */
-    NE: new Comparator(2, 'NE', '!='),
-    /** Case-Insensitive Substring Match (`ILIKE`) */
-    ILIKE: new Comparator(3, 'ILIKE'),
-    /** Case-Sensitive Substring Match (`LIKE`) */
-    LIKE: new Comparator(4, 'LIKE'),
-    /** Greater Than (`>`) */
-    GT: new Comparator(5, 'GT', '>'),
-    /** Less Than (`<`) */
-    LT: new Comparator(6, 'LT', '<'),
-    /** Greater Than or Equal To (`>=`) */
-    GE: new Comparator(7, 'GE', '>='),
-    /** Less Than or Equal To (`<=`) */
-    LE: new Comparator(8, 'LE', '<='),
-    /** Is Null (`NULL`) */
-    NULL: new Comparator(9, 'NULL'),
-    /** Is Not Null (`NOTNULL`) */
-    NOTNULL: new Comparator(10, 'NOTNULL')
-};
-/** @hidden */
-var frozen = Object.freeze(Comparators);
-exports.Comparators = frozen;
 
 /***/ }),
 /* 24 */
@@ -8332,7 +8332,7 @@ var OnmsError_1 = __webpack_require__(5);
 var Util_1 = __webpack_require__(34);
 var OnmsEvent_1 = __webpack_require__(48);
 var OnmsParm_1 = __webpack_require__(26);
-var OnmsServiceType_1 = __webpack_require__(17);
+var OnmsServiceType_1 = __webpack_require__(18);
 var OnmsSeverity_1 = __webpack_require__(27);
 var Log_1 = __webpack_require__(4);
 var typescript_logging_1 = __webpack_require__(6);
@@ -9002,7 +9002,7 @@ var __awaiter = undefined && undefined.__awaiter || function (thisArg, _argument
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var OnmsError_1 = __webpack_require__(5);
-var OnmsHTTPOptions_1 = __webpack_require__(13);
+var OnmsHTTPOptions_1 = __webpack_require__(14);
 var SearchProperty_1 = __webpack_require__(260);
 var SearchPropertyType_1 = __webpack_require__(261);
 var Log_1 = __webpack_require__(4);
@@ -9178,6 +9178,7 @@ var AbstractDAO = function () {
             prop.name = data.name;
             prop.orderBy = !!data.orderBy;
             prop.type = SearchPropertyType_1.SearchPropertyType.forId(data.type);
+            prop.values = data.values;
             return prop;
         }
         /**
@@ -9280,7 +9281,7 @@ exports.Util = Util;
 var DataStructures_1 = __webpack_require__(7);
 var LoggerOptions_1 = __webpack_require__(2);
 var LoggerFactoryImpl_1 = __webpack_require__(271);
-var ExtensionHelper_1 = __webpack_require__(18);
+var ExtensionHelper_1 = __webpack_require__(19);
 /**
  * Defines a LogGroupRule, this allows you to either have everything configured the same way
  * or for example loggers that start with name model. It allows you to group loggers together
@@ -9685,7 +9686,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 // tslint:disable-next-line
 var URI = __webpack_require__(204);
 var OnmsAuthConfig_1 = __webpack_require__(37);
-var ServerType_1 = __webpack_require__(16);
+var ServerType_1 = __webpack_require__(17);
 var UUID_1 = __webpack_require__(262);
 /**
  * Represents a remote OpenNMS server.
@@ -9800,7 +9801,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 Object.defineProperty(exports, "__esModule", { value: true });
 var OnmsVersion_1 = __webpack_require__(24);
-var ServerType_1 = __webpack_require__(16);
+var ServerType_1 = __webpack_require__(17);
 /**
  * A class that represents the capabilities an OpenNMS server has and other information about it.
  * @module ServerMetadata
@@ -9968,11 +9969,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var AbstractDAO_1 = __webpack_require__(33);
 var EventDAO_1 = __webpack_require__(25);
 var OnmsError_1 = __webpack_require__(5);
-var OnmsHTTPOptions_1 = __webpack_require__(13);
+var OnmsHTTPOptions_1 = __webpack_require__(14);
 var OnmsAlarm_1 = __webpack_require__(44);
 var OnmsAlarmType_1 = __webpack_require__(45);
 var OnmsParm_1 = __webpack_require__(26);
-var OnmsServiceType_1 = __webpack_require__(17);
+var OnmsServiceType_1 = __webpack_require__(18);
 var OnmsSeverity_1 = __webpack_require__(27);
 var OnmsTroubleTicketState_1 = __webpack_require__(58);
 var OnmsMemo_1 = __webpack_require__(263);
@@ -10871,7 +10872,7 @@ var OnmsNode_1 = __webpack_require__(52);
 var OnmsNodeLabelSource_1 = __webpack_require__(53);
 var OnmsNodeType_1 = __webpack_require__(264);
 var OnmsPrimaryType_1 = __webpack_require__(54);
-var OnmsServiceType_1 = __webpack_require__(17);
+var OnmsServiceType_1 = __webpack_require__(18);
 var OnmsServiceStatusType_1 = __webpack_require__(55);
 var OnmsSnmpInterface_1 = __webpack_require__(56);
 var OnmsSnmpStatusType_1 = __webpack_require__(57);
@@ -11304,10 +11305,10 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 Object.defineProperty(exports, "__esModule", { value: true });
 var OnmsEnum_1 = __webpack_require__(1);
-var Comparator_1 = __webpack_require__(23);
-var Operator_1 = __webpack_require__(15);
+var Comparator_1 = __webpack_require__(12);
+var Operator_1 = __webpack_require__(16);
 var OnmsError_1 = __webpack_require__(5);
-var NestedRestriction_1 = __webpack_require__(12);
+var NestedRestriction_1 = __webpack_require__(13);
 /** @hidden */
 var nonExclusiveComparators = [Comparator_1.Comparators.NULL, Comparator_1.Comparators.NOTNULL];
 /** @hidden */
@@ -11410,10 +11411,10 @@ var _createClass = function () { function defineProperties(target, props) { for 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var Comparator_1 = __webpack_require__(23);
-var NestedRestriction_1 = __webpack_require__(12);
+var Comparator_1 = __webpack_require__(12);
+var NestedRestriction_1 = __webpack_require__(13);
 var OnmsError_1 = __webpack_require__(5);
-var Operator_1 = __webpack_require__(15);
+var Operator_1 = __webpack_require__(16);
 /**
  * Converts a [[Filter]] into ReSTv2 FIQL parameters.
  * @module V2FilterProcessor
@@ -12453,7 +12454,7 @@ var clonedeep = __webpack_require__(75);
 var URI = __webpack_require__(204);
 var AbstractHTTP_1 = __webpack_require__(196);
 var OnmsError_1 = __webpack_require__(5);
-var OnmsResult_1 = __webpack_require__(14);
+var OnmsResult_1 = __webpack_require__(15);
 var Log_1 = __webpack_require__(4);
 var typescript_logging_1 = __webpack_require__(6);
 /** @hidden */
@@ -30531,7 +30532,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var OnmsResult_1 = __webpack_require__(14);
+var OnmsResult_1 = __webpack_require__(15);
 var XmlTransformer_1 = __webpack_require__(266);
 var JsonTransformer_1 = __webpack_require__(265);
 /** @hidden */
@@ -30717,7 +30718,7 @@ var __extends = undefined && undefined.__extends || function (d, b) {
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 var LoggerOptions_1 = __webpack_require__(2);
-var AbstractCategoryLogger_1 = __webpack_require__(19);
+var AbstractCategoryLogger_1 = __webpack_require__(20);
 /**
  * Simple logger, that logs to the console. If the console is unavailable will throw an exception.
  */
@@ -30947,7 +30948,7 @@ var __extends = undefined && undefined.__extends || function (d, b) {
     }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-var AbstractCategoryLogger_1 = __webpack_require__(19);
+var AbstractCategoryLogger_1 = __webpack_require__(20);
 /**
  * Logger which buffers all messages, use with care due to possible high memory footprint.
  * Can be convenient in some cases. Call toString() for full output, or cast to this class
@@ -30992,7 +30993,7 @@ var __extends = undefined && undefined.__extends || function (d, b) {
     }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-var AbstractLogger_1 = __webpack_require__(21);
+var AbstractLogger_1 = __webpack_require__(22);
 var LoggerOptions_1 = __webpack_require__(2);
 /**
  * Simple logger, that logs to the console. If the console is unavailable will throw exception.
@@ -31067,7 +31068,7 @@ var __extends = undefined && undefined.__extends || function (d, b) {
     }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-var AbstractLogger_1 = __webpack_require__(21);
+var AbstractLogger_1 = __webpack_require__(22);
 /**
  * Logger which buffers all messages, use with care due to possible high memory footprint.
  * Can be convenient in some cases. Call toString() for full output, or cast to this class
@@ -35658,10 +35659,10 @@ var __awaiter = undefined && undefined.__awaiter || function (thisArg, _argument
 Object.defineProperty(exports, "__esModule", { value: true });
 var Log_1 = __webpack_require__(4);
 var typescript_logging_1 = __webpack_require__(6);
-var OnmsHTTPOptions_1 = __webpack_require__(13);
+var OnmsHTTPOptions_1 = __webpack_require__(14);
 var OnmsError_1 = __webpack_require__(5);
 var OnmsVersion_1 = __webpack_require__(24);
-var ServerType_1 = __webpack_require__(16);
+var ServerType_1 = __webpack_require__(17);
 var OnmsServer_1 = __webpack_require__(38);
 var ServerMetadata_1 = __webpack_require__(39);
 var AlarmDAO_1 = __webpack_require__(40);
@@ -35899,7 +35900,7 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var NestedRestriction_1 = __webpack_require__(12);
+var NestedRestriction_1 = __webpack_require__(13);
 /**
  * A query filter for DAOs.
  * @module Filter
@@ -35983,7 +35984,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 Object.defineProperty(exports, "__esModule", { value: true });
 var AbstractHTTP_1 = __webpack_require__(196);
 var OnmsError_1 = __webpack_require__(5);
-var OnmsResult_1 = __webpack_require__(14);
+var OnmsResult_1 = __webpack_require__(15);
 var Log_1 = __webpack_require__(4);
 var typescript_logging_1 = __webpack_require__(6);
 var clonedeep = __webpack_require__(75);
@@ -46860,19 +46861,19 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
 Object.defineProperty(exports, "__esModule", { value: true });
 var Clause_1 = __webpack_require__(36);
-var Comparator_1 = __webpack_require__(23);
+var Comparator_1 = __webpack_require__(12);
 var Filter_1 = __webpack_require__(214);
-var NestedRestriction_1 = __webpack_require__(12);
+var NestedRestriction_1 = __webpack_require__(13);
 var OnmsAuthConfig_1 = __webpack_require__(37);
 var OnmsError_1 = __webpack_require__(5);
-var OnmsHTTPOptions_1 = __webpack_require__(13);
-var OnmsResult_1 = __webpack_require__(14);
+var OnmsHTTPOptions_1 = __webpack_require__(14);
+var OnmsResult_1 = __webpack_require__(15);
 var OnmsServer_1 = __webpack_require__(38);
 var OnmsVersion_1 = __webpack_require__(24);
-var Operator_1 = __webpack_require__(15);
+var Operator_1 = __webpack_require__(16);
 var Restriction_1 = __webpack_require__(215);
 var ServerMetadata_1 = __webpack_require__(39);
-var ServerType_1 = __webpack_require__(16);
+var ServerType_1 = __webpack_require__(17);
 var AlarmDAO_1 = __webpack_require__(40);
 var EventDAO_1 = __webpack_require__(25);
 var NodeDAO_1 = __webpack_require__(41);
@@ -46891,7 +46892,7 @@ var OnmsNodeLabelSource_1 = __webpack_require__(53);
 var OnmsParm_1 = __webpack_require__(26);
 var OnmsPrimaryType_1 = __webpack_require__(54);
 var OnmsServiceStatusType_1 = __webpack_require__(55);
-var OnmsServiceType_1 = __webpack_require__(17);
+var OnmsServiceType_1 = __webpack_require__(18);
 var OnmsSeverity_1 = __webpack_require__(27);
 var OnmsSnmpInterface_1 = __webpack_require__(56);
 var OnmsSnmpStatusType_1 = __webpack_require__(57);
@@ -47014,6 +47015,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 Object.defineProperty(exports, "__esModule", { value: true });
 var OnmsEnum_1 = __webpack_require__(1);
+var Comparator_1 = __webpack_require__(12);
 /**
  * Represents a search property type.
  * @module SearchPropertyType
@@ -47021,12 +47023,6 @@ var OnmsEnum_1 = __webpack_require__(1);
 
 var SearchPropertyType = function (_OnmsEnum_1$OnmsEnum) {
     _inherits(SearchPropertyType, _OnmsEnum_1$OnmsEnum);
-
-    function SearchPropertyType() {
-        _classCallCheck(this, SearchPropertyType);
-
-        return _possibleConstructorReturn(this, (SearchPropertyType.__proto__ || Object.getPrototypeOf(SearchPropertyType)).apply(this, arguments));
-    }
 
     _createClass(SearchPropertyType, null, [{
         key: "forId",
@@ -47037,17 +47033,43 @@ var SearchPropertyType = function (_OnmsEnum_1$OnmsEnum) {
         }
     }]);
 
+    function SearchPropertyType(id, label, someComparators) {
+        _classCallCheck(this, SearchPropertyType);
+
+        var _this = _possibleConstructorReturn(this, (SearchPropertyType.__proto__ || Object.getPrototypeOf(SearchPropertyType)).call(this, id, label));
+
+        _this.comparators = someComparators;
+        return _this;
+    }
+    /**
+     * Returns the comparators supported by this type.
+     *
+     * @returns {Comparator[]} the supported comparators.
+     */
+
+
+    _createClass(SearchPropertyType, [{
+        key: "getComparators",
+        value: function getComparators() {
+            return this.comparators;
+        }
+    }]);
+
     return SearchPropertyType;
 }(OnmsEnum_1.OnmsEnum);
 
 exports.SearchPropertyType = SearchPropertyType;
+/** @hidden */
+var StringComparators = [Comparator_1.Comparators.EQ, Comparator_1.Comparators.NE];
+/** @hidden */
+var NumberComparators = [Comparator_1.Comparators.EQ, Comparator_1.Comparators.NE, Comparator_1.Comparators.GE, Comparator_1.Comparators.GT, Comparator_1.Comparators.LE, Comparator_1.Comparators.LT];
 var SearchPropertyTypes = {
-    FLOAT: new SearchPropertyType('FLOAT', 'floating-point number'),
-    INTEGER: new SearchPropertyType('INTEGER', 'integer'),
-    IP_ADDRESS: new SearchPropertyType('IP_ADDRESS', 'IP address'),
-    LONG: new SearchPropertyType('LONG', 'long integer'),
-    STRING: new SearchPropertyType('STRING', 'string'),
-    TIMESTAMP: new SearchPropertyType('TIMESTAMP', 'date and time')
+    FLOAT: new SearchPropertyType('FLOAT', 'floating-point number', NumberComparators),
+    INTEGER: new SearchPropertyType('INTEGER', 'integer', NumberComparators),
+    IP_ADDRESS: new SearchPropertyType('IP_ADDRESS', 'IP address', StringComparators),
+    LONG: new SearchPropertyType('LONG', 'long integer', NumberComparators),
+    STRING: new SearchPropertyType('STRING', 'string', StringComparators),
+    TIMESTAMP: new SearchPropertyType('TIMESTAMP', 'date and time', NumberComparators)
 };
 /** @hidden */
 var frozen = Object.freeze(SearchPropertyTypes);
@@ -47300,7 +47322,7 @@ exports.XmlTransformer = XmlTransformer;
 
 
 var DataStructures_1 = __webpack_require__(7);
-var CategoryService_1 = __webpack_require__(20);
+var CategoryService_1 = __webpack_require__(21);
 var LoggerOptions_1 = __webpack_require__(2);
 /**
  * Implementation class for CategoryServiceControl.
@@ -47695,8 +47717,8 @@ var __extends = undefined && undefined.__extends || function (d, b) {
     }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-var ExtensionHelper_1 = __webpack_require__(18);
-var AbstractCategoryLogger_1 = __webpack_require__(19);
+var ExtensionHelper_1 = __webpack_require__(19);
+var AbstractCategoryLogger_1 = __webpack_require__(20);
 /**
  * This class should not be used directly, it is used for communication with the extension only.
  */
@@ -47726,7 +47748,7 @@ exports.CategoryExtensionLoggerImpl = CategoryExtensionLoggerImpl;
 
 
 var LoggerOptions_1 = __webpack_require__(2);
-var CategoryService_1 = __webpack_require__(20);
+var CategoryService_1 = __webpack_require__(21);
 /**
  * Category for use with categorized logging.
  * At minimum you need one category, which will serve as the root category.
@@ -47821,7 +47843,7 @@ var LoggerOptions_1 = __webpack_require__(2);
 var LoggerFactoryService_1 = __webpack_require__(35);
 var ConsoleLoggerImpl_1 = __webpack_require__(200);
 var MessageBufferLoggerImpl_1 = __webpack_require__(201);
-var AbstractLogger_1 = __webpack_require__(21);
+var AbstractLogger_1 = __webpack_require__(22);
 var LoggerFactoryImpl = function () {
     function LoggerFactoryImpl(name, options) {
         this._loggers = new DataStructures_1.SimpleMap();
