@@ -187,6 +187,9 @@ export abstract class AbstractDAO<K, T> {
     return isNaN(ret) ? undefined : ret;
   }
 
+  /**
+   * Whether or not to use JSON when making ReST requests.
+   */
   protected useJson(): boolean {
     if (this.http === undefined || this.http.server === undefined || this.http.server.metadata === undefined) {
       throw new OnmsError('Server meta-data must be populated prior to making DAO calls.');
