@@ -5,6 +5,17 @@ import {OnmsEnum} from '../internal/OnmsEnum';
  * @module Comparator
  */
 export class Comparator extends OnmsEnum<number> {
+  /** Find the comparator that matches the given comparator string. */
+  public static find(comparator: string) {
+    for (const key of Object.keys(Comparators)) {
+      const comp = Comparators[key];
+      if (comp.matches(comparator)) {
+        return comp;
+      }
+    }
+    return null;
+  }
+
   /** Aliases for the command-line. */
   private aliases = [] as string[];
 
@@ -15,8 +26,9 @@ export class Comparator extends OnmsEnum<number> {
 
   /** Whether this comparator matches the given comparator string. */
   public matches(comparator: string) {
-    return (comparator.toLowerCase() === this.label.toLowerCase())
-      || this.aliases.indexOf(comparator) >= 0;
+    const compareTo = comparator.toUpperCase();
+    return (compareTo === this.label.toUpperCase())
+      || this.aliases.indexOf(compareTo) >= 0;
   }
 }
 
@@ -48,7 +60,7 @@ const Comparators = {
   LE: new Comparator(8, 'LE', '<='),
 
   /** Is Null (`NULL`) */
-  NULL: new Comparator(9, 'NULL'),
+  NULL: new Comparator(9, 'NULL', 'ISNULL'),
 
   /** Is Not Null (`NOTNULL`) */
   NOTNULL: new Comparator(10, 'NOTNULL'),

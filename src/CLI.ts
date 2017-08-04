@@ -180,45 +180,21 @@ const CLI = () => {
   // list current alarms
   program
     .command('alarms [filters...]')
-    .description('List current alarms')
+    .description('List current alarms with optional filters (eg: "severity eq MAJOR" or "nodeLabel ilike dns%")')
     .action((filters) => {
       const config = readConfig();
       return new Client().connect('OpenNMS', config.url, config.username, config.password).then((client) => {
         const dao = new DAO.AlarmDAO(client);
 
-        const namePattern = /^(.*?)\s+(eq|ne|ilike|like|gt|lt|ge|le|null|notnull)\s+(.*?)$/i;
-        const symbolPattern = /^(.*?)\s*(=|==|!=|>|<|>=|<=)\s*(.*?)$/i;
         const filter = new API.Filter();
 
         for (const f of filters) {
-          let match = f.match(namePattern);
-          let attribute;
-          let comparator;
-          let value;
-          if (match) {
-            attribute = match[1];
-            comparator = match[2];
-            value = match[3];
+          log.warn('filter=' + f, catCLI);
+          const parsed = API.Restriction.fromString(f);
+          if (parsed) {
+            filter.withOrRestriction(parsed);
           } else {
-            match = f.match(symbolPattern);
-            if (match) {
-              attribute = match[1];
-              comparator = match[2];
-              value = match[3];
-            } else {
-              log.warn('Unable to parse filter "' + f + '"', catCLI);
-            }
-          }
-
-          if (attribute && comparator) {
-            for (const type in API.Comparators) {
-              if (API.Comparators.hasOwnProperty(type)) {
-                const comp = API.Comparators[type];
-                if (comp.matches(comparator)) {
-                  filter.withOrRestriction(new API.Restriction(attribute, comp, value));
-                }
-              }
-            }
+            log.warn('Unable to parse filter "' + f + '"', catCLI);
           }
         }
 
