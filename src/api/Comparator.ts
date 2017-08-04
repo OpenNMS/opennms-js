@@ -15,8 +15,9 @@ export class Comparator extends OnmsEnum<number> {
 
   /** Whether this comparator matches the given comparator string. */
   public matches(comparator: string) {
-    return (comparator.toLowerCase() === this.label.toLowerCase())
-      || this.aliases.indexOf(comparator) >= 0;
+    const compareTo = comparator.toUpperCase();
+    return (compareTo === this.label.toUpperCase())
+      || this.aliases.indexOf(compareTo) >= 0;
   }
 }
 
