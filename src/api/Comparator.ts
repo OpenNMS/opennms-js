@@ -5,6 +5,17 @@ import {OnmsEnum} from '../internal/OnmsEnum';
  * @module Comparator
  */
 export class Comparator extends OnmsEnum<number> {
+  /** Find the comparator that matches the given comparator string. */
+  public static find(comparator: string) {
+    for (const key of Object.keys(Comparators)) {
+      const comp = Comparators[key];
+      if (comp.matches(comparator)) {
+        return comp;
+      }
+    }
+    return null;
+  }
+
   /** Aliases for the command-line. */
   private aliases = [] as string[];
 
