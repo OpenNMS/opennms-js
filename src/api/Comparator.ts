@@ -48,7 +48,7 @@ const Comparators = {
   LE: new Comparator(8, 'LE', '<='),
 
   /** Is Null (`NULL`) */
-  NULL: new Comparator(9, 'NULL'),
+  NULL: new Comparator(9, 'NULL', 'ISNULL'),
 
   /** Is Not Null (`NOTNULL`) */
   NOTNULL: new Comparator(10, 'NOTNULL'),
