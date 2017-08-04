@@ -1,10 +1,35 @@
-import {Comparator} from './Comparator';
+import {Comparator, Comparators} from './Comparator';
+import {log, catAPI} from './Log';
+
+const namePattern = /^(.*?)\s+(eq|ne|ilike|like|gt|lt|ge|le|null|isnull|notnull)\s+(.*?)$/i;
+const symbolPattern = /^(\w+?)\s*(\=\=|\=|\!\=|\>\=|\<\=|\>|\<)\s*(\w+?)$/;
 
 /**
  * A query restriction.
  * @module Restriction
  */
 export class Restriction {
+  /**
+   * Convert a filter string into a restriction.
+   */
+  public static fromString(filter: string) {
+    let match = filter.match(namePattern);
+    if (!match) {
+      match = filter.match(symbolPattern);
+    }
+    if (match) {
+      const comp = Comparator.find(match[2]);
+      if (comp) {
+        return new Restriction(match[1], comp, match[3]);
+      }
+      log.warn('Restriction.fromString matched "' + filter +
+        '", but was unable to match "' + match[2] + '" to a comparator.', catAPI);
+    } else {
+      log.debug('Restriction.fromString failed to match "' + filter + '".', catAPI);
+    }
+    return null;
+  }
+
   /** The model attribute (name, id, etc.) to query. */
   public attribute: string;
 
