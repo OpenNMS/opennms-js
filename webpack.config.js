@@ -1,6 +1,7 @@
 var webpack = require('webpack');
 var path = require('path');
 var TypedocWebpackPlugin = require('typedoc-webpack-plugin');
+var pkginfo = require('./package.json');
 
 var createVariants = require('parallel-webpack').createVariants;
 
@@ -89,6 +90,7 @@ function createConfig(options) {
   var defs = {
     'IS_WEB': options.target === 'web',
     'IS_PRODUCTION': options.production,
+    'global.OPENNMS_JS_VERSION': JSON.stringify(pkginfo.version),
   };
 
   if (options.target === 'web') {
