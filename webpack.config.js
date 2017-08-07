@@ -13,7 +13,7 @@ var justDocs = argv.env === 'docs';
 var libraryName = 'opennms';
 
 var variants = {
-  web: [ true, false ],
+  target: [ 'web', 'node' ],
 };
 
 if (isProduction) {
@@ -22,7 +22,7 @@ if (isProduction) {
 
 if (justDocs) {
   variants = {
-    web: [true],
+    target: ['node'],
     docs: [true],
   };
 }
@@ -87,16 +87,26 @@ function createConfig(options) {
   var myconf = clonedeep(config);
   myconf.output.filename = '[name]';
   var defs = {
-    'IS_WEB': options.web,
+    'IS_WEB': options.target === 'web',
     'IS_PRODUCTION': options.production,
   };
 
-  if (options.web) {
+  if (options.target === 'web') {
     myconf.target = 'web';
   } else {
     myconf.target = 'node';
     myconf.node = { process: false };
+  }
+
+  if (options.target === 'node') {
     myconf.output.filename += '.node';
+    myconf.entry.cli = __dirname + '/src/CLI.ts';
+    myconf.plugins.push(new webpack.BannerPlugin({
+      banner: '#!/usr/bin/env node',
+      raw: true,
+      entryOnly: true,
+      include: /cli/i,
+    }));
   }
 
   if (options.production) {
@@ -119,7 +129,7 @@ function createConfig(options) {
   myconf.plugins.push(new webpack.ProvidePlugin({X2JS: 'x2js'}));
 
   // build docs either on a dedicated doc build, or during production node.js build
-  var buildDocs = justDocs || (options.production && !options.web);
+  var buildDocs = !!(justDocs || (options.production && options.target === 'node'));
   if (buildDocs) {
     // generate documentation
     var tsconfig = require('./tsconfig.json');
@@ -133,7 +143,7 @@ function createConfig(options) {
 
   myconf.output.filename += '.js';
 
-  console.log('Building variant: web=' + (!!options.web) + ', production=' + (!!options.production) + ', docs=' + buildDocs);
+  console.log('Building variant: target=' + options.target + ', production=' + (!!options.production) + ', docs=' + buildDocs);
 
   return myconf;
 }
