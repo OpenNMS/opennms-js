@@ -15,7 +15,7 @@ const CLI = () => {
   const catCLI = new Category('cli', catRoot);
 
   // tslint:disable
-  const cliff = require('cliff');
+  const Table = require('cli-table');
   const colors = require('colors');
   const fs = require('fs');
   const path = require('path');
@@ -24,6 +24,32 @@ const CLI = () => {
 
   const homedir = process.env[(process.platform === 'win32') ? 'USERPROFILE' : 'HOME'];
   const defaultConfigFile = path.join(homedir, '.opennms-cli.config.json');
+
+  const tableFormat = {
+    head: [],
+    /* tslint:disable:object-literal-sort-keys */
+    chars: {
+      'middle': '  ',
+      'top': '',
+      'top-mid': '',
+      'top-left': '',
+      'top-right': '',
+      'left': '',
+      'left-mid': '',
+      'mid': '',
+      'mid-mid': '',
+      'right': '',
+      'right-mid': '',
+      'bottom': '',
+      'bottom-mid': '',
+      'bottom-left': '',
+      'bottom-right': '',
+    },
+    style: {
+      'padding-left': 0,
+      'padding-right': 0,
+    },
+  };
 
   const readConfig = () => {
     const configfile = program.config || defaultConfigFile;
@@ -122,14 +148,14 @@ const CLI = () => {
         console.log('');
 
         const caps = res.capabilities();
-        const rows = [];
+        const t = new Table(tableFormat);
         for (const cap in caps) {
           if (cap === 'type') {
             continue;
           }
-          rows.push([startCase(cap) + ':', caps[cap]]);
+          t.push([startCase(cap) + ':', caps[cap]]);
         }
-        console.log(cliff.stringifyRows(rows));
+        console.log(t.toString());
         console.log('');
 
         return res;
@@ -160,9 +186,9 @@ const CLI = () => {
 
       let logMessage = '';
       if (alarm.logMessage) {
-        logMessage = alarm.logMessage.trim();
+        logMessage = alarm.logMessage.replace('[\r\n].*$').trim();
         if (logMessage.length > logMessageLength) {
-          logMessage = logMessage.slice(0, logMessageLength) + '…';
+          logMessage = logMessage.slice(0, logMessageLength).trim() + '…';
         }
       }
 
@@ -199,8 +225,15 @@ const CLI = () => {
         }
 
         return dao.find(filter).then((alarms) => {
-          const headers = ['id', 'severity', 'node', 'count', 'time', 'log'];
-          console.log(cliff.stringifyObjectRows(formatAlarms(alarms), headers, ['red']));
+          const format = Object.assign({}, tableFormat);
+          format.head = [ 'ID', 'Severity', 'Node', 'Count', 'Time', 'Log' ];
+          const t = new Table(format);
+          const formatted = formatAlarms(alarms);
+          for (const alarm of formatted) {
+            t.push([alarm.id, alarm.severity, alarm.node, alarm.count, alarm.time, alarm.log]);
+          }
+          console.log(t.toString());
+          console.log('');
         });
       }).catch((err) => {
         return handleError('Alarm list failed', err);
