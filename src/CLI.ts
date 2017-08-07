@@ -12,6 +12,7 @@ import {
 
 /** @hidden */
 const CLI = () => {
+  const version = 'OPENNMS_JS_VERSION';
   const catCLI = new Category('cli', catRoot);
 
   // tslint:disable
@@ -90,7 +91,11 @@ const CLI = () => {
     .option('-d, --debug', 'Enable debug output', () => {
       setLogLevel(LogLevel.Debug);
     })
-    .option('-c, --config <file>', 'Specify a configuration file (default: ~/.opennms-cli.config.json)');
+    .option('-c, --config <file>', 'Specify a configuration file (default: ~/.opennms-cli.config.json)')
+    .option('-v, --version', 'Print the OpenNMS.js version and exit', () => {
+      console.log(version);
+      process.exit(0);
+    });
 
   // connect (validate server and save config)
   program
@@ -99,6 +104,8 @@ const CLI = () => {
     .option('-u, --username <username>', 'The username to authenticate as (default: admin)')
     .option('-p, --password <password>', 'The password to authenticate with (default: admin)')
     .action((url, options) => {
+      console.log(colors.red('WARNING: This command saves your login'
+        + ' information to ~/.opennms-cli.config.json in clear text.'));
       const config = readConfig();
       if (url) {
         // the user is passing a URL, reset the config
@@ -334,6 +341,7 @@ const CLI = () => {
 
   if (!process.argv.slice(2).length) {
     program.outputHelp();
+    process.exit(0);
   }
 };
 
