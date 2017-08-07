@@ -90,7 +90,7 @@ function createConfig(options) {
   var defs = {
     'IS_WEB': options.target === 'web',
     'IS_PRODUCTION': options.production,
-    'OPENNMS_JS_VERSION': pkginfo.version,
+    'global.OPENNMS_JS_VERSION': JSON.stringify(pkginfo.version),
   };
 
   if (options.target === 'web') {

@@ -12,7 +12,7 @@ import {
 
 /** @hidden */
 const CLI = () => {
-  const version = 'OPENNMS_JS_VERSION';
+  const version = global.OPENNMS_JS_VERSION || require('../package.json').version || 'unknown';
   const catCLI = new Category('cli', catRoot);
 
   // tslint:disable

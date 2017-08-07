@@ -8,5 +8,6 @@ declare module NodeJS {
   interface Global {
     window: Window;
     DOMParser: any;
+    OPENNMS_JS_VERSION: string;
   }
 }
