@@ -222,7 +222,7 @@ const CLI = () => {
         const filter = new API.Filter();
 
         for (const f of filters) {
-          log.warn('filter=' + f, catCLI);
+          log.debug('filter=' + f, catCLI);
           const parsed = API.Restriction.fromString(f);
           if (parsed) {
             filter.withOrRestriction(parsed);
