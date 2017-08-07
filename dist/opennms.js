@@ -5715,10 +5715,127 @@ module.exports = function (module) {
 "use strict";
 
 
-module.exports = __webpack_require__(236);
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var OnmsEnum_1 = __webpack_require__(1);
+/**
+ * Represents a filter comparator.
+ * @module Comparator
+ */
+
+var Comparator = function (_OnmsEnum_1$OnmsEnum) {
+    _inherits(Comparator, _OnmsEnum_1$OnmsEnum);
+
+    function Comparator(id, label) {
+        _classCallCheck(this, Comparator);
+
+        /** Aliases for the command-line. */
+        var _this = _possibleConstructorReturn(this, (Comparator.__proto__ || Object.getPrototypeOf(Comparator)).call(this, id, label));
+
+        _this.aliases = [];
+
+        for (var _len = arguments.length, aliases = Array(_len > 2 ? _len - 2 : 0), _key = 2; _key < _len; _key++) {
+            aliases[_key - 2] = arguments[_key];
+        }
+
+        _this.aliases = aliases;
+        return _this;
+    }
+    /** Find the comparator that matches the given comparator string. */
+
+
+    _createClass(Comparator, [{
+        key: "matches",
+
+        /** Whether this comparator matches the given comparator string. */
+        value: function matches(comparator) {
+            var compareTo = comparator.toUpperCase();
+            return compareTo === this.label.toUpperCase() || this.aliases.indexOf(compareTo) >= 0;
+        }
+    }], [{
+        key: "find",
+        value: function find(comparator) {
+            var _iteratorNormalCompletion = true;
+            var _didIteratorError = false;
+            var _iteratorError = undefined;
+
+            try {
+                for (var _iterator = Object.keys(Comparators)[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+                    var key = _step.value;
+
+                    var comp = Comparators[key];
+                    if (comp.matches(comparator)) {
+                        return comp;
+                    }
+                }
+            } catch (err) {
+                _didIteratorError = true;
+                _iteratorError = err;
+            } finally {
+                try {
+                    if (!_iteratorNormalCompletion && _iterator.return) {
+                        _iterator.return();
+                    }
+                } finally {
+                    if (_didIteratorError) {
+                        throw _iteratorError;
+                    }
+                }
+            }
+
+            return null;
+        }
+    }]);
+
+    return Comparator;
+}(OnmsEnum_1.OnmsEnum);
+
+exports.Comparator = Comparator;
+/* tslint:disable:object-literal-sort-keys */
+var Comparators = {
+    /** Equals (`=` or `==`) */
+    EQ: new Comparator(1, 'EQ', '=', '=='),
+    /** Not Equals (`!=`) */
+    NE: new Comparator(2, 'NE', '!='),
+    /** Case-Insensitive Substring Match (`ILIKE`) */
+    ILIKE: new Comparator(3, 'ILIKE'),
+    /** Case-Sensitive Substring Match (`LIKE`) */
+    LIKE: new Comparator(4, 'LIKE'),
+    /** Greater Than (`>`) */
+    GT: new Comparator(5, 'GT', '>'),
+    /** Less Than (`<`) */
+    LT: new Comparator(6, 'LT', '<'),
+    /** Greater Than or Equal To (`>=`) */
+    GE: new Comparator(7, 'GE', '>='),
+    /** Less Than or Equal To (`<=`) */
+    LE: new Comparator(8, 'LE', '<='),
+    /** Is Null (`NULL`) */
+    NULL: new Comparator(9, 'NULL', 'ISNULL'),
+    /** Is Not Null (`NOTNULL`) */
+    NOTNULL: new Comparator(10, 'NOTNULL')
+};
+/** @hidden */
+var frozen = Object.freeze(Comparators);
+exports.Comparators = frozen;
 
 /***/ }),
 /* 11 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+module.exports = __webpack_require__(236);
+
+/***/ }),
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6133,7 +6250,7 @@ function compareByGeneratedPositionsInflated(mappingA, mappingB) {
 exports.compareByGeneratedPositionsInflated = compareByGeneratedPositionsInflated;
 
 /***/ }),
-/* 12 */
+/* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6365,87 +6482,6 @@ var __WEBPACK_AMD_DEFINE_RESULT__;
     }
     /* eslint-enable quote-props */
 }();
-
-/***/ }),
-/* 13 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-Object.defineProperty(exports, "__esModule", { value: true });
-var OnmsEnum_1 = __webpack_require__(1);
-/**
- * Represents a filter comparator.
- * @module Comparator
- */
-
-var Comparator = function (_OnmsEnum_1$OnmsEnum) {
-    _inherits(Comparator, _OnmsEnum_1$OnmsEnum);
-
-    function Comparator(id, label) {
-        _classCallCheck(this, Comparator);
-
-        /** Aliases for the command-line. */
-        var _this = _possibleConstructorReturn(this, (Comparator.__proto__ || Object.getPrototypeOf(Comparator)).call(this, id, label));
-
-        _this.aliases = [];
-
-        for (var _len = arguments.length, aliases = Array(_len > 2 ? _len - 2 : 0), _key = 2; _key < _len; _key++) {
-            aliases[_key - 2] = arguments[_key];
-        }
-
-        _this.aliases = aliases;
-        return _this;
-    }
-    /** Whether this comparator matches the given comparator string. */
-
-
-    _createClass(Comparator, [{
-        key: "matches",
-        value: function matches(comparator) {
-            return comparator.toLowerCase() === this.label.toLowerCase() || this.aliases.indexOf(comparator) >= 0;
-        }
-    }]);
-
-    return Comparator;
-}(OnmsEnum_1.OnmsEnum);
-
-exports.Comparator = Comparator;
-/* tslint:disable:object-literal-sort-keys */
-var Comparators = {
-    /** Equals (`=` or `==`) */
-    EQ: new Comparator(1, 'EQ', '=', '=='),
-    /** Not Equals (`!=`) */
-    NE: new Comparator(2, 'NE', '!='),
-    /** Case-Insensitive Substring Match (`ILIKE`) */
-    ILIKE: new Comparator(3, 'ILIKE'),
-    /** Case-Sensitive Substring Match (`LIKE`) */
-    LIKE: new Comparator(4, 'LIKE'),
-    /** Greater Than (`>`) */
-    GT: new Comparator(5, 'GT', '>'),
-    /** Less Than (`<`) */
-    LT: new Comparator(6, 'LT', '<'),
-    /** Greater Than or Equal To (`>=`) */
-    GE: new Comparator(7, 'GE', '>='),
-    /** Less Than or Equal To (`<=`) */
-    LE: new Comparator(8, 'LE', '<='),
-    /** Is Null (`NULL`) */
-    NULL: new Comparator(9, 'NULL'),
-    /** Is Not Null (`NOTNULL`) */
-    NOTNULL: new Comparator(10, 'NOTNULL')
-};
-/** @hidden */
-var frozen = Object.freeze(Comparators);
-exports.Comparators = frozen;
 
 /***/ }),
 /* 14 */
@@ -8496,7 +8532,7 @@ exports.OnmsVersion = OnmsVersion;
 "use strict";
 
 
-var _regenerator = __webpack_require__(10);
+var _regenerator = __webpack_require__(11);
 
 var _regenerator2 = _interopRequireDefault(_regenerator);
 
@@ -9150,7 +9186,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 "use strict";
 
 
-var _regenerator = __webpack_require__(10);
+var _regenerator = __webpack_require__(11);
 
 var _regenerator2 = _interopRequireDefault(_regenerator);
 
@@ -9340,6 +9376,10 @@ var AbstractDAO = function () {
             var ret = parseInt(from, 10);
             return isNaN(ret) ? undefined : ret;
         }
+        /**
+         * Whether or not to use JSON when making ReST requests.
+         */
+
     }, {
         key: "useJson",
         value: function useJson() {
@@ -10109,7 +10149,7 @@ exports.ServerMetadata = ServerMetadata;
 "use strict";
 
 
-var _regenerator = __webpack_require__(10);
+var _regenerator = __webpack_require__(11);
 
 var _regenerator2 = _interopRequireDefault(_regenerator);
 
@@ -11005,7 +11045,7 @@ exports.AlarmDAO = AlarmDAO;
 "use strict";
 
 
-var _regenerator = __webpack_require__(10);
+var _regenerator = __webpack_require__(11);
 
 var _regenerator2 = _interopRequireDefault(_regenerator);
 
@@ -11491,7 +11531,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 Object.defineProperty(exports, "__esModule", { value: true });
 var OnmsEnum_1 = __webpack_require__(1);
-var Comparator_1 = __webpack_require__(13);
+var Comparator_1 = __webpack_require__(10);
 var Operator_1 = __webpack_require__(17);
 var OnmsError_1 = __webpack_require__(5);
 var NestedRestriction_1 = __webpack_require__(14);
@@ -11597,7 +11637,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var Comparator_1 = __webpack_require__(13);
+var Comparator_1 = __webpack_require__(10);
 var NestedRestriction_1 = __webpack_require__(14);
 var OnmsError_1 = __webpack_require__(5);
 var Operator_1 = __webpack_require__(17);
@@ -12997,7 +13037,7 @@ var BigInteger = __webpack_require__(69).BigInteger;
 var common = __webpack_require__(66);
 var padStart = __webpack_require__(71);
 var repeat = __webpack_require__(72);
-var sprintf = __webpack_require__(12).sprintf;
+var sprintf = __webpack_require__(13).sprintf;
 var deprecate = __webpack_require__(201);
 
 var constants = __webpack_require__(31);
@@ -13266,7 +13306,7 @@ module.exports = Address4;
 "use strict";
 
 
-var sprintf = __webpack_require__(12).sprintf;
+var sprintf = __webpack_require__(13).sprintf;
 
 /**
  * @returns {String} the string with all zeroes contained in a <span>
@@ -14864,10 +14904,11 @@ exports.simpleGroup = function (addressString, offset) {
   // An array of bytes the size of the pool will be passed to init()
   var rng_psize = 256;
 
-  BigInteger.SecureRandom = SecureRandom;
-  BigInteger.BigInteger = BigInteger;
   if (true) {
-    exports = module.exports = BigInteger;
+    exports = module.exports = {
+      BigInteger: BigInteger,
+      SecureRandom: SecureRandom
+    };
   } else {
     this.BigInteger = BigInteger;
     this.SecureRandom = SecureRandom;
@@ -29117,7 +29158,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
  * http://opensource.org/licenses/BSD-3-Clause
  */
 
-var util = __webpack_require__(11);
+var util = __webpack_require__(12);
 var has = Object.prototype.hasOwnProperty;
 
 /**
@@ -29374,7 +29415,7 @@ exports.decode = function base64VLQ_decode(aStr, aIndex, aOutParam) {
  */
 
 var base64VLQ = __webpack_require__(189);
-var util = __webpack_require__(11);
+var util = __webpack_require__(12);
 var ArraySet = __webpack_require__(188).ArraySet;
 var MappingList = __webpack_require__(240).MappingList;
 
@@ -34885,7 +34926,7 @@ module.exports = __webpack_amd_options__;
 "use strict";
 
 
-var _regenerator = __webpack_require__(10);
+var _regenerator = __webpack_require__(11);
 
 var _regenerator2 = _interopRequireDefault(_regenerator);
 
@@ -35201,12 +35242,40 @@ var _createClass = function () { function defineProperties(target, props) { for 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 Object.defineProperty(exports, "__esModule", { value: true });
+var Comparator_1 = __webpack_require__(10);
+var Log_1 = __webpack_require__(4);
+var namePattern = /^(.*?)\s+(eq|ne|ilike|like|gt|lt|ge|le|null|isnull|notnull)\s+(.*?)$/i;
+var symbolPattern = /^(\w+?)\s*(\=\=|\=|\!\=|\>\=|\<\=|\>|\<)\s*(\w+?)$/;
 /**
  * A query restriction.
  * @module Restriction
  */
 
 var Restriction = function () {
+    _createClass(Restriction, null, [{
+        key: "fromString",
+
+        /**
+         * Convert a filter string into a restriction.
+         */
+        value: function fromString(filter) {
+            var match = filter.match(namePattern);
+            if (!match) {
+                match = filter.match(symbolPattern);
+            }
+            if (match) {
+                var comp = Comparator_1.Comparator.find(match[2]);
+                if (comp) {
+                    return new Restriction(match[1], comp, match[3]);
+                }
+                Log_1.log.warn('Restriction.fromString matched "' + filter + '", but was unable to match "' + match[2] + '" to a comparator.', Log_1.catAPI);
+            } else {
+                Log_1.log.debug('Restriction.fromString failed to match "' + filter + '".', Log_1.catAPI);
+            }
+            return null;
+        }
+    }]);
+
     function Restriction(attribute, comparator, value) {
         _classCallCheck(this, Restriction);
 
@@ -36444,7 +36513,7 @@ var max = __webpack_require__(234);
 var merge = __webpack_require__(235);
 var padStart = __webpack_require__(71);
 var repeat = __webpack_require__(72);
-var sprintf = __webpack_require__(12).sprintf;
+var sprintf = __webpack_require__(13).sprintf;
 var deprecate = __webpack_require__(201);
 
 var constants4 = __webpack_require__(31);
@@ -37466,7 +37535,7 @@ exports.isLoopback = common.falseIfInvalid(function () {
 
 var constants4 = __webpack_require__(31);
 var helpers = __webpack_require__(68);
-var sprintf = __webpack_require__(12).sprintf;
+var sprintf = __webpack_require__(13).sprintf;
 
 /**
  * @returns {String} the address in link form with a default port of 80
@@ -37569,7 +37638,7 @@ exports.group = function () {
 "use strict";
 
 
-var sprintf = __webpack_require__(12).sprintf;
+var sprintf = __webpack_require__(13).sprintf;
 
 var v6 = __webpack_require__(32);
 
@@ -43433,7 +43502,7 @@ exports.search = function search(aNeedle, aHaystack, aCompare, aBias) {
  * http://opensource.org/licenses/BSD-3-Clause
  */
 
-var util = __webpack_require__(11);
+var util = __webpack_require__(12);
 
 /**
  * Determine whether mappingB is after mappingA with respect to generated
@@ -43640,7 +43709,7 @@ exports.quickSort = function (ary, comparator) {
  * http://opensource.org/licenses/BSD-3-Clause
  */
 
-var util = __webpack_require__(11);
+var util = __webpack_require__(12);
 var binarySearch = __webpack_require__(239);
 var ArraySet = __webpack_require__(188).ArraySet;
 var base64VLQ = __webpack_require__(189);
@@ -44663,7 +44732,7 @@ exports.IndexedSourceMapConsumer = IndexedSourceMapConsumer;
  */
 
 var SourceMapGenerator = __webpack_require__(190).SourceMapGenerator;
-var util = __webpack_require__(11);
+var util = __webpack_require__(12);
 
 // Matches a Windows-style `\r\n` newline or a `\n` newline used by all other
 // operating systems these days (capturing the result).
@@ -45647,7 +45716,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
 Object.defineProperty(exports, "__esModule", { value: true });
 var Clause_1 = __webpack_require__(37);
-var Comparator_1 = __webpack_require__(13);
+var Comparator_1 = __webpack_require__(10);
 var Filter_1 = __webpack_require__(205);
 var NestedRestriction_1 = __webpack_require__(14);
 var OnmsAuthConfig_1 = __webpack_require__(38);
@@ -45801,7 +45870,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 Object.defineProperty(exports, "__esModule", { value: true });
 var OnmsEnum_1 = __webpack_require__(1);
-var Comparator_1 = __webpack_require__(13);
+var Comparator_1 = __webpack_require__(10);
 /**
  * Represents a search property type.
  * @module SearchPropertyType
