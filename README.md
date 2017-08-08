@@ -2,11 +2,17 @@
 
 A client API for accessing the OpenNMS network monitoring platform.
 
-# Getting Started
+# Using the OpenNMS.js APIs In Your Code
 
 Information on getting started and how to use the API is in the [HOWTO document](https://github.com/OpenNMS/opennms-js/blob/master/HOWTO.md).
 
 The complete API list is available at [docs.opennms.org](http://docs.opennms.org/opennms-js/branches/master/opennms-js/opennms-js.html).
+
+# Using the OpenNMS.js Command Line
+
+1. install [Node.js](https://nodejs.org/en/download/)
+2. run `sudo npm install -g opennms`
+3. run `opennms --help` for a list of possible commands
 
 # Changes
 
