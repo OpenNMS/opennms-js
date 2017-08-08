@@ -33,6 +33,10 @@ Then you can run yarn to build or test the project:
 * `yarn watch-test` - continuously run the tests
 * `yarn cli -- <arguments>` - run the CLI test tool (try `--help` for options)
 
+# Reporting Bugs or Feature Requests
+
+OpenNMS.js issues are tracked in the OpenNMS issue tracker: https://issues.opennms.org/browse/JS
+
 # Debugging Tests
 
 On MAC OS X with WebStorm v2017.2 debugging tests may not work.
