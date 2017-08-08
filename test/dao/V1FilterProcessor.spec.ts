@@ -15,21 +15,21 @@ import {V1FilterProcessor} from '../../src/dao/V1FilterProcessor';
 
 describe('V1FilterProcessor', () => {
   it('default alarm filter', () => {
-    const filter = new Filter<OnmsAlarm>();
+    const filter = new Filter();
     const proc = new V1FilterProcessor();
     const params = proc.getParameters(filter);
     expect(Object.keys(params).length).toEqual(1);
     expect(params.limit).toEqual('1000');
   });
   it('alarm filter with no parameters', () => {
-    const filter = new Filter<OnmsAlarm>();
+    const filter = new Filter();
     filter.limit = undefined;
     const proc = new V1FilterProcessor();
     const params = proc.getParameters(filter);
     expect(Object.keys(params).length).toEqual(0);
   });
   it('alarm filter: id=notnull', () => {
-    const filter = new Filter<OnmsAlarm>();
+    const filter = new Filter();
     filter.withOrRestriction(new Restriction('id', Comparators.NOTNULL));
     const proc = new V1FilterProcessor();
     const params = proc.getParameters(filter);
@@ -37,7 +37,7 @@ describe('V1FilterProcessor', () => {
     expect(params.id).toEqual('notnull');
   });
   it('alarm filter: id=notnull, ackTime=null', () => {
-    const filter = new Filter<OnmsAlarm>();
+    const filter = new Filter();
     filter.withOrRestriction(new Restriction('id', Comparators.NOTNULL));
     filter.withOrRestriction(new Restriction('ackTime', Comparators.NULL));
     const proc = new V1FilterProcessor();
@@ -47,7 +47,7 @@ describe('V1FilterProcessor', () => {
     expect(params.ackTime).toEqual('null');
   });
   it('alarm filter: id=notnull, severity="MINOR"', () => {
-    const filter = new Filter<OnmsAlarm>();
+    const filter = new Filter();
     filter.withOrRestriction(new Restriction('id', Comparators.NOTNULL));
     filter.withOrRestriction(new Restriction('severity', Comparators.EQ, 'MINOR'));
     const proc = new V1FilterProcessor();
@@ -58,7 +58,7 @@ describe('V1FilterProcessor', () => {
     expect(params.severity).toEqual('MINOR');
   });
   it('alarm filter: id=notnull, severity=OnmsSeverity.MINOR', () => {
-    const filter = new Filter<OnmsAlarm>();
+    const filter = new Filter();
     filter.withOrRestriction(new Restriction('id', Comparators.NOTNULL));
     filter.withOrRestriction(new Restriction('severity', Comparators.EQ, Severities.MINOR));
     const proc = new V1FilterProcessor();
@@ -69,7 +69,7 @@ describe('V1FilterProcessor', () => {
     expect(params.severity).toEqual('MINOR');
   });
   it('alarm filter: severity=OnmsSeverity.MINOR, id!=0', () => {
-    const filter = new Filter<OnmsAlarm>();
+    const filter = new Filter();
     filter.withOrRestriction(new Restriction('severity', Comparators.EQ, Severities.MINOR));
     filter.withOrRestriction(new Restriction('id', Comparators.NE, 0));
     const proc = new V1FilterProcessor();
