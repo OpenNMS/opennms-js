@@ -1,5 +1,6 @@
 import {IHash} from '../internal/IHash';
 import {OnmsEnum} from '../internal/OnmsEnum';
+import {Util} from '../internal/Util';
 
 import {IFilterProcessor} from '../api/IFilterProcessor';
 
@@ -59,11 +60,13 @@ export class V1FilterProcessor implements IFilterProcessor {
             throw new OnmsError('V1 only supports one restriction comparator type!');
           }
           ret.comparator = comp;
-          let value = '' + restriction.value;
           if (restriction.value instanceof OnmsEnum) {
-            value = (restriction.value as OnmsEnum<any>).label;
+            ret[restriction.attribute] = (restriction.value as OnmsEnum<any>).label;
+          } else if (Util.isDateObject(restriction.value)) {
+            ret[restriction.attribute] = Util.toDateString(restriction.value);
+          } else {
+            ret[restriction.attribute] = '' + restriction.value;
           }
-          ret[restriction.attribute] = value;
         }
       }
     }
