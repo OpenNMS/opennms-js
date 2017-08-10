@@ -89,4 +89,9 @@ describe('V2FilterProcessor', () => {
         );
     expect(toSearch(filter)).toEqual('id!=0;(severity==5,uei==*somethingWentWrong)');
   });
+  it('alarm filter: lastEventTime=1976-04-14T00:00:00.000+0000', () => {
+    const filter = new Filter();
+    filter.withAndRestriction(new Restriction('lastEventTime', Comparators.EQ, new Date(198288000000)));
+    expect(toSearch(filter)).toEqual('lastEventTime==1976-04-14T00:00:00.000+0000');
+  });
 });

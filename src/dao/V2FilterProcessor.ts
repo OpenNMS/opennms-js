@@ -1,4 +1,5 @@
 import {IHash} from '../internal/IHash';
+import {Util} from '../internal/Util';
 
 import {IFilterProcessor} from '../api/IFilterProcessor';
 
@@ -60,7 +61,11 @@ export class V2FilterProcessor implements IFilterProcessor {
       case Comparators.NOTNULL:
         return restriction.value === undefined ? V2FilterProcessor.NULL_VALUE : restriction.value;
       default:
-        return restriction.value;
+        if (Util.isDateObject(restriction.value)) {
+          return Util.toDateString(restriction.value);
+        } else {
+          return restriction.value;
+        }
     }
   }
 
