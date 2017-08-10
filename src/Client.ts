@@ -84,7 +84,7 @@ export class Client implements IHasHTTP {
         metadata.type = ServerTypes.MERIDIAN;
       }
     }
-    if (version.ge('21.0.0')) {
+    if (metadata.ticketer()) {
       metadata.ticketerConfig = new TicketerConfig();
       metadata.ticketerConfig.enabled = false;
       if (response.data.ticketerConfig) {
