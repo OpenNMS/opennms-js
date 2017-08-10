@@ -10147,6 +10147,17 @@ var ServerMetadata = function () {
                 return this.version.ge('19.0.0');
             }
         }
+        /** Does this server support ticketer configuration metadata? */
+
+    }, {
+        key: "ticketer",
+        value: function ticketer() {
+            if (this.type && this.type === ServerType_1.ServerTypes.MERIDIAN) {
+                return this.version.ge('2017.0.0');
+            } else {
+                return this.version.ge('21.0.0');
+            }
+        }
         /** What version of the ReST API does this server support? */
 
     }, {
@@ -10169,6 +10180,7 @@ var ServerMetadata = function () {
                 graphs: this.graphs(),
                 outageSummaries: this.outageSummaries(),
                 setNodeLocation: this.setNodeLocation(),
+                ticketer: this.ticketer(),
                 type: this.type === ServerType_1.ServerTypes.MERIDIAN ? 'Meridian' : 'Horizon'
             };
         }
@@ -10177,7 +10189,7 @@ var ServerMetadata = function () {
     }, {
         key: "toString",
         value: function toString() {
-            return 'ServerMetadata[version=' + this.version.toString() + ',apiVersion=' + this.apiVersion() + ',type=' + this.type.toString() + ',ackAlarms=' + this.ackAlarms() + ',graphs=' + this.graphs() + ',outageSummaries=' + this.outageSummaries() + ',setNodeLocation=' + this.setNodeLocation() + ']';
+            return 'ServerMetadata[version=' + this.version.toString() + ',apiVersion=' + this.apiVersion() + ',type=' + this.type.toString() + ',ackAlarms=' + this.ackAlarms() + ',graphs=' + this.graphs() + ',outageSummaries=' + this.outageSummaries() + ',setNodeLocation=' + this.setNodeLocation() + ',ticketer=' + this.ticketer() + ']';
         }
         /**
          * Create a new metadata object from this existing one.
@@ -35150,7 +35162,7 @@ var Client = function () {
                                         metadata.type = ServerType_1.ServerTypes.MERIDIAN;
                                     }
                                 }
-                                if (version.ge('21.0.0')) {
+                                if (metadata.ticketer()) {
                                     metadata.ticketerConfig = new TicketerConfig_1.TicketerConfig();
                                     metadata.ticketerConfig.enabled = false;
                                     if (response.data.ticketerConfig) {
