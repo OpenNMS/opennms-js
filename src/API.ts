@@ -10,8 +10,11 @@ import {OnmsServer} from './api/OnmsServer';
 import {OnmsVersion} from './api/OnmsVersion';
 import {Operator, Operators} from './api/Operator';
 import {Restriction} from './api/Restriction';
+import {SearchProperty} from './api/SearchProperty';
+import {SearchPropertyType, SearchPropertyTypes} from './api/SearchPropertyType';
 import {ServerMetadata} from './api/ServerMetadata';
 import {ServerType, ServerTypes} from './api/ServerType';
+import {TicketerConfig} from './api/TicketerConfig';
 
 import {AlarmDAO} from './dao/AlarmDAO';
 import {EventDAO} from './dao/EventDAO';
@@ -26,6 +29,7 @@ import {OnmsCollectType, CollectTypes} from './model/OnmsCollectType';
 import {OnmsEvent} from './model/OnmsEvent';
 import {OnmsIpInterface} from './model/OnmsIpInterface';
 import {OnmsManagedType, ManagedTypes} from './model/OnmsManagedType';
+import {OnmsMemo} from './model/OnmsMemo';
 import {OnmsMonitoredService} from './model/OnmsMonitoredService';
 import {OnmsNode} from './model/OnmsNode';
 import {OnmsNodeLabelSource, NodeLabelSources} from './model/OnmsNodeLabelSource';
@@ -66,9 +70,13 @@ const API = Object.freeze({
   Operator,
   Operators,
   Restriction,
+  SearchProperty,
+  SearchPropertyType,
+  SearchPropertyTypes,
   ServerMetadata,
   ServerType,
   ServerTypes,
+  TicketerConfig,
   LogLevel,
   setLogLevel,
 });
@@ -94,10 +102,13 @@ const Model = Object.freeze({
   OnmsIpInterface,
   OnmsManagedType,
   ManagedTypes,
+  OnmsMemo,
   OnmsMonitoredService,
   OnmsNode,
   OnmsNodeLabelSource,
   NodeLabelSources,
+  OnmsNodeType,
+  NodeTypes,
   OnmsParm,
   OnmsPrimaryType,
   PrimaryTypes,
