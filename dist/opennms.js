@@ -5282,10 +5282,10 @@ function __export(m) {
 }
 var LogGroupControl_1 = __webpack_require__(257);
 var CategoryServiceControl_1 = __webpack_require__(256);
-var ExtensionHelper_1 = __webpack_require__(21);
+var ExtensionHelper_1 = __webpack_require__(22);
 exports.ExtensionHelper = ExtensionHelper_1.ExtensionHelper;
 // Category related
-var AbstractCategoryLogger_1 = __webpack_require__(22);
+var AbstractCategoryLogger_1 = __webpack_require__(23);
 exports.AbstractCategoryLogger = AbstractCategoryLogger_1.AbstractCategoryLogger;
 var CategoryConsoleLoggerImpl_1 = __webpack_require__(192);
 exports.CategoryConsoleLoggerImpl = CategoryConsoleLoggerImpl_1.CategoryConsoleLoggerImpl;
@@ -5295,7 +5295,7 @@ var CategoryLogger_1 = __webpack_require__(259);
 exports.Category = CategoryLogger_1.Category;
 var CategoryMessageBufferImpl_1 = __webpack_require__(194);
 exports.CategoryMessageBufferLoggerImpl = CategoryMessageBufferImpl_1.CategoryMessageBufferLoggerImpl;
-var CategoryService_1 = __webpack_require__(23);
+var CategoryService_1 = __webpack_require__(24);
 exports.CategoryDefaultConfiguration = CategoryService_1.CategoryDefaultConfiguration;
 exports.CategoryRuntimeSettings = CategoryService_1.CategoryRuntimeSettings;
 exports.CategoryServiceFactory = CategoryService_1.CategoryServiceFactory;
@@ -5303,7 +5303,7 @@ var LoggerFactoryService_1 = __webpack_require__(36);
 exports.LoggerFactoryOptions = LoggerFactoryService_1.LoggerFactoryOptions;
 exports.LFService = LoggerFactoryService_1.LFService;
 exports.LogGroupRule = LoggerFactoryService_1.LogGroupRule;
-var AbstractLogger_1 = __webpack_require__(24);
+var AbstractLogger_1 = __webpack_require__(25);
 exports.AbstractLogger = AbstractLogger_1.AbstractLogger;
 var ConsoleLoggerImpl_1 = __webpack_require__(195);
 exports.ConsoleLoggerImpl = ConsoleLoggerImpl_1.ConsoleLoggerImpl;
@@ -5321,7 +5321,7 @@ var DataStructures_1 = __webpack_require__(8);
 exports.SimpleMap = DataStructures_1.SimpleMap;
 exports.LinkedList = DataStructures_1.LinkedList;
 __export(__webpack_require__(261));
-var MessageUtils_1 = __webpack_require__(25);
+var MessageUtils_1 = __webpack_require__(26);
 exports.MessageFormatUtils = MessageUtils_1.MessageFormatUtils;
 /*
  Functions to export on TSL libarary var.
@@ -6490,12 +6490,111 @@ var __WEBPACK_AMD_DEFINE_RESULT__;
 "use strict";
 
 
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var Operator_1 = __webpack_require__(17);
+var OnmsError_1 = __webpack_require__(5);
+var ip_address_1 = __webpack_require__(227);
+/** @hidden */
+// tslint:disable-next-line
+var moment = __webpack_require__(0);
+/** @hidden */
+var dateFormat = 'YYYY-MM-DDTHH:mm:ss.SSSZZ';
+/**
+ * A utility class for random stuff.
+ * @module Util
+ */
+
+var Util = function () {
+    function Util() {
+        _classCallCheck(this, Util);
+    }
+
+    _createClass(Util, null, [{
+        key: "toIPAddress",
+
+        /**
+         * Convert an IP address string to an [[Address4]] or [[Address6]] object.
+         */
+        value: function toIPAddress(addr) {
+            if (addr) {
+                if (addr.indexOf(':') >= 0) {
+                    return new ip_address_1.Address6(addr);
+                } else {
+                    return new ip_address_1.Address4(addr);
+                }
+            }
+            return undefined;
+        }
+        /**
+         * Whether or not the passed object is already a date. (Either a [[Moment]] object, or
+         * a JavaScript [[Date]] object.)
+         */
+
+    }, {
+        key: "isDateObject",
+        value: function isDateObject(date) {
+            return moment.isMoment(date) || date instanceof Date;
+        }
+        /**
+         * Create a [[Moment]] from any form of date (JavaScript [[Date]], [[Moment]], or epoch).
+         * [[Moment]] dates in OpenNMS.js will always be converted internally to UTC to avoid time
+         * zone issues.
+         */
+
+    }, {
+        key: "toMoment",
+        value: function toMoment(date) {
+            if (date === undefined || date === null) {
+                return undefined;
+            } else if (moment.isMoment(date)) {
+                return date.utc();
+            } else if (typeof date === 'number' || date instanceof Date || typeof date === 'string' || date instanceof String) {
+                return moment(date).utc();
+            } else {
+                throw new OnmsError_1.OnmsError('Unable to parse type "' + (typeof date === "undefined" ? "undefined" : _typeof(date)) + '" as a date.');
+            }
+        }
+        /**
+         * Create a date string from any form of date (JavaScript [[Date]], [[Moment]], or epoch).
+         * Dates in OpenNMS.js will always be converted internally to UTC before stringifying to
+         * avoid time zone issues.
+         */
+
+    }, {
+        key: "toDateString",
+        value: function toDateString(date) {
+            var ret = Util.toMoment(date);
+            if (ret) {
+                return ret.utc().format(dateFormat);
+            } else {
+                return undefined;
+            }
+        }
+    }]);
+
+    return Util;
+}();
+
+exports.Util = Util;
+
+/***/ }),
+/* 15 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var Operator_1 = __webpack_require__(18);
 var Clause_1 = __webpack_require__(37);
 /**
  * Nested query restrictions.
@@ -6546,7 +6645,7 @@ var NestedRestriction = function () {
 exports.NestedRestriction = NestedRestriction;
 
 /***/ }),
-/* 15 */
+/* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6588,7 +6687,7 @@ function OnmsHTTPOptions(timeout, auth, server) {
 exports.OnmsHTTPOptions = OnmsHTTPOptions;
 
 /***/ }),
-/* 16 */
+/* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6658,7 +6757,7 @@ var OnmsResult = function () {
 exports.OnmsResult = OnmsResult;
 
 /***/ }),
-/* 17 */
+/* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6723,7 +6822,7 @@ var frozen = Object.freeze(Operators);
 exports.Operators = frozen;
 
 /***/ }),
-/* 18 */
+/* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6766,7 +6865,7 @@ var frozen = Object.freeze(ServerTypes);
 exports.ServerTypes = frozen;
 
 /***/ }),
-/* 19 */
+/* 20 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6821,7 +6920,7 @@ var OnmsServiceType = function () {
 exports.OnmsServiceType = OnmsServiceType;
 
 /***/ }),
-/* 20 */
+/* 21 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7001,15 +7100,15 @@ module.exports = function xhrAdapter(config) {
 };
 
 /***/ }),
-/* 21 */
+/* 22 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var CategoryService_1 = __webpack_require__(23);
+var CategoryService_1 = __webpack_require__(24);
 var LoggerOptions_1 = __webpack_require__(2);
-var MessageUtils_1 = __webpack_require__(25);
+var MessageUtils_1 = __webpack_require__(26);
 var ExtensionHelper = function () {
     function ExtensionHelper() {}
     // Private constructor
@@ -7205,14 +7304,14 @@ exports.ExtensionHelper = ExtensionHelper;
 //# sourceMappingURL=ExtensionHelper.js.map
 
 /***/ }),
-/* 22 */
+/* 23 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 var DataStructures_1 = __webpack_require__(8);
-var MessageUtils_1 = __webpack_require__(25);
+var MessageUtils_1 = __webpack_require__(26);
 var LoggerOptions_1 = __webpack_require__(2);
 var CategoryLogMessageImpl = function () {
     function CategoryLogMessageImpl(message, error, categories, date, level, logFormat, ready) {
@@ -7512,7 +7611,7 @@ exports.AbstractCategoryLogger = AbstractCategoryLogger;
 //# sourceMappingURL=AbstractCategoryLogger.js.map
 
 /***/ }),
-/* 23 */
+/* 24 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7524,7 +7623,7 @@ var CategoryConsoleLoggerImpl_1 = __webpack_require__(192);
 var CategoryDelegateLoggerImpl_1 = __webpack_require__(193);
 var CategoryExtensionLoggerImpl_1 = __webpack_require__(258);
 var CategoryMessageBufferImpl_1 = __webpack_require__(194);
-var ExtensionHelper_1 = __webpack_require__(21);
+var ExtensionHelper_1 = __webpack_require__(22);
 /**
  * RuntimeSettings for a category, at runtime these are associated to a category.
  */
@@ -7977,7 +8076,7 @@ exports.CategoryServiceFactory = CategoryServiceFactory;
 //# sourceMappingURL=CategoryService.js.map
 
 /***/ }),
-/* 24 */
+/* 25 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7985,7 +8084,7 @@ exports.CategoryServiceFactory = CategoryServiceFactory;
 
 var LoggerOptions_1 = __webpack_require__(2);
 var DataStructures_1 = __webpack_require__(8);
-var MessageUtils_1 = __webpack_require__(25);
+var MessageUtils_1 = __webpack_require__(26);
 var LogMessageInternalImpl = function () {
     function LogMessageInternalImpl(loggerName, message, errorAsStack, error, logGroupRule, date, level, ready) {
         this._errorAsStack = null;
@@ -8239,7 +8338,7 @@ exports.AbstractLogger = AbstractLogger;
 //# sourceMappingURL=AbstractLogger.js.map
 
 /***/ }),
-/* 25 */
+/* 26 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8393,7 +8492,7 @@ exports.MessageFormatUtils = MessageFormatUtils;
 //# sourceMappingURL=MessageUtils.js.map
 
 /***/ }),
-/* 26 */
+/* 27 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8526,7 +8625,7 @@ var OnmsVersion = function () {
 exports.OnmsVersion = OnmsVersion;
 
 /***/ }),
-/* 27 */
+/* 28 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8573,13 +8672,13 @@ var __awaiter = undefined && undefined.__awaiter || function (thisArg, _argument
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var AbstractDAO_1 = __webpack_require__(34);
+var AbstractDAO_1 = __webpack_require__(35);
 var OnmsError_1 = __webpack_require__(5);
-var Util_1 = __webpack_require__(35);
+var Util_1 = __webpack_require__(14);
 var OnmsEvent_1 = __webpack_require__(49);
-var OnmsParm_1 = __webpack_require__(28);
-var OnmsServiceType_1 = __webpack_require__(19);
-var OnmsSeverity_1 = __webpack_require__(29);
+var OnmsParm_1 = __webpack_require__(29);
+var OnmsServiceType_1 = __webpack_require__(20);
+var OnmsSeverity_1 = __webpack_require__(30);
 var Log_1 = __webpack_require__(4);
 var typescript_logging_1 = __webpack_require__(6);
 /** @hidden */
@@ -8755,7 +8854,7 @@ var EventDAO = function (_AbstractDAO_1$Abstra) {
 exports.EventDAO = EventDAO;
 
 /***/ }),
-/* 28 */
+/* 29 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8766,7 +8865,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var Util_1 = __webpack_require__(35);
+var Util_1 = __webpack_require__(14);
 /**
  * Represents an OpenNMS event or alarm parameter.
  * @module OnmsParm
@@ -8818,7 +8917,7 @@ var OnmsParm = function () {
 exports.OnmsParm = OnmsParm;
 
 /***/ }),
-/* 29 */
+/* 30 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8865,7 +8964,7 @@ var frozen = Object.freeze(Severities);
 exports.Severities = frozen;
 
 /***/ }),
-/* 30 */
+/* 31 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8888,10 +8987,10 @@ function getDefaultAdapter() {
   var adapter;
   if (typeof XMLHttpRequest !== 'undefined') {
     // For browsers use XHR adapter
-    adapter = __webpack_require__(20);
+    adapter = __webpack_require__(21);
   } else if (typeof process !== 'undefined') {
     // For node use HTTP adapter
-    adapter = __webpack_require__(20);
+    adapter = __webpack_require__(21);
   }
   return adapter;
 }
@@ -8957,7 +9056,7 @@ utils.forEach(['post', 'put', 'patch'], function forEachMethodWithData(method) {
 module.exports = defaults;
 
 /***/ }),
-/* 31 */
+/* 32 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8971,7 +9070,7 @@ exports.RE_ADDRESS = /^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0
 exports.RE_SUBNET_STRING = /\/\d{1,2}$/;
 
 /***/ }),
-/* 32 */
+/* 33 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9058,7 +9157,7 @@ exports.RE_URL = new RegExp(/^\[{0,1}([0-9a-f:]+)\]{0,1}/);
 exports.RE_URL_WITH_PORT = new RegExp(/\[([0-9a-f:]+)\]:([0-9]{1,5})/);
 
 /***/ }),
-/* 33 */
+/* 34 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9180,7 +9279,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 });
 
 /***/ }),
-/* 34 */
+/* 35 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9224,7 +9323,7 @@ var __awaiter = undefined && undefined.__awaiter || function (thisArg, _argument
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var OnmsError_1 = __webpack_require__(5);
-var OnmsHTTPOptions_1 = __webpack_require__(15);
+var OnmsHTTPOptions_1 = __webpack_require__(16);
 var SearchProperty_1 = __webpack_require__(249);
 var SearchPropertyType_1 = __webpack_require__(250);
 var Log_1 = __webpack_require__(4);
@@ -9452,52 +9551,6 @@ var AbstractDAO = function () {
 exports.AbstractDAO = AbstractDAO;
 
 /***/ }),
-/* 35 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-Object.defineProperty(exports, "__esModule", { value: true });
-var ip_address_1 = __webpack_require__(227);
-/**
- * A utility class for random stuff.
- * @module Util
- */
-
-var Util = function () {
-    function Util() {
-        _classCallCheck(this, Util);
-    }
-
-    _createClass(Util, null, [{
-        key: "toIPAddress",
-
-        /**
-         * Convert an IP address string to an [[Address4]] or [[Address6]] object.
-         */
-        value: function toIPAddress(addr) {
-            if (addr) {
-                if (addr.indexOf(':') >= 0) {
-                    return new ip_address_1.Address6(addr);
-                } else {
-                    return new ip_address_1.Address4(addr);
-                }
-            }
-            return undefined;
-        }
-    }]);
-
-    return Util;
-}();
-
-exports.Util = Util;
-
-/***/ }),
 /* 36 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -9507,7 +9560,7 @@ exports.Util = Util;
 var DataStructures_1 = __webpack_require__(8);
 var LoggerOptions_1 = __webpack_require__(2);
 var LoggerFactoryImpl_1 = __webpack_require__(260);
-var ExtensionHelper_1 = __webpack_require__(21);
+var ExtensionHelper_1 = __webpack_require__(22);
 /**
  * Defines a LogGroupRule, this allows you to either have everything configured the same way
  * or for example loggers that start with name model. It allows you to group loggers together
@@ -9912,7 +9965,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 // tslint:disable-next-line
 var URI = __webpack_require__(199);
 var OnmsAuthConfig_1 = __webpack_require__(38);
-var ServerType_1 = __webpack_require__(18);
+var ServerType_1 = __webpack_require__(19);
 var UUID_1 = __webpack_require__(251);
 /**
  * Represents a remote OpenNMS server.
@@ -10026,8 +10079,8 @@ var _createClass = function () { function defineProperties(target, props) { for 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var OnmsVersion_1 = __webpack_require__(26);
-var ServerType_1 = __webpack_require__(18);
+var OnmsVersion_1 = __webpack_require__(27);
+var ServerType_1 = __webpack_require__(19);
 /**
  * A class that represents the capabilities an OpenNMS server has and other information about it.
  * @module ServerMetadata
@@ -10192,15 +10245,15 @@ var __awaiter = undefined && undefined.__awaiter || function (thisArg, _argument
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var AbstractDAO_1 = __webpack_require__(34);
-var EventDAO_1 = __webpack_require__(27);
+var AbstractDAO_1 = __webpack_require__(35);
+var EventDAO_1 = __webpack_require__(28);
 var OnmsError_1 = __webpack_require__(5);
-var OnmsHTTPOptions_1 = __webpack_require__(15);
+var OnmsHTTPOptions_1 = __webpack_require__(16);
 var OnmsAlarm_1 = __webpack_require__(45);
 var OnmsAlarmType_1 = __webpack_require__(46);
-var OnmsParm_1 = __webpack_require__(28);
-var OnmsServiceType_1 = __webpack_require__(19);
-var OnmsSeverity_1 = __webpack_require__(29);
+var OnmsParm_1 = __webpack_require__(29);
+var OnmsServiceType_1 = __webpack_require__(20);
+var OnmsSeverity_1 = __webpack_require__(30);
 var OnmsTroubleTicketState_1 = __webpack_require__(59);
 var OnmsMemo_1 = __webpack_require__(252);
 var Log_1 = __webpack_require__(4);
@@ -11086,9 +11139,9 @@ var __awaiter = undefined && undefined.__awaiter || function (thisArg, _argument
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var AbstractDAO_1 = __webpack_require__(34);
+var AbstractDAO_1 = __webpack_require__(35);
 var OnmsError_1 = __webpack_require__(5);
-var Util_1 = __webpack_require__(35);
+var Util_1 = __webpack_require__(14);
 var OnmsCategory_1 = __webpack_require__(47);
 var OnmsCollectType_1 = __webpack_require__(48);
 var OnmsIpInterface_1 = __webpack_require__(50);
@@ -11098,7 +11151,7 @@ var OnmsNode_1 = __webpack_require__(53);
 var OnmsNodeLabelSource_1 = __webpack_require__(54);
 var OnmsNodeType_1 = __webpack_require__(253);
 var OnmsPrimaryType_1 = __webpack_require__(55);
-var OnmsServiceType_1 = __webpack_require__(19);
+var OnmsServiceType_1 = __webpack_require__(20);
 var OnmsServiceStatusType_1 = __webpack_require__(56);
 var OnmsSnmpInterface_1 = __webpack_require__(57);
 var OnmsSnmpStatusType_1 = __webpack_require__(58);
@@ -11531,10 +11584,11 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 Object.defineProperty(exports, "__esModule", { value: true });
 var OnmsEnum_1 = __webpack_require__(1);
+var Util_1 = __webpack_require__(14);
 var Comparator_1 = __webpack_require__(10);
-var Operator_1 = __webpack_require__(17);
+var Operator_1 = __webpack_require__(18);
 var OnmsError_1 = __webpack_require__(5);
-var NestedRestriction_1 = __webpack_require__(14);
+var NestedRestriction_1 = __webpack_require__(15);
 /** @hidden */
 var nonExclusiveComparators = [Comparator_1.Comparators.NULL, Comparator_1.Comparators.NOTNULL];
 /** @hidden */
@@ -11593,11 +11647,13 @@ var V1FilterProcessor = function () {
                                     throw new OnmsError_1.OnmsError('V1 only supports one restriction comparator type!');
                                 }
                                 ret.comparator = comp;
-                                var value = '' + restriction.value;
                                 if (restriction.value instanceof OnmsEnum_1.OnmsEnum) {
-                                    value = restriction.value.label;
+                                    ret[restriction.attribute] = restriction.value.label;
+                                } else if (Util_1.Util.isDateObject(restriction.value)) {
+                                    ret[restriction.attribute] = Util_1.Util.toDateString(restriction.value);
+                                } else {
+                                    ret[restriction.attribute] = '' + restriction.value;
                                 }
-                                ret[restriction.attribute] = value;
                             }
                     }
                 }
@@ -11637,10 +11693,11 @@ var _createClass = function () { function defineProperties(target, props) { for 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 Object.defineProperty(exports, "__esModule", { value: true });
+var Util_1 = __webpack_require__(14);
 var Comparator_1 = __webpack_require__(10);
-var NestedRestriction_1 = __webpack_require__(14);
+var NestedRestriction_1 = __webpack_require__(15);
 var OnmsError_1 = __webpack_require__(5);
-var Operator_1 = __webpack_require__(17);
+var Operator_1 = __webpack_require__(18);
 /**
  * Converts a [[Filter]] into ReSTv2 FIQL parameters.
  * @module V2FilterProcessor
@@ -11706,7 +11763,11 @@ var V2FilterProcessor = function () {
                 case Comparator_1.Comparators.NOTNULL:
                     return restriction.value === undefined ? V2FilterProcessor.NULL_VALUE : restriction.value;
                 default:
-                    return restriction.value;
+                    if (Util_1.Util.isDateObject(restriction.value)) {
+                        return Util_1.Util.toDateString(restriction.value);
+                    } else {
+                        return restriction.value;
+                    }
             }
         }
         /** Given an operator, convert it to the corresponding FIQL operator. */
@@ -12680,7 +12741,7 @@ var clonedeep = __webpack_require__(70);
 var URI = __webpack_require__(199);
 var AbstractHTTP_1 = __webpack_require__(191);
 var OnmsError_1 = __webpack_require__(5);
-var OnmsResult_1 = __webpack_require__(16);
+var OnmsResult_1 = __webpack_require__(17);
 var Log_1 = __webpack_require__(4);
 var typescript_logging_1 = __webpack_require__(6);
 /** @hidden */
@@ -12887,9 +12948,9 @@ var AxiosHTTP = function (_AbstractHTTP_1$Abstr) {
                     withCredentials: true
                 };
                 if (typeof XMLHttpRequest !== 'undefined') {
-                    axiosOpts.adapter = __webpack_require__(20);
+                    axiosOpts.adapter = __webpack_require__(21);
                 } else if (typeof process !== 'undefined') {
-                    axiosOpts.adapter = __webpack_require__(20);
+                    axiosOpts.adapter = __webpack_require__(21);
                 }
                 this.axiosObj = this.axiosImpl.create(axiosOpts);
             }
@@ -13040,7 +13101,7 @@ var repeat = __webpack_require__(72);
 var sprintf = __webpack_require__(13).sprintf;
 var deprecate = __webpack_require__(201);
 
-var constants = __webpack_require__(31);
+var constants = __webpack_require__(32);
 
 /**
  * Represents an IPv4 address
@@ -29798,7 +29859,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var OnmsResult_1 = __webpack_require__(16);
+var OnmsResult_1 = __webpack_require__(17);
 var XmlTransformer_1 = __webpack_require__(255);
 var JsonTransformer_1 = __webpack_require__(254);
 /** @hidden */
@@ -29984,7 +30045,7 @@ var __extends = undefined && undefined.__extends || function (d, b) {
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 var LoggerOptions_1 = __webpack_require__(2);
-var AbstractCategoryLogger_1 = __webpack_require__(22);
+var AbstractCategoryLogger_1 = __webpack_require__(23);
 /**
  * Simple logger, that logs to the console. If the console is unavailable will throw an exception.
  */
@@ -30214,7 +30275,7 @@ var __extends = undefined && undefined.__extends || function (d, b) {
     }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-var AbstractCategoryLogger_1 = __webpack_require__(22);
+var AbstractCategoryLogger_1 = __webpack_require__(23);
 /**
  * Logger which buffers all messages, use with care due to possible high memory footprint.
  * Can be convenient in some cases. Call toString() for full output, or cast to this class
@@ -30259,7 +30320,7 @@ var __extends = undefined && undefined.__extends || function (d, b) {
     }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-var AbstractLogger_1 = __webpack_require__(24);
+var AbstractLogger_1 = __webpack_require__(25);
 var LoggerOptions_1 = __webpack_require__(2);
 /**
  * Simple logger, that logs to the console. If the console is unavailable will throw exception.
@@ -30334,7 +30395,7 @@ var __extends = undefined && undefined.__extends || function (d, b) {
     }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-var AbstractLogger_1 = __webpack_require__(24);
+var AbstractLogger_1 = __webpack_require__(25);
 /**
  * Logger which buffers all messages, use with care due to possible high memory footprint.
  * Can be convenient in some cases. Call toString() for full output, or cast to this class
@@ -34963,14 +35024,14 @@ var __awaiter = undefined && undefined.__awaiter || function (thisArg, _argument
 Object.defineProperty(exports, "__esModule", { value: true });
 var Log_1 = __webpack_require__(4);
 var typescript_logging_1 = __webpack_require__(6);
-var OnmsHTTPOptions_1 = __webpack_require__(15);
+var OnmsHTTPOptions_1 = __webpack_require__(16);
 var OnmsError_1 = __webpack_require__(5);
-var OnmsVersion_1 = __webpack_require__(26);
-var ServerType_1 = __webpack_require__(18);
+var OnmsVersion_1 = __webpack_require__(27);
+var ServerType_1 = __webpack_require__(19);
 var OnmsServer_1 = __webpack_require__(39);
 var ServerMetadata_1 = __webpack_require__(40);
 var AlarmDAO_1 = __webpack_require__(41);
-var EventDAO_1 = __webpack_require__(27);
+var EventDAO_1 = __webpack_require__(28);
 var NodeDAO_1 = __webpack_require__(42);
 var AxiosHTTP_1 = __webpack_require__(61);
 /** @hidden */
@@ -35204,7 +35265,7 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var NestedRestriction_1 = __webpack_require__(14);
+var NestedRestriction_1 = __webpack_require__(15);
 /**
  * A query filter for DAOs.
  * @module Filter
@@ -35316,7 +35377,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 Object.defineProperty(exports, "__esModule", { value: true });
 var AbstractHTTP_1 = __webpack_require__(191);
 var OnmsError_1 = __webpack_require__(5);
-var OnmsResult_1 = __webpack_require__(16);
+var OnmsResult_1 = __webpack_require__(17);
 var Log_1 = __webpack_require__(4);
 var typescript_logging_1 = __webpack_require__(6);
 var clonedeep = __webpack_require__(70);
@@ -35499,7 +35560,7 @@ module.exports = __webpack_require__(209);
 var utils = __webpack_require__(3);
 var bind = __webpack_require__(65);
 var Axios = __webpack_require__(211);
-var defaults = __webpack_require__(30);
+var defaults = __webpack_require__(31);
 
 /**
  * Create an instance of Axios
@@ -35617,7 +35678,7 @@ module.exports = CancelToken;
 "use strict";
 
 
-var defaults = __webpack_require__(30);
+var defaults = __webpack_require__(31);
 var utils = __webpack_require__(3);
 var InterceptorManager = __webpack_require__(212);
 var dispatchRequest = __webpack_require__(213);
@@ -35770,7 +35831,7 @@ module.exports = InterceptorManager;
 var utils = __webpack_require__(3);
 var transformData = __webpack_require__(216);
 var isCancel = __webpack_require__(63);
-var defaults = __webpack_require__(30);
+var defaults = __webpack_require__(31);
 
 /**
  * Throws a `Cancel` if cancellation has been requested.
@@ -36296,7 +36357,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
     /* istanbul ignore next */
 
     if (true) {
-        !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(33)], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
+        !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(34)], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
 				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
 				(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
@@ -36516,8 +36577,8 @@ var repeat = __webpack_require__(72);
 var sprintf = __webpack_require__(13).sprintf;
 var deprecate = __webpack_require__(201);
 
-var constants4 = __webpack_require__(31);
-var constants6 = __webpack_require__(32);
+var constants4 = __webpack_require__(32);
+var constants6 = __webpack_require__(33);
 
 var Address4 = __webpack_require__(67);
 
@@ -37423,7 +37484,7 @@ module.exports = Address6;
 
 
 var common = __webpack_require__(66);
-var v6 = __webpack_require__(32);
+var v6 = __webpack_require__(33);
 
 /**
  * Returns true if the address is valid, false otherwise
@@ -37533,7 +37594,7 @@ exports.isLoopback = common.falseIfInvalid(function () {
 "use strict";
 
 
-var constants4 = __webpack_require__(31);
+var constants4 = __webpack_require__(32);
 var helpers = __webpack_require__(68);
 var sprintf = __webpack_require__(13).sprintf;
 
@@ -37640,7 +37701,7 @@ exports.group = function () {
 
 var sprintf = __webpack_require__(13).sprintf;
 
-var v6 = __webpack_require__(32);
+var v6 = __webpack_require__(33);
 
 function groupPossibilities(possibilities) {
   return sprintf('(%s)', possibilities.join('|'));
@@ -45138,7 +45199,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
     /* istanbul ignore next */
 
     if (true) {
-        !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(33)], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
+        !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(34)], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
 				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
 				(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
@@ -45197,7 +45258,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
     /* istanbul ignore next */
 
     if (true) {
-        !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(244), __webpack_require__(33)], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
+        !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(244), __webpack_require__(34)], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
 				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
 				(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
@@ -45718,19 +45779,19 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var Clause_1 = __webpack_require__(37);
 var Comparator_1 = __webpack_require__(10);
 var Filter_1 = __webpack_require__(205);
-var NestedRestriction_1 = __webpack_require__(14);
+var NestedRestriction_1 = __webpack_require__(15);
 var OnmsAuthConfig_1 = __webpack_require__(38);
 var OnmsError_1 = __webpack_require__(5);
-var OnmsHTTPOptions_1 = __webpack_require__(15);
-var OnmsResult_1 = __webpack_require__(16);
+var OnmsHTTPOptions_1 = __webpack_require__(16);
+var OnmsResult_1 = __webpack_require__(17);
 var OnmsServer_1 = __webpack_require__(39);
-var OnmsVersion_1 = __webpack_require__(26);
-var Operator_1 = __webpack_require__(17);
+var OnmsVersion_1 = __webpack_require__(27);
+var Operator_1 = __webpack_require__(18);
 var Restriction_1 = __webpack_require__(206);
 var ServerMetadata_1 = __webpack_require__(40);
-var ServerType_1 = __webpack_require__(18);
+var ServerType_1 = __webpack_require__(19);
 var AlarmDAO_1 = __webpack_require__(41);
-var EventDAO_1 = __webpack_require__(27);
+var EventDAO_1 = __webpack_require__(28);
 var NodeDAO_1 = __webpack_require__(42);
 var V1FilterProcessor_1 = __webpack_require__(43);
 var V2FilterProcessor_1 = __webpack_require__(44);
@@ -45744,11 +45805,11 @@ var OnmsManagedType_1 = __webpack_require__(51);
 var OnmsMonitoredService_1 = __webpack_require__(52);
 var OnmsNode_1 = __webpack_require__(53);
 var OnmsNodeLabelSource_1 = __webpack_require__(54);
-var OnmsParm_1 = __webpack_require__(28);
+var OnmsParm_1 = __webpack_require__(29);
 var OnmsPrimaryType_1 = __webpack_require__(55);
 var OnmsServiceStatusType_1 = __webpack_require__(56);
-var OnmsServiceType_1 = __webpack_require__(19);
-var OnmsSeverity_1 = __webpack_require__(29);
+var OnmsServiceType_1 = __webpack_require__(20);
+var OnmsSeverity_1 = __webpack_require__(30);
 var OnmsSnmpInterface_1 = __webpack_require__(57);
 var OnmsSnmpStatusType_1 = __webpack_require__(58);
 var OnmsTroubleTicketState_1 = __webpack_require__(59);
@@ -46178,7 +46239,7 @@ exports.XmlTransformer = XmlTransformer;
 
 
 var DataStructures_1 = __webpack_require__(8);
-var CategoryService_1 = __webpack_require__(23);
+var CategoryService_1 = __webpack_require__(24);
 var LoggerOptions_1 = __webpack_require__(2);
 /**
  * Implementation class for CategoryServiceControl.
@@ -46573,8 +46634,8 @@ var __extends = undefined && undefined.__extends || function (d, b) {
     }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-var ExtensionHelper_1 = __webpack_require__(21);
-var AbstractCategoryLogger_1 = __webpack_require__(22);
+var ExtensionHelper_1 = __webpack_require__(22);
+var AbstractCategoryLogger_1 = __webpack_require__(23);
 /**
  * This class should not be used directly, it is used for communication with the extension only.
  */
@@ -46604,7 +46665,7 @@ exports.CategoryExtensionLoggerImpl = CategoryExtensionLoggerImpl;
 
 
 var LoggerOptions_1 = __webpack_require__(2);
-var CategoryService_1 = __webpack_require__(23);
+var CategoryService_1 = __webpack_require__(24);
 /**
  * Category for use with categorized logging.
  * At minimum you need one category, which will serve as the root category.
@@ -46699,7 +46760,7 @@ var LoggerOptions_1 = __webpack_require__(2);
 var LoggerFactoryService_1 = __webpack_require__(36);
 var ConsoleLoggerImpl_1 = __webpack_require__(195);
 var MessageBufferLoggerImpl_1 = __webpack_require__(196);
-var AbstractLogger_1 = __webpack_require__(24);
+var AbstractLogger_1 = __webpack_require__(25);
 var LoggerFactoryImpl = function () {
     function LoggerFactoryImpl(name, options) {
         this._loggers = new DataStructures_1.SimpleMap();
