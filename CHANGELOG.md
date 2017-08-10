@@ -2,6 +2,11 @@
 # [1.0.0-beta.2](https://github.com/OpenNMS/opennms-js/compare/v1.0.0-beta.1...v1.0.0-beta.2) (2017-08-10)
 
 
+### Bug Fixes
+
+* **api:** add missing modules to API export ([53fad98](https://github.com/OpenNMS/opennms-js/commit/53fad98))
+
+
 ### Features
 
 * **api:** add metadata call to detect ticketer config support ([bf0255b](https://github.com/OpenNMS/opennms-js/commit/bf0255b))
