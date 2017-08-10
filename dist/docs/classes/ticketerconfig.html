@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>SearchProperty | OpenNMS.js</title>
+	<title>TicketerConfig | OpenNMS.js</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -56,10 +56,10 @@
 					<a href="../globals.html">Globals</a>
 				</li>
 				<li>
-					<a href="searchproperty.html">SearchProperty</a>
+					<a href="ticketerconfig.html">TicketerConfig</a>
 				</li>
 			</ul>
-			<h1>Class SearchProperty</h1>
+			<h1>Class TicketerConfig</h1>
 		</div>
 	</div>
 </header>
@@ -69,7 +69,7 @@
 			<section class="tsd-panel tsd-comment">
 				<div class="tsd-comment tsd-typography">
 					<div class="lead">
-						<p>Represents a query search property.</p>
+						<p>States the current ticket configuration.</p>
 					</div>
 				</div>
 			</section>
@@ -77,7 +77,7 @@
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<span class="target">SearchProperty</span>
+						<span class="target">TicketerConfig</span>
 					</li>
 				</ul>
 			</section>
@@ -88,11 +88,8 @@
 						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-class"><a href="searchproperty.html#id" class="tsd-kind-icon">id</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class"><a href="searchproperty.html#name" class="tsd-kind-icon">name</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class"><a href="searchproperty.html#orderby" class="tsd-kind-icon">order<wbr>By</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class"><a href="searchproperty.html#type" class="tsd-kind-icon">type</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class"><a href="searchproperty.html#values" class="tsd-kind-icon">values</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="ticketerconfig.html#enabled" class="tsd-kind-icon">enabled</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="ticketerconfig.html#plugin" class="tsd-kind-icon">plugin</a></li>
 							</ul>
 						</section>
 					</div>
@@ -101,77 +98,32 @@
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Properties</h2>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
-					<a name="id" class="tsd-anchor"></a>
-					<h3>id</h3>
-					<div class="tsd-signature tsd-kind-icon">id<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<a name="enabled" class="tsd-anchor"></a>
+					<h3>enabled</h3>
+					<div class="tsd-signature tsd-kind-icon">enabled<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/077cef5/src/api/SearchProperty.ts#L9">api/SearchProperty.ts:9</a></li>
+							<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/077cef5/src/api/TicketerConfig.ts#L10">api/TicketerConfig.ts:10</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>the search property ID</p>
+							<p>Defines if the ticketer integration is enabled. True if enabled, False otherwise.</p>
 						</div>
 					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
-					<a name="name" class="tsd-anchor"></a>
-					<h3>name</h3>
-					<div class="tsd-signature tsd-kind-icon">name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<a name="plugin" class="tsd-anchor"></a>
+					<h3>plugin</h3>
+					<div class="tsd-signature tsd-kind-icon">plugin<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/077cef5/src/api/SearchProperty.ts#L12">api/SearchProperty.ts:12</a></li>
+							<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/077cef5/src/api/TicketerConfig.ts#L7">api/TicketerConfig.ts:7</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>a descriptive name for the property</p>
-						</div>
-					</div>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
-					<a name="orderby" class="tsd-anchor"></a>
-					<h3>order<wbr>By</h3>
-					<div class="tsd-signature tsd-kind-icon">order<wbr>By<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/077cef5/src/api/SearchProperty.ts#L15">api/SearchProperty.ts:15</a></li>
-						</ul>
-					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>whether the property is sortable</p>
-						</div>
-					</div>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
-					<a name="type" class="tsd-anchor"></a>
-					<h3>type</h3>
-					<div class="tsd-signature tsd-kind-icon">type<span class="tsd-signature-symbol">:</span> <a href="searchpropertytype.html" class="tsd-signature-type">SearchPropertyType</a></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/077cef5/src/api/SearchProperty.ts#L18">api/SearchProperty.ts:18</a></li>
-						</ul>
-					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>the property type</p>
-						</div>
-					</div>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
-					<a name="values" class="tsd-anchor"></a>
-					<h3>values</h3>
-					<div class="tsd-signature tsd-kind-icon">values<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/077cef5/src/api/SearchProperty.ts#L21">api/SearchProperty.ts:21</a></li>
-						</ul>
-					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>the values if any</p>
+							<p>The name of the ticketer plugin currently in use.</p>
 						</div>
 					</div>
 				</section>
@@ -190,22 +142,13 @@
 				</ul>
 				<ul class="current">
 					<li class="current tsd-kind-class">
-						<a href="searchproperty.html" class="tsd-kind-icon">Search<wbr>Property</a>
+						<a href="ticketerconfig.html" class="tsd-kind-icon">Ticketer<wbr>Config</a>
 						<ul>
 							<li class=" tsd-kind-property tsd-parent-kind-class">
-								<a href="searchproperty.html#id" class="tsd-kind-icon">id</a>
+								<a href="ticketerconfig.html#enabled" class="tsd-kind-icon">enabled</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class">
-								<a href="searchproperty.html#name" class="tsd-kind-icon">name</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class">
-								<a href="searchproperty.html#orderby" class="tsd-kind-icon">order<wbr>By</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class">
-								<a href="searchproperty.html#type" class="tsd-kind-icon">type</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class">
-								<a href="searchproperty.html#values" class="tsd-kind-icon">values</a>
+								<a href="ticketerconfig.html#plugin" class="tsd-kind-icon">plugin</a>
 							</li>
 						</ul>
 					</li>

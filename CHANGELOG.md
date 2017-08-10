@@ -4,6 +4,7 @@
 
 ### Features
 
+* **api:** Include ticketer configuration. JS-17 ([2728734](https://github.com/OpenNMS/opennms-js/commit/2728734))
 * **dao:** support dates in query parameters (JS-15) ([d9884b6](https://github.com/OpenNMS/opennms-js/commit/d9884b6))
 * **internal:** add utility methods for dealing with dates ([c40450b](https://github.com/OpenNMS/opennms-js/commit/c40450b))
 

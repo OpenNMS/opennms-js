@@ -1906,7 +1906,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
         if (!locales[name] && typeof module !== 'undefined' && module && module.exports) {
             try {
                 oldLocale = globalLocale._abbr;
-                __webpack_require__(266)("./" + name);
+                __webpack_require__(267)("./" + name);
                 // because defineLocale currently also sets the global locale, we
                 // want to undo that for lazy loaded locales
                 getSetGlobalLocale(oldLocale);
@@ -5280,8 +5280,8 @@ function __export(m) {
         if (!exports.hasOwnProperty(p)) exports[p] = m[p];
     }
 }
-var LogGroupControl_1 = __webpack_require__(257);
-var CategoryServiceControl_1 = __webpack_require__(256);
+var LogGroupControl_1 = __webpack_require__(258);
+var CategoryServiceControl_1 = __webpack_require__(257);
 var ExtensionHelper_1 = __webpack_require__(22);
 exports.ExtensionHelper = ExtensionHelper_1.ExtensionHelper;
 // Category related
@@ -5291,7 +5291,7 @@ var CategoryConsoleLoggerImpl_1 = __webpack_require__(192);
 exports.CategoryConsoleLoggerImpl = CategoryConsoleLoggerImpl_1.CategoryConsoleLoggerImpl;
 var CategoryDelegateLoggerImpl_1 = __webpack_require__(193);
 exports.CategoryDelegateLoggerImpl = CategoryDelegateLoggerImpl_1.CategoryDelegateLoggerImpl;
-var CategoryLogger_1 = __webpack_require__(259);
+var CategoryLogger_1 = __webpack_require__(260);
 exports.Category = CategoryLogger_1.Category;
 var CategoryMessageBufferImpl_1 = __webpack_require__(194);
 exports.CategoryMessageBufferLoggerImpl = CategoryMessageBufferImpl_1.CategoryMessageBufferLoggerImpl;
@@ -5320,7 +5320,7 @@ exports.LogLevel = LoggerOptions_1.LogLevel;
 var DataStructures_1 = __webpack_require__(8);
 exports.SimpleMap = DataStructures_1.SimpleMap;
 exports.LinkedList = DataStructures_1.LinkedList;
-__export(__webpack_require__(261));
+__export(__webpack_require__(262));
 var MessageUtils_1 = __webpack_require__(26);
 exports.MessageFormatUtils = MessageUtils_1.MessageFormatUtils;
 /*
@@ -7621,7 +7621,7 @@ var DataStructures_1 = __webpack_require__(8);
 var LoggerOptions_1 = __webpack_require__(2);
 var CategoryConsoleLoggerImpl_1 = __webpack_require__(192);
 var CategoryDelegateLoggerImpl_1 = __webpack_require__(193);
-var CategoryExtensionLoggerImpl_1 = __webpack_require__(258);
+var CategoryExtensionLoggerImpl_1 = __webpack_require__(259);
 var CategoryMessageBufferImpl_1 = __webpack_require__(194);
 var ExtensionHelper_1 = __webpack_require__(22);
 /**
@@ -8503,7 +8503,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var VersionCompare = __webpack_require__(262);
+var VersionCompare = __webpack_require__(263);
 /**
  * An OpenNMS version.
  * @module OnmsVersion
@@ -9559,7 +9559,7 @@ exports.AbstractDAO = AbstractDAO;
 
 var DataStructures_1 = __webpack_require__(8);
 var LoggerOptions_1 = __webpack_require__(2);
-var LoggerFactoryImpl_1 = __webpack_require__(260);
+var LoggerFactoryImpl_1 = __webpack_require__(261);
 var ExtensionHelper_1 = __webpack_require__(22);
 /**
  * Defines a LogGroupRule, this allows you to either have everything configured the same way
@@ -9966,7 +9966,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var URI = __webpack_require__(199);
 var OnmsAuthConfig_1 = __webpack_require__(38);
 var ServerType_1 = __webpack_require__(19);
-var UUID_1 = __webpack_require__(251);
+var UUID_1 = __webpack_require__(252);
 /**
  * Represents a remote OpenNMS server.
  * @module OnmsServer
@@ -10255,7 +10255,7 @@ var OnmsParm_1 = __webpack_require__(29);
 var OnmsServiceType_1 = __webpack_require__(20);
 var OnmsSeverity_1 = __webpack_require__(30);
 var OnmsTroubleTicketState_1 = __webpack_require__(59);
-var OnmsMemo_1 = __webpack_require__(252);
+var OnmsMemo_1 = __webpack_require__(253);
 var Log_1 = __webpack_require__(4);
 var typescript_logging_1 = __webpack_require__(6);
 /** @hidden */
@@ -11149,7 +11149,7 @@ var OnmsManagedType_1 = __webpack_require__(51);
 var OnmsMonitoredService_1 = __webpack_require__(52);
 var OnmsNode_1 = __webpack_require__(53);
 var OnmsNodeLabelSource_1 = __webpack_require__(54);
-var OnmsNodeType_1 = __webpack_require__(253);
+var OnmsNodeType_1 = __webpack_require__(254);
 var OnmsPrimaryType_1 = __webpack_require__(55);
 var OnmsServiceType_1 = __webpack_require__(20);
 var OnmsServiceStatusType_1 = __webpack_require__(56);
@@ -29860,8 +29860,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 Object.defineProperty(exports, "__esModule", { value: true });
 var OnmsResult_1 = __webpack_require__(17);
-var XmlTransformer_1 = __webpack_require__(255);
-var JsonTransformer_1 = __webpack_require__(254);
+var XmlTransformer_1 = __webpack_require__(256);
+var JsonTransformer_1 = __webpack_require__(255);
 /** @hidden */
 var xmlTransformer = new XmlTransformer_1.XmlTransformer();
 /** @hidden */
@@ -35028,6 +35028,7 @@ var OnmsHTTPOptions_1 = __webpack_require__(16);
 var OnmsError_1 = __webpack_require__(5);
 var OnmsVersion_1 = __webpack_require__(27);
 var ServerType_1 = __webpack_require__(19);
+var TicketerConfig_1 = __webpack_require__(251);
 var OnmsServer_1 = __webpack_require__(39);
 var ServerMetadata_1 = __webpack_require__(40);
 var AlarmDAO_1 = __webpack_require__(41);
@@ -35149,9 +35150,17 @@ var Client = function () {
                                         metadata.type = ServerType_1.ServerTypes.MERIDIAN;
                                     }
                                 }
+                                if (version.ge('21.0.0')) {
+                                    metadata.ticketerConfig = new TicketerConfig_1.TicketerConfig();
+                                    metadata.ticketerConfig.enabled = false;
+                                    if (response.data.ticketerConfig) {
+                                        metadata.ticketerConfig.plugin = response.data.ticketerConfig.plugin;
+                                        metadata.ticketerConfig.enabled = response.data.ticketerConfig.enabled === true;
+                                    }
+                                }
                                 return _context2.abrupt("return", metadata);
 
-                            case 15:
+                            case 16:
                             case "end":
                                 return _context2.stop();
                         }
@@ -45997,6 +46006,26 @@ exports.SearchPropertyTypes = frozen;
 
 "use strict";
 
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+Object.defineProperty(exports, "__esModule", { value: true });
+/**
+ * States the current ticket configuration.
+ */
+
+var TicketerConfig = function TicketerConfig() {
+  _classCallCheck(this, TicketerConfig);
+};
+
+exports.TicketerConfig = TicketerConfig;
+
+/***/ }),
+/* 252 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
 // http://stackoverflow.com/a/8809472
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -46040,7 +46069,7 @@ var UUID = function () {
 exports.UUID = UUID;
 
 /***/ }),
-/* 252 */
+/* 253 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -46061,7 +46090,7 @@ var OnmsMemo = function OnmsMemo() {
 exports.OnmsMemo = OnmsMemo;
 
 /***/ }),
-/* 253 */
+/* 254 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -46125,7 +46154,7 @@ var frozen = Object.freeze(NodeTypes);
 exports.NodeTypes = frozen;
 
 /***/ }),
-/* 254 */
+/* 255 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -46172,7 +46201,7 @@ var JsonTransformer = function () {
 exports.JsonTransformer = JsonTransformer;
 
 /***/ }),
-/* 255 */
+/* 256 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -46187,12 +46216,12 @@ if (global && !global.window) {
     global.window = {};
     if (!global.window.DOMParser) {
         // tslint:disable-next-line
-        global.window.DOMParser = __webpack_require__(264).DOMParser;
+        global.window.DOMParser = __webpack_require__(265).DOMParser;
     }
 }
 /** @hidden */
 // tslint:disable-next-line
-var X2JS = __webpack_require__(263);
+var X2JS = __webpack_require__(264);
 /** @hidden */
 var xmlParser = new X2JS({
     arrayAccessForm: 'property',
@@ -46232,7 +46261,7 @@ exports.XmlTransformer = XmlTransformer;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(7)))
 
 /***/ }),
-/* 256 */
+/* 257 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -46404,7 +46433,7 @@ exports.CategoryServiceControlImpl = CategoryServiceControlImpl;
 //# sourceMappingURL=CategoryServiceControl.js.map
 
 /***/ }),
-/* 257 */
+/* 258 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -46620,7 +46649,7 @@ LoggerFactoryControlImpl._example = "\n  Examples:\n    change({group: \"all\", 
 //# sourceMappingURL=LogGroupControl.js.map
 
 /***/ }),
-/* 258 */
+/* 259 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -46658,7 +46687,7 @@ exports.CategoryExtensionLoggerImpl = CategoryExtensionLoggerImpl;
 //# sourceMappingURL=CategoryExtensionLoggerImpl.js.map
 
 /***/ }),
-/* 259 */
+/* 260 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -46749,7 +46778,7 @@ exports.Category = Category;
 //# sourceMappingURL=CategoryLogger.js.map
 
 /***/ }),
-/* 260 */
+/* 261 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -46859,7 +46888,7 @@ exports.LoggerFactoryImpl = LoggerFactoryImpl;
 //# sourceMappingURL=LoggerFactoryImpl.js.map
 
 /***/ }),
-/* 261 */
+/* 262 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -47135,7 +47164,7 @@ exports.JSONHelper = JSONHelper;
 //# sourceMappingURL=JSONHelper.js.map
 
 /***/ }),
-/* 262 */
+/* 263 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -47261,7 +47290,7 @@ exports.JSONHelper = JSONHelper;
 })( false ? undefined.VersionCompare = {} : exports);
 
 /***/ }),
-/* 263 */
+/* 264 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -47956,7 +47985,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 });
 
 /***/ }),
-/* 264 */
+/* 265 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -48209,14 +48238,14 @@ function appendElement(hander, node) {
 } //appendChild and setAttributeNS are preformance key
 
 //if(typeof require == 'function'){
-var XMLReader = __webpack_require__(265).XMLReader;
+var XMLReader = __webpack_require__(266).XMLReader;
 var DOMImplementation = exports.DOMImplementation = __webpack_require__(202).DOMImplementation;
 exports.XMLSerializer = __webpack_require__(202).XMLSerializer;
 exports.DOMParser = DOMParser;
 //}
 
 /***/ }),
-/* 265 */
+/* 266 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -48866,7 +48895,7 @@ function split(source, start) {
 exports.XMLReader = XMLReader;
 
 /***/ }),
-/* 266 */
+/* 267 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var map = {
@@ -49115,7 +49144,7 @@ webpackContext.keys = function webpackContextKeys() {
 };
 webpackContext.resolve = webpackContextResolve;
 module.exports = webpackContext;
-webpackContext.id = 266;
+webpackContext.id = 267;
 
 /***/ })
 /******/ ]);

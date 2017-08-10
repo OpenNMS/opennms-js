@@ -7,7 +7,7 @@
 		var a = typeof exports === 'object' ? factory(require("fs"), require("http"), require("https"), require("url"), require("util"), require("assert"), require("net"), require("stream"), require("tty"), require("zlib")) : factory(root["fs"], root["http"], root["https"], root["url"], root["util"], root["assert"], root["net"], root["stream"], root["tty"], root["zlib"]);
 		for(var i in a) (typeof exports === 'object' ? exports : root)[i] = a[i];
 	}
-})(this, function(__WEBPACK_EXTERNAL_MODULE_62__, __WEBPACK_EXTERNAL_MODULE_211__, __WEBPACK_EXTERNAL_MODULE_212__, __WEBPACK_EXTERNAL_MODULE_213__, __WEBPACK_EXTERNAL_MODULE_214__, __WEBPACK_EXTERNAL_MODULE_280__, __WEBPACK_EXTERNAL_MODULE_281__, __WEBPACK_EXTERNAL_MODULE_282__, __WEBPACK_EXTERNAL_MODULE_283__, __WEBPACK_EXTERNAL_MODULE_284__) {
+})(this, function(__WEBPACK_EXTERNAL_MODULE_62__, __WEBPACK_EXTERNAL_MODULE_211__, __WEBPACK_EXTERNAL_MODULE_212__, __WEBPACK_EXTERNAL_MODULE_213__, __WEBPACK_EXTERNAL_MODULE_214__, __WEBPACK_EXTERNAL_MODULE_281__, __WEBPACK_EXTERNAL_MODULE_282__, __WEBPACK_EXTERNAL_MODULE_283__, __WEBPACK_EXTERNAL_MODULE_284__, __WEBPACK_EXTERNAL_MODULE_285__) {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -1906,7 +1906,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
         if (!locales[name] && typeof module !== 'undefined' && module && module.exports) {
             try {
                 oldLocale = globalLocale._abbr;
-                __webpack_require__(279)("./" + name);
+                __webpack_require__(280)("./" + name);
                 // because defineLocale currently also sets the global locale, we
                 // want to undo that for lazy loaded locales
                 getSetGlobalLocale(oldLocale);
@@ -5280,8 +5280,8 @@ function __export(m) {
         if (!exports.hasOwnProperty(p)) exports[p] = m[p];
     }
 }
-var LogGroupControl_1 = __webpack_require__(270);
-var CategoryServiceControl_1 = __webpack_require__(269);
+var LogGroupControl_1 = __webpack_require__(271);
+var CategoryServiceControl_1 = __webpack_require__(270);
 var ExtensionHelper_1 = __webpack_require__(20);
 exports.ExtensionHelper = ExtensionHelper_1.ExtensionHelper;
 // Category related
@@ -5291,7 +5291,7 @@ var CategoryConsoleLoggerImpl_1 = __webpack_require__(199);
 exports.CategoryConsoleLoggerImpl = CategoryConsoleLoggerImpl_1.CategoryConsoleLoggerImpl;
 var CategoryDelegateLoggerImpl_1 = __webpack_require__(200);
 exports.CategoryDelegateLoggerImpl = CategoryDelegateLoggerImpl_1.CategoryDelegateLoggerImpl;
-var CategoryLogger_1 = __webpack_require__(272);
+var CategoryLogger_1 = __webpack_require__(273);
 exports.Category = CategoryLogger_1.Category;
 var CategoryMessageBufferImpl_1 = __webpack_require__(201);
 exports.CategoryMessageBufferLoggerImpl = CategoryMessageBufferImpl_1.CategoryMessageBufferLoggerImpl;
@@ -5320,7 +5320,7 @@ exports.LogLevel = LoggerOptions_1.LogLevel;
 var DataStructures_1 = __webpack_require__(7);
 exports.SimpleMap = DataStructures_1.SimpleMap;
 exports.LinkedList = DataStructures_1.LinkedList;
-__export(__webpack_require__(274));
+__export(__webpack_require__(275));
 var MessageUtils_1 = __webpack_require__(24);
 exports.MessageFormatUtils = MessageUtils_1.MessageFormatUtils;
 /*
@@ -7411,7 +7411,7 @@ var DataStructures_1 = __webpack_require__(7);
 var LoggerOptions_1 = __webpack_require__(2);
 var CategoryConsoleLoggerImpl_1 = __webpack_require__(199);
 var CategoryDelegateLoggerImpl_1 = __webpack_require__(200);
-var CategoryExtensionLoggerImpl_1 = __webpack_require__(271);
+var CategoryExtensionLoggerImpl_1 = __webpack_require__(272);
 var CategoryMessageBufferImpl_1 = __webpack_require__(201);
 var ExtensionHelper_1 = __webpack_require__(20);
 /**
@@ -8293,7 +8293,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var VersionCompare = __webpack_require__(275);
+var VersionCompare = __webpack_require__(276);
 /**
  * An OpenNMS version.
  * @module OnmsVersion
@@ -9374,7 +9374,7 @@ exports.AbstractDAO = AbstractDAO;
 
 var DataStructures_1 = __webpack_require__(7);
 var LoggerOptions_1 = __webpack_require__(2);
-var LoggerFactoryImpl_1 = __webpack_require__(273);
+var LoggerFactoryImpl_1 = __webpack_require__(274);
 var ExtensionHelper_1 = __webpack_require__(20);
 /**
  * Defines a LogGroupRule, this allows you to either have everything configured the same way
@@ -9781,7 +9781,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var URI = __webpack_require__(206);
 var OnmsAuthConfig_1 = __webpack_require__(38);
 var ServerType_1 = __webpack_require__(18);
-var UUID_1 = __webpack_require__(264);
+var UUID_1 = __webpack_require__(265);
 /**
  * Represents a remote OpenNMS server.
  * @module OnmsServer
@@ -10070,7 +10070,7 @@ var OnmsParm_1 = __webpack_require__(27);
 var OnmsServiceType_1 = __webpack_require__(19);
 var OnmsSeverity_1 = __webpack_require__(28);
 var OnmsTroubleTicketState_1 = __webpack_require__(59);
-var OnmsMemo_1 = __webpack_require__(265);
+var OnmsMemo_1 = __webpack_require__(266);
 var Log_1 = __webpack_require__(4);
 var typescript_logging_1 = __webpack_require__(6);
 /** @hidden */
@@ -10964,7 +10964,7 @@ var OnmsManagedType_1 = __webpack_require__(51);
 var OnmsMonitoredService_1 = __webpack_require__(52);
 var OnmsNode_1 = __webpack_require__(53);
 var OnmsNodeLabelSource_1 = __webpack_require__(54);
-var OnmsNodeType_1 = __webpack_require__(266);
+var OnmsNodeType_1 = __webpack_require__(267);
 var OnmsPrimaryType_1 = __webpack_require__(55);
 var OnmsServiceType_1 = __webpack_require__(19);
 var OnmsServiceStatusType_1 = __webpack_require__(56);
@@ -12799,7 +12799,7 @@ var https = __webpack_require__(212);
 var httpFollow = __webpack_require__(72).http;
 var httpsFollow = __webpack_require__(72).https;
 var url = __webpack_require__(213);
-var zlib = __webpack_require__(284);
+var zlib = __webpack_require__(285);
 var pkg = __webpack_require__(220);
 var createError = __webpack_require__(29);
 var enhanceError = __webpack_require__(67);
@@ -13590,10 +13590,10 @@ function coerce(val) {
 
 
 var url = __webpack_require__(213);
-var assert = __webpack_require__(280);
+var assert = __webpack_require__(281);
 var http = __webpack_require__(211);
 var https = __webpack_require__(212);
-var Writable = __webpack_require__(282).Writable;
+var Writable = __webpack_require__(283).Writable;
 var debug = __webpack_require__(237)('follow-redirects');
 
 var nativeProtocols = { 'http:': http, 'https:': https };
@@ -30642,8 +30642,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 Object.defineProperty(exports, "__esModule", { value: true });
 var OnmsResult_1 = __webpack_require__(16);
-var XmlTransformer_1 = __webpack_require__(268);
-var JsonTransformer_1 = __webpack_require__(267);
+var XmlTransformer_1 = __webpack_require__(269);
+var JsonTransformer_1 = __webpack_require__(268);
 /** @hidden */
 var xmlTransformer = new XmlTransformer_1.XmlTransformer();
 /** @hidden */
@@ -35897,6 +35897,7 @@ var OnmsHTTPOptions_1 = __webpack_require__(15);
 var OnmsError_1 = __webpack_require__(5);
 var OnmsVersion_1 = __webpack_require__(25);
 var ServerType_1 = __webpack_require__(18);
+var TicketerConfig_1 = __webpack_require__(264);
 var OnmsServer_1 = __webpack_require__(39);
 var ServerMetadata_1 = __webpack_require__(40);
 var AlarmDAO_1 = __webpack_require__(41);
@@ -36018,9 +36019,17 @@ var Client = function () {
                                         metadata.type = ServerType_1.ServerTypes.MERIDIAN;
                                     }
                                 }
+                                if (version.ge('21.0.0')) {
+                                    metadata.ticketerConfig = new TicketerConfig_1.TicketerConfig();
+                                    metadata.ticketerConfig.enabled = false;
+                                    if (response.data.ticketerConfig) {
+                                        metadata.ticketerConfig.plugin = response.data.ticketerConfig.plugin;
+                                        metadata.ticketerConfig.enabled = response.data.ticketerConfig.enabled === true;
+                                    }
+                                }
                                 return _context2.abrupt("return", metadata);
 
-                            case 15:
+                            case 16:
                             case "end":
                                 return _context2.stop();
                         }
@@ -37301,7 +37310,7 @@ if (typeof process !== 'undefined' && process.type === 'renderer') {
  * Module dependencies.
  */
 
-var tty = __webpack_require__(283);
+var tty = __webpack_require__(284);
 var util = __webpack_require__(214);
 
 /**
@@ -37478,7 +37487,7 @@ function createWritableStdioStream(fd) {
 
     case 'PIPE':
     case 'TCP':
-      var net = __webpack_require__(281);
+      var net = __webpack_require__(282);
       stream = new net.Socket({
         fd: fd,
         readable: false,
@@ -47218,6 +47227,26 @@ exports.SearchPropertyTypes = frozen;
 
 "use strict";
 
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+Object.defineProperty(exports, "__esModule", { value: true });
+/**
+ * States the current ticket configuration.
+ */
+
+var TicketerConfig = function TicketerConfig() {
+  _classCallCheck(this, TicketerConfig);
+};
+
+exports.TicketerConfig = TicketerConfig;
+
+/***/ }),
+/* 265 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
 // http://stackoverflow.com/a/8809472
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -47261,7 +47290,7 @@ var UUID = function () {
 exports.UUID = UUID;
 
 /***/ }),
-/* 265 */
+/* 266 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -47282,7 +47311,7 @@ var OnmsMemo = function OnmsMemo() {
 exports.OnmsMemo = OnmsMemo;
 
 /***/ }),
-/* 266 */
+/* 267 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -47346,7 +47375,7 @@ var frozen = Object.freeze(NodeTypes);
 exports.NodeTypes = frozen;
 
 /***/ }),
-/* 267 */
+/* 268 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -47393,7 +47422,7 @@ var JsonTransformer = function () {
 exports.JsonTransformer = JsonTransformer;
 
 /***/ }),
-/* 268 */
+/* 269 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -47408,12 +47437,12 @@ if (global && !global.window) {
     global.window = {};
     if (!global.window.DOMParser) {
         // tslint:disable-next-line
-        global.window.DOMParser = __webpack_require__(277).DOMParser;
+        global.window.DOMParser = __webpack_require__(278).DOMParser;
     }
 }
 /** @hidden */
 // tslint:disable-next-line
-var X2JS = __webpack_require__(276);
+var X2JS = __webpack_require__(277);
 /** @hidden */
 var xmlParser = new X2JS({
     arrayAccessForm: 'property',
@@ -47452,7 +47481,7 @@ var XmlTransformer = function () {
 exports.XmlTransformer = XmlTransformer;
 
 /***/ }),
-/* 269 */
+/* 270 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -47624,7 +47653,7 @@ exports.CategoryServiceControlImpl = CategoryServiceControlImpl;
 //# sourceMappingURL=CategoryServiceControl.js.map
 
 /***/ }),
-/* 270 */
+/* 271 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -47840,7 +47869,7 @@ LoggerFactoryControlImpl._example = "\n  Examples:\n    change({group: \"all\", 
 //# sourceMappingURL=LogGroupControl.js.map
 
 /***/ }),
-/* 271 */
+/* 272 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -47878,7 +47907,7 @@ exports.CategoryExtensionLoggerImpl = CategoryExtensionLoggerImpl;
 //# sourceMappingURL=CategoryExtensionLoggerImpl.js.map
 
 /***/ }),
-/* 272 */
+/* 273 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -47969,7 +47998,7 @@ exports.Category = Category;
 //# sourceMappingURL=CategoryLogger.js.map
 
 /***/ }),
-/* 273 */
+/* 274 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -48079,7 +48108,7 @@ exports.LoggerFactoryImpl = LoggerFactoryImpl;
 //# sourceMappingURL=LoggerFactoryImpl.js.map
 
 /***/ }),
-/* 274 */
+/* 275 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -48355,7 +48384,7 @@ exports.JSONHelper = JSONHelper;
 //# sourceMappingURL=JSONHelper.js.map
 
 /***/ }),
-/* 275 */
+/* 276 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -48481,7 +48510,7 @@ exports.JSONHelper = JSONHelper;
 })( false ? undefined.VersionCompare = {} : exports);
 
 /***/ }),
-/* 276 */
+/* 277 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -49176,7 +49205,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 });
 
 /***/ }),
-/* 277 */
+/* 278 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -49429,14 +49458,14 @@ function appendElement(hander, node) {
 } //appendChild and setAttributeNS are preformance key
 
 //if(typeof require == 'function'){
-var XMLReader = __webpack_require__(278).XMLReader;
+var XMLReader = __webpack_require__(279).XMLReader;
 var DOMImplementation = exports.DOMImplementation = __webpack_require__(209).DOMImplementation;
 exports.XMLSerializer = __webpack_require__(209).XMLSerializer;
 exports.DOMParser = DOMParser;
 //}
 
 /***/ }),
-/* 278 */
+/* 279 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -50086,7 +50115,7 @@ function split(source, start) {
 exports.XMLReader = XMLReader;
 
 /***/ }),
-/* 279 */
+/* 280 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var map = {
@@ -50335,34 +50364,34 @@ webpackContext.keys = function webpackContextKeys() {
 };
 webpackContext.resolve = webpackContextResolve;
 module.exports = webpackContext;
-webpackContext.id = 279;
-
-/***/ }),
-/* 280 */
-/***/ (function(module, exports) {
-
-module.exports = require("assert");
+webpackContext.id = 280;
 
 /***/ }),
 /* 281 */
 /***/ (function(module, exports) {
 
-module.exports = require("net");
+module.exports = require("assert");
 
 /***/ }),
 /* 282 */
 /***/ (function(module, exports) {
 
-module.exports = require("stream");
+module.exports = require("net");
 
 /***/ }),
 /* 283 */
 /***/ (function(module, exports) {
 
-module.exports = require("tty");
+module.exports = require("stream");
 
 /***/ }),
 /* 284 */
+/***/ (function(module, exports) {
+
+module.exports = require("tty");
+
+/***/ }),
+/* 285 */
 /***/ (function(module, exports) {
 
 module.exports = require("zlib");
