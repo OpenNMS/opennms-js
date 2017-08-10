@@ -1,5 +1,6 @@
 import {OnmsVersion} from '../api/OnmsVersion';
 import {ServerType, ServerTypes} from '../api/ServerType';
+import {TicketerConfig} from './TicketerConfig';
 
 /**
  * A class that represents the capabilities an OpenNMS server has and other information about it.
@@ -11,6 +12,9 @@ export class ServerMetadata {
 
   /** The type of server (Horizon, Meridian). */
   public type: ServerType;
+
+  /** The ticketer config. Requires at least version 21.0.0 of OpenNMS. */
+  public ticketerConfig: TicketerConfig;
 
   /**
    * Construct a ServerMetadata object.
