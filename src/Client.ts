@@ -12,6 +12,7 @@ import {OnmsError} from './api/OnmsError';
 import {OnmsResult} from './api/OnmsResult';
 import {OnmsVersion} from './api/OnmsVersion';
 import {ServerType, ServerTypes} from './api/ServerType';
+import {TicketerConfig} from './api/TicketerConfig';
 
 import {OnmsServer} from './api/OnmsServer';
 import {ServerMetadata} from './api/ServerMetadata';
@@ -81,6 +82,14 @@ export class Client implements IHasHTTP {
     if (response.data.packageName) {
       if (response.data.packageName.toLowerCase() === 'meridian') {
         metadata.type = ServerTypes.MERIDIAN;
+      }
+    }
+    if (version.ge('21.0.0')) {
+      metadata.ticketerConfig = new TicketerConfig();
+      metadata.ticketerConfig.enabled = false;
+      if (response.data.ticketerConfig) {
+          metadata.ticketerConfig.plugin = response.data.ticketerConfig.plugin;
+          metadata.ticketerConfig.enabled = response.data.ticketerConfig.enabled === true;
       }
     }
     return metadata;
