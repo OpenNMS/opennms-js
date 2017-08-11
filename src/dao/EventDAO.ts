@@ -29,34 +29,36 @@ export class EventDAO extends AbstractDAO<number, OnmsEvent> {
 
   /** Get an event, given the event's ID. */
   public async get(id: number): Promise<OnmsEvent> {
-    const opts = this.getOptions();
-    return this.http.get(this.pathToEventsEndpoint() + '/' + id, opts).then((result) => {
-      return this.fromData(result.data);
+    return this.getOptions().then((opts) => {
+        return this.http.get(this.pathToEventsEndpoint() + '/' + id, opts).then((result) => {
+            return this.fromData(result.data);
+        });
     });
   }
 
   /** Get an event, given a filter. */
   public async find(filter?: Filter): Promise<OnmsEvent[]> {
-    const opts = this.getOptions(filter);
-    return this.http.get(this.pathToEventsEndpoint(), opts).then((result) => {
-      let data = result.data;
+    return this.getOptions(filter).then((opts) => {
+        return this.http.get(this.pathToEventsEndpoint(), opts).then((result) => {
+            let data = result.data;
 
-      if (data !== null && this.getCount(data) > 0 && data.event) {
-        data = data.event;
-      } else {
-        data = [];
-      }
+            if (data !== null && this.getCount(data) > 0 && data.event) {
+                data = data.event;
+            } else {
+                data = [];
+            }
 
-      if (!Array.isArray(data)) {
-        if (data.id) {
-          data = [data];
-        } else {
-          throw new OnmsError('Expected an array of events but got "' + (typeof data) + '" instead.');
-        }
-      }
-      return data.map((eventData) => {
-        return this.fromData(eventData);
-      });
+            if (!Array.isArray(data)) {
+                if (data.id) {
+                    data = [data];
+                } else {
+                    throw new OnmsError('Expected an array of events but got "' + (typeof data) + '" instead.');
+                }
+            }
+            return data.map((eventData) => {
+                return this.fromData(eventData);
+            });
+        });
     });
   }
 

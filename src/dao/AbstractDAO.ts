@@ -13,6 +13,8 @@ import {log, catDao} from '../api/Log';
 import {V1FilterProcessor} from './V1FilterProcessor';
 import {V2FilterProcessor} from './V2FilterProcessor';
 
+import {PropertiesCache} from './PropertiesCache';
+
 /** @hidden */
 // tslint:disable-next-line
 const moment = require('moment');
@@ -38,12 +40,6 @@ export abstract class AbstractDAO<K, T> {
   private httpImpl: IOnmsHTTP;
 
   /**
-   * The [[IFilterProcessor]] to use internally when making DAO requests.
-   * @hidden
-   */
-  private filterProcessorImpl;
-
-  /**
    * Construct a DAO instance.
    *
    * @param impl - The HTTP implementation to use.  It is also legal to pass any object
@@ -67,21 +63,19 @@ export abstract class AbstractDAO<K, T> {
     this.httpImpl = impl;
   }
 
-  public get filterProcessor() {
-    if (!this.filterProcessorImpl) {
+  /**
+   * Returns the Promise for a [[IFilterProcessor]].
+   * @returns {Promise}
+   */
+  public async getFilterProcessor(): Promise<IFilterProcessor> {
       switch (this.getApiVersion()) {
-        case 2:
-          this.filterProcessorImpl = new V2FilterProcessor();
-          break;
-        default:
-          this.filterProcessorImpl = new V1FilterProcessor();
+          case 2:
+            return this.getPropertiesCache().then((cache) => {
+              return new V2FilterProcessor(cache);
+            });
+          default:
+            return Promise.resolve(new V1FilterProcessor());
       }
-    }
-    return this.filterProcessorImpl;
-  }
-
-  public set filterProcessor(impl: IFilterProcessor) {
-    this.filterProcessorImpl = impl;
   }
 
   /**
@@ -101,30 +95,60 @@ export abstract class AbstractDAO<K, T> {
    * @version ReST v2
    */
   public async searchProperties(): Promise<SearchProperty[]> {
-    if (this.getApiVersion() === 1) {
-      throw new OnmsError('Search property metadata is only available in OpenNMS ' +
-        'versions that support the ReSTv2 API.');
-    }
-
-    const opts = this.getOptions();
-    opts.headers.accept = 'application/json';
-    return this.http.get(this.searchPropertyPath(), opts).then((result) => {
-      let data = result.data;
-
-      if (this.getCount(data) > 0 && data.searchProperty) {
-        data = data.searchProperty;
-      } else {
-        data = [];
-      }
-
-      if (!Array.isArray(data)) {
-        throw new OnmsError('Expected an array of search properties but got "' +
-          (typeof data) + '" instead: ' + this.searchPropertyPath());
-      }
-      return data.map((prop) => {
-        return this.toSearchProperty(prop);
-      });
+    return this.getPropertiesCache().then((cache) => {
+      return cache.getProperties();
     });
+  }
+
+    /**
+     * Gets the property identified by the id if it exists.
+     *
+     * @param id The id to search the property by.
+     */
+  public async searchProperty(id: string): Promise<SearchProperty> {
+      return this.getPropertiesCache().then((cache) => {
+        return cache.getProperty(id);
+      });
+  }
+
+  /**
+   * Returns or creates the [[PropertiesCache]] for this dao.
+   *
+   * @return the [[PropertiesCache]] for this dao. It is created if it does not exist.
+   */
+  public async getPropertiesCache(): Promise<PropertiesCache> {
+      if (this.getApiVersion() === 1) {
+          throw new OnmsError('Search property metadata is only available in OpenNMS ' +
+              'versions that support the ReSTv2 API.');
+      }
+
+      // Cache not yet initialized
+      if (!PropertiesCache.get(this)) {
+          return this.getOptions().then((opts) => {
+              opts.headers.accept = 'application/json';
+              return this.http.get(this.searchPropertyPath(), opts).then((result) => {
+                  let data = result.data;
+
+                  if (this.getCount(data) > 0 && data.searchProperty) {
+                      data = data.searchProperty;
+                  } else {
+                      data = [];
+                  }
+
+                  if (!Array.isArray(data)) {
+                      throw new OnmsError('Expected an array of search properties but got "' +
+                          (typeof data) + '" instead: ' + this.searchPropertyPath());
+                  }
+                  const searchProperties = data.map((prop) => {
+                      return this.toSearchProperty(prop);
+                  });
+                  PropertiesCache.put(this, searchProperties);
+                  return Promise.resolve(PropertiesCache.get(this));
+              });
+          });
+      }
+      // Cache already initialized, use value
+      return Promise.resolve(PropertiesCache.get(this));
   }
 
   /**
@@ -154,19 +178,24 @@ export abstract class AbstractDAO<K, T> {
    * Create an [[OnmsHTTPOptions]] object for DAO calls given an optional filter.
    * @param filter - the filter to use
    */
-  protected getOptions(filter?: Filter): OnmsHTTPOptions {
-    const ret = new OnmsHTTPOptions();
-    if (this.useJson()) {
-      ret.headers.accept = 'application/json';
-    } else {
-      // always use application/xml in DAO calls when we're not sure how
-      // usable JSON output will be.
-      ret.headers.accept = 'application/xml';
-    }
-    if (filter) {
-      ret.parameters = this.filterProcessor.getParameters(filter);
-    }
-    return ret;
+  protected async getOptions(filter?: Filter): Promise<OnmsHTTPOptions> {
+      return Promise.resolve(new OnmsHTTPOptions())
+          .then((options) => {
+              if (this.useJson()) {
+                  options.headers.accept = 'application/json';
+              } else {
+                  // always use application/xml in DAO calls when we're not sure how
+                  // usable JSON output will be.
+                  options.headers.accept = 'application/xml';
+              }
+              if (filter) {
+                  return this.getFilterProcessor().then((processor) => {
+                      options.parameters = processor.getParameters(filter);
+                      return options;
+                  });
+              }
+              return options;
+          });
   }
 
   /**

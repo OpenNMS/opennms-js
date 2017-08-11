@@ -8,6 +8,7 @@ import {log, catRest} from '../api/Log';
 import {Category} from 'typescript-logging';
 
 import * as clonedeep from 'lodash.clonedeep';
+import {Util} from '../internal/Util';
 
 /** @hidden */
 const catGrafana = new Category('grafana', catRest);
@@ -148,7 +149,7 @@ export class GrafanaHTTP extends AbstractHTTP {
     }
 
     if (allOptions.parameters && Object.keys(allOptions.parameters).length > 0) {
-      ret.params = clonedeep(allOptions.parameters);
+      ret.params = Util.encodeParameters(clonedeep(allOptions.parameters));
     }
 
     if (allOptions.data) {

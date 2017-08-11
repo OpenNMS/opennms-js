@@ -69,4 +69,15 @@ export class Util {
       return undefined;
     }
   }
+
+  /**
+   * Encodes the parameters.
+   * @param pramaters the parameters to encode
+   */
+  public static encodeParameters(pramaters: any) {
+      Object.keys(pramaters).forEach((key, index) => {
+          pramaters[key] = encodeURIComponent(pramaters[key]);
+      });
+      return pramaters;
+  }
 }

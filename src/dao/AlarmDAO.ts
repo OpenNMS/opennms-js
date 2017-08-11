@@ -48,9 +48,10 @@ export class AlarmDAO extends AbstractDAO<number, OnmsAlarm> {
    * @return An [[OnmsAlarm]].
    */
   public async get(id: number): Promise<OnmsAlarm> {
-    const opts = this.getOptions();
-    return this.http.get(this.pathToAlarmsEndpoint() + '/' + id, opts).then((result) => {
-      return this.fromData(result.data);
+    return this.getOptions().then((opts) => {
+        return this.http.get(this.pathToAlarmsEndpoint() + '/' + id, opts).then((result) => {
+            return this.fromData(result.data);
+        });
     });
   }
 
@@ -62,12 +63,13 @@ export class AlarmDAO extends AbstractDAO<number, OnmsAlarm> {
    * @return An array of [[OnmsAlarm]] objects.
    */
   public async find(filter?: Filter): Promise<OnmsAlarm[]> {
-    const opts = this.getOptions(filter);
-    return this.http.get(this.pathToAlarmsEndpoint(), opts).then((result) => {
-      const data = this.getData(result);
-      return data.map((alarmData) => {
-        return this.fromData(alarmData);
-      });
+    return this.getOptions(filter).then((opts) => {
+        return this.http.get(this.pathToAlarmsEndpoint(), opts).then((result) => {
+            const data = this.getData(result);
+            return data.map((alarmData) => {
+                return this.fromData(alarmData);
+            });
+        });
     });
   }
 
@@ -408,13 +410,14 @@ export class AlarmDAO extends AbstractDAO<number, OnmsAlarm> {
    * Given an optional filter, generate an [[OnmsHTTPOptions]] object for DAO calls.
    * @hidden
    */
-  protected getOptions(filter?: Filter): OnmsHTTPOptions {
-    const options = super.getOptions(filter);
-    // always use application/json for v2 calls
-    if (this.getApiVersion() === 2) {
-      options.headers.accept = 'application/json';
-    }
-    return options;
+  protected async getOptions(filter?: Filter): Promise<OnmsHTTPOptions> {
+    return super.getOptions(filter).then((options) => {
+        // always use application/json for v2 calls
+        if (this.getApiVersion() === 2) {
+            options.headers.accept = 'application/json';
+        }
+        return options;
+    });
   }
 
   /**
@@ -422,15 +425,16 @@ export class AlarmDAO extends AbstractDAO<number, OnmsAlarm> {
    * @hidden
    */
   private async put(url: string, parameters = {} as IHash<string>): Promise<void> {
-    const opts = this.getOptions();
-    opts.headers['content-type'] = 'application/x-www-form-urlencoded';
-    opts.headers.accept = null;
-    opts.parameters = parameters;
-    return this.http.put(url, opts).then((result) => {
-      if (!result.isSuccess) {
-        throw result;
-      }
-      return;
+    return this.getOptions().then((opts) => {
+        opts.headers['content-type'] = 'application/x-www-form-urlencoded';
+        opts.headers.accept = null;
+        opts.parameters = parameters;
+        return this.http.put(url, opts).then((result) => {
+            if (!result.isSuccess) {
+                throw result;
+            }
+            return;
+        });
     });
   }
 
@@ -439,15 +443,16 @@ export class AlarmDAO extends AbstractDAO<number, OnmsAlarm> {
    * @hidden
    */
   private async httpDelete(url: string, parameters = {} as IHash<string>): Promise<void> {
-      const opts = this.getOptions();
-      opts.headers['content-type'] = 'application/x-www-form-urlencoded';
-      opts.headers.accept = null;
-      opts.parameters = parameters;
-      return this.http.httpDelete(url, opts).then((result) => {
-          if (!result.isSuccess) {
-              throw result;
-          }
-          return;
+      return this.getOptions().then((opts) => {
+          opts.headers['content-type'] = 'application/x-www-form-urlencoded';
+          opts.headers.accept = null;
+          opts.parameters = parameters;
+          return this.http.httpDelete(url, opts).then((result) => {
+              if (!result.isSuccess) {
+                  throw result;
+              }
+              return;
+          });
       });
   }
 

@@ -10,6 +10,8 @@ import {NestedRestriction} from '../api/NestedRestriction';
 import {OnmsError} from '../api/OnmsError';
 import {Operator, Operators} from '../api/Operator';
 import {Clause} from '../api/Clause';
+import {SearchPropertyTypes} from '../api/SearchPropertyType';
+import {ISearchPropertyAccessor} from './ISearchPropertyAccessor';
 
 /**
  * Converts a [[Filter]] into ReSTv2 FIQL parameters.
@@ -26,11 +28,34 @@ export class V2FilterProcessor implements IFilterProcessor {
    */
   public static NULL_DATE = '1970-01-01T00:00:00.000+0000';
 
+  /** The accessor for Properties */
+  private searchPropertyAccessor: ISearchPropertyAccessor;
+
+  constructor(searchPropertyAccessor?: ISearchPropertyAccessor) {
+      this.searchPropertyAccessor = searchPropertyAccessor;
+  }
+
+  /** Given a filter, return a hash of URL parameters. */
+  public getParameters(filter: Filter) {
+      const ret = {} as IHash<string>;
+
+      if (filter.limit !== undefined) {
+          ret.limit = '' + filter.limit;
+      }
+
+      const search = this.toFIQL(filter.clauses);
+      if (search.length > 0) {
+          ret._s = search;
+      }
+
+      return ret;
+  }
+
   /**
    * Given a comparator, convert it to a correspond comparator
    * that can be used in the FIQL expression.
    */
-  private static toFIQLComparator(comparator: Comparator) {
+  private toFIQLComparator(comparator: Comparator) {
     switch (comparator) {
       case Comparators.EQ:
       case Comparators.NULL:
@@ -55,22 +80,25 @@ export class V2FilterProcessor implements IFilterProcessor {
   }
 
   /** Given a restriction, compute the value to use in the FIQL expression. */
-  private static toFIQLValue(restriction: Restriction) {
+  private toFIQLValue(restriction: Restriction) {
     switch (restriction.comparator) {
       case Comparators.NULL:
       case Comparators.NOTNULL:
-        return restriction.value === undefined ? V2FilterProcessor.NULL_VALUE : restriction.value;
+          return restriction.value === undefined ? V2FilterProcessor.NULL_VALUE : restriction.value;
       default:
-        if (Util.isDateObject(restriction.value)) {
-          return Util.toDateString(restriction.value);
-        } else {
-          return restriction.value;
-        }
+          if (restriction.value === 'null' || restriction.value === void 0) {
+              const property = this.searchPropertyAccessor.getProperty(restriction.attribute);
+              if (property && property.type === SearchPropertyTypes.TIMESTAMP) {
+                  return V2FilterProcessor.NULL_DATE;
+              }
+              return V2FilterProcessor.NULL_VALUE;
+          }
+          return this.applyDateConversion(restriction.value);
     }
   }
 
   /** Given an operator, convert it to the corresponding FIQL operator. */
-  private static toFIQLOperator(operator: Operator) {
+  private toFIQLOperator(operator: Operator) {
     switch (operator) {
       case Operators.AND:
         return ';';
@@ -82,39 +110,35 @@ export class V2FilterProcessor implements IFilterProcessor {
   }
 
   /** Given a list of clauses, recursively generate the FIQL query string. */
-  private static toFIQL(clauses: Clause[]) {
+  private toFIQL(clauses: Clause[]) {
     let search = '';
     for (const clause of clauses) {
       if (search.length > 0) {
-        search += V2FilterProcessor.toFIQLOperator(clause.operator);
+        search += this.toFIQLOperator(clause.operator);
       }
 
       if (clause.restriction instanceof NestedRestriction) {
-        search += '(' + V2FilterProcessor.toFIQL(clause.restriction.clauses) + ')';
+        search += '(' + this.toFIQL(clause.restriction.clauses) + ')';
       } else {
         const restriction = clause.restriction as Restriction;
-        const comp = V2FilterProcessor.toFIQLComparator(restriction.comparator);
-        const value = V2FilterProcessor.toFIQLValue(restriction);
+        const comp = this.toFIQLComparator(restriction.comparator);
+        const value = this.toFIQLValue(restriction);
         search += [restriction.attribute, comp, value].join('');
       }
     }
     return search;
   }
 
-  /** Given a filter, return a hash of URL parameters. */
-  public getParameters(filter: Filter) {
-    const ret = {} as IHash<string>;
-
-    if (filter.limit !== undefined) {
-      ret.limit = '' + filter.limit;
-    }
-
-    const search = V2FilterProcessor.toFIQL(filter.clauses);
-    if (search.length > 0) {
-      ret._s = search;
-    }
-
-    return ret;
+ /**
+  * If the given value is a date value, it is converted to be properly parsed by the OpenNMS ReST API,
+  * otherwise it is not modified.
+  *
+  * @param value Any value which may need conversion.
+  */
+  private applyDateConversion(value: any): any {
+      if (Util.isDateObject(value)) {
+          return Util.toDateString(value);
+      }
+      return value;
   }
-
 }

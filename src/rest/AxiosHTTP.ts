@@ -15,6 +15,7 @@ import {OnmsServer} from '../api/OnmsServer';
 
 import {log, catRest} from '../api/Log';
 import {Category} from 'typescript-logging';
+import {Util} from '../internal/Util';
 
 /** @hidden */
 const catAxios = new Category('axios', catRest);
@@ -200,7 +201,7 @@ export class AxiosHTTP extends AbstractHTTP {
     }
 
     if (allOptions.parameters) {
-      ret.params = clonedeep(allOptions.parameters);
+      ret.params = Util.encodeParameters(clonedeep(allOptions.parameters));
     }
 
     if (allOptions.data) {
