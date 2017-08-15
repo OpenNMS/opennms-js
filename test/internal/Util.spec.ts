@@ -58,6 +58,9 @@ describe('Util.isDateObject()', () => {
   it('2017-08-08T12:29:56Z', () => {
     expect(Util.isDateObject('2017-08-08T12:29:56Z')).toEqual(false);
   });
+  it('new Date(0)', () => {
+    expect(Util.isDateObject(new Date(0))).toEqual(true);
+  });
 });
 
 describe('Util.toMoment()', () => {
@@ -99,5 +102,8 @@ describe('Util.toDateString()', () => {
   });
   it('new Date()', () => {
     expect(Util.toDateString(new Date(ARBITRARY_EPOCH))).toEqual(ARBITRARY_STRING);
+  });
+  it('new Date(0)', () => {
+    expect(Util.toDateString(new Date(0))).toEqual('1970-01-01T00:00:00.000+0000');
   });
 });
