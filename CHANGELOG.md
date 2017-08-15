@@ -1,5 +1,5 @@
 <a name="1.0.0-beta.2"></a>
-# [1.0.0-beta.2](https://github.com/OpenNMS/opennms-js/compare/v1.0.0-beta.1...v1.0.0-beta.2) (2017-08-10)
+# [1.0.0-beta.2](https://github.com/OpenNMS/opennms-js/compare/v1.0.0-beta.1...v1.0.0-beta.2) (2017-08-15)
 
 
 ### Bug Fixes
@@ -11,6 +11,7 @@
 
 * **api:** add metadata call to detect ticketer config support ([bf0255b](https://github.com/OpenNMS/opennms-js/commit/bf0255b))
 * **api:** Include ticketer configuration. JS-17 ([2728734](https://github.com/OpenNMS/opennms-js/commit/2728734))
+* **dao:** Add more complex null value handling for v2 (JS-20) ([7817b4a](https://github.com/OpenNMS/opennms-js/commit/7817b4a))
 * **dao:** support dates in query parameters (JS-15) ([d9884b6](https://github.com/OpenNMS/opennms-js/commit/d9884b6))
 * **internal:** add utility methods for dealing with dates ([c40450b](https://github.com/OpenNMS/opennms-js/commit/c40450b))
 

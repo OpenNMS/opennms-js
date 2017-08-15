@@ -99,7 +99,6 @@
 						<section class="tsd-index-section tsd-is-inherited">
 							<h3>Accessors</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited"><a href="alarmdao.html#filterprocessor" class="tsd-kind-icon">filter<wbr>Processor</a></li>
 								<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited"><a href="alarmdao.html#http" class="tsd-kind-icon">http</a></li>
 							</ul>
 						</section>
@@ -118,9 +117,12 @@
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected"><a href="alarmdao.html#getapiversion" class="tsd-kind-icon">get<wbr>Api<wbr>Version</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected"><a href="alarmdao.html#getcount" class="tsd-kind-icon">get<wbr>Count</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="alarmdao.html#getdata" class="tsd-kind-icon">get<wbr>Data</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="alarmdao.html#getfilterprocessor" class="tsd-kind-icon">get<wbr>Filter<wbr>Processor</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="alarmdao.html#getpropertiescache" class="tsd-kind-icon">get<wbr>Properties<wbr>Cache</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="alarmdao.html#savejournalmemo" class="tsd-kind-icon">save<wbr>Journal<wbr>Memo</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="alarmdao.html#savestickymemo" class="tsd-kind-icon">save<wbr>Sticky<wbr>Memo</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="alarmdao.html#searchproperties" class="tsd-kind-icon">search<wbr>Properties</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="alarmdao.html#searchproperty" class="tsd-kind-icon">search<wbr>Property</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-protected"><a href="alarmdao.html#searchpropertypath" class="tsd-kind-icon">search<wbr>Property<wbr>Path</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="alarmdao.html#settticketid" class="tsd-kind-icon">setTTicket<wbr>Id</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="alarmdao.html#settticketstate" class="tsd-kind-icon">setTTicket<wbr>State</a></li>
@@ -147,7 +149,7 @@
 							<aside class="tsd-sources">
 								<p>Overrides <a href="abstractdao.html">AbstractDAO</a>.<a href="abstractdao.html#constructor">constructor</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/b817663/src/dao/AlarmDAO.ts#L36">dao/AlarmDAO.ts:36</a></li>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/2aedd4b/src/dao/AlarmDAO.ts#L36">dao/AlarmDAO.ts:36</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -164,40 +166,6 @@
 			<section class="tsd-panel-group tsd-member-group tsd-is-inherited">
 				<h2>Accessors</h2>
 				<section class="tsd-panel tsd-member tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited">
-					<a name="filterprocessor" class="tsd-anchor"></a>
-					<h3>filter<wbr>Processor</h3>
-					<ul class="tsd-signatures tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited">
-						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> filterProcessor<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../interfaces/ifilterprocessor.html" class="tsd-signature-type">IFilterProcessor</a></li>
-						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">set</span> filterProcessor<span class="tsd-signature-symbol">(</span>impl<span class="tsd-signature-symbol">: </span><a href="../interfaces/ifilterprocessor.html" class="tsd-signature-type">IFilterProcessor</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<p>Inherited from <a href="abstractdao.html">AbstractDAO</a>.<a href="abstractdao.html#filterprocessor">filterProcessor</a></p>
-								<ul>
-									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/b817663/src/dao/AbstractDAO.ts#L70">dao/AbstractDAO.ts:70</a></li>
-								</ul>
-							</aside>
-							<h4 class="tsd-returns-title">Returns <a href="../interfaces/ifilterprocessor.html" class="tsd-signature-type">IFilterProcessor</a></h4>
-						</li>
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<p>Inherited from <a href="abstractdao.html">AbstractDAO</a>.<a href="abstractdao.html#filterprocessor">filterProcessor</a></p>
-								<ul>
-									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/b817663/src/dao/AbstractDAO.ts#L83">dao/AbstractDAO.ts:83</a></li>
-								</ul>
-							</aside>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>impl: <a href="../interfaces/ifilterprocessor.html" class="tsd-signature-type">IFilterProcessor</a></h5>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
-						</li>
-					</ul>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited">
 					<a name="http" class="tsd-anchor"></a>
 					<h3>http</h3>
 					<ul class="tsd-signatures tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited">
@@ -209,7 +177,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="abstractdao.html">AbstractDAO</a>.<a href="abstractdao.html#http">http</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/b817663/src/dao/AbstractDAO.ts#L62">dao/AbstractDAO.ts:62</a></li>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/2aedd4b/src/dao/AbstractDAO.ts#L58">dao/AbstractDAO.ts:58</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -223,7 +191,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="abstractdao.html">AbstractDAO</a>.<a href="abstractdao.html#http">http</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/b817663/src/dao/AbstractDAO.ts#L66">dao/AbstractDAO.ts:66</a></li>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/2aedd4b/src/dao/AbstractDAO.ts#L62">dao/AbstractDAO.ts:62</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -254,7 +222,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/b817663/src/dao/AlarmDAO.ts#L107">dao/AlarmDAO.ts:107</a></li>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/2aedd4b/src/dao/AlarmDAO.ts#L109">dao/AlarmDAO.ts:109</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -294,7 +262,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/b817663/src/dao/AlarmDAO.ts#L149">dao/AlarmDAO.ts:149</a></li>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/2aedd4b/src/dao/AlarmDAO.ts#L151">dao/AlarmDAO.ts:151</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -330,7 +298,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/b817663/src/dao/AlarmDAO.ts#L240">dao/AlarmDAO.ts:240</a></li>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/2aedd4b/src/dao/AlarmDAO.ts#L242">dao/AlarmDAO.ts:242</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -366,7 +334,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/b817663/src/dao/AlarmDAO.ts#L190">dao/AlarmDAO.ts:190</a></li>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/2aedd4b/src/dao/AlarmDAO.ts#L192">dao/AlarmDAO.ts:192</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -402,7 +370,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/b817663/src/dao/AlarmDAO.ts#L301">dao/AlarmDAO.ts:301</a></li>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/2aedd4b/src/dao/AlarmDAO.ts#L303">dao/AlarmDAO.ts:303</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -438,7 +406,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/b817663/src/dao/AlarmDAO.ts#L291">dao/AlarmDAO.ts:291</a></li>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/2aedd4b/src/dao/AlarmDAO.ts#L293">dao/AlarmDAO.ts:293</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -474,7 +442,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/b817663/src/dao/AlarmDAO.ts#L136">dao/AlarmDAO.ts:136</a></li>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/2aedd4b/src/dao/AlarmDAO.ts#L138">dao/AlarmDAO.ts:138</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -511,7 +479,7 @@
 							<aside class="tsd-sources">
 								<p>Overrides <a href="abstractdao.html">AbstractDAO</a>.<a href="abstractdao.html#find">find</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/b817663/src/dao/AlarmDAO.ts#L64">dao/AlarmDAO.ts:64</a></li>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/2aedd4b/src/dao/AlarmDAO.ts#L65">dao/AlarmDAO.ts:65</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -549,7 +517,7 @@
 							<aside class="tsd-sources">
 								<p>Overrides <a href="abstractdao.html">AbstractDAO</a>.<a href="abstractdao.html#get">get</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/b817663/src/dao/AlarmDAO.ts#L50">dao/AlarmDAO.ts:50</a></li>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/2aedd4b/src/dao/AlarmDAO.ts#L50">dao/AlarmDAO.ts:50</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -587,7 +555,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="abstractdao.html">AbstractDAO</a>.<a href="abstractdao.html#getapiversion">getApiVersion</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/b817663/src/dao/AbstractDAO.ts#L221">dao/AbstractDAO.ts:221</a></li>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/2aedd4b/src/dao/AbstractDAO.ts#L250">dao/AbstractDAO.ts:250</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -610,7 +578,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="abstractdao.html">AbstractDAO</a>.<a href="abstractdao.html#getcount">getCount</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/b817663/src/dao/AbstractDAO.ts#L139">dao/AbstractDAO.ts:139</a></li>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/2aedd4b/src/dao/AbstractDAO.ts#L163">dao/AbstractDAO.ts:163</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -639,7 +607,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/b817663/src/dao/AlarmDAO.ts#L80">dao/AlarmDAO.ts:80</a></li>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/2aedd4b/src/dao/AlarmDAO.ts#L82">dao/AlarmDAO.ts:82</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -661,6 +629,53 @@
 						</li>
 					</ul>
 				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+					<a name="getfilterprocessor" class="tsd-anchor"></a>
+					<h3>get<wbr>Filter<wbr>Processor</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Filter<wbr>Processor<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/ifilterprocessor.html" class="tsd-signature-type">IFilterProcessor</a><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Inherited from <a href="abstractdao.html">AbstractDAO</a>.<a href="abstractdao.html#getfilterprocessor">getFilterProcessor</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/2aedd4b/src/dao/AbstractDAO.ts#L70">dao/AbstractDAO.ts:70</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Returns the Promise for a <a href="../interfaces/ifilterprocessor.html">IFilterProcessor</a>.</p>
+								</div>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/ifilterprocessor.html" class="tsd-signature-type">IFilterProcessor</a><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+					<a name="getpropertiescache" class="tsd-anchor"></a>
+					<h3>get<wbr>Properties<wbr>Cache</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Properties<wbr>Cache<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="propertiescache.html" class="tsd-signature-type">PropertiesCache</a><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Inherited from <a href="abstractdao.html">AbstractDAO</a>.<a href="abstractdao.html#getpropertiescache">getPropertiesCache</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/2aedd4b/src/dao/AbstractDAO.ts#L119">dao/AbstractDAO.ts:119</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Returns or creates the <a href="propertiescache.html">PropertiesCache</a> for this dao.</p>
+								</div>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="propertiescache.html" class="tsd-signature-type">PropertiesCache</a><span class="tsd-signature-symbol">&gt;</span></h4>
+							<p>the <a href="propertiescache.html">PropertiesCache</a> for this dao. It is created if it does not exist.</p>
+						</li>
+					</ul>
+				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
 					<a name="savejournalmemo" class="tsd-anchor"></a>
 					<h3>save<wbr>Journal<wbr>Memo</h3>
@@ -671,7 +686,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/b817663/src/dao/AlarmDAO.ts#L281">dao/AlarmDAO.ts:281</a></li>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/2aedd4b/src/dao/AlarmDAO.ts#L283">dao/AlarmDAO.ts:283</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -720,7 +735,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/b817663/src/dao/AlarmDAO.ts#L268">dao/AlarmDAO.ts:268</a></li>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/2aedd4b/src/dao/AlarmDAO.ts#L270">dao/AlarmDAO.ts:270</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -770,7 +785,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="abstractdao.html">AbstractDAO</a>.<a href="abstractdao.html#searchproperties">searchProperties</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/b817663/src/dao/AbstractDAO.ts#L103">dao/AbstractDAO.ts:103</a></li>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/2aedd4b/src/dao/AbstractDAO.ts#L97">dao/AbstractDAO.ts:97</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -787,6 +802,38 @@
 						</li>
 					</ul>
 				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+					<a name="searchproperty" class="tsd-anchor"></a>
+					<h3>search<wbr>Property</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+						<li class="tsd-signature tsd-kind-icon">search<wbr>Property<span class="tsd-signature-symbol">(</span>id<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="searchproperty.html" class="tsd-signature-type">SearchProperty</a><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Inherited from <a href="abstractdao.html">AbstractDAO</a>.<a href="abstractdao.html#searchproperty">searchProperty</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/2aedd4b/src/dao/AbstractDAO.ts#L108">dao/AbstractDAO.ts:108</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Gets the property identified by the id if it exists.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>id: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The id to search the property by.</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="searchproperty.html" class="tsd-signature-type">SearchProperty</a><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-protected">
 					<a name="searchpropertypath" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagProtected">Protected</span> search<wbr>Property<wbr>Path</h3>
@@ -798,7 +845,7 @@
 							<aside class="tsd-sources">
 								<p>Overrides <a href="abstractdao.html">AbstractDAO</a>.<a href="abstractdao.html#searchpropertypath">searchPropertyPath</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/b817663/src/dao/AlarmDAO.ts#L403">dao/AlarmDAO.ts:403</a></li>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/2aedd4b/src/dao/AlarmDAO.ts#L405">dao/AlarmDAO.ts:405</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -820,7 +867,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/b817663/src/dao/AlarmDAO.ts#L163">dao/AlarmDAO.ts:163</a></li>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/2aedd4b/src/dao/AlarmDAO.ts#L165">dao/AlarmDAO.ts:165</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -862,7 +909,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/b817663/src/dao/AlarmDAO.ts#L177">dao/AlarmDAO.ts:177</a></li>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/2aedd4b/src/dao/AlarmDAO.ts#L179">dao/AlarmDAO.ts:179</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -905,7 +952,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="abstractdao.html">AbstractDAO</a>.<a href="abstractdao.html#todate">toDate</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/b817663/src/dao/AbstractDAO.ts#L175">dao/AbstractDAO.ts:175</a></li>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/2aedd4b/src/dao/AbstractDAO.ts#L204">dao/AbstractDAO.ts:204</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -937,7 +984,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="abstractdao.html">AbstractDAO</a>.<a href="abstractdao.html#tonumber">toNumber</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/b817663/src/dao/AbstractDAO.ts#L185">dao/AbstractDAO.ts:185</a></li>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/2aedd4b/src/dao/AbstractDAO.ts#L214">dao/AbstractDAO.ts:214</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -968,7 +1015,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/b817663/src/dao/AlarmDAO.ts#L215">dao/AlarmDAO.ts:215</a></li>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/2aedd4b/src/dao/AlarmDAO.ts#L217">dao/AlarmDAO.ts:217</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1004,7 +1051,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/b817663/src/dao/AlarmDAO.ts#L123">dao/AlarmDAO.ts:123</a></li>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/2aedd4b/src/dao/AlarmDAO.ts#L125">dao/AlarmDAO.ts:125</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1041,7 +1088,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="abstractdao.html">AbstractDAO</a>.<a href="abstractdao.html#usejson">useJson</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/b817663/src/dao/AbstractDAO.ts#L193">dao/AbstractDAO.ts:193</a></li>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/2aedd4b/src/dao/AbstractDAO.ts#L222">dao/AbstractDAO.ts:222</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1072,9 +1119,6 @@
 						<ul>
 							<li class=" tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite">
 								<a href="alarmdao.html#constructor" class="tsd-kind-icon">constructor</a>
-							</li>
-							<li class=" tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited">
-								<a href="alarmdao.html#filterprocessor" class="tsd-kind-icon">filter<wbr>Processor</a>
 							</li>
 							<li class=" tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited">
 								<a href="alarmdao.html#http" class="tsd-kind-icon">http</a>
@@ -1115,6 +1159,12 @@
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="alarmdao.html#getdata" class="tsd-kind-icon">get<wbr>Data</a>
 							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+								<a href="alarmdao.html#getfilterprocessor" class="tsd-kind-icon">get<wbr>Filter<wbr>Processor</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+								<a href="alarmdao.html#getpropertiescache" class="tsd-kind-icon">get<wbr>Properties<wbr>Cache</a>
+							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="alarmdao.html#savejournalmemo" class="tsd-kind-icon">save<wbr>Journal<wbr>Memo</a>
 							</li>
@@ -1123,6 +1173,9 @@
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 								<a href="alarmdao.html#searchproperties" class="tsd-kind-icon">search<wbr>Properties</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+								<a href="alarmdao.html#searchproperty" class="tsd-kind-icon">search<wbr>Property</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-protected">
 								<a href="alarmdao.html#searchpropertypath" class="tsd-kind-icon">search<wbr>Property<wbr>Path</a>

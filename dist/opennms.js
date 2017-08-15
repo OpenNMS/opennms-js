@@ -1906,7 +1906,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
         if (!locales[name] && typeof module !== 'undefined' && module && module.exports) {
             try {
                 oldLocale = globalLocale._abbr;
-                __webpack_require__(267)("./" + name);
+                __webpack_require__(268)("./" + name);
                 // because defineLocale currently also sets the global locale, we
                 // want to undo that for lazy loaded locales
                 getSetGlobalLocale(oldLocale);
@@ -5280,8 +5280,8 @@ function __export(m) {
         if (!exports.hasOwnProperty(p)) exports[p] = m[p];
     }
 }
-var LogGroupControl_1 = __webpack_require__(258);
-var CategoryServiceControl_1 = __webpack_require__(257);
+var LogGroupControl_1 = __webpack_require__(259);
+var CategoryServiceControl_1 = __webpack_require__(258);
 var ExtensionHelper_1 = __webpack_require__(22);
 exports.ExtensionHelper = ExtensionHelper_1.ExtensionHelper;
 // Category related
@@ -5291,7 +5291,7 @@ var CategoryConsoleLoggerImpl_1 = __webpack_require__(197);
 exports.CategoryConsoleLoggerImpl = CategoryConsoleLoggerImpl_1.CategoryConsoleLoggerImpl;
 var CategoryDelegateLoggerImpl_1 = __webpack_require__(198);
 exports.CategoryDelegateLoggerImpl = CategoryDelegateLoggerImpl_1.CategoryDelegateLoggerImpl;
-var CategoryLogger_1 = __webpack_require__(260);
+var CategoryLogger_1 = __webpack_require__(261);
 exports.Category = CategoryLogger_1.Category;
 var CategoryMessageBufferImpl_1 = __webpack_require__(199);
 exports.CategoryMessageBufferLoggerImpl = CategoryMessageBufferImpl_1.CategoryMessageBufferLoggerImpl;
@@ -5299,7 +5299,7 @@ var CategoryService_1 = __webpack_require__(24);
 exports.CategoryDefaultConfiguration = CategoryService_1.CategoryDefaultConfiguration;
 exports.CategoryRuntimeSettings = CategoryService_1.CategoryRuntimeSettings;
 exports.CategoryServiceFactory = CategoryService_1.CategoryServiceFactory;
-var LoggerFactoryService_1 = __webpack_require__(36);
+var LoggerFactoryService_1 = __webpack_require__(37);
 exports.LoggerFactoryOptions = LoggerFactoryService_1.LoggerFactoryOptions;
 exports.LFService = LoggerFactoryService_1.LFService;
 exports.LogGroupRule = LoggerFactoryService_1.LogGroupRule;
@@ -5320,7 +5320,7 @@ exports.LogLevel = LoggerOptions_1.LogLevel;
 var DataStructures_1 = __webpack_require__(8);
 exports.SimpleMap = DataStructures_1.SimpleMap;
 exports.LinkedList = DataStructures_1.LinkedList;
-__export(__webpack_require__(262));
+__export(__webpack_require__(263));
 var MessageUtils_1 = __webpack_require__(26);
 exports.MessageFormatUtils = MessageUtils_1.MessageFormatUtils;
 /*
@@ -5715,6 +5715,118 @@ module.exports = function (module) {
 "use strict";
 
 
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var OnmsError_1 = __webpack_require__(5);
+var ip_address_1 = __webpack_require__(232);
+/** @hidden */
+// tslint:disable-next-line
+var moment = __webpack_require__(0);
+/** @hidden */
+var dateFormat = 'YYYY-MM-DDTHH:mm:ss.SSSZZ';
+/**
+ * A utility class for random stuff.
+ * @module Util
+ */
+
+var Util = function () {
+    function Util() {
+        _classCallCheck(this, Util);
+    }
+
+    _createClass(Util, null, [{
+        key: "toIPAddress",
+
+        /**
+         * Convert an IP address string to an [[Address4]] or [[Address6]] object.
+         */
+        value: function toIPAddress(addr) {
+            if (addr) {
+                if (addr.indexOf(':') >= 0) {
+                    return new ip_address_1.Address6(addr);
+                } else {
+                    return new ip_address_1.Address4(addr);
+                }
+            }
+            return undefined;
+        }
+        /**
+         * Whether or not the passed object is already a date. (Either a [[Moment]] object, or
+         * a JavaScript [[Date]] object.)
+         */
+
+    }, {
+        key: "isDateObject",
+        value: function isDateObject(date) {
+            return moment.isMoment(date) || date instanceof Date;
+        }
+        /**
+         * Create a [[Moment]] from any form of date (JavaScript [[Date]], [[Moment]], or epoch).
+         * [[Moment]] dates in OpenNMS.js will always be converted internally to UTC to avoid time
+         * zone issues.
+         */
+
+    }, {
+        key: "toMoment",
+        value: function toMoment(date) {
+            if (date === undefined || date === null) {
+                return undefined;
+            } else if (moment.isMoment(date)) {
+                return date.utc();
+            } else if (typeof date === 'number' || date instanceof Date || typeof date === 'string' || date instanceof String) {
+                return moment(date).utc();
+            } else {
+                throw new OnmsError_1.OnmsError('Unable to parse type "' + (typeof date === "undefined" ? "undefined" : _typeof(date)) + '" as a date.');
+            }
+        }
+        /**
+         * Create a date string from any form of date (JavaScript [[Date]], [[Moment]], or epoch).
+         * Dates in OpenNMS.js will always be converted internally to UTC before stringifying to
+         * avoid time zone issues.
+         */
+
+    }, {
+        key: "toDateString",
+        value: function toDateString(date) {
+            var ret = Util.toMoment(date);
+            if (ret) {
+                return ret.utc().format(dateFormat);
+            } else {
+                return undefined;
+            }
+        }
+        /**
+         * Encodes the parameters.
+         * @param pramaters the parameters to encode
+         */
+
+    }, {
+        key: "encodeParameters",
+        value: function encodeParameters(pramaters) {
+            Object.keys(pramaters).forEach(function (key, index) {
+                pramaters[key] = encodeURIComponent(pramaters[key]);
+            });
+            return pramaters;
+        }
+    }]);
+
+    return Util;
+}();
+
+exports.Util = Util;
+
+/***/ }),
+/* 11 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -5826,7 +5938,7 @@ var frozen = Object.freeze(Comparators);
 exports.Comparators = frozen;
 
 /***/ }),
-/* 11 */
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5835,7 +5947,7 @@ exports.Comparators = frozen;
 module.exports = __webpack_require__(241);
 
 /***/ }),
-/* 12 */
+/* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6250,7 +6362,7 @@ function compareByGeneratedPositionsInflated(mappingA, mappingB) {
 exports.compareByGeneratedPositionsInflated = compareByGeneratedPositionsInflated;
 
 /***/ }),
-/* 13 */
+/* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6484,105 +6596,6 @@ var __WEBPACK_AMD_DEFINE_RESULT__;
 }();
 
 /***/ }),
-/* 14 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-Object.defineProperty(exports, "__esModule", { value: true });
-var OnmsError_1 = __webpack_require__(5);
-var ip_address_1 = __webpack_require__(232);
-/** @hidden */
-// tslint:disable-next-line
-var moment = __webpack_require__(0);
-/** @hidden */
-var dateFormat = 'YYYY-MM-DDTHH:mm:ss.SSSZZ';
-/**
- * A utility class for random stuff.
- * @module Util
- */
-
-var Util = function () {
-    function Util() {
-        _classCallCheck(this, Util);
-    }
-
-    _createClass(Util, null, [{
-        key: "toIPAddress",
-
-        /**
-         * Convert an IP address string to an [[Address4]] or [[Address6]] object.
-         */
-        value: function toIPAddress(addr) {
-            if (addr) {
-                if (addr.indexOf(':') >= 0) {
-                    return new ip_address_1.Address6(addr);
-                } else {
-                    return new ip_address_1.Address4(addr);
-                }
-            }
-            return undefined;
-        }
-        /**
-         * Whether or not the passed object is already a date. (Either a [[Moment]] object, or
-         * a JavaScript [[Date]] object.)
-         */
-
-    }, {
-        key: "isDateObject",
-        value: function isDateObject(date) {
-            return moment.isMoment(date) || date instanceof Date;
-        }
-        /**
-         * Create a [[Moment]] from any form of date (JavaScript [[Date]], [[Moment]], or epoch).
-         * [[Moment]] dates in OpenNMS.js will always be converted internally to UTC to avoid time
-         * zone issues.
-         */
-
-    }, {
-        key: "toMoment",
-        value: function toMoment(date) {
-            if (date === undefined || date === null) {
-                return undefined;
-            } else if (moment.isMoment(date)) {
-                return date.utc();
-            } else if (typeof date === 'number' || date instanceof Date || typeof date === 'string' || date instanceof String) {
-                return moment(date).utc();
-            } else {
-                throw new OnmsError_1.OnmsError('Unable to parse type "' + (typeof date === "undefined" ? "undefined" : _typeof(date)) + '" as a date.');
-            }
-        }
-        /**
-         * Create a date string from any form of date (JavaScript [[Date]], [[Moment]], or epoch).
-         * Dates in OpenNMS.js will always be converted internally to UTC before stringifying to
-         * avoid time zone issues.
-         */
-
-    }, {
-        key: "toDateString",
-        value: function toDateString(date) {
-            var ret = Util.toMoment(date);
-            if (ret) {
-                return ret.utc().format(dateFormat);
-            } else {
-                return undefined;
-            }
-        }
-    }]);
-
-    return Util;
-}();
-
-exports.Util = Util;
-
-/***/ }),
 /* 15 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -6595,7 +6608,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 Object.defineProperty(exports, "__esModule", { value: true });
 var Operator_1 = __webpack_require__(18);
-var Clause_1 = __webpack_require__(37);
+var Clause_1 = __webpack_require__(38);
 /**
  * Nested query restrictions.
  * @module NestedRestriction
@@ -7621,7 +7634,7 @@ var DataStructures_1 = __webpack_require__(8);
 var LoggerOptions_1 = __webpack_require__(2);
 var CategoryConsoleLoggerImpl_1 = __webpack_require__(197);
 var CategoryDelegateLoggerImpl_1 = __webpack_require__(198);
-var CategoryExtensionLoggerImpl_1 = __webpack_require__(259);
+var CategoryExtensionLoggerImpl_1 = __webpack_require__(260);
 var CategoryMessageBufferImpl_1 = __webpack_require__(199);
 var ExtensionHelper_1 = __webpack_require__(22);
 /**
@@ -8503,7 +8516,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var VersionCompare = __webpack_require__(263);
+var VersionCompare = __webpack_require__(264);
 /**
  * An OpenNMS version.
  * @module OnmsVersion
@@ -8631,7 +8644,84 @@ exports.OnmsVersion = OnmsVersion;
 "use strict";
 
 
-var _regenerator = __webpack_require__(11);
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var OnmsEnum_1 = __webpack_require__(1);
+var Comparator_1 = __webpack_require__(11);
+/**
+ * Represents a search property type.
+ * @module SearchPropertyType
+ */
+
+var SearchPropertyType = function (_OnmsEnum_1$OnmsEnum) {
+    _inherits(SearchPropertyType, _OnmsEnum_1$OnmsEnum);
+
+    _createClass(SearchPropertyType, null, [{
+        key: "forId",
+
+        /** given an ID, return the matching search property type object */
+        value: function forId(id) {
+            return OnmsEnum_1.forId(SearchPropertyTypes, id);
+        }
+    }]);
+
+    function SearchPropertyType(id, label, someComparators) {
+        _classCallCheck(this, SearchPropertyType);
+
+        var _this = _possibleConstructorReturn(this, (SearchPropertyType.__proto__ || Object.getPrototypeOf(SearchPropertyType)).call(this, id, label));
+
+        _this.comparators = someComparators;
+        return _this;
+    }
+    /**
+     * Returns the comparators supported by this type.
+     *
+     * @returns {Comparator[]} the supported comparators.
+     */
+
+
+    _createClass(SearchPropertyType, [{
+        key: "getComparators",
+        value: function getComparators() {
+            return this.comparators;
+        }
+    }]);
+
+    return SearchPropertyType;
+}(OnmsEnum_1.OnmsEnum);
+
+exports.SearchPropertyType = SearchPropertyType;
+/** @hidden */
+var StringComparators = [Comparator_1.Comparators.EQ, Comparator_1.Comparators.NE];
+/** @hidden */
+var NumberComparators = [Comparator_1.Comparators.EQ, Comparator_1.Comparators.NE, Comparator_1.Comparators.GE, Comparator_1.Comparators.GT, Comparator_1.Comparators.LE, Comparator_1.Comparators.LT];
+var SearchPropertyTypes = {
+    FLOAT: new SearchPropertyType('FLOAT', 'floating-point number', NumberComparators),
+    INTEGER: new SearchPropertyType('INTEGER', 'integer', NumberComparators),
+    IP_ADDRESS: new SearchPropertyType('IP_ADDRESS', 'IP address', StringComparators),
+    LONG: new SearchPropertyType('LONG', 'long integer', NumberComparators),
+    STRING: new SearchPropertyType('STRING', 'string', StringComparators),
+    TIMESTAMP: new SearchPropertyType('TIMESTAMP', 'date and time', NumberComparators)
+};
+/** @hidden */
+var frozen = Object.freeze(SearchPropertyTypes);
+exports.SearchPropertyTypes = frozen;
+
+/***/ }),
+/* 29 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _regenerator = __webpack_require__(12);
 
 var _regenerator2 = _interopRequireDefault(_regenerator);
 
@@ -8672,13 +8762,13 @@ var __awaiter = undefined && undefined.__awaiter || function (thisArg, _argument
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var AbstractDAO_1 = __webpack_require__(35);
+var AbstractDAO_1 = __webpack_require__(36);
 var OnmsError_1 = __webpack_require__(5);
-var Util_1 = __webpack_require__(14);
+var Util_1 = __webpack_require__(10);
 var OnmsEvent_1 = __webpack_require__(52);
-var OnmsParm_1 = __webpack_require__(29);
+var OnmsParm_1 = __webpack_require__(30);
 var OnmsServiceType_1 = __webpack_require__(20);
-var OnmsSeverity_1 = __webpack_require__(30);
+var OnmsSeverity_1 = __webpack_require__(31);
 var Log_1 = __webpack_require__(4);
 var typescript_logging_1 = __webpack_require__(6);
 /** @hidden */
@@ -8705,17 +8795,17 @@ var EventDAO = function (_AbstractDAO_1$Abstra) {
             return __awaiter(this, void 0, void 0, _regenerator2.default.mark(function _callee() {
                 var _this2 = this;
 
-                var opts;
                 return _regenerator2.default.wrap(function _callee$(_context) {
                     while (1) {
                         switch (_context.prev = _context.next) {
                             case 0:
-                                opts = this.getOptions();
-                                return _context.abrupt("return", this.http.get(this.pathToEventsEndpoint() + '/' + id, opts).then(function (result) {
-                                    return _this2.fromData(result.data);
+                                return _context.abrupt("return", this.getOptions().then(function (opts) {
+                                    return _this2.http.get(_this2.pathToEventsEndpoint() + '/' + id, opts).then(function (result) {
+                                        return _this2.fromData(result.data);
+                                    });
                                 }));
 
-                            case 2:
+                            case 1:
                             case "end":
                                 return _context.stop();
                         }
@@ -8731,32 +8821,32 @@ var EventDAO = function (_AbstractDAO_1$Abstra) {
             return __awaiter(this, void 0, void 0, _regenerator2.default.mark(function _callee2() {
                 var _this3 = this;
 
-                var opts;
                 return _regenerator2.default.wrap(function _callee2$(_context2) {
                     while (1) {
                         switch (_context2.prev = _context2.next) {
                             case 0:
-                                opts = this.getOptions(filter);
-                                return _context2.abrupt("return", this.http.get(this.pathToEventsEndpoint(), opts).then(function (result) {
-                                    var data = result.data;
-                                    if (data !== null && _this3.getCount(data) > 0 && data.event) {
-                                        data = data.event;
-                                    } else {
-                                        data = [];
-                                    }
-                                    if (!Array.isArray(data)) {
-                                        if (data.id) {
-                                            data = [data];
+                                return _context2.abrupt("return", this.getOptions(filter).then(function (opts) {
+                                    return _this3.http.get(_this3.pathToEventsEndpoint(), opts).then(function (result) {
+                                        var data = result.data;
+                                        if (data !== null && _this3.getCount(data) > 0 && data.event) {
+                                            data = data.event;
                                         } else {
-                                            throw new OnmsError_1.OnmsError('Expected an array of events but got "' + (typeof data === "undefined" ? "undefined" : _typeof(data)) + '" instead.');
+                                            data = [];
                                         }
-                                    }
-                                    return data.map(function (eventData) {
-                                        return _this3.fromData(eventData);
+                                        if (!Array.isArray(data)) {
+                                            if (data.id) {
+                                                data = [data];
+                                            } else {
+                                                throw new OnmsError_1.OnmsError('Expected an array of events but got "' + (typeof data === "undefined" ? "undefined" : _typeof(data)) + '" instead.');
+                                            }
+                                        }
+                                        return data.map(function (eventData) {
+                                            return _this3.fromData(eventData);
+                                        });
                                     });
                                 }));
 
-                            case 2:
+                            case 1:
                             case "end":
                                 return _context2.stop();
                         }
@@ -8854,7 +8944,7 @@ var EventDAO = function (_AbstractDAO_1$Abstra) {
 exports.EventDAO = EventDAO;
 
 /***/ }),
-/* 29 */
+/* 30 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8865,7 +8955,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var Util_1 = __webpack_require__(14);
+var Util_1 = __webpack_require__(10);
 /**
  * Represents an OpenNMS event or alarm parameter.
  * @module OnmsParm
@@ -8917,7 +9007,7 @@ var OnmsParm = function () {
 exports.OnmsParm = OnmsParm;
 
 /***/ }),
-/* 30 */
+/* 31 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8964,7 +9054,7 @@ var frozen = Object.freeze(Severities);
 exports.Severities = frozen;
 
 /***/ }),
-/* 31 */
+/* 32 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9056,7 +9146,7 @@ utils.forEach(['post', 'put', 'patch'], function forEachMethodWithData(method) {
 module.exports = defaults;
 
 /***/ }),
-/* 32 */
+/* 33 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9070,7 +9160,7 @@ exports.RE_ADDRESS = /^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0
 exports.RE_SUBNET_STRING = /\/\d{1,2}$/;
 
 /***/ }),
-/* 33 */
+/* 34 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9157,7 +9247,7 @@ exports.RE_URL = new RegExp(/^\[{0,1}([0-9a-f:]+)\]{0,1}/);
 exports.RE_URL_WITH_PORT = new RegExp(/\[([0-9a-f:]+)\]:([0-9]{1,5})/);
 
 /***/ }),
-/* 34 */
+/* 35 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9279,13 +9369,13 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 });
 
 /***/ }),
-/* 35 */
+/* 36 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var _regenerator = __webpack_require__(11);
+var _regenerator = __webpack_require__(12);
 
 var _regenerator2 = _interopRequireDefault(_regenerator);
 
@@ -9324,11 +9414,12 @@ var __awaiter = undefined && undefined.__awaiter || function (thisArg, _argument
 Object.defineProperty(exports, "__esModule", { value: true });
 var OnmsError_1 = __webpack_require__(5);
 var OnmsHTTPOptions_1 = __webpack_require__(16);
-var SearchProperty_1 = __webpack_require__(40);
-var SearchPropertyType_1 = __webpack_require__(41);
+var SearchProperty_1 = __webpack_require__(41);
+var SearchPropertyType_1 = __webpack_require__(28);
 var Log_1 = __webpack_require__(4);
 var V1FilterProcessor_1 = __webpack_require__(46);
 var V2FilterProcessor_1 = __webpack_require__(47);
+var PropertiesCache_1 = __webpack_require__(254);
 /** @hidden */
 // tslint:disable-next-line
 var moment = __webpack_require__(0);
@@ -9363,46 +9454,29 @@ var AbstractDAO = function () {
 
 
     _createClass(AbstractDAO, [{
-        key: "searchProperties",
+        key: "getFilterProcessor",
 
         /**
-         * Get the list properties that can be used in queries.
-         * @version ReST v2
+         * Returns the Promise for a [[IFilterProcessor]].
+         * @returns {Promise}
          */
-        value: function searchProperties() {
+        value: function getFilterProcessor() {
             return __awaiter(this, void 0, void 0, _regenerator2.default.mark(function _callee() {
-                var _this = this;
-
-                var opts;
                 return _regenerator2.default.wrap(function _callee$(_context) {
                     while (1) {
                         switch (_context.prev = _context.next) {
                             case 0:
-                                if (!(this.getApiVersion() === 1)) {
-                                    _context.next = 2;
-                                    break;
-                                }
+                                _context.t0 = this.getApiVersion();
+                                _context.next = _context.t0 === 2 ? 3 : 4;
+                                break;
 
-                                throw new OnmsError_1.OnmsError('Search property metadata is only available in OpenNMS ' + 'versions that support the ReSTv2 API.');
-
-                            case 2:
-                                opts = this.getOptions();
-
-                                opts.headers.accept = 'application/json';
-                                return _context.abrupt("return", this.http.get(this.searchPropertyPath(), opts).then(function (result) {
-                                    var data = result.data;
-                                    if (_this.getCount(data) > 0 && data.searchProperty) {
-                                        data = data.searchProperty;
-                                    } else {
-                                        data = [];
-                                    }
-                                    if (!Array.isArray(data)) {
-                                        throw new OnmsError_1.OnmsError('Expected an array of search properties but got "' + (typeof data === "undefined" ? "undefined" : _typeof(data)) + '" instead: ' + _this.searchPropertyPath());
-                                    }
-                                    return data.map(function (prop) {
-                                        return _this.toSearchProperty(prop);
-                                    });
+                            case 3:
+                                return _context.abrupt("return", this.getPropertiesCache().then(function (cache) {
+                                    return new V2FilterProcessor_1.V2FilterProcessor(cache);
                                 }));
+
+                            case 4:
+                                return _context.abrupt("return", Promise.resolve(new V1FilterProcessor_1.V1FilterProcessor()));
 
                             case 5:
                             case "end":
@@ -9410,6 +9484,117 @@ var AbstractDAO = function () {
                         }
                     }
                 }, _callee, this);
+            }));
+        }
+        /**
+         * Get the list properties that can be used in queries.
+         * @version ReST v2
+         */
+
+    }, {
+        key: "searchProperties",
+        value: function searchProperties() {
+            return __awaiter(this, void 0, void 0, _regenerator2.default.mark(function _callee2() {
+                return _regenerator2.default.wrap(function _callee2$(_context2) {
+                    while (1) {
+                        switch (_context2.prev = _context2.next) {
+                            case 0:
+                                return _context2.abrupt("return", this.getPropertiesCache().then(function (cache) {
+                                    return cache.getProperties();
+                                }));
+
+                            case 1:
+                            case "end":
+                                return _context2.stop();
+                        }
+                    }
+                }, _callee2, this);
+            }));
+        }
+        /**
+         * Gets the property identified by the id if it exists.
+         *
+         * @param id The id to search the property by.
+         */
+
+    }, {
+        key: "searchProperty",
+        value: function searchProperty(id) {
+            return __awaiter(this, void 0, void 0, _regenerator2.default.mark(function _callee3() {
+                return _regenerator2.default.wrap(function _callee3$(_context3) {
+                    while (1) {
+                        switch (_context3.prev = _context3.next) {
+                            case 0:
+                                return _context3.abrupt("return", this.getPropertiesCache().then(function (cache) {
+                                    return cache.getProperty(id);
+                                }));
+
+                            case 1:
+                            case "end":
+                                return _context3.stop();
+                        }
+                    }
+                }, _callee3, this);
+            }));
+        }
+        /**
+         * Returns or creates the [[PropertiesCache]] for this dao.
+         *
+         * @return the [[PropertiesCache]] for this dao. It is created if it does not exist.
+         */
+
+    }, {
+        key: "getPropertiesCache",
+        value: function getPropertiesCache() {
+            return __awaiter(this, void 0, void 0, _regenerator2.default.mark(function _callee4() {
+                var _this = this;
+
+                return _regenerator2.default.wrap(function _callee4$(_context4) {
+                    while (1) {
+                        switch (_context4.prev = _context4.next) {
+                            case 0:
+                                if (!(this.getApiVersion() === 1)) {
+                                    _context4.next = 2;
+                                    break;
+                                }
+
+                                throw new OnmsError_1.OnmsError('Search property metadata is only available in OpenNMS ' + 'versions that support the ReSTv2 API.');
+
+                            case 2:
+                                if (PropertiesCache_1.PropertiesCache.get(this)) {
+                                    _context4.next = 4;
+                                    break;
+                                }
+
+                                return _context4.abrupt("return", this.getOptions().then(function (opts) {
+                                    opts.headers.accept = 'application/json';
+                                    return _this.http.get(_this.searchPropertyPath(), opts).then(function (result) {
+                                        var data = result.data;
+                                        if (_this.getCount(data) > 0 && data.searchProperty) {
+                                            data = data.searchProperty;
+                                        } else {
+                                            data = [];
+                                        }
+                                        if (!Array.isArray(data)) {
+                                            throw new OnmsError_1.OnmsError('Expected an array of search properties but got "' + (typeof data === "undefined" ? "undefined" : _typeof(data)) + '" instead: ' + _this.searchPropertyPath());
+                                        }
+                                        var searchProperties = data.map(function (prop) {
+                                            return _this.toSearchProperty(prop);
+                                        });
+                                        PropertiesCache_1.PropertiesCache.put(_this, searchProperties);
+                                        return Promise.resolve(PropertiesCache_1.PropertiesCache.get(_this));
+                                    });
+                                }));
+
+                            case 4:
+                                return _context4.abrupt("return", Promise.resolve(PropertiesCache_1.PropertiesCache.get(this)));
+
+                            case 5:
+                            case "end":
+                                return _context4.stop();
+                        }
+                    }
+                }, _callee4, this);
             }));
         }
         /**
@@ -9440,18 +9625,37 @@ var AbstractDAO = function () {
     }, {
         key: "getOptions",
         value: function getOptions(filter) {
-            var ret = new OnmsHTTPOptions_1.OnmsHTTPOptions();
-            if (this.useJson()) {
-                ret.headers.accept = 'application/json';
-            } else {
-                // always use application/xml in DAO calls when we're not sure how
-                // usable JSON output will be.
-                ret.headers.accept = 'application/xml';
-            }
-            if (filter) {
-                ret.parameters = this.filterProcessor.getParameters(filter);
-            }
-            return ret;
+            return __awaiter(this, void 0, void 0, _regenerator2.default.mark(function _callee5() {
+                var _this2 = this;
+
+                return _regenerator2.default.wrap(function _callee5$(_context5) {
+                    while (1) {
+                        switch (_context5.prev = _context5.next) {
+                            case 0:
+                                return _context5.abrupt("return", Promise.resolve(new OnmsHTTPOptions_1.OnmsHTTPOptions()).then(function (options) {
+                                    if (_this2.useJson()) {
+                                        options.headers.accept = 'application/json';
+                                    } else {
+                                        // always use application/xml in DAO calls when we're not sure how
+                                        // usable JSON output will be.
+                                        options.headers.accept = 'application/xml';
+                                    }
+                                    if (filter) {
+                                        return _this2.getFilterProcessor().then(function (processor) {
+                                            options.parameters = processor.getParameters(filter);
+                                            return options;
+                                        });
+                                    }
+                                    return options;
+                                }));
+
+                            case 1:
+                            case "end":
+                                return _context5.stop();
+                        }
+                    }
+                }, _callee5, this);
+            }));
         }
         /**
          * Convert the given value to a date, or undefined if it cannot be converted.
@@ -9526,23 +9730,6 @@ var AbstractDAO = function () {
         set: function set(impl) {
             this.httpImpl = impl;
         }
-    }, {
-        key: "filterProcessor",
-        get: function get() {
-            if (!this.filterProcessorImpl) {
-                switch (this.getApiVersion()) {
-                    case 2:
-                        this.filterProcessorImpl = new V2FilterProcessor_1.V2FilterProcessor();
-                        break;
-                    default:
-                        this.filterProcessorImpl = new V1FilterProcessor_1.V1FilterProcessor();
-                }
-            }
-            return this.filterProcessorImpl;
-        },
-        set: function set(impl) {
-            this.filterProcessorImpl = impl;
-        }
     }]);
 
     return AbstractDAO;
@@ -9551,7 +9738,7 @@ var AbstractDAO = function () {
 exports.AbstractDAO = AbstractDAO;
 
 /***/ }),
-/* 36 */
+/* 37 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9559,7 +9746,7 @@ exports.AbstractDAO = AbstractDAO;
 
 var DataStructures_1 = __webpack_require__(8);
 var LoggerOptions_1 = __webpack_require__(2);
-var LoggerFactoryImpl_1 = __webpack_require__(261);
+var LoggerFactoryImpl_1 = __webpack_require__(262);
 var ExtensionHelper_1 = __webpack_require__(22);
 /**
  * Defines a LogGroupRule, this allows you to either have everything configured the same way
@@ -9881,7 +10068,7 @@ exports.LFService = LFService;
 //# sourceMappingURL=LoggerFactoryService.js.map
 
 /***/ }),
-/* 37 */
+/* 38 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9905,7 +10092,7 @@ var Clause = function Clause(restriction, operator) {
 exports.Clause = Clause;
 
 /***/ }),
-/* 38 */
+/* 39 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9950,7 +10137,7 @@ var OnmsAuthConfig = function () {
 exports.OnmsAuthConfig = OnmsAuthConfig;
 
 /***/ }),
-/* 39 */
+/* 40 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9964,9 +10151,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 /** @hidden */
 // tslint:disable-next-line
 var URI = __webpack_require__(204);
-var OnmsAuthConfig_1 = __webpack_require__(38);
+var OnmsAuthConfig_1 = __webpack_require__(39);
 var ServerType_1 = __webpack_require__(19);
-var UUID_1 = __webpack_require__(254);
+var UUID_1 = __webpack_require__(255);
 /**
  * Represents a remote OpenNMS server.
  * @module OnmsServer
@@ -10068,7 +10255,7 @@ var OnmsServer = function () {
 exports.OnmsServer = OnmsServer;
 
 /***/ }),
-/* 40 */
+/* 41 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10087,83 +10274,6 @@ var SearchProperty = function SearchProperty() {
 };
 
 exports.SearchProperty = SearchProperty;
-
-/***/ }),
-/* 41 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-Object.defineProperty(exports, "__esModule", { value: true });
-var OnmsEnum_1 = __webpack_require__(1);
-var Comparator_1 = __webpack_require__(10);
-/**
- * Represents a search property type.
- * @module SearchPropertyType
- */
-
-var SearchPropertyType = function (_OnmsEnum_1$OnmsEnum) {
-    _inherits(SearchPropertyType, _OnmsEnum_1$OnmsEnum);
-
-    _createClass(SearchPropertyType, null, [{
-        key: "forId",
-
-        /** given an ID, return the matching search property type object */
-        value: function forId(id) {
-            return OnmsEnum_1.forId(SearchPropertyTypes, id);
-        }
-    }]);
-
-    function SearchPropertyType(id, label, someComparators) {
-        _classCallCheck(this, SearchPropertyType);
-
-        var _this = _possibleConstructorReturn(this, (SearchPropertyType.__proto__ || Object.getPrototypeOf(SearchPropertyType)).call(this, id, label));
-
-        _this.comparators = someComparators;
-        return _this;
-    }
-    /**
-     * Returns the comparators supported by this type.
-     *
-     * @returns {Comparator[]} the supported comparators.
-     */
-
-
-    _createClass(SearchPropertyType, [{
-        key: "getComparators",
-        value: function getComparators() {
-            return this.comparators;
-        }
-    }]);
-
-    return SearchPropertyType;
-}(OnmsEnum_1.OnmsEnum);
-
-exports.SearchPropertyType = SearchPropertyType;
-/** @hidden */
-var StringComparators = [Comparator_1.Comparators.EQ, Comparator_1.Comparators.NE];
-/** @hidden */
-var NumberComparators = [Comparator_1.Comparators.EQ, Comparator_1.Comparators.NE, Comparator_1.Comparators.GE, Comparator_1.Comparators.GT, Comparator_1.Comparators.LE, Comparator_1.Comparators.LT];
-var SearchPropertyTypes = {
-    FLOAT: new SearchPropertyType('FLOAT', 'floating-point number', NumberComparators),
-    INTEGER: new SearchPropertyType('INTEGER', 'integer', NumberComparators),
-    IP_ADDRESS: new SearchPropertyType('IP_ADDRESS', 'IP address', StringComparators),
-    LONG: new SearchPropertyType('LONG', 'long integer', NumberComparators),
-    STRING: new SearchPropertyType('STRING', 'string', StringComparators),
-    TIMESTAMP: new SearchPropertyType('TIMESTAMP', 'date and time', NumberComparators)
-};
-/** @hidden */
-var frozen = Object.freeze(SearchPropertyTypes);
-exports.SearchPropertyTypes = frozen;
 
 /***/ }),
 /* 42 */
@@ -10332,7 +10442,7 @@ exports.TicketerConfig = TicketerConfig;
 "use strict";
 
 
-var _regenerator = __webpack_require__(11);
+var _regenerator = __webpack_require__(12);
 
 var _regenerator2 = _interopRequireDefault(_regenerator);
 
@@ -10375,15 +10485,15 @@ var __awaiter = undefined && undefined.__awaiter || function (thisArg, _argument
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var AbstractDAO_1 = __webpack_require__(35);
-var EventDAO_1 = __webpack_require__(28);
+var AbstractDAO_1 = __webpack_require__(36);
+var EventDAO_1 = __webpack_require__(29);
 var OnmsError_1 = __webpack_require__(5);
 var OnmsHTTPOptions_1 = __webpack_require__(16);
 var OnmsAlarm_1 = __webpack_require__(48);
 var OnmsAlarmType_1 = __webpack_require__(49);
-var OnmsParm_1 = __webpack_require__(29);
+var OnmsParm_1 = __webpack_require__(30);
 var OnmsServiceType_1 = __webpack_require__(20);
-var OnmsSeverity_1 = __webpack_require__(30);
+var OnmsSeverity_1 = __webpack_require__(31);
 var OnmsTroubleTicketState_1 = __webpack_require__(64);
 var OnmsMemo_1 = __webpack_require__(55);
 var Log_1 = __webpack_require__(4);
@@ -10421,17 +10531,17 @@ var AlarmDAO = function (_AbstractDAO_1$Abstra) {
             return __awaiter(this, void 0, void 0, _regenerator2.default.mark(function _callee() {
                 var _this2 = this;
 
-                var opts;
                 return _regenerator2.default.wrap(function _callee$(_context) {
                     while (1) {
                         switch (_context.prev = _context.next) {
                             case 0:
-                                opts = this.getOptions();
-                                return _context.abrupt("return", this.http.get(this.pathToAlarmsEndpoint() + '/' + id, opts).then(function (result) {
-                                    return _this2.fromData(result.data);
+                                return _context.abrupt("return", this.getOptions().then(function (opts) {
+                                    return _this2.http.get(_this2.pathToAlarmsEndpoint() + '/' + id, opts).then(function (result) {
+                                        return _this2.fromData(result.data);
+                                    });
                                 }));
 
-                            case 2:
+                            case 1:
                             case "end":
                                 return _context.stop();
                         }
@@ -10453,20 +10563,20 @@ var AlarmDAO = function (_AbstractDAO_1$Abstra) {
             return __awaiter(this, void 0, void 0, _regenerator2.default.mark(function _callee2() {
                 var _this3 = this;
 
-                var opts;
                 return _regenerator2.default.wrap(function _callee2$(_context2) {
                     while (1) {
                         switch (_context2.prev = _context2.next) {
                             case 0:
-                                opts = this.getOptions(filter);
-                                return _context2.abrupt("return", this.http.get(this.pathToAlarmsEndpoint(), opts).then(function (result) {
-                                    var data = _this3.getData(result);
-                                    return data.map(function (alarmData) {
-                                        return _this3.fromData(alarmData);
+                                return _context2.abrupt("return", this.getOptions(filter).then(function (opts) {
+                                    return _this3.http.get(_this3.pathToAlarmsEndpoint(), opts).then(function (result) {
+                                        var data = _this3.getData(result);
+                                        return data.map(function (alarmData) {
+                                            return _this3.fromData(alarmData);
+                                        });
                                     });
                                 }));
 
-                            case 2:
+                            case 1:
                             case "end":
                                 return _context2.stop();
                         }
@@ -11053,12 +11163,33 @@ var AlarmDAO = function (_AbstractDAO_1$Abstra) {
     }, {
         key: "getOptions",
         value: function getOptions(filter) {
-            var options = _get(AlarmDAO.prototype.__proto__ || Object.getPrototypeOf(AlarmDAO.prototype), "getOptions", this).call(this, filter);
-            // always use application/json for v2 calls
-            if (this.getApiVersion() === 2) {
-                options.headers.accept = 'application/json';
-            }
-            return options;
+            var _this7 = this;
+
+            var _super = function _super(name) {
+                return _get(AlarmDAO.prototype.__proto__ || Object.getPrototypeOf(AlarmDAO.prototype), name, _this7);
+            };
+            return __awaiter(this, void 0, void 0, _regenerator2.default.mark(function _callee16() {
+                var _this8 = this;
+
+                return _regenerator2.default.wrap(function _callee16$(_context16) {
+                    while (1) {
+                        switch (_context16.prev = _context16.next) {
+                            case 0:
+                                return _context16.abrupt("return", _super("getOptions").call(this, filter).then(function (options) {
+                                    // always use application/json for v2 calls
+                                    if (_this8.getApiVersion() === 2) {
+                                        options.headers.accept = 'application/json';
+                                    }
+                                    return options;
+                                }));
+
+                            case 1:
+                            case "end":
+                                return _context16.stop();
+                        }
+                    }
+                }, _callee16, this);
+            }));
         }
         /**
          * Call a PUT request in the format the alarm ack API expects.
@@ -11070,30 +11201,31 @@ var AlarmDAO = function (_AbstractDAO_1$Abstra) {
         value: function put(url) {
             var parameters = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
 
-            return __awaiter(this, void 0, void 0, _regenerator2.default.mark(function _callee16() {
-                var opts;
-                return _regenerator2.default.wrap(function _callee16$(_context16) {
-                    while (1) {
-                        switch (_context16.prev = _context16.next) {
-                            case 0:
-                                opts = this.getOptions();
+            return __awaiter(this, void 0, void 0, _regenerator2.default.mark(function _callee17() {
+                var _this9 = this;
 
-                                opts.headers['content-type'] = 'application/x-www-form-urlencoded';
-                                opts.headers.accept = null;
-                                opts.parameters = parameters;
-                                return _context16.abrupt("return", this.http.put(url, opts).then(function (result) {
-                                    if (!result.isSuccess) {
-                                        throw result;
-                                    }
-                                    return;
+                return _regenerator2.default.wrap(function _callee17$(_context17) {
+                    while (1) {
+                        switch (_context17.prev = _context17.next) {
+                            case 0:
+                                return _context17.abrupt("return", this.getOptions().then(function (opts) {
+                                    opts.headers['content-type'] = 'application/x-www-form-urlencoded';
+                                    opts.headers.accept = null;
+                                    opts.parameters = parameters;
+                                    return _this9.http.put(url, opts).then(function (result) {
+                                        if (!result.isSuccess) {
+                                            throw result;
+                                        }
+                                        return;
+                                    });
                                 }));
 
-                            case 5:
+                            case 1:
                             case "end":
-                                return _context16.stop();
+                                return _context17.stop();
                         }
                     }
-                }, _callee16, this);
+                }, _callee17, this);
             }));
         }
         /**
@@ -11106,30 +11238,31 @@ var AlarmDAO = function (_AbstractDAO_1$Abstra) {
         value: function httpDelete(url) {
             var parameters = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
 
-            return __awaiter(this, void 0, void 0, _regenerator2.default.mark(function _callee17() {
-                var opts;
-                return _regenerator2.default.wrap(function _callee17$(_context17) {
-                    while (1) {
-                        switch (_context17.prev = _context17.next) {
-                            case 0:
-                                opts = this.getOptions();
+            return __awaiter(this, void 0, void 0, _regenerator2.default.mark(function _callee18() {
+                var _this10 = this;
 
-                                opts.headers['content-type'] = 'application/x-www-form-urlencoded';
-                                opts.headers.accept = null;
-                                opts.parameters = parameters;
-                                return _context17.abrupt("return", this.http.httpDelete(url, opts).then(function (result) {
-                                    if (!result.isSuccess) {
-                                        throw result;
-                                    }
-                                    return;
+                return _regenerator2.default.wrap(function _callee18$(_context18) {
+                    while (1) {
+                        switch (_context18.prev = _context18.next) {
+                            case 0:
+                                return _context18.abrupt("return", this.getOptions().then(function (opts) {
+                                    opts.headers['content-type'] = 'application/x-www-form-urlencoded';
+                                    opts.headers.accept = null;
+                                    opts.parameters = parameters;
+                                    return _this10.http.httpDelete(url, opts).then(function (result) {
+                                        if (!result.isSuccess) {
+                                            throw result;
+                                        }
+                                        return;
+                                    });
                                 }));
 
-                            case 5:
+                            case 1:
                             case "end":
-                                return _context17.stop();
+                                return _context18.stop();
                         }
                     }
-                }, _callee17, this);
+                }, _callee18, this);
             }));
         }
         /**
@@ -11150,47 +11283,8 @@ var AlarmDAO = function (_AbstractDAO_1$Abstra) {
     }, {
         key: "saveMemo",
         value: function saveMemo(type, alarm, body, user) {
-            return __awaiter(this, void 0, void 0, _regenerator2.default.mark(function _callee18() {
-                var alarmId, parameters;
-                return _regenerator2.default.wrap(function _callee18$(_context18) {
-                    while (1) {
-                        switch (_context18.prev = _context18.next) {
-                            case 0:
-                                if (!(this.getApiVersion() === 1)) {
-                                    _context18.next = 2;
-                                    break;
-                                }
-
-                                throw new OnmsError_1.OnmsError('Save/Delete memo is only available in OpenNMS ' + 'versions that support the ReSTv2 API.');
-
-                            case 2:
-                                alarmId = typeof alarm === 'number' ? alarm : alarm.id;
-                                parameters = {};
-
-                                parameters.body = body;
-                                if (user !== undefined) {
-                                    parameters.user = user;
-                                }
-                                return _context18.abrupt("return", this.put(this.pathToAlarmsEndpoint() + '/' + alarmId + '/' + type, parameters));
-
-                            case 7:
-                            case "end":
-                                return _context18.stop();
-                        }
-                    }
-                }, _callee18, this);
-            }));
-        }
-        /**
-         * Delete a journal or sticky memo
-         * @hidden
-         */
-
-    }, {
-        key: "deleteMemo",
-        value: function deleteMemo(type, alarm) {
             return __awaiter(this, void 0, void 0, _regenerator2.default.mark(function _callee19() {
-                var alarmId;
+                var alarmId, parameters;
                 return _regenerator2.default.wrap(function _callee19$(_context19) {
                     while (1) {
                         switch (_context19.prev = _context19.next) {
@@ -11204,14 +11298,53 @@ var AlarmDAO = function (_AbstractDAO_1$Abstra) {
 
                             case 2:
                                 alarmId = typeof alarm === 'number' ? alarm : alarm.id;
-                                return _context19.abrupt("return", this.httpDelete(this.pathToAlarmsEndpoint() + '/' + alarmId + '/' + type));
+                                parameters = {};
 
-                            case 4:
+                                parameters.body = body;
+                                if (user !== undefined) {
+                                    parameters.user = user;
+                                }
+                                return _context19.abrupt("return", this.put(this.pathToAlarmsEndpoint() + '/' + alarmId + '/' + type, parameters));
+
+                            case 7:
                             case "end":
                                 return _context19.stop();
                         }
                     }
                 }, _callee19, this);
+            }));
+        }
+        /**
+         * Delete a journal or sticky memo
+         * @hidden
+         */
+
+    }, {
+        key: "deleteMemo",
+        value: function deleteMemo(type, alarm) {
+            return __awaiter(this, void 0, void 0, _regenerator2.default.mark(function _callee20() {
+                var alarmId;
+                return _regenerator2.default.wrap(function _callee20$(_context20) {
+                    while (1) {
+                        switch (_context20.prev = _context20.next) {
+                            case 0:
+                                if (!(this.getApiVersion() === 1)) {
+                                    _context20.next = 2;
+                                    break;
+                                }
+
+                                throw new OnmsError_1.OnmsError('Save/Delete memo is only available in OpenNMS ' + 'versions that support the ReSTv2 API.');
+
+                            case 2:
+                                alarmId = typeof alarm === 'number' ? alarm : alarm.id;
+                                return _context20.abrupt("return", this.httpDelete(this.pathToAlarmsEndpoint() + '/' + alarmId + '/' + type));
+
+                            case 4:
+                            case "end":
+                                return _context20.stop();
+                        }
+                    }
+                }, _callee20, this);
             }));
         }
     }]);
@@ -11228,7 +11361,7 @@ exports.AlarmDAO = AlarmDAO;
 "use strict";
 
 
-var _regenerator = __webpack_require__(11);
+var _regenerator = __webpack_require__(12);
 
 var _regenerator2 = _interopRequireDefault(_regenerator);
 
@@ -11269,9 +11402,9 @@ var __awaiter = undefined && undefined.__awaiter || function (thisArg, _argument
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var AbstractDAO_1 = __webpack_require__(35);
+var AbstractDAO_1 = __webpack_require__(36);
 var OnmsError_1 = __webpack_require__(5);
-var Util_1 = __webpack_require__(14);
+var Util_1 = __webpack_require__(10);
 var OnmsCategory_1 = __webpack_require__(50);
 var OnmsCollectType_1 = __webpack_require__(51);
 var OnmsIpInterface_1 = __webpack_require__(53);
@@ -11319,22 +11452,22 @@ var NodeDAO = function (_AbstractDAO_1$Abstra) {
             return __awaiter(this, void 0, void 0, _regenerator2.default.mark(function _callee() {
                 var _this2 = this;
 
-                var opts;
                 return _regenerator2.default.wrap(function _callee$(_context) {
                     while (1) {
                         switch (_context.prev = _context.next) {
                             case 0:
-                                opts = this.getOptions();
-                                return _context.abrupt("return", this.http.get(this.pathToNodesEndpoint() + '/' + id, opts).then(function (result) {
-                                    var node = _this2.fromData(result.data);
-                                    if (recurse) {
-                                        return _this2.fetch(node);
-                                    } else {
-                                        return node;
-                                    }
+                                return _context.abrupt("return", this.getOptions().then(function (opts) {
+                                    return _this2.http.get(_this2.pathToNodesEndpoint() + '/' + id, opts).then(function (result) {
+                                        var node = _this2.fromData(result.data);
+                                        if (recurse) {
+                                            return _this2.fetch(node);
+                                        } else {
+                                            return node;
+                                        }
+                                    });
                                 }));
 
-                            case 2:
+                            case 1:
                             case "end":
                                 return _context.stop();
                         }
@@ -11350,32 +11483,32 @@ var NodeDAO = function (_AbstractDAO_1$Abstra) {
             return __awaiter(this, void 0, void 0, _regenerator2.default.mark(function _callee2() {
                 var _this3 = this;
 
-                var opts;
                 return _regenerator2.default.wrap(function _callee2$(_context2) {
                     while (1) {
                         switch (_context2.prev = _context2.next) {
                             case 0:
-                                opts = this.getOptions(filter);
-                                return _context2.abrupt("return", this.http.get(this.pathToNodesEndpoint(), opts).then(function (result) {
-                                    var data = result.data;
-                                    if (data !== null && _this3.getCount(data) > 0 && data.node) {
-                                        data = data.node;
-                                    } else {
-                                        data = [];
-                                    }
-                                    if (!Array.isArray(data)) {
-                                        if (data.id) {
-                                            data = [data];
+                                return _context2.abrupt("return", this.getOptions(filter).then(function (opts) {
+                                    return _this3.http.get(_this3.pathToNodesEndpoint(), opts).then(function (result) {
+                                        var data = result.data;
+                                        if (data !== null && _this3.getCount(data) > 0 && data.node) {
+                                            data = data.node;
                                         } else {
-                                            throw new OnmsError_1.OnmsError('Expected an array of nodes but got "' + (typeof data === "undefined" ? "undefined" : _typeof(data)) + '" instead.');
+                                            data = [];
                                         }
-                                    }
-                                    return data.map(function (nodeData) {
-                                        return _this3.fromData(nodeData);
+                                        if (!Array.isArray(data)) {
+                                            if (data.id) {
+                                                data = [data];
+                                            } else {
+                                                throw new OnmsError_1.OnmsError('Expected an array of nodes but got "' + (typeof data === "undefined" ? "undefined" : _typeof(data)) + '" instead.');
+                                            }
+                                        }
+                                        return data.map(function (nodeData) {
+                                            return _this3.fromData(nodeData);
+                                        });
                                     });
                                 }));
 
-                            case 2:
+                            case 1:
                             case "end":
                                 return _context2.stop();
                         }
@@ -11435,36 +11568,35 @@ var NodeDAO = function (_AbstractDAO_1$Abstra) {
             return __awaiter(this, void 0, void 0, _regenerator2.default.mark(function _callee4() {
                 var _this5 = this;
 
-                var opts;
                 return _regenerator2.default.wrap(function _callee4$(_context4) {
                     while (1) {
                         switch (_context4.prev = _context4.next) {
                             case 0:
-                                opts = this.getOptions(filter);
-
                                 if (node instanceof OnmsNode_1.OnmsNode) {
                                     node = node.id;
                                 }
-                                return _context4.abrupt("return", this.http.get(this.pathToNodesEndpoint() + '/' + node + '/ipinterfaces', opts).then(function (result) {
-                                    var data = result.data;
-                                    if (_this5.getCount(data) > 0 && data.ipInterface) {
-                                        data = data.ipInterface;
-                                    } else {
-                                        data = [];
-                                    }
-                                    if (!Array.isArray(data)) {
-                                        if (data.nodeId) {
-                                            data = [data];
+                                return _context4.abrupt("return", this.getOptions(filter).then(function (opts) {
+                                    return _this5.http.get(_this5.pathToNodesEndpoint() + '/' + node + '/ipinterfaces', opts).then(function (result) {
+                                        var data = result.data;
+                                        if (_this5.getCount(data) > 0 && data.ipInterface) {
+                                            data = data.ipInterface;
                                         } else {
-                                            throw new OnmsError_1.OnmsError('Expected an array of IP interfaces but got "' + (typeof data === "undefined" ? "undefined" : _typeof(data)) + '" instead.');
+                                            data = [];
                                         }
-                                    }
-                                    return data.map(function (ifaceData) {
-                                        return _this5.fromIpInterfaceData(ifaceData);
+                                        if (!Array.isArray(data)) {
+                                            if (data.nodeId) {
+                                                data = [data];
+                                            } else {
+                                                throw new OnmsError_1.OnmsError('Expected an array of IP interfaces but got "' + (typeof data === "undefined" ? "undefined" : _typeof(data)) + '" instead.');
+                                            }
+                                        }
+                                        return data.map(function (ifaceData) {
+                                            return _this5.fromIpInterfaceData(ifaceData);
+                                        });
                                     });
                                 }));
 
-                            case 3:
+                            case 2:
                             case "end":
                                 return _context4.stop();
                         }
@@ -11480,36 +11612,35 @@ var NodeDAO = function (_AbstractDAO_1$Abstra) {
             return __awaiter(this, void 0, void 0, _regenerator2.default.mark(function _callee5() {
                 var _this6 = this;
 
-                var opts;
                 return _regenerator2.default.wrap(function _callee5$(_context5) {
                     while (1) {
                         switch (_context5.prev = _context5.next) {
                             case 0:
-                                opts = this.getOptions(filter);
-
-                                if (node instanceof OnmsNode_1.OnmsNode) {
-                                    node = node.id;
-                                }
-                                return _context5.abrupt("return", this.http.get(this.pathToNodesEndpoint() + '/' + node + '/snmpinterfaces', opts).then(function (result) {
-                                    var data = result.data;
-                                    if (_this6.getCount(data) > 0 && data.snmpInterface) {
-                                        data = data.snmpInterface;
-                                    } else {
-                                        data = [];
+                                return _context5.abrupt("return", this.getOptions(filter).then(function (opts) {
+                                    if (node instanceof OnmsNode_1.OnmsNode) {
+                                        node = node.id;
                                     }
-                                    if (!Array.isArray(data)) {
-                                        if (data.ifName) {
-                                            data = [data];
+                                    return _this6.http.get(_this6.pathToNodesEndpoint() + '/' + node + '/snmpinterfaces', opts).then(function (result) {
+                                        var data = result.data;
+                                        if (_this6.getCount(data) > 0 && data.snmpInterface) {
+                                            data = data.snmpInterface;
                                         } else {
-                                            throw new OnmsError_1.OnmsError('Expected an array of SNMP interfaces but got "' + (typeof data === "undefined" ? "undefined" : _typeof(data)) + '" instead.');
+                                            data = [];
                                         }
-                                    }
-                                    return data.map(function (ifaceData) {
-                                        return _this6.fromSnmpData(ifaceData);
+                                        if (!Array.isArray(data)) {
+                                            if (data.ifName) {
+                                                data = [data];
+                                            } else {
+                                                throw new OnmsError_1.OnmsError('Expected an array of SNMP interfaces but got "' + (typeof data === "undefined" ? "undefined" : _typeof(data)) + '" instead.');
+                                            }
+                                        }
+                                        return data.map(function (ifaceData) {
+                                            return _this6.fromSnmpData(ifaceData);
+                                        });
                                     });
                                 }));
 
-                            case 3:
+                            case 1:
                             case "end":
                                 return _context5.stop();
                         }
@@ -11525,40 +11656,39 @@ var NodeDAO = function (_AbstractDAO_1$Abstra) {
             return __awaiter(this, void 0, void 0, _regenerator2.default.mark(function _callee6() {
                 var _this7 = this;
 
-                var opts, url;
                 return _regenerator2.default.wrap(function _callee6$(_context6) {
                     while (1) {
                         switch (_context6.prev = _context6.next) {
                             case 0:
-                                opts = this.getOptions(filter);
-
-                                if (node instanceof OnmsNode_1.OnmsNode) {
-                                    node = node.id;
-                                }
-                                if (ipInterface instanceof OnmsIpInterface_1.OnmsIpInterface && ipInterface.ipAddress) {
-                                    ipInterface = ipInterface.ipAddress.address;
-                                }
-                                url = this.pathToNodesEndpoint() + '/' + node + '/ipinterfaces/' + ipInterface + '/services';
-                                return _context6.abrupt("return", this.http.get(url, opts).then(function (result) {
-                                    var data = result.data;
-                                    if (_this7.getCount(data) > 0 && data.service) {
-                                        data = data.service;
-                                    } else {
-                                        data = [];
+                                return _context6.abrupt("return", this.getOptions(filter).then(function (opts) {
+                                    if (node instanceof OnmsNode_1.OnmsNode) {
+                                        node = node.id;
                                     }
-                                    if (!Array.isArray(data)) {
-                                        if (data.lastGood) {
-                                            data = [data];
+                                    if (ipInterface instanceof OnmsIpInterface_1.OnmsIpInterface && ipInterface.ipAddress) {
+                                        ipInterface = ipInterface.ipAddress.address;
+                                    }
+                                    var url = _this7.pathToNodesEndpoint() + '/' + node + '/ipinterfaces/' + ipInterface + '/services';
+                                    return _this7.http.get(url, opts).then(function (result) {
+                                        var data = result.data;
+                                        if (_this7.getCount(data) > 0 && data.service) {
+                                            data = data.service;
                                         } else {
-                                            throw new OnmsError_1.OnmsError('Expected an array of services but got "' + (typeof data === "undefined" ? "undefined" : _typeof(data)) + '" instead.');
+                                            data = [];
                                         }
-                                    }
-                                    return data.map(function (ifaceData) {
-                                        return _this7.fromServiceData(ifaceData);
+                                        if (!Array.isArray(data)) {
+                                            if (data.lastGood) {
+                                                data = [data];
+                                            } else {
+                                                throw new OnmsError_1.OnmsError('Expected an array of services but got "' + (typeof data === "undefined" ? "undefined" : _typeof(data)) + '" instead.');
+                                            }
+                                        }
+                                        return data.map(function (ifaceData) {
+                                            return _this7.fromServiceData(ifaceData);
+                                        });
                                     });
                                 }));
 
-                            case 5:
+                            case 1:
                             case "end":
                                 return _context6.stop();
                         }
@@ -11714,8 +11844,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 Object.defineProperty(exports, "__esModule", { value: true });
 var OnmsEnum_1 = __webpack_require__(1);
-var Util_1 = __webpack_require__(14);
-var Comparator_1 = __webpack_require__(10);
+var Util_1 = __webpack_require__(10);
+var Comparator_1 = __webpack_require__(11);
 var Operator_1 = __webpack_require__(18);
 var OnmsError_1 = __webpack_require__(5);
 var NestedRestriction_1 = __webpack_require__(15);
@@ -11823,43 +11953,46 @@ var _createClass = function () { function defineProperties(target, props) { for 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var Util_1 = __webpack_require__(14);
-var Comparator_1 = __webpack_require__(10);
+var Util_1 = __webpack_require__(10);
+var Comparator_1 = __webpack_require__(11);
 var NestedRestriction_1 = __webpack_require__(15);
 var OnmsError_1 = __webpack_require__(5);
 var Operator_1 = __webpack_require__(18);
+var SearchPropertyType_1 = __webpack_require__(28);
 /**
  * Converts a [[Filter]] into ReSTv2 FIQL parameters.
  * @module V2FilterProcessor
  */
 
 var V2FilterProcessor = function () {
-    function V2FilterProcessor() {
+    function V2FilterProcessor(searchPropertyAccessor) {
         _classCallCheck(this, V2FilterProcessor);
+
+        this.searchPropertyAccessor = searchPropertyAccessor;
     }
+    /** Given a filter, return a hash of URL parameters. */
+
 
     _createClass(V2FilterProcessor, [{
         key: "getParameters",
-
-        /** Given a filter, return a hash of URL parameters. */
         value: function getParameters(filter) {
             var ret = {};
             if (filter.limit !== undefined) {
                 ret.limit = '' + filter.limit;
             }
-            var search = V2FilterProcessor.toFIQL(filter.clauses);
+            var search = this.toFIQL(filter.clauses);
             if (search.length > 0) {
                 ret._s = search;
             }
             return ret;
         }
-    }], [{
-        key: "toFIQLComparator",
-
         /**
          * Given a comparator, convert it to a correspond comparator
          * that can be used in the FIQL expression.
          */
+
+    }, {
+        key: "toFIQLComparator",
         value: function toFIQLComparator(comparator) {
             switch (comparator) {
                 case Comparator_1.Comparators.EQ:
@@ -11893,11 +12026,14 @@ var V2FilterProcessor = function () {
                 case Comparator_1.Comparators.NOTNULL:
                     return restriction.value === undefined ? V2FilterProcessor.NULL_VALUE : restriction.value;
                 default:
-                    if (Util_1.Util.isDateObject(restriction.value)) {
-                        return Util_1.Util.toDateString(restriction.value);
-                    } else {
-                        return restriction.value;
+                    if (restriction.value === 'null' || restriction.value === void 0) {
+                        var property = this.searchPropertyAccessor.getProperty(restriction.attribute);
+                        if (property && property.type === SearchPropertyType_1.SearchPropertyTypes.TIMESTAMP) {
+                            return V2FilterProcessor.NULL_DATE;
+                        }
+                        return V2FilterProcessor.NULL_VALUE;
                     }
+                    return this.applyDateConversion(restriction.value);
             }
         }
         /** Given an operator, convert it to the corresponding FIQL operator. */
@@ -11929,14 +12065,14 @@ var V2FilterProcessor = function () {
                     var clause = _step.value;
 
                     if (search.length > 0) {
-                        search += V2FilterProcessor.toFIQLOperator(clause.operator);
+                        search += this.toFIQLOperator(clause.operator);
                     }
                     if (clause.restriction instanceof NestedRestriction_1.NestedRestriction) {
-                        search += '(' + V2FilterProcessor.toFIQL(clause.restriction.clauses) + ')';
+                        search += '(' + this.toFIQL(clause.restriction.clauses) + ')';
                     } else {
                         var restriction = clause.restriction;
-                        var comp = V2FilterProcessor.toFIQLComparator(restriction.comparator);
-                        var value = V2FilterProcessor.toFIQLValue(restriction);
+                        var comp = this.toFIQLComparator(restriction.comparator);
+                        var value = this.toFIQLValue(restriction);
                         search += [restriction.attribute, comp, value].join('');
                     }
                 }
@@ -11956,6 +12092,21 @@ var V2FilterProcessor = function () {
             }
 
             return search;
+        }
+        /**
+         * If the given value is a date value, it is converted to be properly parsed by the OpenNMS ReST API,
+         * otherwise it is not modified.
+         *
+         * @param value Any value which may need conversion.
+         */
+
+    }, {
+        key: "applyDateConversion",
+        value: function applyDateConversion(value) {
+            if (Util_1.Util.isDateObject(value)) {
+                return Util_1.Util.toDateString(value);
+            }
+            return value;
         }
     }]);
 
@@ -12959,6 +13110,7 @@ var OnmsError_1 = __webpack_require__(5);
 var OnmsResult_1 = __webpack_require__(17);
 var Log_1 = __webpack_require__(4);
 var typescript_logging_1 = __webpack_require__(6);
+var Util_1 = __webpack_require__(10);
 /** @hidden */
 var catAxios = new typescript_logging_1.Category('axios', Log_1.catRest);
 /**
@@ -13131,7 +13283,7 @@ var AxiosHTTP = function (_AbstractHTTP_1$Abstr) {
                 throw new OnmsError_1.OnmsError('Unhandled "Accept" header: ' + type);
             }
             if (allOptions.parameters) {
-                ret.params = clonedeep(allOptions.parameters);
+                ret.params = Util_1.Util.encodeParameters(clonedeep(allOptions.parameters));
             }
             if (allOptions.data) {
                 ret.data = clonedeep(allOptions.data);
@@ -13313,10 +13465,10 @@ var BigInteger = __webpack_require__(74).BigInteger;
 var common = __webpack_require__(71);
 var padStart = __webpack_require__(76);
 var repeat = __webpack_require__(77);
-var sprintf = __webpack_require__(13).sprintf;
+var sprintf = __webpack_require__(14).sprintf;
 var deprecate = __webpack_require__(206);
 
-var constants = __webpack_require__(32);
+var constants = __webpack_require__(33);
 
 /**
  * Represents an IPv4 address
@@ -13582,7 +13734,7 @@ module.exports = Address4;
 "use strict";
 
 
-var sprintf = __webpack_require__(13).sprintf;
+var sprintf = __webpack_require__(14).sprintf;
 
 /**
  * @returns {String} the string with all zeroes contained in a <span>
@@ -29434,7 +29586,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
  * http://opensource.org/licenses/BSD-3-Clause
  */
 
-var util = __webpack_require__(12);
+var util = __webpack_require__(13);
 var has = Object.prototype.hasOwnProperty;
 
 /**
@@ -29691,7 +29843,7 @@ exports.decode = function base64VLQ_decode(aStr, aIndex, aOutParam) {
  */
 
 var base64VLQ = __webpack_require__(194);
-var util = __webpack_require__(12);
+var util = __webpack_require__(13);
 var ArraySet = __webpack_require__(193).ArraySet;
 var MappingList = __webpack_require__(245).MappingList;
 
@@ -30075,8 +30227,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 Object.defineProperty(exports, "__esModule", { value: true });
 var OnmsResult_1 = __webpack_require__(17);
-var XmlTransformer_1 = __webpack_require__(256);
-var JsonTransformer_1 = __webpack_require__(255);
+var XmlTransformer_1 = __webpack_require__(257);
+var JsonTransformer_1 = __webpack_require__(256);
 /** @hidden */
 var xmlTransformer = new XmlTransformer_1.XmlTransformer();
 /** @hidden */
@@ -35202,7 +35354,7 @@ module.exports = __webpack_amd_options__;
 "use strict";
 
 
-var _regenerator = __webpack_require__(11);
+var _regenerator = __webpack_require__(12);
 
 var _regenerator2 = _interopRequireDefault(_regenerator);
 
@@ -35244,10 +35396,10 @@ var OnmsError_1 = __webpack_require__(5);
 var OnmsVersion_1 = __webpack_require__(27);
 var ServerType_1 = __webpack_require__(19);
 var TicketerConfig_1 = __webpack_require__(43);
-var OnmsServer_1 = __webpack_require__(39);
+var OnmsServer_1 = __webpack_require__(40);
 var ServerMetadata_1 = __webpack_require__(42);
 var AlarmDAO_1 = __webpack_require__(44);
-var EventDAO_1 = __webpack_require__(28);
+var EventDAO_1 = __webpack_require__(29);
 var NodeDAO_1 = __webpack_require__(45);
 var AxiosHTTP_1 = __webpack_require__(66);
 /** @hidden */
@@ -35527,7 +35679,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var Comparator_1 = __webpack_require__(10);
+var Comparator_1 = __webpack_require__(11);
 var Log_1 = __webpack_require__(4);
 var namePattern = /^(.*?)\s+(eq|ne|ilike|like|gt|lt|ge|le|null|isnull|notnull)\s+(.*?)$/i;
 var symbolPattern = /^(\w+?)\s*(\=\=|\=|\!\=|\>\=|\<\=|\>|\<)\s*(\w+?)$/;
@@ -35605,6 +35757,7 @@ var OnmsResult_1 = __webpack_require__(17);
 var Log_1 = __webpack_require__(4);
 var typescript_logging_1 = __webpack_require__(6);
 var clonedeep = __webpack_require__(75);
+var Util_1 = __webpack_require__(10);
 /** @hidden */
 var catGrafana = new typescript_logging_1.Category('grafana', Log_1.catRest);
 /**
@@ -35751,7 +35904,7 @@ var GrafanaHTTP = function (_AbstractHTTP_1$Abstr) {
                 throw new OnmsError_1.OnmsError('Unhandled "Accept" header: ' + type);
             }
             if (allOptions.parameters && Object.keys(allOptions.parameters).length > 0) {
-                ret.params = clonedeep(allOptions.parameters);
+                ret.params = Util_1.Util.encodeParameters(clonedeep(allOptions.parameters));
             }
             if (allOptions.data) {
                 ret.data = clonedeep(allOptions.data);
@@ -35784,7 +35937,7 @@ module.exports = __webpack_require__(214);
 var utils = __webpack_require__(3);
 var bind = __webpack_require__(70);
 var Axios = __webpack_require__(216);
-var defaults = __webpack_require__(31);
+var defaults = __webpack_require__(32);
 
 /**
  * Create an instance of Axios
@@ -35902,7 +36055,7 @@ module.exports = CancelToken;
 "use strict";
 
 
-var defaults = __webpack_require__(31);
+var defaults = __webpack_require__(32);
 var utils = __webpack_require__(3);
 var InterceptorManager = __webpack_require__(217);
 var dispatchRequest = __webpack_require__(218);
@@ -36055,7 +36208,7 @@ module.exports = InterceptorManager;
 var utils = __webpack_require__(3);
 var transformData = __webpack_require__(221);
 var isCancel = __webpack_require__(68);
-var defaults = __webpack_require__(31);
+var defaults = __webpack_require__(32);
 
 /**
  * Throws a `Cancel` if cancellation has been requested.
@@ -36581,7 +36734,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
     /* istanbul ignore next */
 
     if (true) {
-        !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(34)], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
+        !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(35)], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
 				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
 				(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
@@ -36798,11 +36951,11 @@ var max = __webpack_require__(239);
 var merge = __webpack_require__(240);
 var padStart = __webpack_require__(76);
 var repeat = __webpack_require__(77);
-var sprintf = __webpack_require__(13).sprintf;
+var sprintf = __webpack_require__(14).sprintf;
 var deprecate = __webpack_require__(206);
 
-var constants4 = __webpack_require__(32);
-var constants6 = __webpack_require__(33);
+var constants4 = __webpack_require__(33);
+var constants6 = __webpack_require__(34);
 
 var Address4 = __webpack_require__(72);
 
@@ -37708,7 +37861,7 @@ module.exports = Address6;
 
 
 var common = __webpack_require__(71);
-var v6 = __webpack_require__(33);
+var v6 = __webpack_require__(34);
 
 /**
  * Returns true if the address is valid, false otherwise
@@ -37818,9 +37971,9 @@ exports.isLoopback = common.falseIfInvalid(function () {
 "use strict";
 
 
-var constants4 = __webpack_require__(32);
+var constants4 = __webpack_require__(33);
 var helpers = __webpack_require__(73);
-var sprintf = __webpack_require__(13).sprintf;
+var sprintf = __webpack_require__(14).sprintf;
 
 /**
  * @returns {String} the address in link form with a default port of 80
@@ -37923,9 +38076,9 @@ exports.group = function () {
 "use strict";
 
 
-var sprintf = __webpack_require__(13).sprintf;
+var sprintf = __webpack_require__(14).sprintf;
 
-var v6 = __webpack_require__(33);
+var v6 = __webpack_require__(34);
 
 function groupPossibilities(possibilities) {
   return sprintf('(%s)', possibilities.join('|'));
@@ -43787,7 +43940,7 @@ exports.search = function search(aNeedle, aHaystack, aCompare, aBias) {
  * http://opensource.org/licenses/BSD-3-Clause
  */
 
-var util = __webpack_require__(12);
+var util = __webpack_require__(13);
 
 /**
  * Determine whether mappingB is after mappingA with respect to generated
@@ -43994,7 +44147,7 @@ exports.quickSort = function (ary, comparator) {
  * http://opensource.org/licenses/BSD-3-Clause
  */
 
-var util = __webpack_require__(12);
+var util = __webpack_require__(13);
 var binarySearch = __webpack_require__(244);
 var ArraySet = __webpack_require__(193).ArraySet;
 var base64VLQ = __webpack_require__(194);
@@ -45017,7 +45170,7 @@ exports.IndexedSourceMapConsumer = IndexedSourceMapConsumer;
  */
 
 var SourceMapGenerator = __webpack_require__(195).SourceMapGenerator;
-var util = __webpack_require__(12);
+var util = __webpack_require__(13);
 
 // Matches a Windows-style `\r\n` newline or a `\n` newline used by all other
 // operating systems these days (capturing the result).
@@ -45423,7 +45576,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
     /* istanbul ignore next */
 
     if (true) {
-        !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(34)], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
+        !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(35)], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
 				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
 				(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
@@ -45482,7 +45635,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
     /* istanbul ignore next */
 
     if (true) {
-        !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(249), __webpack_require__(34)], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
+        !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(249), __webpack_require__(35)], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
 				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
 				(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
@@ -46000,25 +46153,25 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var Clause_1 = __webpack_require__(37);
-var Comparator_1 = __webpack_require__(10);
+var Clause_1 = __webpack_require__(38);
+var Comparator_1 = __webpack_require__(11);
 var Filter_1 = __webpack_require__(210);
 var NestedRestriction_1 = __webpack_require__(15);
-var OnmsAuthConfig_1 = __webpack_require__(38);
+var OnmsAuthConfig_1 = __webpack_require__(39);
 var OnmsError_1 = __webpack_require__(5);
 var OnmsHTTPOptions_1 = __webpack_require__(16);
 var OnmsResult_1 = __webpack_require__(17);
-var OnmsServer_1 = __webpack_require__(39);
+var OnmsServer_1 = __webpack_require__(40);
 var OnmsVersion_1 = __webpack_require__(27);
 var Operator_1 = __webpack_require__(18);
 var Restriction_1 = __webpack_require__(211);
-var SearchProperty_1 = __webpack_require__(40);
-var SearchPropertyType_1 = __webpack_require__(41);
+var SearchProperty_1 = __webpack_require__(41);
+var SearchPropertyType_1 = __webpack_require__(28);
 var ServerMetadata_1 = __webpack_require__(42);
 var ServerType_1 = __webpack_require__(19);
 var TicketerConfig_1 = __webpack_require__(43);
 var AlarmDAO_1 = __webpack_require__(44);
-var EventDAO_1 = __webpack_require__(28);
+var EventDAO_1 = __webpack_require__(29);
 var NodeDAO_1 = __webpack_require__(45);
 var V1FilterProcessor_1 = __webpack_require__(46);
 var V2FilterProcessor_1 = __webpack_require__(47);
@@ -46034,11 +46187,11 @@ var OnmsMonitoredService_1 = __webpack_require__(56);
 var OnmsNode_1 = __webpack_require__(57);
 var OnmsNodeLabelSource_1 = __webpack_require__(58);
 var OnmsNodeType_1 = __webpack_require__(59);
-var OnmsParm_1 = __webpack_require__(29);
+var OnmsParm_1 = __webpack_require__(30);
 var OnmsPrimaryType_1 = __webpack_require__(60);
 var OnmsServiceStatusType_1 = __webpack_require__(61);
 var OnmsServiceType_1 = __webpack_require__(20);
-var OnmsSeverity_1 = __webpack_require__(30);
+var OnmsSeverity_1 = __webpack_require__(31);
 var OnmsSnmpInterface_1 = __webpack_require__(62);
 var OnmsSnmpStatusType_1 = __webpack_require__(63);
 var OnmsTroubleTicketState_1 = __webpack_require__(64);
@@ -46135,6 +46288,90 @@ exports.Rest = Rest;
 
 "use strict";
 
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+Object.defineProperty(exports, "__esModule", { value: true });
+/**
+ * The Properties Cache persists all properties for each [[AbstractDAO]].
+ */
+
+var PropertiesCache = function () {
+    function PropertiesCache(properties) {
+        _classCallCheck(this, PropertiesCache);
+
+        this.properties = properties;
+    }
+    /**
+     * Returns the cache for the given dao if exists.
+     *
+     * @param {AbstractDAO<any, any>} dao The dao to get the cache for.
+     * @returns {any} The cache if it exists.
+     */
+
+
+    _createClass(PropertiesCache, [{
+        key: "getProperty",
+
+        /**
+         * Returns the property identified by id, if it exists.
+         * @param {string} id The property id to find the property for.
+         * @returns {SearchProperty} The property
+         */
+        value: function getProperty(id) {
+            var result = this.getProperties().find(function (property) {
+                return property.id === id;
+            });
+            return result;
+        }
+        /**
+         * Returns all existing properties in the cache.
+         *
+         * @returns {SearchProperty[]} All existing properties in the cache.
+         */
+
+    }, {
+        key: "getProperties",
+        value: function getProperties() {
+            return this.properties;
+        }
+    }], [{
+        key: "get",
+        value: function get(dao) {
+            var className = dao.constructor.name;
+            return this.caches[className];
+        }
+        /**
+         * Stores the search properties for the given dao.
+         *
+         * @param {AbstractDAO<any, any>} dao The dao to persist the properties for.
+         * @param {SearchProperty[]} searchProperties The properties to persist.
+         */
+
+    }, {
+        key: "put",
+        value: function put(dao, searchProperties) {
+            var className = dao.constructor.name;
+            this.caches[className] = new PropertiesCache(searchProperties);
+        }
+    }]);
+
+    return PropertiesCache;
+}();
+/** The cache persistence. */
+
+
+PropertiesCache.caches = new Map();
+exports.PropertiesCache = PropertiesCache;
+
+/***/ }),
+/* 255 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
 // http://stackoverflow.com/a/8809472
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -46178,7 +46415,7 @@ var UUID = function () {
 exports.UUID = UUID;
 
 /***/ }),
-/* 255 */
+/* 256 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -46225,7 +46462,7 @@ var JsonTransformer = function () {
 exports.JsonTransformer = JsonTransformer;
 
 /***/ }),
-/* 256 */
+/* 257 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -46240,12 +46477,12 @@ if (global && !global.window) {
     global.window = {};
     if (!global.window.DOMParser) {
         // tslint:disable-next-line
-        global.window.DOMParser = __webpack_require__(265).DOMParser;
+        global.window.DOMParser = __webpack_require__(266).DOMParser;
     }
 }
 /** @hidden */
 // tslint:disable-next-line
-var X2JS = __webpack_require__(264);
+var X2JS = __webpack_require__(265);
 /** @hidden */
 var xmlParser = new X2JS({
     arrayAccessForm: 'property',
@@ -46285,7 +46522,7 @@ exports.XmlTransformer = XmlTransformer;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(7)))
 
 /***/ }),
-/* 257 */
+/* 258 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -46457,14 +46694,14 @@ exports.CategoryServiceControlImpl = CategoryServiceControlImpl;
 //# sourceMappingURL=CategoryServiceControl.js.map
 
 /***/ }),
-/* 258 */
+/* 259 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 var LoggerOptions_1 = __webpack_require__(2);
-var LoggerFactoryService_1 = __webpack_require__(36);
+var LoggerFactoryService_1 = __webpack_require__(37);
 var DataStructures_1 = __webpack_require__(8);
 var LoggerControlImpl = function () {
     function LoggerControlImpl() {}
@@ -46673,7 +46910,7 @@ LoggerFactoryControlImpl._example = "\n  Examples:\n    change({group: \"all\", 
 //# sourceMappingURL=LogGroupControl.js.map
 
 /***/ }),
-/* 259 */
+/* 260 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -46711,7 +46948,7 @@ exports.CategoryExtensionLoggerImpl = CategoryExtensionLoggerImpl;
 //# sourceMappingURL=CategoryExtensionLoggerImpl.js.map
 
 /***/ }),
-/* 260 */
+/* 261 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -46802,7 +47039,7 @@ exports.Category = Category;
 //# sourceMappingURL=CategoryLogger.js.map
 
 /***/ }),
-/* 261 */
+/* 262 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -46810,7 +47047,7 @@ exports.Category = Category;
 
 var DataStructures_1 = __webpack_require__(8);
 var LoggerOptions_1 = __webpack_require__(2);
-var LoggerFactoryService_1 = __webpack_require__(36);
+var LoggerFactoryService_1 = __webpack_require__(37);
 var ConsoleLoggerImpl_1 = __webpack_require__(200);
 var MessageBufferLoggerImpl_1 = __webpack_require__(201);
 var AbstractLogger_1 = __webpack_require__(25);
@@ -46912,7 +47149,7 @@ exports.LoggerFactoryImpl = LoggerFactoryImpl;
 //# sourceMappingURL=LoggerFactoryImpl.js.map
 
 /***/ }),
-/* 262 */
+/* 263 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -47188,7 +47425,7 @@ exports.JSONHelper = JSONHelper;
 //# sourceMappingURL=JSONHelper.js.map
 
 /***/ }),
-/* 263 */
+/* 264 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -47314,7 +47551,7 @@ exports.JSONHelper = JSONHelper;
 })( false ? undefined.VersionCompare = {} : exports);
 
 /***/ }),
-/* 264 */
+/* 265 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -48009,7 +48246,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 });
 
 /***/ }),
-/* 265 */
+/* 266 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -48262,14 +48499,14 @@ function appendElement(hander, node) {
 } //appendChild and setAttributeNS are preformance key
 
 //if(typeof require == 'function'){
-var XMLReader = __webpack_require__(266).XMLReader;
+var XMLReader = __webpack_require__(267).XMLReader;
 var DOMImplementation = exports.DOMImplementation = __webpack_require__(207).DOMImplementation;
 exports.XMLSerializer = __webpack_require__(207).XMLSerializer;
 exports.DOMParser = DOMParser;
 //}
 
 /***/ }),
-/* 266 */
+/* 267 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -48919,7 +49156,7 @@ function split(source, start) {
 exports.XMLReader = XMLReader;
 
 /***/ }),
-/* 267 */
+/* 268 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var map = {
@@ -49168,7 +49405,7 @@ webpackContext.keys = function webpackContextKeys() {
 };
 webpackContext.resolve = webpackContextResolve;
 module.exports = webpackContext;
-webpackContext.id = 267;
+webpackContext.id = 268;
 
 /***/ })
 /******/ ]);
