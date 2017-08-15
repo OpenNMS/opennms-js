@@ -44,41 +44,42 @@ export class NodeDAO extends AbstractDAO<number, OnmsNode> {
    * @param recurse - Optionally fetch all sub-model objects. (ipInterface, etc.)
    */
   public async get(id: number, recurse = false): Promise<OnmsNode> {
-    const opts = this.getOptions();
+    return this.getOptions().then((opts) => {
+        return this.http.get(this.pathToNodesEndpoint() + '/' + id, opts).then((result) => {
+            const node = this.fromData(result.data);
 
-    return this.http.get(this.pathToNodesEndpoint() + '/' + id, opts).then((result) => {
-      const node = this.fromData(result.data);
-
-      if (recurse) {
-        return this.fetch(node);
-      } else {
-        return node;
-      }
+            if (recurse) {
+                return this.fetch(node);
+            } else {
+                return node;
+            }
+        });
     });
   }
 
   /** Search for nodes, given an optional filter. */
   public async find(filter?: Filter): Promise<OnmsNode[]> {
-    const opts = this.getOptions(filter);
-    return this.http.get(this.pathToNodesEndpoint(), opts).then((result) => {
-      let data = result.data;
+    return this.getOptions(filter).then((opts) => {
+        return this.http.get(this.pathToNodesEndpoint(), opts).then((result) => {
+            let data = result.data;
 
-      if (data !== null && this.getCount(data) > 0 && data.node) {
-        data = data.node;
-      } else {
-        data = [];
-      }
+            if (data !== null && this.getCount(data) > 0 && data.node) {
+                data = data.node;
+            } else {
+                data = [];
+            }
 
-      if (!Array.isArray(data)) {
-        if (data.id) {
-          data = [data];
-        } else {
-          throw new OnmsError('Expected an array of nodes but got "' + (typeof data) + '" instead.');
-        }
-      }
-      return data.map((nodeData) => {
-        return this.fromData(nodeData);
-      });
+            if (!Array.isArray(data)) {
+                if (data.id) {
+                    data = [data];
+                } else {
+                    throw new OnmsError('Expected an array of nodes but got "' + (typeof data) + '" instead.');
+                }
+            }
+            return data.map((nodeData) => {
+                return this.fromData(nodeData);
+            });
+        });
     });
   }
 
@@ -111,57 +112,60 @@ export class NodeDAO extends AbstractDAO<number, OnmsNode> {
 
   /** Given a node, get the IP interfaces for that node. */
   public async ipInterfaces(node: number | OnmsNode, filter?: Filter): Promise<OnmsIpInterface[]> {
-    const opts = this.getOptions(filter);
-    if (node instanceof OnmsNode) {
-      node = node.id;
-    }
-    return this.http.get(this.pathToNodesEndpoint() + '/' + node + '/ipinterfaces', opts).then((result) => {
-      let data = result.data;
-
-      if (this.getCount(data) > 0 && data.ipInterface) {
-        data = data.ipInterface;
-      } else {
-        data = [];
+      if (node instanceof OnmsNode) {
+          node = node.id;
       }
+      return this.getOptions(filter).then((opts) => {
+        return this.http.get(this.pathToNodesEndpoint() + '/' + node + '/ipinterfaces', opts).then((result) => {
+            let data = result.data;
 
-      if (!Array.isArray(data)) {
-        if (data.nodeId) {
-          data = [data];
-        } else {
-          throw new OnmsError('Expected an array of IP interfaces but got "' + (typeof data) + '" instead.');
-        }
-      }
-      return data.map((ifaceData) => {
-        return this.fromIpInterfaceData(ifaceData);
-      });
+            if (this.getCount(data) > 0 && data.ipInterface) {
+                data = data.ipInterface;
+            } else {
+                data = [];
+            }
+
+            if (!Array.isArray(data)) {
+                if (data.nodeId) {
+                    data = [data];
+                } else {
+                    throw new OnmsError('Expected an array of IP interfaces but got "' + (typeof data) + '" instead.');
+                }
+            }
+            return data.map((ifaceData) => {
+                return this.fromIpInterfaceData(ifaceData);
+            });
+        });
     });
   }
 
   /** Given a node, get the SNMP interfaces for that node. */
   public async snmpInterfaces(node: number | OnmsNode, filter?: Filter): Promise<OnmsSnmpInterface[]> {
-    const opts = this.getOptions(filter);
-    if (node instanceof OnmsNode) {
-      node = node.id;
-    }
-    return this.http.get(this.pathToNodesEndpoint() + '/' + node + '/snmpinterfaces', opts).then((result) => {
-      let data = result.data;
-
-      if (this.getCount(data) > 0 && data.snmpInterface) {
-        data = data.snmpInterface;
-      } else {
-        data = [];
-      }
-
-      if (!Array.isArray(data)) {
-        if (data.ifName) {
-          data = [data];
-        } else {
-          throw new OnmsError('Expected an array of SNMP interfaces but got "' + (typeof data) + '" instead.');
+    return this.getOptions(filter).then((opts) => {
+        if (node instanceof OnmsNode) {
+            node = node.id;
         }
-      }
-      return data.map((ifaceData) => {
-        return this.fromSnmpData(ifaceData);
-      });
+        return this.http.get(this.pathToNodesEndpoint() + '/' + node + '/snmpinterfaces', opts).then((result) => {
+            let data = result.data;
+
+            if (this.getCount(data) > 0 && data.snmpInterface) {
+                data = data.snmpInterface;
+            } else {
+                data = [];
+            }
+
+            if (!Array.isArray(data)) {
+                if (data.ifName) {
+                    data = [data];
+                } else {
+                    throw new OnmsError('Expected an array of SNMP interfaces but got "'
+                        + (typeof data) + '" instead.');
+                }
+            }
+            return data.map((ifaceData) => {
+                return this.fromSnmpData(ifaceData);
+            });
+        });
     });
   }
 
@@ -172,33 +176,34 @@ export class NodeDAO extends AbstractDAO<number, OnmsNode> {
     filter?: Filter,
   ): Promise<OnmsMonitoredService[]> {
 
-    const opts = this.getOptions(filter);
-    if (node instanceof OnmsNode) {
-      node = node.id;
-    }
-    if (ipInterface instanceof OnmsIpInterface && ipInterface.ipAddress) {
-      ipInterface = ipInterface.ipAddress.address;
-    }
-    const url = this.pathToNodesEndpoint() + '/' + node + '/ipinterfaces/' + ipInterface + '/services';
-    return this.http.get(url, opts).then((result) => {
-      let data = result.data;
-
-      if (this.getCount(data) > 0 && data.service) {
-        data = data.service;
-      } else {
-        data = [];
-      }
-
-      if (!Array.isArray(data)) {
-        if (data.lastGood) {
-          data = [data];
-        } else {
-          throw new OnmsError('Expected an array of services but got "' + (typeof data) + '" instead.');
+    return this.getOptions(filter).then((opts) => {
+        if (node instanceof OnmsNode) {
+            node = node.id;
         }
-      }
-      return data.map((ifaceData) => {
-        return this.fromServiceData(ifaceData);
-      });
+        if (ipInterface instanceof OnmsIpInterface && ipInterface.ipAddress) {
+            ipInterface = ipInterface.ipAddress.address;
+        }
+        const url = this.pathToNodesEndpoint() + '/' + node + '/ipinterfaces/' + ipInterface + '/services';
+        return this.http.get(url, opts).then((result) => {
+            let data = result.data;
+
+            if (this.getCount(data) > 0 && data.service) {
+                data = data.service;
+            } else {
+                data = [];
+            }
+
+            if (!Array.isArray(data)) {
+                if (data.lastGood) {
+                    data = [data];
+                } else {
+                    throw new OnmsError('Expected an array of services but got "' + (typeof data) + '" instead.');
+                }
+            }
+            return data.map((ifaceData) => {
+                return this.fromServiceData(ifaceData);
+            });
+        });
     });
   }
 
