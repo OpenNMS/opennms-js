@@ -149,7 +149,7 @@ export class GrafanaHTTP extends AbstractHTTP {
     }
 
     if (allOptions.parameters && Object.keys(allOptions.parameters).length > 0) {
-      ret.params = Util.encodeParameters(clonedeep(allOptions.parameters));
+      ret.params = clonedeep(allOptions.parameters);
     }
 
     if (allOptions.data) {

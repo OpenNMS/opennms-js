@@ -10,7 +10,7 @@ import {Moment} from 'moment';
 const moment = require('moment');
 
 /** @hidden */
-const ARBITRARY_STRING = '2017-08-08T12:29:56.000+0000';
+const ARBITRARY_STRING = '2017-08-08T12:29:56.000-0000';
 
 /** @hidden */
 const ARBITRARY_EPOCH = 1502195396000;
@@ -95,15 +95,15 @@ describe('Util.toDateString()', () => {
     expect(Util.toDateString(null)).toBeUndefined();
   });
   it('moment(0)', () => {
-    expect(Util.toDateString(moment(0))).toEqual('1970-01-01T00:00:00.000+0000');
+    expect(Util.toDateString(moment(0))).toEqual('1970-01-01T00:00:00.000-0000');
   });
   it('0', () => {
-    expect(Util.toDateString(0)).toEqual('1970-01-01T00:00:00.000+0000');
+    expect(Util.toDateString(0)).toEqual('1970-01-01T00:00:00.000-0000');
   });
   it('new Date()', () => {
     expect(Util.toDateString(new Date(ARBITRARY_EPOCH))).toEqual(ARBITRARY_STRING);
   });
   it('new Date(0)', () => {
-    expect(Util.toDateString(new Date(0))).toEqual('1970-01-01T00:00:00.000+0000');
+    expect(Util.toDateString(new Date(0))).toEqual('1970-01-01T00:00:00.000-0000');
   });
 });
