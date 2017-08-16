@@ -69,6 +69,12 @@ describe('AlarmDAO with v1 API', () => {
       return dao[method](alarm);
     });
   }
+  it('AlarmDAO.acknowledge(id=404725, user=ranger)', () => {
+    return dao.acknowledge(404725, 'ranger');
+  });
+  it('AlarmDAO.unacknowledge(id=404725, user=ranger)', () => {
+    return dao.unacknowledge(404725, 'ranger');
+  });
 
   it('AlarmDAO.setTTicketId(alarmId=404725, ticketId=abcde)', () => {
     return dao.setTTicketId(404725, 'abcde');
@@ -199,6 +205,12 @@ describe('AlarmDAO with v2 API', () => {
       return dao[method](alarm);
     });
   }
+  it('AlarmDAO.acknowledge(id=404725, user=ranger)', () => {
+    return dao.acknowledge(404725, 'ranger');
+  });
+  it('AlarmDAO.unacknowledge(id=404725, user=ranger)', () => {
+    return dao.unacknowledge(404725, 'ranger');
+  });
 
   it('AlarmDAO.setTTicketId(alarmId=404725, ticketId=abcde)', () => {
     return dao.setTTicketId(404725, 'abcde');

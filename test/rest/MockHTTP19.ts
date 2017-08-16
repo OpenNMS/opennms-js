@@ -87,6 +87,11 @@ export class MockHTTP19 extends AbstractHTTP {
         result.type = 'text/plain';
         return Promise.resolve(result);
       }
+      case 'rest/alarms/404725?ack=false&ackUser=ranger': {
+        const result = OnmsResult.ok('');
+        result.type = 'text/plain';
+        return Promise.resolve(result);
+      }
       case 'rest/alarms/404725?ack=false': {
         const result = OnmsResult.ok('');
         result.type = 'text/plain';
