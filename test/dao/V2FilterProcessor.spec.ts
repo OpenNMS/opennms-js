@@ -48,7 +48,7 @@ describe('V2FilterProcessor', () => {
     const filter = new Filter();
     filter.withOrRestriction(new Restriction('id', Comparators.NOTNULL));
     filter.withOrRestriction(new Restriction('ackTime', Comparators.NULL, V2FilterProcessor.NULL_DATE));
-    expect(toSearch(filter)).toEqual('id!=\u0000,ackTime==1970-01-01T00:00:00.000+0000');
+    expect(toSearch(filter)).toEqual('id!=\u0000,ackTime==1970-01-01T00:00:00.000-0000');
   });
   it('alarm filter: id=notnull OR severity="MINOR"', () => {
     const filter = new Filter();
@@ -95,14 +95,14 @@ describe('V2FilterProcessor', () => {
         );
     expect(toSearch(filter)).toEqual('id!=0;(severity==5,uei==*somethingWentWrong)');
   });
-  it('alarm filter: lastEventTime=1976-04-14T00:00:00.000+0000', () => {
-      const filter = new Filter();
-      filter.withAndRestriction(new Restriction('lastEventTime', Comparators.EQ, new Date(198288000000)));
-      expect(toSearch(filter)).toEqual('lastEventTime==1976-04-14T00:00:00.000+0000');
+  it('alarm filter: lastEventTime=1976-04-14T00:00:00.000-0000', () => {
+    const filter = new Filter();
+    filter.withAndRestriction(new Restriction('lastEventTime', Comparators.EQ, new Date(198288000000)));
+    expect(toSearch(filter)).toEqual('lastEventTime==1976-04-14T00:00:00.000-0000');
   });
   it('alarm filter: verify null replacement for EQ and NE comparators', () => {
       // the filter does not make any sense, but is there to verify that null replacement works correctly
-      const filter = new Filter<OnmsAlarm>()
+      const filter = new Filter()
           .withAndRestriction(new Restriction('alarmAckTime', Comparators.EQ, 'null'))
           .withAndRestriction(new Restriction('alarmAckTime', Comparators.NE, 'null'))
           .withAndRestriction(new Restriction('id', Comparators.EQ, 'null'))
@@ -112,8 +112,8 @@ describe('V2FilterProcessor', () => {
               { id: 'alarmAckTime', type: SearchPropertyTypes.TIMESTAMP } as SearchProperty,
           ]));
       expect(toSearch(filter, proc)).toEqual(
-          'alarmAckTime==1970-01-01T00:00:00.000+0000'
-          + ';alarmAckTime!=1970-01-01T00:00:00.000+0000'
+          'alarmAckTime==1970-01-01T00:00:00.000-0000'
+          + ';alarmAckTime!=1970-01-01T00:00:00.000-0000'
           + ';id==\u0000;id!=\u0000');
   });
 });

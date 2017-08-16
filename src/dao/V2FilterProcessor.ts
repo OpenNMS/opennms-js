@@ -26,7 +26,7 @@ export class V2FilterProcessor implements IFilterProcessor {
    *  This must be explicitly set as the restriction value when using
    *  either the NULL or NOTNULL comparators on date fields.
    */
-  public static NULL_DATE = '1970-01-01T00:00:00.000+0000';
+  public static NULL_DATE = '1970-01-01T00:00:00.000-0000';
 
   /** The accessor for Properties */
   private searchPropertyAccessor: ISearchPropertyAccessor;

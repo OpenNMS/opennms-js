@@ -201,7 +201,7 @@ export class AxiosHTTP extends AbstractHTTP {
     }
 
     if (allOptions.parameters) {
-      ret.params = Util.encodeParameters(clonedeep(allOptions.parameters));
+      ret.params = clonedeep(allOptions.parameters);
     }
 
     if (allOptions.data) {

@@ -64,20 +64,9 @@ export class Util {
   public static toDateString(date: Date|Moment|number) {
     const ret = Util.toMoment(date);
     if (ret) {
-      return ret.utc().format(dateFormat);
+      return ret.utc().format(dateFormat).replace('+0000', '-0000');
     } else {
       return undefined;
     }
-  }
-
-  /**
-   * Encodes the parameters.
-   * @param pramaters the parameters to encode
-   */
-  public static encodeParameters(pramaters: any) {
-      Object.keys(pramaters).forEach((key, index) => {
-          pramaters[key] = encodeURIComponent(pramaters[key]);
-      });
-      return pramaters;
   }
 }
