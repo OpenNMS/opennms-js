@@ -122,10 +122,13 @@ export class AlarmDAO extends AbstractDAO<number, OnmsAlarm> {
    * @version ReST v1+
    * @param {number|OnmsAlarm} alarm - The [[OnmsAlarm]] or alarm ID.
    */
-  public async unacknowledge(alarm: number|OnmsAlarm): Promise<void> {
+  public async unacknowledge(alarm: number|OnmsAlarm, user?: string): Promise<void> {
     const alarmId = (typeof(alarm) === 'number' ? alarm : alarm.id);
     const parameters = {} as IHash<string>;
     parameters.ack = 'false';
+    if (user !== undefined) {
+      parameters.ackUser = user;
+    }
     return this.put(this.pathToAlarmsEndpoint() + '/' + alarmId, parameters);
   }
 
