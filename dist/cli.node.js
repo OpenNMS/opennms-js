@@ -5686,118 +5686,6 @@ module.exports = function (module) {
 "use strict";
 
 
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-Object.defineProperty(exports, "__esModule", { value: true });
-var OnmsError_1 = __webpack_require__(5);
-var ip_address_1 = __webpack_require__(245);
-/** @hidden */
-// tslint:disable-next-line
-var moment = __webpack_require__(0);
-/** @hidden */
-var dateFormat = 'YYYY-MM-DDTHH:mm:ss.SSSZZ';
-/**
- * A utility class for random stuff.
- * @module Util
- */
-
-var Util = function () {
-    function Util() {
-        _classCallCheck(this, Util);
-    }
-
-    _createClass(Util, null, [{
-        key: "toIPAddress",
-
-        /**
-         * Convert an IP address string to an [[Address4]] or [[Address6]] object.
-         */
-        value: function toIPAddress(addr) {
-            if (addr) {
-                if (addr.indexOf(':') >= 0) {
-                    return new ip_address_1.Address6(addr);
-                } else {
-                    return new ip_address_1.Address4(addr);
-                }
-            }
-            return undefined;
-        }
-        /**
-         * Whether or not the passed object is already a date. (Either a [[Moment]] object, or
-         * a JavaScript [[Date]] object.)
-         */
-
-    }, {
-        key: "isDateObject",
-        value: function isDateObject(date) {
-            return moment.isMoment(date) || date instanceof Date;
-        }
-        /**
-         * Create a [[Moment]] from any form of date (JavaScript [[Date]], [[Moment]], or epoch).
-         * [[Moment]] dates in OpenNMS.js will always be converted internally to UTC to avoid time
-         * zone issues.
-         */
-
-    }, {
-        key: "toMoment",
-        value: function toMoment(date) {
-            if (date === undefined || date === null) {
-                return undefined;
-            } else if (moment.isMoment(date)) {
-                return date.utc();
-            } else if (typeof date === 'number' || date instanceof Date || typeof date === 'string' || date instanceof String) {
-                return moment(date).utc();
-            } else {
-                throw new OnmsError_1.OnmsError('Unable to parse type "' + (typeof date === "undefined" ? "undefined" : _typeof(date)) + '" as a date.');
-            }
-        }
-        /**
-         * Create a date string from any form of date (JavaScript [[Date]], [[Moment]], or epoch).
-         * Dates in OpenNMS.js will always be converted internally to UTC before stringifying to
-         * avoid time zone issues.
-         */
-
-    }, {
-        key: "toDateString",
-        value: function toDateString(date) {
-            var ret = Util.toMoment(date);
-            if (ret) {
-                return ret.utc().format(dateFormat);
-            } else {
-                return undefined;
-            }
-        }
-        /**
-         * Encodes the parameters.
-         * @param pramaters the parameters to encode
-         */
-
-    }, {
-        key: "encodeParameters",
-        value: function encodeParameters(pramaters) {
-            Object.keys(pramaters).forEach(function (key, index) {
-                pramaters[key] = encodeURIComponent(pramaters[key]);
-            });
-            return pramaters;
-        }
-    }]);
-
-    return Util;
-}();
-
-exports.Util = Util;
-
-/***/ }),
-/* 10 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -5909,7 +5797,7 @@ var frozen = Object.freeze(Comparators);
 exports.Comparators = frozen;
 
 /***/ }),
-/* 11 */
+/* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5918,7 +5806,7 @@ exports.Comparators = frozen;
 module.exports = __webpack_require__(255);
 
 /***/ }),
-/* 12 */
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6333,7 +6221,7 @@ function compareByGeneratedPositionsInflated(mappingA, mappingB) {
 exports.compareByGeneratedPositionsInflated = compareByGeneratedPositionsInflated;
 
 /***/ }),
-/* 13 */
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6565,6 +6453,105 @@ var __WEBPACK_AMD_DEFINE_RESULT__;
     }
     /* eslint-enable quote-props */
 }();
+
+/***/ }),
+/* 13 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var OnmsError_1 = __webpack_require__(5);
+var ip_address_1 = __webpack_require__(245);
+/** @hidden */
+// tslint:disable-next-line
+var moment = __webpack_require__(0);
+/** @hidden */
+var dateFormat = 'YYYY-MM-DDTHH:mm:ss.SSSZZ';
+/**
+ * A utility class for random stuff.
+ * @module Util
+ */
+
+var Util = function () {
+    function Util() {
+        _classCallCheck(this, Util);
+    }
+
+    _createClass(Util, null, [{
+        key: "toIPAddress",
+
+        /**
+         * Convert an IP address string to an [[Address4]] or [[Address6]] object.
+         */
+        value: function toIPAddress(addr) {
+            if (addr) {
+                if (addr.indexOf(':') >= 0) {
+                    return new ip_address_1.Address6(addr);
+                } else {
+                    return new ip_address_1.Address4(addr);
+                }
+            }
+            return undefined;
+        }
+        /**
+         * Whether or not the passed object is already a date. (Either a [[Moment]] object, or
+         * a JavaScript [[Date]] object.)
+         */
+
+    }, {
+        key: "isDateObject",
+        value: function isDateObject(date) {
+            return moment.isMoment(date) || date instanceof Date;
+        }
+        /**
+         * Create a [[Moment]] from any form of date (JavaScript [[Date]], [[Moment]], or epoch).
+         * [[Moment]] dates in OpenNMS.js will always be converted internally to UTC to avoid time
+         * zone issues.
+         */
+
+    }, {
+        key: "toMoment",
+        value: function toMoment(date) {
+            if (date === undefined || date === null) {
+                return undefined;
+            } else if (moment.isMoment(date)) {
+                return date.utc();
+            } else if (typeof date === 'number' || date instanceof Date || typeof date === 'string' || date instanceof String) {
+                return moment(date).utc();
+            } else {
+                throw new OnmsError_1.OnmsError('Unable to parse type "' + (typeof date === "undefined" ? "undefined" : _typeof(date)) + '" as a date.');
+            }
+        }
+        /**
+         * Create a date string from any form of date (JavaScript [[Date]], [[Moment]], or epoch).
+         * Dates in OpenNMS.js will always be converted internally to UTC before stringifying to
+         * avoid time zone issues.
+         */
+
+    }, {
+        key: "toDateString",
+        value: function toDateString(date) {
+            var ret = Util.toMoment(date);
+            if (ret) {
+                return ret.utc().format(dateFormat).replace('+0000', '-0000');
+            } else {
+                return undefined;
+            }
+        }
+    }]);
+
+    return Util;
+}();
+
+exports.Util = Util;
 
 /***/ }),
 /* 14 */
@@ -8445,7 +8432,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 Object.defineProperty(exports, "__esModule", { value: true });
 var OnmsEnum_1 = __webpack_require__(1);
-var Comparator_1 = __webpack_require__(10);
+var Comparator_1 = __webpack_require__(9);
 /**
  * Represents a search property type.
  * @module SearchPropertyType
@@ -8512,7 +8499,7 @@ exports.SearchPropertyTypes = frozen;
 "use strict";
 
 
-var _regenerator = __webpack_require__(11);
+var _regenerator = __webpack_require__(10);
 
 var _regenerator2 = _interopRequireDefault(_regenerator);
 
@@ -8555,7 +8542,7 @@ var __awaiter = undefined && undefined.__awaiter || function (thisArg, _argument
 Object.defineProperty(exports, "__esModule", { value: true });
 var AbstractDAO_1 = __webpack_require__(36);
 var OnmsError_1 = __webpack_require__(5);
-var Util_1 = __webpack_require__(9);
+var Util_1 = __webpack_require__(13);
 var OnmsEvent_1 = __webpack_require__(52);
 var OnmsParm_1 = __webpack_require__(28);
 var OnmsServiceType_1 = __webpack_require__(19);
@@ -8746,7 +8733,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var Util_1 = __webpack_require__(9);
+var Util_1 = __webpack_require__(13);
 /**
  * Represents an OpenNMS event or alarm parameter.
  * @module OnmsParm
@@ -9374,7 +9361,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 "use strict";
 
 
-var _regenerator = __webpack_require__(11);
+var _regenerator = __webpack_require__(10);
 
 var _regenerator2 = _interopRequireDefault(_regenerator);
 
@@ -10441,7 +10428,7 @@ exports.TicketerConfig = TicketerConfig;
 "use strict";
 
 
-var _regenerator = __webpack_require__(11);
+var _regenerator = __webpack_require__(10);
 
 var _regenerator2 = _interopRequireDefault(_regenerator);
 
@@ -11360,7 +11347,7 @@ exports.AlarmDAO = AlarmDAO;
 "use strict";
 
 
-var _regenerator = __webpack_require__(11);
+var _regenerator = __webpack_require__(10);
 
 var _regenerator2 = _interopRequireDefault(_regenerator);
 
@@ -11403,7 +11390,7 @@ var __awaiter = undefined && undefined.__awaiter || function (thisArg, _argument
 Object.defineProperty(exports, "__esModule", { value: true });
 var AbstractDAO_1 = __webpack_require__(36);
 var OnmsError_1 = __webpack_require__(5);
-var Util_1 = __webpack_require__(9);
+var Util_1 = __webpack_require__(13);
 var OnmsCategory_1 = __webpack_require__(50);
 var OnmsCollectType_1 = __webpack_require__(51);
 var OnmsIpInterface_1 = __webpack_require__(53);
@@ -11843,8 +11830,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 Object.defineProperty(exports, "__esModule", { value: true });
 var OnmsEnum_1 = __webpack_require__(1);
-var Util_1 = __webpack_require__(9);
-var Comparator_1 = __webpack_require__(10);
+var Util_1 = __webpack_require__(13);
+var Comparator_1 = __webpack_require__(9);
 var Operator_1 = __webpack_require__(17);
 var OnmsError_1 = __webpack_require__(5);
 var NestedRestriction_1 = __webpack_require__(14);
@@ -11952,8 +11939,8 @@ var _createClass = function () { function defineProperties(target, props) { for 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var Util_1 = __webpack_require__(9);
-var Comparator_1 = __webpack_require__(10);
+var Util_1 = __webpack_require__(13);
+var Comparator_1 = __webpack_require__(9);
 var NestedRestriction_1 = __webpack_require__(14);
 var OnmsError_1 = __webpack_require__(5);
 var Operator_1 = __webpack_require__(17);
@@ -12119,7 +12106,7 @@ V2FilterProcessor.NULL_VALUE = "\0";
  *  This must be explicitly set as the restriction value when using
  *  either the NULL or NOTNULL comparators on date fields.
  */
-V2FilterProcessor.NULL_DATE = '1970-01-01T00:00:00.000+0000';
+V2FilterProcessor.NULL_DATE = '1970-01-01T00:00:00.000-0000';
 exports.V2FilterProcessor = V2FilterProcessor;
 
 /***/ }),
@@ -13109,7 +13096,6 @@ var OnmsError_1 = __webpack_require__(5);
 var OnmsResult_1 = __webpack_require__(16);
 var Log_1 = __webpack_require__(4);
 var typescript_logging_1 = __webpack_require__(6);
-var Util_1 = __webpack_require__(9);
 /** @hidden */
 var catAxios = new typescript_logging_1.Category('axios', Log_1.catRest);
 /**
@@ -13282,7 +13268,7 @@ var AxiosHTTP = function (_AbstractHTTP_1$Abstr) {
                 throw new OnmsError_1.OnmsError('Unhandled "Accept" header: ' + type);
             }
             if (allOptions.parameters) {
-                ret.params = Util_1.Util.encodeParameters(clonedeep(allOptions.parameters));
+                ret.params = clonedeep(allOptions.parameters);
             }
             if (allOptions.data) {
                 ret.data = clonedeep(allOptions.data);
@@ -14433,7 +14419,7 @@ var BigInteger = __webpack_require__(81).BigInteger;
 var common = __webpack_require__(78);
 var padStart = __webpack_require__(83);
 var repeat = __webpack_require__(84);
-var sprintf = __webpack_require__(13).sprintf;
+var sprintf = __webpack_require__(12).sprintf;
 var deprecate = __webpack_require__(213);
 
 var constants = __webpack_require__(33);
@@ -14702,7 +14688,7 @@ module.exports = Address4;
 "use strict";
 
 
-var sprintf = __webpack_require__(13).sprintf;
+var sprintf = __webpack_require__(12).sprintf;
 
 /**
  * @returns {String} the string with all zeroes contained in a <span>
@@ -30552,7 +30538,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
  * http://opensource.org/licenses/BSD-3-Clause
  */
 
-var util = __webpack_require__(12);
+var util = __webpack_require__(11);
 var has = Object.prototype.hasOwnProperty;
 
 /**
@@ -30809,7 +30795,7 @@ exports.decode = function base64VLQ_decode(aStr, aIndex, aOutParam) {
  */
 
 var base64VLQ = __webpack_require__(201);
-var util = __webpack_require__(12);
+var util = __webpack_require__(11);
 var ArraySet = __webpack_require__(200).ArraySet;
 var MappingList = __webpack_require__(259).MappingList;
 
@@ -36284,7 +36270,7 @@ module.exports = require("util");
 
 Object.defineProperty(exports, "__esModule", { value: true });
 var Clause_1 = __webpack_require__(38);
-var Comparator_1 = __webpack_require__(10);
+var Comparator_1 = __webpack_require__(9);
 var Filter_1 = __webpack_require__(222);
 var NestedRestriction_1 = __webpack_require__(14);
 var OnmsAuthConfig_1 = __webpack_require__(39);
@@ -36419,7 +36405,7 @@ exports.Rest = Rest;
 "use strict";
 
 
-var _regenerator = __webpack_require__(11);
+var _regenerator = __webpack_require__(10);
 
 var _regenerator2 = _interopRequireDefault(_regenerator);
 
@@ -36744,7 +36730,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var Comparator_1 = __webpack_require__(10);
+var Comparator_1 = __webpack_require__(9);
 var Log_1 = __webpack_require__(4);
 var namePattern = /^(.*?)\s+(eq|ne|ilike|like|gt|lt|ge|le|null|isnull|notnull)\s+(.*?)$/i;
 var symbolPattern = /^(\w+?)\s*(\=\=|\=|\!\=|\>\=|\<\=|\>|\<)\s*(\w+?)$/;
@@ -36822,7 +36808,6 @@ var OnmsResult_1 = __webpack_require__(16);
 var Log_1 = __webpack_require__(4);
 var typescript_logging_1 = __webpack_require__(6);
 var clonedeep = __webpack_require__(82);
-var Util_1 = __webpack_require__(9);
 /** @hidden */
 var catGrafana = new typescript_logging_1.Category('grafana', Log_1.catRest);
 /**
@@ -36969,7 +36954,7 @@ var GrafanaHTTP = function (_AbstractHTTP_1$Abstr) {
                 throw new OnmsError_1.OnmsError('Unhandled "Accept" header: ' + type);
             }
             if (allOptions.parameters && Object.keys(allOptions.parameters).length > 0) {
-                ret.params = Util_1.Util.encodeParameters(clonedeep(allOptions.parameters));
+                ret.params = clonedeep(allOptions.parameters);
             }
             if (allOptions.data) {
                 ret.data = clonedeep(allOptions.data);
@@ -38341,7 +38326,7 @@ var max = __webpack_require__(252);
 var merge = __webpack_require__(253);
 var padStart = __webpack_require__(83);
 var repeat = __webpack_require__(84);
-var sprintf = __webpack_require__(13).sprintf;
+var sprintf = __webpack_require__(12).sprintf;
 var deprecate = __webpack_require__(213);
 
 var constants4 = __webpack_require__(33);
@@ -39363,7 +39348,7 @@ exports.isLoopback = common.falseIfInvalid(function () {
 
 var constants4 = __webpack_require__(33);
 var helpers = __webpack_require__(80);
-var sprintf = __webpack_require__(13).sprintf;
+var sprintf = __webpack_require__(12).sprintf;
 
 /**
  * @returns {String} the address in link form with a default port of 80
@@ -39466,7 +39451,7 @@ exports.group = function () {
 "use strict";
 
 
-var sprintf = __webpack_require__(13).sprintf;
+var sprintf = __webpack_require__(12).sprintf;
 
 var v6 = __webpack_require__(34);
 
@@ -45482,7 +45467,7 @@ exports.search = function search(aNeedle, aHaystack, aCompare, aBias) {
  * http://opensource.org/licenses/BSD-3-Clause
  */
 
-var util = __webpack_require__(12);
+var util = __webpack_require__(11);
 
 /**
  * Determine whether mappingB is after mappingA with respect to generated
@@ -45689,7 +45674,7 @@ exports.quickSort = function (ary, comparator) {
  * http://opensource.org/licenses/BSD-3-Clause
  */
 
-var util = __webpack_require__(12);
+var util = __webpack_require__(11);
 var binarySearch = __webpack_require__(258);
 var ArraySet = __webpack_require__(200).ArraySet;
 var base64VLQ = __webpack_require__(201);
@@ -46712,7 +46697,7 @@ exports.IndexedSourceMapConsumer = IndexedSourceMapConsumer;
  */
 
 var SourceMapGenerator = __webpack_require__(202).SourceMapGenerator;
-var util = __webpack_require__(12);
+var util = __webpack_require__(11);
 
 // Matches a Windows-style `\r\n` newline or a `\n` newline used by all other
 // operating systems these days (capturing the result).

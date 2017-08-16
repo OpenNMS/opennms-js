@@ -1,10 +1,11 @@
 <a name="1.0.0-beta.2"></a>
-# [1.0.0-beta.2](https://github.com/OpenNMS/opennms-js/compare/v1.0.0-beta.1...v1.0.0-beta.2) (2017-08-15)
+# [1.0.0-beta.2](https://github.com/OpenNMS/opennms-js/compare/v1.0.0-beta.1...v1.0.0-beta.2) (2017-08-16)
 
 
 ### Bug Fixes
 
 * **api:** add missing modules to API export ([53fad98](https://github.com/OpenNMS/opennms-js/commit/53fad98))
+* **rest:** use negative offset for dates to work around a server issue ([abdfc0b](https://github.com/OpenNMS/opennms-js/commit/abdfc0b))
 
 
 ### Features
