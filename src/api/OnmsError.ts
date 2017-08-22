@@ -1,5 +1,5 @@
 /**
- * Represents an OpenNMS.js error.  This will eventually have custom stuff to do... stuff.
+ * Represents an OpenNMS.js error.
  * @module OnmsError
  */
 export class OnmsError extends Error {
@@ -9,8 +9,14 @@ export class OnmsError extends Error {
    */
   private statusCode: number;
 
+  /**
+   * The data (payload) associated with a response.
+   */
   private data: any;
 
+  /**
+   * The options provided as part of the request that resulted in this erro.
+   */
   private options: any;
 
   /** The error code associated with this error. */
@@ -35,6 +41,8 @@ export class OnmsError extends Error {
       } else {
           this.stack = (new Error(message)).stack;
       }
+      // workaround, see http://bit.ly/2vllGdD
+      Object.setPrototypeOf(this, OnmsError.prototype);
   }
 
   /**
