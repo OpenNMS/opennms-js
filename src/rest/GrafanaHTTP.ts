@@ -51,7 +51,7 @@ export class GrafanaHTTP extends AbstractHTTP {
       if (response.headers && response.headers['content-type']) {
         type = response.headers['content-type'];
       }
-      return OnmsResult.ok(response.data, undefined, response.status, type);
+      return OnmsResult.ok(this.getData(response), undefined, response.status, type);
     }).catch((e) => {
       this.handleError(e, query);
     });
@@ -73,7 +73,7 @@ export class GrafanaHTTP extends AbstractHTTP {
       if (response.headers && response.headers['content-type']) {
         type = response.headers['content-type'];
       }
-      return OnmsResult.ok(response.data, undefined, response.status, type);
+      return OnmsResult.ok(this.getData(response), undefined, response.status, type);
     }).catch((e) => {
       this.handleError(e, query);
     });
@@ -94,7 +94,7 @@ export class GrafanaHTTP extends AbstractHTTP {
       if (response.headers && response.headers['content-type']) {
         type = response.headers['content-type'];
       }
-      return OnmsResult.ok(response.data, undefined, response.status, type);
+      return OnmsResult.ok(this.getData(response), undefined, response.status, type);
     }).catch((e) => {
       this.handleError(e, query);
     });
@@ -115,7 +115,7 @@ export class GrafanaHTTP extends AbstractHTTP {
       if (response.headers && response.headers['content-type']) {
         type = response.headers['content-type'];
       }
-      return OnmsResult.ok(response.data, undefined, response.status, type);
+      return OnmsResult.ok(this.getData(response), undefined, response.status, type);
     }).catch((e) => {
         this.handleError(e, query);
     });
@@ -140,7 +140,9 @@ export class GrafanaHTTP extends AbstractHTTP {
    */
   private getConfig(options?: OnmsHTTPOptions): any {
     const allOptions = this.getOptions(options);
-    const ret = {} as any;
+    const ret = {
+      transformResponse: [], // we do this so we can post-process only on success
+    } as any;
 
     if (allOptions.headers) {
       ret.headers = clonedeep(allOptions.headers);
@@ -158,13 +160,10 @@ export class GrafanaHTTP extends AbstractHTTP {
     const type = ret.headers.accept;
     if (type === 'application/json') {
       ret.responseType = 'json';
-      ret.transformResponse = this.transformJSON;
     } else if (type === 'text/plain') {
       ret.responseType = 'text';
-      delete ret.transformResponse;
     } else if (type === 'application/xml') {
       ret.responseType = 'text';
-      ret.transformResponse = this.transformXML;
     } else {
       throw new OnmsError('Unhandled "Accept" header: ' + type);
     }

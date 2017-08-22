@@ -4,6 +4,7 @@
 import {IOnmsHTTP} from '../api/IOnmsHTTP';
 import {IFilterProcessor} from '../api/IFilterProcessor';
 
+import {OnmsError} from '../api/OnmsError';
 import {OnmsHTTPOptions} from '../api/OnmsHTTPOptions';
 import {OnmsResult} from '../api/OnmsResult';
 import {OnmsServer} from '../api/OnmsServer';
@@ -83,6 +84,39 @@ export abstract class AbstractHTTP implements IOnmsHTTP {
     return xmlTransformer.transform(data);
   }
 
+  /** Attempt to extract the data from a response. */
+  protected getData(response: any) {
+    const type = this.getType(response);
+    if (type === 'json') {
+      return this.transformJSON(response.data);
+    } else if (type === 'xml') {
+      return this.transformXML(response.data);
+    } else {
+      return response.data;
+    }
+  }
+
+  /**
+   * Attempt to determine the type of response.
+   * @hidden
+   */
+  protected getType(response: any) {
+    if (response.headers['content-type'] === 'application/json') {
+      return 'json';
+    } else if (response.config.responseType === 'json') {
+      return 'json';
+    } else if (response.config.headers.accept === 'application/json') {
+      return 'json';
+    } else if (response.responseType === 'json') {
+      return 'json';
+    } else if (response.config.headers.accept === 'application/xml') {
+      return 'xml';
+    } else if (response.headers['content-type'] === 'application/xml') {
+      return 'xml';
+    }
+    return 'text';
+  }
+
   /**
    * Get the [[OnmsServer]] object that should be used for making requests.  Favors the one
    * passed in the [[OnmsHTTPOptions]], otherwise it falls back to the default server associated
@@ -122,17 +156,14 @@ export abstract class AbstractHTTP implements IOnmsHTTP {
   }
 
   /**
-   * A callback to handle any request errors.
+   * Create an [[OnmsError]] from an error response.
    * @hidden
    */
-  protected handleError(err: any, options?: any): never {
+  protected handleError(err: any, options?: any): OnmsError {
     const message = AbstractHTTP.extractMessage(err);
     const status = AbstractHTTP.extractStatus(err);
-    if (status) {
-      throw OnmsResult.error(message, status);
-    } else {
-      throw OnmsResult.error('An unknown error has occurred: ' + message);
-    }
+    const data = AbstractHTTP.extractData(err);
+    return new OnmsError(message, status, options, data);
   }
 
   /* tslint:disable:member-ordering */
@@ -162,7 +193,7 @@ export abstract class AbstractHTTP implements IOnmsHTTP {
    * @hidden
    */
   protected static extractStatus(err: any): number {
-    let status;
+    let status = -1;
     if (err.code) {
       status = err.code;
     } else if (err.status) {
@@ -171,6 +202,17 @@ export abstract class AbstractHTTP implements IOnmsHTTP {
       status = err.response.status;
     }
     return status;
+  }
+
+  /**
+   * Attempt to determine the data in an error response.
+   * @hidden
+   */
+  protected static extractData(err: any): any {
+    if (err && err.response && err.response.data) {
+      return err.response.data;
+    }
+    return undefined;
   }
 
 }

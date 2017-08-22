@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {AxiosStatic, AxiosInstance, AxiosRequestConfig} from 'axios';
+import {AxiosStatic, AxiosInstance, AxiosResponse, AxiosRequestConfig} from 'axios';
 import * as qs from 'qs';
 import * as clonedeep from 'lodash.clonedeep';
 
@@ -70,8 +70,10 @@ export class AxiosHTTP extends AbstractHTTP {
       if (response.headers && response.headers['content-type']) {
         type = response.headers['content-type'];
       }
-      return OnmsResult.ok(response.data, undefined, response.status, type);
-    }).catch(this.handleError);
+      return OnmsResult.ok(this.getData(response), undefined, response.status, type);
+    }).catch((err) => {
+      throw this.handleError(err, opts);
+    });
   }
 
   /**
@@ -94,8 +96,10 @@ export class AxiosHTTP extends AbstractHTTP {
       if (response.headers && response.headers['content-type']) {
         type = response.headers['content-type'];
       }
-      return OnmsResult.ok(response.data, undefined, response.status, type);
-    }).catch(this.handleError);
+      return OnmsResult.ok(this.getData(response), undefined, response.status, type);
+    }).catch((err) => {
+      throw this.handleError(err, opts);
+    });
   }
 
   /**
@@ -117,8 +121,10 @@ export class AxiosHTTP extends AbstractHTTP {
       if (response.headers && response.headers['content-type']) {
         type = response.headers['content-type'];
       }
-      return OnmsResult.ok(response.data, undefined, response.status, type);
-    }).catch(this.handleError);
+      return OnmsResult.ok(this.getData(response), undefined, response.status, type);
+    }).catch((err) => {
+      throw this.handleError(err, opts);
+    });
   }
 
   /**
@@ -140,8 +146,10 @@ export class AxiosHTTP extends AbstractHTTP {
         if (response.headers && response.headers['content-type']) {
             type = response.headers['content-type'];
         }
-        return OnmsResult.ok(response.data, undefined, response.status, type);
-    }).catch(this.handleError);
+        return OnmsResult.ok(this.getData(response), undefined, response.status, type);
+    }).catch((err) => {
+      throw this.handleError(err, opts);
+    });
   }
 
   /**
@@ -160,7 +168,9 @@ export class AxiosHTTP extends AbstractHTTP {
   private getConfig(options?: OnmsHTTPOptions): AxiosRequestConfig {
     const allOptions = this.getOptions(options);
 
-    const ret = {} as AxiosRequestConfig;
+    const ret = {
+      transformResponse: [], // we do this so we can post-process only on success
+    } as AxiosRequestConfig;
 
     if (allOptions.auth && allOptions.auth.username && allOptions.auth.password) {
       ret.auth = {
@@ -187,15 +197,13 @@ export class AxiosHTTP extends AbstractHTTP {
     }
 
     const type = ret.headers.accept;
+    ret.transformResponse = [];
     if (type === 'application/json') {
       ret.responseType = 'json';
-      ret.transformResponse = this.transformJSON;
     } else if (type === 'text/plain') {
       ret.responseType = 'text';
-      delete ret.transformResponse;
     } else if (type === 'application/xml') {
       ret.responseType = 'text';
-      ret.transformResponse = this.transformXML;
     } else {
       throw new OnmsError('Unhandled "Accept" header: ' + type);
     }

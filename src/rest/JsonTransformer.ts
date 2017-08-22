@@ -1,3 +1,5 @@
+import {OnmsError} from '../api/OnmsError';
+
 /**
  * Helper to transform a json string to an json object.
  */
@@ -11,7 +13,11 @@ export class JsonTransformer {
             if (data.length < 1) {
                 return {};
             } else {
-                return JSON.parse(data);
+                try {
+                    return JSON.parse(data);
+                } catch (err) {
+                    throw new OnmsError(err.message, undefined, undefined, data);
+                }
             }
         } else {
             // assume it's already parsed

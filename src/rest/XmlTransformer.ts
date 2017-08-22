@@ -7,6 +7,8 @@ if (global && !global.window) {
     }
 }
 
+import {OnmsError} from '../api/OnmsError';
+
 /** @hidden */
 // tslint:disable-next-line
 const X2JS = require('x2js');
@@ -28,7 +30,11 @@ export class XmlTransformer {
      */
     public transform(data: any) {
         if (typeof data === 'string') {
-            return xmlParser.xml2js(data);
+            try {
+                return xmlParser.xml2js(data);
+            } catch (err) {
+                throw new OnmsError(err.message, undefined, undefined, data);
+            }
         } else {
             // assume it's already parsed
             return data;
