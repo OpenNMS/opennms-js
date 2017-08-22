@@ -8,7 +8,7 @@ import {log, catRest} from '../api/Log';
 import {Category} from 'typescript-logging';
 
 import * as clonedeep from 'lodash.clonedeep';
-import {Util} from '../internal/Util';
+import {GrafanaError} from './GrafanaError';
 
 /** @hidden */
 const catGrafana = new Category('grafana', catRest);
@@ -52,7 +52,9 @@ export class GrafanaHTTP extends AbstractHTTP {
         type = response.headers['content-type'];
       }
       return OnmsResult.ok(response.data, undefined, response.status, type);
-    }).catch(this.handleError);
+    }).catch((e) => {
+      this.handleError(e, query);
+    });
   }
 
   /** Make an HTTP PUT call using the Grafana `BackendSrv`. */
@@ -72,7 +74,9 @@ export class GrafanaHTTP extends AbstractHTTP {
         type = response.headers['content-type'];
       }
       return OnmsResult.ok(response.data, undefined, response.status, type);
-    }).catch(this.handleError);
+    }).catch((e) => {
+      this.handleError(e, query);
+    });
   }
 
   /** Make an HTTP POST call using the Grafana `BackendSrv`. */
@@ -91,7 +95,9 @@ export class GrafanaHTTP extends AbstractHTTP {
         type = response.headers['content-type'];
       }
       return OnmsResult.ok(response.data, undefined, response.status, type);
-    }).catch(this.handleError);
+    }).catch((e) => {
+      this.handleError(e, query);
+    });
   }
 
   /** Make an HTTP DELETE call using the Grafana `BackendSrv`. */
@@ -110,8 +116,23 @@ export class GrafanaHTTP extends AbstractHTTP {
         type = response.headers['content-type'];
       }
       return OnmsResult.ok(response.data, undefined, response.status, type);
-    }).catch(this.handleError);
+    }).catch((e) => {
+        this.handleError(e, query);
+    });
   }
+
+    /**
+     * A callback to handle any request errors.
+     * @hidden
+     */
+    protected handleError(err: any, options?: any): never {
+        let message = AbstractHTTP.extractMessage(err);
+        const status = AbstractHTTP.extractStatus(err);
+        if (!status) {
+            message = 'An unknown error has occurred: ' + message;
+        }
+        throw new GrafanaError(message, status, options, err);
+    }
 
   /**
    * Internal method to turn [[OnmsHTTPOptions]] into a Grafana `BackendSrv` request object.

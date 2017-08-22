@@ -125,7 +125,7 @@ export abstract class AbstractHTTP implements IOnmsHTTP {
    * A callback to handle any request errors.
    * @hidden
    */
-  protected handleError(err: any): never {
+  protected handleError(err: any, options?: any): never {
     const message = AbstractHTTP.extractMessage(err);
     const status = AbstractHTTP.extractStatus(err);
     if (status) {
