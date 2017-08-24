@@ -1,4 +1,5 @@
 import {SearchPropertyType} from './SearchPropertyType';
+import {IValueProvider} from '../dao/IValueProvider';
 
 /**
  * Represents a query search property.
@@ -19,4 +20,21 @@ export class SearchProperty {
 
   /** the values if any */
   public values: any;
+
+  /** The value provider */
+  private valueProvider: IValueProvider;
+
+  constructor(valueProvider: IValueProvider) {
+    this.valueProvider = valueProvider;
+  }
+
+  /**
+   * Hook to gather all the values for this property.
+   *
+   * @param options Some additional options, to for example restrict the values or limit the query.
+   * @returns {Promise<any>}
+   */
+  public async findValues(options: any): Promise<any> {
+    return this.valueProvider.findValues(this.id, options);
+  }
 }
