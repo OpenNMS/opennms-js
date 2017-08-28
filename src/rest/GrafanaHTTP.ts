@@ -140,40 +140,26 @@ export class GrafanaHTTP extends AbstractHTTP {
    */
   private getConfig(options?: OnmsHTTPOptions): any {
     const allOptions = this.getOptions(options);
-    const ret = {
-      transformResponse: [], // we do this so we can post-process only on success
-    } as any;
+    const ret = clonedeep(allOptions);
+    ret.transformResponse = []; // we do this so we can post-process only on success
 
-    if (allOptions.headers) {
+    if (!allOptions.headers) {
       ret.headers = clonedeep(allOptions.headers);
     } else {
       ret.headers = {};
     }
 
+    // Enforce Accept-Header
     if (!ret.headers.accept) {
       ret.headers.accept = 'application/json';
     }
-    if (!ret.headers['content-type']) {
+    // Enforce Content-Type-Header when data is being sent
+    if (ret.data && !ret.headers['content-type']) {
       ret.headers['content-type'] = 'application/json;charset=utf-8';
     }
-
-    const type = ret.headers.accept;
-    if (type === 'application/json') {
-      ret.responseType = 'json';
-    } else if (type === 'text/plain') {
-      ret.responseType = 'text';
-    } else if (type === 'application/xml') {
-      ret.responseType = 'text';
-    } else {
-      throw new OnmsError('Unhandled "Accept" header: ' + type);
-    }
-
-    if (allOptions.parameters && Object.keys(allOptions.parameters).length > 0) {
-      ret.params = clonedeep(allOptions.parameters);
-    }
-
-    if (allOptions.data) {
-      ret.data = clonedeep(allOptions.data);
+    if (ret.parameters && Object.keys(ret.parameters).length > 0) {
+      ret.params = ret.parameters;
+      delete ret.parameters;
     }
     return ret;
   }
