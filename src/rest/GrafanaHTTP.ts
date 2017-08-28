@@ -126,12 +126,12 @@ export class GrafanaHTTP extends AbstractHTTP {
      * @hidden
      */
     protected handleError(err: any, options?: any): never {
-        let message = AbstractHTTP.extractMessage(err);
-        const status = AbstractHTTP.extractStatus(err);
-        if (!status) {
-            message = 'An unknown error has occurred: ' + message;
-        }
-        throw new GrafanaError(message, status, options, err);
+      let message = AbstractHTTP.extractMessage(err);
+      if (err && err.data && err.data.response && (typeof (err.data.response) === 'string')) {
+          message = err.data.response;
+      }
+      const status = AbstractHTTP.extractStatus(err);
+      throw new GrafanaError(message, status, options, err);
     }
 
   /**
