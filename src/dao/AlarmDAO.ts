@@ -324,6 +324,7 @@ export class AlarmDAO extends AbstractDAO<number, OnmsAlarm> {
     alarm.logMessage = data.logMessage;
     alarm.reductionKey = data.reductionKey;
     alarm.troubleTicket = data.troubleTicket;
+    alarm.troubleTicketLink = data.troubleTicketLink;
     alarm.nodeId = this.toNumber(data.nodeId);
     alarm.nodeLabel = data.nodeLabel;
     alarm.suppressedBy = data.suppressedBy;

@@ -55,6 +55,9 @@ export class OnmsAlarm {
   /** the state of the trouble ticket associated with this alarm */
   public troubleTicketState: OnmsTroubleTicketState;
 
+  /** the link to the trouble ticket system if defined */
+  public troubleTicketLink: string;
+
   /** the node's ID associated with this alarm */
   public nodeId: number;
 
