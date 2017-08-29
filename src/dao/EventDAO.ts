@@ -71,6 +71,8 @@ export class EventDAO extends AbstractDAO<number, OnmsEvent> {
 
     event.id = this.toNumber(data.id);
     event.uei = data.uei;
+    event.label = data.label;
+    event.location = data.location;
     event.nodeId = this.toNumber(data.nodeId);
     event.nodeLabel = data.nodeLabel;
     event.ipAddress = Util.toIPAddress(data.ipAddress);

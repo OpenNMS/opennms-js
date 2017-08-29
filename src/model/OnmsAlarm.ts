@@ -46,6 +46,9 @@ export class OnmsAlarm {
   /** the alarm's log message */
   public logMessage: string;
 
+  /** which location the alarm originated from */
+  public location: string;
+
   /** the alarm's reduction key */
   public reductionKey: string;
 

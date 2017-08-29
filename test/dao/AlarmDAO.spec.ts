@@ -162,6 +162,10 @@ describe('AlarmDAO with v2 API', () => {
   it('AlarmDAO.get(6806)', () => {
     return dao.get(6806).then((alarm) => {
       expect(alarm.id).toEqual(6806);
+      // Spot check some of the known properties
+      expect(alarm.location).toEqual('Default');
+      expect(alarm.lastEvent.label).toEqual('OpenNMS-defined node event: nodeDown');
+      expect(alarm.lastEvent.location).toEqual('Default');
     });
   });
   it('AlarmDAO.find(id=6806)', () => {
