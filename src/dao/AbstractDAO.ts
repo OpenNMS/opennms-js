@@ -22,6 +22,7 @@ const moment = require('moment');
 /** @hidden */
 // tslint:disable-next-line
 import {Moment} from 'moment';
+import {IValueProvider} from './IValueProvider';
 
 /**
  * An abstract data access layer API, meant to (somewhat) mirror the DAO interfaces
@@ -32,7 +33,7 @@ import {Moment} from 'moment';
  * @param K the ID/key type (number, string, etc.)
  * @param T the model type (OnmsAlarm, OnmsEvent, etc.)
  */
-export abstract class AbstractDAO<K, T> {
+export abstract class AbstractDAO<K, T> implements IValueProvider {
   /**
    * The [[IOnmsHTTP]] implementation to use internally when making DAO requests.
    * @hidden
@@ -127,19 +128,8 @@ export abstract class AbstractDAO<K, T> {
           return this.getOptions().then((opts) => {
               opts.headers.accept = 'application/json';
               return this.http.get(this.searchPropertyPath(), opts).then((result) => {
-                  let data = result.data;
-
-                  if (this.getCount(data) > 0 && data.searchProperty) {
-                      data = data.searchProperty;
-                  } else {
-                      data = [];
-                  }
-
-                  if (!Array.isArray(data)) {
-                      throw new OnmsError('Expected an array of search properties but got "' +
-                          (typeof data) + '" instead: ' + this.searchPropertyPath());
-                  }
-                  const searchProperties = data.map((prop) => {
+                  const searchProperties = this.parseResultList(result, 'searchProperty',
+                        this.searchPropertyPath(), (prop) => {
                       return this.toSearchProperty(prop);
                   });
                   PropertiesCache.put(this, searchProperties);
@@ -152,9 +142,57 @@ export abstract class AbstractDAO<K, T> {
   }
 
   /**
+   * Finds the values for the given propertyId, if it exists.
+   *
+   * @param {string} propertyId The propertyId to find the values for
+   * @param options Some additional options. May be implementer dependent, such as limit, or value restrictions
+   * @returns {Promise<any>} A promise containing the values.
+   */
+  public async findValues(propertyId: string, options?: any): Promise<any> {
+    return this.searchProperty(propertyId).then((property) => {
+        return this.getOptions().then((opts) => {
+           const path = this.searchPropertyPath() + '/' + property.id;
+           opts.headers.accept = 'application/json';
+           if (options) {
+               Object.assign(opts, options);
+           }
+           return this.http.get(path, opts).then((result) => {
+               return this.parseResultList(result, 'value', path, (value) => value);
+           });
+        });
+    });
+  }
+
+  /**
    * The path to retrieve search properties for this DAO.
    */
   protected abstract searchPropertyPath(): string;
+
+  /**
+   * Fetches the data from the result and verfifes that the <code>dataFieldName</code> exists in the data property.
+   * If it does not exist, an exception is thrown.
+   *
+   * @param result The result to fetch the data from
+   * @param dataFieldName The property name (basically <code>result.data[dataFieldName]</code>.
+   * @param path The path where the result was fetched from. This is for error handling
+   * @param mapCallbackFunction Callback function to convert each entry from <code>result.data[dataFieldName]</code>.
+   */
+  protected parseResultList(result: any, dataFieldName: string, path: string, mapCallbackFunction: any): any {
+      let data = result.data;
+      if (this.getCount(data) > 0 && data[dataFieldName]) {
+          data = data[dataFieldName];
+      } else {
+          data = [];
+      }
+
+      if (!Array.isArray(data)) {
+          throw new OnmsError('Expected an array but got "' + (typeof data) + '" instead: ' + path);
+      }
+      if (mapCallbackFunction) {
+          return data.map(mapCallbackFunction);
+      }
+      return data;
+  }
 
   /**
    * A convenience method to make it easy for implementers to extract the count
@@ -235,7 +273,7 @@ export abstract class AbstractDAO<K, T> {
       return null;
     }
 
-    const prop = new SearchProperty();
+    const prop = new SearchProperty(this);
     prop.id = data.id;
     prop.name = data.name;
     prop.orderBy = !!data.orderBy;

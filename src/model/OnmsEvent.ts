@@ -15,6 +15,12 @@ export class OnmsEvent {
   /** the UEI of this event */
   public uei: string;
 
+  /** the label of this event as defined in the event configuration */
+  public label: string;
+
+  /** which location the event originated from */
+  public location: string;
+
   /** the node's ID associated with this event */
   public nodeId: number;
 

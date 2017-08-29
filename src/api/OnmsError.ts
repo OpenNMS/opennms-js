@@ -1,8 +1,8 @@
 /**
- * Represents an OpenNMS.js error.  This will eventually have custom stuff to do... stuff.
+ * Represents an OpenNMS.js error.
  * @module OnmsError
  */
-export class OnmsError {
+export class OnmsError extends Error {
   /**
    * The response status code, if any.
    * @hidden
@@ -10,30 +10,18 @@ export class OnmsError {
   private statusCode: number;
 
   /**
-   * We need a real JS Error because it can't be subclassed.
-   * @hidden
+   * The data (payload) associated with a response.
    */
-  private errorObj: Error;
+  private data: any;
 
   /**
-   * The stack trace so this object is loggable.
-   * @hidden
+   * The options provided as part of the request that resulted in this erro.
    */
-  private stack;
+  private options: any;
 
   /** The error code associated with this error. */
   public get code() {
     return this.statusCode;
-  }
-
-  /** The JS Error class associated with this error. */
-  public get error() {
-    return this.errorObj;
-  }
-
-  /** The error message. */
-  public get message() {
-    return this.errorObj.message;
   }
 
   /**
@@ -42,10 +30,19 @@ export class OnmsError {
    * @param message - The error message.
    * @param code - An optional error code to associate with the error.
    */
-  constructor(public mess: string, code?: number) {
-    this.errorObj = new Error(mess);
-    this.statusCode = code;
-    this.stack = this.errorObj.stack;
+  constructor(message: string, code?: number, options?: any, data?: any) {
+      super(message);
+      this.name = this.constructor.name;
+      this.statusCode = code;
+      this.data = data;
+      this.options = options;
+      if (typeof Error.captureStackTrace === 'function') {
+          Error.captureStackTrace(this, this.constructor);
+      } else {
+          this.stack = (new Error(message)).stack;
+      }
+      // workaround, see http://bit.ly/2vllGdD
+      Object.setPrototypeOf(this, OnmsError.prototype);
   }
 
   /**

@@ -321,6 +321,7 @@ export class AlarmDAO extends AbstractDAO<number, OnmsAlarm> {
     alarm.description = data.description;
     alarm.firstEventTime = this.toDate(data.firstEventTime);
     alarm.lastEvent = this.eventDao.fromData(data.lastEvent);
+    alarm.location = data.location;
     alarm.logMessage = data.logMessage;
     alarm.reductionKey = data.reductionKey;
     alarm.troubleTicket = data.troubleTicket;
