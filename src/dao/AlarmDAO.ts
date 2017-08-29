@@ -325,6 +325,7 @@ export class AlarmDAO extends AbstractDAO<number, OnmsAlarm> {
     alarm.logMessage = data.logMessage;
     alarm.reductionKey = data.reductionKey;
     alarm.troubleTicket = data.troubleTicket;
+    alarm.troubleTicketLink = data.troubleTicketLink;
     alarm.nodeId = this.toNumber(data.nodeId);
     alarm.nodeLabel = data.nodeLabel;
     alarm.suppressedBy = data.suppressedBy;
@@ -342,8 +343,13 @@ export class AlarmDAO extends AbstractDAO<number, OnmsAlarm> {
       alarm.type = AlarmTypes[type];
     }
 
-    if (data.troubleTicketState) {
-      alarm.troubleTicketState = TroubleTicketStates[data.troubleTicketState];
+    if (typeof data.troubleTicketState !== 'undefined') {
+        const troubleTicketKey = Object.keys(TroubleTicketStates).find((key) => {
+            return TroubleTicketStates[key].id === data.troubleTicketState;
+        });
+        if (troubleTicketKey) {
+            alarm.troubleTicketState = TroubleTicketStates[troubleTicketKey];
+        }
     }
 
     if (data.serviceType) {
