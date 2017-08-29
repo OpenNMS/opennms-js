@@ -22,9 +22,12 @@
     "description": "<p>All interfaces on node wan4 are\n      down.</p> <p>This event is generated when node\n      outage processing determines that all interfaces on the node\n      are down.</p> <p>New outage records have been\n      created and service level availability calculations will be\n      impacted until this outage is resolved.</p>",
     "logMessage": "\n      Node wan4 is down. \n    ",
     "log": "Y",
-    "display": "Y"
+    "display": "Y",
+    "label": "OpenNMS-defined node event: nodeDown",
+    "location": "Default"
   },
   "lastEventTime": 1498062027050,
+  "location": "Default",
   "managedObjectInstance": null,
   "managedObjectType": null,
   "ossPrimaryKey": null,
