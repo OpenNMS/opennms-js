@@ -79,7 +79,8 @@ export class MockHTTP21 extends AbstractHTTP {
         return Promise.resolve(result);
       }
     }
-    return Promise.reject(OnmsResult.error('Not yet implemented: ' + urlObj.toString()));
+
+    throw new Error('Not yet implemented: GET ' + urlObj.toString());
   }
 
   public put(url: string, options?: OnmsHTTPOptions) {
@@ -143,7 +144,7 @@ export class MockHTTP21 extends AbstractHTTP {
       }
     }
 
-    return Promise.reject(OnmsResult.error('Not yet implemented: PUT ' + urlObj.toString()));
+    throw new Error('Not yet implemented: PUT ' + urlObj.toString());
   }
 
   public post(url: string, options?: OnmsHTTPOptions) {
@@ -173,7 +174,7 @@ export class MockHTTP21 extends AbstractHTTP {
       }
     }
 
-    return Promise.reject(OnmsResult.error('Not yet implemented: POST ' + urlObj.toString()));
+    throw new Error('Not yet implemented: POST ' + urlObj.toString());
   }
 
   public httpDelete(url: string, options?: OnmsHTTPOptions): Promise<OnmsResult<any>> {
@@ -197,6 +198,6 @@ export class MockHTTP21 extends AbstractHTTP {
       }
     }
 
-    return Promise.reject(OnmsResult.error('Not yet implemented: DELETE ' + urlObj.toString()));
+    throw new Error('Not yet implemented: DELETE ' + urlObj.toString());
   }
 }

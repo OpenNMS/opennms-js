@@ -8,7 +8,7 @@ import {log, catRest} from '../api/Log';
 import {Category} from 'typescript-logging';
 
 import * as clonedeep from 'lodash.clonedeep';
-import {Util} from '../internal/Util';
+import {GrafanaError} from './GrafanaError';
 
 /** @hidden */
 const catGrafana = new Category('grafana', catRest);
@@ -51,8 +51,10 @@ export class GrafanaHTTP extends AbstractHTTP {
       if (response.headers && response.headers['content-type']) {
         type = response.headers['content-type'];
       }
-      return OnmsResult.ok(response.data, undefined, response.status, type);
-    }).catch(this.handleError);
+      return OnmsResult.ok(this.getData(response), undefined, response.status, type);
+    }).catch((e) => {
+      this.handleError(e, query);
+    });
   }
 
   /** Make an HTTP PUT call using the Grafana `BackendSrv`. */
@@ -71,8 +73,10 @@ export class GrafanaHTTP extends AbstractHTTP {
       if (response.headers && response.headers['content-type']) {
         type = response.headers['content-type'];
       }
-      return OnmsResult.ok(response.data, undefined, response.status, type);
-    }).catch(this.handleError);
+      return OnmsResult.ok(this.getData(response), undefined, response.status, type);
+    }).catch((e) => {
+      this.handleError(e, query);
+    });
   }
 
   /** Make an HTTP POST call using the Grafana `BackendSrv`. */
@@ -90,8 +94,10 @@ export class GrafanaHTTP extends AbstractHTTP {
       if (response.headers && response.headers['content-type']) {
         type = response.headers['content-type'];
       }
-      return OnmsResult.ok(response.data, undefined, response.status, type);
-    }).catch(this.handleError);
+      return OnmsResult.ok(this.getData(response), undefined, response.status, type);
+    }).catch((e) => {
+      this.handleError(e, query);
+    });
   }
 
   /** Make an HTTP DELETE call using the Grafana `BackendSrv`. */
@@ -109,9 +115,24 @@ export class GrafanaHTTP extends AbstractHTTP {
       if (response.headers && response.headers['content-type']) {
         type = response.headers['content-type'];
       }
-      return OnmsResult.ok(response.data, undefined, response.status, type);
-    }).catch(this.handleError);
+      return OnmsResult.ok(this.getData(response), undefined, response.status, type);
+    }).catch((e) => {
+        this.handleError(e, query);
+    });
   }
+
+    /**
+     * A callback to handle any request errors.
+     * @hidden
+     */
+    protected handleError(err: any, options?: any): never {
+      let message = AbstractHTTP.extractMessage(err);
+      if (err && err.data && err.data.response && (typeof (err.data.response) === 'string')) {
+          message = err.data.response;
+      }
+      const status = AbstractHTTP.extractStatus(err);
+      throw new GrafanaError(message, status, options, err);
+    }
 
   /**
    * Internal method to turn [[OnmsHTTPOptions]] into a Grafana `BackendSrv` request object.
@@ -119,41 +140,26 @@ export class GrafanaHTTP extends AbstractHTTP {
    */
   private getConfig(options?: OnmsHTTPOptions): any {
     const allOptions = this.getOptions(options);
-    const ret = {} as any;
+    const ret = clonedeep(allOptions);
+    ret.transformResponse = []; // we do this so we can post-process only on success
 
-    if (allOptions.headers) {
+    if (!allOptions.headers) {
       ret.headers = clonedeep(allOptions.headers);
     } else {
       ret.headers = {};
     }
 
+    // Enforce Accept-Header
     if (!ret.headers.accept) {
       ret.headers.accept = 'application/json';
     }
-    if (!ret.headers['content-type']) {
+    // Enforce Content-Type-Header when data is being sent
+    if (ret.data && !ret.headers['content-type']) {
       ret.headers['content-type'] = 'application/json;charset=utf-8';
     }
-
-    const type = ret.headers.accept;
-    if (type === 'application/json') {
-      ret.responseType = 'json';
-      ret.transformResponse = this.transformJSON;
-    } else if (type === 'text/plain') {
-      ret.responseType = 'text';
-      delete ret.transformResponse;
-    } else if (type === 'application/xml') {
-      ret.responseType = 'text';
-      ret.transformResponse = this.transformXML;
-    } else {
-      throw new OnmsError('Unhandled "Accept" header: ' + type);
-    }
-
-    if (allOptions.parameters && Object.keys(allOptions.parameters).length > 0) {
-      ret.params = clonedeep(allOptions.parameters);
-    }
-
-    if (allOptions.data) {
-      ret.data = clonedeep(allOptions.data);
+    if (ret.parameters && Object.keys(ret.parameters).length > 0) {
+      ret.params = ret.parameters;
+      delete ret.parameters;
     }
     return ret;
   }

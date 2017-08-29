@@ -1,15 +1,8 @@
-import {OnmsError} from './OnmsError';
-
 /**
  * An [[IOnmsHTTP]] query result.
  * @module OnmsResult
  */
 export class OnmsResult<T> {
-  /** Create a new error result. */
-  public static error(message: string, code?: number) {
-    return new OnmsResult(undefined, message, code);
-  }
-
   /** Create a new success result. */
   public static ok(response: any, message?: string, code?: number, type?: string) {
     return new OnmsResult(response, message || 'OK', code || 200, type);
