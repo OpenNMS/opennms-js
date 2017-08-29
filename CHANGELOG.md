@@ -1,10 +1,13 @@
 <a name="1.0.0-beta.2"></a>
-# [1.0.0-beta.2](https://github.com/OpenNMS/opennms-js/compare/v1.0.0-beta.1...v1.0.0-beta.2) (2017-08-16)
+# [1.0.0-beta.2](https://github.com/OpenNMS/opennms-js/compare/v1.0.0-beta.1...v1.0.0-beta.2) (2017-08-29)
 
 
 ### Bug Fixes
 
 * **api:** add missing modules to API export ([53fad98](https://github.com/OpenNMS/opennms-js/commit/53fad98))
+* **api:** add workaround for Error init + clean up docs ([6f7a4ab](https://github.com/OpenNMS/opennms-js/commit/6f7a4ab))
+* **rest:** Do not set responseType on request ([0c2b6f4](https://github.com/OpenNMS/opennms-js/commit/0c2b6f4))
+* **rest:** Use err.data.response if exists as message ([4875b9c](https://github.com/OpenNMS/opennms-js/commit/4875b9c))
 * **rest:** use negative offset for dates to work around a server issue ([abdfc0b](https://github.com/OpenNMS/opennms-js/commit/abdfc0b))
 
 
@@ -12,10 +15,14 @@
 
 * **api:** add metadata call to detect ticketer config support ([bf0255b](https://github.com/OpenNMS/opennms-js/commit/bf0255b))
 * **api:** Include ticketer configuration. JS-17 ([2728734](https://github.com/OpenNMS/opennms-js/commit/2728734))
+* **dao:** Add capability to fetch values from alarm v2 endpoint (JS-22) ([637443f](https://github.com/OpenNMS/opennms-js/commit/637443f))
 * **dao:** Add more complex null value handling for v2 (JS-20) ([7817b4a](https://github.com/OpenNMS/opennms-js/commit/7817b4a))
 * **dao:** add user parameter to unack (JS-19) ([90c128d](https://github.com/OpenNMS/opennms-js/commit/90c128d))
+* **dao:** expose the event label and locations (HELM-13) ([3395039](https://github.com/OpenNMS/opennms-js/commit/3395039))
 * **dao:** support dates in query parameters (JS-15) ([d9884b6](https://github.com/OpenNMS/opennms-js/commit/d9884b6))
 * **internal:** add utility methods for dealing with dates ([c40450b](https://github.com/OpenNMS/opennms-js/commit/c40450b))
+* **rest:** Improve OnmsError object and GrafanaHttp error handling ([72d6e32](https://github.com/OpenNMS/opennms-js/commit/72d6e32))
+* **rest:** only parse requests on success (JS-13) ([aa9257d](https://github.com/OpenNMS/opennms-js/commit/aa9257d))
 
 
 
