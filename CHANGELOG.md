@@ -6,6 +6,7 @@
 
 * **api:** add missing modules to API export ([53fad98](https://github.com/OpenNMS/opennms-js/commit/53fad98))
 * **api:** add workaround for Error init + clean up docs ([6f7a4ab](https://github.com/OpenNMS/opennms-js/commit/6f7a4ab))
+* **dao:** Map troubleTicketState properly (JS-24) ([86fc298](https://github.com/OpenNMS/opennms-js/commit/86fc298))
 * **rest:** Do not set responseType on request ([0c2b6f4](https://github.com/OpenNMS/opennms-js/commit/0c2b6f4))
 * **rest:** Use err.data.response if exists as message ([4875b9c](https://github.com/OpenNMS/opennms-js/commit/4875b9c))
 * **rest:** use negative offset for dates to work around a server issue ([abdfc0b](https://github.com/OpenNMS/opennms-js/commit/abdfc0b))
@@ -19,6 +20,7 @@
 * **dao:** Add more complex null value handling for v2 (JS-20) ([7817b4a](https://github.com/OpenNMS/opennms-js/commit/7817b4a))
 * **dao:** add user parameter to unack (JS-19) ([90c128d](https://github.com/OpenNMS/opennms-js/commit/90c128d))
 * **dao:** expose the event label and locations (HELM-13) ([3395039](https://github.com/OpenNMS/opennms-js/commit/3395039))
+* **dao:** Include troubleTicketLink if defined (JS-23) ([7420218](https://github.com/OpenNMS/opennms-js/commit/7420218))
 * **dao:** support dates in query parameters (JS-15) ([d9884b6](https://github.com/OpenNMS/opennms-js/commit/d9884b6))
 * **internal:** add utility methods for dealing with dates ([c40450b](https://github.com/OpenNMS/opennms-js/commit/c40450b))
 * **rest:** Improve OnmsError object and GrafanaHttp error handling ([72d6e32](https://github.com/OpenNMS/opennms-js/commit/72d6e32))
