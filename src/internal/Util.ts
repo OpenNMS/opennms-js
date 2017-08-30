@@ -64,7 +64,7 @@ export class Util {
   public static toDateString(date: Date|Moment|number) {
     const ret = Util.toMoment(date);
     if (ret) {
-      return ret.utc().format(dateFormat).replace('+0000', '-0000');
+      return ret.utc().format(dateFormat);
     } else {
       return undefined;
     }
