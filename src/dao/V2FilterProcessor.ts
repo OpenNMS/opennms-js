@@ -26,7 +26,13 @@ export class V2FilterProcessor implements IFilterProcessor {
    *  This must be explicitly set as the restriction value when using
    *  either the NULL or NOTNULL comparators on date fields.
    */
-  public static NULL_DATE = '1970-01-01T00:00:00.000-0000';
+  public static NULL_DATE = '1970-01-01T00:00:00.000+0000';
+
+  /**
+   * pre-encoded to avoid running `encodeURIComponent` every time we deal with a null date
+   * @hidden
+   */
+  private static NULL_DATE_ENCODED = encodeURIComponent(V2FilterProcessor.NULL_DATE);
 
   /** The accessor for Properties */
   private searchPropertyAccessor: ISearchPropertyAccessor;
@@ -84,16 +90,16 @@ export class V2FilterProcessor implements IFilterProcessor {
     switch (restriction.comparator) {
       case Comparators.NULL:
       case Comparators.NOTNULL:
-          return restriction.value === undefined ? V2FilterProcessor.NULL_VALUE : restriction.value;
+          return restriction.value === undefined ? V2FilterProcessor.NULL_VALUE : encodeURIComponent(restriction.value);
       default:
           if (restriction.value === 'null' || restriction.value === void 0) {
               const property = this.searchPropertyAccessor.getProperty(restriction.attribute);
               if (property && property.type === SearchPropertyTypes.TIMESTAMP) {
-                  return V2FilterProcessor.NULL_DATE;
+                  return V2FilterProcessor.NULL_DATE_ENCODED;
               }
               return V2FilterProcessor.NULL_VALUE;
           }
-          return this.applyDateConversion(restriction.value);
+          return encodeURIComponent(this.applyDateConversion(restriction.value));
     }
   }
 

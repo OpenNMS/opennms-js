@@ -77,12 +77,12 @@ describe('V1FilterProcessor', () => {
       proc.getParameters(filter);
     }).toThrow(OnmsError);
   });
-  it('alarm filter: lastEventTime=1976-04-14T00:00:00.000-0000', () => {
+  it('alarm filter: lastEventTime=1976-04-14T00:00:00.000+0000', () => {
     const filter = new Filter();
     filter.withOrRestriction(new Restriction('lastEventTime', Comparators.EQ, new Date(198288000000)));
     const proc = new V1FilterProcessor();
     expect(proc.getParameters(filter)).toMatchObject({
-      lastEventTime: '1976-04-14T00:00:00.000-0000'
+      lastEventTime: '1976-04-14T00:00:00.000+0000'
     });
   });
 });
