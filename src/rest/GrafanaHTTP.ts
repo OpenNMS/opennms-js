@@ -143,7 +143,7 @@ export class GrafanaHTTP extends AbstractHTTP {
     const ret = clonedeep(allOptions);
     ret.transformResponse = []; // we do this so we can post-process only on success
 
-    if (!allOptions.headers) {
+    if (allOptions.headers) {
       ret.headers = clonedeep(allOptions.headers);
     } else {
       ret.headers = {};
