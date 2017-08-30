@@ -7,6 +7,7 @@
 * **api:** add missing modules to API export ([53fad98](https://github.com/OpenNMS/opennms-js/commit/53fad98))
 * **api:** add workaround for Error init + clean up docs ([6f7a4ab](https://github.com/OpenNMS/opennms-js/commit/6f7a4ab))
 * **dao:** Map troubleTicketState properly (JS-24) ([86fc298](https://github.com/OpenNMS/opennms-js/commit/86fc298))
+* **dao:** URL-encode FIQL values (NMS-9578) ([9a335e8](https://github.com/OpenNMS/opennms-js/commit/9a335e8))
 * **rest:** Do not reset headers when headers defined ([2f360fd](https://github.com/OpenNMS/opennms-js/commit/2f360fd))
 * **rest:** Do not set responseType on request ([0c2b6f4](https://github.com/OpenNMS/opennms-js/commit/0c2b6f4))
 * **rest:** Use err.data.response if exists as message ([4875b9c](https://github.com/OpenNMS/opennms-js/commit/4875b9c))
