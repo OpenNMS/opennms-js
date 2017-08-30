@@ -36974,7 +36974,7 @@ var GrafanaHTTP = function (_AbstractHTTP_1$Abstr) {
             var allOptions = this.getOptions(options);
             var ret = clonedeep(allOptions);
             ret.transformResponse = []; // we do this so we can post-process only on success
-            if (!allOptions.headers) {
+            if (allOptions.headers) {
                 ret.headers = clonedeep(allOptions.headers);
             } else {
                 ret.headers = {};

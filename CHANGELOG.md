@@ -1,5 +1,5 @@
 <a name="1.0.0-beta.2"></a>
-# [1.0.0-beta.2](https://github.com/OpenNMS/opennms-js/compare/v1.0.0-beta.1...v1.0.0-beta.2) (2017-08-29)
+# [1.0.0-beta.2](https://github.com/OpenNMS/opennms-js/compare/v1.0.0-beta.1...v1.0.0-beta.2) (2017-08-30)
 
 
 ### Bug Fixes
@@ -7,6 +7,7 @@
 * **api:** add missing modules to API export ([53fad98](https://github.com/OpenNMS/opennms-js/commit/53fad98))
 * **api:** add workaround for Error init + clean up docs ([6f7a4ab](https://github.com/OpenNMS/opennms-js/commit/6f7a4ab))
 * **dao:** Map troubleTicketState properly (JS-24) ([86fc298](https://github.com/OpenNMS/opennms-js/commit/86fc298))
+* **rest:** Do not reset headers when headers defined ([2f360fd](https://github.com/OpenNMS/opennms-js/commit/2f360fd))
 * **rest:** Do not set responseType on request ([0c2b6f4](https://github.com/OpenNMS/opennms-js/commit/0c2b6f4))
 * **rest:** Use err.data.response if exists as message ([4875b9c](https://github.com/OpenNMS/opennms-js/commit/4875b9c))
 * **rest:** use negative offset for dates to work around a server issue ([abdfc0b](https://github.com/OpenNMS/opennms-js/commit/abdfc0b))
