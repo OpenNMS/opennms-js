@@ -96,4 +96,6 @@ export class OnmsAlarm {
     return undefined;
   }
 
+  /** link to the alarm details page on the source instance */
+  public detailsPage: string;
 }
