@@ -1,5 +1,5 @@
-<a name="1.0.0-beta.2"></a>
-# [1.0.0-beta.2](https://github.com/OpenNMS/opennms-js/compare/v1.0.0-beta.1...v1.0.0-beta.2) (2017-09-08)
+<a name="1.0.0"></a>
+# [1.0.0](https://github.com/OpenNMS/opennms-js/compare/v1.0.0-beta.1...v1.0.0) (2017-09-08)
 
 
 ### Bug Fixes
