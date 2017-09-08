@@ -14,6 +14,22 @@ The complete API list is available at [docs.opennms.org](http://docs.opennms.org
 2. run `sudo npm install -g opennms`
 3. run `opennms --help` for a list of possible commands
 
+# API Coverage
+
+OpenNMS.js currently supports a subset of the OpenNMS ReST API:
+
+* query alarms, events, and nodes (including complex queries against OpenNMS Horizon 21+ and Meridian 2017+)
+* acknowledge, escalate, and clear alarms
+* create, update, and close trouble tickets against an alarm
+* create, update, and delete alarm sticky memos
+* create, update, and delete alarm journal memos
+
+Future plans include adding support for other common ReST operations:
+
+* creating, updating, deleting, and importing requisitions
+* query the measurements ReST API (RRD/Newts time-series data)
+* query outages and notifications
+
 # Changes
 
 The CHANGELOG will be updated as releases occur, and should always be accessible [here](https://github.com/OpenNMS/opennms-js/blob/master/CHANGELOG.md).
