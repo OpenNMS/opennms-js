@@ -60,9 +60,10 @@ export class OnmsServer {
   /**
    * Given a relative URL fragment, construct a URL for that fragment on the server.
    * @param forFragment - The URL fragment to append to the server URL.
+   * @parm withQuery - Query parameters to be appended to the URL.
    * @returns A complete URL.
    */
-  public resolveURL(forFragment?: string) {
+  public resolveURL(forFragment?: string, withQuery?: any) {
     if (!this.url) {
       return undefined;
     }
@@ -72,7 +73,11 @@ export class OnmsServer {
     if (forFragment.indexOf('/') === 0 || forFragment.indexOf('http') === 0) {
       return forFragment;
     }
-    return URI(this.url).segment(forFragment).toString();
+    let uri = URI(this.url).segment(forFragment);
+    if (withQuery !== undefined) {
+        uri = uri.addQuery(withQuery);
+    }
+    return uri.toString();
   }
 
   /**

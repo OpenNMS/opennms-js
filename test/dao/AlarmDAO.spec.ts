@@ -46,6 +46,8 @@ describe('AlarmDAO with v1 API', () => {
   it('AlarmDAO.get(404725)', () => {
     return dao.get(404725).then((alarm) => {
       expect(alarm.id).toEqual(404725);
+      // Spot check some of the known properties
+      expect(alarm.detailsPage).toEqual('http://demo.opennms.org/opennms/alarm/detail.htm?id=404725');
     });
   });
   it('AlarmDAO.find(id=404725)', () => {
@@ -166,6 +168,7 @@ describe('AlarmDAO with v2 API', () => {
       expect(alarm.location).toEqual('Default');
       expect(alarm.lastEvent.label).toEqual('OpenNMS-defined node event: nodeDown');
       expect(alarm.lastEvent.location).toEqual('Default');
+      expect(alarm.detailsPage).toEqual('http://demo.opennms.org/opennms/alarm/detail.htm?id=6806');
     });
   });
   it('AlarmDAO.find(id=6806)', () => {
@@ -269,4 +272,5 @@ describe('AlarmDAO with v2 API', () => {
       return true;
     })).resolves.toBeTruthy();
   });
+
 });
