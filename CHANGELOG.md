@@ -1,5 +1,5 @@
 <a name="1.0.0-beta.2"></a>
-# [1.0.0-beta.2](https://github.com/OpenNMS/opennms-js/compare/v1.0.0-beta.1...v1.0.0-beta.2) (2017-08-30)
+# [1.0.0-beta.2](https://github.com/OpenNMS/opennms-js/compare/v1.0.0-beta.1...v1.0.0-beta.2) (2017-09-08)
 
 
 ### Bug Fixes
@@ -16,6 +16,7 @@
 
 ### Features
 
+* **alarms:** expose a link to the alarm details page (HELM-55) ([8795818](https://github.com/OpenNMS/opennms-js/commit/8795818))
 * **api:** add metadata call to detect ticketer config support ([bf0255b](https://github.com/OpenNMS/opennms-js/commit/bf0255b))
 * **api:** Include ticketer configuration. JS-17 ([2728734](https://github.com/OpenNMS/opennms-js/commit/2728734))
 * **dao:** Add capability to fetch values from alarm v2 endpoint (JS-22) ([637443f](https://github.com/OpenNMS/opennms-js/commit/637443f))
