@@ -388,6 +388,8 @@ export class AlarmDAO extends AbstractDAO<number, OnmsAlarm> {
     alarm.sticky = this.toMemo(data.stickyMemo);
     alarm.journal = this.toMemo(data.reductionKeyMemo);
 
+    alarm.detailsPage = this.getDetailsPage(alarm);
+
     return alarm;
   }
 
@@ -507,4 +509,14 @@ export class AlarmDAO extends AbstractDAO<number, OnmsAlarm> {
     return this.httpDelete(this.pathToAlarmsEndpoint() + '/' + alarmId + '/' + type);
   }
 
+  /**
+   * Retrieves the URL to the details page for the given alarm.
+   *
+   * @param {number|OnmsAlarm} alarm - The [[OnmsAlarm]] or alarm ID.
+   * @returns {URL} URL on the associated OpenNMS server for the alarm details page.
+   */
+  private getDetailsPage(alarm: number|OnmsAlarm): string {
+      const alarmId = (typeof(alarm) === 'number' ? alarm : alarm.id);
+      return this.http.server.resolveURL(`alarm/detail.htm`, {id: alarmId});
+  }
 }
