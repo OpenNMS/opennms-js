@@ -37003,6 +37003,10 @@ var GrafanaHTTP = function (_AbstractHTTP_1$Abstr) {
             } else {
                 ret.headers = {};
             }
+            if (allOptions.auth && allOptions.auth.username && allOptions.auth.password) {
+                ret.withCredentials = true;
+                ret.headers.Authorization = 'Basic ' + btoa(allOptions.auth.username + ':' + allOptions.auth.password);
+            }
             // Enforce Accept-Header
             if (!ret.headers.accept) {
                 ret.headers.accept = 'application/json';

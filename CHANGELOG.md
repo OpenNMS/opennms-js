@@ -1,5 +1,10 @@
 <a name="1.0.1-beta.1"></a>
-## [1.0.1-beta.1](https://github.com/OpenNMS/opennms-js/compare/v1.0.0...v1.0.1-beta.1) (2017-09-08)
+## [1.0.1-beta.1](https://github.com/OpenNMS/opennms-js/compare/v1.0.0...v1.0.1-beta.1) (2017-09-09)
+
+
+### Bug Fixes
+
+* **grafana:** set the Authorization header ([d48f931](https://github.com/OpenNMS/opennms-js/commit/d48f931))
 
 
 
