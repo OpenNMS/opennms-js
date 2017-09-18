@@ -78,7 +78,7 @@ export class ServerMetadata {
     if (this.type && this.type === ServerTypes.MERIDIAN) {
       return this.version.ge('2017.1.0') ? 2 : 1;
     } else {
-      return this.version.ge('21.0.0') ? 2 : 1;
+      return this.version.ge('20.1.0') ? 2 : 1;
     }
   }
 
