@@ -1,5 +1,10 @@
 <a name="1.0.2-beta.1"></a>
-## [1.0.2-beta.1](https://github.com/OpenNMS/opennms-js/compare/v1.0.1...v1.0.2-beta.1) (2017-09-13)
+## [1.0.2-beta.1](https://github.com/OpenNMS/opennms-js/compare/v1.0.1...v1.0.2-beta.1) (2017-09-18)
+
+
+### Bug Fixes
+
+* **rest:** allow ReSTv2 for Horizon 20.1.x ([bd1dd59](https://github.com/OpenNMS/opennms-js/commit/bd1dd59))
 
 
 
