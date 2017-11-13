@@ -53902,7 +53902,7 @@ var CLI = function CLI() {
         });
     };
     // list current alarms
-    program.command('alarms [filters...]').description('List current alarms with optional filters (eg: "severity eq MAJOR" or "nodeLabel ilike dns%")').action(function (filters) {
+    program.command('alarms [filters...]').description('List current alarms with optional filters (eg: "severity eq MAJOR" or "node.label like dns*")').action(function (filters) {
         var config = readConfig();
         return new API_1.Client().connect('OpenNMS', config.url, config.username, config.password).then(function (client) {
             var dao = new API_1.DAO.AlarmDAO(client);

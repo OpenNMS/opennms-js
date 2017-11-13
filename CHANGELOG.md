@@ -1,5 +1,10 @@
 <a name="1.0.3-beta.1"></a>
-## [1.0.3-beta.1](https://github.com/OpenNMS/opennms-js/compare/v1.0.2...v1.0.3-beta.1) (2017-09-25)
+## [1.0.3-beta.1](https://github.com/OpenNMS/opennms-js/compare/v1.0.2...v1.0.3-beta.1) (2017-11-13)
+
+
+### Bug Fixes
+
+* **cli:** Valid example for node label searches ([2eafce8](https://github.com/OpenNMS/opennms-js/commit/2eafce8))
 
 
 
