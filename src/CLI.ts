@@ -213,7 +213,7 @@ const CLI = () => {
   // list current alarms
   program
     .command('alarms [filters...]')
-    .description('List current alarms with optional filters (eg: "severity eq MAJOR" or "nodeLabel ilike dns%")')
+    .description('List current alarms with optional filters (eg: "severity eq MAJOR" or "node.label like dns*")')
     .action((filters) => {
       const config = readConfig();
       return new Client().connect('OpenNMS', config.url, config.username, config.password).then((client) => {
