@@ -40,4 +40,12 @@ export class OnmsHTTPOptions {
       this.server = server;
     }
   }
+
+  public withParameter(key: string, value?: any): OnmsHTTPOptions {
+    if (value !== undefined) {
+      this.parameters[key] = '' + value;
+    }
+    return this;
+  }
+
 }
