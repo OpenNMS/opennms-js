@@ -6849,6 +6849,13 @@ var OnmsServiceType = function () {
         this.name = name;
     }
 
+    _createClass(OnmsServiceType, [{
+        key: "urlValue",
+        get: function get() {
+            return this.name;
+        }
+    }]);
+
     return OnmsServiceType;
 }();
 
@@ -8988,6 +8995,18 @@ var OnmsParm = function () {
         this.valueString = value;
     }
 
+    _createClass(OnmsParm, [{
+        key: "toString",
+        value: function toString() {
+            return this.valueString;
+        }
+    }, {
+        key: "urlValue",
+        get: function get() {
+            return this.valueString;
+        }
+    }]);
+
     return OnmsParm;
 }();
 
@@ -8999,6 +9018,8 @@ exports.OnmsParm = OnmsParm;
 
 "use strict";
 
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -9021,6 +9042,13 @@ var OnmsSeverity = function (_OnmsEnum_1$OnmsEnum) {
 
         return _possibleConstructorReturn(this, (OnmsSeverity.__proto__ || Object.getPrototypeOf(OnmsSeverity)).apply(this, arguments));
     }
+
+    _createClass(OnmsSeverity, [{
+        key: "urlValue",
+        get: function get() {
+            return this.label;
+        }
+    }]);
 
     return OnmsSeverity;
 }(OnmsEnum_1.OnmsEnum);
@@ -12300,6 +12328,11 @@ var OnmsAlarm = function () {
             }
             return undefined;
         }
+    }, {
+        key: "urlValue",
+        get: function get() {
+            return String(this.id);
+        }
     }]);
 
     return OnmsAlarm;
@@ -12313,6 +12346,8 @@ exports.OnmsAlarm = OnmsAlarm;
 
 "use strict";
 
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -12335,6 +12370,13 @@ var OnmsAlarmType = function (_OnmsEnum_1$OnmsEnum) {
 
         return _possibleConstructorReturn(this, (OnmsAlarmType.__proto__ || Object.getPrototypeOf(OnmsAlarmType)).apply(this, arguments));
     }
+
+    _createClass(OnmsAlarmType, [{
+        key: "urlValue",
+        get: function get() {
+            return String(this.id);
+        }
+    }]);
 
     return OnmsAlarmType;
 }(OnmsEnum_1.OnmsEnum);
@@ -12402,6 +12444,13 @@ var OnmsCategory = function () {
         this.name = name;
     }
 
+    _createClass(OnmsCategory, [{
+        key: "urlValue",
+        get: function get() {
+            return this.name;
+        }
+    }]);
+
     return OnmsCategory;
 }();
 
@@ -12444,6 +12493,11 @@ var OnmsCollectType = function (_OnmsEnum_1$OnmsEnum) {
         /** whether or not collection is enabled on the SNMP interface */
         value: function isCollectionEnabled() {
             return this.id === 'C' || this.id === 'UC';
+        }
+    }, {
+        key: "urlValue",
+        get: function get() {
+            return this.id;
         }
     }], [{
         key: "forId",
@@ -12512,6 +12566,11 @@ var OnmsEvent = function () {
             }
             return undefined;
         }
+    }, {
+        key: "urlValue",
+        get: function get() {
+            return String(this.id);
+        }
     }]);
 
     return OnmsEvent;
@@ -12577,6 +12636,11 @@ var OnmsIpInterface = function () {
             }
             return undefined;
         }
+    }, {
+        key: "urlValue",
+        get: function get() {
+            return String(this.id);
+        }
     }]);
 
     return OnmsIpInterface;
@@ -12621,6 +12685,11 @@ var OnmsManagedType = function (_OnmsEnum_1$OnmsEnum) {
         /** Whether or not the node is managed. */
         value: function isManaged() {
             return this.id === 'M';
+        }
+    }, {
+        key: "urlValue",
+        get: function get() {
+            return this.id;
         }
     }], [{
         key: "forId",
@@ -12691,6 +12760,8 @@ exports.OnmsMemo = OnmsMemo;
 "use strict";
 
 
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 Object.defineProperty(exports, "__esModule", { value: true });
@@ -12699,9 +12770,20 @@ Object.defineProperty(exports, "__esModule", { value: true });
  * @module OnmsMonitoredService
  */
 
-var OnmsMonitoredService = function OnmsMonitoredService() {
-  _classCallCheck(this, OnmsMonitoredService);
-};
+var OnmsMonitoredService = function () {
+    function OnmsMonitoredService() {
+        _classCallCheck(this, OnmsMonitoredService);
+    }
+
+    _createClass(OnmsMonitoredService, [{
+        key: "urlValue",
+        get: function get() {
+            return this.type ? this.type.name : null;
+        }
+    }]);
+
+    return OnmsMonitoredService;
+}();
 
 exports.OnmsMonitoredService = OnmsMonitoredService;
 
@@ -12712,6 +12794,8 @@ exports.OnmsMonitoredService = OnmsMonitoredService;
 "use strict";
 
 
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 Object.defineProperty(exports, "__esModule", { value: true });
@@ -12720,28 +12804,39 @@ Object.defineProperty(exports, "__esModule", { value: true });
  * @module OnmsNode
  */
 
-var OnmsNode = function OnmsNode() {
-    _classCallCheck(this, OnmsNode);
+var OnmsNode = function () {
+    function OnmsNode() {
+        _classCallCheck(this, OnmsNode);
 
-    /** the LLDP element associated with this node */
-    // public lldpElement: LldpElement;
-    /** the OSPF element associated with this node */
-    // public ospfElement: OspfElement;
-    /** the IsIs element associated with this node */
-    // public isisElement: IsIsElement;
-    /** the CDP element associated with this node */
-    // public cdpElement: CdpElement;
-    /** the path element associated with this node */
-    // public pathElement: PathElement;
-    /** the SNMP interfaces on this node */
-    this.snmpInterfaces = [];
-    /** the IP interfaces on this node */
-    this.ipInterfaces = [];
-    /** the categories the node is in */
-    this.categories = [];
-    /** the assets of the node */
-    this.assets = {};
-};
+        /** the LLDP element associated with this node */
+        // public lldpElement: LldpElement;
+        /** the OSPF element associated with this node */
+        // public ospfElement: OspfElement;
+        /** the IsIs element associated with this node */
+        // public isisElement: IsIsElement;
+        /** the CDP element associated with this node */
+        // public cdpElement: CdpElement;
+        /** the path element associated with this node */
+        // public pathElement: PathElement;
+        /** the SNMP interfaces on this node */
+        this.snmpInterfaces = [];
+        /** the IP interfaces on this node */
+        this.ipInterfaces = [];
+        /** the categories the node is in */
+        this.categories = [];
+        /** the assets of the node */
+        this.assets = {};
+    }
+
+    _createClass(OnmsNode, [{
+        key: "urlValue",
+        get: function get() {
+            return String(this.id);
+        }
+    }]);
+
+    return OnmsNode;
+}();
 
 exports.OnmsNode = OnmsNode;
 
@@ -12776,7 +12871,12 @@ var OnmsNodeLabelSource = function (_OnmsEnum_1$OnmsEnum) {
         return _possibleConstructorReturn(this, (OnmsNodeLabelSource.__proto__ || Object.getPrototypeOf(OnmsNodeLabelSource)).apply(this, arguments));
     }
 
-    _createClass(OnmsNodeLabelSource, null, [{
+    _createClass(OnmsNodeLabelSource, [{
+        key: "urlValue",
+        get: function get() {
+            return this.id;
+        }
+    }], [{
         key: "forId",
 
         /** Given an ID, return the matching node label source object. */
@@ -12846,7 +12946,12 @@ var OnmsNodeType = function (_OnmsEnum_1$OnmsEnum) {
         return _possibleConstructorReturn(this, (OnmsNodeType.__proto__ || Object.getPrototypeOf(OnmsNodeType)).apply(this, arguments));
     }
 
-    _createClass(OnmsNodeType, null, [{
+    _createClass(OnmsNodeType, [{
+        key: "urlValue",
+        get: function get() {
+            return this.id;
+        }
+    }], [{
         key: "forId",
 
         /** Given an ID (A, D, etc.), return the corresponding node type object. */
@@ -12916,6 +13021,11 @@ var OnmsPrimaryType = function (_OnmsEnum_1$OnmsEnum) {
         /** Whether or not the interface is a primary SNMP interface. */
         value: function isPrimary() {
             return this.id === 'P';
+        }
+    }, {
+        key: "urlValue",
+        get: function get() {
+            return this.id;
         }
     }], [{
         key: "forId",
@@ -12988,6 +13098,11 @@ var OnmsServiceStatusType = function (_OnmsEnum_1$OnmsEnum) {
         value: function isManaged() {
             return this.id === 'A';
         }
+    }, {
+        key: "urlValue",
+        get: function get() {
+            return this.id;
+        }
     }], [{
         key: "forId",
 
@@ -13038,6 +13153,8 @@ exports.ServiceStatusTypes = frozen;
 "use strict";
 
 
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 Object.defineProperty(exports, "__esModule", { value: true });
@@ -13046,9 +13163,20 @@ Object.defineProperty(exports, "__esModule", { value: true });
  * @module OnmsSnmpInterface
  */
 
-var OnmsSnmpInterface = function OnmsSnmpInterface() {
-  _classCallCheck(this, OnmsSnmpInterface);
-};
+var OnmsSnmpInterface = function () {
+    function OnmsSnmpInterface() {
+        _classCallCheck(this, OnmsSnmpInterface);
+    }
+
+    _createClass(OnmsSnmpInterface, [{
+        key: "urlValue",
+        get: function get() {
+            return String(this.id);
+        }
+    }]);
+
+    return OnmsSnmpInterface;
+}();
 
 exports.OnmsSnmpInterface = OnmsSnmpInterface;
 
@@ -13083,7 +13211,12 @@ var OnmsSnmpStatusType = function (_OnmsEnum_1$OnmsEnum) {
         return _possibleConstructorReturn(this, (OnmsSnmpStatusType.__proto__ || Object.getPrototypeOf(OnmsSnmpStatusType)).apply(this, arguments));
     }
 
-    _createClass(OnmsSnmpStatusType, null, [{
+    _createClass(OnmsSnmpStatusType, [{
+        key: "urlValue",
+        get: function get() {
+            return String(this.id);
+        }
+    }], [{
         key: "forId",
 
         /** Given an ID, return the matching snmp status type object. */
@@ -13123,6 +13256,8 @@ exports.SnmpStatusTypes = frozen;
 "use strict";
 
 
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
@@ -13144,6 +13279,13 @@ var OnmsTroubleTicketState = function (_OnmsEnum_1$OnmsEnum) {
 
         return _possibleConstructorReturn(this, (OnmsTroubleTicketState.__proto__ || Object.getPrototypeOf(OnmsTroubleTicketState)).apply(this, arguments));
     }
+
+    _createClass(OnmsTroubleTicketState, [{
+        key: "urlValue",
+        get: function get() {
+            return this.label;
+        }
+    }]);
 
     return OnmsTroubleTicketState;
 }(OnmsEnum_1.OnmsEnum);
@@ -13219,6 +13361,11 @@ var PhysAddr = function () {
             } else {
                 return this.addr;
             }
+        }
+    }, {
+        key: "urlValue",
+        get: function get() {
+            return this.toString();
         }
     }]);
 
