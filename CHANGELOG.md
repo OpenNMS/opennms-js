@@ -5,6 +5,7 @@
 ### Bug Fixes
 
 * **cli:** Valid example for node label searches ([2eafce8](https://github.com/OpenNMS/opennms-js/commit/2eafce8))
+* **model:** OnmsParm should use the name as its urlValue ([5019a0b](https://github.com/OpenNMS/opennms-js/commit/5019a0b))
 
 
 ### Features
