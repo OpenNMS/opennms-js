@@ -53,6 +53,6 @@ export class OnmsParm implements IHasUrlValue {
   }
 
   public get urlValue() {
-    return this.valueString;
+    return this.name;
   }
 }
