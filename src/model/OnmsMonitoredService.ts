@@ -1,6 +1,8 @@
 import {Address4, Address6} from 'ip-address';
 import {Moment} from 'moment';
 
+import {IHasUrlValue} from '../api/IHasUrlValue';
+
 import {OnmsServiceType} from './OnmsServiceType';
 import {OnmsServiceStatusType} from './OnmsServiceStatusType';
 
@@ -8,7 +10,7 @@ import {OnmsServiceStatusType} from './OnmsServiceStatusType';
  * Represents an OpenNMS monitored service.
  * @module OnmsMonitoredService
  */
-export class OnmsMonitoredService {
+export class OnmsMonitoredService implements IHasUrlValue {
   /** the service ID */
   public id: number;
 
@@ -29,4 +31,8 @@ export class OnmsMonitoredService {
 
   /** the current status */
   public status: OnmsServiceStatusType;
+
+  public get urlValue() {
+    return this.type ? this.type.name : null;
+  }
 }

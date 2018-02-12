@@ -1,10 +1,12 @@
+import {IHasUrlValue} from '../api/IHasUrlValue';
+
 import {OnmsEnum, forId, forLabel} from '../internal/OnmsEnum';
 
 /**
  * Represents an OpenNMS "SNMP primary" type.
  * @module OnmsPrimaryType
  */
-export class OnmsPrimaryType extends OnmsEnum<string> {
+export class OnmsPrimaryType extends OnmsEnum<string> implements IHasUrlValue {
   /** Given an ID, return the matching primary type object. */
   public static forId(id: string) {
     return forId(PrimaryTypes, id);
@@ -18,6 +20,10 @@ export class OnmsPrimaryType extends OnmsEnum<string> {
   /** Whether or not the interface is a primary SNMP interface. */
   public isPrimary() {
     return this.id === 'P';
+  }
+
+  public get urlValue() {
+    return this.id;
   }
 }
 

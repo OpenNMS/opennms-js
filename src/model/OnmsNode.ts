@@ -1,5 +1,7 @@
 import {Moment} from 'moment';
 
+import {IHasUrlValue} from '../api/IHasUrlValue';
+
 import {OnmsCategory} from './OnmsCategory';
 import {OnmsNodeLabelSource} from './OnmsNodeLabelSource';
 import {OnmsNodeType} from './OnmsNodeType';
@@ -10,7 +12,7 @@ import {OnmsSnmpInterface} from './OnmsSnmpInterface';
  * Represents an OpenNMS node.
  * @module OnmsNode
  */
-export class OnmsNode {
+export class OnmsNode implements IHasUrlValue {
   /** the node ID */
   public id: number;
 
@@ -92,4 +94,7 @@ export class OnmsNode {
   /** the assets of the node */
   public assets = {} as any;
 
+  public get urlValue() {
+    return String(this.id);
+  }
 }

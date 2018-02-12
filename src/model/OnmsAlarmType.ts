@@ -1,10 +1,14 @@
+import {IHasUrlValue} from '../api/IHasUrlValue';
 import {OnmsEnum} from '../internal/OnmsEnum';
 
 /**
  * Represents an OpenNMS alarm type.
  * @module OnmsAlarmType
  */
-export class OnmsAlarmType extends OnmsEnum<number> {
+export class OnmsAlarmType extends OnmsEnum<number> implements IHasUrlValue {
+  public get urlValue() {
+    return String(this.id);
+  }
 }
 
 const AlarmTypes = {

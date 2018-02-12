@@ -1,10 +1,12 @@
+import {IHasUrlValue} from '../api/IHasUrlValue';
+
 import {OnmsEnum, forId, forLabel} from '../internal/OnmsEnum';
 
 /**
  * Represents an OpenNMS SNMP interface "should collect" type.
  * @module OnmsCollectType
  */
-export class OnmsCollectType extends OnmsEnum<string> {
+export class OnmsCollectType extends OnmsEnum<string> implements IHasUrlValue {
   /** given an ID, return the matching collect type object */
   public static forId(id: string) {
     return forId(CollectTypes, id);
@@ -18,6 +20,10 @@ export class OnmsCollectType extends OnmsEnum<string> {
   /** whether or not collection is enabled on the SNMP interface */
   public isCollectionEnabled() {
     return this.id === 'C' || this.id === 'UC';
+  }
+
+  public get urlValue() {
+    return this.id;
   }
 }
 

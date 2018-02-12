@@ -1,10 +1,12 @@
+import {IHasUrlValue} from '../api/IHasUrlValue';
+
 import {OnmsEnum, forId, forLabel} from '../internal/OnmsEnum';
 
 /**
  * Represents an OpenNMS node label source.
  * @module OnmsNodeLabelSource
  */
-export class OnmsNodeLabelSource extends OnmsEnum<string> {
+export class OnmsNodeLabelSource extends OnmsEnum<string> implements IHasUrlValue {
   /** Given an ID, return the matching node label source object. */
   public static forId(id: string) {
     return forId(NodeLabelSources, id);
@@ -13,6 +15,10 @@ export class OnmsNodeLabelSource extends OnmsEnum<string> {
   /** Given a label, return the matching node label source object. */
   public static forLabel(label: string) {
     return forLabel(NodeLabelSources, label);
+  }
+
+  public get urlValue() {
+    return this.id;
   }
 }
 

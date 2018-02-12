@@ -1,6 +1,8 @@
 import {Address4, Address6} from 'ip-address';
 import {Moment} from 'moment';
 
+import {IHasUrlValue} from '../api/IHasUrlValue';
+
 import {OnmsManagedType} from './OnmsManagedType';
 import {OnmsMonitoredService} from './OnmsMonitoredService';
 import {OnmsPrimaryType} from './OnmsPrimaryType';
@@ -9,7 +11,7 @@ import {OnmsPrimaryType} from './OnmsPrimaryType';
  * Represents an OpenNMS IP interface.
  * @module OnmsIpInterface
  */
-export class OnmsIpInterface {
+export class OnmsIpInterface implements IHasUrlValue {
   /** the interface ID */
   public id: number;
 
@@ -47,4 +49,8 @@ export class OnmsIpInterface {
 
   /** the services on this interface */
   public services = [] as OnmsMonitoredService[];
+
+  public get urlValue() {
+    return String(this.id);
+  }
 }
