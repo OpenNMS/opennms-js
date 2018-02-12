@@ -1,5 +1,7 @@
 import {Moment} from 'moment';
 
+import {IHasUrlValue} from '../api/IHasUrlValue';
+
 import {OnmsCollectType} from './OnmsCollectType';
 import {OnmsSnmpStatusType} from './OnmsSnmpStatusType';
 import {PhysAddr} from './PhysAddr';
@@ -8,7 +10,7 @@ import {PhysAddr} from './PhysAddr';
  * Represents an OpenNMS SNMP interface.
  * @module OnmsSnmpInterface
  */
-export class OnmsSnmpInterface {
+export class OnmsSnmpInterface implements IHasUrlValue {
   /** the interface ID */
   public id: number;
 
@@ -53,4 +55,8 @@ export class OnmsSnmpInterface {
 
   /** the last time the SNMP interface was polled */
   public lastSnmpPoll: Moment;
+
+  public get urlValue() {
+    return String(this.id);
+  }
 }

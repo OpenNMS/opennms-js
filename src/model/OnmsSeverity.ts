@@ -1,9 +1,14 @@
+import {IHasUrlValue} from '../api/IHasUrlValue';
+
 import {OnmsEnum} from '../internal/OnmsEnum';
 /**
  * Represents an OpenNMS severity.
  * @module OnmsSeverity
  */
-export class OnmsSeverity extends OnmsEnum<number> {
+export class OnmsSeverity extends OnmsEnum<number> implements IHasUrlValue {
+  public get urlValue() {
+    return this.label;
+  }
 }
 
 /* tslint:disable:object-literal-sort-keys */

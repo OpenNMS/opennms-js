@@ -1,10 +1,12 @@
+import {IHasUrlValue} from '../api/IHasUrlValue';
+
 import {OnmsEnum, forId, forLabel} from '../internal/OnmsEnum';
 
 /**
  * Represents an OpenNMS monitored service status type.
  * @module OnmsServiceStatusType
  */
-export class OnmsServiceStatusType extends OnmsEnum<string> {
+export class OnmsServiceStatusType extends OnmsEnum<string> implements IHasUrlValue {
   /** Given an ID, return the matching service status type object. */
   public static forId(id: string) {
     return forId(ServiceStatusTypes, id);
@@ -18,6 +20,10 @@ export class OnmsServiceStatusType extends OnmsEnum<string> {
   /** Whether or not the service is managed. */
   public isManaged() {
     return this.id === 'A';
+  }
+
+  public get urlValue() {
+    return this.id;
   }
 }
 

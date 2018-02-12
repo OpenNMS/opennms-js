@@ -1,10 +1,12 @@
+import {IHasUrlValue} from '../api/IHasUrlValue';
+
 import {OnmsEnum, forId, forLabel} from '../internal/OnmsEnum';
 
 /**
  * Represents an OpenNMS SNMP admin/oper status type.
  * @module OnmsSnmpStatusType
  */
-export class OnmsSnmpStatusType extends OnmsEnum<number> {
+export class OnmsSnmpStatusType extends OnmsEnum<number> implements IHasUrlValue {
   /** Given an ID, return the matching snmp status type object. */
   public static forId(id: number) {
     return forId(SnmpStatusTypes, id);
@@ -13,6 +15,10 @@ export class OnmsSnmpStatusType extends OnmsEnum<number> {
   /** Given a label, return the matching snmp status type object. */
   public static forLabel(label: string) {
     return forLabel(SnmpStatusTypes, label);
+  }
+
+  public get urlValue() {
+    return String(this.id);
   }
 }
 

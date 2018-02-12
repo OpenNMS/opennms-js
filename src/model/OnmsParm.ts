@@ -1,10 +1,12 @@
+import {IHasUrlValue} from '../api/IHasUrlValue';
+
 import {Util} from '../internal/Util';
 
 /**
  * Represents an OpenNMS event or alarm parameter.
  * @module OnmsParm
  */
-export class OnmsParm {
+export class OnmsParm implements IHasUrlValue {
   /** the name of the parm */
   public name: string;
 
@@ -44,5 +46,13 @@ export class OnmsParm {
     this.name = name;
     this.type = type;
     this.valueString = value;
+  }
+
+  public toString(): string {
+    return this.valueString;
+  }
+
+  public get urlValue() {
+    return this.valueString;
   }
 }

@@ -1,3 +1,5 @@
+import {IHasUrlValue} from '../api/IHasUrlValue';
+
 import {log, catModel} from '../api/Log';
 import {Category} from 'typescript-logging';
 
@@ -12,7 +14,7 @@ export const Categories = {
  * Represents an OpenNMS category.
  * @module OnmsCategory
  */
-export class OnmsCategory {
+export class OnmsCategory implements IHasUrlValue {
   /** Get a singleton category object for the given category. */
   public static for(id: number, name: string) {
     if (Categories[id]) {
@@ -37,5 +39,9 @@ export class OnmsCategory {
   constructor(id: number, name: string) {
     this.id = id;
     this.name = name;
+  }
+
+  public get urlValue() {
+    return this.name;
   }
 }

@@ -1,10 +1,15 @@
+import {IHasUrlValue} from '../api/IHasUrlValue';
+
 import {OnmsEnum} from '../internal/OnmsEnum';
 
 /**
  * Represents an OpenNMS trouble ticket state.
  * @module OnmsTroubleTicketState
  */
-export class OnmsTroubleTicketState extends OnmsEnum<number> {
+export class OnmsTroubleTicketState extends OnmsEnum<number> implements IHasUrlValue {
+  public get urlValue() {
+    return this.label;
+  }
 }
 
 /* tslint:disable:object-literal-sort-keys */

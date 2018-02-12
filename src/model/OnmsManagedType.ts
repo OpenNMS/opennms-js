@@ -1,10 +1,12 @@
+import {IHasUrlValue} from '../api/IHasUrlValue';
+
 import {OnmsEnum, forId, forLabel} from '../internal/OnmsEnum';
 
 /**
  * Represents an OpenNMS node "is managed" type.
  * @module OnmsManagedType
  */
-export class OnmsManagedType extends OnmsEnum<string> {
+export class OnmsManagedType extends OnmsEnum<string> implements IHasUrlValue {
   /** Given an ID, return the matching managed type object. */
   public static forId(id: string) {
     return forId(ManagedTypes, id);
@@ -18,6 +20,10 @@ export class OnmsManagedType extends OnmsEnum<string> {
   /** Whether or not the node is managed. */
   public isManaged() {
     return this.id === 'M';
+  }
+
+  public get urlValue() {
+    return this.id;
   }
 }
 

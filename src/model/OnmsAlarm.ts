@@ -1,5 +1,6 @@
 import {Moment} from 'moment';
 
+import {IHasUrlValue} from '../api/IHasUrlValue';
 import {OnmsAlarmType} from './OnmsAlarmType';
 import {OnmsEvent} from './OnmsEvent';
 import {OnmsParm} from './OnmsParm';
@@ -12,7 +13,7 @@ import {OnmsMemo} from './OnmsMemo';
  * Represents an OpenNMS alarm.
  * @module OnmsAlarm
  */
-export class OnmsAlarm {
+export class OnmsAlarm implements IHasUrlValue {
   /** the alarm ID */
   public id: number;
 
@@ -98,4 +99,8 @@ export class OnmsAlarm {
 
   /** link to the alarm details page on the source instance */
   public detailsPage: string;
+
+  public get urlValue() {
+    return String(this.id);
+  }
 }

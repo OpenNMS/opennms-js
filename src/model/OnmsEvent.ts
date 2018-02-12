@@ -1,5 +1,6 @@
 import {Moment} from 'moment';
 import {Address4, Address6} from 'ip-address';
+import {IHasUrlValue} from '../api/IHasUrlValue';
 import {OnmsParm} from './OnmsParm';
 import {OnmsServiceType} from './OnmsServiceType';
 import {OnmsSeverity} from './OnmsSeverity';
@@ -8,7 +9,7 @@ import {OnmsSeverity} from './OnmsSeverity';
  * Represents an OpenNMS event.
  * @module OnmsEvent
  */
-export class OnmsEvent {
+export class OnmsEvent implements IHasUrlValue {
   /** the event ID */
   public id: number;
 
@@ -60,5 +61,9 @@ export class OnmsEvent {
       return this.service.name;
     }
     return undefined;
+  }
+
+  public get urlValue() {
+    return String(this.id);
   }
 }

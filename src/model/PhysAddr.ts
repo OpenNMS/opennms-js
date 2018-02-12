@@ -1,8 +1,10 @@
+import {IHasUrlValue} from '../api/IHasUrlValue';
+
 /**
  * Represents a physical (MAC) address.
  * @module PhysAddr
  */
-export class PhysAddr {
+export class PhysAddr implements IHasUrlValue {
   /** The MAC address string. */
   public addr: string;
 
@@ -23,5 +25,9 @@ export class PhysAddr {
     } else {
       return this.addr;
     }
+  }
+
+  public get urlValue() {
+    return this.toString();
   }
 }
