@@ -5,6 +5,7 @@
 ### Bug Fixes
 
 * **cli:** Valid example for node label searches ([2eafce8](https://github.com/OpenNMS/opennms-js/commit/2eafce8))
+* **dao:** node search properties are supported in ReSTv2 ([71c3354](https://github.com/OpenNMS/opennms-js/commit/71c3354))
 * **model:** OnmsParm should use the name as its urlValue ([5019a0b](https://github.com/OpenNMS/opennms-js/commit/5019a0b))
 
 

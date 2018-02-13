@@ -11978,8 +11978,10 @@ var NodeDAO = function (_AbstractDAO_1$Abstra) {
     }, {
         key: "searchPropertyPath",
         value: function searchPropertyPath() {
-            throw new OnmsError_1.OnmsError('Search properties are not supported in Node ReSTv2 yet.');
-            // return this.pathToNodesEndpoint() + '/properties';
+            if (this.getApiVersion() < 2) {
+                throw new OnmsError_1.OnmsError('Search properties are not supported in Node ReSTv1.');
+            }
+            return this.pathToNodesEndpoint() + '/properties';
         }
         /**
          * Get the path to the nodes endpoint for the appropriate API version.
