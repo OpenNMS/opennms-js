@@ -8793,7 +8793,7 @@ var OnmsParm = function () {
     }, {
         key: "urlValue",
         get: function get() {
-            return this.name;
+            return this.valueString;
         }
     }]);
 
