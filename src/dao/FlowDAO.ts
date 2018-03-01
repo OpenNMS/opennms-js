@@ -7,6 +7,8 @@ import {OnmsFlowSnmpInterface} from '../model/OnmsFlowSnmpInterface';
 import {OnmsFlowExporter} from '../model/OnmsFlowExporter';
 import {OnmsHTTPOptions} from '../api/OnmsHTTPOptions';
 
+import {BaseDAO} from './BaseDAO';
+
 /** @hidden */
 // tslint:disable-next-line
 const moment = require('moment');
@@ -14,11 +16,11 @@ const moment = require('moment');
 /** @hidden */
 // tslint:disable-next-line
 import {Moment} from 'moment';
-import {OnmsFlowTable} from "../model/OnmsFlowTable";
+import {OnmsFlowTable} from '../model/OnmsFlowTable';
 
-export class FlowDAO {
+export class FlowDAO extends BaseDAO {
     /**
-     * Create an [[OnmsHTTPOptions]] object for DAO calls given an optional filter.
+     * Create an [[OnmsHTTPOptions]] object for DAO calls.
      */
     protected static async getOptions(): Promise<OnmsHTTPOptions> {
         return Promise.resolve(new OnmsHTTPOptions())
@@ -26,26 +28,6 @@ export class FlowDAO {
                 options.headers.accept = 'application/json';
                 return options;
             });
-    }
-
-    /**
-     * The [[IOnmsHTTP]] implementation to use internally when making DAO requests.
-     * @hidden
-     */
-    private httpImpl: IOnmsHTTP;
-
-    constructor(impl: IHasHTTP | IOnmsHTTP) {
-        if ((impl as IHasHTTP).http) {
-            impl = (impl as IHasHTTP).http;
-        }
-        this.httpImpl = impl as IOnmsHTTP;
-    }
-
-    /**
-     * The HTTP implementation to use internally when making DAO requests.
-     */
-    public get http() {
-        return this.httpImpl;
     }
 
     public async getExporters(limit: number, start?: number, end?: number): Promise<OnmsFlowExporterSummary[]> {
@@ -74,8 +56,8 @@ export class FlowDAO {
 
     public async getSummaryForTopNApplications(N?: number, start?: number, end?: number,
                                                includeOther?: boolean,
-                                              exporterNodeCriteria?: string,
-                                              ifIndex?: number): Promise<OnmsFlowTable> {
+                                               exporterNodeCriteria?: string,
+                                               ifIndex?: number): Promise<OnmsFlowTable> {
         return FlowDAO.getOptions().then((opts) => {
             opts.withParameter('N', N)
                 .withParameter('start', start)
@@ -90,8 +72,8 @@ export class FlowDAO {
     }
 
     public async getSummaryForTopNConversations(N?: number, start?: number, end?: number,
-                                               exporterNodeCriteria?: string,
-                                               ifIndex?: number): Promise<OnmsFlowTable> {
+                                                exporterNodeCriteria?: string,
+                                                ifIndex?: number): Promise<OnmsFlowTable> {
         return FlowDAO.getOptions().then((opts) => {
             opts.withParameter('N', N)
                 .withParameter('start', start)
@@ -123,8 +105,8 @@ export class FlowDAO {
     }
 
     public async getSeriesForTopNConversations(N?: number, start?: number, end?: number,
-                                              step?: number, exporterNodeCriteria?: string,
-                                              ifIndex?: number): Promise<OnmsFlowSeries> {
+                                               step?: number, exporterNodeCriteria?: string,
+                                               ifIndex?: number): Promise<OnmsFlowSeries> {
         return FlowDAO.getOptions().then((opts) => {
             opts.withParameter('N', N)
                 .withParameter('start', start)
@@ -211,16 +193,6 @@ export class FlowDAO {
         }
 
         return series;
-    }
-
-    /**
-     * Convert the given value to a date, or undefined if it cannot be converted.
-     */
-    protected toDate(from: any): Moment|undefined {
-        if (from === undefined || from === null || from === '') {
-            return undefined;
-        }
-        return moment(from);
     }
 
     /**
