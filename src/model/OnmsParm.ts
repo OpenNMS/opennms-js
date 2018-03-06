@@ -48,10 +48,16 @@ export class OnmsParm implements IHasUrlValue {
     this.valueString = value;
   }
 
+  /**
+   * The string value of this parameter.
+   */
   public toString(): string {
     return this.valueString;
   }
 
+  /**
+   * The value of this parameter to be used when serializing to a URL.
+   */
   public get urlValue() {
     return this.valueString;
   }

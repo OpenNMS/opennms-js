@@ -5,6 +5,7 @@ import {OnmsFlowSeriesColumn} from '../model/OnmsFlowSeriesColumn';
 import {OnmsFlowExporterSummary} from '../model/OnmsFlowExporterSummary';
 import {OnmsFlowSnmpInterface} from '../model/OnmsFlowSnmpInterface';
 import {OnmsFlowExporter} from '../model/OnmsFlowExporter';
+import {OnmsFlowTable} from '../model/OnmsFlowTable';
 import {OnmsHTTPOptions} from '../api/OnmsHTTPOptions';
 
 import {BaseDAO} from './BaseDAO';
@@ -16,8 +17,11 @@ const moment = require('moment');
 /** @hidden */
 // tslint:disable-next-line
 import {Moment} from 'moment';
-import {OnmsFlowTable} from '../model/OnmsFlowTable';
 
+/**
+ * DAO for accessing flow (Netflow/IPFIX/sFlow) data.
+ * @module FlowDAO
+ */
 export class FlowDAO extends BaseDAO {
     /**
      * Create an [[OnmsHTTPOptions]] object for DAO calls.
@@ -30,6 +34,13 @@ export class FlowDAO extends BaseDAO {
             });
     }
 
+    /**
+     * Get a summary of the nodes that have exported flows.
+     * @param limit - maximum number of exporters to return (those with the most flows will be returned
+     *                if the results are truncated)
+     * @param start - the start of the timespan to query (defaults to 4 hours ago)
+     * @param end - the end of the timespan to query (defaults to now)
+     */
     public async getExporters(limit: number, start?: number, end?: number): Promise<OnmsFlowExporterSummary[]> {
         return FlowDAO.getOptions().then((opts) => {
             opts.withParameter('limit', limit)
@@ -43,6 +54,14 @@ export class FlowDAO extends BaseDAO {
         });
     }
 
+    /**
+     * Get detailed information about a specific node.
+     * @param criteria - the node ID or foreignSource:foreignId tuple
+     * @param limit - maximum number of interfaces to return (those with the most flows will be returned
+     *                if the results are truncated)
+     * @param start - the start of the timespan to query (defaults to 4 hours ago)
+     * @param end - the end of the timespan to query (defaults to now)
+     */
     public async getExporter(criteria: string, limit: number, start?: number, end?: number): Promise<OnmsFlowExporter> {
         return FlowDAO.getOptions().then((opts) => {
             opts.withParameter('limit', limit)
@@ -54,6 +73,16 @@ export class FlowDAO extends BaseDAO {
         });
     }
 
+    /**
+     * Summarize the top N applications/protocols based on parameters.
+     * @param N - how many applications to return
+     * @param start - the start of the timespan to query (defaults to 4 hours ago)
+     * @param end - the end of the timespan to query (defaults to now)
+     * @param includeOther - include an additional "other" result that
+     *                       represents everything that does not match the top N
+     * @param exporterNodeCriteria - the node ID or foreignSource:foreignId tuple
+     * @param ifIndex - filter for flows that came through this SNMP interface
+     */
     public async getSummaryForTopNApplications(N?: number, start?: number, end?: number,
                                                includeOther?: boolean,
                                                exporterNodeCriteria?: string,
@@ -71,6 +100,14 @@ export class FlowDAO extends BaseDAO {
         });
     }
 
+    /**
+     * Summarize the top N conversations based on parameters.
+     * @param N - how many conversations to return
+     * @param start - the start of the timespan to query (defaults to 4 hours ago)
+     * @param end - the end of the timespan to query (defaults to now)
+     * @param exporterNodeCriteria - the node ID or foreignSource:foreignId tuple
+     * @param ifIndex - filter for flows that came through this SNMP interface
+     */
     public async getSummaryForTopNConversations(N?: number, start?: number, end?: number,
                                                 exporterNodeCriteria?: string,
                                                 ifIndex?: number): Promise<OnmsFlowTable> {
@@ -86,6 +123,17 @@ export class FlowDAO extends BaseDAO {
         });
     }
 
+    /**
+     * Get time series data for the top N applications/protocols based on parameters.
+     * @param N - how many applications' series to return
+     * @param start - the start of the timespan to query (defaults to 4 hours ago)
+     * @param end - the end of the timespan to query (defaults to now)
+     * @param step - the requested time interval between rows
+     * @param includeOther - include an additional "other" result that
+     *                       represents everything that does not match the top N
+     * @param exporterNodeCriteria - the node ID or foreignSource:foreignId tuple
+     * @param ifIndex - filter for flows that came through this SNMP interface
+     */
     public async getSeriesForTopNApplications(N?: number, start?: number, end?: number,
                                               step?: number, includeOther?: boolean,
                                               exporterNodeCriteria?: string,
@@ -104,6 +152,15 @@ export class FlowDAO extends BaseDAO {
         });
     }
 
+    /**
+     * Get time series data for the top N conversations based on parameters.
+     * @param N - how many conversations' series to return
+     * @param start - the start of the timespan to query (defaults to 4 hours ago)
+     * @param end - the end of the timespan to query (defaults to now)
+     * @param step - the requested time interval between rows
+     * @param exporterNodeCriteria - the node ID or foreignSource:foreignId tuple
+     * @param ifIndex - filter for flows that came through this SNMP interface
+     */
     public async getSeriesForTopNConversations(N?: number, start?: number, end?: number,
                                                step?: number, exporterNodeCriteria?: string,
                                                ifIndex?: number): Promise<OnmsFlowSeries> {
@@ -120,6 +177,10 @@ export class FlowDAO extends BaseDAO {
         });
     }
 
+    /**
+     * Convert flow ReST exporter summary JSON data to an [[OnmsFlowExporterSummary]] object.
+     * @hidden
+     */
     public toFlowExporterSummary(data: any) {
         const summary = new OnmsFlowExporterSummary();
         summary.id = data.id;
@@ -129,6 +190,10 @@ export class FlowDAO extends BaseDAO {
         return summary;
     }
 
+    /**
+     * Convert flow ReST exporter JSON data to an [[OnmsFlowExporter]] object.
+     * @hidden
+     */
     public toFlowExporter(data: any) {
         const exporter = new OnmsFlowExporter();
         exporter.id = data.id;
@@ -141,6 +206,10 @@ export class FlowDAO extends BaseDAO {
         return exporter;
     }
 
+    /**
+     * Convert flow ReST interface JSON data to an [[OnmsFlowSnmpInterface]] object.
+     * @hidden
+     */
     public toInterface(data: any) {
         const iff = new OnmsFlowSnmpInterface();
         iff.index = data.index;
@@ -151,7 +220,7 @@ export class FlowDAO extends BaseDAO {
     }
 
     /**
-     * Create an series object from a JSON object.
+     * Create a series object from a JSON object.
      * @hidden
      */
     public tableFromData(data: any) {
@@ -166,7 +235,7 @@ export class FlowDAO extends BaseDAO {
     }
 
     /**
-     * Create an series object from a JSON object.
+     * Create a series object from a JSON object.
      * @hidden
      */
     public seriesFromData(data: any) {

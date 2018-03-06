@@ -20,5 +20,4 @@ export class OnmsFlowSeries {
 
     /** cell values */
     public values: number[][];
-
 }

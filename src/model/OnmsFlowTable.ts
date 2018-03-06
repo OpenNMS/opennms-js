@@ -1,5 +1,9 @@
 import {Moment} from 'moment';
 
+/**
+ * A collection of flow time-series data.
+ * @module OnmsFlowTable
+ */
 export class OnmsFlowTable {
     /** start time */
     public start: Moment;
