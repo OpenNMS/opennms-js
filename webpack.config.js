@@ -1,6 +1,7 @@
 var webpack = require('webpack');
 var path = require('path');
 var TypedocWebpackPlugin = require('typedoc-webpack-plugin');
+var UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 var pkginfo = require('./package.json');
 
 var createVariants = require('parallel-webpack').createVariants;
@@ -41,25 +42,16 @@ var config = {
   module: {
     rules: [
       {
-        enforce: 'pre',
-        test: /\.tsx?$/,
-        use: [
-          {
-            loader: 'tslint-loader',
-            options: {
-              typeCheck: true
-            }
-          }
-        ],
-        exclude: [/node_modules/],
-      },
-      {
         test: /(\.jsx?)$/,
-        use: [ 'babel-loader' ]
+        use: [
+          'cache-loader',
+          'babel-loader'
+        ]
       },
       {
         test: /(\.tsx?)$/,
         use: [
+          'cache-loader',
           'babel-loader',
           'ts-loader'
         ],
@@ -93,6 +85,8 @@ function createConfig(options) {
     'global.OPENNMS_JS_VERSION': JSON.stringify(pkginfo.version),
   };
 
+  myconf.mode = options.production? 'production':'development';
+
   if (options.target === 'web') {
     myconf.target = 'web';
   } else {
@@ -111,18 +105,49 @@ function createConfig(options) {
     }));
   }
 
+  if (!myconf.optimization) {
+    myconf.optimization = {};
+  }
+
   if (options.production) {
+    myconf.optimization.minimize = true;
+    if (!myconf.optimization.minimizer) {
+      myconf.optimization.minimizer = [];
+    } else {
+      console.log('minimizer exists:',myconf.optimization.minimizer);
+    }
+    myconf.optimization.minimizer.push(new UglifyJsPlugin({
+      cache: true,
+      parallel: true,
+      sourceMap: true,
+      uglifyOptions: {
+        mangle: {
+          reserved: [ '$element', '$super', '$scope', '$uib', '$', 'jQuery', 'exports', 'require', 'angular', 'c3', 'd3' ]
+        },
+        compress: true
+      }
+    }));
+
+    myconf.module.rules.unshift({
+      // run tslint on typescript files before rendering
+      enforce: 'pre',
+      test: /\.tsx?$/,
+      use: [
+        {
+          loader: 'tslint-loader',
+          options: {
+            typeCheck: true
+          }
+        }
+      ],
+      exclude: [/node_modules/]
+    });
+
     defs['global.GENTLY'] = false;
   
     myconf.plugins.push(new webpack.LoaderOptionsPlugin({
       minimize: true,
       debug: false
-    }));
-    myconf.plugins.push(new webpack.optimize.UglifyJsPlugin({
-      sourceMap: true,
-      mangle: true,
-      minimize: true,
-      compress: true,
     }));
     myconf.output.filename += '.min';
   }
