@@ -1,3 +1,8 @@
+<a name="1.1.0-beta.1"></a>
+# [1.1.0-beta.1](https://github.com/OpenNMS/opennms-js/compare/v1.0.3...v1.1.0-beta.1) (2018-03-07)
+
+
+
 <a name="1.0.3"></a>
 ## [1.0.3](https://github.com/OpenNMS/opennms-js/compare/v1.0.2...v1.0.3) (2018-02-13)
 
