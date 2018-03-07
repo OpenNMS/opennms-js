@@ -1,0 +1,14 @@
+{
+    "category": null,
+    "foreign-id": "test-node",
+    "foreign-source": "test",
+    "id": 69,
+    "interface": [
+        {
+            "descr": "lo",
+            "index": 1,
+            "name": "lo"
+        }
+    ],
+    "label": "Test Node"
+}
