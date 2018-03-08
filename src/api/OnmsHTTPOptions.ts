@@ -40,4 +40,17 @@ export class OnmsHTTPOptions {
       this.server = server;
     }
   }
+
+  /**
+   * Add a URL parameter. Returns the OnmsHTTPOptions object so it can be chained.
+   * @param key - the parameter's key
+   * @param value - the parameter's value
+   */
+  public withParameter(key: string, value?: any): OnmsHTTPOptions {
+    if (value !== undefined) {
+      this.parameters[key] = '' + value;
+    }
+    return this;
+  }
+
 }

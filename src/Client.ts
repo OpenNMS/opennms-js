@@ -19,6 +19,7 @@ import {ServerMetadata} from './api/ServerMetadata';
 
 import {AlarmDAO} from './dao/AlarmDAO';
 import {EventDAO} from './dao/EventDAO';
+import {FlowDAO} from './dao/FlowDAO';
 import {NodeDAO} from './dao/NodeDAO';
 
 import {AxiosHTTP} from './rest/AxiosHTTP';
@@ -157,4 +158,8 @@ export class Client implements IHasHTTP {
     return new NodeDAO(this);
   }
 
+  /** Get a flow DAO for querying flows. */
+  public flows() {
+    return new FlowDAO(this);
+  }
 }
