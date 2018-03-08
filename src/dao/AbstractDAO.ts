@@ -15,6 +15,8 @@ import {V2FilterProcessor} from './V2FilterProcessor';
 
 import {PropertiesCache} from './PropertiesCache';
 
+import {BaseDAO} from './BaseDAO';
+
 /** @hidden */
 // tslint:disable-next-line
 const moment = require('moment');
@@ -33,37 +35,7 @@ import {IValueProvider} from './IValueProvider';
  * @param K the ID/key type (number, string, etc.)
  * @param T the model type (OnmsAlarm, OnmsEvent, etc.)
  */
-export abstract class AbstractDAO<K, T> implements IValueProvider {
-  /**
-   * The [[IOnmsHTTP]] implementation to use internally when making DAO requests.
-   * @hidden
-   */
-  private httpImpl: IOnmsHTTP;
-
-  /**
-   * Construct a DAO instance.
-   *
-   * @param impl - The HTTP implementation to use.  It is also legal to pass any object
-   *               conforming to the [[IHasHTTP]] interface (like a [[Client]]).
-   */
-  constructor(impl: IOnmsHTTP | IHasHTTP) {
-    if ((impl as IHasHTTP).http) {
-      impl = (impl as IHasHTTP).http;
-    }
-    this.httpImpl = impl as IOnmsHTTP;
-  }
-
-  /**
-   * The HTTP implementation to use internally when making DAO requests.
-   */
-  public get http() {
-    return this.httpImpl;
-  }
-
-  public set http(impl: IOnmsHTTP) {
-    this.httpImpl = impl;
-  }
-
+export abstract class AbstractDAO<K, T> extends BaseDAO implements IValueProvider {
   /**
    * Returns the Promise for a [[IFilterProcessor]].
    * @returns {Promise}
@@ -195,24 +167,6 @@ export abstract class AbstractDAO<K, T> implements IValueProvider {
   }
 
   /**
-   * A convenience method to make it easy for implementers to extract the count
-   * (or totalCount) values from response data.
-   */
-  protected getCount(data: any): number {
-    let count = 0;
-    if (typeof(data) === 'number') {
-      count = data;
-    } else if (data.count !== undefined) {
-      count = parseInt(data.count, 10);
-    } else if (data.totalCount !== undefined) {
-      count = parseInt(data.totalCount, 10);
-    } else {
-      log.debug('data is missing count and totalCount properties', catDao);
-    }
-    return count;
-  }
-
-  /**
    * Create an [[OnmsHTTPOptions]] object for DAO calls given an optional filter.
    * @param filter - the filter to use
    */
@@ -234,34 +188,6 @@ export abstract class AbstractDAO<K, T> implements IValueProvider {
               }
               return options;
           });
-  }
-
-  /**
-   * Convert the given value to a date, or undefined if it cannot be converted.
-   */
-  protected toDate(from: any): Moment|undefined {
-    if (from === undefined || from === null || from === '') {
-      return undefined;
-    }
-    return moment(from);
-  }
-
-  /**
-   * Convert the given value to a number, or undefined if it cannot be converted.
-   */
-  protected toNumber(from: any): number|undefined {
-    const ret = parseInt(from, 10);
-    return isNaN(ret) ? undefined : ret;
-  }
-
-  /**
-   * Whether or not to use JSON when making ReST requests.
-   */
-  protected useJson(): boolean {
-    if (this.http === undefined || this.http.server === undefined || this.http.server.metadata === undefined) {
-      throw new OnmsError('Server meta-data must be populated prior to making DAO calls.');
-    }
-    return this.http.server.metadata.useJson();
   }
 
   /**

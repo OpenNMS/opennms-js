@@ -1,0 +1,11 @@
+[
+    {
+        "category": [
+            "Production"
+        ],
+        "foreign-id": "test-node",
+        "foreign-source": "test",
+        "id": 69,
+        "label": "Test Node"
+    }
+]
