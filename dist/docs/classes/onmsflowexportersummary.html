@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>V1FilterProcessor | OpenNMS.js</title>
+	<title>OnmsFlowExporterSummary | OpenNMS.js</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -56,10 +56,10 @@
 					<a href="../globals.html">Globals</a>
 				</li>
 				<li>
-					<a href="v1filterprocessor.html">V1FilterProcessor</a>
+					<a href="onmsflowexportersummary.html">OnmsFlowExporterSummary</a>
 				</li>
 			</ul>
-			<h1>Class V1FilterProcessor</h1>
+			<h1>Class OnmsFlowExporterSummary</h1>
 		</div>
 	</div>
 </header>
@@ -69,7 +69,7 @@
 			<section class="tsd-panel tsd-comment">
 				<div class="tsd-comment tsd-typography">
 					<div class="lead">
-						<p>Converts a <a href="filter.html">Filter</a> into ReSTv1 parameters.</p>
+						<p>Represents basic OpenNMS flow information about node.</p>
 					</div>
 				</div>
 			</section>
@@ -77,14 +77,13 @@
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<span class="target">V1FilterProcessor</span>
+						<span class="target">OnmsFlowExporterSummary</span>
+						<ul class="tsd-hierarchy">
+							<li>
+								<a href="onmsflowexporter.html" class="tsd-signature-type">OnmsFlowExporter</a>
+							</li>
+						</ul>
 					</li>
-				</ul>
-			</section>
-			<section class="tsd-panel">
-				<h3>Implements</h3>
-				<ul class="tsd-hierarchy">
-					<li><a href="../interfaces/ifilterprocessor.html" class="tsd-signature-type">IFilterProcessor</a></li>
 				</ul>
 			</section>
 			<section class="tsd-panel-group tsd-index-group">
@@ -92,44 +91,94 @@
 				<section class="tsd-panel tsd-index-panel">
 					<div class="tsd-index-content">
 						<section class="tsd-index-section ">
-							<h3>Methods</h3>
+							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-method tsd-parent-kind-class"><a href="v1filterprocessor.html#getparameters" class="tsd-kind-icon">get<wbr>Parameters</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="onmsflowexportersummary.html#categories" class="tsd-kind-icon">categories</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="onmsflowexportersummary.html#foreignid" class="tsd-kind-icon">foreign<wbr>Id</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="onmsflowexportersummary.html#foreignsource" class="tsd-kind-icon">foreign<wbr>Source</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="onmsflowexportersummary.html#id" class="tsd-kind-icon">id</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="onmsflowexportersummary.html#label" class="tsd-kind-icon">label</a></li>
 							</ul>
 						</section>
 					</div>
 				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
-				<h2>Methods</h2>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
-					<a name="getparameters" class="tsd-anchor"></a>
-					<h3>get<wbr>Parameters</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">get<wbr>Parameters<span class="tsd-signature-symbol">(</span>filter<span class="tsd-signature-symbol">: </span><a href="filter.html" class="tsd-signature-type">Filter</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../interfaces/ihash.html" class="tsd-signature-type">IHash</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<p>Implementation of <a href="../interfaces/ifilterprocessor.html">IFilterProcessor</a>.<a href="../interfaces/ifilterprocessor.html#getparameters">getParameters</a></p>
-								<ul>
-									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/c5ed0dc/src/dao/V1FilterProcessor.ts#L31">dao/V1FilterProcessor.ts:31</a></li>
-								</ul>
-							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>Given a filter, return a hash of URL parameters.</p>
-								</div>
-							</div>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>filter: <a href="filter.html" class="tsd-signature-type">Filter</a></h5>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <a href="../interfaces/ihash.html" class="tsd-signature-type">IHash</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></h4>
-						</li>
-					</ul>
+				<h2>Properties</h2>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="categories" class="tsd-anchor"></a>
+					<h3>categories</h3>
+					<div class="tsd-signature tsd-kind-icon">categories<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/c5ed0dc/src/model/OnmsFlowExporterSummary.ts#L19">model/OnmsFlowExporterSummary.ts:19</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>the categories the node is in</p>
+						</div>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="foreignid" class="tsd-anchor"></a>
+					<h3>foreign<wbr>Id</h3>
+					<div class="tsd-signature tsd-kind-icon">foreign<wbr>Id<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/c5ed0dc/src/model/OnmsFlowExporterSummary.ts#L13">model/OnmsFlowExporterSummary.ts:13</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>node foreign ID</p>
+						</div>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="foreignsource" class="tsd-anchor"></a>
+					<h3>foreign<wbr>Source</h3>
+					<div class="tsd-signature tsd-kind-icon">foreign<wbr>Source<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/c5ed0dc/src/model/OnmsFlowExporterSummary.ts#L10">model/OnmsFlowExporterSummary.ts:10</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>node foreign source</p>
+						</div>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="id" class="tsd-anchor"></a>
+					<h3>id</h3>
+					<div class="tsd-signature tsd-kind-icon">id<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/c5ed0dc/src/model/OnmsFlowExporterSummary.ts#L7">model/OnmsFlowExporterSummary.ts:7</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>node unique identifier</p>
+						</div>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="label" class="tsd-anchor"></a>
+					<h3>label</h3>
+					<div class="tsd-signature tsd-kind-icon">label<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/c5ed0dc/src/model/OnmsFlowExporterSummary.ts#L16">model/OnmsFlowExporterSummary.ts:16</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>node label</p>
+						</div>
+					</div>
 				</section>
 			</section>
 		</div>
@@ -146,10 +195,22 @@
 				</ul>
 				<ul class="current">
 					<li class="current tsd-kind-class">
-						<a href="v1filterprocessor.html" class="tsd-kind-icon">V1<wbr>Filter<wbr>Processor</a>
+						<a href="onmsflowexportersummary.html" class="tsd-kind-icon">Onms<wbr>Flow<wbr>Exporter<wbr>Summary</a>
 						<ul>
-							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="v1filterprocessor.html#getparameters" class="tsd-kind-icon">get<wbr>Parameters</a>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="onmsflowexportersummary.html#categories" class="tsd-kind-icon">categories</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="onmsflowexportersummary.html#foreignid" class="tsd-kind-icon">foreign<wbr>Id</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="onmsflowexportersummary.html#foreignsource" class="tsd-kind-icon">foreign<wbr>Source</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="onmsflowexportersummary.html#id" class="tsd-kind-icon">id</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="onmsflowexportersummary.html#label" class="tsd-kind-icon">label</a>
 							</li>
 						</ul>
 					</li>

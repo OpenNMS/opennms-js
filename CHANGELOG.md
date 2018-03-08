@@ -1,5 +1,10 @@
 <a name="1.1.0-beta.1"></a>
-# [1.1.0-beta.1](https://github.com/OpenNMS/opennms-js/compare/v1.0.3...v1.1.0-beta.1) (2018-03-07)
+# [1.1.0-beta.1](https://github.com/OpenNMS/opennms-js/compare/v1.0.3...v1.1.0-beta.1) (2018-03-08)
+
+
+### Features
+
+* **dao:** Add flow support ([e37e73f](https://github.com/OpenNMS/opennms-js/commit/e37e73f))
 
 
 

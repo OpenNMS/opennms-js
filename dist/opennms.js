@@ -45058,6 +45058,7 @@ var OnmsServer_1 = __webpack_require__(/*! ./api/OnmsServer */ "./src/api/OnmsSe
 var ServerMetadata_1 = __webpack_require__(/*! ./api/ServerMetadata */ "./src/api/ServerMetadata.ts");
 var AlarmDAO_1 = __webpack_require__(/*! ./dao/AlarmDAO */ "./src/dao/AlarmDAO.ts");
 var EventDAO_1 = __webpack_require__(/*! ./dao/EventDAO */ "./src/dao/EventDAO.ts");
+var FlowDAO_1 = __webpack_require__(/*! ./dao/FlowDAO */ "./src/dao/FlowDAO.ts");
 var NodeDAO_1 = __webpack_require__(/*! ./dao/NodeDAO */ "./src/dao/NodeDAO.ts");
 var AxiosHTTP_1 = __webpack_require__(/*! ./rest/AxiosHTTP */ "./src/rest/AxiosHTTP.ts");
 /** @hidden */
@@ -45277,6 +45278,13 @@ var Client = function () {
         key: "nodes",
         value: function nodes() {
             return new NodeDAO_1.NodeDAO(this);
+        }
+        /** Get a flow DAO for querying flows. */
+
+    }, {
+        key: "flows",
+        value: function flows() {
+            return new FlowDAO_1.FlowDAO(this);
         }
     }]);
 
@@ -45763,6 +45771,8 @@ exports.OnmsError = OnmsError;
 "use strict";
 
 
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 Object.defineProperty(exports, "__esModule", { value: true });
@@ -45771,30 +45781,49 @@ Object.defineProperty(exports, "__esModule", { value: true });
  * @module OnmsHTTPOptions
  */
 
-var OnmsHTTPOptions =
-/**
- * Construct a new OnmsHTTPOptions object.
- * @constructor
- */
-function OnmsHTTPOptions(timeout, auth, server) {
-    _classCallCheck(this, OnmsHTTPOptions);
+var OnmsHTTPOptions = function () {
+    /**
+     * Construct a new OnmsHTTPOptions object.
+     * @constructor
+     */
+    function OnmsHTTPOptions(timeout, auth, server) {
+        _classCallCheck(this, OnmsHTTPOptions);
 
-    /** How long to wait for ReST calls to time out. */
-    this.timeout = 10000;
-    /** HTTP headers to be passed to the request. */
-    this.headers = {};
-    /** HTTP parameters to be passed on the URL. */
-    this.parameters = {};
-    if (timeout !== undefined) {
-        this.timeout = timeout;
+        /** How long to wait for ReST calls to time out. */
+        this.timeout = 10000;
+        /** HTTP headers to be passed to the request. */
+        this.headers = {};
+        /** HTTP parameters to be passed on the URL. */
+        this.parameters = {};
+        if (timeout !== undefined) {
+            this.timeout = timeout;
+        }
+        if (auth !== undefined) {
+            this.auth = auth;
+        }
+        if (server !== undefined) {
+            this.server = server;
+        }
     }
-    if (auth !== undefined) {
-        this.auth = auth;
-    }
-    if (server !== undefined) {
-        this.server = server;
-    }
-};
+    /**
+     * Add a URL parameter. Returns the OnmsHTTPOptions object so it can be chained.
+     * @param key - the parameter's key
+     * @param value - the parameter's value
+     */
+
+
+    _createClass(OnmsHTTPOptions, [{
+        key: "withParameter",
+        value: function withParameter(key, value) {
+            if (value !== undefined) {
+                this.parameters[key] = '' + value;
+            }
+            return this;
+        }
+    }]);
+
+    return OnmsHTTPOptions;
+}();
 
 exports.OnmsHTTPOptions = OnmsHTTPOptions;
 
@@ -46690,6 +46719,10 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
 var __awaiter = undefined && undefined.__awaiter || function (thisArg, _arguments, P, generator) {
     return new (P || (P = Promise))(function (resolve, reject) {
         function fulfilled(value) {
@@ -46719,10 +46752,10 @@ var OnmsError_1 = __webpack_require__(/*! ../api/OnmsError */ "./src/api/OnmsErr
 var OnmsHTTPOptions_1 = __webpack_require__(/*! ../api/OnmsHTTPOptions */ "./src/api/OnmsHTTPOptions.ts");
 var SearchProperty_1 = __webpack_require__(/*! ../api/SearchProperty */ "./src/api/SearchProperty.ts");
 var SearchPropertyType_1 = __webpack_require__(/*! ../api/SearchPropertyType */ "./src/api/SearchPropertyType.ts");
-var Log_1 = __webpack_require__(/*! ../api/Log */ "./src/api/Log.ts");
 var V1FilterProcessor_1 = __webpack_require__(/*! ./V1FilterProcessor */ "./src/dao/V1FilterProcessor.ts");
 var V2FilterProcessor_1 = __webpack_require__(/*! ./V2FilterProcessor */ "./src/dao/V2FilterProcessor.ts");
 var PropertiesCache_1 = __webpack_require__(/*! ./PropertiesCache */ "./src/dao/PropertiesCache.ts");
+var BaseDAO_1 = __webpack_require__(/*! ./BaseDAO */ "./src/dao/BaseDAO.ts");
 /** @hidden */
 // tslint:disable-next-line
 var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
@@ -46736,25 +46769,14 @@ var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"
  * @param T the model type (OnmsAlarm, OnmsEvent, etc.)
  */
 
-var AbstractDAO = function () {
-    /**
-     * Construct a DAO instance.
-     *
-     * @param impl - The HTTP implementation to use.  It is also legal to pass any object
-     *               conforming to the [[IHasHTTP]] interface (like a [[Client]]).
-     */
-    function AbstractDAO(impl) {
+var AbstractDAO = function (_BaseDAO_1$BaseDAO) {
+    _inherits(AbstractDAO, _BaseDAO_1$BaseDAO);
+
+    function AbstractDAO() {
         _classCallCheck(this, AbstractDAO);
 
-        if (impl.http) {
-            impl = impl.http;
-        }
-        this.httpImpl = impl;
+        return _possibleConstructorReturn(this, (AbstractDAO.__proto__ || Object.getPrototypeOf(AbstractDAO)).apply(this, arguments));
     }
-    /**
-     * The HTTP implementation to use internally when making DAO requests.
-     */
-
 
     _createClass(AbstractDAO, [{
         key: "getFilterProcessor",
@@ -46850,7 +46872,7 @@ var AbstractDAO = function () {
         key: "getPropertiesCache",
         value: function getPropertiesCache() {
             return __awaiter(this, void 0, void 0, /*#__PURE__*/_regenerator2.default.mark(function _callee4() {
-                var _this = this;
+                var _this2 = this;
 
                 return _regenerator2.default.wrap(function _callee4$(_context4) {
                     while (1) {
@@ -46871,12 +46893,12 @@ var AbstractDAO = function () {
 
                                 return _context4.abrupt("return", this.getOptions().then(function (opts) {
                                     opts.headers.accept = 'application/json';
-                                    return _this.http.get(_this.searchPropertyPath(), opts).then(function (result) {
-                                        var searchProperties = _this.parseResultList(result, 'searchProperty', _this.searchPropertyPath(), function (prop) {
-                                            return _this.toSearchProperty(prop);
+                                    return _this2.http.get(_this2.searchPropertyPath(), opts).then(function (result) {
+                                        var searchProperties = _this2.parseResultList(result, 'searchProperty', _this2.searchPropertyPath(), function (prop) {
+                                            return _this2.toSearchProperty(prop);
                                         });
-                                        PropertiesCache_1.PropertiesCache.put(_this, searchProperties);
-                                        return Promise.resolve(PropertiesCache_1.PropertiesCache.get(_this));
+                                        PropertiesCache_1.PropertiesCache.put(_this2, searchProperties);
+                                        return Promise.resolve(PropertiesCache_1.PropertiesCache.get(_this2));
                                     });
                                 }));
 
@@ -46903,21 +46925,21 @@ var AbstractDAO = function () {
         key: "findValues",
         value: function findValues(propertyId, options) {
             return __awaiter(this, void 0, void 0, /*#__PURE__*/_regenerator2.default.mark(function _callee5() {
-                var _this2 = this;
+                var _this3 = this;
 
                 return _regenerator2.default.wrap(function _callee5$(_context5) {
                     while (1) {
                         switch (_context5.prev = _context5.next) {
                             case 0:
                                 return _context5.abrupt("return", this.searchProperty(propertyId).then(function (property) {
-                                    return _this2.getOptions().then(function (opts) {
-                                        var path = _this2.searchPropertyPath() + '/' + property.id;
+                                    return _this3.getOptions().then(function (opts) {
+                                        var path = _this3.searchPropertyPath() + '/' + property.id;
                                         opts.headers.accept = 'application/json';
                                         if (options) {
                                             Object.assign(opts, options);
                                         }
-                                        return _this2.http.get(path, opts).then(function (result) {
-                                            return _this2.parseResultList(result, 'value', path, function (value) {
+                                        return _this3.http.get(path, opts).then(function (result) {
+                                            return _this3.parseResultList(result, 'value', path, function (value) {
                                                 return value;
                                             });
                                         });
@@ -46960,26 +46982,6 @@ var AbstractDAO = function () {
             return data;
         }
         /**
-         * A convenience method to make it easy for implementers to extract the count
-         * (or totalCount) values from response data.
-         */
-
-    }, {
-        key: "getCount",
-        value: function getCount(data) {
-            var count = 0;
-            if (typeof data === 'number') {
-                count = data;
-            } else if (data.count !== undefined) {
-                count = parseInt(data.count, 10);
-            } else if (data.totalCount !== undefined) {
-                count = parseInt(data.totalCount, 10);
-            } else {
-                Log_1.log.debug('data is missing count and totalCount properties', Log_1.catDao);
-            }
-            return count;
-        }
-        /**
          * Create an [[OnmsHTTPOptions]] object for DAO calls given an optional filter.
          * @param filter - the filter to use
          */
@@ -46988,14 +46990,14 @@ var AbstractDAO = function () {
         key: "getOptions",
         value: function getOptions(filter) {
             return __awaiter(this, void 0, void 0, /*#__PURE__*/_regenerator2.default.mark(function _callee6() {
-                var _this3 = this;
+                var _this4 = this;
 
                 return _regenerator2.default.wrap(function _callee6$(_context6) {
                     while (1) {
                         switch (_context6.prev = _context6.next) {
                             case 0:
                                 return _context6.abrupt("return", Promise.resolve(new OnmsHTTPOptions_1.OnmsHTTPOptions()).then(function (options) {
-                                    if (_this3.useJson()) {
+                                    if (_this4.useJson()) {
                                         options.headers.accept = 'application/json';
                                     } else {
                                         // always use application/xml in DAO calls when we're not sure how
@@ -47003,7 +47005,7 @@ var AbstractDAO = function () {
                                         options.headers.accept = 'application/xml';
                                     }
                                     if (filter) {
-                                        return _this3.getFilterProcessor().then(function (processor) {
+                                        return _this4.getFilterProcessor().then(function (processor) {
                                             options.parameters = processor.getParameters(filter);
                                             return options;
                                         });
@@ -47018,40 +47020,6 @@ var AbstractDAO = function () {
                     }
                 }, _callee6, this);
             }));
-        }
-        /**
-         * Convert the given value to a date, or undefined if it cannot be converted.
-         */
-
-    }, {
-        key: "toDate",
-        value: function toDate(from) {
-            if (from === undefined || from === null || from === '') {
-                return undefined;
-            }
-            return moment(from);
-        }
-        /**
-         * Convert the given value to a number, or undefined if it cannot be converted.
-         */
-
-    }, {
-        key: "toNumber",
-        value: function toNumber(from) {
-            var ret = parseInt(from, 10);
-            return isNaN(ret) ? undefined : ret;
-        }
-        /**
-         * Whether or not to use JSON when making ReST requests.
-         */
-
-    }, {
-        key: "useJson",
-        value: function useJson() {
-            if (this.http === undefined || this.http.server === undefined || this.http.server.metadata === undefined) {
-                throw new OnmsError_1.OnmsError('Server meta-data must be populated prior to making DAO calls.');
-            }
-            return this.http.server.metadata.useJson();
         }
         /**
          * Generate a [[SearchProperty]] from the given dictionary.
@@ -47084,18 +47052,10 @@ var AbstractDAO = function () {
             }
             return this.http.server.metadata.apiVersion();
         }
-    }, {
-        key: "http",
-        get: function get() {
-            return this.httpImpl;
-        },
-        set: function set(impl) {
-            this.httpImpl = impl;
-        }
     }]);
 
     return AbstractDAO;
-}();
+}(BaseDAO_1.BaseDAO);
 
 exports.AbstractDAO = AbstractDAO;
 
@@ -48049,6 +48009,125 @@ exports.AlarmDAO = AlarmDAO;
 
 /***/ }),
 
+/***/ "./src/dao/BaseDAO.ts":
+/*!****************************!*\
+  !*** ./src/dao/BaseDAO.ts ***!
+  \****************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var OnmsError_1 = __webpack_require__(/*! ../api/OnmsError */ "./src/api/OnmsError.ts");
+var Log_1 = __webpack_require__(/*! ../api/Log */ "./src/api/Log.ts");
+/** @hidden */
+// tslint:disable-next-line
+var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
+/**
+ * A base DAO useful for subclassing to create real DAOs.  This differs from
+ * the [[AbstractDAO]] in that it doesn't have a "default" interface for
+ * dealing with model objects, it only provides core conveniences.
+ *
+ * @module BaseDAO
+ */
+
+var BaseDAO = function () {
+    /**
+     * Construct a DAO instance.
+     *
+     * @param impl - The HTTP implementation to use.  It is also legal to pass any object
+     *               conforming to the [[IHasHTTP]] interface (like a [[Client]]).
+     */
+    function BaseDAO(impl) {
+        _classCallCheck(this, BaseDAO);
+
+        if (impl.http) {
+            impl = impl.http;
+        }
+        this.httpImpl = impl;
+    }
+    /**
+     * The HTTP implementation to use internally when making DAO requests.
+     */
+
+
+    _createClass(BaseDAO, [{
+        key: "useJson",
+
+        /**
+         * Whether or not to use JSON when making ReST requests.
+         */
+        value: function useJson() {
+            if (this.http === undefined || this.http.server === undefined || this.http.server.metadata === undefined) {
+                throw new OnmsError_1.OnmsError('Server meta-data must be populated prior to making DAO calls.');
+            }
+            return this.http.server.metadata.useJson();
+        }
+        /**
+         * A convenience method to make it easy for implementers to extract the count
+         * (or totalCount) values from response data.
+         */
+
+    }, {
+        key: "getCount",
+        value: function getCount(data) {
+            var count = 0;
+            if (typeof data === 'number') {
+                count = data;
+            } else if (data.count !== undefined) {
+                count = parseInt(data.count, 10);
+            } else if (data.totalCount !== undefined) {
+                count = parseInt(data.totalCount, 10);
+            } else {
+                Log_1.log.debug('data is missing count and totalCount properties', Log_1.catDao);
+            }
+            return count;
+        }
+        /**
+         * Convert the given value to a date, or undefined if it cannot be converted.
+         */
+
+    }, {
+        key: "toDate",
+        value: function toDate(from) {
+            if (from === undefined || from === null || from === '') {
+                return undefined;
+            }
+            return moment(from);
+        }
+        /**
+         * Convert the given value to a number, or undefined if it cannot be converted.
+         */
+
+    }, {
+        key: "toNumber",
+        value: function toNumber(from) {
+            var ret = parseInt(from, 10);
+            return isNaN(ret) ? undefined : ret;
+        }
+    }, {
+        key: "http",
+        get: function get() {
+            return this.httpImpl;
+        },
+        set: function set(impl) {
+            this.httpImpl = impl;
+        }
+    }]);
+
+    return BaseDAO;
+}();
+
+exports.BaseDAO = BaseDAO;
+
+/***/ }),
+
 /***/ "./src/dao/EventDAO.ts":
 /*!*****************************!*\
   !*** ./src/dao/EventDAO.ts ***!
@@ -48282,6 +48361,447 @@ var EventDAO = function (_AbstractDAO_1$Abstra) {
 }(AbstractDAO_1.AbstractDAO);
 
 exports.EventDAO = EventDAO;
+
+/***/ }),
+
+/***/ "./src/dao/FlowDAO.ts":
+/*!****************************!*\
+  !*** ./src/dao/FlowDAO.ts ***!
+  \****************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _regenerator = __webpack_require__(/*! babel-runtime/regenerator */ "./node_modules/babel-runtime/regenerator/index.js");
+
+var _regenerator2 = _interopRequireDefault(_regenerator);
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var __awaiter = undefined && undefined.__awaiter || function (thisArg, _arguments, P, generator) {
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) {
+            try {
+                step(generator.next(value));
+            } catch (e) {
+                reject(e);
+            }
+        }
+        function rejected(value) {
+            try {
+                step(generator["throw"](value));
+            } catch (e) {
+                reject(e);
+            }
+        }
+        function step(result) {
+            result.done ? resolve(result.value) : new P(function (resolve) {
+                resolve(result.value);
+            }).then(fulfilled, rejected);
+        }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var OnmsFlowSeries_1 = __webpack_require__(/*! ../model/OnmsFlowSeries */ "./src/model/OnmsFlowSeries.ts");
+var OnmsFlowSeriesColumn_1 = __webpack_require__(/*! ../model/OnmsFlowSeriesColumn */ "./src/model/OnmsFlowSeriesColumn.ts");
+var OnmsFlowExporterSummary_1 = __webpack_require__(/*! ../model/OnmsFlowExporterSummary */ "./src/model/OnmsFlowExporterSummary.ts");
+var OnmsFlowSnmpInterface_1 = __webpack_require__(/*! ../model/OnmsFlowSnmpInterface */ "./src/model/OnmsFlowSnmpInterface.ts");
+var OnmsFlowExporter_1 = __webpack_require__(/*! ../model/OnmsFlowExporter */ "./src/model/OnmsFlowExporter.ts");
+var OnmsFlowTable_1 = __webpack_require__(/*! ../model/OnmsFlowTable */ "./src/model/OnmsFlowTable.ts");
+var OnmsHTTPOptions_1 = __webpack_require__(/*! ../api/OnmsHTTPOptions */ "./src/api/OnmsHTTPOptions.ts");
+var BaseDAO_1 = __webpack_require__(/*! ./BaseDAO */ "./src/dao/BaseDAO.ts");
+/** @hidden */
+// tslint:disable-next-line
+var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
+/**
+ * DAO for accessing flow (Netflow/IPFIX/sFlow) data.
+ * @module FlowDAO
+ */
+
+var FlowDAO = function (_BaseDAO_1$BaseDAO) {
+    _inherits(FlowDAO, _BaseDAO_1$BaseDAO);
+
+    function FlowDAO() {
+        _classCallCheck(this, FlowDAO);
+
+        return _possibleConstructorReturn(this, (FlowDAO.__proto__ || Object.getPrototypeOf(FlowDAO)).apply(this, arguments));
+    }
+
+    _createClass(FlowDAO, [{
+        key: "getExporters",
+
+        /**
+         * Get a summary of the nodes that have exported flows.
+         * @param limit - maximum number of exporters to return (those with the most flows will be returned
+         *                if the results are truncated)
+         * @param start - the start of the timespan to query (defaults to 4 hours ago)
+         * @param end - the end of the timespan to query (defaults to now)
+         */
+        value: function getExporters(limit, start, end) {
+            return __awaiter(this, void 0, void 0, /*#__PURE__*/_regenerator2.default.mark(function _callee() {
+                var _this2 = this;
+
+                return _regenerator2.default.wrap(function _callee$(_context) {
+                    while (1) {
+                        switch (_context.prev = _context.next) {
+                            case 0:
+                                return _context.abrupt("return", FlowDAO.getOptions().then(function (opts) {
+                                    opts.withParameter('limit', limit).withParameter('start', start).withParameter('end', end);
+                                    return _this2.http.get(_this2.pathToFlowsEndpoint() + '/exporters', opts).then(function (result) {
+                                        return result.data.map(function (exporter) {
+                                            return _this2.toFlowExporterSummary(exporter);
+                                        });
+                                    });
+                                }));
+
+                            case 1:
+                            case "end":
+                                return _context.stop();
+                        }
+                    }
+                }, _callee, this);
+            }));
+        }
+        /**
+         * Get detailed information about a specific node.
+         * @param criteria - the node ID or foreignSource:foreignId tuple
+         * @param limit - maximum number of interfaces to return (those with the most flows will be returned
+         *                if the results are truncated)
+         * @param start - the start of the timespan to query (defaults to 4 hours ago)
+         * @param end - the end of the timespan to query (defaults to now)
+         */
+
+    }, {
+        key: "getExporter",
+        value: function getExporter(criteria, limit, start, end) {
+            return __awaiter(this, void 0, void 0, /*#__PURE__*/_regenerator2.default.mark(function _callee2() {
+                var _this3 = this;
+
+                return _regenerator2.default.wrap(function _callee2$(_context2) {
+                    while (1) {
+                        switch (_context2.prev = _context2.next) {
+                            case 0:
+                                return _context2.abrupt("return", FlowDAO.getOptions().then(function (opts) {
+                                    opts.withParameter('limit', limit).withParameter('start', start).withParameter('end', end);
+                                    return _this3.http.get(_this3.pathToFlowsEndpoint() + '/exporters/' + criteria, opts).then(function (result) {
+                                        return _this3.toFlowExporter(result.data);
+                                    });
+                                }));
+
+                            case 1:
+                            case "end":
+                                return _context2.stop();
+                        }
+                    }
+                }, _callee2, this);
+            }));
+        }
+        /**
+         * Summarize the top N applications/protocols based on parameters.
+         * @param N - how many applications to return
+         * @param start - the start of the timespan to query (defaults to 4 hours ago)
+         * @param end - the end of the timespan to query (defaults to now)
+         * @param includeOther - include an additional "other" result that
+         *                       represents everything that does not match the top N
+         * @param exporterNodeCriteria - the node ID or foreignSource:foreignId tuple
+         * @param ifIndex - filter for flows that came through this SNMP interface
+         */
+
+    }, {
+        key: "getSummaryForTopNApplications",
+        value: function getSummaryForTopNApplications(N, start, end, includeOther, exporterNodeCriteria, ifIndex) {
+            return __awaiter(this, void 0, void 0, /*#__PURE__*/_regenerator2.default.mark(function _callee3() {
+                var _this4 = this;
+
+                return _regenerator2.default.wrap(function _callee3$(_context3) {
+                    while (1) {
+                        switch (_context3.prev = _context3.next) {
+                            case 0:
+                                return _context3.abrupt("return", FlowDAO.getOptions().then(function (opts) {
+                                    opts.withParameter('N', N).withParameter('start', start).withParameter('end', end).withParameter('exporterNode', exporterNodeCriteria).withParameter('ifIndex', ifIndex).withParameter('includeOther', includeOther);
+                                    return _this4.http.get(_this4.pathToFlowsEndpoint() + '/applications', opts).then(function (result) {
+                                        return _this4.tableFromData(result.data);
+                                    });
+                                }));
+
+                            case 1:
+                            case "end":
+                                return _context3.stop();
+                        }
+                    }
+                }, _callee3, this);
+            }));
+        }
+        /**
+         * Summarize the top N conversations based on parameters.
+         * @param N - how many conversations to return
+         * @param start - the start of the timespan to query (defaults to 4 hours ago)
+         * @param end - the end of the timespan to query (defaults to now)
+         * @param exporterNodeCriteria - the node ID or foreignSource:foreignId tuple
+         * @param ifIndex - filter for flows that came through this SNMP interface
+         */
+
+    }, {
+        key: "getSummaryForTopNConversations",
+        value: function getSummaryForTopNConversations(N, start, end, exporterNodeCriteria, ifIndex) {
+            return __awaiter(this, void 0, void 0, /*#__PURE__*/_regenerator2.default.mark(function _callee4() {
+                var _this5 = this;
+
+                return _regenerator2.default.wrap(function _callee4$(_context4) {
+                    while (1) {
+                        switch (_context4.prev = _context4.next) {
+                            case 0:
+                                return _context4.abrupt("return", FlowDAO.getOptions().then(function (opts) {
+                                    opts.withParameter('N', N).withParameter('start', start).withParameter('end', end).withParameter('exporterNode', exporterNodeCriteria).withParameter('ifIndex', ifIndex);
+                                    return _this5.http.get(_this5.pathToFlowsEndpoint() + '/conversations', opts).then(function (result) {
+                                        return _this5.tableFromData(result.data);
+                                    });
+                                }));
+
+                            case 1:
+                            case "end":
+                                return _context4.stop();
+                        }
+                    }
+                }, _callee4, this);
+            }));
+        }
+        /**
+         * Get time series data for the top N applications/protocols based on parameters.
+         * @param N - how many applications' series to return
+         * @param start - the start of the timespan to query (defaults to 4 hours ago)
+         * @param end - the end of the timespan to query (defaults to now)
+         * @param step - the requested time interval between rows
+         * @param includeOther - include an additional "other" result that
+         *                       represents everything that does not match the top N
+         * @param exporterNodeCriteria - the node ID or foreignSource:foreignId tuple
+         * @param ifIndex - filter for flows that came through this SNMP interface
+         */
+
+    }, {
+        key: "getSeriesForTopNApplications",
+        value: function getSeriesForTopNApplications(N, start, end, step, includeOther, exporterNodeCriteria, ifIndex) {
+            return __awaiter(this, void 0, void 0, /*#__PURE__*/_regenerator2.default.mark(function _callee5() {
+                var _this6 = this;
+
+                return _regenerator2.default.wrap(function _callee5$(_context5) {
+                    while (1) {
+                        switch (_context5.prev = _context5.next) {
+                            case 0:
+                                return _context5.abrupt("return", FlowDAO.getOptions().then(function (opts) {
+                                    opts.withParameter('N', N).withParameter('start', start).withParameter('end', end).withParameter('step', step).withParameter('exporterNode', exporterNodeCriteria).withParameter('ifIndex', ifIndex).withParameter('includeOther', includeOther);
+                                    return _this6.http.get(_this6.pathToFlowsEndpoint() + '/applications/series', opts).then(function (result) {
+                                        return _this6.seriesFromData(result.data);
+                                    });
+                                }));
+
+                            case 1:
+                            case "end":
+                                return _context5.stop();
+                        }
+                    }
+                }, _callee5, this);
+            }));
+        }
+        /**
+         * Get time series data for the top N conversations based on parameters.
+         * @param N - how many conversations' series to return
+         * @param start - the start of the timespan to query (defaults to 4 hours ago)
+         * @param end - the end of the timespan to query (defaults to now)
+         * @param step - the requested time interval between rows
+         * @param exporterNodeCriteria - the node ID or foreignSource:foreignId tuple
+         * @param ifIndex - filter for flows that came through this SNMP interface
+         */
+
+    }, {
+        key: "getSeriesForTopNConversations",
+        value: function getSeriesForTopNConversations(N, start, end, step, exporterNodeCriteria, ifIndex) {
+            return __awaiter(this, void 0, void 0, /*#__PURE__*/_regenerator2.default.mark(function _callee6() {
+                var _this7 = this;
+
+                return _regenerator2.default.wrap(function _callee6$(_context6) {
+                    while (1) {
+                        switch (_context6.prev = _context6.next) {
+                            case 0:
+                                return _context6.abrupt("return", FlowDAO.getOptions().then(function (opts) {
+                                    opts.withParameter('N', N).withParameter('start', start).withParameter('end', end).withParameter('step', step).withParameter('exporterNode', exporterNodeCriteria).withParameter('ifIndex', ifIndex);
+                                    return _this7.http.get(_this7.pathToFlowsEndpoint() + '/conversations/series', opts).then(function (result) {
+                                        return _this7.seriesFromData(result.data);
+                                    });
+                                }));
+
+                            case 1:
+                            case "end":
+                                return _context6.stop();
+                        }
+                    }
+                }, _callee6, this);
+            }));
+        }
+        /**
+         * Convert flow ReST exporter summary JSON data to an [[OnmsFlowExporterSummary]] object.
+         * @hidden
+         */
+
+    }, {
+        key: "toFlowExporterSummary",
+        value: function toFlowExporterSummary(data) {
+            var summary = new OnmsFlowExporterSummary_1.OnmsFlowExporterSummary();
+            summary.id = data.id;
+            summary.foreignId = data.foreignId;
+            summary.foreignSource = data.foreignSource;
+            summary.label = data.label;
+            return summary;
+        }
+        /**
+         * Convert flow ReST exporter JSON data to an [[OnmsFlowExporter]] object.
+         * @hidden
+         */
+
+    }, {
+        key: "toFlowExporter",
+        value: function toFlowExporter(data) {
+            var _this8 = this;
+
+            var exporter = new OnmsFlowExporter_1.OnmsFlowExporter();
+            exporter.id = data.id;
+            exporter.foreignId = data.foreignId;
+            exporter.foreignSource = data.foreignSource;
+            exporter.label = data.label;
+            exporter.interfaces = data.interface.map(function (iff) {
+                return _this8.toInterface(iff);
+            });
+            return exporter;
+        }
+        /**
+         * Convert flow ReST interface JSON data to an [[OnmsFlowSnmpInterface]] object.
+         * @hidden
+         */
+
+    }, {
+        key: "toInterface",
+        value: function toInterface(data) {
+            var iff = new OnmsFlowSnmpInterface_1.OnmsFlowSnmpInterface();
+            iff.index = data.index;
+            iff.name = data.name;
+            iff.description = data.descr;
+            iff.resourceId = data['resource-id'];
+            return iff;
+        }
+        /**
+         * Create a series object from a JSON object.
+         * @hidden
+         */
+
+    }, {
+        key: "tableFromData",
+        value: function tableFromData(data) {
+            var table = new OnmsFlowTable_1.OnmsFlowTable();
+            table.start = this.toDate(data.start);
+            table.end = this.toDate(data.end);
+            table.headers = data.headers;
+            table.rows = data.rows;
+            return table;
+        }
+        /**
+         * Create a series object from a JSON object.
+         * @hidden
+         */
+
+    }, {
+        key: "seriesFromData",
+        value: function seriesFromData(data) {
+            var series = new OnmsFlowSeries_1.OnmsFlowSeries();
+            series.start = this.toDate(data.start);
+            series.end = this.toDate(data.end);
+            series.columns = data.labels;
+            series.timestamps = data.timestamps;
+            series.values = data.values;
+            var columns = data.columns;
+            if (!Array.isArray(columns)) {
+                columns = [columns];
+            }
+            series.columns = [];
+            var _iteratorNormalCompletion = true;
+            var _didIteratorError = false;
+            var _iteratorError = undefined;
+
+            try {
+                for (var _iterator = columns[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+                    var column = _step.value;
+
+                    column = new OnmsFlowSeriesColumn_1.OnmsFlowSeriesColumn(column.label, column.ingress);
+                    series.columns.push(column);
+                }
+            } catch (err) {
+                _didIteratorError = true;
+                _iteratorError = err;
+            } finally {
+                try {
+                    if (!_iteratorNormalCompletion && _iterator.return) {
+                        _iterator.return();
+                    }
+                } finally {
+                    if (_didIteratorError) {
+                        throw _iteratorError;
+                    }
+                }
+            }
+
+            return series;
+        }
+        /**
+         * Get the path to the flows endpoint for the appropriate API version.
+         * @hidden
+         */
+
+    }, {
+        key: "pathToFlowsEndpoint",
+        value: function pathToFlowsEndpoint() {
+            return 'rest/flows';
+        }
+    }], [{
+        key: "getOptions",
+
+        /**
+         * Create an [[OnmsHTTPOptions]] object for DAO calls.
+         */
+        value: function getOptions() {
+            return __awaiter(this, void 0, void 0, /*#__PURE__*/_regenerator2.default.mark(function _callee7() {
+                return _regenerator2.default.wrap(function _callee7$(_context7) {
+                    while (1) {
+                        switch (_context7.prev = _context7.next) {
+                            case 0:
+                                return _context7.abrupt("return", Promise.resolve(new OnmsHTTPOptions_1.OnmsHTTPOptions()).then(function (options) {
+                                    options.headers.accept = 'application/json';
+                                    return options;
+                                }));
+
+                            case 1:
+                            case "end":
+                                return _context7.stop();
+                        }
+                    }
+                }, _callee7, this);
+            }));
+        }
+    }]);
+
+    return FlowDAO;
+}(BaseDAO_1.BaseDAO);
+
+exports.FlowDAO = FlowDAO;
 
 /***/ }),
 
@@ -49740,6 +50260,178 @@ exports.OnmsEvent = OnmsEvent;
 
 /***/ }),
 
+/***/ "./src/model/OnmsFlowExporter.ts":
+/*!***************************************!*\
+  !*** ./src/model/OnmsFlowExporter.ts ***!
+  \***************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var OnmsFlowExporterSummary_1 = __webpack_require__(/*! ./OnmsFlowExporterSummary */ "./src/model/OnmsFlowExporterSummary.ts");
+/**
+ * Represents OpenNMS flow information about a node and its interfaces.
+ * @module OnmsFlowExporter
+ */
+
+var OnmsFlowExporter = function (_OnmsFlowExporterSumm) {
+  _inherits(OnmsFlowExporter, _OnmsFlowExporterSumm);
+
+  function OnmsFlowExporter() {
+    _classCallCheck(this, OnmsFlowExporter);
+
+    return _possibleConstructorReturn(this, (OnmsFlowExporter.__proto__ || Object.getPrototypeOf(OnmsFlowExporter)).apply(this, arguments));
+  }
+
+  return OnmsFlowExporter;
+}(OnmsFlowExporterSummary_1.OnmsFlowExporterSummary);
+
+exports.OnmsFlowExporter = OnmsFlowExporter;
+
+/***/ }),
+
+/***/ "./src/model/OnmsFlowExporterSummary.ts":
+/*!**********************************************!*\
+  !*** ./src/model/OnmsFlowExporterSummary.ts ***!
+  \**********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+Object.defineProperty(exports, "__esModule", { value: true });
+/**
+ * Represents basic OpenNMS flow information about node.
+ * @module OnmsFlowExporterSummary
+ */
+
+var OnmsFlowExporterSummary = function OnmsFlowExporterSummary() {
+  _classCallCheck(this, OnmsFlowExporterSummary);
+};
+
+exports.OnmsFlowExporterSummary = OnmsFlowExporterSummary;
+
+/***/ }),
+
+/***/ "./src/model/OnmsFlowSeries.ts":
+/*!*************************************!*\
+  !*** ./src/model/OnmsFlowSeries.ts ***!
+  \*************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+Object.defineProperty(exports, "__esModule", { value: true });
+/**
+ * Time series metrics derived from flow data.
+ * @module OnmsFlowSeries
+ */
+
+var OnmsFlowSeries = function OnmsFlowSeries() {
+  _classCallCheck(this, OnmsFlowSeries);
+};
+
+exports.OnmsFlowSeries = OnmsFlowSeries;
+
+/***/ }),
+
+/***/ "./src/model/OnmsFlowSeriesColumn.ts":
+/*!*******************************************!*\
+  !*** ./src/model/OnmsFlowSeriesColumn.ts ***!
+  \*******************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+Object.defineProperty(exports, "__esModule", { value: true });
+/**
+ * Time series column.
+ * @module OnmsFlowSeriesColumn
+ */
+
+var OnmsFlowSeriesColumn = function OnmsFlowSeriesColumn(label, ingress) {
+    _classCallCheck(this, OnmsFlowSeriesColumn);
+
+    this.label = label;
+    this.ingress = ingress;
+};
+
+exports.OnmsFlowSeriesColumn = OnmsFlowSeriesColumn;
+
+/***/ }),
+
+/***/ "./src/model/OnmsFlowSnmpInterface.ts":
+/*!********************************************!*\
+  !*** ./src/model/OnmsFlowSnmpInterface.ts ***!
+  \********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+Object.defineProperty(exports, "__esModule", { value: true });
+/**
+ * OpenNMS flow node SNMP interface metadata.
+ * @module OnmsFlowSnmpInterface
+ */
+
+var OnmsFlowSnmpInterface = function OnmsFlowSnmpInterface() {
+  _classCallCheck(this, OnmsFlowSnmpInterface);
+};
+
+exports.OnmsFlowSnmpInterface = OnmsFlowSnmpInterface;
+
+/***/ }),
+
+/***/ "./src/model/OnmsFlowTable.ts":
+/*!************************************!*\
+  !*** ./src/model/OnmsFlowTable.ts ***!
+  \************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+Object.defineProperty(exports, "__esModule", { value: true });
+/**
+ * A collection of flow time-series data.
+ * @module OnmsFlowTable
+ */
+
+var OnmsFlowTable = function OnmsFlowTable() {
+  _classCallCheck(this, OnmsFlowTable);
+};
+
+exports.OnmsFlowTable = OnmsFlowTable;
+
+/***/ }),
+
 /***/ "./src/model/OnmsIpInterface.ts":
 /*!**************************************!*\
   !*** ./src/model/OnmsIpInterface.ts ***!
@@ -50241,12 +50933,20 @@ var OnmsParm = function () {
         this.type = type;
         this.valueString = value;
     }
+    /**
+     * The string value of this parameter.
+     */
+
 
     _createClass(OnmsParm, [{
         key: "toString",
         value: function toString() {
             return this.valueString;
         }
+        /**
+         * The value of this parameter to be used when serializing to a URL.
+         */
+
     }, {
         key: "urlValue",
         get: function get() {
