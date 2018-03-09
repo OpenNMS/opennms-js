@@ -54,7 +54,7 @@
     "typedoc": "^0.11.0",
     "typedoc-plugin-external-module-name": "^1.1.1",
     "typedoc-webpack-plugin": "^1.1.4",
-    "typescript": "2.x",
+    "typescript": "^2.7.0",
     "uglifyjs-webpack-plugin": "^1.2.2",
     "urijs": "^1.19.1",
     "webpack": "^4.1.1",
