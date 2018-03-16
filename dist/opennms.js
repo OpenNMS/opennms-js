@@ -47699,6 +47699,7 @@ var AlarmDAO = function (_AbstractDAO_1$Abstra) {
             alarm.nodeId = this.toNumber(data.nodeId);
             alarm.nodeLabel = data.nodeLabel;
             alarm.suppressedBy = data.suppressedBy;
+            alarm.operatorInstructions = data.operatorInstructions;
             if (data.ackTime) {
                 alarm.ackTime = this.toDate(data.ackTime);
             }
