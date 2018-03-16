@@ -89,6 +89,9 @@ export class OnmsAlarm implements IHasUrlValue {
   /** journal memo - a note associated with the reduction key for this alarm */
   public journal: OnmsMemo;
 
+  /** operator instructions */
+  public operatorInstructions: string;
+
   /** the most recent time the event has triggered this alarm */
   public get lastEventTime() {
     if (this.lastEvent && this.lastEvent.time) {
