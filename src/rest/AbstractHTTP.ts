@@ -144,6 +144,9 @@ export abstract class AbstractHTTP implements IOnmsHTTP {
       ret.auth = Object.assign(ret.auth, server.auth);
     }
     ret = Object.assign(ret, options);
+    if (!ret.headers.hasOwnProperty('X-Requested-With')) {
+      ret.headers['X-Requested-With'] = 'XMLHttpRequest';
+    }
     return ret;
   }
 
