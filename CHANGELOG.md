@@ -1,5 +1,15 @@
 <a name="1.1.2-SNAPSHOT"></a>
-## [1.1.2-SNAPSHOT](https://github.com/OpenNMS/opennms-js/compare/v1.1.1...v1.1.2-SNAPSHOT) (2018-03-16)
+## [1.1.2-SNAPSHOT](https://github.com/OpenNMS/opennms-js/compare/v1.1.1...v1.1.2-SNAPSHOT) (2018-03-29)
+
+
+### Bug Fixes
+
+* **http:** add timeout to GrafanaHTTP ([22bdd70](https://github.com/OpenNMS/opennms-js/commit/22bdd70))
+
+
+### Features
+
+* **rest:** NMS-9783: add X-Requested-With header to requests ([e803726](https://github.com/OpenNMS/opennms-js/commit/e803726))
 
 
 

@@ -56201,6 +56201,9 @@ var AbstractHTTP = function () {
                 ret.auth = Object.assign(ret.auth, server.auth);
             }
             ret = Object.assign(ret, options);
+            if (!ret.headers.hasOwnProperty('X-Requested-With')) {
+                ret.headers['X-Requested-With'] = 'XMLHttpRequest';
+            }
             return ret;
         }
         /**
@@ -56657,10 +56660,10 @@ var GrafanaHTTP = function (_AbstractHTTP_1$Abstr) {
      * @param backendSrv - The Grafana BackendSrv object to use for requests.
      * @param server - The OpenNMS server to make requests to.
      */
-    function GrafanaHTTP(backendSrv, server) {
+    function GrafanaHTTP(backendSrv, server, timeout) {
         _classCallCheck(this, GrafanaHTTP);
 
-        var _this = _possibleConstructorReturn(this, (GrafanaHTTP.__proto__ || Object.getPrototypeOf(GrafanaHTTP)).call(this, server, undefined));
+        var _this = _possibleConstructorReturn(this, (GrafanaHTTP.__proto__ || Object.getPrototypeOf(GrafanaHTTP)).call(this, server, timeout));
 
         _this.backendSrv = backendSrv;
         return _this;
