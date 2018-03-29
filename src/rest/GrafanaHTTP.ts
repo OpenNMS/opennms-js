@@ -31,8 +31,8 @@ export class GrafanaHTTP extends AbstractHTTP {
    * @param backendSrv - The Grafana BackendSrv object to use for requests.
    * @param server - The OpenNMS server to make requests to.
    */
-  constructor(backendSrv: any, server?: OnmsServer) {
-    super(server, undefined);
+  constructor(backendSrv: any, server?: OnmsServer, timeout?: number) {
+    super(server, timeout);
     this.backendSrv = backendSrv;
   }
 
