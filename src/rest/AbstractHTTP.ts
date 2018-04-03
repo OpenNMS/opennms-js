@@ -23,11 +23,14 @@ const jsonTransformer = new JsonTransformer();
  * @implements IOnmsHTTP
  */
 export abstract class AbstractHTTP implements IOnmsHTTP {
-  /** The default amount of time to wait before giving up on a request. */
-  public timeout = 10000;
+  /**
+   * The default amount of time to wait before giving up on a request.
+   * @deprecated Set `timeout` on the [[OnmsHTTPOptions]] object instead.  This will go away in OpenNMS.js 2.0.
+   */
+  public timeout: number;
 
   /** The default set of HTTP options associated with this ReST client. */
-  public options: OnmsHTTPOptions;
+  public options = {} as OnmsHTTPOptions;
 
   /**
    * The server metadata we'll use for constructing ReST calls.
@@ -53,7 +56,7 @@ export abstract class AbstractHTTP implements IOnmsHTTP {
    */
   constructor(server?: OnmsServer, timeout = 10000) {
     this.serverObj = server;
-    this.timeout = timeout;
+    this.options.timeout = timeout;
   }
 
   /** Make an HTTP GET call. This must be implemented by the concrete implementation. */
@@ -137,6 +140,9 @@ export abstract class AbstractHTTP implements IOnmsHTTP {
   protected getOptions(options?: OnmsHTTPOptions): OnmsHTTPOptions {
     let ret = Object.assign({auth: {}}, this.options) as OnmsHTTPOptions;
     if (this.timeout) {
+      /* tslint:disable:no-console */
+      console.warn('The "timeout" property on OnmsHTTP implementations is deprecated ' +
+        'and will be removed in OpenNMS.js 2.  Use "options.timeout" instead.');
       ret.timeout = this.timeout;
     }
     const server = this.getServer(options);
