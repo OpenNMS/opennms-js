@@ -73,6 +73,9 @@ export class Client implements IHasHTTP {
       }
       httpImpl = Client.defaultHttp;
     }
+    if (!timeout && httpImpl.options.timeout) {
+      opts.timeout = httpImpl.options.timeout;
+    }
 
     const infoUrl = server.resolveURL('rest/info');
     log.debug('getMetadata: checking URL: ' + infoUrl, cat);

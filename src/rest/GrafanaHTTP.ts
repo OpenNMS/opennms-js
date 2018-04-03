@@ -140,7 +140,7 @@ export class GrafanaHTTP extends AbstractHTTP {
    */
   private getConfig(options?: OnmsHTTPOptions): any {
     const allOptions = this.getOptions(options);
-    const ret = clonedeep(allOptions);
+    const ret = clonedeep(allOptions.toJSON());
     ret.transformResponse = []; // we do this so we can post-process only on success
 
     if (allOptions.headers) {
