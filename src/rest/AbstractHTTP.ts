@@ -17,17 +17,42 @@ const xmlTransformer = new XmlTransformer();
 /** @hidden */
 const jsonTransformer = new JsonTransformer();
 
+const OPTIONS_PROP = Symbol.for('options');
+
 /**
  * Abstract implementation of the OnmsHTTP interface meant to be extended by a concrete class.
  * @module AbstractHTTP
  * @implements IOnmsHTTP
  */
 export abstract class AbstractHTTP implements IOnmsHTTP {
-  /** The default amount of time to wait before giving up on a request. */
-  public timeout = 10000;
+  private [OPTIONS_PROP] = new OnmsHTTPOptions();
 
   /** The default set of HTTP options associated with this ReST client. */
-  public options: OnmsHTTPOptions;
+  public get options(): OnmsHTTPOptions {
+    if (this[OPTIONS_PROP]) {
+      return this[OPTIONS_PROP];
+    }
+    return {} as OnmsHTTPOptions;
+  }
+
+  public set options(o: OnmsHTTPOptions) {
+    this[OPTIONS_PROP] = o;
+  }
+
+  /**
+   * The default amount of time to wait before giving up on a request.
+   * @deprecated Set `timeout` on the [[OnmsHTTPOptions]] object instead.  This will go away in OpenNMS.js 2.0.
+   */
+  public get timeout(): number {
+    return this.options.timeout;
+  }
+
+  public set timeout(t: number) {
+    /* tslint:disable:no-console */
+    console.warn('The "timeout" property on OnmsHTTP implementations is deprecated ' +
+      'and will be removed in OpenNMS.js 2.  Use "options.timeout" instead.');
+    this.options.timeout = t;
+  }
 
   /**
    * The server metadata we'll use for constructing ReST calls.
@@ -51,9 +76,13 @@ export abstract class AbstractHTTP implements IOnmsHTTP {
    * @param server - A server object for immediate configuration.
    * @param timeout - How long to wait until timing out requests.
    */
-  constructor(server?: OnmsServer, timeout = 10000) {
-    this.serverObj = server;
-    this.timeout = timeout;
+  constructor(server?: OnmsServer, timeout?: number) {
+    if (server) {
+      this.serverObj = server;
+    }
+    if (timeout) {
+      this.options.timeout = timeout;
+    }
   }
 
   /** Make an HTTP GET call. This must be implemented by the concrete implementation. */
@@ -135,15 +164,15 @@ export abstract class AbstractHTTP implements IOnmsHTTP {
    * precedence is passed options -> server options -> default options.
    */
   protected getOptions(options?: OnmsHTTPOptions): OnmsHTTPOptions {
-    let ret = Object.assign({auth: {}}, this.options) as OnmsHTTPOptions;
-    if (this.timeout) {
-      ret.timeout = this.timeout;
-    }
+    const ret = new OnmsHTTPOptions();
+    Object.assign(ret, this.options);
+
     const server = this.getServer(options);
+    ret.server = server;
     if (server && server.auth) {
       ret.auth = Object.assign(ret.auth, server.auth);
     }
-    ret = Object.assign(ret, options);
+    Object.assign(ret, options);
     if (!ret.headers.hasOwnProperty('X-Requested-With')) {
       ret.headers['X-Requested-With'] = 'XMLHttpRequest';
     }
