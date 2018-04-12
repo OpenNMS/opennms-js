@@ -107,18 +107,18 @@
 								<li class="tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite"><a href="axioshttp.html#constructor" class="tsd-kind-icon">constructor</a></li>
 							</ul>
 						</section>
-						<section class="tsd-index-section ">
+						<section class="tsd-index-section tsd-is-private tsd-is-private-protected">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="axioshttp.html#axiosobj" class="tsd-kind-icon">axios<wbr>Obj</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="axioshttp.html#options" class="tsd-kind-icon">options</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="axioshttp.html#timeout" class="tsd-kind-icon">timeout</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section tsd-is-inherited">
 							<h3>Accessors</h3>
 							<ul class="tsd-index-list">
+								<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited"><a href="axioshttp.html#options" class="tsd-kind-icon">options</a></li>
 								<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited"><a href="axioshttp.html#server" class="tsd-kind-icon">server</a></li>
+								<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited"><a href="axioshttp.html#timeout" class="tsd-kind-icon">timeout</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
@@ -152,7 +152,7 @@
 							<aside class="tsd-sources">
 								<p>Overrides <a href="abstracthttp.html">AbstractHTTP</a>.<a href="abstracthttp.html#constructor">constructor</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/d004e69/src/rest/AxiosHTTP.ts#L41">rest/AxiosHTTP.ts:41</a></li>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/0be1d60/src/rest/AxiosHTTP.ts#L41">rest/AxiosHTTP.ts:41</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -192,7 +192,7 @@
 					</ul>
 				</section>
 			</section>
-			<section class="tsd-panel-group tsd-member-group ">
+			<section class="tsd-panel-group tsd-member-group tsd-is-private tsd-is-private-protected">
 				<h2>Properties</h2>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
 					<a name="axiosobj" class="tsd-anchor"></a>
@@ -200,7 +200,7 @@
 					<div class="tsd-signature tsd-kind-icon">axios<wbr>Obj<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">AxiosInstance</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/d004e69/src/rest/AxiosHTTP.ts#L41">rest/AxiosHTTP.ts:41</a></li>
+							<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/0be1d60/src/rest/AxiosHTTP.ts#L41">rest/AxiosHTTP.ts:41</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -210,42 +210,53 @@
 						</div>
 					</div>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
-					<a name="options" class="tsd-anchor"></a>
-					<h3>options</h3>
-					<div class="tsd-signature tsd-kind-icon">options<span class="tsd-signature-symbol">:</span> <a href="onmshttpoptions.html" class="tsd-signature-type">OnmsHTTPOptions</a></div>
-					<aside class="tsd-sources">
-						<p>Implementation of <a href="../interfaces/ionmshttp.html">IOnmsHTTP</a>.<a href="../interfaces/ionmshttp.html#options">options</a></p>
-						<p>Inherited from <a href="abstracthttp.html">AbstractHTTP</a>.<a href="abstracthttp.html#options">options</a></p>
-						<ul>
-							<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/d004e69/src/rest/AbstractHTTP.ts#L30">rest/AbstractHTTP.ts:30</a></li>
-						</ul>
-					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>The default set of HTTP options associated with this ReST client.</p>
-						</div>
-					</div>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
-					<a name="timeout" class="tsd-anchor"></a>
-					<h3>timeout</h3>
-					<div class="tsd-signature tsd-kind-icon">timeout<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> =&nbsp;10000</span></div>
-					<aside class="tsd-sources">
-						<p>Inherited from <a href="abstracthttp.html">AbstractHTTP</a>.<a href="abstracthttp.html#timeout">timeout</a></p>
-						<ul>
-							<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/d004e69/src/rest/AbstractHTTP.ts#L27">rest/AbstractHTTP.ts:27</a></li>
-						</ul>
-					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>The default amount of time to wait before giving up on a request.</p>
-						</div>
-					</div>
-				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group tsd-is-inherited">
 				<h2>Accessors</h2>
+				<section class="tsd-panel tsd-member tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited">
+					<a name="options" class="tsd-anchor"></a>
+					<h3>options</h3>
+					<ul class="tsd-signatures tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited">
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> options<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="onmshttpoptions.html" class="tsd-signature-type">OnmsHTTPOptions</a></li>
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">set</span> options<span class="tsd-signature-symbol">(</span>o<span class="tsd-signature-symbol">: </span><a href="onmshttpoptions.html" class="tsd-signature-type">OnmsHTTPOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Inherited from <a href="abstracthttp.html">AbstractHTTP</a>.<a href="abstracthttp.html#options">options</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/0be1d60/src/rest/AbstractHTTP.ts#L31">rest/AbstractHTTP.ts:31</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>The default set of HTTP options associated with this ReST client.</p>
+								</div>
+							</div>
+							<h4 class="tsd-returns-title">Returns <a href="onmshttpoptions.html" class="tsd-signature-type">OnmsHTTPOptions</a></h4>
+						</li>
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Inherited from <a href="abstracthttp.html">AbstractHTTP</a>.<a href="abstracthttp.html#options">options</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/0be1d60/src/rest/AbstractHTTP.ts#L38">rest/AbstractHTTP.ts:38</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>The default set of HTTP options associated with this ReST client.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>o: <a href="onmshttpoptions.html" class="tsd-signature-type">OnmsHTTPOptions</a></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
 				<section class="tsd-panel tsd-member tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited">
 					<a name="server" class="tsd-anchor"></a>
 					<h3>server</h3>
@@ -258,7 +269,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="abstracthttp.html">AbstractHTTP</a>.<a href="abstracthttp.html#server">server</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/d004e69/src/rest/AbstractHTTP.ts#L39">rest/AbstractHTTP.ts:39</a></li>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/0be1d60/src/rest/AbstractHTTP.ts#L64">rest/AbstractHTTP.ts:64</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -272,7 +283,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="abstracthttp.html">AbstractHTTP</a>.<a href="abstracthttp.html#server">server</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/d004e69/src/rest/AbstractHTTP.ts#L43">rest/AbstractHTTP.ts:43</a></li>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/0be1d60/src/rest/AbstractHTTP.ts#L68">rest/AbstractHTTP.ts:68</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -284,6 +295,55 @@
 							<ul class="tsd-parameters">
 								<li>
 									<h5>server: <a href="onmsserver.html" class="tsd-signature-type">OnmsServer</a></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited">
+					<a name="timeout" class="tsd-anchor"></a>
+					<h3>timeout</h3>
+					<ul class="tsd-signatures tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited">
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> timeout<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span></li>
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">set</span> timeout<span class="tsd-signature-symbol">(</span>t<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Inherited from <a href="abstracthttp.html">AbstractHTTP</a>.<a href="abstracthttp.html#timeout">timeout</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/0be1d60/src/rest/AbstractHTTP.ts#L46">rest/AbstractHTTP.ts:46</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>The default amount of time to wait before giving up on a request.</p>
+								</div>
+								<dl class="tsd-comment-tags">
+									<dt>deprecated</dt>
+									<dd><p>Set <code>timeout</code> on the <a href="onmshttpoptions.html">OnmsHTTPOptions</a> object instead.  This will go away in OpenNMS.js 2.0.</p>
+									</dd>
+								</dl>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
+						</li>
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Inherited from <a href="abstracthttp.html">AbstractHTTP</a>.<a href="abstracthttp.html#timeout">timeout</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/0be1d60/src/rest/AbstractHTTP.ts#L50">rest/AbstractHTTP.ts:50</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>The default amount of time to wait before giving up on a request.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>t: <span class="tsd-signature-type">number</span></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -305,7 +365,7 @@
 								<p>Implementation of <a href="../interfaces/ionmshttp.html">IOnmsHTTP</a>.<a href="../interfaces/ionmshttp.html#get">get</a></p>
 								<p>Overrides <a href="abstracthttp.html">AbstractHTTP</a>.<a href="abstracthttp.html#get">get</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/d004e69/src/rest/AxiosHTTP.ts#L57">rest/AxiosHTTP.ts:57</a></li>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/0be1d60/src/rest/AxiosHTTP.ts#L57">rest/AxiosHTTP.ts:57</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -337,7 +397,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="abstracthttp.html">AbstractHTTP</a>.<a href="abstracthttp.html#getdata">getData</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/d004e69/src/rest/AbstractHTTP.ts#L88">rest/AbstractHTTP.ts:88</a></li>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/0be1d60/src/rest/AbstractHTTP.ts#L117">rest/AbstractHTTP.ts:117</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -366,7 +426,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="abstracthttp.html">AbstractHTTP</a>.<a href="abstracthttp.html#getoptions">getOptions</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/d004e69/src/rest/AbstractHTTP.ts#L137">rest/AbstractHTTP.ts:137</a></li>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/0be1d60/src/rest/AbstractHTTP.ts#L166">rest/AbstractHTTP.ts:166</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -397,7 +457,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="abstracthttp.html">AbstractHTTP</a>.<a href="abstracthttp.html#getserver">getServer</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/d004e69/src/rest/AbstractHTTP.ts#L125">rest/AbstractHTTP.ts:125</a></li>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/0be1d60/src/rest/AbstractHTTP.ts#L154">rest/AbstractHTTP.ts:154</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -429,7 +489,7 @@
 								<p>Implementation of <a href="../interfaces/ionmshttp.html">IOnmsHTTP</a>.<a href="../interfaces/ionmshttp.html#httpdelete">httpDelete</a></p>
 								<p>Overrides <a href="abstracthttp.html">AbstractHTTP</a>.<a href="abstracthttp.html#httpdelete">httpDelete</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/d004e69/src/rest/AxiosHTTP.ts#L133">rest/AxiosHTTP.ts:133</a></li>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/0be1d60/src/rest/AxiosHTTP.ts#L133">rest/AxiosHTTP.ts:133</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -461,7 +521,7 @@
 							<aside class="tsd-sources">
 								<p>Overrides <a href="abstracthttp.html">AbstractHTTP</a>.<a href="abstracthttp.html#onsetserver">onSetServer</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/d004e69/src/rest/AxiosHTTP.ts#L159">rest/AxiosHTTP.ts:159</a></li>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/0be1d60/src/rest/AxiosHTTP.ts#L159">rest/AxiosHTTP.ts:159</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -486,7 +546,7 @@
 								<p>Implementation of <a href="../interfaces/ionmshttp.html">IOnmsHTTP</a>.<a href="../interfaces/ionmshttp.html#post">post</a></p>
 								<p>Overrides <a href="abstracthttp.html">AbstractHTTP</a>.<a href="abstracthttp.html#post">post</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/d004e69/src/rest/AxiosHTTP.ts#L108">rest/AxiosHTTP.ts:108</a></li>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/0be1d60/src/rest/AxiosHTTP.ts#L108">rest/AxiosHTTP.ts:108</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -519,7 +579,7 @@
 								<p>Implementation of <a href="../interfaces/ionmshttp.html">IOnmsHTTP</a>.<a href="../interfaces/ionmshttp.html#put">put</a></p>
 								<p>Overrides <a href="abstracthttp.html">AbstractHTTP</a>.<a href="abstracthttp.html#put">put</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/d004e69/src/rest/AxiosHTTP.ts#L82">rest/AxiosHTTP.ts:82</a></li>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/0be1d60/src/rest/AxiosHTTP.ts#L82">rest/AxiosHTTP.ts:82</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -551,7 +611,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="abstracthttp.html">AbstractHTTP</a>.<a href="abstracthttp.html#transformjson">transformJSON</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/d004e69/src/rest/AbstractHTTP.ts#L75">rest/AbstractHTTP.ts:75</a></li>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/0be1d60/src/rest/AbstractHTTP.ts#L104">rest/AbstractHTTP.ts:104</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -581,7 +641,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="abstracthttp.html">AbstractHTTP</a>.<a href="abstracthttp.html#transformxml">transformXML</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/d004e69/src/rest/AbstractHTTP.ts#L83">rest/AbstractHTTP.ts:83</a></li>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/0be1d60/src/rest/AbstractHTTP.ts#L112">rest/AbstractHTTP.ts:112</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -623,14 +683,14 @@
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
 								<a href="axioshttp.html#axiosobj" class="tsd-kind-icon">axios<wbr>Obj</a>
 							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
+							<li class=" tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited">
 								<a href="axioshttp.html#options" class="tsd-kind-icon">options</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
-								<a href="axioshttp.html#timeout" class="tsd-kind-icon">timeout</a>
 							</li>
 							<li class=" tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited">
 								<a href="axioshttp.html#server" class="tsd-kind-icon">server</a>
+							</li>
+							<li class=" tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited">
+								<a href="axioshttp.html#timeout" class="tsd-kind-icon">timeout</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
 								<a href="axioshttp.html#get" class="tsd-kind-icon">get</a>

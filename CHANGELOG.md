@@ -1,5 +1,10 @@
 <a name="1.2.1-SNAPSHOT"></a>
-## [1.2.1-SNAPSHOT](https://github.com/OpenNMS/opennms-js/compare/v1.2.0...v1.2.1-SNAPSHOT) (2018-03-30)
+## [1.2.1-SNAPSHOT](https://github.com/OpenNMS/opennms-js/compare/v1.2.0...v1.2.1-SNAPSHOT) (2018-04-12)
+
+
+### Bug Fixes
+
+* **rest:** fix HTTP timeout configuration to be more consistent ([c8e7162](https://github.com/OpenNMS/opennms-js/commit/c8e7162))
 
 
 

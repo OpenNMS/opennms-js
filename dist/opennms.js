@@ -45160,13 +45160,16 @@ var Client = function () {
                                 httpImpl = Client.defaultHttp;
 
                             case 6:
+                                if (!timeout && httpImpl.options.timeout) {
+                                    opts.timeout = httpImpl.options.timeout;
+                                }
                                 infoUrl = server.resolveURL('rest/info');
 
                                 Log_1.log.debug('getMetadata: checking URL: ' + infoUrl, exports.cat);
-                                _context2.next = 10;
+                                _context2.next = 11;
                                 return httpImpl.get(infoUrl, opts);
 
-                            case 10:
+                            case 11:
                                 response = _context2.sent;
                                 version = new OnmsVersion_1.OnmsVersion(response.data.version, response.data.displayVersion);
                                 metadata = new ServerMetadata_1.ServerMetadata(version);
@@ -45186,7 +45189,7 @@ var Client = function () {
                                 }
                                 return _context2.abrupt("return", metadata);
 
-                            case 16:
+                            case 17:
                             case "end":
                                 return _context2.stop();
                         }
@@ -45776,6 +45779,9 @@ var _createClass = function () { function defineProperties(target, props) { for 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 Object.defineProperty(exports, "__esModule", { value: true });
+var DEFAULT_TIMEOUT = 10000;
+var TIMEOUT_PROP = Symbol.for('timeout');
+var AUTH_PROP = Symbol.for('auth');
 /**
  * Options to be used when making HTTP ReST calls.
  * @module OnmsHTTPOptions
@@ -45789,8 +45795,6 @@ var OnmsHTTPOptions = function () {
     function OnmsHTTPOptions(timeout, auth, server) {
         _classCallCheck(this, OnmsHTTPOptions);
 
-        /** How long to wait for ReST calls to time out. */
-        this.timeout = 10000;
         /** HTTP headers to be passed to the request. */
         this.headers = {};
         /** HTTP parameters to be passed on the URL. */
@@ -45805,20 +45809,58 @@ var OnmsHTTPOptions = function () {
             this.server = server;
         }
     }
-    /**
-     * Add a URL parameter. Returns the OnmsHTTPOptions object so it can be chained.
-     * @param key - the parameter's key
-     * @param value - the parameter's value
-     */
+    /** How long to wait for ReST calls to time out. */
 
 
     _createClass(OnmsHTTPOptions, [{
         key: "withParameter",
+
+        /**
+         * Add a URL parameter. Returns the OnmsHTTPOptions object so it can be chained.
+         * @param key - the parameter's key
+         * @param value - the parameter's value
+         */
         value: function withParameter(key, value) {
             if (value !== undefined) {
                 this.parameters[key] = '' + value;
             }
             return this;
+        }
+    }, {
+        key: "toJSON",
+        value: function toJSON() {
+            var ret = Object.assign({}, this);
+            if (this[TIMEOUT_PROP]) {
+                ret.timeout = this.timeout;
+            }
+            if (this[AUTH_PROP]) {
+                ret.auth = this.auth;
+            }
+            return ret;
+        }
+    }, {
+        key: "timeout",
+        get: function get() {
+            if (this[TIMEOUT_PROP]) {
+                return this[TIMEOUT_PROP];
+            }
+            return DEFAULT_TIMEOUT;
+        },
+        set: function set(t) {
+            this[TIMEOUT_PROP] = t;
+        }
+        /** The authentication config that should be used when no auth is associated with the [[OnmsServer]]. */
+
+    }, {
+        key: "auth",
+        get: function get() {
+            if (this[AUTH_PROP]) {
+                return this[AUTH_PROP];
+            }
+            return {};
+        },
+        set: function set(a) {
+            this[AUTH_PROP] = a;
         }
     }]);
 
@@ -51528,12 +51570,14 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 Object.defineProperty(exports, "__esModule", { value: true });
 var OnmsError_1 = __webpack_require__(/*! ../api/OnmsError */ "./src/api/OnmsError.ts");
+var OnmsHTTPOptions_1 = __webpack_require__(/*! ../api/OnmsHTTPOptions */ "./src/api/OnmsHTTPOptions.ts");
 var XmlTransformer_1 = __webpack_require__(/*! ./XmlTransformer */ "./src/rest/XmlTransformer.ts");
 var JsonTransformer_1 = __webpack_require__(/*! ./JsonTransformer */ "./src/rest/JsonTransformer.ts");
 /** @hidden */
 var xmlTransformer = new XmlTransformer_1.XmlTransformer();
 /** @hidden */
 var jsonTransformer = new JsonTransformer_1.JsonTransformer();
+var OPTIONS_PROP = Symbol.for('options');
 /**
  * Abstract implementation of the OnmsHTTP interface meant to be extended by a concrete class.
  * @module AbstractHTTP
@@ -51547,17 +51591,18 @@ var AbstractHTTP = function () {
      * @param server - A server object for immediate configuration.
      * @param timeout - How long to wait until timing out requests.
      */
-    function AbstractHTTP(server) {
-        var timeout = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 10000;
-
+    function AbstractHTTP(server, timeout) {
         _classCallCheck(this, AbstractHTTP);
 
-        /** The default amount of time to wait before giving up on a request. */
-        this.timeout = 10000;
-        this.serverObj = server;
-        this.timeout = timeout;
+        this[_a] = new OnmsHTTPOptions_1.OnmsHTTPOptions();
+        if (server) {
+            this.serverObj = server;
+        }
+        if (timeout) {
+            this.options.timeout = timeout;
+        }
     }
-    /** The server associated with this HTTP implementation. */
+    /** The default set of HTTP options associated with this ReST client. */
 
 
     _createClass(AbstractHTTP, [{
@@ -51640,15 +51685,14 @@ var AbstractHTTP = function () {
     }, {
         key: "getOptions",
         value: function getOptions(options) {
-            var ret = Object.assign({ auth: {} }, this.options);
-            if (this.timeout) {
-                ret.timeout = this.timeout;
-            }
+            var ret = new OnmsHTTPOptions_1.OnmsHTTPOptions();
+            Object.assign(ret, this.options);
             var server = this.getServer(options);
+            ret.server = server;
             if (server && server.auth) {
                 ret.auth = Object.assign(ret.auth, server.auth);
             }
-            ret = Object.assign(ret, options);
+            Object.assign(ret, options);
             if (!ret.headers.hasOwnProperty('X-Requested-With')) {
                 ret.headers['X-Requested-With'] = 'XMLHttpRequest';
             }
@@ -51682,6 +51726,34 @@ var AbstractHTTP = function () {
          * Attempt to determine an error message from an error response.
          * @hidden
          */
+
+    }, {
+        key: "options",
+        get: function get() {
+            if (this[OPTIONS_PROP]) {
+                return this[OPTIONS_PROP];
+            }
+            return {};
+        },
+        set: function set(o) {
+            this[OPTIONS_PROP] = o;
+        }
+        /**
+         * The default amount of time to wait before giving up on a request.
+         * @deprecated Set `timeout` on the [[OnmsHTTPOptions]] object instead.  This will go away in OpenNMS.js 2.0.
+         */
+
+    }, {
+        key: "timeout",
+        get: function get() {
+            return this.options.timeout;
+        },
+        set: function set(t) {
+            /* tslint:disable:no-console */
+            console.warn('The "timeout" property on OnmsHTTP implementations is deprecated ' + 'and will be removed in OpenNMS.js 2.  Use "options.timeout" instead.');
+            this.options.timeout = t;
+        }
+        /** The server associated with this HTTP implementation. */
 
     }, {
         key: "server",
@@ -51745,7 +51817,9 @@ var AbstractHTTP = function () {
     return AbstractHTTP;
 }();
 
+_a = OPTIONS_PROP;
 exports.AbstractHTTP = AbstractHTTP;
+var _a;
 
 /***/ }),
 
@@ -52242,7 +52316,7 @@ var GrafanaHTTP = function (_AbstractHTTP_1$Abstr) {
         key: "getConfig",
         value: function getConfig(options) {
             var allOptions = this.getOptions(options);
-            var ret = clonedeep(allOptions);
+            var ret = clonedeep(allOptions.toJSON());
             ret.transformResponse = []; // we do this so we can post-process only on success
             if (allOptions.headers) {
                 ret.headers = clonedeep(allOptions.headers);
