@@ -238,9 +238,12 @@ export class NodeDAO extends AbstractDAO<number, OnmsNode> {
       node.type = OnmsNodeType.forId(data.type);
     }
 
-    node.categories = data.categories.map((c) => {
-      return OnmsCategory.for(c.id, c.name);
-    });
+    node.categories = [];
+    if (data.categories) {
+      node.categories = data.categories.map((c) => {
+        return OnmsCategory.for(c.id, c.name);
+      });
+    }
 
     for (const key in data.assetRecord) {
       if (data.assetRecord.hasOwnProperty(key)
