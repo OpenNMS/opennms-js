@@ -1,5 +1,15 @@
-<a name="1.2.2-SNAPSHOT"></a>
-## [1.2.2-SNAPSHOT](https://github.com/OpenNMS/opennms-js/compare/v1.2.0...v1.2.2-SNAPSHOT) (2018-04-13)
+<a name="1.2.2"></a>
+## [1.2.2](https://github.com/OpenNMS/opennms-js/compare/v1.2.1...v1.2.2) (2018-05-17)
+
+
+### Bug Fixes
+
+* **dao:** HELM-91: fix handling non-array results ([0707ac7](https://github.com/OpenNMS/opennms-js/commit/0707ac7))
+
+
+
+<a name="1.2.1"></a>
+## [1.2.1](https://github.com/OpenNMS/opennms-js/compare/v1.2.0...v1.2.1) (2018-04-13)
 
 
 ### Bug Fixes

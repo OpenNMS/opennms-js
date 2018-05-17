@@ -49036,7 +49036,7 @@ exports.XMLReader = XMLReader;
 /*! exports provided: name, version, description, main, bin, author, license, bugs, homepage, repository, devDependencies, jest, dependencies, resolutions, scripts, default */
 /***/ (function(module) {
 
-module.exports = {"name":"opennms","version":"1.2.2-SNAPSHOT","description":"Client API for the OpenNMS network monitoring platform","main":"dist/opennms.js","bin":{"opennms":"dist/cli.node.js"},"author":"Benjamin Reed","license":"MIT","bugs":{"url":"https://github.com/OpenNMS/opennms-js/issues"},"homepage":"https://github.com/OpenNMS/opennms-js","repository":{"type":"git","url":"https://github.com/OpenNMS/opennms-js.git"},"devDependencies":{"@types/jest":"^22.2.0","@types/lodash":"^4.14.104","@types/node":"^9.4.6","@types/urijs":"^1.15.36","babel-cli":"^6.26.0","babel-jest":"^22.4.1","babel-loader":"^7.1.4","babel-plugin-syntax-async-functions":"^6.13.0","babel-plugin-transform-class-properties":"^6.24.1","babel-plugin-transform-es2015-destructuring":"^6.23.0","babel-plugin-transform-es2015-for-of":"^6.23.0","babel-plugin-transform-es2015-modules-commonjs":"^6.26.0","babel-plugin-transform-object-rest-spread":"^6.26.0","babel-plugin-transform-regenerator":"^6.26.0","babel-plugin-transform-runtime":"^6.23.0","babel-polyfill":"^6.26.0","babel-preset-env":"^1.6.1","babel-preset-es2015":"^6.24.1","babel-preset-latest":"^6.24.1","cache-loader":"^1.2.2","chai":"^4.1.2","child_process":"^1.0.2","conventional-changelog-lint":"^2.1.1","husky":"^0.14.3","jest":"^22.4.2","jest-environment-node-debug":"^2.0.0","lodash.clonedeep":"^4.5.0","parallel-webpack":"^2.3.0","regenerator-runtime":"^0.11.1","standard-changelog":"^1.0.13","ts-jest":"^22.4.1","ts-loader":"^4.0.1","ts-node":"^5.0.1","tslint":"^5.9.1","tslint-loader":"https://github.com/wbuchwalter/tslint-loader.git#093230076f3b453c4f8b7aa2ee074932aa109e84","typedoc":"^0.11.0","typedoc-plugin-external-module-name":"^1.1.1","typedoc-webpack-plugin":"^1.1.4","typescript":"^2.7.0","uglifyjs-webpack-plugin":"^1.2.2","urijs":"^1.19.1","webpack":"^4.1.1","webpack-cli":"^2.0.10","webpack-closure-compiler":"^2.1.6","yargs":"^11.0.0"},"jest":{"verbose":true,"transform":{"^.+\\.tsx?$":"<rootDir>/node_modules/ts-jest/preprocessor.js"},"moduleFileExtensions":["ts","tsx","js","json"],"testRegex":"(/__tests__/.*|\\.(test|spec))\\.(ts|tsx|js)$"},"dependencies":{"axios":"^0.16.1","cli-table":"^0.3.1","commander":"^2.9.0","fs":"^0.0.1-security","ip-address":"^5.8.8","lodash.startcase":"^4.4.0","moment":"^2.19.3","qs":"^6.5.0","typescript-logging":"^0.3.1","version_compare":"^0.0.3","x2js":"^3.1.1","xmldom":"^0.1.27"},"resolutions":{"typescript":"^2.x"},"scripts":{"precommit":"jest","prepush":"conventional-changelog-lint --from=origin/master && yarn lint","changelog":"standard-changelog -i CHANGELOG.md -s -r 1","build":"webpack --define process.env.NODE_ENV=production --env production","dev":"webpack --progress --colors","dist":"yarn lint && yarn test && yarn build","docs":"webpack --env docs","watch":"webpack --progress --colors --watch","test":"jest","watch-test":"jest --watch","lint":"tslint 'src/**/*.ts'","cli":"ts-node src/CLI.ts","docker-build":"yarn && yarn lint && yarn test && yarn build && yarn changelog && ./fix-ownership.sh","docker":"docker run --rm --name opennms-js -v `pwd`:/build -w /build node:latest yarn docker-build"}};
+module.exports = {"name":"opennms","version":"1.2.2","description":"Client API for the OpenNMS network monitoring platform","main":"dist/opennms.js","bin":{"opennms":"dist/cli.node.js"},"author":"Benjamin Reed","license":"MIT","bugs":{"url":"https://github.com/OpenNMS/opennms-js/issues"},"homepage":"https://github.com/OpenNMS/opennms-js","repository":{"type":"git","url":"https://github.com/OpenNMS/opennms-js.git"},"devDependencies":{"@types/jest":"^22.2.0","@types/lodash":"^4.14.104","@types/node":"^9.4.6","@types/urijs":"^1.15.36","babel-cli":"^6.26.0","babel-jest":"^22.4.1","babel-loader":"^7.1.4","babel-plugin-syntax-async-functions":"^6.13.0","babel-plugin-transform-class-properties":"^6.24.1","babel-plugin-transform-es2015-destructuring":"^6.23.0","babel-plugin-transform-es2015-for-of":"^6.23.0","babel-plugin-transform-es2015-modules-commonjs":"^6.26.0","babel-plugin-transform-object-rest-spread":"^6.26.0","babel-plugin-transform-regenerator":"^6.26.0","babel-plugin-transform-runtime":"^6.23.0","babel-polyfill":"^6.26.0","babel-preset-env":"^1.6.1","babel-preset-es2015":"^6.24.1","babel-preset-latest":"^6.24.1","cache-loader":"^1.2.2","chai":"^4.1.2","child_process":"^1.0.2","conventional-changelog-lint":"^2.1.1","husky":"^0.14.3","jest":"^22.4.2","jest-environment-node-debug":"^2.0.0","lodash.clonedeep":"^4.5.0","parallel-webpack":"^2.3.0","regenerator-runtime":"^0.11.1","standard-changelog":"^1.0.13","ts-jest":"^22.4.1","ts-loader":"^4.0.1","ts-node":"^5.0.1","tslint":"^5.9.1","tslint-loader":"https://github.com/wbuchwalter/tslint-loader.git#093230076f3b453c4f8b7aa2ee074932aa109e84","typedoc":"^0.11.0","typedoc-plugin-external-module-name":"^1.1.1","typedoc-webpack-plugin":"^1.1.4","typescript":"^2.7.0","uglifyjs-webpack-plugin":"^1.2.2","urijs":"^1.19.1","webpack":"^4.1.1","webpack-cli":"^2.0.10","webpack-closure-compiler":"^2.1.6","yargs":"^11.0.0"},"jest":{"verbose":true,"transform":{"^.+\\.tsx?$":"<rootDir>/node_modules/ts-jest/preprocessor.js"},"moduleFileExtensions":["ts","tsx","js","json"],"testRegex":"(/__tests__/.*|\\.(test|spec))\\.(ts|tsx|js)$"},"dependencies":{"axios":"^0.16.1","cli-table":"^0.3.1","commander":"^2.9.0","fs":"^0.0.1-security","ip-address":"^5.8.8","lodash.startcase":"^4.4.0","moment":"^2.19.3","qs":"^6.5.0","typescript-logging":"^0.3.1","version_compare":"^0.0.3","x2js":"^3.1.1","xmldom":"^0.1.27"},"resolutions":{"typescript":"^2.x"},"scripts":{"precommit":"jest","prepush":"conventional-changelog-lint --from=origin/master && yarn lint","changelog":"standard-changelog -i CHANGELOG.md -s -r 1","build":"webpack --define process.env.NODE_ENV=production --env production","dev":"webpack --progress --colors","dist":"yarn lint && yarn test && yarn build","docs":"webpack --env docs","watch":"webpack --progress --colors --watch","test":"jest","watch-test":"jest --watch","lint":"tslint 'src/**/*.ts'","cli":"ts-node src/CLI.ts","docker-build":"yarn && yarn lint && yarn test && yarn build && yarn changelog && ./fix-ownership.sh","docker":"docker run --rm --name opennms-js -v `pwd`:/build -w /build node:latest yarn docker-build"}};
 
 /***/ }),
 
@@ -49199,7 +49199,7 @@ var Log_1 = __webpack_require__(/*! ./api/Log */ "./src/api/Log.ts");
 var typescript_logging_1 = __webpack_require__(/*! typescript-logging */ "./node_modules/typescript-logging/dist/commonjs/typescript-logging.js");
 /** @hidden */
 var CLI = function CLI() {
-    var version = "1.2.2-SNAPSHOT" || __webpack_require__(/*! ../package.json */ "./package.json").version || 'unknown';
+    var version = "1.2.2" || __webpack_require__(/*! ../package.json */ "./package.json").version || 'unknown';
     var catCLI = new typescript_logging_1.Category('cli', Log_1.catRoot);
     // tslint:disable
     var Table = __webpack_require__(/*! cli-table */ "./node_modules/cli-table/lib/index.js");
@@ -51793,6 +51793,12 @@ var AlarmDAO = function (_AbstractDAO_1$Abstra) {
                                 return _context2.abrupt("return", this.getOptions(filter).then(function (opts) {
                                     return _this3.http.get(_this3.pathToAlarmsEndpoint(), opts).then(function (result) {
                                         var data = _this3.getData(result);
+                                        if (!Array.isArray(data)) {
+                                            if (!data) {
+                                                return [];
+                                            }
+                                            throw new OnmsError_1.OnmsError('Expected an array of alarms but got "' + (typeof data === "undefined" ? "undefined" : _typeof(data)) + '" instead.');
+                                        }
                                         return data.map(function (alarmData) {
                                             return _this3.fromData(alarmData);
                                         });
@@ -52973,6 +52979,8 @@ var _regenerator = __webpack_require__(/*! babel-runtime/regenerator */ "./node_
 
 var _regenerator2 = _interopRequireDefault(_regenerator);
 
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -53008,6 +53016,7 @@ var __awaiter = undefined && undefined.__awaiter || function (thisArg, _argument
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+var OnmsError_1 = __webpack_require__(/*! ../api/OnmsError */ "./src/api/OnmsError.ts");
 var OnmsFlowSeries_1 = __webpack_require__(/*! ../model/OnmsFlowSeries */ "./src/model/OnmsFlowSeries.ts");
 var OnmsFlowSeriesColumn_1 = __webpack_require__(/*! ../model/OnmsFlowSeriesColumn */ "./src/model/OnmsFlowSeriesColumn.ts");
 var OnmsFlowExporterSummary_1 = __webpack_require__(/*! ../model/OnmsFlowExporterSummary */ "./src/model/OnmsFlowExporterSummary.ts");
@@ -53052,11 +53061,18 @@ var FlowDAO = function (_BaseDAO_1$BaseDAO) {
                         switch (_context.prev = _context.next) {
                             case 0:
                                 return _context.abrupt("return", FlowDAO.getOptions().then(function (opts) {
+                                    var url = _this2.pathToFlowsEndpoint() + '/exporters';
                                     opts.withParameter('limit', limit).withParameter('start', start).withParameter('end', end);
-                                    return _this2.http.get(_this2.pathToFlowsEndpoint() + '/exporters', opts).then(function (result) {
-                                        return result.data.map(function (exporter) {
-                                            return _this2.toFlowExporterSummary(exporter);
-                                        });
+                                    return _this2.http.get(url, opts).then(function (result) {
+                                        if (result && result.data) {
+                                            if (!Array.isArray(result.data)) {
+                                                throw new OnmsError_1.OnmsError('Expected an array of flow exporter summaries but got "' + (typeof result === "undefined" ? "undefined" : _typeof(result)) + '" instead.');
+                                            }
+                                            return result.data.map(function (exporter) {
+                                                return _this2.toFlowExporterSummary(exporter);
+                                            });
+                                        }
+                                        throw new OnmsError_1.OnmsError('Unexpected response from GET ' + url + ': no result data found.');
                                     });
                                 }));
 
@@ -53274,9 +53290,12 @@ var FlowDAO = function (_BaseDAO_1$BaseDAO) {
             exporter.foreignId = data.foreignId;
             exporter.foreignSource = data.foreignSource;
             exporter.label = data.label;
-            exporter.interfaces = data.interface.map(function (iff) {
-                return _this8.toInterface(iff);
-            });
+            exporter.interfaces = [];
+            if (data.interface) {
+                exporter.interfaces = data.interface.map(function (iff) {
+                    return _this8.toInterface(iff);
+                });
+            }
             return exporter;
         }
         /**
@@ -53776,9 +53795,12 @@ var NodeDAO = function (_AbstractDAO_1$Abstra) {
             if (data.type) {
                 node.type = OnmsNodeType_1.OnmsNodeType.forId(data.type);
             }
-            node.categories = data.categories.map(function (c) {
-                return OnmsCategory_1.OnmsCategory.for(c.id, c.name);
-            });
+            node.categories = [];
+            if (data.categories) {
+                node.categories = data.categories.map(function (c) {
+                    return OnmsCategory_1.OnmsCategory.for(c.id, c.name);
+                });
+            }
             for (var key in data.assetRecord) {
                 if (data.assetRecord.hasOwnProperty(key) && data.assetRecord[key] !== null && data.assetRecord[key] !== undefined) {
                     node.assets[key] = data.assetRecord[key];

@@ -47241,6 +47241,12 @@ var AlarmDAO = function (_AbstractDAO_1$Abstra) {
                                 return _context2.abrupt("return", this.getOptions(filter).then(function (opts) {
                                     return _this3.http.get(_this3.pathToAlarmsEndpoint(), opts).then(function (result) {
                                         var data = _this3.getData(result);
+                                        if (!Array.isArray(data)) {
+                                            if (!data) {
+                                                return [];
+                                            }
+                                            throw new OnmsError_1.OnmsError('Expected an array of alarms but got "' + (typeof data === "undefined" ? "undefined" : _typeof(data)) + '" instead.');
+                                        }
                                         return data.map(function (alarmData) {
                                             return _this3.fromData(alarmData);
                                         });
@@ -48421,6 +48427,8 @@ var _regenerator = __webpack_require__(/*! babel-runtime/regenerator */ "./node_
 
 var _regenerator2 = _interopRequireDefault(_regenerator);
 
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -48456,6 +48464,7 @@ var __awaiter = undefined && undefined.__awaiter || function (thisArg, _argument
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+var OnmsError_1 = __webpack_require__(/*! ../api/OnmsError */ "./src/api/OnmsError.ts");
 var OnmsFlowSeries_1 = __webpack_require__(/*! ../model/OnmsFlowSeries */ "./src/model/OnmsFlowSeries.ts");
 var OnmsFlowSeriesColumn_1 = __webpack_require__(/*! ../model/OnmsFlowSeriesColumn */ "./src/model/OnmsFlowSeriesColumn.ts");
 var OnmsFlowExporterSummary_1 = __webpack_require__(/*! ../model/OnmsFlowExporterSummary */ "./src/model/OnmsFlowExporterSummary.ts");
@@ -48500,11 +48509,18 @@ var FlowDAO = function (_BaseDAO_1$BaseDAO) {
                         switch (_context.prev = _context.next) {
                             case 0:
                                 return _context.abrupt("return", FlowDAO.getOptions().then(function (opts) {
+                                    var url = _this2.pathToFlowsEndpoint() + '/exporters';
                                     opts.withParameter('limit', limit).withParameter('start', start).withParameter('end', end);
-                                    return _this2.http.get(_this2.pathToFlowsEndpoint() + '/exporters', opts).then(function (result) {
-                                        return result.data.map(function (exporter) {
-                                            return _this2.toFlowExporterSummary(exporter);
-                                        });
+                                    return _this2.http.get(url, opts).then(function (result) {
+                                        if (result && result.data) {
+                                            if (!Array.isArray(result.data)) {
+                                                throw new OnmsError_1.OnmsError('Expected an array of flow exporter summaries but got "' + (typeof result === "undefined" ? "undefined" : _typeof(result)) + '" instead.');
+                                            }
+                                            return result.data.map(function (exporter) {
+                                                return _this2.toFlowExporterSummary(exporter);
+                                            });
+                                        }
+                                        throw new OnmsError_1.OnmsError('Unexpected response from GET ' + url + ': no result data found.');
                                     });
                                 }));
 
@@ -48722,9 +48738,12 @@ var FlowDAO = function (_BaseDAO_1$BaseDAO) {
             exporter.foreignId = data.foreignId;
             exporter.foreignSource = data.foreignSource;
             exporter.label = data.label;
-            exporter.interfaces = data.interface.map(function (iff) {
-                return _this8.toInterface(iff);
-            });
+            exporter.interfaces = [];
+            if (data.interface) {
+                exporter.interfaces = data.interface.map(function (iff) {
+                    return _this8.toInterface(iff);
+                });
+            }
             return exporter;
         }
         /**
@@ -49224,9 +49243,12 @@ var NodeDAO = function (_AbstractDAO_1$Abstra) {
             if (data.type) {
                 node.type = OnmsNodeType_1.OnmsNodeType.forId(data.type);
             }
-            node.categories = data.categories.map(function (c) {
-                return OnmsCategory_1.OnmsCategory.for(c.id, c.name);
-            });
+            node.categories = [];
+            if (data.categories) {
+                node.categories = data.categories.map(function (c) {
+                    return OnmsCategory_1.OnmsCategory.for(c.id, c.name);
+                });
+            }
             for (var key in data.assetRecord) {
                 if (data.assetRecord.hasOwnProperty(key) && data.assetRecord[key] !== null && data.assetRecord[key] !== undefined) {
                     node.assets[key] = data.assetRecord[key];
