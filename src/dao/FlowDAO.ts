@@ -1,5 +1,6 @@
 import {IHasHTTP} from '../api/IHasHTTP';
 import {IOnmsHTTP} from '../api/IOnmsHTTP';
+import {OnmsError} from '../api/OnmsError';
 import {OnmsFlowSeries} from '../model/OnmsFlowSeries';
 import {OnmsFlowSeriesColumn} from '../model/OnmsFlowSeriesColumn';
 import {OnmsFlowExporterSummary} from '../model/OnmsFlowExporterSummary';
@@ -43,13 +44,21 @@ export class FlowDAO extends BaseDAO {
      */
     public async getExporters(limit: number, start?: number, end?: number): Promise<OnmsFlowExporterSummary[]> {
         return FlowDAO.getOptions().then((opts) => {
+            const url = this.pathToFlowsEndpoint() + '/exporters';
             opts.withParameter('limit', limit)
                 .withParameter('start', start)
                 .withParameter('end', end);
-            return this.http.get(this.pathToFlowsEndpoint() + '/exporters', opts).then((result) => {
-                return result.data.map((exporter) => {
-                    return this.toFlowExporterSummary(exporter);
-                });
+            return this.http.get(url, opts).then((result) => {
+                if (result && result.data) {
+                    if (!Array.isArray(result.data)) {
+                        throw new OnmsError('Expected an array of flow exporter summaries but got "' +
+                            (typeof result) + '" instead.');
+                    }
+                    return result.data.map((exporter) => {
+                        return this.toFlowExporterSummary(exporter);
+                    });
+                }
+                throw new OnmsError('Unexpected response from GET ' + url + ': no result data found.');
             });
         });
     }
@@ -200,9 +209,12 @@ export class FlowDAO extends BaseDAO {
         exporter.foreignId = data.foreignId;
         exporter.foreignSource = data.foreignSource;
         exporter.label = data.label;
-        exporter.interfaces = data.interface.map((iff) => {
-           return this.toInterface(iff);
-        });
+        exporter.interfaces = [];
+        if (data.interface) {
+            exporter.interfaces = data.interface.map((iff) => {
+               return this.toInterface(iff);
+            });
+        }
         return exporter;
     }
 

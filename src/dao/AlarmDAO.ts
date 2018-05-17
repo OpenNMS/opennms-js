@@ -66,6 +66,12 @@ export class AlarmDAO extends AbstractDAO<number, OnmsAlarm> {
     return this.getOptions(filter).then((opts) => {
         return this.http.get(this.pathToAlarmsEndpoint(), opts).then((result) => {
             const data = this.getData(result);
+            if (!Array.isArray(data)) {
+              if (!data) {
+                return [] as OnmsAlarm[];
+              }
+              throw new OnmsError('Expected an array of alarms but got "' + (typeof data) + '" instead.');
+            }
             return data.map((alarmData) => {
                 return this.fromData(alarmData);
             });
