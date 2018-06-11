@@ -17,6 +17,7 @@ export class OnmsNodeLabelSource extends OnmsEnum<string> implements IHasUrlValu
     return forLabel(NodeLabelSources, label);
   }
 
+  /** The stringified value of this node label source as an OpenNMS URL parameter. */
   public get urlValue() {
     return this.id;
   }

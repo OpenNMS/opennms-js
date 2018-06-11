@@ -7,6 +7,7 @@ import {OnmsEnum} from '../internal/OnmsEnum';
  * @module OnmsTroubleTicketState
  */
 export class OnmsTroubleTicketState extends OnmsEnum<number> implements IHasUrlValue {
+  /** The stringified value of this ticket state as an OpenNMS URL parameter. */
   public get urlValue() {
     return this.label;
   }

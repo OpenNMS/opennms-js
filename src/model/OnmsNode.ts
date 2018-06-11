@@ -94,6 +94,7 @@ export class OnmsNode implements IHasUrlValue {
   /** the assets of the node */
   public assets = {} as any;
 
+  /** The stringified value of this node as an OpenNMS URL parameter. */
   public get urlValue() {
     return String(this.id);
   }

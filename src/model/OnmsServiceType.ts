@@ -41,6 +41,7 @@ export class OnmsServiceType implements IHasUrlValue {
     this.name = name;
   }
 
+  /** The stringified value of this service type as an OpenNMS URL parameter. */
   public get urlValue() {
     return this.name;
   }

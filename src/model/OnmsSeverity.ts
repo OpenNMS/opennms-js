@@ -6,6 +6,7 @@ import {OnmsEnum} from '../internal/OnmsEnum';
  * @module OnmsSeverity
  */
 export class OnmsSeverity extends OnmsEnum<number> implements IHasUrlValue {
+  /** The stringified value of this severity as an OpenNMS URL parameter. */
   public get urlValue() {
     return this.label;
   }

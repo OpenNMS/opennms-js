@@ -41,6 +41,7 @@ export class OnmsCategory implements IHasUrlValue {
     this.name = name;
   }
 
+  /** The stringified value of this category as an OpenNMS URL parameter. */
   public get urlValue() {
     return this.name;
   }

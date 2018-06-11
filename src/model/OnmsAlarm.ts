@@ -103,6 +103,7 @@ export class OnmsAlarm implements IHasUrlValue {
   /** link to the alarm details page on the source instance */
   public detailsPage: string;
 
+  /** The stringified value of this alarm as an OpenNMS URL parameter. */
   public get urlValue() {
     return String(this.id);
   }

@@ -22,6 +22,7 @@ export class OnmsCollectType extends OnmsEnum<string> implements IHasUrlValue {
     return this.id === 'C' || this.id === 'UC';
   }
 
+  /** The stringified value of this collect type as an OpenNMS URL parameter. */
   public get urlValue() {
     return this.id;
   }

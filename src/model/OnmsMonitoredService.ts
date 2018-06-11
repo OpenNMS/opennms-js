@@ -32,6 +32,7 @@ export class OnmsMonitoredService implements IHasUrlValue {
   /** the current status */
   public status: OnmsServiceStatusType;
 
+  /** The stringified value of this monitored service as an OpenNMS URL parameter. */
   public get urlValue() {
     return this.type ? this.type.name : null;
   }

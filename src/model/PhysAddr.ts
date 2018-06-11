@@ -27,6 +27,7 @@ export class PhysAddr implements IHasUrlValue {
     }
   }
 
+  /** The stringified value of this MAC address as an OpenNMS URL parameter. */
   public get urlValue() {
     return this.toString();
   }

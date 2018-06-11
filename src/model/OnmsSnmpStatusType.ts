@@ -17,6 +17,7 @@ export class OnmsSnmpStatusType extends OnmsEnum<number> implements IHasUrlValue
     return forLabel(SnmpStatusTypes, label);
   }
 
+  /** The stringified value of this SNMP status type as an OpenNMS URL parameter. */
   public get urlValue() {
     return String(this.id);
   }

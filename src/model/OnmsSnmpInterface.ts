@@ -56,6 +56,7 @@ export class OnmsSnmpInterface implements IHasUrlValue {
   /** the last time the SNMP interface was polled */
   public lastSnmpPoll: Moment;
 
+  /** The stringified value of this SNMP interface as an OpenNMS URL parameter. */
   public get urlValue() {
     return String(this.id);
   }

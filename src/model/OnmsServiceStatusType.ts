@@ -22,6 +22,7 @@ export class OnmsServiceStatusType extends OnmsEnum<string> implements IHasUrlVa
     return this.id === 'A';
   }
 
+  /** The stringified value of this service status type as an OpenNMS URL parameter. */
   public get urlValue() {
     return this.id;
   }

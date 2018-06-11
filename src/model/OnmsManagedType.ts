@@ -22,6 +22,7 @@ export class OnmsManagedType extends OnmsEnum<string> implements IHasUrlValue {
     return this.id === 'M';
   }
 
+  /** The stringified value of this managed type as an OpenNMS URL parameter. */
   public get urlValue() {
     return this.id;
   }

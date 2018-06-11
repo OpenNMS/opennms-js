@@ -6,6 +6,7 @@ import {OnmsEnum} from '../internal/OnmsEnum';
  * @module OnmsAlarmType
  */
 export class OnmsAlarmType extends OnmsEnum<number> implements IHasUrlValue {
+  /** The stringified value of this alarm type as an OpenNMS URL parameter. */
   public get urlValue() {
     return String(this.id);
   }

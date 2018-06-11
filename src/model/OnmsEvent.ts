@@ -63,6 +63,7 @@ export class OnmsEvent implements IHasUrlValue {
     return undefined;
   }
 
+  /** The stringified value of this event as an OpenNMS URL parameter. */
   public get urlValue() {
     return String(this.id);
   }

@@ -22,6 +22,7 @@ export class OnmsPrimaryType extends OnmsEnum<string> implements IHasUrlValue {
     return this.id === 'P';
   }
 
+  /** The stringified value of this SNMP primary type as an OpenNMS URL parameter. */
   public get urlValue() {
     return this.id;
   }

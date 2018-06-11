@@ -33,6 +33,7 @@ export class OnmsIpInterface implements IHasUrlValue {
   /** the SNMP interface ID associated with this interface */
   public snmpInterfaceId: number;
 
+  /** the SNMP interface associated with this interface, if available */
   public get snmpInterface() {
     if (this.node) {
       for (const iface of this.node.snmpInterfaces) {
@@ -50,6 +51,7 @@ export class OnmsIpInterface implements IHasUrlValue {
   /** the services on this interface */
   public services = [] as OnmsMonitoredService[];
 
+  /** The stringified value of this IP interface as an OpenNMS URL parameter. */
   public get urlValue() {
     return String(this.id);
   }
