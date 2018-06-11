@@ -25,7 +25,7 @@ const OPTIONS_PROP = Symbol.for('options');
  * @implements IOnmsHTTP
  */
 export abstract class AbstractHTTP implements IOnmsHTTP {
-  private [OPTIONS_PROP] = new OnmsHTTPOptions();
+  private OPTIONS_PROP = new OnmsHTTPOptions();
 
   /** The default set of HTTP options associated with this ReST client. */
   public get options(): OnmsHTTPOptions {

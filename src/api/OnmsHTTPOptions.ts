@@ -48,9 +48,9 @@ export class OnmsHTTPOptions {
   /** HTTP data to be passed when POSTing */
   public data: any;
 
-  private [TIMEOUT_PROP]: number;
+  private TIMEOUT_PROP: number;
 
-  private [AUTH_PROP]: OnmsAuthConfig;
+  private AUTH_PROP: OnmsAuthConfig;
 
   /**
    * Construct a new OnmsHTTPOptions object.

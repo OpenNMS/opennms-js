@@ -6,7 +6,7 @@ import {log, catRoot, setLogLevel} from './api/Log';
 import {
   Category,
   CategoryServiceFactory,
-  CategoryDefaultConfiguration,
+  CategoryConfiguration,
   LogLevel,
 } from 'typescript-logging';
 
