@@ -61,7 +61,8 @@
     "webpack": "^4.1.1",
     "webpack-cli": "^2.0.10",
     "webpack-closure-compiler": "^2.1.6",
-    "yargs": "^11.0.0"
+    "yargs": "^11.0.0",
+    "yarn": "^1.7.0"
   },
   "jest": {
     "verbose": true,
