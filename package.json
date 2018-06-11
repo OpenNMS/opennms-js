@@ -79,7 +79,7 @@
   },
   "dependencies": {
     "axios": "^0.16.1",
-    "cli-table": "^0.3.1",
+    "cli-table2": "^0.2.0",
     "commander": "^2.9.0",
     "fs": "^0.0.1-security",
     "ip-address": "^5.8.8",
