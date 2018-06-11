@@ -393,8 +393,7 @@ export class AlarmDAO extends AbstractDAO<number, OnmsAlarm> {
       }
     }
 
-    alarm.causes = data.causes;
-    alarm.impacts = data.impacts;
+    alarm.relatedAlarms = data.relatedAlarms;
 
     alarm.sticky = this.toMemo(data.stickyMemo);
     alarm.journal = this.toMemo(data.reductionKeyMemo);

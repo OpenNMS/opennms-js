@@ -84,11 +84,8 @@ export class OnmsAlarm implements IHasUrlValue {
   /** the parameters emitted with this alarm's event */
   public parameters: OnmsParm[];
 
-  /** impacts - A list of alarms impacted by this alarm */
-  public impacts: OnmsAlarmSummary[];
-
-  /** causes - A list of alarms that cause this alarm */
-  public causes: OnmsAlarmSummary[];
+  /** relatedAlarms - A list of alarms related to this alarm/situation */
+  public relatedAlarms: OnmsAlarmSummary[];
 
   /** sticky memo - a note associated with this specific alarm instance */
   public sticky: OnmsMemo;
