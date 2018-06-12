@@ -61,7 +61,8 @@
     "webpack": "^4.1.1",
     "webpack-cli": "^2.0.10",
     "webpack-closure-compiler": "^2.1.6",
-    "yargs": "^11.0.0"
+    "yargs": "^11.0.0",
+    "yarn": "^1.7.0"
   },
   "jest": {
     "verbose": true,
@@ -78,7 +79,7 @@
   },
   "dependencies": {
     "axios": "^0.16.1",
-    "cli-table": "^0.3.1",
+    "cli-table2": "^0.2.0",
     "commander": "^2.9.0",
     "fs": "^0.0.1-security",
     "ip-address": "^5.8.8",

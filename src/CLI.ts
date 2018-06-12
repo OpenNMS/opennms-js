@@ -16,7 +16,7 @@ const CLI = () => {
   const catCLI = new Category('cli', catRoot);
 
   // tslint:disable
-  const Table = require('cli-table');
+  const Table = require('cli-table2');
   const colors = require('colors');
   const fs = require('fs');
   const path = require('path');
@@ -27,8 +27,9 @@ const CLI = () => {
   const defaultConfigFile = path.join(homedir, '.opennms-cli.config.json');
 
   const tableFormat = {
-    head: [],
     /* tslint:disable:object-literal-sort-keys */
+    head: [],
+    colWidths: [],
     chars: {
       'middle': '  ',
       'top': '',
@@ -50,6 +51,7 @@ const CLI = () => {
       'padding-left': 0,
       'padding-right': 0,
     },
+    wordWrap: true,
   };
 
   const readConfig = () => {
@@ -186,6 +188,12 @@ const CLI = () => {
     }
   };
 
+  const getMaxWidth = (data, prop, max) => {
+    const filtered = data.map((d) => ('' + d[prop]).length);
+    const m = Math.max(...filtered);
+    return Math.min(m, max);
+  };
+
   const logMessageLength = 50;
   const formatAlarms = (alarms) => {
     return alarms.map((alarm) => {
@@ -193,10 +201,7 @@ const CLI = () => {
 
       let logMessage = '';
       if (alarm.logMessage) {
-        logMessage = alarm.logMessage.replace('[\r\n].*$').trim();
-        if (logMessage.length > logMessageLength) {
-          logMessage = logMessage.slice(0, logMessageLength).trim() + '…';
-        }
+        logMessage = alarm.logMessage.replace('[\r\n].*$', '').replace('<p>', '').replace('</p>', '').trim();
       }
 
       return {
@@ -233,9 +238,15 @@ const CLI = () => {
 
         return dao.find(filter).then((alarms) => {
           const format = Object.assign({}, tableFormat);
-          format.head = [ 'ID', 'Severity', 'Node', 'Count', 'Time', 'Log' ];
-          const t = new Table(format);
           const formatted = formatAlarms(alarms);
+
+          format.head = [ 'ID', 'Severity', 'Node', 'Count', 'Time', 'Log' ];
+          format.colWidths = [3, 8, getMaxWidth(formatted, 'node', 30), 5, 17];
+          const existingWidths = format.colWidths.reduce((acc, val) => acc + val);
+          const spacers = (format.colWidths.length * 2);
+          const remainder = process.stdout.columns - existingWidths - spacers;
+          format.colWidths.push(remainder);
+          const t = new Table(format);
           for (const alarm of formatted) {
             t.push([alarm.id, alarm.severity, alarm.node, alarm.count, alarm.time, alarm.log]);
           }
