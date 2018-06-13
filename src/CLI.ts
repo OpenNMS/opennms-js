@@ -262,6 +262,98 @@ const CLI = () => {
       });
     });
 
+  const toDisplayResource = (resource) => {
+    const ret = {} as any;
+    if (resource.id) {
+      ret.id = resource.id;
+    }
+    if (resource.label) {
+      ret.label = resource.label;
+    }
+    if (resource.name) {
+      ret.name = resource.name;
+    }
+    if (resource.typeLabel) {
+      ret.typeLabel = resource.typeLabel;
+    }
+    if (resource.link) {
+      ret.link = resource.link;
+    }
+    if (resource.parentId) {
+      ret.parentId = resource.parentId;
+    }
+    if (resource.children && resource.children.length > 0) {
+      ret.children = {} as any;
+      for (const child of resource.children) {
+        const id = child.id;
+        delete child.id;
+        ret.children[id] = toDisplayResource(child);
+      }
+    }
+    if (resource.stringPropertyAttributes && Object.keys(resource.stringPropertyAttributes).length > 0) {
+      ret.stringPropertyAttributes = Object.assign({}, ret.stringPropertyAttributes);
+    }
+    if (resource.externalValueAttributes && Object.keys(resource.externalValueAttributes).length > 0) {
+      ret.externalValueAttributes = Object.assign({}, ret.externalValueAttributes);
+    }
+    if (resource.rrdGraphAttributes && Object.keys(resource.rrdGraphAttributes).length > 0) {
+      ret.rrdGraphAttributes = Object.assign({}, ret.rrdGraphAttributes);
+    }
+    if (resource.graphNames && resource.graphNames.length > 0) {
+      ret.graphNames = resource.graphNames.slice(0);
+    }
+    return ret;
+  };
+  const showResourceTree = (id, resource) => {
+    const treeify = require('treeify');
+    console.log('Resource: ' + id);
+    console.log(treeify.asTree(toDisplayResource(resource), true));
+  };
+
+  program
+    .command('resources [id]')
+    .description('Show available resources (or show a specific resource based on its resource locator)')
+    .option('-n --node <id>', 'A node ID (either numeric, or foreignSource:foreignId)')
+    .option('-d --depth <depth>', 'The number of resources deep to query', parseInt)
+    .action((id, cmd) => {
+      if (id && cmd.node) {
+        return handleError('You cannot specify both a resource ID and a node!', {});
+      }
+      if (cmd.node && !Util.isNodeId(cmd.node)) {
+        return handleError('Node must be either a numeric node ID or a foreignSource:foreignId tuple!', {});
+      }
+
+      const config = readConfig();
+      return new Client().connect('OpenNMS', config.url, config.username, config.password).then((client) => {
+        const dao = new DAO.ResourceDAO(client);
+
+        let ret;
+        if (id) {
+          ret = dao.get(id, cmd.depth).then((resource) => {
+            showResourceTree(id, resource);
+          });
+        } else if (cmd.node) {
+          ret = dao.getNode(cmd.node, cmd.depth).then((resource) => {
+            showResourceTree('Node ' + cmd.node, resource);
+          });
+        } else {
+          ret = dao.find().then((resources) => {
+            if (Array.isArray(resources)) {
+              for (const resource of resources) {
+                showResourceTree(resource.id, resource);
+              }
+            } else {
+              return handleError('Expected a list of resources but got ' + (typeof resources) + '!', {});
+            }
+          });
+        }
+
+        return ret.catch((err) => {
+          handleError('Failed to query resources', err);
+        });
+      });
+    });
+
   const formatAlarms = (alarms) => {
     return alarms.map((alarm) => {
       const severityLabel = ((alarm.severity && alarm.severity.label) ? alarm.severity.label : '');
