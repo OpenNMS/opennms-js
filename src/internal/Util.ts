@@ -12,6 +12,10 @@ const moment = require('moment');
 /** @hidden */
 const dateFormat = 'YYYY-MM-DDTHH:mm:ss.SSSZZ';
 
+/** @hidden */
+const reNumeric = new RegExp('^\\d+$');
+
+/** @hidden */
 const compareProperty = (a: string, b: string) => {
   return (a || b) ? (!a ? -1 : !b ? 1 : a.localeCompare(b)) : 0;
 };
@@ -48,7 +52,30 @@ export class Util {
    * Whether or not the passed object is a number.
    */
   public static isNumber(value: any) {
+    if (typeof value === 'undefined' || value === null) {
+      return false;
+    }
     return Number(parseFloat(value)) === value;
+  }
+
+  /**
+   * Whether or not the passed object is a numeric string.
+   */
+  public static isNumberString(value: any) {
+    if (typeof value === 'undefined' || value === null) {
+      return false;
+    }
+    return Util.isNumber(value) || String(value).match(reNumeric) !== null;
+  }
+
+  /**
+   * Whether or not the passed object is a valid node identifier (either a number, or a foreignSource:foreignId tuple)
+   */
+  public static isNodeId(id: any) {
+    if (typeof id === 'undefined' || id === null) {
+      return false;
+    }
+    return Util.isNumberString(id) || String(id).split(':').length === 2;
   }
 
   /**

@@ -65,6 +65,75 @@ describe('Util.isDateObject()', () => {
   });
 });
 
+describe('Util.isNumber()', () => {
+  it('undefined', () => {
+    expect(Util.isNumber(undefined)).toEqual(false);
+  });
+  it('null', () => {
+    expect(Util.isNumber(null)).toEqual(false);
+  });
+  it('abc', () => {
+    expect(Util.isNumber('abc')).toEqual(false);
+  });
+  it('12', () => {
+    expect(Util.isNumber(12)).toEqual(true);
+  });
+  it('"12"', () => {
+    expect(Util.isNumber('12')).toEqual(false);
+  });
+});
+
+describe('Util.isNumberString()', () => {
+  it('undefined', () => {
+    expect(Util.isNumberString(undefined)).toEqual(false);
+  });
+  it('null', () => {
+    expect(Util.isNumberString(null)).toEqual(false);
+  });
+  it('abc', () => {
+    expect(Util.isNumberString('abc')).toEqual(false);
+  });
+  it('12', () => {
+    expect(Util.isNumberString(12)).toEqual(true);
+  });
+  it('"12"', () => {
+    expect(Util.isNumberString('12')).toEqual(true);
+  });
+  it('"12abc"', () => {
+    expect(Util.isNumberString('12abc')).toEqual(false);
+  });
+});
+
+describe('Util.isNodeId()', () => {
+  it('undefined', () => {
+    expect(Util.isNodeId(undefined)).toEqual(false);
+  });
+  it('null', () => {
+    expect(Util.isNodeId(null)).toEqual(false);
+  });
+  it('15', () => {
+    expect(Util.isNodeId(15)).toEqual(true);
+  });
+  it('"15"', () => {
+    expect(Util.isNodeId('15')).toEqual(true);
+  });
+  it('asdf', () => {
+    expect(Util.isNodeId('asdf')).toEqual(false);
+  });
+  it('asdf:jkl', () => {
+    expect(Util.isNodeId('asdf:jkl')).toEqual(true);
+  });
+  it('1234:567', () => {
+    expect(Util.isNodeId('1234:567')).toEqual(true);
+  });
+  it('as:df:jk', () => {
+    expect(Util.isNodeId('as:df:jk')).toEqual(false);
+  });
+  it('12:34:56', () => {
+    expect(Util.isNodeId('12:34:56')).toEqual(false);
+  });
+});
+
 describe('Util.toMoment()', () => {
   it('undefined', () => {
     expect(Util.toMoment(undefined)).toBeUndefined();
