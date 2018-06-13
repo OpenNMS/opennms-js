@@ -1,5 +1,7 @@
 declare const describe, beforeEach, it, expect, require;
 
+import {Severities,OnmsSeverity} from '../../src/model/OnmsSeverity';
+
 import {Util} from '../../src/internal/Util';
 
 import {Address4, Address6} from 'ip-address';
@@ -105,5 +107,29 @@ describe('Util.toDateString()', () => {
   });
   it('new Date(0)', () => {
     expect(Util.toDateString(new Date(0))).toEqual('1970-01-01T00:00:00.000+0000');
+  });
+});
+
+describe('Util.sort()', () => {
+  it('single string property', () => {
+    expect(Util.sort([{a:'foo'},{a:'bar'}], 'a')).toEqual([{a:'bar'},{a:'foo'}]);
+  });
+  it('single numeric property', () => {
+    expect(Util.sort([{a:2},{a:1}], 'a')).toEqual([{a:1},{a:2}]);
+  });
+  it('number same, string different', () => {
+    expect(Util.sort([{a:'foo',b:1},{a:'bar',b:1}], 'b', 'a')).toEqual([{a:'bar',b:1},{a:'foo',b:1}]);
+  });
+  it('string same, number different', () => {
+    expect(Util.sort([{a:'foo',b:1},{a:'foo',b:2}], 'b', 'a')).toEqual([{a:'foo',b:1},{a:'foo',b:2}]);
+  });
+  it('string different, number different, string first', () => {
+    expect(Util.sort([{a:'foo',b:1},{a:'bar',b:2}], 'a', 'b')).toEqual([{a:'bar',b:2},{a:'foo',b:1}]);
+  });
+  it('string different, number different, number first', () => {
+    expect(Util.sort([{a:'foo',b:1},{a:'bar',b:2}], 'b', 'a')).toEqual([{a:'foo',b:1},{a:'bar',b:2}]);
+  });
+  it('numeric enum', () => {
+    expect(Util.sort([{a:Severities.MAJOR},{a:Severities.MINOR}], 'a')).toEqual([{a:Severities.MINOR},{a:Severities.MAJOR}]);
   });
 });

@@ -1,5 +1,7 @@
 import {OnmsError} from '../api/OnmsError';
 
+import {OnmsEnum} from './OnmsEnum';
+
 import {Address4, Address6} from 'ip-address';
 import {Moment} from 'moment';
 
@@ -9,6 +11,10 @@ const moment = require('moment');
 
 /** @hidden */
 const dateFormat = 'YYYY-MM-DDTHH:mm:ss.SSSZZ';
+
+const compareProperty = (a: string, b: string) => {
+  return (a || b) ? (!a ? -1 : !b ? 1 : a.localeCompare(b)) : 0;
+};
 
 /**
  * A utility class for random stuff.
@@ -36,6 +42,13 @@ export class Util {
    */
   public static isDateObject(date: any) {
     return moment.isMoment(date) || date instanceof Date;
+  }
+
+  /**
+   * Whether or not the passed object is a number.
+   */
+  public static isNumber(value: any) {
+    return Number(parseFloat(value)) === value;
   }
 
   /**
@@ -68,5 +81,42 @@ export class Util {
     } else {
       return undefined;
     }
+  }
+
+  /**
+   * Convert the given value to a number, or undefined if it cannot be converted.
+   */
+  public static toNumber(from: any): number|undefined {
+    const ret = parseInt(from, 10);
+    return isNaN(ret) ? undefined : ret;
+  }
+
+  /**
+   * Sort an array of objects based on one or more sort properties.
+   */
+  public static sort(obj: any[], ...props) {
+    if (props.length > 0) {
+      obj.sort((a, b) => {
+        let ret = 0;
+        for (const prop of props) {
+          if (Util.isNumber(a[prop]) && Util.isNumber(b[prop])) {
+            ret = a[prop] - b[prop];
+          } else if (a[prop] instanceof OnmsEnum && b[prop] instanceof OnmsEnum) {
+            if (Util.isNumber(a[prop].index) && Util.isNumber(b[prop].index)) {
+              ret = a[prop].index - b[prop].index;
+            } else {
+              ret = String(a[prop].index).localeCompare(String(b[prop].index));
+            }
+          } else {
+            ret = compareProperty(a[prop], b[prop]);
+          }
+          if (ret !== 0) {
+            break;
+          }
+        }
+        return ret;
+      });
+    }
+    return obj;
   }
 }
