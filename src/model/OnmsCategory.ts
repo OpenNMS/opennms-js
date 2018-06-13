@@ -35,10 +35,16 @@ export class OnmsCategory implements IHasUrlValue {
   /** The service name. */
   public name: string;
 
+  /** The authorized groups. */
+  public authorizedGroups = [] as string[];
+
   /** Given an ID and name, construct a service type. */
-  constructor(id: number, name: string) {
+  constructor(id: number, name: string, authorizedGroups?: string[]) {
     this.id = id;
     this.name = name;
+    if (authorizedGroups) {
+      this.authorizedGroups = authorizedGroups.slice(0);
+    }
   }
 
   /** The stringified value of this category as an OpenNMS URL parameter. */
