@@ -22,6 +22,11 @@ import {OnmsSnmpInterface} from '../model/OnmsSnmpInterface';
 import {OnmsSnmpStatusType, SnmpStatusTypes} from '../model/OnmsSnmpStatusType';
 import {PhysAddr} from '../model/PhysAddr';
 
+import {NodeSerializer} from './serializers/NodeSerializer';
+import {IpInterfaceSerializer} from './serializers/IpInterfaceSerializer';
+import {SnmpInterfaceSerializer} from './serializers/SnmpInterfaceSerializer';
+import {MonitoredServiceSerializer} from './serializers/MonitoredServiceSerializer';
+
 import {log, catDao} from '../api/Log';
 import {Category} from 'typescript-logging';
 
@@ -46,7 +51,8 @@ export class NodeDAO extends AbstractDAO<number, OnmsNode> {
   public async get(id: number, recurse = false): Promise<OnmsNode> {
     return this.getOptions().then((opts) => {
         return this.http.get(this.pathToNodesEndpoint() + '/' + id, opts).then((result) => {
-            const node = this.fromData(result.data);
+            const serializer = new NodeSerializer(this.getServerMetadata());
+            const node = serializer.fromJson(result.data);
 
             if (recurse) {
                 return this.fetch(node);
@@ -76,8 +82,9 @@ export class NodeDAO extends AbstractDAO<number, OnmsNode> {
                     throw new OnmsError('Expected an array of nodes but got "' + (typeof data) + '" instead.');
                 }
             }
+            const serializer = new NodeSerializer(this.getServerMetadata());
             return data.map((nodeData) => {
-                return this.fromData(nodeData);
+              return serializer.fromJson(nodeData);
             });
         });
     });
@@ -132,8 +139,9 @@ export class NodeDAO extends AbstractDAO<number, OnmsNode> {
                     throw new OnmsError('Expected an array of IP interfaces but got "' + (typeof data) + '" instead.');
                 }
             }
+            const serializer = new IpInterfaceSerializer(this.getServerMetadata());
             return data.map((ifaceData) => {
-                return this.fromIpInterfaceData(ifaceData);
+                return serializer.fromJson(ifaceData);
             });
         });
     });
@@ -162,8 +170,9 @@ export class NodeDAO extends AbstractDAO<number, OnmsNode> {
                         + (typeof data) + '" instead.');
                 }
             }
+            const serializer = new SnmpInterfaceSerializer(this.getServerMetadata());
             return data.map((ifaceData) => {
-                return this.fromSnmpData(ifaceData);
+                return serializer.fromJson(ifaceData);
             });
         });
     });
@@ -200,130 +209,12 @@ export class NodeDAO extends AbstractDAO<number, OnmsNode> {
                     throw new OnmsError('Expected an array of services but got "' + (typeof data) + '" instead.');
                 }
             }
+            const serializer = new MonitoredServiceSerializer(this.getServerMetadata());
             return data.map((ifaceData) => {
-                return this.fromServiceData(ifaceData);
+                return serializer.fromJson(ifaceData);
             });
         });
     });
-  }
-
-  /**
-   * Create a node object from a JSON object.
-   * @hidden
-   */
-  public fromData(data: any): OnmsNode {
-    const node = new OnmsNode();
-
-    node.id = this.toNumber(data.id);
-    node.label = data.label;
-    node.location = data.location;
-    node.foreignSource = data.foreignSource || undefined;
-    node.foreignId = data.foreignId || undefined;
-    node.sysContact = data.sysContact;
-    node.sysDescription = data.sysDescription;
-    node.sysLocation = data.sysLocation;
-    node.sysName = data.sysName;
-    node.sysObjectId = data.sysObjectId;
-
-    if (data.labelSource) {
-      node.labelSource = OnmsNodeLabelSource.forId(data.labelSource);
-    }
-    if (data.createTime) {
-      node.createTime = this.toDate(data.createTime);
-    }
-    if (data.lastCapsdPoll) {
-      node.lastCapsdPoll = this.toDate(data.lastCapsdPoll);
-    }
-    if (data.type) {
-      node.type = OnmsNodeType.forId(data.type);
-    }
-
-    node.categories = [];
-    if (data.categories) {
-      node.categories = data.categories.map((c) => {
-        return OnmsCategory.for(c.id, c.name);
-      });
-    }
-
-    for (const key in data.assetRecord) {
-      if (data.assetRecord.hasOwnProperty(key)
-        && data.assetRecord[key] !== null
-        && data.assetRecord[key] !== undefined) {
-        node.assets[key] = data.assetRecord[key];
-      }
-    }
-
-    return node;
-  }
-
-  /**
-   * create an IP interface object from a JSON object
-   * @hidden
-   */
-  public fromIpInterfaceData(data: any): OnmsIpInterface {
-    const iface = new OnmsIpInterface();
-
-    iface.id = this.toNumber(data.id);
-    iface.hostname = data.hostName || data.hostname;
-    iface.ipAddress = Util.toIPAddress(data.ipAddress);
-    iface.isManaged = OnmsManagedType.forId(data.isManaged);
-    iface.lastCapsdPoll = this.toDate(data.lastCapsdPoll);
-    iface.snmpPrimary = OnmsPrimaryType.forId(data.snmpPrimary);
-
-    if (data.snmpInterface && data.snmpInterface.id) {
-      iface.snmpInterfaceId = this.toNumber(data.snmpInterface.id);
-    }
-
-    return iface;
-  }
-
-  /**
-   * create an SNMP interface object from a JSON object
-   * @hidden
-   */
-  public fromSnmpData(data: any): OnmsSnmpInterface {
-    const iface = new OnmsSnmpInterface();
-
-    iface.id = this.toNumber(data.id);
-    iface.ifIndex = this.toNumber(data.ifIndex);
-    iface.ifDescr = data.ifDescr;
-    iface.ifType = this.toNumber(data.ifType);
-    iface.ifName = data.ifName;
-    iface.ifSpeed = this.toNumber(data.ifSpeed);
-    iface.ifAdminStatus = OnmsSnmpStatusType.forId(this.toNumber(data.ifAdminStatus));
-    iface.ifOperStatus = OnmsSnmpStatusType.forId(this.toNumber(data.ifOperStatus));
-    iface.ifAlias = data.ifAlias;
-    iface.lastCapsdPoll = this.toDate(data.lastCapsdPoll);
-    iface.collect = OnmsCollectType.forId(data.collectFlag);
-    iface.poll = data.poll;
-    iface.lastSnmpPoll = this.toDate(data.lastSnmpPoll);
-
-    if (data.physAddr) {
-      iface.physAddr = new PhysAddr(data.physAddr);
-    }
-
-    return iface;
-  }
-
-  /**
-   * create a monitored service object from a JSON object
-   * @hidden
-   */
-  public fromServiceData(data: any): OnmsMonitoredService {
-    const service = new OnmsMonitoredService();
-
-    service.id = this.toNumber(data.id);
-    service.lastFail = this.toDate(data.lastFail);
-    service.lastGood = this.toDate(data.lastGood);
-
-    if (data.serviceType) {
-      service.type = OnmsServiceType.for(data.serviceType.id, data.serviceType.name);
-    }
-    if (data.status) {
-      service.status = OnmsServiceStatusType.forId(data.status);
-    }
-
-    return service;
   }
 
   /**
