@@ -7,8 +7,11 @@ import {Filter} from '../api/Filter';
 import {OnmsHTTPOptions} from '../api/OnmsHTTPOptions';
 import {SearchProperty} from '../api/SearchProperty';
 import {SearchPropertyType} from '../api/SearchPropertyType';
+import {ServerMetadata} from '../api/ServerMetadata';
 
 import {log, catDao} from '../api/Log';
+
+import {Util} from '../internal/Util';
 
 import {V1FilterProcessor} from './V1FilterProcessor';
 import {V2FilterProcessor} from './V2FilterProcessor';
@@ -91,20 +94,37 @@ export abstract class BaseDAO {
   }
 
   /**
+   * Get the metadata for the current server.
+   */
+  protected getServerMetadata(): ServerMetadata {
+    if (this.http === undefined || this.http.server === undefined || this.http.server.metadata === undefined) {
+      return undefined;
+    }
+    return this.http.server.metadata;
+  }
+
+  /**
+   * Retrieve the API version from the currently configured server.
+   */
+  protected getApiVersion(): number {
+    const metadata = this.getServerMetadata();
+    if (!metadata) {
+      throw new OnmsError('Server meta-data must be populated prior to making DAO calls.');
+    }
+    return metadata.apiVersion();
+  }
+
+  /**
    * Convert the given value to a date, or undefined if it cannot be converted.
    */
   protected toDate(from: any): Moment|undefined {
-    if (from === undefined || from === null || from === '') {
-      return undefined;
-    }
-    return moment(from);
+    return Util.toMoment(from);
   }
 
   /**
    * Convert the given value to a number, or undefined if it cannot be converted.
    */
   protected toNumber(from: any): number|undefined {
-    const ret = parseInt(from, 10);
-    return isNaN(ret) ? undefined : ret;
+    return Util.toNumber(from);
   }
 }

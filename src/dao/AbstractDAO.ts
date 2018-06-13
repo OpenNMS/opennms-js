@@ -207,14 +207,4 @@ export abstract class AbstractDAO<K, T> extends BaseDAO implements IValueProvide
     prop.values = data.values;
     return prop;
   }
-
-  /**
-   * Retrieve the API version from the currently configured server.
-   */
-  protected getApiVersion(): number {
-    if (this.http === undefined || this.http.server === undefined || this.http.server.metadata === undefined) {
-      throw new OnmsError('Server meta-data must be populated prior to making DAO calls.');
-    }
-    return this.http.server.metadata.apiVersion();
-  }
 }
