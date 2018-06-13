@@ -1,6 +1,7 @@
 import * as startCase from 'lodash.startcase';
 
 import {API, Model, Rest, DAO, Client} from './API';
+import {Util} from './internal/Util';
 
 import {log, catRoot, setLogLevel} from './api/Log';
 import {
@@ -194,7 +195,73 @@ const CLI = () => {
     return Math.min(m, max);
   };
 
-  const logMessageLength = 50;
+  const formatNodes = (nodes) => {
+    return nodes.map((node) => {
+      return {
+        id: node.id,
+        foreignSource: node.foreignSource,
+        foreignId: node.foreignId,
+        label: node.label,
+        location: node.location,
+        type: node.type.toDisplayString(),
+      };
+    });
+  };
+
+  const orderByFunc = (val, orderBy) => {
+    orderBy = orderBy.concat(val.split(','));
+    return orderBy;
+  };
+
+  // list current nodes
+  program
+    .command('nodes [filters...]')
+    .description('List all nodes with optional filters (eg: "label like dns*")')
+    .option('-o --orderBy [column,column]',
+      'Sort results (eg: "--orderBy foreignSource,foreignId" or "--orderBy foreignId")', orderByFunc, [])
+    .option('-r --reverse', 'Reverse order')
+    .action((filters, cmd) => {
+      const config = readConfig();
+      return new Client().connect('OpenNMS', config.url, config.username, config.password).then((client) => {
+        const dao = new DAO.NodeDAO(client);
+        const filter = new API.Filter();
+
+        for (const f of filters) {
+          log.debug('filter=' + f, catCLI);
+          const parsed = API.Restriction.fromString(f);
+          if (parsed) {
+            filter.withOrRestriction(parsed);
+          } else {
+            log.warn('Unable to parse filter "' + f + '"', catCLI);
+          }
+        }
+
+        if (cmd.orderBy.length === 0) {
+          cmd.orderBy = ['id', 'foreignSource', 'foreignId'];
+        }
+
+        return dao.find(filter).then((nodes) => {
+          const format = Object.assign({}, tableFormat);
+          const sorted = Util.sort(nodes, ...cmd.orderBy);
+          const formatted = formatNodes(sorted);
+
+          if (cmd.reverse) {
+            formatted.reverse();
+          }
+
+          format.head = [ 'ID', 'Foreign Source', 'Foreign ID', 'Label', 'Location', 'Type' ];
+          const t = new Table(format);
+          for (const node of formatted) {
+            t.push([node.id, node.foreignSource, node.foreignId, node.label, node.location, node.type]);
+          }
+          console.log(t.toString());
+          console.log('');
+        });
+      }).catch((err) => {
+        return handleError('Node list failed', err);
+      });
+    });
+
   const formatAlarms = (alarms) => {
     return alarms.map((alarm) => {
       const severityLabel = ((alarm.severity && alarm.severity.label) ? alarm.severity.label : '');
@@ -219,12 +286,19 @@ const CLI = () => {
   program
     .command('alarms [filters...]')
     .description('List current alarms with optional filters (eg: "severity eq MAJOR" or "node.label like dns*")')
-    .action((filters) => {
+    .option('-o --orderBy [column,column]',
+      'Sort results (eg: "--orderBy severity" or "--orderBy count,id")', orderByFunc, [])
+    .option('-r --reverse', 'Reverse order')
+    .action((filters, cmd) => {
       const config = readConfig();
       return new Client().connect('OpenNMS', config.url, config.username, config.password).then((client) => {
         const dao = new DAO.AlarmDAO(client);
 
         const filter = new API.Filter();
+
+        if (cmd.orderBy.length === 0) {
+          cmd.orderBy = ['id', 'severity', 'count'];
+        }
 
         for (const f of filters) {
           log.debug('filter=' + f, catCLI);
@@ -238,7 +312,12 @@ const CLI = () => {
 
         return dao.find(filter).then((alarms) => {
           const format = Object.assign({}, tableFormat);
-          const formatted = formatAlarms(alarms);
+          const sorted = Util.sort(alarms, ...cmd.orderBy);
+          const formatted = formatAlarms(sorted);
+
+          if (cmd.reverse) {
+            formatted.reverse();
+          }
 
           format.head = [ 'ID', 'Severity', 'Node', 'Count', 'Time', 'Log' ];
           format.colWidths = [3, 8, getMaxWidth(formatted, 'node', 30), 5, 17];
