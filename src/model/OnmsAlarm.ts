@@ -2,6 +2,7 @@ import {Moment} from 'moment';
 
 import {IHasUrlValue} from '../api/IHasUrlValue';
 import {OnmsAlarmType} from './OnmsAlarmType';
+import {OnmsAlarmSummary} from './OnmsAlarmSummary';
 import {OnmsEvent} from './OnmsEvent';
 import {OnmsParm} from './OnmsParm';
 import {OnmsServiceType} from './OnmsServiceType';
@@ -82,6 +83,9 @@ export class OnmsAlarm implements IHasUrlValue {
 
   /** the parameters emitted with this alarm's event */
   public parameters: OnmsParm[];
+
+  /** relatedAlarms - A list of alarms related to this alarm/situation */
+  public relatedAlarms: OnmsAlarmSummary[];
 
   /** sticky memo - a note associated with this specific alarm instance */
   public sticky: OnmsMemo;
