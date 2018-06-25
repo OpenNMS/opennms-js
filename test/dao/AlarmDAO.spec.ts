@@ -23,6 +23,7 @@ import {XmlTransformer} from '../../src/rest/XmlTransformer';
 
 import {MockHTTP19} from '../rest/MockHTTP19';
 import {MockHTTP21} from '../rest/MockHTTP21';
+import {MockHTTP23} from '../rest/MockHTTP23';
 
 const SERVER_NAME='Demo';
 const SERVER_URL='http://demo.opennms.org/opennms/';
@@ -272,5 +273,32 @@ describe('AlarmDAO with v2 API', () => {
       return true;
     })).resolves.toBeTruthy();
   });
+});
 
+describe('AlarmDAO with AlarmSummaryDTO', () => {
+  beforeEach((done) => {
+    auth = new OnmsAuthConfig(SERVER_USER, SERVER_PASSWORD);
+    server = new OnmsServer(SERVER_NAME, SERVER_URL, auth);
+    mockHTTP = new MockHTTP23(server);
+    opennms = new Client(mockHTTP);
+    dao = new AlarmDAO(mockHTTP);
+    Client.getMetadata(server, mockHTTP).then((metadata) => {
+      server.metadata = metadata;
+      done();
+    });
+  });
+  it('AlarmDAO.get(8)', () => {
+    const filter = new Filter();
+    filter.withOrRestriction(new Restriction('alarm.id', Comparators.EQ, 8));
+    return dao.find(filter).then((alarms) => {
+      expect(alarms.length).toEqual(4);
+      expect(alarms[0].id).toEqual(8);
+      expect(alarms[0].relatedAlarms.length).toEqual(3);
+      expect(alarms[0].relatedAlarms[0].id).toEqual(5);
+      expect(alarms[0].relatedAlarms[0].type).toEqual(2);
+      expect(alarms[0].relatedAlarms[0].severity).toEqual('CRITICAL');
+      expect(alarms[0].relatedAlarms[0].reductionKey).toEqual('uei.opennms.org/alarms/trigger:localhost:0.0.0.0:HTTPS_APOOLs');
+      expect(alarms[0].relatedAlarms[0].description).toEqual('A problem has been triggered.');
+    });
+  });
 });

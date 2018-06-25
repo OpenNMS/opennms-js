@@ -11,6 +11,7 @@ import {OnmsResult} from '../api/OnmsResult';
 import {SearchProperty} from '../api/SearchProperty';
 
 import {OnmsAlarm} from '../model/OnmsAlarm';
+import {OnmsAlarmSummary} from '../model/OnmsAlarmSummary';
 import {AlarmTypes} from '../model/OnmsAlarmType';
 import {OnmsParm} from '../model/OnmsParm';
 import {OnmsServiceType} from '../model/OnmsServiceType';
@@ -391,6 +392,8 @@ export class AlarmDAO extends AbstractDAO<number, OnmsAlarm> {
         alarm.parameters.push(parm);
       }
     }
+
+    alarm.relatedAlarms = data.relatedAlarms;
 
     alarm.sticky = this.toMemo(data.stickyMemo);
     alarm.journal = this.toMemo(data.reductionKeyMemo);

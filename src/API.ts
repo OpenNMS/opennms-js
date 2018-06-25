@@ -23,6 +23,7 @@ import {V1FilterProcessor} from './dao/V1FilterProcessor';
 import {V2FilterProcessor} from './dao/V2FilterProcessor';
 
 import {OnmsAlarm} from './model/OnmsAlarm';
+import {OnmsAlarmSummary} from './model/OnmsAlarmSummary';
 import {OnmsAlarmType, AlarmTypes} from './model/OnmsAlarmType';
 import {OnmsCategory, Categories} from './model/OnmsCategory';
 import {OnmsCollectType, CollectTypes} from './model/OnmsCollectType';
@@ -93,6 +94,7 @@ const DAO = Object.freeze({
 /** @hidden */
 const Model = Object.freeze({
   OnmsAlarm,
+  OnmsAlarmSummary,
   OnmsAlarmType,
   OnmsCategory,
   Categories,
