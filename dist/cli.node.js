@@ -59350,6 +59350,7 @@ var NodeDAO_1 = __webpack_require__(/*! ./dao/NodeDAO */ "./src/dao/NodeDAO.ts")
 var V1FilterProcessor_1 = __webpack_require__(/*! ./dao/V1FilterProcessor */ "./src/dao/V1FilterProcessor.ts");
 var V2FilterProcessor_1 = __webpack_require__(/*! ./dao/V2FilterProcessor */ "./src/dao/V2FilterProcessor.ts");
 var OnmsAlarm_1 = __webpack_require__(/*! ./model/OnmsAlarm */ "./src/model/OnmsAlarm.ts");
+var OnmsAlarmSummary_1 = __webpack_require__(/*! ./model/OnmsAlarmSummary */ "./src/model/OnmsAlarmSummary.ts");
 var OnmsAlarmType_1 = __webpack_require__(/*! ./model/OnmsAlarmType */ "./src/model/OnmsAlarmType.ts");
 var OnmsCategory_1 = __webpack_require__(/*! ./model/OnmsCategory */ "./src/model/OnmsCategory.ts");
 var OnmsCollectType_1 = __webpack_require__(/*! ./model/OnmsCollectType */ "./src/model/OnmsCollectType.ts");
@@ -59416,6 +59417,7 @@ exports.DAO = DAO;
 /** @hidden */
 var Model = Object.freeze({
     OnmsAlarm: OnmsAlarm_1.OnmsAlarm,
+    OnmsAlarmSummary: OnmsAlarmSummary_1.OnmsAlarmSummary,
     OnmsAlarmType: OnmsAlarmType_1.OnmsAlarmType,
     OnmsCategory: OnmsCategory_1.OnmsCategory,
     Categories: OnmsCategory_1.Categories,
@@ -62654,6 +62656,7 @@ var AlarmDAO = function (_AbstractDAO_1$Abstra) {
                     }
                 }
             }
+            alarm.relatedAlarms = data.relatedAlarms;
             alarm.sticky = this.toMemo(data.stickyMemo);
             alarm.journal = this.toMemo(data.reductionKeyMemo);
             alarm.detailsPage = this.getDetailsPage(alarm);
@@ -64907,6 +64910,45 @@ var OnmsAlarm = function () {
 }();
 
 exports.OnmsAlarm = OnmsAlarm;
+
+/***/ }),
+
+/***/ "./src/model/OnmsAlarmSummary.ts":
+/*!***************************************!*\
+  !*** ./src/model/OnmsAlarmSummary.ts ***!
+  \***************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+Object.defineProperty(exports, "__esModule", { value: true });
+/**
+ * Represents an OpenNMS alarm.
+ * @module OnmsAlarm
+ */
+
+var OnmsAlarmSummary = function () {
+    function OnmsAlarmSummary() {
+        _classCallCheck(this, OnmsAlarmSummary);
+    }
+
+    _createClass(OnmsAlarmSummary, [{
+        key: "urlValue",
+        get: function get() {
+            return String(this.id);
+        }
+    }]);
+
+    return OnmsAlarmSummary;
+}();
+
+exports.OnmsAlarmSummary = OnmsAlarmSummary;
 
 /***/ }),
 

@@ -1,9 +1,13 @@
 <a name="1.2.3-SNAPSHOT"></a>
-## [1.2.3-SNAPSHOT](https://github.com/OpenNMS/opennms-js/compare/v1.2.2...v1.2.3-SNAPSHOT) (2018-06-12)
+## [1.2.3-SNAPSHOT](https://github.com/OpenNMS/opennms-js/compare/v1.2.2...v1.2.3-SNAPSHOT) (2018-06-25)
 
 
 ### Features
 
+* **api:** Add more test assertions for AlarmSummaryDTO ([0f45e79](https://github.com/OpenNMS/opennms-js/commit/0f45e79))
+* **api:** Add test for AlarmSummary and reductionKey ([3329cf7](https://github.com/OpenNMS/opennms-js/commit/3329cf7))
+* **api:** Initial work ([fa62503](https://github.com/OpenNMS/opennms-js/commit/fa62503))
+* **api:** Move from 'impacts/causes' to 'relatedAlarms' ([3bc5b6e](https://github.com/OpenNMS/opennms-js/commit/3bc5b6e))
 * **cli:** improve table rendering ([da92bdb](https://github.com/OpenNMS/opennms-js/commit/da92bdb))
 
 
