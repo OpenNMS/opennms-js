@@ -294,7 +294,11 @@ describe('AlarmDAO with AlarmSummaryDTO', () => {
       expect(alarms.length).toEqual(4);
       expect(alarms[0].id).toEqual(8);
       expect(alarms[0].relatedAlarms.length).toEqual(3);
+      expect(alarms[0].relatedAlarms[0].id).toEqual(5);
+      expect(alarms[0].relatedAlarms[0].type).toEqual(2);
+      expect(alarms[0].relatedAlarms[0].severity).toEqual('CRITICAL');
       expect(alarms[0].relatedAlarms[0].reductionKey).toEqual('uei.opennms.org/alarms/trigger:localhost:0.0.0.0:HTTPS_APOOLs');
+      expect(alarms[0].relatedAlarms[0].description).toEqual('A problem has been triggered.');
     });
   });
 });
