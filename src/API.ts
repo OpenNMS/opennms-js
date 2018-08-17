@@ -19,6 +19,7 @@ import {TicketerConfig} from './api/TicketerConfig';
 import {AlarmDAO} from './dao/AlarmDAO';
 import {EventDAO} from './dao/EventDAO';
 import {NodeDAO} from './dao/NodeDAO';
+import {SituationFeedbackDAO} from './dao/SituationFeedbackDAO';
 import {V1FilterProcessor} from './dao/V1FilterProcessor';
 import {V2FilterProcessor} from './dao/V2FilterProcessor';
 
@@ -40,6 +41,8 @@ import {OnmsPrimaryType, PrimaryTypes} from './model/OnmsPrimaryType';
 import {OnmsServiceStatusType, ServiceStatusTypes} from './model/OnmsServiceStatusType';
 import {OnmsServiceType, ServiceTypes} from './model/OnmsServiceType';
 import {OnmsSeverity, Severities} from './model/OnmsSeverity';
+import {OnmsSituationFeedback} from './model/OnmsSituationFeedback';
+import {OnmsSituationFeedbackType} from './model/OnmsSituationFeedbackType';
 import {OnmsSnmpInterface} from './model/OnmsSnmpInterface';
 import {OnmsSnmpStatusType, SnmpStatusTypes} from './model/OnmsSnmpStatusType';
 import {OnmsTroubleTicketState, TroubleTicketStates} from './model/OnmsTroubleTicketState';
@@ -87,6 +90,7 @@ const DAO = Object.freeze({
   AlarmDAO,
   EventDAO,
   NodeDAO,
+  SituationFeedbackDAO,
   V1FilterProcessor,
   V2FilterProcessor,
 });
@@ -120,6 +124,8 @@ const Model = Object.freeze({
   ServiceTypes,
   OnmsSeverity,
   Severities,
+  OnmsSituationFeedback,
+  OnmsSituationFeedbackType,
   OnmsSnmpInterface,
   OnmsSnmpStatusType,
   SnmpStatusTypes,
