@@ -42,8 +42,8 @@ describe('SituationfeedbackDAO with v1 API', () => {
             done();
         });
     });
-    it('SituationFeedbackDAO.get(FEEDBACK_F)', () => {
-        return dao.getFeedback('uei.opennms.org/alarms/trigger:localhost:0.0.0.0:FEEDBACK_F').then((feedback) => {
+    it('SituationFeedbackDAO.get(210)', () => {
+        return dao.getFeedback(210).then((feedback) => {
             expect(feedback).toHaveLength(4);
             expect(feedback[0].alarmKey).toEqual('uei.opennms.org/alarms/trigger:localhost:0.0.0.0:FEEDBACK_C');
             expect(feedback[0].fingerprint).toEqual('NDg3ZjdiMjJmNjgzMTJkMmMxYmJjOTNiMWFlYTQ0NWI=');

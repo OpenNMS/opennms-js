@@ -29,13 +29,13 @@ export class SituationFeedbackDAO extends BaseDAO {
    * Retrieve feedback.
    *
    * @version ReST v1
-   * @param {string} situationKey - The reductionKey of the Situation to use when querying.
+   * @param {number} situationId - The alarmId of the Situation to use when querying.
    * @return An array of [[OnmsSituationFeedback]] objects.
    */
-  public async getFeedback(situationKey: string): Promise<OnmsSituationFeedback[]> {
+  public async getFeedback(situationId: number): Promise<OnmsSituationFeedback[]> {
     const options = new OnmsHTTPOptions();
     options.headers.accept = 'application/json';
-    return this.http.get(this.pathToEndpoint() + '/' + encodeURIComponent(situationKey), options).then((result) => {
+    return this.http.get(this.pathToEndpoint() + '/' + situationId, options).then((result) => {
       const data = this.getData(result);
       if (!Array.isArray(data)) {
         if (!data) {
@@ -53,12 +53,13 @@ export class SituationFeedbackDAO extends BaseDAO {
    * Submit Correlation Feedback for a Situation.
    *
    * @version ReST v1
+   * @param {number} situationId - The alarmId of the Situation to use when querying.
    * @param {OnmsSituationFeedback[]} feedback - The [[OnmsSituationFeedback]].
    */
-  public async saveFeedback(feedback: OnmsSituationFeedback[], situationKey: string): Promise<void> {
+  public async saveFeedback(feedback: OnmsSituationFeedback[], situationId: number): Promise<void> {
     const parameters = {} as IHash<string>;
     parameters.body = JSON.stringify(feedback);
-    return this.post(this.pathToEndpoint() + '/' + situationKey, parameters);
+    return this.post(this.pathToEndpoint() + '/' + situationId, parameters);
   }
 
     /**
