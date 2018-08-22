@@ -57,9 +57,7 @@ export class SituationFeedbackDAO extends BaseDAO {
    * @param {OnmsSituationFeedback[]} feedback - The [[OnmsSituationFeedback]].
    */
   public async saveFeedback(feedback: OnmsSituationFeedback[], situationId: number): Promise<void> {
-    const parameters = {} as IHash<string>;
-    parameters.body = JSON.stringify(feedback);
-    return this.post(this.pathToEndpoint() + '/' + situationId, parameters);
+    return this.post(this.pathToEndpoint() + '/' + situationId, feedback);
   }
 
     /**
@@ -99,9 +97,11 @@ export class SituationFeedbackDAO extends BaseDAO {
    * Call a POST request in the format the SituationFeedback API expects.
    * @hidden
    */
-  private async post(url: string, parameters = {} as IHash<string>): Promise<void> {
+  private async post(url: string, data: any): Promise<void> {
     const options = new OnmsHTTPOptions();
     options.headers['content-type'] = 'application/json';
+    options.headers.accept = 'application/json';
+    options.data = data;
     return this.http.post(url, options).then((result) => {
       if (!result.isSuccess) {
         throw result;
