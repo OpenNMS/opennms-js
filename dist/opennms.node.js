@@ -46187,6 +46187,7 @@ var TicketerConfig_1 = __webpack_require__(/*! ./api/TicketerConfig */ "./src/ap
 var AlarmDAO_1 = __webpack_require__(/*! ./dao/AlarmDAO */ "./src/dao/AlarmDAO.ts");
 var EventDAO_1 = __webpack_require__(/*! ./dao/EventDAO */ "./src/dao/EventDAO.ts");
 var NodeDAO_1 = __webpack_require__(/*! ./dao/NodeDAO */ "./src/dao/NodeDAO.ts");
+var SituationFeedbackDAO_1 = __webpack_require__(/*! ./dao/SituationFeedbackDAO */ "./src/dao/SituationFeedbackDAO.ts");
 var V1FilterProcessor_1 = __webpack_require__(/*! ./dao/V1FilterProcessor */ "./src/dao/V1FilterProcessor.ts");
 var V2FilterProcessor_1 = __webpack_require__(/*! ./dao/V2FilterProcessor */ "./src/dao/V2FilterProcessor.ts");
 var OnmsAlarm_1 = __webpack_require__(/*! ./model/OnmsAlarm */ "./src/model/OnmsAlarm.ts");
@@ -46207,6 +46208,8 @@ var OnmsPrimaryType_1 = __webpack_require__(/*! ./model/OnmsPrimaryType */ "./sr
 var OnmsServiceStatusType_1 = __webpack_require__(/*! ./model/OnmsServiceStatusType */ "./src/model/OnmsServiceStatusType.ts");
 var OnmsServiceType_1 = __webpack_require__(/*! ./model/OnmsServiceType */ "./src/model/OnmsServiceType.ts");
 var OnmsSeverity_1 = __webpack_require__(/*! ./model/OnmsSeverity */ "./src/model/OnmsSeverity.ts");
+var OnmsSituationFeedback_1 = __webpack_require__(/*! ./model/OnmsSituationFeedback */ "./src/model/OnmsSituationFeedback.ts");
+var OnmsSituationFeedbackType_1 = __webpack_require__(/*! ./model/OnmsSituationFeedbackType */ "./src/model/OnmsSituationFeedbackType.ts");
 var OnmsSnmpInterface_1 = __webpack_require__(/*! ./model/OnmsSnmpInterface */ "./src/model/OnmsSnmpInterface.ts");
 var OnmsSnmpStatusType_1 = __webpack_require__(/*! ./model/OnmsSnmpStatusType */ "./src/model/OnmsSnmpStatusType.ts");
 var OnmsTroubleTicketState_1 = __webpack_require__(/*! ./model/OnmsTroubleTicketState */ "./src/model/OnmsTroubleTicketState.ts");
@@ -46250,6 +46253,7 @@ var DAO = Object.freeze({
     AlarmDAO: AlarmDAO_1.AlarmDAO,
     EventDAO: EventDAO_1.EventDAO,
     NodeDAO: NodeDAO_1.NodeDAO,
+    SituationFeedbackDAO: SituationFeedbackDAO_1.SituationFeedbackDAO,
     V1FilterProcessor: V1FilterProcessor_1.V1FilterProcessor,
     V2FilterProcessor: V2FilterProcessor_1.V2FilterProcessor
 });
@@ -46283,6 +46287,8 @@ var Model = Object.freeze({
     ServiceTypes: OnmsServiceType_1.ServiceTypes,
     OnmsSeverity: OnmsSeverity_1.OnmsSeverity,
     Severities: OnmsSeverity_1.Severities,
+    OnmsSituationFeedback: OnmsSituationFeedback_1.OnmsSituationFeedback,
+    OnmsSituationFeedbackType: OnmsSituationFeedbackType_1.OnmsSituationFeedbackType,
     OnmsSnmpInterface: OnmsSnmpInterface_1.OnmsSnmpInterface,
     OnmsSnmpStatusType: OnmsSnmpStatusType_1.OnmsSnmpStatusType,
     SnmpStatusTypes: OnmsSnmpStatusType_1.SnmpStatusTypes,
@@ -46358,6 +46364,7 @@ var AlarmDAO_1 = __webpack_require__(/*! ./dao/AlarmDAO */ "./src/dao/AlarmDAO.t
 var EventDAO_1 = __webpack_require__(/*! ./dao/EventDAO */ "./src/dao/EventDAO.ts");
 var FlowDAO_1 = __webpack_require__(/*! ./dao/FlowDAO */ "./src/dao/FlowDAO.ts");
 var NodeDAO_1 = __webpack_require__(/*! ./dao/NodeDAO */ "./src/dao/NodeDAO.ts");
+var SituationFeedbackDAO_1 = __webpack_require__(/*! ./dao/SituationFeedbackDAO */ "./src/dao/SituationFeedbackDAO.ts");
 var AxiosHTTP_1 = __webpack_require__(/*! ./rest/AxiosHTTP */ "./src/rest/AxiosHTTP.ts");
 /** @hidden */
 exports.cat = new typescript_logging_1.Category('client', Log_1.catRoot);
@@ -46586,6 +46593,13 @@ var Client = function () {
         key: "flows",
         value: function flows() {
             return new FlowDAO_1.FlowDAO(this);
+        }
+        /** Get a situationFeedback DAO for submitting and querying correlation feedback. */
+
+    }, {
+        key: "situationfeedback",
+        value: function situationfeedback() {
+            return new SituationFeedbackDAO_1.SituationFeedbackDAO(this);
         }
     }]);
 
@@ -47312,10 +47326,12 @@ var OnmsServer = function () {
             if (forFragment === undefined) {
                 return this.url;
             }
+            var uri = URI(this.url);
             if (forFragment.indexOf('/') === 0 || forFragment.indexOf('http') === 0) {
-                return forFragment;
+                uri = URI(forFragment);
+            } else {
+                uri = uri.segment(forFragment);
             }
-            var uri = URI(this.url).segment(forFragment);
             if (withQuery !== undefined) {
                 uri = uri.addQuery(withQuery);
             }
@@ -50742,6 +50758,235 @@ exports.PropertiesCache = PropertiesCache;
 
 /***/ }),
 
+/***/ "./src/dao/SituationFeedbackDAO.ts":
+/*!*****************************************!*\
+  !*** ./src/dao/SituationFeedbackDAO.ts ***!
+  \*****************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _regenerator = __webpack_require__(/*! babel-runtime/regenerator */ "./node_modules/babel-runtime/regenerator/index.js");
+
+var _regenerator2 = _interopRequireDefault(_regenerator);
+
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var __awaiter = undefined && undefined.__awaiter || function (thisArg, _arguments, P, generator) {
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) {
+            try {
+                step(generator.next(value));
+            } catch (e) {
+                reject(e);
+            }
+        }
+        function rejected(value) {
+            try {
+                step(generator["throw"](value));
+            } catch (e) {
+                reject(e);
+            }
+        }
+        function step(result) {
+            result.done ? resolve(result.value) : new P(function (resolve) {
+                resolve(result.value);
+            }).then(fulfilled, rejected);
+        }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var BaseDAO_1 = __webpack_require__(/*! ./BaseDAO */ "./src/dao/BaseDAO.ts");
+var OnmsError_1 = __webpack_require__(/*! ../api/OnmsError */ "./src/api/OnmsError.ts");
+var OnmsHTTPOptions_1 = __webpack_require__(/*! ../api/OnmsHTTPOptions */ "./src/api/OnmsHTTPOptions.ts");
+var OnmsSituationFeedback_1 = __webpack_require__(/*! ../model/OnmsSituationFeedback */ "./src/model/OnmsSituationFeedback.ts");
+var OnmsSituationFeedbackType_1 = __webpack_require__(/*! ../model/OnmsSituationFeedbackType */ "./src/model/OnmsSituationFeedbackType.ts");
+/**
+ * Data access for [[OnmsSituationFeedback]] objects.
+ * @module SituationFeedbackDAO
+ */
+
+var SituationFeedbackDAO = function (_BaseDAO_1$BaseDAO) {
+    _inherits(SituationFeedbackDAO, _BaseDAO_1$BaseDAO);
+
+    function SituationFeedbackDAO(impl) {
+        _classCallCheck(this, SituationFeedbackDAO);
+
+        return _possibleConstructorReturn(this, (SituationFeedbackDAO.__proto__ || Object.getPrototypeOf(SituationFeedbackDAO)).call(this, impl));
+    }
+    /**
+     * Retrieve feedback.
+     *
+     * @version ReST v1
+     * @param {number} situationId - The alarmId of the Situation to use when querying.
+     * @return An array of [[OnmsSituationFeedback]] objects.
+     */
+
+
+    _createClass(SituationFeedbackDAO, [{
+        key: "getFeedback",
+        value: function getFeedback(situationId) {
+            return __awaiter(this, void 0, void 0, /*#__PURE__*/_regenerator2.default.mark(function _callee() {
+                var _this2 = this;
+
+                var options;
+                return _regenerator2.default.wrap(function _callee$(_context) {
+                    while (1) {
+                        switch (_context.prev = _context.next) {
+                            case 0:
+                                options = new OnmsHTTPOptions_1.OnmsHTTPOptions();
+
+                                options.headers.accept = 'application/json';
+                                return _context.abrupt("return", this.http.get(this.pathToEndpoint() + '/' + situationId, options).then(function (result) {
+                                    var data = _this2.getData(result);
+                                    if (!Array.isArray(data)) {
+                                        if (!data) {
+                                            return [];
+                                        }
+                                        throw new OnmsError_1.OnmsError('Expected an array of feedback but got "' + (typeof data === "undefined" ? "undefined" : _typeof(data)) + '" instead.');
+                                    }
+                                    return data.map(function (feedbackData) {
+                                        return _this2.fromData(feedbackData);
+                                    });
+                                }));
+
+                            case 3:
+                            case "end":
+                                return _context.stop();
+                        }
+                    }
+                }, _callee, this);
+            }));
+        }
+        /**
+         * Submit Correlation Feedback for a Situation.
+         *
+         * @version ReST v1
+         * @param {number} situationId - The alarmId of the Situation to use when querying.
+         * @param {OnmsSituationFeedback[]} feedback - The [[OnmsSituationFeedback]].
+         */
+
+    }, {
+        key: "saveFeedback",
+        value: function saveFeedback(feedback, situationId) {
+            return __awaiter(this, void 0, void 0, /*#__PURE__*/_regenerator2.default.mark(function _callee2() {
+                return _regenerator2.default.wrap(function _callee2$(_context2) {
+                    while (1) {
+                        switch (_context2.prev = _context2.next) {
+                            case 0:
+                                return _context2.abrupt("return", this.post(this.pathToEndpoint() + '/' + situationId, feedback));
+
+                            case 1:
+                            case "end":
+                                return _context2.stop();
+                        }
+                    }
+                }, _callee2, this);
+            }));
+        }
+        /**
+         * Extracts the data from an HTTP Request result.
+         *
+         * @param result the HTTP Request result.
+         * @returns An array of [[OnmsSituationFeedback]] objects.
+         */
+
+    }, {
+        key: "getData",
+        value: function getData(result) {
+            var data = result.data;
+            if (!Array.isArray(data)) {
+                throw new OnmsError_1.OnmsError('Expected an array of situationFeedback but got "' + (typeof data === "undefined" ? "undefined" : _typeof(data)) + '" instead.');
+            }
+            return data;
+        }
+        /**
+         * Generate a feedback object from the given dictionary.
+         * @hidden
+         */
+
+    }, {
+        key: "fromData",
+        value: function fromData(data) {
+            var feedback = new OnmsSituationFeedback_1.OnmsSituationFeedback();
+            feedback.situationKey = data.situationKey;
+            feedback.fingerprint = data.situationFingerprint;
+            feedback.alarmKey = data.alarmKey;
+            feedback.reason = data.reason;
+            feedback.user = data.user;
+            if (data.feedbackType) {
+                var fbt = data.feedbackType;
+                feedback.feedbackType = OnmsSituationFeedbackType_1.OnmsSituationFeedbackType.forId(fbt);
+            }
+            feedback.timestamp = this.toNumber(data.timestamp);
+            return feedback;
+        }
+        /**
+         * Call a POST request in the format the SituationFeedback API expects.
+         * @hidden
+         */
+
+    }, {
+        key: "post",
+        value: function post(url, data) {
+            return __awaiter(this, void 0, void 0, /*#__PURE__*/_regenerator2.default.mark(function _callee3() {
+                var options;
+                return _regenerator2.default.wrap(function _callee3$(_context3) {
+                    while (1) {
+                        switch (_context3.prev = _context3.next) {
+                            case 0:
+                                options = new OnmsHTTPOptions_1.OnmsHTTPOptions();
+
+                                options.headers['content-type'] = 'application/json';
+                                options.headers.accept = 'application/json';
+                                options.data = data;
+                                return _context3.abrupt("return", this.http.post(url, options).then(function (result) {
+                                    if (!result.isSuccess) {
+                                        throw result;
+                                    }
+                                    return;
+                                }));
+
+                            case 5:
+                            case "end":
+                                return _context3.stop();
+                        }
+                    }
+                }, _callee3, this);
+            }));
+        }
+        /**
+         * Get the path to the SituationFeedback endpoint.
+         * @hidden
+         */
+
+    }, {
+        key: "pathToEndpoint",
+        value: function pathToEndpoint() {
+            return 'rest/situation-feedback';
+        }
+    }]);
+
+    return SituationFeedbackDAO;
+}(BaseDAO_1.BaseDAO);
+
+exports.SituationFeedbackDAO = SituationFeedbackDAO;
+
+/***/ }),
+
 /***/ "./src/dao/V1FilterProcessor.ts":
 /*!**************************************!*\
   !*** ./src/dao/V1FilterProcessor.ts ***!
@@ -52661,6 +52906,119 @@ var Severities = {
 /** @hidden */
 var frozen = Object.freeze(Severities);
 exports.Severities = frozen;
+
+/***/ }),
+
+/***/ "./src/model/OnmsSituationFeedback.ts":
+/*!********************************************!*\
+  !*** ./src/model/OnmsSituationFeedback.ts ***!
+  \********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+Object.defineProperty(exports, "__esModule", { value: true });
+/**
+ * Represents an OpenNMS alarm.
+ * @module OnmsAlarm
+ */
+
+var OnmsSituationFeedback = function () {
+    function OnmsSituationFeedback() {
+        _classCallCheck(this, OnmsSituationFeedback);
+    }
+
+    _createClass(OnmsSituationFeedback, [{
+        key: "urlValue",
+        get: function get() {
+            return String(this.situationKey);
+        }
+    }]);
+
+    return OnmsSituationFeedback;
+}();
+
+exports.OnmsSituationFeedback = OnmsSituationFeedback;
+
+/***/ }),
+
+/***/ "./src/model/OnmsSituationFeedbackType.ts":
+/*!************************************************!*\
+  !*** ./src/model/OnmsSituationFeedbackType.ts ***!
+  \************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var OnmsEnum_1 = __webpack_require__(/*! ../internal/OnmsEnum */ "./src/internal/OnmsEnum.ts");
+/**
+ * Represents an OpenNMS "SituationFeedback" type.
+ * @module OnmsSituationFeedbackType
+ */
+
+var OnmsSituationFeedbackType = function (_OnmsEnum_1$OnmsEnum) {
+    _inherits(OnmsSituationFeedbackType, _OnmsEnum_1$OnmsEnum);
+
+    function OnmsSituationFeedbackType() {
+        _classCallCheck(this, OnmsSituationFeedbackType);
+
+        return _possibleConstructorReturn(this, (OnmsSituationFeedbackType.__proto__ || Object.getPrototypeOf(OnmsSituationFeedbackType)).apply(this, arguments));
+    }
+
+    _createClass(OnmsSituationFeedbackType, [{
+        key: "urlValue",
+        get: function get() {
+            return String(this.id);
+        }
+    }], [{
+        key: "forId",
+
+        /** Given an ID, return the matching SituationFeedback type object. */
+        value: function forId(id) {
+            return OnmsEnum_1.forId(FeedbackTypes, id);
+        }
+        /** Given a label, return the matching snmp status type object. */
+
+    }, {
+        key: "forLabel",
+        value: function forLabel(label) {
+            return OnmsEnum_1.forLabel(FeedbackTypes, label);
+        }
+    }]);
+
+    return OnmsSituationFeedbackType;
+}(OnmsEnum_1.OnmsEnum);
+
+exports.OnmsSituationFeedbackType = OnmsSituationFeedbackType;
+/* tslint:disable:object-literal-sort-keys */
+var FeedbackTypes = {
+    /** Alarm is correctly correlated */
+    CORRECT: new OnmsSituationFeedbackType('CORRECT', 'CORRECT'),
+    /** Alarm was incorrectly correlated */
+    FALSE_POSITIVE: new OnmsSituationFeedbackType('FALSE_POSITIVE', 'FALSE_POSITIVE'),
+    /** Alarm was incorrectly ommitted */
+    FALSE_NEGATIVE: new OnmsSituationFeedbackType('FALSE_NEGATIVE', 'FALSE_NEGATIVE')
+};
+/** @hidden */
+var frozen = Object.freeze(FeedbackTypes);
+exports.FeedbackTypes = frozen;
 
 /***/ }),
 

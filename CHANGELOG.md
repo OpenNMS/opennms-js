@@ -1,11 +1,15 @@
 <a name="1.2.3-SNAPSHOT"></a>
-## [1.2.3-SNAPSHOT](https://github.com/OpenNMS/opennms-js/compare/v1.2.2...v1.2.3-SNAPSHOT) (2018-08-21)
+## [1.2.3-SNAPSHOT](https://github.com/OpenNMS/opennms-js/compare/v1.2.2...v1.2.3-SNAPSHOT) (2018-08-22)
 
 
 ### Features
 
 * **api:** Add more test assertions for AlarmSummaryDTO ([0f45e79](https://github.com/OpenNMS/opennms-js/commit/0f45e79))
 * **api:** Add test for AlarmSummary and reductionKey ([3329cf7](https://github.com/OpenNMS/opennms-js/commit/3329cf7))
+* **api:** HZN-1357 expose FeedbackDAO ([d354040](https://github.com/OpenNMS/opennms-js/commit/d354040))
+* **api:** HZN-1357 Pass data and set accept header ([0bf0bdd](https://github.com/OpenNMS/opennms-js/commit/0bf0bdd))
+* **api:** HZN-1357 tests for uri.js ([e98cfa4](https://github.com/OpenNMS/opennms-js/commit/e98cfa4))
+* **api:** HZN-1357 use AlarmId for Situation ([3d9f172](https://github.com/OpenNMS/opennms-js/commit/3d9f172))
 * **api:** Initial work ([fa62503](https://github.com/OpenNMS/opennms-js/commit/fa62503))
 * **api:** Move from 'impacts/causes' to 'relatedAlarms' ([3bc5b6e](https://github.com/OpenNMS/opennms-js/commit/3bc5b6e))
 * **cli:** improve table rendering ([da92bdb](https://github.com/OpenNMS/opennms-js/commit/da92bdb))
