@@ -70,10 +70,12 @@ export class OnmsServer {
     if (forFragment === undefined) {
       return this.url;
     }
+    let uri = URI(this.url);
     if (forFragment.indexOf('/') === 0 || forFragment.indexOf('http') === 0) {
-      return forFragment;
+      uri = URI(forFragment);
+    } else {
+      uri = uri.segment(forFragment);
     }
-    let uri = URI(this.url).segment(forFragment);
     if (withQuery !== undefined) {
         uri = uri.addQuery(withQuery);
     }

@@ -1,0 +1,38 @@
+[
+        {
+                "situationKey": "uei.opennms.org/alarms/trigger:localhost:0.0.0.0:FEEDBACK_F",
+                "situationFingerprint": "NDg3ZjdiMjJmNjgzMTJkMmMxYmJjOTNiMWFlYTQ0NWI=",
+                "alarmKey": "uei.opennms.org/alarms/trigger:localhost:0.0.0.0:FEEDBACK_C",
+                "feedbackType": "CORRECT",
+                "reason": "ALL_CORRECT",
+                "user": "admin",
+                "timestamp": 1533835399918
+        },
+        {
+                "situationKey": "uei.opennms.org/alarms/trigger:localhost:0.0.0.0:FEEDBACK_F",
+                "situationFingerprint": "NDg3ZjdiMjJmNjgzMTJkMmMxYmJjOTNiMWFlYTQ0NWI=",
+                "alarmKey": "uei.opennms.org/alarms/trigger:localhost:0.0.0.0:FEEDBACK_A",
+                "feedbackType": "CORRECT",
+                "reason": "ALL_CORRECT",
+                "user": "admin",
+                "timestamp": 1533835399918
+        },
+        {
+                "situationKey": "uei.opennms.org/alarms/trigger:localhost:0.0.0.0:FEEDBACK_F",
+                "situationFingerprint": "NDg3ZjdiMjJmNjgzMTJkMmMxYmJjOTNiMWFlYTQ0NWI=",
+                "alarmKey": "uei.opennms.org/alarms/trigger:localhost:0.0.0.0:FEEDBACK_A",
+                "feedbackType": "CORRECT",
+                "reason": "ALL_CORRECT",
+                "user": "admin",
+                "timestamp": 1533835359151
+        },
+        {
+                "situationKey": "uei.opennms.org/alarms/trigger:localhost:0.0.0.0:FEEDBACK_F",
+                "situationFingerprint": "NDg3ZjdiMjJmNjgzMTJkMmMxYmJjOTNiMWFlYTQ0NWI=",
+                "alarmKey": "uei.opennms.org/alarms/trigger:localhost:0.0.0.0:FEEDBACK_C",
+                "feedbackType": "CORRECT",
+                "reason": "ALL_CORRECT",
+                "user": "admin",
+                "timestamp": 1533835359151
+        }
+]
