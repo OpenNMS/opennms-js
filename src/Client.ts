@@ -21,6 +21,7 @@ import {AlarmDAO} from './dao/AlarmDAO';
 import {EventDAO} from './dao/EventDAO';
 import {FlowDAO} from './dao/FlowDAO';
 import {NodeDAO} from './dao/NodeDAO';
+import {SituationFeedbackDAO} from './dao/SituationFeedbackDAO';
 
 import {AxiosHTTP} from './rest/AxiosHTTP';
 
@@ -164,5 +165,10 @@ export class Client implements IHasHTTP {
   /** Get a flow DAO for querying flows. */
   public flows() {
     return new FlowDAO(this);
+  }
+
+  /** Get a situationFeedback DAO for submitting and querying correlation feedback. */
+  public situationfeedback() {
+    return new SituationFeedbackDAO(this);
   }
 }
