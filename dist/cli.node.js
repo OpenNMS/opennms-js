@@ -59449,6 +59449,7 @@ var Model = Object.freeze({
     Severities: OnmsSeverity_1.Severities,
     OnmsSituationFeedback: OnmsSituationFeedback_1.OnmsSituationFeedback,
     OnmsSituationFeedbackType: OnmsSituationFeedbackType_1.OnmsSituationFeedbackType,
+    FeedbackTypes: OnmsSituationFeedbackType_1.FeedbackTypes,
     OnmsSnmpInterface: OnmsSnmpInterface_1.OnmsSnmpInterface,
     OnmsSnmpStatusType: OnmsSnmpStatusType_1.OnmsSnmpStatusType,
     SnmpStatusTypes: OnmsSnmpStatusType_1.SnmpStatusTypes,
