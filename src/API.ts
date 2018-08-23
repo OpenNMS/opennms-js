@@ -42,7 +42,7 @@ import {OnmsServiceStatusType, ServiceStatusTypes} from './model/OnmsServiceStat
 import {OnmsServiceType, ServiceTypes} from './model/OnmsServiceType';
 import {OnmsSeverity, Severities} from './model/OnmsSeverity';
 import {OnmsSituationFeedback} from './model/OnmsSituationFeedback';
-import {OnmsSituationFeedbackType} from './model/OnmsSituationFeedbackType';
+import {OnmsSituationFeedbackType, FeedbackTypes} from './model/OnmsSituationFeedbackType';
 import {OnmsSnmpInterface} from './model/OnmsSnmpInterface';
 import {OnmsSnmpStatusType, SnmpStatusTypes} from './model/OnmsSnmpStatusType';
 import {OnmsTroubleTicketState, TroubleTicketStates} from './model/OnmsTroubleTicketState';
@@ -126,6 +126,7 @@ const Model = Object.freeze({
   Severities,
   OnmsSituationFeedback,
   OnmsSituationFeedbackType,
+  FeedbackTypes,
   OnmsSnmpInterface,
   OnmsSnmpStatusType,
   SnmpStatusTypes,
