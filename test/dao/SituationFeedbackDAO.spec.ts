@@ -20,7 +20,7 @@ import { SituationFeedbackDAO } from '../../src/dao/SituationFeedbackDAO';
 import { OnmsSituationFeedback } from '../../src/model/OnmsSituationFeedback';
 
 import { MockHTTP23 } from '../rest/MockHTTP23';
-import { OnmsSituationFeedbackType } from '../../src/model/OnmsSituationFeedbackType';
+import { OnmsSituationFeedbackType, FeedbackTypes } from '../../src/model/OnmsSituationFeedbackType';
 
 const SERVER_NAME = 'Demo';
 const SERVER_URL = 'http://demo.opennms.org/opennms/';
@@ -52,5 +52,17 @@ describe('SituationfeedbackDAO with v1 API', () => {
             expect(feedback[0].user).toEqual('admin');
             expect(feedback[0].timestamp).toEqual(1533835399918);
         });
+    });
+    it('SituationFeedbackDAO.serializeFeedback()', () => {
+        const feedback = new OnmsSituationFeedback();
+        feedback.alarmKey = 'some-key';
+        feedback.fingerprint = 'hash#';
+        feedback.feedbackType = FeedbackTypes.CORRECT;
+        const serializeFeedback = dao.serializeFeedback([feedback]);
+        expect(serializeFeedback[0].feedbackType).toEqual('CORRECT');
+        // Original entry should be unchanged
+        expect(feedback.feedbackType).toEqual(FeedbackTypes.CORRECT);
+        expect(JSON.stringify(serializeFeedback)).toEqual(
+            '[{"alarmKey":"some-key","fingerprint":"hash#","feedbackType":"CORRECT"}]');
     });
 });
