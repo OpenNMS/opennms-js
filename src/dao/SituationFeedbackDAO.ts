@@ -64,7 +64,7 @@ export class SituationFeedbackDAO extends BaseDAO {
     const serializeFeedback = [];
     feedback.forEach((fb) => {
         // Create a shallow clone
-        const sfb = Object.create(fb);
+        const sfb = Object.assign({}, fb) as any;
         // Set the type to the id, to avoid serializing it as an object
         if (sfb.feedbackType !== null) {
             sfb.feedbackType = sfb.feedbackType.id;

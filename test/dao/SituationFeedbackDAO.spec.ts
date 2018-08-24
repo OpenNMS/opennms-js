@@ -55,10 +55,14 @@ describe('SituationfeedbackDAO with v1 API', () => {
     });
     it('SituationFeedbackDAO.serializeFeedback()', () => {
         const feedback = new OnmsSituationFeedback();
+        feedback.alarmKey = 'some-key';
+        feedback.fingerprint = 'hash#';
         feedback.feedbackType = FeedbackTypes.CORRECT;
         const serializeFeedback = dao.serializeFeedback([feedback]);
         expect(serializeFeedback[0].feedbackType).toEqual('CORRECT');
         // Original entry should be unchanged
         expect(feedback.feedbackType).toEqual(FeedbackTypes.CORRECT);
+        expect(JSON.stringify(serializeFeedback)).toEqual(
+            '[{"alarmKey":"some-key","fingerprint":"hash#","feedbackType":"CORRECT"}]');
     });
 });
