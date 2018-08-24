@@ -60,6 +60,20 @@ export class SituationFeedbackDAO extends BaseDAO {
     return this.post(this.pathToEndpoint() + '/' + situationId, feedback);
   }
 
+  public serializeFeedback(feedback: OnmsSituationFeedback[]): any[] {
+    const serializeFeedback = [];
+    feedback.forEach((fb) => {
+        // Create a shallow clone
+        const sfb = Object.create(fb);
+        // Set the type to the id, to avoid serializing it as an object
+        if (sfb.feedbackType !== null) {
+            sfb.feedbackType = sfb.feedbackType.id;
+        }
+        serializeFeedback.push(sfb);
+    });
+    return serializeFeedback;
+  }
+
     /**
      * Extracts the data from an HTTP Request result.
      *
