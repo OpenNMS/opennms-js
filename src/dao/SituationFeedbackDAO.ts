@@ -57,7 +57,7 @@ export class SituationFeedbackDAO extends BaseDAO {
    * @param {OnmsSituationFeedback[]} feedback - The [[OnmsSituationFeedback]].
    */
   public async saveFeedback(feedback: OnmsSituationFeedback[], situationId: number): Promise<void> {
-    return this.post(this.pathToEndpoint() + '/' + situationId, feedback);
+    return this.post(this.pathToEndpoint() + '/' + situationId, this.serializeFeedback(feedback));
   }
 
     /**
@@ -91,6 +91,24 @@ export class SituationFeedbackDAO extends BaseDAO {
     }
     feedback.timestamp = this.toNumber(data.timestamp);
     return feedback;
+  }
+
+  /**
+   * Serialize the feedbackType as a string.
+   * @hidden
+   */
+  public serializeFeedback(feedback: OnmsSituationFeedback[]): any[] {
+    const serializeFeedback = [];
+    feedback.forEach((fb) => {
+        // Create a shallow clone
+        const sfb = Object.assign({}, fb) as any;
+        // Set the type to the id, to avoid serializing it as an object
+        if (sfb.feedbackType !== null) {
+            sfb.feedbackType = sfb.feedbackType.id;
+        }
+        serializeFeedback.push(sfb);
+    });
+    return serializeFeedback;
   }
 
   /**
