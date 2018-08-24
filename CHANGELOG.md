@@ -1,5 +1,10 @@
 <a name="1.2.3-SNAPSHOT"></a>
-## [1.2.3-SNAPSHOT](https://github.com/OpenNMS/opennms-js/compare/v1.2.2...v1.2.3-SNAPSHOT) (2018-08-23)
+## [1.2.3-SNAPSHOT](https://github.com/OpenNMS/opennms-js/compare/v1.2.2...v1.2.3-SNAPSHOT) (2018-08-24)
+
+
+### Bug Fixes
+
+* **feedback:** Serialize the enum as a string ([3c2f997](https://github.com/OpenNMS/opennms-js/commit/3c2f997))
 
 
 ### Features

@@ -64435,7 +64435,7 @@ var SituationFeedbackDAO = function (_BaseDAO_1$BaseDAO) {
                     while (1) {
                         switch (_context2.prev = _context2.next) {
                             case 0:
-                                return _context2.abrupt("return", this.post(this.pathToEndpoint() + '/' + situationId, feedback));
+                                return _context2.abrupt("return", this.post(this.pathToEndpoint() + '/' + situationId, this.serializeFeedback(feedback)));
 
                             case 1:
                             case "end":
@@ -64481,6 +64481,26 @@ var SituationFeedbackDAO = function (_BaseDAO_1$BaseDAO) {
             }
             feedback.timestamp = this.toNumber(data.timestamp);
             return feedback;
+        }
+        /**
+         * Serialize the feedbackType as a string.
+         * @hidden
+         */
+
+    }, {
+        key: "serializeFeedback",
+        value: function serializeFeedback(feedback) {
+            var serializeFeedback = [];
+            feedback.forEach(function (fb) {
+                // Create a shallow clone
+                var sfb = Object.assign({}, fb);
+                // Set the type to the id, to avoid serializing it as an object
+                if (sfb.feedbackType !== null) {
+                    sfb.feedbackType = sfb.feedbackType.id;
+                }
+                serializeFeedback.push(sfb);
+            });
+            return serializeFeedback;
         }
         /**
          * Call a POST request in the format the SituationFeedback API expects.
