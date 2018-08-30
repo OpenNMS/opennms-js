@@ -24,6 +24,12 @@ export class OnmsAlarmSummary implements IHasUrlValue {
   /** the alarm's description */
   public description: string;
 
+  /** the alarm's log message */
+  public logMessage: string;
+
+  /** the label of this alarm as defined in the alarm configuration */
+  public label: string;
+
   public get urlValue() {
     return String(this.id);
   }
