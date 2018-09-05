@@ -96,9 +96,6 @@ export class OnmsAlarm implements IHasUrlValue {
   /** operator instructions */
   public operatorInstructions: string;
 
-  /** this alarm is contained within a Situation */
-  public inSituation: boolean;
-
   /** If this alarm is a Situation, the number of Nodes affected by its RelatedAlarms, a value of 1 otherwise */
   public affectedNodeCount: number;
 
