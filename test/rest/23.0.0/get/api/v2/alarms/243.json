@@ -1,0 +1,157 @@
+{
+    "totalCount": 1,
+    "count": 1,
+    "offset": 0,
+    "alarm": [
+        {
+            "id": 243,
+            "uei": "uei.opennms.org/alarms/trigger",
+            "location": "Default",
+            "nodeId": 1,
+            "nodeLabel": "locally",
+            "reductionKey": "uei.opennms.org/alarms/trigger:localhost:0.0.0.0:FEEDBACK_F",
+            "type": 1,
+            "count": 1,
+            "severity": "CRITICAL",
+            "firstEventTime": 1536070358000,
+            "description": "A problem has been triggered.",
+            "logMessage": "A problem has been triggered on localhost/0.0.0.0/FEEDBACK_F.",
+            "suppressedUntil": 1536070358000,
+            "suppressedTime": 1536070358000,
+            "lastEvent": {
+                "id": 18766,
+                "uei": "uei.opennms.org/alarms/trigger",
+                "label": "Alarm: Generic Trigger",
+                "time": 1536070358000,
+                "host": "LAPTOP-CPLHKS5S.localdomain",
+                "source": "perl_send_event",
+                "parameters": [
+                    {
+                        "name": "cat1",
+                        "value": "ENVIRONMENTAL",
+                        "type": "string"
+                    },
+                    {
+                        "name": "cat2",
+                        "value": "HUMIDITY",
+                        "type": "string"
+                    },
+                    {
+                        "name": "hexcode",
+                        "value": "0xfff06131",
+                        "type": "string"
+                    },
+                    {
+                        "name": "ip",
+                        "value": "0.0.0.0",
+                        "type": "string"
+                    },
+                    {
+                        "name": "node",
+                        "value": "localhost",
+                        "type": "string"
+                    },
+                    {
+                        "name": "related-reductionKey",
+                        "value": "uei.opennms.org/alarms/trigger:localhost:0.0.0.0:FEEDBACK_A",
+                        "type": "string"
+                    },
+                    {
+                        "name": "service",
+                        "value": "FEEDBACK_F",
+                        "type": "string"
+                    },
+                    {
+                        "name": "type",
+                        "value": "ENV",
+                        "type": "string"
+                    }
+                ],
+                "createTime": 1536070358205,
+                "description": "A problem has been triggered.",
+                "logMessage": "A problem has been triggered on localhost/0.0.0.0/FEEDBACK_F.",
+                "severity": "CRITICAL",
+                "log": "Y",
+                "display": "Y",
+                "nodeId": 1,
+                "nodeLabel": "locally",
+                "location": "Default"
+            },
+            "parameters": [
+                {
+                    "name": "cat1",
+                    "value": "ENVIRONMENTAL",
+                    "type": "string"
+                },
+                {
+                    "name": "cat2",
+                    "value": "HUMIDITY",
+                    "type": "string"
+                },
+                {
+                    "name": "hexcode",
+                    "value": "0xfff06131",
+                    "type": "string"
+                },
+                {
+                    "name": "ip",
+                    "value": "0.0.0.0",
+                    "type": "string"
+                },
+                {
+                    "name": "node",
+                    "value": "localhost",
+                    "type": "string"
+                },
+                {
+                    "name": "related-reductionKey",
+                    "value": "uei.opennms.org/alarms/trigger:localhost:0.0.0.0:FEEDBACK_A",
+                    "type": "string"
+                },
+                {
+                    "name": "service",
+                    "value": "FEEDBACK_F",
+                    "type": "string"
+                },
+                {
+                    "name": "type",
+                    "value": "ENV",
+                    "type": "string"
+                }
+            ],
+            "lastEventTime": 1536070358000,
+            "x733ProbableCause": 0,
+            "ifIndex": null,
+            "relatedAlarms": [
+                {
+                    "id": 240,
+                    "type": 2,
+                    "severity": "CRITICAL",
+                    "reductionKey": "uei.opennms.org/alarms/trigger:localhost:0.0.0.0:FEEDBACK_A",
+                    "description": "A problem has been triggered.",
+                    "label": "Alarm: Generic Trigger",
+                    "logMessage": "A problem has been triggered on localhost/0.0.0.0/FEEDBACK_A."
+                },
+                {
+                    "id": 241,
+                    "type": 2,
+                    "severity": "CRITICAL",
+                    "reductionKey": "uei.opennms.org/alarms/trigger:localhost:0.0.0.0:FEEDBACK_B",
+                    "description": "A problem has been triggered.",
+                    "label": "Alarm: Generic Trigger",
+                    "logMessage": "A problem has been triggered on localhost/0.0.0.0/FEEDBACK_B."
+                },
+                {
+                    "id": 242,
+                    "type": 2,
+                    "severity": "CRITICAL",
+                    "reductionKey": "uei.opennms.org/alarms/trigger:localhost:0.0.0.0:FEEDBACK_C",
+                    "description": "A problem has been triggered.",
+                    "label": "Alarm: Generic Trigger",
+                    "logMessage": "A problem has been triggered on localhost/0.0.0.0/FEEDBACK_C."
+                }
+            ],
+            "affectedNodeCount": 1
+        }
+    ]
+}
