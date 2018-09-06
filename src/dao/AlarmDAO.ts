@@ -400,6 +400,8 @@ export class AlarmDAO extends AbstractDAO<number, OnmsAlarm> {
 
     alarm.detailsPage = this.getDetailsPage(alarm);
 
+    alarm.affectedNodeCount = data.affectedNodeCount;
+
     return alarm;
   }
 

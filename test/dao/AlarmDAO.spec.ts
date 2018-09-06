@@ -302,3 +302,27 @@ describe('AlarmDAO with AlarmSummaryDTO', () => {
     });
   });
 });
+
+describe('Extended Situation tests', () => {
+  beforeEach((done) => {
+    auth = new OnmsAuthConfig(SERVER_USER, SERVER_PASSWORD);
+    server = new OnmsServer(SERVER_NAME, SERVER_URL, auth);
+    mockHTTP = new MockHTTP23(server);
+    opennms = new Client(mockHTTP);
+    dao = new AlarmDAO(mockHTTP);
+    Client.getMetadata(server, mockHTTP).then((metadata) => {
+      server.metadata = metadata;
+      done();
+    });
+  });
+  it('AlarmDAO.get(situations)', () => {
+    const filter = new Filter();
+    filter.withOrRestriction(new Restriction('isSituation', Comparators.EQ, 'true'));
+    return dao.find(filter).then((alarms) => {
+      expect(alarms.length).toEqual(1);
+      expect(alarms[0].id).toEqual(243);
+      expect(alarms[0].relatedAlarms.length).toEqual(3);
+      expect(alarms[0].affectedNodeCount).toEqual(1);
+    });
+  });
+});
