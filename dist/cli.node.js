@@ -62677,6 +62677,7 @@ var AlarmDAO = function (_AbstractDAO_1$Abstra) {
             alarm.sticky = this.toMemo(data.stickyMemo);
             alarm.journal = this.toMemo(data.reductionKeyMemo);
             alarm.detailsPage = this.getDetailsPage(alarm);
+            alarm.affectedNodeCount = data.affectedNodeCount;
             return alarm;
         }
         /**

@@ -1,5 +1,5 @@
 <a name="1.2.3-SNAPSHOT"></a>
-## [1.2.3-SNAPSHOT](https://github.com/OpenNMS/opennms-js/compare/v1.2.2...v1.2.3-SNAPSHOT) (2018-08-24)
+## [1.2.3-SNAPSHOT](https://github.com/OpenNMS/opennms-js/compare/v1.2.2...v1.2.3-SNAPSHOT) (2018-09-06)
 
 
 ### Bug Fixes
@@ -17,6 +17,10 @@
 * **api:** HZN-1357 use AlarmId for Situation ([3d9f172](https://github.com/OpenNMS/opennms-js/commit/3d9f172))
 * **api:** Initial work ([fa62503](https://github.com/OpenNMS/opennms-js/commit/fa62503))
 * **api:** Move from 'impacts/causes' to 'relatedAlarms' ([3bc5b6e](https://github.com/OpenNMS/opennms-js/commit/3bc5b6e))
+* **api:** OCE-REST extend Alarm and summary ([e855134](https://github.com/OpenNMS/opennms-js/commit/e855134))
+* **api:** OCE-REST extend Alarm and summary ([24ca0f7](https://github.com/OpenNMS/opennms-js/commit/24ca0f7))
+* **api:** OCE-REST remove inSituation attr ([d3bb9e9](https://github.com/OpenNMS/opennms-js/commit/d3bb9e9))
+* **api:** OCE-REST updte tests ([abd86d1](https://github.com/OpenNMS/opennms-js/commit/abd86d1))
 * **cli:** improve table rendering ([da92bdb](https://github.com/OpenNMS/opennms-js/commit/da92bdb))
 * **feedback:** Expose the feedback type enum values ([500632a](https://github.com/OpenNMS/opennms-js/commit/500632a))
 

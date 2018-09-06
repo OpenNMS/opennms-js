@@ -96,6 +96,7 @@
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="onmsalarm.html#acktime" class="tsd-kind-icon">ack<wbr>Time</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="onmsalarm.html#ackuser" class="tsd-kind-icon">ack<wbr>User</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="onmsalarm.html#affectednodecount" class="tsd-kind-icon">affected<wbr>Node<wbr>Count</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="onmsalarm.html#count" class="tsd-kind-icon">count</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="onmsalarm.html#description" class="tsd-kind-icon">description</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="onmsalarm.html#detailspage" class="tsd-kind-icon">details<wbr>Page</a></li>
@@ -142,7 +143,7 @@
 					<div class="tsd-signature tsd-kind-icon">ack<wbr>Time<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Moment</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/8886412/src/model/OnmsAlarm.ts#L28">model/OnmsAlarm.ts:28</a></li>
+							<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/50c1883/src/model/OnmsAlarm.ts#L28">model/OnmsAlarm.ts:28</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -157,7 +158,7 @@
 					<div class="tsd-signature tsd-kind-icon">ack<wbr>User<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/8886412/src/model/OnmsAlarm.ts#L25">model/OnmsAlarm.ts:25</a></li>
+							<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/50c1883/src/model/OnmsAlarm.ts#L25">model/OnmsAlarm.ts:25</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -167,12 +168,27 @@
 					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="affectednodecount" class="tsd-anchor"></a>
+					<h3>affected<wbr>Node<wbr>Count</h3>
+					<div class="tsd-signature tsd-kind-icon">affected<wbr>Node<wbr>Count<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/50c1883/src/model/OnmsAlarm.ts#L100">model/OnmsAlarm.ts:100</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>If this alarm is a Situation, the number of Nodes affected by its RelatedAlarms, a value of 1 otherwise</p>
+						</div>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
 					<a name="count" class="tsd-anchor"></a>
 					<h3>count</h3>
 					<div class="tsd-signature tsd-kind-icon">count<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/8886412/src/model/OnmsAlarm.ts#L22">model/OnmsAlarm.ts:22</a></li>
+							<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/50c1883/src/model/OnmsAlarm.ts#L22">model/OnmsAlarm.ts:22</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -187,7 +203,7 @@
 					<div class="tsd-signature tsd-kind-icon">description<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/8886412/src/model/OnmsAlarm.ts#L40">model/OnmsAlarm.ts:40</a></li>
+							<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/50c1883/src/model/OnmsAlarm.ts#L40">model/OnmsAlarm.ts:40</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -202,7 +218,7 @@
 					<div class="tsd-signature tsd-kind-icon">details<wbr>Page<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/8886412/src/model/OnmsAlarm.ts#L108">model/OnmsAlarm.ts:108</a></li>
+							<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/50c1883/src/model/OnmsAlarm.ts#L111">model/OnmsAlarm.ts:111</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -217,7 +233,7 @@
 					<div class="tsd-signature tsd-kind-icon">first<wbr>Event<wbr>Time<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Moment</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/8886412/src/model/OnmsAlarm.ts#L43">model/OnmsAlarm.ts:43</a></li>
+							<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/50c1883/src/model/OnmsAlarm.ts#L43">model/OnmsAlarm.ts:43</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -232,7 +248,7 @@
 					<div class="tsd-signature tsd-kind-icon">id<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/8886412/src/model/OnmsAlarm.ts#L19">model/OnmsAlarm.ts:19</a></li>
+							<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/50c1883/src/model/OnmsAlarm.ts#L19">model/OnmsAlarm.ts:19</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -247,7 +263,7 @@
 					<div class="tsd-signature tsd-kind-icon">journal<span class="tsd-signature-symbol">:</span> <a href="onmsmemo.html" class="tsd-signature-type">OnmsMemo</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/8886412/src/model/OnmsAlarm.ts#L94">model/OnmsAlarm.ts:94</a></li>
+							<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/50c1883/src/model/OnmsAlarm.ts#L94">model/OnmsAlarm.ts:94</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -262,7 +278,7 @@
 					<div class="tsd-signature tsd-kind-icon">last<wbr>Event<span class="tsd-signature-symbol">:</span> <a href="onmsevent.html" class="tsd-signature-type">OnmsEvent</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/8886412/src/model/OnmsAlarm.ts#L46">model/OnmsAlarm.ts:46</a></li>
+							<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/50c1883/src/model/OnmsAlarm.ts#L46">model/OnmsAlarm.ts:46</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -277,7 +293,7 @@
 					<div class="tsd-signature tsd-kind-icon">location<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/8886412/src/model/OnmsAlarm.ts#L52">model/OnmsAlarm.ts:52</a></li>
+							<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/50c1883/src/model/OnmsAlarm.ts#L52">model/OnmsAlarm.ts:52</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -292,7 +308,7 @@
 					<div class="tsd-signature tsd-kind-icon">log<wbr>Message<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/8886412/src/model/OnmsAlarm.ts#L49">model/OnmsAlarm.ts:49</a></li>
+							<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/50c1883/src/model/OnmsAlarm.ts#L49">model/OnmsAlarm.ts:49</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -307,7 +323,7 @@
 					<div class="tsd-signature tsd-kind-icon">node<wbr>Id<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/8886412/src/model/OnmsAlarm.ts#L67">model/OnmsAlarm.ts:67</a></li>
+							<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/50c1883/src/model/OnmsAlarm.ts#L67">model/OnmsAlarm.ts:67</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -322,7 +338,7 @@
 					<div class="tsd-signature tsd-kind-icon">node<wbr>Label<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/8886412/src/model/OnmsAlarm.ts#L70">model/OnmsAlarm.ts:70</a></li>
+							<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/50c1883/src/model/OnmsAlarm.ts#L70">model/OnmsAlarm.ts:70</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -337,7 +353,7 @@
 					<div class="tsd-signature tsd-kind-icon">operator<wbr>Instructions<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/8886412/src/model/OnmsAlarm.ts#L97">model/OnmsAlarm.ts:97</a></li>
+							<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/50c1883/src/model/OnmsAlarm.ts#L97">model/OnmsAlarm.ts:97</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -352,7 +368,7 @@
 					<div class="tsd-signature tsd-kind-icon">parameters<span class="tsd-signature-symbol">:</span> <a href="onmsparm.html" class="tsd-signature-type">OnmsParm</a><span class="tsd-signature-symbol">[]</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/8886412/src/model/OnmsAlarm.ts#L85">model/OnmsAlarm.ts:85</a></li>
+							<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/50c1883/src/model/OnmsAlarm.ts#L85">model/OnmsAlarm.ts:85</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -367,7 +383,7 @@
 					<div class="tsd-signature tsd-kind-icon">reduction<wbr>Key<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/8886412/src/model/OnmsAlarm.ts#L55">model/OnmsAlarm.ts:55</a></li>
+							<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/50c1883/src/model/OnmsAlarm.ts#L55">model/OnmsAlarm.ts:55</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -382,7 +398,7 @@
 					<div class="tsd-signature tsd-kind-icon">related<wbr>Alarms<span class="tsd-signature-symbol">:</span> <a href="onmsalarmsummary.html" class="tsd-signature-type">OnmsAlarmSummary</a><span class="tsd-signature-symbol">[]</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/8886412/src/model/OnmsAlarm.ts#L88">model/OnmsAlarm.ts:88</a></li>
+							<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/50c1883/src/model/OnmsAlarm.ts#L88">model/OnmsAlarm.ts:88</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -397,7 +413,7 @@
 					<div class="tsd-signature tsd-kind-icon">service<span class="tsd-signature-symbol">:</span> <a href="onmsservicetype.html" class="tsd-signature-type">OnmsServiceType</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/8886412/src/model/OnmsAlarm.ts#L73">model/OnmsAlarm.ts:73</a></li>
+							<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/50c1883/src/model/OnmsAlarm.ts#L73">model/OnmsAlarm.ts:73</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -412,7 +428,7 @@
 					<div class="tsd-signature tsd-kind-icon">severity<span class="tsd-signature-symbol">:</span> <a href="onmsseverity.html" class="tsd-signature-type">OnmsSeverity</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/8886412/src/model/OnmsAlarm.ts#L34">model/OnmsAlarm.ts:34</a></li>
+							<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/50c1883/src/model/OnmsAlarm.ts#L34">model/OnmsAlarm.ts:34</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -427,7 +443,7 @@
 					<div class="tsd-signature tsd-kind-icon">sticky<span class="tsd-signature-symbol">:</span> <a href="onmsmemo.html" class="tsd-signature-type">OnmsMemo</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/8886412/src/model/OnmsAlarm.ts#L91">model/OnmsAlarm.ts:91</a></li>
+							<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/50c1883/src/model/OnmsAlarm.ts#L91">model/OnmsAlarm.ts:91</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -442,7 +458,7 @@
 					<div class="tsd-signature tsd-kind-icon">suppressed<wbr>By<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/8886412/src/model/OnmsAlarm.ts#L82">model/OnmsAlarm.ts:82</a></li>
+							<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/50c1883/src/model/OnmsAlarm.ts#L82">model/OnmsAlarm.ts:82</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -457,7 +473,7 @@
 					<div class="tsd-signature tsd-kind-icon">suppressed<wbr>Time<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Moment</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/8886412/src/model/OnmsAlarm.ts#L76">model/OnmsAlarm.ts:76</a></li>
+							<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/50c1883/src/model/OnmsAlarm.ts#L76">model/OnmsAlarm.ts:76</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -472,7 +488,7 @@
 					<div class="tsd-signature tsd-kind-icon">suppressed<wbr>Until<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Moment</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/8886412/src/model/OnmsAlarm.ts#L79">model/OnmsAlarm.ts:79</a></li>
+							<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/50c1883/src/model/OnmsAlarm.ts#L79">model/OnmsAlarm.ts:79</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -487,7 +503,7 @@
 					<div class="tsd-signature tsd-kind-icon">trouble<wbr>Ticket<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/8886412/src/model/OnmsAlarm.ts#L58">model/OnmsAlarm.ts:58</a></li>
+							<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/50c1883/src/model/OnmsAlarm.ts#L58">model/OnmsAlarm.ts:58</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -502,7 +518,7 @@
 					<div class="tsd-signature tsd-kind-icon">trouble<wbr>Ticket<wbr>Link<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/8886412/src/model/OnmsAlarm.ts#L64">model/OnmsAlarm.ts:64</a></li>
+							<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/50c1883/src/model/OnmsAlarm.ts#L64">model/OnmsAlarm.ts:64</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -517,7 +533,7 @@
 					<div class="tsd-signature tsd-kind-icon">trouble<wbr>Ticket<wbr>State<span class="tsd-signature-symbol">:</span> <a href="onmstroubleticketstate.html" class="tsd-signature-type">OnmsTroubleTicketState</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/8886412/src/model/OnmsAlarm.ts#L61">model/OnmsAlarm.ts:61</a></li>
+							<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/50c1883/src/model/OnmsAlarm.ts#L61">model/OnmsAlarm.ts:61</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -532,7 +548,7 @@
 					<div class="tsd-signature tsd-kind-icon">type<span class="tsd-signature-symbol">:</span> <a href="onmsalarmtype.html" class="tsd-signature-type">OnmsAlarmType</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/8886412/src/model/OnmsAlarm.ts#L37">model/OnmsAlarm.ts:37</a></li>
+							<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/50c1883/src/model/OnmsAlarm.ts#L37">model/OnmsAlarm.ts:37</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -547,7 +563,7 @@
 					<div class="tsd-signature tsd-kind-icon">uei<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/8886412/src/model/OnmsAlarm.ts#L31">model/OnmsAlarm.ts:31</a></li>
+							<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/50c1883/src/model/OnmsAlarm.ts#L31">model/OnmsAlarm.ts:31</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -569,7 +585,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/8886412/src/model/OnmsAlarm.ts#L100">model/OnmsAlarm.ts:100</a></li>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/50c1883/src/model/OnmsAlarm.ts#L103">model/OnmsAlarm.ts:103</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -591,7 +607,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/8886412/src/model/OnmsAlarm.ts#L110">model/OnmsAlarm.ts:110</a></li>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/50c1883/src/model/OnmsAlarm.ts#L113">model/OnmsAlarm.ts:113</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
@@ -620,6 +636,9 @@
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class">
 								<a href="onmsalarm.html#ackuser" class="tsd-kind-icon">ack<wbr>User</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="onmsalarm.html#affectednodecount" class="tsd-kind-icon">affected<wbr>Node<wbr>Count</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class">
 								<a href="onmsalarm.html#count" class="tsd-kind-icon">count</a>
