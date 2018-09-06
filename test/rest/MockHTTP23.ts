@@ -37,6 +37,11 @@ export class MockHTTP23 extends AbstractHTTP {
         result.type = 'application/json';
         return Promise.resolve(result);
       }
+      case 'api/v2/alarms?limit=1000&_s=isSituation%3D%3Dtrue': {
+        const result = OnmsResult.ok(require('./23.0.0/get/api/v2/alarms/243.json'));
+        result.type = 'application/json';
+        return Promise.resolve(result);
+      }
     }
 
     throw new Error('Not yet implemented: GET ' + urlObj.toString());
