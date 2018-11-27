@@ -36,6 +36,15 @@ export class ServerMetadata {
     return this.version.ge('14.0.0');
   }
 
+  /** Does this server flow data? */
+  public flows() {
+    if (this.type && this.type === ServerTypes.MERIDIAN) {
+      return this.version.ge('2019.0.0');
+    } else {
+      return this.version.ge('22.0.0');
+    }
+  }
+
   /** Does this server support graphs? (ie, the measurements API) */
   public graphs() {
     if (this.type && this.type === ServerTypes.MERIDIAN) {
@@ -64,6 +73,15 @@ export class ServerMetadata {
     }
   }
 
+  /** Does this server support situations? */
+  public situations() {
+    if (this.type && this.type === ServerTypes.MERIDIAN) {
+      return this.version.ge('2019.0.0');
+    } else {
+      return this.version.ge('23.0.0');
+    }
+  }
+
   /** Does this server support ticketer configuration metadata? */
   public ticketer() {
     if (this.type && this.type === ServerTypes.MERIDIAN) {
@@ -87,9 +105,11 @@ export class ServerMetadata {
     return {
       ackAlarms: this.ackAlarms(),
       apiVersion: this.apiVersion(),
+      flows: this.flows(),
       graphs: this.graphs(),
       outageSummaries: this.outageSummaries(),
       setNodeLocation: this.setNodeLocation(),
+      situations: this.situations(),
       ticketer: this.ticketer(),
       type: (this.type === ServerTypes.MERIDIAN ? 'Meridian' : 'Horizon'),
     };
@@ -101,9 +121,11 @@ export class ServerMetadata {
       + ',apiVersion=' + this.apiVersion()
       + ',type=' + this.type.toString()
       + ',ackAlarms=' + this.ackAlarms()
+      + ',flows=' + this.flows()
       + ',graphs=' + this.graphs()
       + ',outageSummaries=' + this.outageSummaries()
       + ',setNodeLocation=' + this.setNodeLocation()
+      + ',situations=' + this.situations()
       + ',ticketer=' + this.ticketer()
       + ']';
   }
