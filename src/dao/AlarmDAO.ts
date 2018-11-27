@@ -395,6 +395,9 @@ export class AlarmDAO extends AbstractDAO<number, OnmsAlarm> {
 
     alarm.relatedAlarms = data.relatedAlarms;
 
+    alarm.managedObjectType = data.managedObjectType;
+    alarm.managedObjectInstance = data.managedObjectInstance;
+
     alarm.sticky = this.toMemo(data.stickyMemo);
     alarm.journal = this.toMemo(data.reductionKeyMemo);
 

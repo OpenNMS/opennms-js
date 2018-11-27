@@ -87,6 +87,12 @@ export class OnmsAlarm implements IHasUrlValue {
   /** relatedAlarms - A list of alarms related to this alarm/situation */
   public relatedAlarms: OnmsAlarmSummary[];
 
+  /** managedObjectType - the type associated with this alarm if it is a situation */
+  public managedObjectType: string;
+
+  /** managedObjectInstance - the instance associated with this alarm if it is a situation */
+  public managedObjectInstance: string;
+
   /** sticky memo - a note associated with this specific alarm instance */
   public sticky: OnmsMemo;
 
