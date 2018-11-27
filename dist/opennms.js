@@ -46587,6 +46587,17 @@ var ServerMetadata = function () {
         value: function ackAlarms() {
             return this.version.ge('14.0.0');
         }
+        /** Does this server support flow data? */
+
+    }, {
+        key: "flows",
+        value: function flows() {
+            if (this.type && this.type === ServerType_1.ServerTypes.MERIDIAN) {
+                return this.version.ge('2019.0.0');
+            } else {
+                return this.version.ge('22.0.0');
+            }
+        }
         /** Does this server support graphs? (ie, the measurements API) */
 
     }, {
@@ -46623,6 +46634,17 @@ var ServerMetadata = function () {
                 return this.version.ge('19.0.0');
             }
         }
+        /** Does this server support situations? */
+
+    }, {
+        key: "situations",
+        value: function situations() {
+            if (this.type && this.type === ServerType_1.ServerTypes.MERIDIAN) {
+                return this.version.ge('2019.0.0');
+            } else {
+                return this.version.ge('23.0.0');
+            }
+        }
         /** Does this server support ticketer configuration metadata? */
 
     }, {
@@ -46653,9 +46675,11 @@ var ServerMetadata = function () {
             return {
                 ackAlarms: this.ackAlarms(),
                 apiVersion: this.apiVersion(),
+                flows: this.flows(),
                 graphs: this.graphs(),
                 outageSummaries: this.outageSummaries(),
                 setNodeLocation: this.setNodeLocation(),
+                situations: this.situations(),
                 ticketer: this.ticketer(),
                 type: this.type === ServerType_1.ServerTypes.MERIDIAN ? 'Meridian' : 'Horizon'
             };
@@ -46665,7 +46689,7 @@ var ServerMetadata = function () {
     }, {
         key: "toString",
         value: function toString() {
-            return 'ServerMetadata[version=' + this.version.toString() + ',apiVersion=' + this.apiVersion() + ',type=' + this.type.toString() + ',ackAlarms=' + this.ackAlarms() + ',graphs=' + this.graphs() + ',outageSummaries=' + this.outageSummaries() + ',setNodeLocation=' + this.setNodeLocation() + ',ticketer=' + this.ticketer() + ']';
+            return 'ServerMetadata[version=' + this.version.toString() + ',apiVersion=' + this.apiVersion() + ',type=' + this.type.toString() + ',ackAlarms=' + this.ackAlarms() + ',flows=' + this.flows() + ',graphs=' + this.graphs() + ',outageSummaries=' + this.outageSummaries() + ',setNodeLocation=' + this.setNodeLocation() + ',situations=' + this.situations() + ',ticketer=' + this.ticketer() + ']';
         }
         /**
          * Create a new metadata object from this existing one.
@@ -47831,6 +47855,8 @@ var AlarmDAO = function (_AbstractDAO_1$Abstra) {
                 }
             }
             alarm.relatedAlarms = data.relatedAlarms;
+            alarm.managedObjectType = data.managedObjectType;
+            alarm.managedObjectInstance = data.managedObjectInstance;
             alarm.sticky = this.toMemo(data.stickyMemo);
             alarm.journal = this.toMemo(data.reductionKeyMemo);
             alarm.detailsPage = this.getDetailsPage(alarm);

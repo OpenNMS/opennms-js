@@ -4,11 +4,14 @@
 
 ### Bug Fixes
 
+* **api:** *support* flow data ([bd8c5b9](https://github.com/OpenNMS/opennms-js/commit/bd8c5b9))
 * **feedback:** Serialize the enum as a string ([3c2f997](https://github.com/OpenNMS/opennms-js/commit/3c2f997))
 
 
 ### Features
 
+* **alarms:** HELM-110: store managedObject* if present ([2b86722](https://github.com/OpenNMS/opennms-js/commit/2b86722))
+* **api:** add flow and situation metadata APIs ([42d7a58](https://github.com/OpenNMS/opennms-js/commit/42d7a58))
 * **api:** Add more test assertions for AlarmSummaryDTO ([0f45e79](https://github.com/OpenNMS/opennms-js/commit/0f45e79))
 * **api:** Add test for AlarmSummary and reductionKey ([3329cf7](https://github.com/OpenNMS/opennms-js/commit/3329cf7))
 * **api:** HZN-1357 expose FeedbackDAO ([d354040](https://github.com/OpenNMS/opennms-js/commit/d354040))
