@@ -36,7 +36,7 @@ export class ServerMetadata {
     return this.version.ge('14.0.0');
   }
 
-  /** Does this server flow data? */
+  /** Does this server support flow data? */
   public flows() {
     if (this.type && this.type === ServerTypes.MERIDIAN) {
       return this.version.ge('2019.0.0');
