@@ -51645,6 +51645,13 @@ var OnmsAlarm = function () {
             }
             return undefined;
         }
+        /** whether the alarm is a situation */
+
+    }, {
+        key: "isSituation",
+        get: function get() {
+            return this.relatedAlarms && this.relatedAlarms.length > 0;
+        }
     }, {
         key: "urlValue",
         get: function get() {

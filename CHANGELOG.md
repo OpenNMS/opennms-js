@@ -1,5 +1,5 @@
 <a name="1.2.3-SNAPSHOT"></a>
-## [1.2.3-SNAPSHOT](https://github.com/OpenNMS/opennms-js/compare/v1.2.2...v1.2.3-SNAPSHOT) (2018-11-27)
+## [1.2.3-SNAPSHOT](https://github.com/OpenNMS/opennms-js/compare/v1.2.2...v1.2.3-SNAPSHOT) (2018-12-03)
 
 
 ### Bug Fixes
@@ -11,6 +11,7 @@
 ### Features
 
 * **alarms:** HELM-110: store managedObject* if present ([2b86722](https://github.com/OpenNMS/opennms-js/commit/2b86722))
+* **alarms:** HELM-114: alarm property for whether it is a situation ([a54b627](https://github.com/OpenNMS/opennms-js/commit/a54b627))
 * **api:** add flow and situation metadata APIs ([42d7a58](https://github.com/OpenNMS/opennms-js/commit/42d7a58))
 * **api:** Add more test assertions for AlarmSummaryDTO ([0f45e79](https://github.com/OpenNMS/opennms-js/commit/0f45e79))
 * **api:** Add test for AlarmSummary and reductionKey ([3329cf7](https://github.com/OpenNMS/opennms-js/commit/3329cf7))
