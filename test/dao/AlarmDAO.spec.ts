@@ -167,6 +167,7 @@ describe('AlarmDAO with v2 API', () => {
       expect(alarm.id).toEqual(6806);
       // Spot check some of the known properties
       expect(alarm.location).toEqual('Default');
+      expect(alarm.isSituation).not.toBeTruthy();
       expect(alarm.lastEvent.label).toEqual('OpenNMS-defined node event: nodeDown');
       expect(alarm.lastEvent.location).toEqual('Default');
       expect(alarm.detailsPage).toEqual('http://demo.opennms.org/opennms/alarm/detail.htm?id=6806');
@@ -293,6 +294,7 @@ describe('AlarmDAO with AlarmSummaryDTO', () => {
     return dao.find(filter).then((alarms) => {
       expect(alarms.length).toEqual(4);
       expect(alarms[0].id).toEqual(8);
+      expect(alarms[0].isSituation).toBeTruthy();
       expect(alarms[0].relatedAlarms.length).toEqual(3);
       expect(alarms[0].relatedAlarms[0].id).toEqual(5);
       expect(alarms[0].relatedAlarms[0].type).toEqual(2);
@@ -321,6 +323,7 @@ describe('Extended Situation tests', () => {
     return dao.find(filter).then((alarms) => {
       expect(alarms.length).toEqual(1);
       expect(alarms[0].id).toEqual(243);
+      expect(alarms[0].isSituation).toBeTruthy();
       expect(alarms[0].relatedAlarms.length).toEqual(3);
       expect(alarms[0].affectedNodeCount).toEqual(1);
     });
