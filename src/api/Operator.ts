@@ -1,10 +1,15 @@
-import {OnmsEnum} from '../internal/OnmsEnum';
+import {OnmsEnum, forLabel} from '../internal/OnmsEnum';
 
 /**
  * Represents a filter comparator.
  * @module Comparator
  */
 export class Operator extends OnmsEnum<number> {
+  /** Given a label ('and', 'or'), return the corresponding operator. */
+  public static forLabel(label: string) {
+    return forLabel(Operators, label);
+  }
+
   /** Aliases for the command-line. */
   private aliases = [] as string[];
 

@@ -7,6 +7,18 @@ import {NestedRestriction} from './NestedRestriction';
  * @module Clause
  */
 export class Clause {
+  /** Given a clause JSON structure, return a Clause object. */
+  public static fromJson(clause) {
+    const operator = Operator.forLabel(clause.operator.label);
+    if (clause.restriction.clauses) {
+      const nestedRestriction = NestedRestriction.fromJson(clause.restriction);
+      return new Clause(nestedRestriction, operator);
+    } else {
+      const restriction = Restriction.fromJson(clause.restriction);
+      return new Clause(restriction, operator);
+    }
+  }
+
   /** The associated restriction. */
   public restriction: Restriction|NestedRestriction;
 
