@@ -30,6 +30,16 @@ export class MockHTTP19 extends AbstractHTTP {
         result.type = 'application/json';
         return Promise.resolve(result);
       }
+      case 'rest/alarms?limit=1000&alarmAckTime=notnull': {
+        const result = OnmsResult.ok(require('./19.1.0/get/rest/alarms/id.eq.404725.json'));
+        result.type = 'application/json';
+        return Promise.resolve(result);
+      }
+      case 'rest/alarms?limit=1000&alarmAckTime=null': {
+        const result = OnmsResult.ok(require('./19.1.0/get/rest/alarms/id.eq.404725.json'));
+        result.type = 'application/json';
+        return Promise.resolve(result);
+      }
       case 'rest/alarms?limit=1000&comparator=eq&id=404725': {
         const result = OnmsResult.ok(require('./19.1.0/get/rest/alarms/id.eq.404725.json'));
         result.type = 'application/json';
@@ -67,7 +77,7 @@ export class MockHTTP19 extends AbstractHTTP {
       }
     }
 
-    throw new Error('Not yet implemented: GET ' + urlObj.toString());
+    throw new Error('19: Not yet implemented: GET ' + urlObj.toString());
   }
 
   public put(url: string, options?: OnmsHTTPOptions) {
@@ -119,7 +129,7 @@ export class MockHTTP19 extends AbstractHTTP {
       }
     }
 
-    throw new Error('Not yet implemented: PUT ' + urlObj.toString());
+    throw new Error('19: Not yet implemented: PUT ' + urlObj.toString());
   }
 
   public post(url: string, options?: OnmsHTTPOptions) {
@@ -138,11 +148,11 @@ export class MockHTTP19 extends AbstractHTTP {
       */
     }
 
-    throw new Error('Not yet implemented: POST ' + urlObj.toString());
+    throw new Error('19: Not yet implemented: POST ' + urlObj.toString());
   }
 
   public httpDelete(url: string, options?: OnmsHTTPOptions): Promise<OnmsResult<any>> {
     const urlObj = new URI(url);
-    throw new Error('Not yet implemented: DELETE ' + urlObj.toString());
+    throw new Error('19: Not yet implemented: DELETE ' + urlObj.toString());
   }
 }
