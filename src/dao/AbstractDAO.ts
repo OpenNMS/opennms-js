@@ -1,10 +1,11 @@
 import {IFilterProcessor} from '../api/IFilterProcessor';
-import {IHasHTTP} from '../api/IHasHTTP';
-import {IOnmsHTTP} from '../api/IOnmsHTTP';
 import {OnmsError} from '../api/OnmsError';
 
 import {Filter} from '../api/Filter';
+import {IFilterVisitor} from '../api/IFilterVisitor';
+import {NestedRestriction} from '../api/NestedRestriction';
 import {OnmsHTTPOptions} from '../api/OnmsHTTPOptions';
+import {Restriction} from '../api/Restriction';
 import {SearchProperty} from '../api/SearchProperty';
 import {SearchPropertyType} from '../api/SearchPropertyType';
 
@@ -25,6 +26,7 @@ const moment = require('moment');
 // tslint:disable-next-line
 import {Moment} from 'moment';
 import {IValueProvider} from './IValueProvider';
+import { Clause } from '../api/Clause';
 
 /**
  * An abstract data access layer API, meant to (somewhat) mirror the DAO interfaces
@@ -164,6 +166,35 @@ export abstract class AbstractDAO<K, T> extends BaseDAO implements IValueProvide
           return data.map(mapCallbackFunction);
       }
       return data;
+  }
+
+  protected visitClause(clause: Clause, visitor: IFilterVisitor) {
+    const self = this;
+    if (visitor.onClause) { visitor.onClause(clause); }
+    const restriction = clause.restriction;
+    if (restriction instanceof Restriction) {
+      if (visitor.onRestriction) { visitor.onRestriction(restriction); }
+    } else if (restriction instanceof NestedRestriction) {
+      if (visitor.onNestedRestriction) { visitor.onNestedRestriction(restriction); }
+      restriction.clauses.forEach((c) => {
+        self.visitClause(c, visitor);
+      });
+    } else {
+      log.warn('Restriction is of an unknown type: ' + JSON.stringify(restriction), catDao);
+    }
+  }
+
+  /**
+   * Iterate over a Filter object and its children.
+   * @param filter the filter to visit
+   * @param visitor the class to invoke while visiting the filter
+   */
+  protected visitFilter(filter: Filter, visitor: IFilterVisitor) {
+    const self = this;
+    if (visitor.onFilter) { visitor.onFilter(filter); }
+    filter.clauses.forEach((clause) => {
+      self.visitClause(clause, visitor);
+    });
   }
 
   /**

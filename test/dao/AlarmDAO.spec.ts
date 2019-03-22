@@ -58,6 +58,20 @@ describe('AlarmDAO with v1 API', () => {
       expect(alarms.length).toEqual(1);
     });
   });
+  it('AlarmDAO.find(isAcknowledged=true)', () => {
+    const filter = new Filter();
+    filter.withOrRestriction(new Restriction('isAcknowledged', Comparators.EQ, 'true'));
+    return dao.find(filter).then((alarms) => {
+      expect(alarms.length).toEqual(1);
+    });
+  });
+  it('AlarmDAO.find(isAcknowledged=false)', () => {
+    const filter = new Filter();
+    filter.withOrRestriction(new Restriction('isAcknowledged', Comparators.EQ, 'false'));
+    return dao.find(filter).then((alarms) => {
+      expect(alarms.length).toEqual(1);
+    });
+  });
   it('AlarmDAO.searchProperties() should reject', () => {
     return expect(dao.searchProperties()).rejects.toBeDefined();
   });
@@ -179,6 +193,20 @@ describe('AlarmDAO with v2 API', () => {
     return dao.find(filter).then((alarms) => {
       expect(alarms.length).toEqual(1);
       expect(alarms[0].id).toEqual(6806);
+    });
+  });
+  it('AlarmDAO.find(isAcknowledged=true)', () => {
+    const filter = new Filter();
+    filter.withOrRestriction(new Restriction('isAcknowledged', Comparators.EQ, 'true'));
+    return dao.find(filter).then((alarms) => {
+      expect(alarms.length).toEqual(1);
+    });
+  });
+  it('AlarmDAO.find(isAcknowledged=false)', () => {
+    const filter = new Filter();
+    filter.withOrRestriction(new Restriction('isAcknowledged', Comparators.EQ, 'false'));
+    return dao.find(filter).then((alarms) => {
+      expect(alarms.length).toEqual(1);
     });
   });
   it('AlarmDAO.find(uei=should-not-exist)', () => {
