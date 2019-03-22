@@ -116,6 +116,11 @@ export class OnmsAlarm implements IHasUrlValue {
   /** link to the alarm details page on the source instance */
   public detailsPage: string;
 
+  /** whether the alarm has been acknowledged */
+  public get isAcknowledged() {
+    return this.ackTime !== undefined && this.ackTime !== null;
+  }
+
   /** whether the alarm is a situation */
   public get isSituation() {
     return this.relatedAlarms && this.relatedAlarms.length > 0;

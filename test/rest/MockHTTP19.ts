@@ -5,6 +5,8 @@ declare const Promise, require;
 // tslint:disable-next-line
 const URI = require('urijs');
 
+import clonedeep from 'lodash.clonedeep';
+
 import {AbstractHTTP} from '../../src/rest/AbstractHTTP';
 
 import {OnmsHTTPOptions} from '../../src/api/OnmsHTTPOptions';
@@ -27,6 +29,23 @@ export class MockHTTP19 extends AbstractHTTP {
       }
       case 'rest/alarms/404725': {
         const result = OnmsResult.ok(require('./19.1.0/get/rest/alarms/404725.json'));
+        result.type = 'application/json';
+        return Promise.resolve(result);
+      }
+      case 'rest/alarms?limit=1000&alarmAckTime=notnull': {
+        const ret = clonedeep(require('./19.1.0/get/rest/alarms/id.eq.404725.json'));
+        ret.alarm[0].ackTime = 1495806508530;
+        ret.alarm[0].ackUser = 'ranger';
+        const result = OnmsResult.ok(ret);
+        result.type = 'application/json';
+        return Promise.resolve(result);
+      }
+      case 'rest/alarms?limit=1000&alarmAckTime=null': {
+        const ret = clonedeep(require('./19.1.0/get/rest/alarms/id.eq.404725.json'));
+        delete ret.alarm[0].ackId;
+        delete ret.alarm[0].ackTime;
+        delete ret.alarm[0].ackUser;
+        const result = OnmsResult.ok(ret);
         result.type = 'application/json';
         return Promise.resolve(result);
       }
@@ -67,7 +86,7 @@ export class MockHTTP19 extends AbstractHTTP {
       }
     }
 
-    throw new Error('Not yet implemented: GET ' + urlObj.toString());
+    throw new Error('19: Not yet implemented: GET ' + urlObj.toString());
   }
 
   public put(url: string, options?: OnmsHTTPOptions) {
@@ -119,7 +138,7 @@ export class MockHTTP19 extends AbstractHTTP {
       }
     }
 
-    throw new Error('Not yet implemented: PUT ' + urlObj.toString());
+    throw new Error('19: Not yet implemented: PUT ' + urlObj.toString());
   }
 
   public post(url: string, options?: OnmsHTTPOptions) {
@@ -138,11 +157,11 @@ export class MockHTTP19 extends AbstractHTTP {
       */
     }
 
-    throw new Error('Not yet implemented: POST ' + urlObj.toString());
+    throw new Error('19: Not yet implemented: POST ' + urlObj.toString());
   }
 
   public httpDelete(url: string, options?: OnmsHTTPOptions): Promise<OnmsResult<any>> {
     const urlObj = new URI(url);
-    throw new Error('Not yet implemented: DELETE ' + urlObj.toString());
+    throw new Error('19: Not yet implemented: DELETE ' + urlObj.toString());
   }
 }
