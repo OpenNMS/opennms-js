@@ -122,6 +122,7 @@ function createConfig(options) {
       sourceMap: true,
       uglifyOptions: {
         mangle: {
+          keep_fnames: true,
           reserved: [ '$element', '$super', '$scope', '$uib', '$', 'jQuery', 'exports', 'require', 'angular', 'c3', 'd3' ]
         },
         compress: true
