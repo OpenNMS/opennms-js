@@ -237,6 +237,12 @@ const CLI = () => {
         }
 
         return dao.find(filter).then((alarms) => {
+          if (!alarms || alarms.length === 0) {
+            console.log('No alarms found.');
+            console.log('');
+            return;
+          }
+
           const format = Object.assign({}, tableFormat);
           const formatted = formatAlarms(alarms);
 
