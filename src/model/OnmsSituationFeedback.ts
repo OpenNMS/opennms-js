@@ -25,6 +25,9 @@ export class OnmsSituationFeedback implements IHasUrlValue {
   /** the related alarm reduction key  */
   public user: string;
 
+  /** TRUE if Alarm in this Feedback is the Root Cause of the Situation in this Feedback */
+  public isRootCause: boolean;
+
   /** the related alarm reduction key  */
   public timestamp: number;
 
