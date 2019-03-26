@@ -5,6 +5,7 @@
 ### Bug Fixes
 
 * **build:** JS-28 - don't mangle function names ([07100ca](https://github.com/OpenNMS/opennms-js/commit/07100ca))
+* **cli:** fix alarm cli when no alarms are returned ([75c6a9a](https://github.com/OpenNMS/opennms-js/commit/75c6a9a))
 
 
 

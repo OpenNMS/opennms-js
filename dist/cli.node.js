@@ -59706,6 +59706,11 @@ var CLI = function CLI() {
             }
 
             return dao.find(filter).then(function (alarms) {
+                if (!alarms || alarms.length === 0) {
+                    console.log('No alarms found.');
+                    console.log('');
+                    return;
+                }
                 var format = Object.assign({}, tableFormat);
                 var formatted = formatAlarms(alarms);
                 format.head = ['ID', 'Severity', 'Node', 'Count', 'Time', 'Log'];
