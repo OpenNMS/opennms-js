@@ -23,9 +23,10 @@ docs/changed-files
 public/css/*.min.css
 
 # Editor junk
+.idea/
+.vscode/
 *.sublime-workspace
 *.swp
-.idea/
 *.iml
 
 /data/*
