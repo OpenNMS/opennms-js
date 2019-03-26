@@ -2,6 +2,11 @@
 ## [1.3.1-SNAPSHOT](https://github.com/OpenNMS/opennms-js/compare/v1.3.0...v1.3.1-SNAPSHOT) (2019-03-26)
 
 
+### Bug Fixes
+
+* **build:** JS-28 - don't mangle function names ([07100ca](https://github.com/OpenNMS/opennms-js/commit/07100ca))
+
+
 
 <a name="1.3.0"></a>
 # [1.3.0](https://github.com/OpenNMS/opennms-js/compare/v1.2.2...v1.3.0) (2018-12-07)
