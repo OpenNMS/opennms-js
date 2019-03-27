@@ -1,11 +1,17 @@
 <a name="1.3.1-SNAPSHOT"></a>
-## [1.3.1-SNAPSHOT](https://github.com/OpenNMS/opennms-js/compare/v1.3.0...v1.3.1-SNAPSHOT) (2019-03-26)
+## [1.3.1-SNAPSHOT](https://github.com/OpenNMS/opennms-js/compare/v1.3.0...v1.3.1-SNAPSHOT) (2019-03-27)
 
 
 ### Bug Fixes
 
 * **build:** JS-28 - don't mangle function names ([07100ca](https://github.com/OpenNMS/opennms-js/commit/07100ca))
+* **build:** JS-31 - fix all outstanding audit warnings ([ace9779](https://github.com/OpenNMS/opennms-js/commit/ace9779))
 * **cli:** fix alarm cli when no alarms are returned ([75c6a9a](https://github.com/OpenNMS/opennms-js/commit/75c6a9a))
+
+
+### Features
+
+* **api:** JS-30 - reconstitute Filter/Clause/Restrictions from JSON ([891bbd1](https://github.com/OpenNMS/opennms-js/commit/891bbd1))
 
 
 

@@ -2822,241 +2822,430 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 "use strict";
 
 
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
 var url = __webpack_require__(/*! url */ "url");
-var assert = __webpack_require__(/*! assert */ "assert");
+var URL = url.URL;
 var http = __webpack_require__(/*! http */ "http");
 var https = __webpack_require__(/*! https */ "https");
+var assert = __webpack_require__(/*! assert */ "assert");
 var Writable = __webpack_require__(/*! stream */ "stream").Writable;
-var debug = __webpack_require__(/*! debug */ "./node_modules/debug/src/index.js")('follow-redirects');
+var debug = __webpack_require__(/*! debug */ "./node_modules/debug/src/index.js")("follow-redirects");
 
-var nativeProtocols = { 'http:': http, 'https:': https };
-var schemes = {};
-var _exports = module.exports = {
-	maxRedirects: 21
-};
 // RFC7231§4.2.1: Of the request methods defined by this specification,
 // the GET, HEAD, OPTIONS, and TRACE methods are defined to be safe.
-var safeMethods = { GET: true, HEAD: true, OPTIONS: true, TRACE: true };
+var SAFE_METHODS = { GET: true, HEAD: true, OPTIONS: true, TRACE: true };
 
 // Create handlers that pass events from native requests
 var eventHandlers = Object.create(null);
-['abort', 'aborted', 'error', 'socket'].forEach(function (event) {
-	eventHandlers[event] = function (arg) {
-		this._redirectable.emit(event, arg);
-	};
+["abort", "aborted", "error", "socket", "timeout"].forEach(function (event) {
+  eventHandlers[event] = function (arg) {
+    this._redirectable.emit(event, arg);
+  };
 });
 
 // An HTTP(S) request that can be redirected
 function RedirectableRequest(options, responseCallback) {
-	// Initialize the request
-	Writable.call(this);
-	this._options = options;
-	this._redirectCount = 0;
-	this._bufferedWrites = [];
+  // Initialize the request
+  Writable.call(this);
+  options.headers = options.headers || {};
+  this._options = options;
+  this._ended = false;
+  this._ending = false;
+  this._redirectCount = 0;
+  this._redirects = [];
+  this._requestBodyLength = 0;
+  this._requestBodyBuffers = [];
 
-	// Attach a callback if passed
-	if (responseCallback) {
-		this.on('response', responseCallback);
-	}
+  // Since http.request treats host as an alias of hostname,
+  // but the url module interprets host as hostname plus port,
+  // eliminate the host property to avoid confusion.
+  if (options.host) {
+    // Use hostname if set, because it has precedence
+    if (!options.hostname) {
+      options.hostname = options.host;
+    }
+    delete options.host;
+  }
 
-	// React to responses of native requests
-	var self = this;
-	this._onNativeResponse = function (response) {
-		self._processResponse(response);
-	};
+  // Attach a callback if passed
+  if (responseCallback) {
+    this.on("response", responseCallback);
+  }
 
-	// Complete the URL object when necessary
-	if (!options.pathname && options.path) {
-		var searchPos = options.path.indexOf('?');
-		if (searchPos < 0) {
-			options.pathname = options.path;
-		} else {
-			options.pathname = options.path.substring(0, searchPos);
-			options.search = options.path.substring(searchPos);
-		}
-	}
+  // React to responses of native requests
+  var self = this;
+  this._onNativeResponse = function (response) {
+    self._processResponse(response);
+  };
 
-	// Perform the first request
-	this._performRequest();
+  // Complete the URL object when necessary
+  if (!options.pathname && options.path) {
+    var searchPos = options.path.indexOf("?");
+    if (searchPos < 0) {
+      options.pathname = options.path;
+    } else {
+      options.pathname = options.path.substring(0, searchPos);
+      options.search = options.path.substring(searchPos);
+    }
+  }
+
+  // Perform the first request
+  this._performRequest();
 }
 RedirectableRequest.prototype = Object.create(Writable.prototype);
 
-// Executes the next native request (initial or redirect)
-RedirectableRequest.prototype._performRequest = function () {
-	// If specified, use the agent corresponding to the protocol
-	// (HTTP and HTTPS use different types of agents)
-	var protocol = this._options.protocol;
-	if (this._options.agents) {
-		this._options.agent = this._options.agents[schemes[protocol]];
-	}
-
-	// Create the native request
-	var nativeProtocol = nativeProtocols[protocol];
-	var request = this._currentRequest = nativeProtocol.request(this._options, this._onNativeResponse);
-	this._currentUrl = url.format(this._options);
-
-	// Set up event handlers
-	request._redirectable = this;
-	for (var event in eventHandlers) {
-		/* istanbul ignore else */
-		if (event) {
-			request.on(event, eventHandlers[event]);
-		}
-	}
-
-	// End a redirected request
-	// (The first request must be ended explicitly with RedirectableRequest#end)
-	if (this._isRedirect) {
-		// If the request doesn't have en entity, end directly.
-		var bufferedWrites = this._bufferedWrites;
-		if (bufferedWrites.length === 0) {
-			request.end();
-			// Otherwise, write the request entity and end afterwards.
-		} else {
-			var i = 0;
-			(function writeNext() {
-				if (i < bufferedWrites.length) {
-					var bufferedWrite = bufferedWrites[i++];
-					request.write(bufferedWrite.data, bufferedWrite.encoding, writeNext);
-				} else {
-					request.end();
-				}
-			})();
-		}
-	}
-};
-
-// Processes a response from the current native request
-RedirectableRequest.prototype._processResponse = function (response) {
-	// RFC7231§6.4: The 3xx (Redirection) class of status code indicates
-	// that further action needs to be taken by the user agent in order to
-	// fulfill the request. If a Location header field is provided,
-	// the user agent MAY automatically redirect its request to the URI
-	// referenced by the Location field value,
-	// even if the specific status code is not understood.
-	var location = response.headers.location;
-	if (location && this._options.followRedirects !== false && response.statusCode >= 300 && response.statusCode < 400) {
-		// RFC7231§6.4: A client SHOULD detect and intervene
-		// in cyclical redirections (i.e., "infinite" redirection loops).
-		if (++this._redirectCount > this._options.maxRedirects) {
-			return this.emit('error', new Error('Max redirects exceeded.'));
-		}
-
-		// RFC7231§6.4: Automatic redirection needs to done with
-		// care for methods not known to be safe […],
-		// since the user might not wish to redirect an unsafe request.
-		// RFC7231§6.4.7: The 307 (Temporary Redirect) status code indicates
-		// that the target resource resides temporarily under a different URI
-		// and the user agent MUST NOT change the request method
-		// if it performs an automatic redirection to that URI.
-		var header;
-		var headers = this._options.headers;
-		if (response.statusCode !== 307 && !(this._options.method in safeMethods)) {
-			this._options.method = 'GET';
-			// Drop a possible entity and headers related to it
-			this._bufferedWrites = [];
-			for (header in headers) {
-				if (/^content-/i.test(header)) {
-					delete headers[header];
-				}
-			}
-		}
-
-		// Drop the Host header, as the redirect might lead to a different host
-		if (!this._isRedirect) {
-			for (header in headers) {
-				if (/^host$/i.test(header)) {
-					delete headers[header];
-				}
-			}
-		}
-
-		// Perform the redirected request
-		var redirectUrl = url.resolve(this._currentUrl, location);
-		debug('redirecting to', redirectUrl);
-		Object.assign(this._options, url.parse(redirectUrl));
-		this._isRedirect = true;
-		this._performRequest();
-	} else {
-		// The response is not a redirect; return it as-is
-		response.responseUrl = this._currentUrl;
-		this.emit('response', response);
-
-		// Clean up
-		delete this._options;
-		delete this._bufferedWrites;
-	}
-};
-
-// Aborts the current native request
-RedirectableRequest.prototype.abort = function () {
-	this._currentRequest.abort();
-};
-
-// Flushes the headers of the current native request
-RedirectableRequest.prototype.flushHeaders = function () {
-	this._currentRequest.flushHeaders();
-};
-
-// Sets the noDelay option of the current native request
-RedirectableRequest.prototype.setNoDelay = function (noDelay) {
-	this._currentRequest.setNoDelay(noDelay);
-};
-
-// Sets the socketKeepAlive option of the current native request
-RedirectableRequest.prototype.setSocketKeepAlive = function (enable, initialDelay) {
-	this._currentRequest.setSocketKeepAlive(enable, initialDelay);
-};
-
-// Sets the timeout option of the current native request
-RedirectableRequest.prototype.setTimeout = function (timeout, callback) {
-	this._currentRequest.setTimeout(timeout, callback);
-};
-
 // Writes buffered data to the current native request
 RedirectableRequest.prototype.write = function (data, encoding, callback) {
-	this._currentRequest.write(data, encoding, callback);
-	this._bufferedWrites.push({ data: data, encoding: encoding });
+  // Writing is not allowed if end has been called
+  if (this._ending) {
+    throw new Error("write after end");
+  }
+
+  // Validate input and shift parameters if necessary
+  if (!(typeof data === "string" || (typeof data === "undefined" ? "undefined" : _typeof(data)) === "object" && "length" in data)) {
+    throw new Error("data should be a string, Buffer or Uint8Array");
+  }
+  if (typeof encoding === "function") {
+    callback = encoding;
+    encoding = null;
+  }
+
+  // Ignore empty buffers, since writing them doesn't invoke the callback
+  // https://github.com/nodejs/node/issues/22066
+  if (data.length === 0) {
+    if (callback) {
+      callback();
+    }
+    return;
+  }
+  // Only write when we don't exceed the maximum body length
+  if (this._requestBodyLength + data.length <= this._options.maxBodyLength) {
+    this._requestBodyLength += data.length;
+    this._requestBodyBuffers.push({ data: data, encoding: encoding });
+    this._currentRequest.write(data, encoding, callback);
+  }
+  // Error when we exceed the maximum body length
+  else {
+      this.emit("error", new Error("Request body larger than maxBodyLength limit"));
+      this.abort();
+    }
 };
 
 // Ends the current native request
 RedirectableRequest.prototype.end = function (data, encoding, callback) {
-	this._currentRequest.end(data, encoding, callback);
-	if (data) {
-		this._bufferedWrites.push({ data: data, encoding: encoding });
-	}
+  // Shift parameters if necessary
+  if (typeof data === "function") {
+    callback = data;
+    data = encoding = null;
+  } else if (typeof encoding === "function") {
+    callback = encoding;
+    encoding = null;
+  }
+
+  // Write data if needed and end
+  if (!data) {
+    this._ended = this._ending = true;
+    this._currentRequest.end(null, null, callback);
+  } else {
+    var self = this;
+    var currentRequest = this._currentRequest;
+    this.write(data, encoding, function () {
+      self._ended = true;
+      currentRequest.end(null, null, callback);
+    });
+    this._ending = true;
+  }
 };
 
-// Export a redirecting wrapper for each native protocol
-Object.keys(nativeProtocols).forEach(function (protocol) {
-	var scheme = schemes[protocol] = protocol.substr(0, protocol.length - 1);
-	var nativeProtocol = nativeProtocols[protocol];
-	var wrappedProtocol = _exports[scheme] = Object.create(nativeProtocol);
+// Sets a header value on the current native request
+RedirectableRequest.prototype.setHeader = function (name, value) {
+  this._options.headers[name] = value;
+  this._currentRequest.setHeader(name, value);
+};
 
-	// Executes an HTTP request, following redirects
-	wrappedProtocol.request = function (options, callback) {
-		if (typeof options === 'string') {
-			options = url.parse(options);
-			options.maxRedirects = _exports.maxRedirects;
-		} else {
-			options = Object.assign({
-				maxRedirects: _exports.maxRedirects,
-				protocol: protocol
-			}, options);
-		}
-		assert.equal(options.protocol, protocol, 'protocol mismatch');
-		debug('options', options);
+// Clears a header value on the current native request
+RedirectableRequest.prototype.removeHeader = function (name) {
+  delete this._options.headers[name];
+  this._currentRequest.removeHeader(name);
+};
 
-		return new RedirectableRequest(options, callback);
-	};
+// Global timeout for all underlying requests
+RedirectableRequest.prototype.setTimeout = function (msecs, callback) {
+  if (callback) {
+    this.once("timeout", callback);
+  }
 
-	// Executes a GET request, following redirects
-	wrappedProtocol.get = function (options, callback) {
-		var request = wrappedProtocol.request(options, callback);
-		request.end();
-		return request;
-	};
+  if (this.socket) {
+    startTimer(this, msecs);
+  } else {
+    var self = this;
+    this._currentRequest.once("socket", function () {
+      startTimer(self, msecs);
+    });
+  }
+
+  this.once("response", clearTimer);
+  this.once("error", clearTimer);
+
+  return this;
+};
+
+function startTimer(request, msecs) {
+  clearTimeout(request._timeout);
+  request._timeout = setTimeout(function () {
+    request.emit("timeout");
+  }, msecs);
+}
+
+function clearTimer() {
+  clearTimeout(this._timeout);
+}
+
+// Proxy all other public ClientRequest methods
+["abort", "flushHeaders", "getHeader", "setNoDelay", "setSocketKeepAlive"].forEach(function (method) {
+  RedirectableRequest.prototype[method] = function (a, b) {
+    return this._currentRequest[method](a, b);
+  };
 });
+
+// Proxy all public ClientRequest properties
+["aborted", "connection", "socket"].forEach(function (property) {
+  Object.defineProperty(RedirectableRequest.prototype, property, {
+    get: function get() {
+      return this._currentRequest[property];
+    }
+  });
+});
+
+// Executes the next native request (initial or redirect)
+RedirectableRequest.prototype._performRequest = function () {
+  // Load the native protocol
+  var protocol = this._options.protocol;
+  var nativeProtocol = this._options.nativeProtocols[protocol];
+  if (!nativeProtocol) {
+    this.emit("error", new Error("Unsupported protocol " + protocol));
+    return;
+  }
+
+  // If specified, use the agent corresponding to the protocol
+  // (HTTP and HTTPS use different types of agents)
+  if (this._options.agents) {
+    var scheme = protocol.substr(0, protocol.length - 1);
+    this._options.agent = this._options.agents[scheme];
+  }
+
+  // Create the native request
+  var request = this._currentRequest = nativeProtocol.request(this._options, this._onNativeResponse);
+  this._currentUrl = url.format(this._options);
+
+  // Set up event handlers
+  request._redirectable = this;
+  for (var event in eventHandlers) {
+    /* istanbul ignore else */
+    if (event) {
+      request.on(event, eventHandlers[event]);
+    }
+  }
+
+  // End a redirected request
+  // (The first request must be ended explicitly with RedirectableRequest#end)
+  if (this._isRedirect) {
+    // Write the request entity and end.
+    var i = 0;
+    var self = this;
+    var buffers = this._requestBodyBuffers;
+    (function writeNext(error) {
+      // Only write if this request has not been redirected yet
+      /* istanbul ignore else */
+      if (request === self._currentRequest) {
+        // Report any write errors
+        /* istanbul ignore if */
+        if (error) {
+          self.emit("error", error);
+        }
+        // Write the next buffer if there are still left
+        else if (i < buffers.length) {
+            var buffer = buffers[i++];
+            /* istanbul ignore else */
+            if (!request.finished) {
+              request.write(buffer.data, buffer.encoding, writeNext);
+            }
+          }
+          // End the request if `end` has been called on us
+          else if (self._ended) {
+              request.end();
+            }
+      }
+    })();
+  }
+};
+
+// Processes a response from the current native request
+RedirectableRequest.prototype._processResponse = function (response) {
+  // Store the redirected response
+  if (this._options.trackRedirects) {
+    this._redirects.push({
+      url: this._currentUrl,
+      headers: response.headers,
+      statusCode: response.statusCode
+    });
+  }
+
+  // RFC7231§6.4: The 3xx (Redirection) class of status code indicates
+  // that further action needs to be taken by the user agent in order to
+  // fulfill the request. If a Location header field is provided,
+  // the user agent MAY automatically redirect its request to the URI
+  // referenced by the Location field value,
+  // even if the specific status code is not understood.
+  var location = response.headers.location;
+  if (location && this._options.followRedirects !== false && response.statusCode >= 300 && response.statusCode < 400) {
+    // Abort the current request
+    this._currentRequest.removeAllListeners();
+    this._currentRequest.on("error", noop);
+    this._currentRequest.abort();
+
+    // RFC7231§6.4: A client SHOULD detect and intervene
+    // in cyclical redirections (i.e., "infinite" redirection loops).
+    if (++this._redirectCount > this._options.maxRedirects) {
+      this.emit("error", new Error("Max redirects exceeded."));
+      return;
+    }
+
+    // RFC7231§6.4: Automatic redirection needs to done with
+    // care for methods not known to be safe […],
+    // since the user might not wish to redirect an unsafe request.
+    // RFC7231§6.4.7: The 307 (Temporary Redirect) status code indicates
+    // that the target resource resides temporarily under a different URI
+    // and the user agent MUST NOT change the request method
+    // if it performs an automatic redirection to that URI.
+    var header;
+    var headers = this._options.headers;
+    if (response.statusCode !== 307 && !(this._options.method in SAFE_METHODS)) {
+      this._options.method = "GET";
+      // Drop a possible entity and headers related to it
+      this._requestBodyBuffers = [];
+      for (header in headers) {
+        if (/^content-/i.test(header)) {
+          delete headers[header];
+        }
+      }
+    }
+
+    // Drop the Host header, as the redirect might lead to a different host
+    if (!this._isRedirect) {
+      for (header in headers) {
+        if (/^host$/i.test(header)) {
+          delete headers[header];
+        }
+      }
+    }
+
+    // Perform the redirected request
+    var redirectUrl = url.resolve(this._currentUrl, location);
+    debug("redirecting to", redirectUrl);
+    Object.assign(this._options, url.parse(redirectUrl));
+    this._isRedirect = true;
+    this._performRequest();
+
+    // Discard the remainder of the response to avoid waiting for data
+    response.destroy();
+  } else {
+    // The response is not a redirect; return it as-is
+    response.responseUrl = this._currentUrl;
+    response.redirects = this._redirects;
+    this.emit("response", response);
+
+    // Clean up
+    this._requestBodyBuffers = [];
+  }
+};
+
+// Wraps the key/value object of protocols with redirect functionality
+function wrap(protocols) {
+  // Default settings
+  var exports = {
+    maxRedirects: 21,
+    maxBodyLength: 10 * 1024 * 1024
+  };
+
+  // Wrap each protocol
+  var nativeProtocols = {};
+  Object.keys(protocols).forEach(function (scheme) {
+    var protocol = scheme + ":";
+    var nativeProtocol = nativeProtocols[protocol] = protocols[scheme];
+    var wrappedProtocol = exports[scheme] = Object.create(nativeProtocol);
+
+    // Executes a request, following redirects
+    wrappedProtocol.request = function (input, options, callback) {
+      // Parse parameters
+      if (typeof input === "string") {
+        var urlStr = input;
+        try {
+          input = urlToOptions(new URL(urlStr));
+        } catch (err) {
+          /* istanbul ignore next */
+          input = url.parse(urlStr);
+        }
+      } else if (URL && input instanceof URL) {
+        input = urlToOptions(input);
+      } else {
+        callback = options;
+        options = input;
+        input = { protocol: protocol };
+      }
+      if (typeof options === "function") {
+        callback = options;
+        options = null;
+      }
+
+      // Set defaults
+      options = Object.assign({
+        maxRedirects: exports.maxRedirects,
+        maxBodyLength: exports.maxBodyLength
+      }, input, options);
+      options.nativeProtocols = nativeProtocols;
+
+      assert.equal(options.protocol, protocol, "protocol mismatch");
+      debug("options", options);
+      return new RedirectableRequest(options, callback);
+    };
+
+    // Executes a GET request, following redirects
+    wrappedProtocol.get = function (input, options, callback) {
+      var request = wrappedProtocol.request(input, options, callback);
+      request.end();
+      return request;
+    };
+  });
+  return exports;
+}
+
+/* istanbul ignore next */
+function noop() {} /* empty */
+
+// from https://github.com/nodejs/node/blob/master/lib/internal/url.js
+function urlToOptions(urlObject) {
+  var options = {
+    protocol: urlObject.protocol,
+    hostname: urlObject.hostname.startsWith("[") ?
+    /* istanbul ignore next */
+    urlObject.hostname.slice(1, -1) : urlObject.hostname,
+    hash: urlObject.hash,
+    search: urlObject.search,
+    pathname: urlObject.pathname,
+    path: urlObject.pathname + urlObject.search,
+    href: urlObject.href
+  };
+  if (urlObject.port !== "") {
+    options.port = Number(urlObject.port);
+  }
+  return options;
+}
+
+// Exports
+module.exports = wrap({ http: http, https: https });
+module.exports.wrap = wrap;
 
 /***/ }),
 
@@ -32797,17 +32986,17 @@ var ArraySet = __webpack_require__(/*! ./array-set */ "./node_modules/source-map
 var base64VLQ = __webpack_require__(/*! ./base64-vlq */ "./node_modules/source-map/lib/base64-vlq.js");
 var quickSort = __webpack_require__(/*! ./quick-sort */ "./node_modules/source-map/lib/quick-sort.js").quickSort;
 
-function SourceMapConsumer(aSourceMap) {
+function SourceMapConsumer(aSourceMap, aSourceMapURL) {
   var sourceMap = aSourceMap;
   if (typeof aSourceMap === 'string') {
-    sourceMap = JSON.parse(aSourceMap.replace(/^\)\]\}'/, ''));
+    sourceMap = util.parseSourceMapInput(aSourceMap);
   }
 
-  return sourceMap.sections != null ? new IndexedSourceMapConsumer(sourceMap) : new BasicSourceMapConsumer(sourceMap);
+  return sourceMap.sections != null ? new IndexedSourceMapConsumer(sourceMap, aSourceMapURL) : new BasicSourceMapConsumer(sourceMap, aSourceMapURL);
 }
 
-SourceMapConsumer.fromSourceMap = function (aSourceMap) {
-  return BasicSourceMapConsumer.fromSourceMap(aSourceMap);
+SourceMapConsumer.fromSourceMap = function (aSourceMap, aSourceMapURL) {
+  return BasicSourceMapConsumer.fromSourceMap(aSourceMap, aSourceMapURL);
 };
 
 /**
@@ -32847,6 +33036,8 @@ SourceMapConsumer.prototype._version = 3;
 
 SourceMapConsumer.prototype.__generatedMappings = null;
 Object.defineProperty(SourceMapConsumer.prototype, '_generatedMappings', {
+  configurable: true,
+  enumerable: true,
   get: function get() {
     if (!this.__generatedMappings) {
       this._parseMappings(this._mappings, this.sourceRoot);
@@ -32858,6 +33049,8 @@ Object.defineProperty(SourceMapConsumer.prototype, '_generatedMappings', {
 
 SourceMapConsumer.prototype.__originalMappings = null;
 Object.defineProperty(SourceMapConsumer.prototype, '_originalMappings', {
+  configurable: true,
+  enumerable: true,
   get: function get() {
     if (!this.__originalMappings) {
       this._parseMappings(this._mappings, this.sourceRoot);
@@ -32922,9 +33115,7 @@ SourceMapConsumer.prototype.eachMapping = function SourceMapConsumer_eachMapping
   var sourceRoot = this.sourceRoot;
   mappings.map(function (mapping) {
     var source = mapping.source === null ? null : this._sources.at(mapping.source);
-    if (source != null && sourceRoot != null) {
-      source = util.join(sourceRoot, source);
-    }
+    source = util.computeSourceURL(sourceRoot, source, this._sourceMapURL);
     return {
       source: source,
       generatedLine: mapping.generatedLine,
@@ -32947,13 +33138,16 @@ SourceMapConsumer.prototype.eachMapping = function SourceMapConsumer_eachMapping
  * The only argument is an object with the following properties:
  *
  *   - source: The filename of the original source.
- *   - line: The line number in the original source.
+ *   - line: The line number in the original source.  The line number is 1-based.
  *   - column: Optional. the column number in the original source.
+ *    The column number is 0-based.
  *
  * and an array of objects is returned, each with the following properties:
  *
- *   - line: The line number in the generated source, or null.
+ *   - line: The line number in the generated source, or null.  The
+ *    line number is 1-based.
  *   - column: The column number in the generated source, or null.
+ *    The column number is 0-based.
  */
 SourceMapConsumer.prototype.allGeneratedPositionsFor = function SourceMapConsumer_allGeneratedPositionsFor(aArgs) {
   var line = util.getArg(aArgs, 'line');
@@ -32968,13 +33162,10 @@ SourceMapConsumer.prototype.allGeneratedPositionsFor = function SourceMapConsume
     originalColumn: util.getArg(aArgs, 'column', 0)
   };
 
-  if (this.sourceRoot != null) {
-    needle.source = util.relative(this.sourceRoot, needle.source);
-  }
-  if (!this._sources.has(needle.source)) {
+  needle.source = this._findSourceIndex(needle.source);
+  if (needle.source < 0) {
     return [];
   }
-  needle.source = this._sources.indexOf(needle.source);
 
   var mappings = [];
 
@@ -33027,7 +33218,7 @@ exports.SourceMapConsumer = SourceMapConsumer;
  * query for information about the original file positions by giving it a file
  * position in the generated source.
  *
- * The only parameter is the raw source map (either as a JSON string, or
+ * The first parameter is the raw source map (either as a JSON string, or
  * already parsed to an object). According to the spec, source maps have the
  * following attributes:
  *
@@ -33050,12 +33241,16 @@ exports.SourceMapConsumer = SourceMapConsumer;
  *       mappings: "AA,AB;;ABCDE;"
  *     }
  *
+ * The second parameter, if given, is a string whose value is the URL
+ * at which the source map was found.  This URL is used to compute the
+ * sources array.
+ *
  * [0]: https://docs.google.com/document/d/1U1RGAehQwRypUTovF1KRlpiOFze0b-_2gc6fAH0KY0k/edit?pli=1#
  */
-function BasicSourceMapConsumer(aSourceMap) {
+function BasicSourceMapConsumer(aSourceMap, aSourceMapURL) {
   var sourceMap = aSourceMap;
   if (typeof aSourceMap === 'string') {
-    sourceMap = JSON.parse(aSourceMap.replace(/^\)\]\}'/, ''));
+    sourceMap = util.parseSourceMapInput(aSourceMap);
   }
 
   var version = util.getArg(sourceMap, 'version');
@@ -33072,6 +33267,10 @@ function BasicSourceMapConsumer(aSourceMap) {
   // string rather than a number, so we use loose equality checking here.
   if (version != this._version) {
     throw new Error('Unsupported version: ' + version);
+  }
+
+  if (sourceRoot) {
+    sourceRoot = util.normalize(sourceRoot);
   }
 
   sources = sources.map(String)
@@ -33094,9 +33293,14 @@ function BasicSourceMapConsumer(aSourceMap) {
   this._names = ArraySet.fromArray(names.map(String), true);
   this._sources = ArraySet.fromArray(sources, true);
 
+  this._absoluteSources = this._sources.toArray().map(function (s) {
+    return util.computeSourceURL(sourceRoot, s, aSourceMapURL);
+  });
+
   this.sourceRoot = sourceRoot;
   this.sourcesContent = sourcesContent;
   this._mappings = mappings;
+  this._sourceMapURL = aSourceMapURL;
   this.file = file;
 }
 
@@ -33104,13 +33308,41 @@ BasicSourceMapConsumer.prototype = Object.create(SourceMapConsumer.prototype);
 BasicSourceMapConsumer.prototype.consumer = SourceMapConsumer;
 
 /**
+ * Utility function to find the index of a source.  Returns -1 if not
+ * found.
+ */
+BasicSourceMapConsumer.prototype._findSourceIndex = function (aSource) {
+  var relativeSource = aSource;
+  if (this.sourceRoot != null) {
+    relativeSource = util.relative(this.sourceRoot, relativeSource);
+  }
+
+  if (this._sources.has(relativeSource)) {
+    return this._sources.indexOf(relativeSource);
+  }
+
+  // Maybe aSource is an absolute URL as returned by |sources|.  In
+  // this case we can't simply undo the transform.
+  var i;
+  for (i = 0; i < this._absoluteSources.length; ++i) {
+    if (this._absoluteSources[i] == aSource) {
+      return i;
+    }
+  }
+
+  return -1;
+};
+
+/**
  * Create a BasicSourceMapConsumer from a SourceMapGenerator.
  *
  * @param SourceMapGenerator aSourceMap
  *        The source map that will be consumed.
+ * @param String aSourceMapURL
+ *        The URL at which the source map can be found (optional)
  * @returns BasicSourceMapConsumer
  */
-BasicSourceMapConsumer.fromSourceMap = function SourceMapConsumer_fromSourceMap(aSourceMap) {
+BasicSourceMapConsumer.fromSourceMap = function SourceMapConsumer_fromSourceMap(aSourceMap, aSourceMapURL) {
   var smc = Object.create(BasicSourceMapConsumer.prototype);
 
   var names = smc._names = ArraySet.fromArray(aSourceMap._names.toArray(), true);
@@ -33118,6 +33350,10 @@ BasicSourceMapConsumer.fromSourceMap = function SourceMapConsumer_fromSourceMap(
   smc.sourceRoot = aSourceMap._sourceRoot;
   smc.sourcesContent = aSourceMap._generateSourcesContent(smc._sources.toArray(), smc.sourceRoot);
   smc.file = aSourceMap._file;
+  smc._sourceMapURL = aSourceMapURL;
+  smc._absoluteSources = smc._sources.toArray().map(function (s) {
+    return util.computeSourceURL(smc.sourceRoot, s, aSourceMapURL);
+  });
 
   // Because we are modifying the entries (by converting string sources and
   // names to indices into the sources and names ArraySets), we have to make
@@ -33164,9 +33400,7 @@ BasicSourceMapConsumer.prototype._version = 3;
  */
 Object.defineProperty(BasicSourceMapConsumer.prototype, 'sources', {
   get: function get() {
-    return this._sources.toArray().map(function (s) {
-      return this.sourceRoot != null ? util.join(this.sourceRoot, s) : s;
-    }, this);
+    return this._absoluteSources.slice();
   }
 });
 
@@ -33339,8 +33573,10 @@ BasicSourceMapConsumer.prototype.computeColumnSpans = function SourceMapConsumer
  * source's line and column positions provided. The only argument is an object
  * with the following properties:
  *
- *   - line: The line number in the generated source.
- *   - column: The column number in the generated source.
+ *   - line: The line number in the generated source.  The line number
+ *     is 1-based.
+ *   - column: The column number in the generated source.  The column
+ *     number is 0-based.
  *   - bias: Either 'SourceMapConsumer.GREATEST_LOWER_BOUND' or
  *     'SourceMapConsumer.LEAST_UPPER_BOUND'. Specifies whether to return the
  *     closest element that is smaller than or greater than the one we are
@@ -33350,8 +33586,10 @@ BasicSourceMapConsumer.prototype.computeColumnSpans = function SourceMapConsumer
  * and an object is returned with the following properties:
  *
  *   - source: The original source file, or null.
- *   - line: The line number in the original source, or null.
- *   - column: The column number in the original source, or null.
+ *   - line: The line number in the original source, or null.  The
+ *     line number is 1-based.
+ *   - column: The column number in the original source, or null.  The
+ *     column number is 0-based.
  *   - name: The original identifier, or null.
  */
 BasicSourceMapConsumer.prototype.originalPositionFor = function SourceMapConsumer_originalPositionFor(aArgs) {
@@ -33369,9 +33607,7 @@ BasicSourceMapConsumer.prototype.originalPositionFor = function SourceMapConsume
       var source = util.getArg(mapping, 'source', null);
       if (source !== null) {
         source = this._sources.at(source);
-        if (this.sourceRoot != null) {
-          source = util.join(this.sourceRoot, source);
-        }
+        source = util.computeSourceURL(this.sourceRoot, source, this._sourceMapURL);
       }
       var name = util.getArg(mapping, 'name', null);
       if (name !== null) {
@@ -33417,12 +33653,14 @@ BasicSourceMapConsumer.prototype.sourceContentFor = function SourceMapConsumer_s
     return null;
   }
 
-  if (this.sourceRoot != null) {
-    aSource = util.relative(this.sourceRoot, aSource);
+  var index = this._findSourceIndex(aSource);
+  if (index >= 0) {
+    return this.sourcesContent[index];
   }
 
-  if (this._sources.has(aSource)) {
-    return this.sourcesContent[this._sources.indexOf(aSource)];
+  var relativeSource = aSource;
+  if (this.sourceRoot != null) {
+    relativeSource = util.relative(this.sourceRoot, relativeSource);
   }
 
   var url;
@@ -33431,13 +33669,13 @@ BasicSourceMapConsumer.prototype.sourceContentFor = function SourceMapConsumer_s
     // many users. We can help them out when they expect file:// URIs to
     // behave like it would if they were running a local HTTP server. See
     // https://bugzilla.mozilla.org/show_bug.cgi?id=885597.
-    var fileUriAbsPath = aSource.replace(/^file:\/\//, "");
+    var fileUriAbsPath = relativeSource.replace(/^file:\/\//, "");
     if (url.scheme == "file" && this._sources.has(fileUriAbsPath)) {
       return this.sourcesContent[this._sources.indexOf(fileUriAbsPath)];
     }
 
-    if ((!url.path || url.path == "/") && this._sources.has("/" + aSource)) {
-      return this.sourcesContent[this._sources.indexOf("/" + aSource)];
+    if ((!url.path || url.path == "/") && this._sources.has("/" + relativeSource)) {
+      return this.sourcesContent[this._sources.indexOf("/" + relativeSource)];
     }
   }
 
@@ -33448,7 +33686,7 @@ BasicSourceMapConsumer.prototype.sourceContentFor = function SourceMapConsumer_s
   if (nullOnMissing) {
     return null;
   } else {
-    throw new Error('"' + aSource + '" is not in the SourceMap.');
+    throw new Error('"' + relativeSource + '" is not in the SourceMap.');
   }
 };
 
@@ -33458,8 +33696,10 @@ BasicSourceMapConsumer.prototype.sourceContentFor = function SourceMapConsumer_s
  * the following properties:
  *
  *   - source: The filename of the original source.
- *   - line: The line number in the original source.
- *   - column: The column number in the original source.
+ *   - line: The line number in the original source.  The line number
+ *     is 1-based.
+ *   - column: The column number in the original source.  The column
+ *     number is 0-based.
  *   - bias: Either 'SourceMapConsumer.GREATEST_LOWER_BOUND' or
  *     'SourceMapConsumer.LEAST_UPPER_BOUND'. Specifies whether to return the
  *     closest element that is smaller than or greater than the one we are
@@ -33468,22 +33708,21 @@ BasicSourceMapConsumer.prototype.sourceContentFor = function SourceMapConsumer_s
  *
  * and an object is returned with the following properties:
  *
- *   - line: The line number in the generated source, or null.
+ *   - line: The line number in the generated source, or null.  The
+ *     line number is 1-based.
  *   - column: The column number in the generated source, or null.
+ *     The column number is 0-based.
  */
 BasicSourceMapConsumer.prototype.generatedPositionFor = function SourceMapConsumer_generatedPositionFor(aArgs) {
   var source = util.getArg(aArgs, 'source');
-  if (this.sourceRoot != null) {
-    source = util.relative(this.sourceRoot, source);
-  }
-  if (!this._sources.has(source)) {
+  source = this._findSourceIndex(source);
+  if (source < 0) {
     return {
       line: null,
       column: null,
       lastColumn: null
     };
   }
-  source = this._sources.indexOf(source);
 
   var needle = {
     source: source,
@@ -33520,7 +33759,7 @@ exports.BasicSourceMapConsumer = BasicSourceMapConsumer;
  * that it takes "indexed" source maps (i.e. ones with a "sections" field) as
  * input.
  *
- * The only parameter is a raw source map (either as a JSON string, or already
+ * The first parameter is a raw source map (either as a JSON string, or already
  * parsed to an object). According to the spec for indexed source maps, they
  * have the following attributes:
  *
@@ -33557,12 +33796,16 @@ exports.BasicSourceMapConsumer = BasicSourceMapConsumer;
  *    }],
  *  }
  *
+ * The second parameter, if given, is a string whose value is the URL
+ * at which the source map was found.  This URL is used to compute the
+ * sources array.
+ *
  * [0]: https://docs.google.com/document/d/1U1RGAehQwRypUTovF1KRlpiOFze0b-_2gc6fAH0KY0k/edit#heading=h.535es3xeprgt
  */
-function IndexedSourceMapConsumer(aSourceMap) {
+function IndexedSourceMapConsumer(aSourceMap, aSourceMapURL) {
   var sourceMap = aSourceMap;
   if (typeof aSourceMap === 'string') {
-    sourceMap = JSON.parse(aSourceMap.replace(/^\)\]\}'/, ''));
+    sourceMap = util.parseSourceMapInput(aSourceMap);
   }
 
   var version = util.getArg(sourceMap, 'version');
@@ -33601,7 +33844,7 @@ function IndexedSourceMapConsumer(aSourceMap) {
         generatedLine: offsetLine + 1,
         generatedColumn: offsetColumn + 1
       },
-      consumer: new SourceMapConsumer(util.getArg(s, 'map'))
+      consumer: new SourceMapConsumer(util.getArg(s, 'map'), aSourceMapURL)
     };
   });
 }
@@ -33634,14 +33877,18 @@ Object.defineProperty(IndexedSourceMapConsumer.prototype, 'sources', {
  * source's line and column positions provided. The only argument is an object
  * with the following properties:
  *
- *   - line: The line number in the generated source.
- *   - column: The column number in the generated source.
+ *   - line: The line number in the generated source.  The line number
+ *     is 1-based.
+ *   - column: The column number in the generated source.  The column
+ *     number is 0-based.
  *
  * and an object is returned with the following properties:
  *
  *   - source: The original source file, or null.
- *   - line: The line number in the original source, or null.
- *   - column: The column number in the original source, or null.
+ *   - line: The line number in the original source, or null.  The
+ *     line number is 1-based.
+ *   - column: The column number in the original source, or null.  The
+ *     column number is 0-based.
  *   - name: The original identifier, or null.
  */
 IndexedSourceMapConsumer.prototype.originalPositionFor = function IndexedSourceMapConsumer_originalPositionFor(aArgs) {
@@ -33715,13 +33962,17 @@ IndexedSourceMapConsumer.prototype.sourceContentFor = function IndexedSourceMapC
  * the following properties:
  *
  *   - source: The filename of the original source.
- *   - line: The line number in the original source.
- *   - column: The column number in the original source.
+ *   - line: The line number in the original source.  The line number
+ *     is 1-based.
+ *   - column: The column number in the original source.  The column
+ *     number is 0-based.
  *
  * and an object is returned with the following properties:
  *
- *   - line: The line number in the generated source, or null.
+ *   - line: The line number in the generated source, or null.  The
+ *     line number is 1-based. 
  *   - column: The column number in the generated source, or null.
+ *     The column number is 0-based.
  */
 IndexedSourceMapConsumer.prototype.generatedPositionFor = function IndexedSourceMapConsumer_generatedPositionFor(aArgs) {
   for (var i = 0; i < this._sections.length; i++) {
@@ -33729,7 +33980,7 @@ IndexedSourceMapConsumer.prototype.generatedPositionFor = function IndexedSource
 
     // Only consider this section if the requested source is in the list of
     // sources of the consumer.
-    if (section.consumer.sources.indexOf(util.getArg(aArgs, 'source')) === -1) {
+    if (section.consumer._findSourceIndex(util.getArg(aArgs, 'source')) === -1) {
       continue;
     }
     var generatedPosition = section.consumer.generatedPositionFor(aArgs);
@@ -33763,15 +34014,16 @@ IndexedSourceMapConsumer.prototype._parseMappings = function IndexedSourceMapCon
       var mapping = sectionMappings[j];
 
       var source = section.consumer._sources.at(mapping.source);
-      if (section.consumer.sourceRoot !== null) {
-        source = util.join(section.consumer.sourceRoot, source);
-      }
+      source = util.computeSourceURL(section.consumer.sourceRoot, source, this._sourceMapURL);
       this._sources.add(source);
       source = this._sources.indexOf(source);
 
-      var name = section.consumer._names.at(mapping.name);
-      this._names.add(name);
-      name = this._names.indexOf(name);
+      var name = null;
+      if (mapping.name) {
+        name = section.consumer._names.at(mapping.name);
+        this._names.add(name);
+        name = this._names.indexOf(name);
+      }
 
       // The mappings coming from the consumer for the section have
       // generated positions relative to the start of the section, so we
@@ -33884,6 +34136,15 @@ SourceMapGenerator.fromSourceMap = function SourceMapGenerator_fromSourceMap(aSo
     generator.addMapping(newMapping);
   });
   aSourceMapConsumer.sources.forEach(function (sourceFile) {
+    var sourceRelative = sourceFile;
+    if (sourceRoot !== null) {
+      sourceRelative = util.relative(sourceRoot, sourceFile);
+    }
+
+    if (!generator._sources.has(sourceRelative)) {
+      generator._sources.add(sourceRelative);
+    }
+
     var content = aSourceMapConsumer.sourceContentFor(sourceFile);
     if (content != null) {
       generator.setSourceContent(sourceFile, content);
@@ -34306,7 +34567,7 @@ SourceNode.fromStringWithSourceMap = function SourceNode_fromStringWithSourceMap
         // There is no new line in between.
         // Associate the code between "lastGeneratedColumn" and
         // "mapping.generatedColumn" with "lastMapping"
-        var nextLine = remainingLines[remainingLinesIndex];
+        var nextLine = remainingLines[remainingLinesIndex] || '';
         var code = nextLine.substr(0, mapping.generatedColumn - lastGeneratedColumn);
         remainingLines[remainingLinesIndex] = nextLine.substr(mapping.generatedColumn - lastGeneratedColumn);
         lastGeneratedColumn = mapping.generatedColumn;
@@ -34324,7 +34585,7 @@ SourceNode.fromStringWithSourceMap = function SourceNode_fromStringWithSourceMap
       lastGeneratedLine++;
     }
     if (lastGeneratedColumn < mapping.generatedColumn) {
-      var nextLine = remainingLines[remainingLinesIndex];
+      var nextLine = remainingLines[remainingLinesIndex] || '';
       node.add(nextLine.substr(0, mapping.generatedColumn));
       remainingLines[remainingLinesIndex] = nextLine.substr(mapping.generatedColumn);
       lastGeneratedColumn = mapping.generatedColumn;
@@ -34635,7 +34896,7 @@ function getArg(aArgs, aName, aDefaultValue) {
 }
 exports.getArg = getArg;
 
-var urlRegexp = /^(?:([\w+\-.]+):)?\/\/(?:(\w+:\w+)@)?([\w.]*)(?::(\d+))?(\S*)$/;
+var urlRegexp = /^(?:([\w+\-.]+):)?\/\/(?:(\w+:\w+)@)?([\w.-]*)(?::(\d+))?(.*)$/;
 var dataUrlRegexp = /^data:.+\,.+$/;
 
 function urlParse(aUrl) {
@@ -34789,7 +35050,7 @@ function join(aRoot, aPath) {
 exports.join = join;
 
 exports.isAbsolute = function (aPath) {
-  return aPath.charAt(0) === '/' || !!aPath.match(urlRegexp);
+  return aPath.charAt(0) === '/' || urlRegexp.test(aPath);
 };
 
 /**
@@ -34901,7 +35162,7 @@ function isProtoString(s) {
  * stubbed out mapping.
  */
 function compareByOriginalPositions(mappingA, mappingB, onlyCompareOriginal) {
-  var cmp = mappingA.source - mappingB.source;
+  var cmp = strcmp(mappingA.source, mappingB.source);
   if (cmp !== 0) {
     return cmp;
   }
@@ -34926,7 +35187,7 @@ function compareByOriginalPositions(mappingA, mappingB, onlyCompareOriginal) {
     return cmp;
   }
 
-  return mappingA.name - mappingB.name;
+  return strcmp(mappingA.name, mappingB.name);
 }
 exports.compareByOriginalPositions = compareByOriginalPositions;
 
@@ -34950,7 +35211,7 @@ function compareByGeneratedPositionsDeflated(mappingA, mappingB, onlyCompareGene
     return cmp;
   }
 
-  cmp = mappingA.source - mappingB.source;
+  cmp = strcmp(mappingA.source, mappingB.source);
   if (cmp !== 0) {
     return cmp;
   }
@@ -34965,13 +35226,21 @@ function compareByGeneratedPositionsDeflated(mappingA, mappingB, onlyCompareGene
     return cmp;
   }
 
-  return mappingA.name - mappingB.name;
+  return strcmp(mappingA.name, mappingB.name);
 }
 exports.compareByGeneratedPositionsDeflated = compareByGeneratedPositionsDeflated;
 
 function strcmp(aStr1, aStr2) {
   if (aStr1 === aStr2) {
     return 0;
+  }
+
+  if (aStr1 === null) {
+    return 1; // aStr2 !== null
+  }
+
+  if (aStr2 === null) {
+    return -1; // aStr1 !== null
   }
 
   if (aStr1 > aStr2) {
@@ -35014,6 +35283,69 @@ function compareByGeneratedPositionsInflated(mappingA, mappingB) {
   return strcmp(mappingA.name, mappingB.name);
 }
 exports.compareByGeneratedPositionsInflated = compareByGeneratedPositionsInflated;
+
+/**
+ * Strip any JSON XSSI avoidance prefix from the string (as documented
+ * in the source maps specification), and then parse the string as
+ * JSON.
+ */
+function parseSourceMapInput(str) {
+  return JSON.parse(str.replace(/^\)]}'[^\n]*\n/, ''));
+}
+exports.parseSourceMapInput = parseSourceMapInput;
+
+/**
+ * Compute the URL of a source given the the source root, the source's
+ * URL, and the source map's URL.
+ */
+function computeSourceURL(sourceRoot, sourceURL, sourceMapURL) {
+  sourceURL = sourceURL || '';
+
+  if (sourceRoot) {
+    // This follows what Chrome does.
+    if (sourceRoot[sourceRoot.length - 1] !== '/' && sourceURL[0] !== '/') {
+      sourceRoot += '/';
+    }
+    // The spec says:
+    //   Line 4: An optional source root, useful for relocating source
+    //   files on a server or removing repeated values in the
+    //   “sources” entry.  This value is prepended to the individual
+    //   entries in the “source” field.
+    sourceURL = sourceRoot + sourceURL;
+  }
+
+  // Historically, SourceMapConsumer did not take the sourceMapURL as
+  // a parameter.  This mode is still somewhat supported, which is why
+  // this code block is conditional.  However, it's preferable to pass
+  // the source map URL to SourceMapConsumer, so that this function
+  // can implement the source URL resolution algorithm as outlined in
+  // the spec.  This block is basically the equivalent of:
+  //    new URL(sourceURL, sourceMapURL).toString()
+  // ... except it avoids using URL, which wasn't available in the
+  // older releases of node still supported by this library.
+  //
+  // The spec says:
+  //   If the sources are not absolute URLs after prepending of the
+  //   “sourceRoot”, the sources are resolved relative to the
+  //   SourceMap (like resolving script src in a html document).
+  if (sourceMapURL) {
+    var parsed = urlParse(sourceMapURL);
+    if (!parsed) {
+      throw new Error("sourceMapURL could not be parsed");
+    }
+    if (parsed.path) {
+      // Strip the last path component, but keep the "/".
+      var index = parsed.path.lastIndexOf('/');
+      if (index >= 0) {
+        parsed.path = parsed.path.substring(0, index + 1);
+      }
+    }
+    sourceURL = join(urlGenerate(parsed), sourceURL);
+  }
+
+  return normalize(sourceURL);
+}
+exports.computeSourceURL = computeSourceURL;
 
 /***/ }),
 
@@ -46621,20 +46953,45 @@ exports.Client = Client;
 "use strict";
 
 
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 Object.defineProperty(exports, "__esModule", { value: true });
+var Operator_1 = __webpack_require__(/*! ./Operator */ "./src/api/Operator.ts");
+var Restriction_1 = __webpack_require__(/*! ./Restriction */ "./src/api/Restriction.ts");
+var NestedRestriction_1 = __webpack_require__(/*! ./NestedRestriction */ "./src/api/NestedRestriction.ts");
 /**
  * A restriction and boolean operator pair.
  * @module Clause
  */
 
-var Clause = function Clause(restriction, operator) {
-    _classCallCheck(this, Clause);
+var Clause = function () {
+    _createClass(Clause, null, [{
+        key: "fromJson",
 
-    this.restriction = restriction;
-    this.operator = operator;
-};
+        /** Given a clause JSON structure, return a Clause object. */
+        value: function fromJson(clause) {
+            var operator = Operator_1.Operator.forLabel(clause.operator.label);
+            if (clause.restriction.clauses) {
+                var nestedRestriction = NestedRestriction_1.NestedRestriction.fromJson(clause.restriction);
+                return new Clause(nestedRestriction, operator);
+            } else {
+                var restriction = Restriction_1.Restriction.fromJson(clause.restriction);
+                return new Clause(restriction, operator);
+            }
+        }
+    }]);
+
+    function Clause(restriction, operator) {
+        _classCallCheck(this, Clause);
+
+        this.restriction = restriction;
+        this.operator = operator;
+    }
+
+    return Clause;
+}();
 
 exports.Clause = Clause;
 
@@ -46772,6 +47129,8 @@ exports.Comparators = frozen;
 "use strict";
 
 
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
@@ -46799,6 +47158,21 @@ var Filter = function (_NestedRestriction_1$) {
         /** TODO: add (multiple) orderBy/order support */
         return _this;
     }
+    /** given a filter JSON structure, return a Filter object */
+
+
+    _createClass(Filter, null, [{
+        key: "fromJson",
+        value: function fromJson(filter) {
+            var newFilter = new Filter();
+            if (filter) {
+                newFilter.limit = filter.limit;
+                var nested = NestedRestriction_1.NestedRestriction.fromJson(filter);
+                newFilter.clauses = nested.clauses;
+            }
+            return newFilter;
+        }
+    }]);
 
     return Filter;
 }(NestedRestriction_1.NestedRestriction);
@@ -46911,11 +47285,13 @@ var NestedRestriction = function () {
 
         this.clauses = clauses;
     }
-    /** Adds an additional restriction using the logical OR operator. */
+    /** given a nested restriction JSON structure, return a NestedRestriction object */
 
 
     _createClass(NestedRestriction, [{
         key: "withOrRestriction",
+
+        /** Adds an additional restriction using the logical OR operator. */
         value: function withOrRestriction(restriction) {
             return this.withClause(new Clause_1.Clause(restriction, Operator_1.Operators.OR));
         }
@@ -46933,6 +47309,17 @@ var NestedRestriction = function () {
         value: function withClause(clause) {
             this.clauses.push(clause);
             return this;
+        }
+    }], [{
+        key: "fromJson",
+        value: function fromJson(nestedRestriction) {
+            var newNestedRestriction = new NestedRestriction();
+            if (nestedRestriction && nestedRestriction.clauses) {
+                nestedRestriction.clauses.forEach(function (clause) {
+                    newNestedRestriction.withClause(Clause_1.Clause.fromJson(clause));
+                });
+            }
+            return newNestedRestriction;
         }
     }]);
 
@@ -47563,13 +47950,20 @@ var Operator = function (_OnmsEnum_1$OnmsEnum) {
         _this.aliases = aliases;
         return _this;
     }
-    /** Whether this comparator matches the given comparator string. */
+    /** Given a label ('and', 'or'), return the corresponding operator. */
 
 
     _createClass(Operator, [{
         key: "matches",
+
+        /** Whether this comparator matches the given comparator string. */
         value: function matches(comparator) {
             return comparator.toLowerCase() === this.label.toLowerCase() || this.aliases.indexOf(comparator) >= 0;
+        }
+    }], [{
+        key: "forLabel",
+        value: function forLabel(label) {
+            return OnmsEnum_1.forLabel(Operators, label);
         }
     }]);
 
@@ -47616,11 +48010,19 @@ var symbolPattern = /^(\w+?)\s*(\=\=|\=|\!\=|\>\=|\<\=|\>|\<)\s*(\w+?)$/;
 
 var Restriction = function () {
     _createClass(Restriction, null, [{
-        key: "fromString",
+        key: "fromJson",
 
+        /** Given a restriction JSON structure, return a Restriction object. */
+        value: function fromJson(restriction) {
+            var comparator = Comparator_1.Comparator.find(restriction.comparator.label);
+            return new Restriction(restriction.attribute, comparator, restriction.value);
+        }
         /**
          * Convert a filter string into a restriction.
          */
+
+    }, {
+        key: "fromString",
         value: function fromString(filter) {
             var match = filter.match(namePattern);
             if (!match) {
