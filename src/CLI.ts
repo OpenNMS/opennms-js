@@ -16,7 +16,7 @@ const CLI = () => {
   const catCLI = new Category('cli', catRoot);
 
   // tslint:disable
-  const Table = require('cli-table2');
+  const Table = require('cli-table3');
   const colors = require('colors');
   const fs = require('fs');
   const path = require('path');
