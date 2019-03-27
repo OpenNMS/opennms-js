@@ -79,7 +79,7 @@
   },
   "dependencies": {
     "axios": "^0.16.1",
-    "cli-table2": "^0.2.0",
+    "cli-table3": "^0.5.0",
     "commander": "^2.9.0",
     "fs": "^0.0.1-security",
     "ip-address": "^5.8.8",
@@ -92,6 +92,22 @@
     "xmldom": "^0.1.27"
   },
   "resolutions": {
+    "atob": "^2.1.2",
+    "babel-plugin-istanbul": "^4.1.6",
+    "babel-traverse": "^6.26.0",
+    "exec-sh": "^0.3.2",
+    "chokidar": "^2.1.4",
+    "deep-extend": "^0.6.0",
+    "follow-redirects": "^1.7.0",
+    "handlebars": "^4.1.1",
+    "istanbul-lib-source-maps": "^1.2.6",
+    "jest-config": "^22.4.4",
+    "js-yaml": "^3.13.0",
+    "lodash": "^4.17.11",
+    "micromatch": "^3.1.10",
+    "request": "^2.88.0",
+    "sane": "^2.5.2",
+    "sshpk": "^1.16.1",
     "typescript": "^2.x"
   },
   "husky": {
