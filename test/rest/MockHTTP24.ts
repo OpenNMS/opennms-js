@@ -10,7 +10,7 @@ import {AbstractHTTP} from '../../src/rest/AbstractHTTP';
 import {OnmsHTTPOptions} from '../../src/api/OnmsHTTPOptions';
 import {OnmsResult} from '../../src/api/OnmsResult';
 
-export class MockHTTP23 extends AbstractHTTP {
+export class MockHTTP24 extends AbstractHTTP {
   /** make an HTTP get call -- this should be overridden by the implementation */
   public get(url: string, options?: OnmsHTTPOptions): Promise<OnmsResult<any>> {
     const urlObj = new URI(url);
@@ -21,31 +21,20 @@ export class MockHTTP23 extends AbstractHTTP {
     switch (urlObj.toString()) {
       case 'http://demo.opennms.org/opennms/rest/info': {
         return Promise.resolve(
-          OnmsResult.ok({displayVersion: '23.0.0', packageDescription: 'OpenNMS',
-          packageName: 'opennms', version: '23.0.0'}));
+          OnmsResult.ok({displayVersion: '24.0.0', packageDescription: 'OpenNMS',
+          packageName: 'opennms', version: '24.0.0'}));
       }
-      case 'api/v2/alarms/8': {
-        const result = OnmsResult.ok(require('./23.0.0/get/api/v2/alarms/8.json'));
+      case 'rest/situation-feedback/616': {
+        const result = OnmsResult.ok(require('./24.0.0/get/rest/situation-feedback/616.json'));
         result.type = 'application/json';
         return Promise.resolve(result);
       }
-      case 'api/v2/alarms?limit=1000&_s=alarm.id%3D%3D8': {
-        const result = OnmsResult.ok(require('./23.0.0/get/api/v2/alarms/8.json'));
-        result.type = 'application/json';
-        return Promise.resolve(result);
-      }
-      case 'rest/situation-feedback/210': {
-        const result = OnmsResult.ok(require('./23.0.0/get/rest/situation-feedback/feedback.json'));
-        result.type = 'application/json';
-        return Promise.resolve(result);
-      }
-      case 'api/v2/alarms?limit=1000&_s=isSituation%3D%3Dtrue': {
-        const result = OnmsResult.ok(require('./23.0.0/get/api/v2/alarms/243.json'));
+      case 'rest/situation-feedback/tags': {
+        const result = OnmsResult.ok(require('./24.0.0/get/rest/situation-feedback/tags.json'));
         result.type = 'application/json';
         return Promise.resolve(result);
       }
     }
-
     throw new Error('Not yet implemented: GET ' + urlObj.toString());
   }
 
