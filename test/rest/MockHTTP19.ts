@@ -141,7 +141,7 @@ export class MockHTTP19 extends AbstractHTTP {
     throw new Error('19: Not yet implemented: PUT ' + urlObj.toString());
   }
 
-  public post(url: string, options?: OnmsHTTPOptions) {
+  public post(url: string, options?: OnmsHTTPOptions): Promise<OnmsResult<any>> {
     const urlObj = new URI(url);
     if (options && options.parameters) {
       urlObj.search(options.parameters);
