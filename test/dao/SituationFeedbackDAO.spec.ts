@@ -91,7 +91,7 @@ describe('SituationfeedbackDAO via 24', () => {
             expect(feedback[0].reason).toEqual(null);
             expect(feedback[0].user).toEqual('admin');
             expect(feedback[0].timestamp).toEqual(1553886888758);
-            // expect(feedback[0].rootCause).toEqual(false);
+            expect(feedback[0].rootCause).toEqual(false);
             expect(feedback[0].tags).toHaveLength(8);
             expect(feedback[0].tags[0]).toEqual('banana');
         });
