@@ -1,0 +1,128 @@
+[
+    {
+        "situationKey": "uei.opennms.org/alarms/trigger:localhost:0.0.0.0:SITUATION",
+        "situationFingerprint": "NDg3ZjdiMjJmNjgzMTJkMmMxYmJjOTNiMWFlYTQ0NWI=",
+        "alarmKey": "uei.opennms.org/alarms/trigger:localhost:0.0.0.0:ALARM_C",
+        "feedbackType": "CORRECT",
+        "rootCause": false,
+        "reason": null,
+        "tags": [
+            "banana",
+            "red",
+            "blue",
+            "green",
+            "basketball",
+            "baseball",
+            "ball",
+            "ball"
+        ],
+        "user": "admin",
+        "timestamp": 1553886888758
+    },
+    {
+        "situationKey": "uei.opennms.org/alarms/trigger:localhost:0.0.0.0:SITUATION",
+        "situationFingerprint": "NDg3ZjdiMjJmNjgzMTJkMmMxYmJjOTNiMWFlYTQ0NWI=",
+        "alarmKey": "uei.opennms.org/alarms/trigger:localhost:0.0.0.0:ALARM_A",
+        "feedbackType": "FALSE_POSITIVE",
+        "rootCause": false,
+        "reason": null,
+        "tags": [
+            "banana",
+            "red",
+            "blue",
+            "green",
+            "basketball",
+            "baseball",
+            "ball",
+            "ball"
+        ],
+        "user": "admin",
+        "timestamp": 1553886888758
+    },
+    {
+        "situationKey": "uei.opennms.org/alarms/trigger:localhost:0.0.0.0:SITUATION",
+        "situationFingerprint": "NDg3ZjdiMjJmNjgzMTJkMmMxYmJjOTNiMWFlYTQ0NWI=",
+        "alarmKey": "uei.opennms.org/alarms/trigger:localhost:0.0.0.0:ALARM_A",
+        "feedbackType": "CORRECT",
+        "rootCause": true,
+        "reason": "ALL_CORRECT",
+        "tags": [],
+        "user": "admin",
+        "timestamp": 1553886650607
+    },
+    {
+        "situationKey": "uei.opennms.org/alarms/trigger:localhost:0.0.0.0:SITUATION",
+        "situationFingerprint": "NDg3ZjdiMjJmNjgzMTJkMmMxYmJjOTNiMWFlYTQ0NWI=",
+        "alarmKey": "uei.opennms.org/alarms/trigger:localhost:0.0.0.0:ALARM_C",
+        "feedbackType": "CORRECT",
+        "rootCause": false,
+        "reason": "ALL_CORRECT",
+        "tags": [],
+        "user": "admin",
+        "timestamp": 1553886650608
+    },
+    {
+        "situationKey": "uei.opennms.org/alarms/trigger:localhost:0.0.0.0:SITUATION",
+        "situationFingerprint": "NDg3ZjdiMjJmNjgzMTJkMmMxYmJjOTNiMWFlYTQ0NWI=",
+        "alarmKey": "uei.opennms.org/alarms/trigger:localhost:0.0.0.0:ALARM_C",
+        "feedbackType": "CORRECT",
+        "rootCause": false,
+        "reason": "ALL_CORRECT",
+        "tags": [],
+        "user": "admin",
+        "timestamp": 1553886739828
+    },
+    {
+        "situationKey": "uei.opennms.org/alarms/trigger:localhost:0.0.0.0:SITUATION",
+        "situationFingerprint": "NDg3ZjdiMjJmNjgzMTJkMmMxYmJjOTNiMWFlYTQ0NWI=",
+        "alarmKey": "uei.opennms.org/alarms/trigger:localhost:0.0.0.0:ALARM_B",
+        "feedbackType": "FALSE_POSITIVE",
+        "rootCause": false,
+        "reason": "ALL_CORRECT",
+        "tags": [],
+        "user": "admin",
+        "timestamp": 1553886650608
+    },
+    {
+        "situationKey": "uei.opennms.org/alarms/trigger:localhost:0.0.0.0:SITUATION",
+        "situationFingerprint": "NDg3ZjdiMjJmNjgzMTJkMmMxYmJjOTNiMWFlYTQ0NWI=",
+        "alarmKey": "uei.opennms.org/alarms/trigger:localhost:0.0.0.0:ALARM_A",
+        "feedbackType": "FALSE_POSITIVE",
+        "rootCause": false,
+        "reason": "ALL_CORRECT",
+        "tags": [],
+        "user": "admin",
+        "timestamp": 1553886739827
+    },
+    {
+        "situationKey": "uei.opennms.org/alarms/trigger:localhost:0.0.0.0:SITUATION",
+        "situationFingerprint": "NDg3ZjdiMjJmNjgzMTJkMmMxYmJjOTNiMWFlYTQ0NWI=",
+        "alarmKey": "uei.opennms.org/alarms/trigger:localhost:0.0.0.0:ALARM_B",
+        "feedbackType": "CORRECT",
+        "rootCause": true,
+        "reason": "ALL_CORRECT",
+        "tags": [],
+        "user": "admin",
+        "timestamp": 1553886739827
+    },
+    {
+        "situationKey": "uei.opennms.org/alarms/trigger:localhost:0.0.0.0:SITUATION",
+        "situationFingerprint": "NDg3ZjdiMjJmNjgzMTJkMmMxYmJjOTNiMWFlYTQ0NWI=",
+        "alarmKey": "uei.opennms.org/alarms/trigger:localhost:0.0.0.0:ALARM_B",
+        "feedbackType": "CORRECT",
+        "rootCause": true,
+        "reason": null,
+        "tags": [
+            "banana",
+            "red",
+            "blue",
+            "green",
+            "basketball",
+            "baseball",
+            "ball",
+            "ball"
+        ],
+        "user": "admin",
+        "timestamp": 1553886888758
+    }
+]
