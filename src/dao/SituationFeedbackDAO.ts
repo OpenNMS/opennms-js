@@ -49,6 +49,21 @@ export class SituationFeedbackDAO extends BaseDAO {
     });
   }
 
+  public async getTags(prefix: string): Promise<string[]> {
+    const options = new OnmsHTTPOptions();
+    options.headers.accept = 'application/json';
+    return this.http.get(this.pathToEndpoint() + '/tags?prefix=' + prefix, options).then((result) => {
+      const data = result.data;
+      if (!Array.isArray(data)) {
+        if (!data) {
+          return [] as string[];
+        }
+        throw new OnmsError('Expected an array of tags but got "' + (typeof data) + '" instead.');
+      }
+      return data;
+    });
+  }
+
   /**
    * Submit Correlation Feedback for a Situation.
    *
@@ -84,6 +99,8 @@ export class SituationFeedbackDAO extends BaseDAO {
     feedback.fingerprint = data.situationFingerprint;
     feedback.alarmKey = data.alarmKey;
     feedback.reason = data.reason;
+    feedback.rootCause = data.rootCause;
+    feedback.tags = data.tags;
     feedback.user = data.user;
     if (data.feedbackType) {
       const fbt = data.feedbackType;

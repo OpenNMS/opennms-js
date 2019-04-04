@@ -26,6 +26,8 @@ export class OnmsSituationFeedbackType extends OnmsEnum<string> implements IHasU
 const FeedbackTypes = {
   /** Alarm is correctly correlated */
   CORRECT: new OnmsSituationFeedbackType('CORRECT', 'CORRECT'),
+  /** Alarm should be correlated in a new Situation  */
+  CREATE_SITUATION: new OnmsSituationFeedbackType('CREATE_SITUATION', 'CREATE_SITUATION'),
   /** Alarm was incorrectly correlated */
   FALSE_POSITIVE: new OnmsSituationFeedbackType('FALSE_POSITIVE', 'FALSE_POSITIVE'),
   /** Alarm was incorrectly ommitted */
