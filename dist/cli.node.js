@@ -55549,6 +55549,37 @@ var SituationFeedbackDAO = function (_BaseDAO_1$BaseDAO) {
                 }, _callee, this);
             }));
         }
+    }, {
+        key: "getTags",
+        value: function getTags(prefix) {
+            return __awaiter(this, void 0, void 0, /*#__PURE__*/_regenerator2.default.mark(function _callee2() {
+                var options;
+                return _regenerator2.default.wrap(function _callee2$(_context2) {
+                    while (1) {
+                        switch (_context2.prev = _context2.next) {
+                            case 0:
+                                options = new OnmsHTTPOptions_1.OnmsHTTPOptions();
+
+                                options.headers.accept = 'application/json';
+                                return _context2.abrupt("return", this.http.get(this.pathToEndpoint() + '/tags?prefix=' + prefix, options).then(function (result) {
+                                    var data = result.data;
+                                    if (!Array.isArray(data)) {
+                                        if (!data) {
+                                            return [];
+                                        }
+                                        throw new OnmsError_1.OnmsError('Expected an array of tags but got "' + (typeof data === "undefined" ? "undefined" : _typeof(data)) + '" instead.');
+                                    }
+                                    return data;
+                                }));
+
+                            case 3:
+                            case "end":
+                                return _context2.stop();
+                        }
+                    }
+                }, _callee2, this);
+            }));
+        }
         /**
          * Submit Correlation Feedback for a Situation.
          *
@@ -55560,19 +55591,19 @@ var SituationFeedbackDAO = function (_BaseDAO_1$BaseDAO) {
     }, {
         key: "saveFeedback",
         value: function saveFeedback(feedback, situationId) {
-            return __awaiter(this, void 0, void 0, /*#__PURE__*/_regenerator2.default.mark(function _callee2() {
-                return _regenerator2.default.wrap(function _callee2$(_context2) {
+            return __awaiter(this, void 0, void 0, /*#__PURE__*/_regenerator2.default.mark(function _callee3() {
+                return _regenerator2.default.wrap(function _callee3$(_context3) {
                     while (1) {
-                        switch (_context2.prev = _context2.next) {
+                        switch (_context3.prev = _context3.next) {
                             case 0:
-                                return _context2.abrupt("return", this.post(this.pathToEndpoint() + '/' + situationId, this.serializeFeedback(feedback)));
+                                return _context3.abrupt("return", this.post(this.pathToEndpoint() + '/' + situationId, this.serializeFeedback(feedback)));
 
                             case 1:
                             case "end":
-                                return _context2.stop();
+                                return _context3.stop();
                         }
                     }
-                }, _callee2, this);
+                }, _callee3, this);
             }));
         }
         /**
@@ -55604,6 +55635,8 @@ var SituationFeedbackDAO = function (_BaseDAO_1$BaseDAO) {
             feedback.fingerprint = data.situationFingerprint;
             feedback.alarmKey = data.alarmKey;
             feedback.reason = data.reason;
+            feedback.rootCause = data.rootCause;
+            feedback.tags = data.tags;
             feedback.user = data.user;
             if (data.feedbackType) {
                 var fbt = data.feedbackType;
@@ -55640,18 +55673,18 @@ var SituationFeedbackDAO = function (_BaseDAO_1$BaseDAO) {
     }, {
         key: "post",
         value: function post(url, data) {
-            return __awaiter(this, void 0, void 0, /*#__PURE__*/_regenerator2.default.mark(function _callee3() {
+            return __awaiter(this, void 0, void 0, /*#__PURE__*/_regenerator2.default.mark(function _callee4() {
                 var options;
-                return _regenerator2.default.wrap(function _callee3$(_context3) {
+                return _regenerator2.default.wrap(function _callee4$(_context4) {
                     while (1) {
-                        switch (_context3.prev = _context3.next) {
+                        switch (_context4.prev = _context4.next) {
                             case 0:
                                 options = new OnmsHTTPOptions_1.OnmsHTTPOptions();
 
                                 options.headers['content-type'] = 'application/json';
                                 options.headers.accept = 'application/json';
                                 options.data = data;
-                                return _context3.abrupt("return", this.http.post(url, options).then(function (result) {
+                                return _context4.abrupt("return", this.http.post(url, options).then(function (result) {
                                     if (!result.isSuccess) {
                                         throw result;
                                     }
@@ -55660,10 +55693,10 @@ var SituationFeedbackDAO = function (_BaseDAO_1$BaseDAO) {
 
                             case 5:
                             case "end":
-                                return _context3.stop();
+                                return _context4.stop();
                         }
                     }
-                }, _callee3, this);
+                }, _callee4, this);
             }));
         }
         /**
@@ -57716,6 +57749,8 @@ exports.OnmsSituationFeedbackType = OnmsSituationFeedbackType;
 var FeedbackTypes = {
     /** Alarm is correctly correlated */
     CORRECT: new OnmsSituationFeedbackType('CORRECT', 'CORRECT'),
+    /** Alarm should be correlated in a new Situation  */
+    CREATE_SITUATION: new OnmsSituationFeedbackType('CREATE_SITUATION', 'CREATE_SITUATION'),
     /** Alarm was incorrectly correlated */
     FALSE_POSITIVE: new OnmsSituationFeedbackType('FALSE_POSITIVE', 'FALSE_POSITIVE'),
     /** Alarm was incorrectly ommitted */

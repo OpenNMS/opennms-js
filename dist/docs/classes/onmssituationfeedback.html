@@ -98,7 +98,9 @@
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="onmssituationfeedback.html#feedbacktype" class="tsd-kind-icon">feedback<wbr>Type</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="onmssituationfeedback.html#fingerprint" class="tsd-kind-icon">fingerprint</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="onmssituationfeedback.html#reason" class="tsd-kind-icon">reason</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="onmssituationfeedback.html#rootcause" class="tsd-kind-icon">root<wbr>Cause</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="onmssituationfeedback.html#situationkey" class="tsd-kind-icon">situation<wbr>Key</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="onmssituationfeedback.html#tags" class="tsd-kind-icon">tags</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="onmssituationfeedback.html#timestamp" class="tsd-kind-icon">timestamp</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="onmssituationfeedback.html#user" class="tsd-kind-icon">user</a></li>
 							</ul>
@@ -120,7 +122,7 @@
 					<div class="tsd-signature tsd-kind-icon">alarm<wbr>Key<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/bc59005/src/model/OnmsSituationFeedback.ts#L17">model/OnmsSituationFeedback.ts:17</a></li>
+							<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/43076c8/src/model/OnmsSituationFeedback.ts#L17">model/OnmsSituationFeedback.ts:17</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -135,7 +137,7 @@
 					<div class="tsd-signature tsd-kind-icon">feedback<wbr>Type<span class="tsd-signature-symbol">:</span> <a href="onmssituationfeedbacktype.html" class="tsd-signature-type">OnmsSituationFeedbackType</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/bc59005/src/model/OnmsSituationFeedback.ts#L20">model/OnmsSituationFeedback.ts:20</a></li>
+							<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/43076c8/src/model/OnmsSituationFeedback.ts#L20">model/OnmsSituationFeedback.ts:20</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -150,7 +152,7 @@
 					<div class="tsd-signature tsd-kind-icon">fingerprint<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/bc59005/src/model/OnmsSituationFeedback.ts#L14">model/OnmsSituationFeedback.ts:14</a></li>
+							<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/43076c8/src/model/OnmsSituationFeedback.ts#L14">model/OnmsSituationFeedback.ts:14</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -165,7 +167,7 @@
 					<div class="tsd-signature tsd-kind-icon">reason<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/bc59005/src/model/OnmsSituationFeedback.ts#L23">model/OnmsSituationFeedback.ts:23</a></li>
+							<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/43076c8/src/model/OnmsSituationFeedback.ts#L23">model/OnmsSituationFeedback.ts:23</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -175,12 +177,27 @@
 					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="rootcause" class="tsd-anchor"></a>
+					<h3>root<wbr>Cause</h3>
+					<div class="tsd-signature tsd-kind-icon">root<wbr>Cause<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/43076c8/src/model/OnmsSituationFeedback.ts#L29">model/OnmsSituationFeedback.ts:29</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>TRUE if Alarm in this Feedback is the Root Cause of the Situation in this Feedback</p>
+						</div>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
 					<a name="situationkey" class="tsd-anchor"></a>
 					<h3>situation<wbr>Key</h3>
 					<div class="tsd-signature tsd-kind-icon">situation<wbr>Key<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/bc59005/src/model/OnmsSituationFeedback.ts#L11">model/OnmsSituationFeedback.ts:11</a></li>
+							<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/43076c8/src/model/OnmsSituationFeedback.ts#L11">model/OnmsSituationFeedback.ts:11</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -190,12 +207,27 @@
 					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="tags" class="tsd-anchor"></a>
+					<h3>tags</h3>
+					<div class="tsd-signature tsd-kind-icon">tags<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/43076c8/src/model/OnmsSituationFeedback.ts#L32">model/OnmsSituationFeedback.ts:32</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>User defined attributes relating to the Situation/Feedback</p>
+						</div>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
 					<a name="timestamp" class="tsd-anchor"></a>
 					<h3>timestamp</h3>
 					<div class="tsd-signature tsd-kind-icon">timestamp<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/bc59005/src/model/OnmsSituationFeedback.ts#L29">model/OnmsSituationFeedback.ts:29</a></li>
+							<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/43076c8/src/model/OnmsSituationFeedback.ts#L35">model/OnmsSituationFeedback.ts:35</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -210,7 +242,7 @@
 					<div class="tsd-signature tsd-kind-icon">user<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/bc59005/src/model/OnmsSituationFeedback.ts#L26">model/OnmsSituationFeedback.ts:26</a></li>
+							<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/43076c8/src/model/OnmsSituationFeedback.ts#L26">model/OnmsSituationFeedback.ts:26</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -232,7 +264,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/bc59005/src/model/OnmsSituationFeedback.ts#L31">model/OnmsSituationFeedback.ts:31</a></li>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/43076c8/src/model/OnmsSituationFeedback.ts#L37">model/OnmsSituationFeedback.ts:37</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
@@ -269,7 +301,13 @@
 								<a href="onmssituationfeedback.html#reason" class="tsd-kind-icon">reason</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="onmssituationfeedback.html#rootcause" class="tsd-kind-icon">root<wbr>Cause</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
 								<a href="onmssituationfeedback.html#situationkey" class="tsd-kind-icon">situation<wbr>Key</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="onmssituationfeedback.html#tags" class="tsd-kind-icon">tags</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class">
 								<a href="onmssituationfeedback.html#timestamp" class="tsd-kind-icon">timestamp</a>
