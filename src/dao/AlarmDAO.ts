@@ -1,6 +1,7 @@
 import {AbstractDAO} from './AbstractDAO';
 import {EventDAO} from './EventDAO';
 
+import {Comparators} from '../api/Comparator';
 import {Filter} from '../api/Filter';
 import {IHasHTTP} from '../api/IHasHTTP';
 import {IHash} from '../internal/IHash';
@@ -8,6 +9,7 @@ import {IOnmsHTTP} from '../api/IOnmsHTTP';
 import {OnmsError} from '../api/OnmsError';
 import {OnmsHTTPOptions} from '../api/OnmsHTTPOptions';
 import {OnmsResult} from '../api/OnmsResult';
+import {Restriction} from '../api/Restriction';
 import {SearchProperty} from '../api/SearchProperty';
 
 import {OnmsAlarm} from '../model/OnmsAlarm';
@@ -21,6 +23,7 @@ import {OnmsMemo} from '../model/OnmsMemo';
 
 import {log, catDao} from '../api/Log';
 import {Category} from 'typescript-logging';
+import { IFilterVisitor } from '../api/IFilterVisitor';
 
 /** @hidden */
 const cat = new Category('alarms', catDao);
@@ -438,6 +441,22 @@ export class AlarmDAO extends AbstractDAO<number, OnmsAlarm> {
    * @hidden
    */
   protected async getOptions(filter?: Filter): Promise<OnmsHTTPOptions> {
+    if (filter) {
+      this.visitFilter(filter, {
+        onRestriction: (restriction: Restriction) => {
+          if (restriction.attribute === 'isAcknowledged') {
+            let value = String(restriction.value).toLowerCase() === 'true';
+            restriction.attribute = 'alarmAckTime';
+            if (restriction.comparator.label === Comparators.NE.label) {
+              value = !value;
+            }
+            restriction.comparator = value ? Comparators.NOTNULL : Comparators.NULL;
+            restriction.value = undefined;
+          }
+        },
+      });
+    }
+
     return super.getOptions(filter).then((options) => {
         // always use application/json for v2 calls
         if (this.getApiVersion() === 2) {

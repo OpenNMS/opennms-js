@@ -44,6 +44,44 @@ describe('AlarmDAO with v1 API', () => {
       done();
     });
   });
+  it('AlarmDAO.getOptions()', (done) => {
+    (dao as any).getOptions().then((opts) => {
+      expect(opts).toMatchObject({});
+      done();
+    });
+  });
+  it('AlarmDAO.getOptions(isAcknowledged=true)', (done) => {
+    const filter = new Filter().withOrRestriction(new Restriction('isAcknowledged', Comparators.EQ, 'true'));
+    (dao as any).getOptions(filter).then((opts) => {
+      expect(opts.parameters).toBeDefined();
+      expect(opts.parameters.alarmAckTime).toEqual('notnull');
+      done();
+    });
+  });
+  it('AlarmDAO.getOptions(isAcknowledged=false)', (done) => {
+    const filter = new Filter().withOrRestriction(new Restriction('isAcknowledged', Comparators.EQ, 'false'));
+    (dao as any).getOptions(filter).then((opts) => {
+      expect(opts.parameters).toBeDefined();
+      expect(opts.parameters.alarmAckTime).toEqual('null');
+      done();
+    });
+  });
+  it('AlarmDAO.getOptions(isAcknowledged!=true)', (done) => {
+    const filter = new Filter().withOrRestriction(new Restriction('isAcknowledged', Comparators.NE, 'true'));
+    (dao as any).getOptions(filter).then((opts) => {
+      expect(opts.parameters).toBeDefined();
+      expect(opts.parameters.alarmAckTime).toEqual('null');
+      done();
+    });
+  });
+  it('AlarmDAO.getOptions(isAcknowledged!=false)', (done) => {
+    const filter = new Filter().withOrRestriction(new Restriction('isAcknowledged', Comparators.NE, 'false'));
+    (dao as any).getOptions(filter).then((opts) => {
+      expect(opts.parameters).toBeDefined();
+      expect(opts.parameters.alarmAckTime).toEqual('notnull');
+      done();
+    });
+  });
   it('AlarmDAO.get(404725)', () => {
     return dao.get(404725).then((alarm) => {
       expect(alarm.id).toEqual(404725);
@@ -56,6 +94,44 @@ describe('AlarmDAO with v1 API', () => {
     filter.withOrRestriction(new Restriction('id', Comparators.EQ, 404725));
     return dao.find(filter).then((alarms) => {
       expect(alarms.length).toEqual(1);
+    });
+  });
+  it('AlarmDAO.find(isAcknowledged=true)', () => {
+    const filter = new Filter();
+    filter.withOrRestriction(new Restriction('isAcknowledged', Comparators.EQ, 'true'));
+    return dao.find(filter).then((alarms) => {
+      expect(alarms.length).toEqual(1);
+      expect(alarms[0].ackTime).toBeDefined();
+      expect(alarms[0].ackTime.valueOf()).toEqual(1495806508530);
+      expect(alarms[0].ackUser).toEqual('ranger');
+    });
+  });
+  it('AlarmDAO.find(isAcknowledged=false)', () => {
+    const filter = new Filter();
+    filter.withOrRestriction(new Restriction('isAcknowledged', Comparators.EQ, 'false'));
+    return dao.find(filter).then((alarms) => {
+      expect(alarms.length).toEqual(1);
+      expect(alarms[0].ackTime).not.toBeDefined();
+      expect(alarms[0].ackUser).not.toBeDefined();
+    });
+  });
+  it('AlarmDAO.find(isAcknowledged!=true)', () => {
+    const filter = new Filter();
+    filter.withOrRestriction(new Restriction('isAcknowledged', Comparators.NE, 'true'));
+    return dao.find(filter).then((alarms) => {
+      expect(alarms.length).toEqual(1);
+      expect(alarms[0].ackTime).not.toBeDefined();
+      expect(alarms[0].ackUser).not.toBeDefined();
+    });
+  });
+  it('AlarmDAO.find(isAcknowledged!=false)', () => {
+    const filter = new Filter();
+    filter.withOrRestriction(new Restriction('isAcknowledged', Comparators.NE, 'false'));
+    return dao.find(filter).then((alarms) => {
+      expect(alarms.length).toEqual(1);
+      expect(alarms[0].ackTime).toBeDefined();
+      expect(alarms[0].ackTime.valueOf()).toEqual(1495806508530);
+      expect(alarms[0].ackUser).toEqual('ranger');
     });
   });
   it('AlarmDAO.searchProperties() should reject', () => {
@@ -162,6 +238,44 @@ describe('AlarmDAO with v2 API', () => {
       done();
     });
   });
+  it('AlarmDAO.getOptions()', (done) => {
+    (dao as any).getOptions().then((opts) => {
+      expect(opts).toMatchObject({});
+      done();
+    });
+  });
+  it('AlarmDAO.getOptions(isAcknowledged=true)', (done) => {
+    const filter = new Filter().withOrRestriction(new Restriction('isAcknowledged', Comparators.EQ, 'true'));
+    (dao as any).getOptions(filter).then((opts) => {
+      expect(opts.parameters).toBeDefined();
+      expect(opts.parameters._s).toEqual('alarmAckTime!=\u0000');
+      done();
+    });
+  });
+  it('AlarmDAO.getOptions(isAcknowledged=false)', (done) => {
+    const filter = new Filter().withOrRestriction(new Restriction('isAcknowledged', Comparators.EQ, 'false'));
+    (dao as any).getOptions(filter).then((opts) => {
+      expect(opts.parameters).toBeDefined();
+      expect(opts.parameters._s).toEqual('alarmAckTime==\u0000');
+      done();
+    });
+  });
+  it('AlarmDAO.getOptions(isAcknowledged!=true)', (done) => {
+    const filter = new Filter().withOrRestriction(new Restriction('isAcknowledged', Comparators.NE, 'true'));
+    (dao as any).getOptions(filter).then((opts) => {
+      expect(opts.parameters).toBeDefined();
+      expect(opts.parameters._s).toEqual('alarmAckTime==\u0000');
+      done();
+    });
+  });
+  it('AlarmDAO.getOptions(isAcknowledged!=false)', (done) => {
+    const filter = new Filter().withOrRestriction(new Restriction('isAcknowledged', Comparators.NE, 'false'));
+    (dao as any).getOptions(filter).then((opts) => {
+      expect(opts.parameters).toBeDefined();
+      expect(opts.parameters._s).toEqual('alarmAckTime!=\u0000');
+      done();
+    });
+  });
   it('AlarmDAO.get(6806)', () => {
     return dao.get(6806).then((alarm) => {
       expect(alarm.id).toEqual(6806);
@@ -181,6 +295,43 @@ describe('AlarmDAO with v2 API', () => {
       expect(alarms[0].id).toEqual(6806);
     });
   });
+  it('AlarmDAO.find(isAcknowledged=true)', () => {
+    const filter = new Filter().withOrRestriction(new Restriction('isAcknowledged', Comparators.EQ, 'true'));
+    return dao.find(filter).then((alarms) => {
+      console.log('alarms=', JSON.stringify(alarms, undefined, 2));
+      expect(alarms.length).toEqual(1);
+      expect(alarms[0].ackTime).toBeDefined();
+      expect(alarms[0].ackTime.valueOf()).toEqual(1495806508530);
+      expect(alarms[0].ackUser).toEqual('ranger');
+    });
+  });
+  /*
+  it('AlarmDAO.find(isAcknowledged=false)', () => {
+    const filter = new Filter().withOrRestriction(new Restriction('isAcknowledged', Comparators.EQ, 'false'));
+    return dao.find(filter).then((alarms) => {
+      expect(alarms.length).toEqual(1);
+      expect(alarms[0].ackTime).not.toBeDefined();
+      expect(alarms[0].ackUser).not.toBeDefined();
+    });
+  });
+  it('AlarmDAO.find(isAcknowledged!=true)', () => {
+    const filter = new Filter().withOrRestriction(new Restriction('isAcknowledged', Comparators.NE, 'true'));
+    return dao.find(filter).then((alarms) => {
+      expect(alarms.length).toEqual(1);
+      expect(alarms[0].ackTime).not.toBeDefined();
+      expect(alarms[0].ackUser).not.toBeDefined();
+    });
+  });
+  it('AlarmDAO.find(isAcknowledged!=false)', () => {
+    const filter = new Filter().withOrRestriction(new Restriction('isAcknowledged', Comparators.NE, 'false'));
+    return dao.find(filter).then((alarms) => {
+      expect(alarms.length).toEqual(1);
+      expect(alarms[0].ackTime).toBeDefined();
+      expect(alarms[0].ackTime.valueOf()).toEqual(1495806508530);
+      expect(alarms[0].ackUser).toEqual('ranger');
+    });
+  });
+  */
   it('AlarmDAO.find(uei=should-not-exist)', () => {
     const filter = new Filter();
     filter.withOrRestriction(new Restriction('alarm.uei', Comparators.EQ, 'should-not-exist'));
