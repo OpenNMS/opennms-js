@@ -1,7 +1,7 @@
 import axios from 'axios';
 import {AxiosStatic, AxiosInstance, AxiosResponse, AxiosRequestConfig} from 'axios';
 import * as qs from 'qs';
-import * as clonedeep from 'lodash.clonedeep';
+import clonedeep from 'lodash.clonedeep';
 
 /** @hidden */
 // tslint:disable-next-line

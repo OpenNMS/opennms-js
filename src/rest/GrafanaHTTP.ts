@@ -7,7 +7,7 @@ import {OnmsServer} from '../api/OnmsServer';
 import {log, catRest} from '../api/Log';
 import {Category} from 'typescript-logging';
 
-import * as clonedeep from 'lodash.clonedeep';
+import clonedeep from 'lodash.clonedeep';
 import {GrafanaError} from './GrafanaError';
 
 /** @hidden */
@@ -140,11 +140,11 @@ export class GrafanaHTTP extends AbstractHTTP {
    */
   private getConfig(options?: OnmsHTTPOptions): any {
     const allOptions = this.getOptions(options);
-    const ret = clonedeep(allOptions.toJSON());
+    const ret = clonedeep(allOptions.toJSON()) as any;
     ret.transformResponse = []; // we do this so we can post-process only on success
 
     if (allOptions.headers) {
-      ret.headers = clonedeep(allOptions.headers);
+      ret.headers = clonedeep(allOptions.headers) as any;
     } else {
       ret.headers = {};
     }
