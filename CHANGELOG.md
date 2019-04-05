@@ -1,10 +1,11 @@
 <a name="1.4.0-SNAPSHOT"></a>
-# [1.4.0-SNAPSHOT](https://github.com/OpenNMS/opennms-js/compare/v1.3.1...v1.4.0-SNAPSHOT) (2019-04-04)
+# [1.4.0-SNAPSHOT](https://github.com/OpenNMS/opennms-js/compare/v1.3.1...v1.4.0-SNAPSHOT) (2019-04-05)
 
 
 ### Features
 
 * **alarms:** HZN-1492 : Add RootCause and Tags to SituationFeedback ([#35](https://github.com/OpenNMS/opennms-js/issues/35)) ([3790072](https://github.com/OpenNMS/opennms-js/commit/3790072))
+* **dao:** JS-29 - add support for "isAcknowledged" on alarms ([ff1515a](https://github.com/OpenNMS/opennms-js/commit/ff1515a))
 
 
 

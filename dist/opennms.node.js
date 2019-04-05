@@ -48532,9 +48532,12 @@ var __awaiter = undefined && undefined.__awaiter || function (thisArg, _argument
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var OnmsError_1 = __webpack_require__(/*! ../api/OnmsError */ "./src/api/OnmsError.ts");
+var NestedRestriction_1 = __webpack_require__(/*! ../api/NestedRestriction */ "./src/api/NestedRestriction.ts");
 var OnmsHTTPOptions_1 = __webpack_require__(/*! ../api/OnmsHTTPOptions */ "./src/api/OnmsHTTPOptions.ts");
+var Restriction_1 = __webpack_require__(/*! ../api/Restriction */ "./src/api/Restriction.ts");
 var SearchProperty_1 = __webpack_require__(/*! ../api/SearchProperty */ "./src/api/SearchProperty.ts");
 var SearchPropertyType_1 = __webpack_require__(/*! ../api/SearchPropertyType */ "./src/api/SearchPropertyType.ts");
+var Log_1 = __webpack_require__(/*! ../api/Log */ "./src/api/Log.ts");
 var V1FilterProcessor_1 = __webpack_require__(/*! ./V1FilterProcessor */ "./src/dao/V1FilterProcessor.ts");
 var V2FilterProcessor_1 = __webpack_require__(/*! ./V2FilterProcessor */ "./src/dao/V2FilterProcessor.ts");
 var PropertiesCache_1 = __webpack_require__(/*! ./PropertiesCache */ "./src/dao/PropertiesCache.ts");
@@ -48764,6 +48767,46 @@ var AbstractDAO = function (_BaseDAO_1$BaseDAO) {
             }
             return data;
         }
+    }, {
+        key: "visitClause",
+        value: function visitClause(clause, visitor) {
+            var self = this;
+            if (visitor.onClause) {
+                visitor.onClause(clause);
+            }
+            var restriction = clause.restriction;
+            if (restriction instanceof Restriction_1.Restriction) {
+                if (visitor.onRestriction) {
+                    visitor.onRestriction(restriction);
+                }
+            } else if (restriction instanceof NestedRestriction_1.NestedRestriction) {
+                if (visitor.onNestedRestriction) {
+                    visitor.onNestedRestriction(restriction);
+                }
+                restriction.clauses.forEach(function (c) {
+                    self.visitClause(c, visitor);
+                });
+            } else {
+                Log_1.log.warn('Restriction is of an unknown type: ' + JSON.stringify(restriction), Log_1.catDao);
+            }
+        }
+        /**
+         * Iterate over a Filter object and its children.
+         * @param filter the filter to visit
+         * @param visitor the class to invoke while visiting the filter
+         */
+
+    }, {
+        key: "visitFilter",
+        value: function visitFilter(filter, visitor) {
+            var self = this;
+            if (visitor.onFilter) {
+                visitor.onFilter(filter);
+            }
+            filter.clauses.forEach(function (clause) {
+                self.visitClause(clause, visitor);
+            });
+        }
         /**
          * Create an [[OnmsHTTPOptions]] object for DAO calls given an optional filter.
          * @param filter - the filter to use
@@ -48899,6 +48942,7 @@ var __awaiter = undefined && undefined.__awaiter || function (thisArg, _argument
 Object.defineProperty(exports, "__esModule", { value: true });
 var AbstractDAO_1 = __webpack_require__(/*! ./AbstractDAO */ "./src/dao/AbstractDAO.ts");
 var EventDAO_1 = __webpack_require__(/*! ./EventDAO */ "./src/dao/EventDAO.ts");
+var Comparator_1 = __webpack_require__(/*! ../api/Comparator */ "./src/api/Comparator.ts");
 var OnmsError_1 = __webpack_require__(/*! ../api/OnmsError */ "./src/api/OnmsError.ts");
 var OnmsHTTPOptions_1 = __webpack_require__(/*! ../api/OnmsHTTPOptions */ "./src/api/OnmsHTTPOptions.ts");
 var OnmsAlarm_1 = __webpack_require__(/*! ../model/OnmsAlarm */ "./src/model/OnmsAlarm.ts");
@@ -49609,6 +49653,21 @@ var AlarmDAO = function (_AbstractDAO_1$Abstra) {
                     while (1) {
                         switch (_context16.prev = _context16.next) {
                             case 0:
+                                if (filter) {
+                                    this.visitFilter(filter, {
+                                        onRestriction: function onRestriction(restriction) {
+                                            if (restriction.attribute === 'isAcknowledged') {
+                                                var value = String(restriction.value).toLowerCase() === 'true';
+                                                restriction.attribute = 'alarmAckTime';
+                                                if (restriction.comparator.label === Comparator_1.Comparators.NE.label) {
+                                                    value = !value;
+                                                }
+                                                restriction.comparator = value ? Comparator_1.Comparators.NOTNULL : Comparator_1.Comparators.NULL;
+                                                restriction.value = undefined;
+                                            }
+                                        }
+                                    });
+                                }
                                 return _context16.abrupt("return", _super("getOptions").call(this, filter).then(function (options) {
                                     // always use application/json for v2 calls
                                     if (_this8.getApiVersion() === 2) {
@@ -49617,7 +49676,7 @@ var AlarmDAO = function (_AbstractDAO_1$Abstra) {
                                     return options;
                                 }));
 
-                            case 1:
+                            case 2:
                             case "end":
                                 return _context16.stop();
                         }
@@ -52080,6 +52139,13 @@ var OnmsAlarm = function () {
             }
             return undefined;
         }
+        /** whether the alarm has been acknowledged */
+
+    }, {
+        key: "isAcknowledged",
+        get: function get() {
+            return this.ackTime !== undefined && this.ackTime !== null;
+        }
         /** whether the alarm is a situation */
 
     }, {
@@ -54055,7 +54121,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 Object.defineProperty(exports, "__esModule", { value: true });
 var axios_1 = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-var clonedeep = __webpack_require__(/*! lodash.clonedeep */ "./node_modules/lodash.clonedeep/index.js");
+var lodash_clonedeep_1 = __webpack_require__(/*! lodash.clonedeep */ "./node_modules/lodash.clonedeep/index.js");
 /** @hidden */
 // tslint:disable-next-line
 var URI = __webpack_require__(/*! urijs */ "./node_modules/urijs/src/URI.js");
@@ -54230,7 +54296,7 @@ var AxiosHTTP = function (_AbstractHTTP_1$Abstr) {
                 ret.timeout = allOptions.timeout;
             }
             if (allOptions.headers) {
-                ret.headers = clonedeep(allOptions.headers);
+                ret.headers = lodash_clonedeep_1.default(allOptions.headers);
             } else {
                 ret.headers = {};
             }
@@ -54252,10 +54318,10 @@ var AxiosHTTP = function (_AbstractHTTP_1$Abstr) {
                 throw new OnmsError_1.OnmsError('Unhandled "Accept" header: ' + type);
             }
             if (allOptions.parameters) {
-                ret.params = clonedeep(allOptions.parameters);
+                ret.params = lodash_clonedeep_1.default(allOptions.parameters);
             }
             if (allOptions.data) {
-                ret.data = clonedeep(allOptions.data);
+                ret.data = lodash_clonedeep_1.default(allOptions.data);
             }
             return ret;
         }
@@ -54373,7 +54439,7 @@ var AbstractHTTP_1 = __webpack_require__(/*! ./AbstractHTTP */ "./src/rest/Abstr
 var OnmsResult_1 = __webpack_require__(/*! ../api/OnmsResult */ "./src/api/OnmsResult.ts");
 var Log_1 = __webpack_require__(/*! ../api/Log */ "./src/api/Log.ts");
 var typescript_logging_1 = __webpack_require__(/*! typescript-logging */ "./node_modules/typescript-logging/dist/commonjs/typescript-logging.js");
-var clonedeep = __webpack_require__(/*! lodash.clonedeep */ "./node_modules/lodash.clonedeep/index.js");
+var lodash_clonedeep_1 = __webpack_require__(/*! lodash.clonedeep */ "./node_modules/lodash.clonedeep/index.js");
 var GrafanaError_1 = __webpack_require__(/*! ./GrafanaError */ "./src/rest/GrafanaError.ts");
 /** @hidden */
 var catGrafana = new typescript_logging_1.Category('grafana', Log_1.catRest);
@@ -54526,10 +54592,10 @@ var GrafanaHTTP = function (_AbstractHTTP_1$Abstr) {
         key: "getConfig",
         value: function getConfig(options) {
             var allOptions = this.getOptions(options);
-            var ret = clonedeep(allOptions.toJSON());
+            var ret = lodash_clonedeep_1.default(allOptions.toJSON());
             ret.transformResponse = []; // we do this so we can post-process only on success
             if (allOptions.headers) {
-                ret.headers = clonedeep(allOptions.headers);
+                ret.headers = lodash_clonedeep_1.default(allOptions.headers);
             } else {
                 ret.headers = {};
             }

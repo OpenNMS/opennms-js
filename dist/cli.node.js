@@ -50340,7 +50340,7 @@ exports.XMLReader = XMLReader;
 /*! exports provided: name, version, description, main, bin, author, license, bugs, homepage, repository, devDependencies, jest, dependencies, resolutions, husky, scripts, default */
 /***/ (function(module) {
 
-module.exports = {"name":"opennms","version":"1.4.0-SNAPSHOT","description":"Client API for the OpenNMS network monitoring platform","main":"dist/opennms.js","bin":{"opennms":"dist/cli.node.js"},"author":"Benjamin Reed","license":"MIT","bugs":{"url":"https://github.com/OpenNMS/opennms-js/issues"},"homepage":"https://github.com/OpenNMS/opennms-js","repository":{"type":"git","url":"https://github.com/OpenNMS/opennms-js.git"},"devDependencies":{"@types/jest":"^22.2.0","@types/lodash":"^4.14.104","@types/node":"^9.4.6","@types/urijs":"^1.15.36","babel-cli":"^6.26.0","babel-jest":"^22.4.1","babel-loader":"^7.1.4","babel-plugin-syntax-async-functions":"^6.13.0","babel-plugin-transform-class-properties":"^6.24.1","babel-plugin-transform-es2015-destructuring":"^6.23.0","babel-plugin-transform-es2015-for-of":"^6.23.0","babel-plugin-transform-es2015-modules-commonjs":"^6.26.0","babel-plugin-transform-object-rest-spread":"^6.26.0","babel-plugin-transform-regenerator":"^6.26.0","babel-plugin-transform-runtime":"^6.23.0","babel-polyfill":"^6.26.0","babel-preset-env":"^1.6.1","babel-preset-es2015":"^6.24.1","babel-preset-latest":"^6.24.1","cache-loader":"^1.2.2","chai":"^4.1.2","child_process":"^1.0.2","conventional-changelog-lint":"^2.1.1","husky":"^1.3.1","jest":"^22.4.2","jest-environment-node-debug":"^2.0.0","lodash.clonedeep":"^4.5.0","parallel-webpack":"^2.3.0","regenerator-runtime":"^0.11.1","standard-changelog":"^1.0.13","ts-jest":"^22.4.1","ts-loader":"^4.0.1","ts-node":"^5.0.1","tslint":"^5.9.1","tslint-loader":"https://github.com/wbuchwalter/tslint-loader.git#093230076f3b453c4f8b7aa2ee074932aa109e84","typedoc":"^0.11.0","typedoc-plugin-external-module-name":"^1.1.1","typedoc-webpack-plugin":"^1.1.4","typescript":"^2.7.0","uglifyjs-webpack-plugin":"^1.2.2","urijs":"^1.19.1","webpack":"^4.1.1","webpack-cli":"^2.0.10","webpack-closure-compiler":"^2.1.6","yargs":"^11.0.0","yarn":"^1.7.0"},"jest":{"verbose":true,"transform":{"^.+\\.tsx?$":"<rootDir>/node_modules/ts-jest/preprocessor.js"},"moduleFileExtensions":["ts","tsx","js","json"],"testRegex":"(/__tests__/.*|\\.(test|spec))\\.(ts|tsx|js)$"},"dependencies":{"axios":"^0.16.1","cli-table3":"^0.5.0","commander":"^2.9.0","fs":"^0.0.1-security","ip-address":"^5.8.8","lodash.startcase":"^4.4.0","moment":"^2.19.3","qs":"^6.5.0","typescript-logging":"^0.3.1","version_compare":"^0.0.3","x2js":"^3.1.1","xmldom":"^0.1.27"},"resolutions":{"atob":"^2.1.2","babel-plugin-istanbul":"^4.1.6","babel-traverse":"^6.26.0","exec-sh":"^0.3.2","chokidar":"^2.1.4","deep-extend":"^0.6.0","follow-redirects":"^1.7.0","handlebars":"^4.1.1","istanbul-lib-source-maps":"^1.2.6","jest-config":"^22.4.4","js-yaml":"^3.13.0","lodash":"^4.17.11","micromatch":"^3.1.10","request":"^2.88.0","sane":"^2.5.2","sshpk":"^1.16.1","typescript":"^2.x"},"husky":{"hooks":{"pre-commit":"jest","pre-push":"conventional-changelog-lint --from=origin/master && yarn --ignore-engines lint"}},"scripts":{"changelog":"standard-changelog -i CHANGELOG.md -s -r 1","build":"webpack --define process.env.NODE_ENV=production --env production","dev":"webpack --progress --colors","dist":"yarn --ignore-engines lint && yarn --ignore-engines test && yarn --ignore-engines build","docs":"webpack --env docs","watch":"webpack --progress --colors --watch","test":"jest","watch-test":"jest --watch","lint":"tslint 'src/**/*.ts'","cli":"ts-node src/CLI.ts","docker-build":"yarn --ignore-engines && yarn --ignore-engines lint && yarn --ignore-engines test && yarn --ignore-engines  build && yarn --ignore-engines changelog && ./fix-ownership.sh","docker":"docker run --rm --name opennms-js -v `pwd`:/build -w /build node:carbon yarn --ignore-engines docker-build"}};
+module.exports = {"name":"opennms","version":"1.4.0-SNAPSHOT","description":"Client API for the OpenNMS network monitoring platform","main":"dist/opennms.js","bin":{"opennms":"dist/cli.node.js"},"author":"Benjamin Reed","license":"MIT","bugs":{"url":"https://github.com/OpenNMS/opennms-js/issues"},"homepage":"https://github.com/OpenNMS/opennms-js","repository":{"type":"git","url":"https://github.com/OpenNMS/opennms-js.git"},"devDependencies":{"@types/jest":"^22.2.0","@types/lodash":"^4.14.104","@types/node":"^9.4.6","@types/urijs":"^1.15.36","babel-cli":"^6.26.0","babel-jest":"^22.4.1","babel-loader":"^7.1.4","babel-plugin-syntax-async-functions":"^6.13.0","babel-plugin-transform-class-properties":"^6.24.1","babel-plugin-transform-es2015-destructuring":"^6.23.0","babel-plugin-transform-es2015-for-of":"^6.23.0","babel-plugin-transform-es2015-modules-commonjs":"^6.26.0","babel-plugin-transform-object-rest-spread":"^6.26.0","babel-plugin-transform-regenerator":"^6.26.0","babel-plugin-transform-runtime":"^6.23.0","babel-polyfill":"^6.26.0","babel-preset-env":"^1.6.1","babel-preset-es2015":"^6.24.1","babel-preset-latest":"^6.24.1","cache-loader":"^1.2.2","chai":"^4.1.2","child_process":"^1.0.2","conventional-changelog-lint":"^2.1.1","husky":"^1.3.1","jest":"^22.4.2","jest-environment-node-debug":"^2.0.0","lodash.clonedeep":"^4.5.0","parallel-webpack":"^2.3.0","regenerator-runtime":"^0.11.1","standard-changelog":"^1.0.13","ts-jest":"^22.4.1","ts-loader":"^4.0.1","ts-node":"^5.0.1","tslint":"^5.9.1","tslint-loader":"https://github.com/wbuchwalter/tslint-loader.git#093230076f3b453c4f8b7aa2ee074932aa109e84","typedoc":"^0.11.0","typedoc-plugin-external-module-name":"^1.1.1","typedoc-webpack-plugin":"^1.1.4","typescript":"^2.7.0","uglifyjs-webpack-plugin":"^1.2.2","urijs":"^1.19.1","webpack":"^4.1.1","webpack-cli":"^2.0.10","webpack-closure-compiler":"^2.1.6","yargs":"^11.0.0","yarn":"^1.7.0"},"jest":{"verbose":true,"transform":{"^.+\\.tsx?$":"<rootDir>/node_modules/ts-jest/preprocessor.js"},"moduleFileExtensions":["ts","tsx","js","json"],"testRegex":"(/__tests__/.*|\\.(test|spec))\\.(ts|tsx|js)$"},"dependencies":{"@types/lodash.clonedeep":"^4.5.6","axios":"^0.16.1","cli-table3":"^0.5.0","commander":"^2.9.0","fs":"^0.0.1-security","ip-address":"^5.8.8","lodash.startcase":"^4.4.0","moment":"^2.19.3","qs":"^6.5.0","typescript-logging":"^0.3.1","version_compare":"^0.0.3","x2js":"^3.1.1","xmldom":"^0.1.27"},"resolutions":{"atob":"^2.1.2","babel-plugin-istanbul":"^4.1.6","babel-traverse":"^6.26.0","exec-sh":"^0.3.2","chokidar":"^2.1.4","deep-extend":"^0.6.0","follow-redirects":"^1.7.0","handlebars":"^4.1.1","istanbul-lib-source-maps":"^1.2.6","jest-config":"^22.4.4","js-yaml":"^3.13.0","lodash":"^4.17.11","micromatch":"^3.1.10","request":"^2.88.0","sane":"^2.5.2","sshpk":"^1.16.1","typescript":"^2.x"},"husky":{"hooks":{"pre-commit":"jest","pre-push":"conventional-changelog-lint --from=origin/master && yarn --ignore-engines lint"}},"scripts":{"changelog":"standard-changelog -i CHANGELOG.md -s -r 1","build":"webpack --define process.env.NODE_ENV=production --env production","dev":"webpack --progress --colors","dist":"yarn --ignore-engines lint && yarn --ignore-engines test && yarn --ignore-engines build","docs":"webpack --env docs","watch":"webpack --progress --colors --watch","test":"jest","watch-test":"jest --watch","lint":"tslint 'src/**/*.ts'","cli":"ts-node src/CLI.ts","docker-build":"yarn --ignore-engines && yarn --ignore-engines lint && yarn --ignore-engines test && yarn --ignore-engines  build && yarn --ignore-engines changelog && ./fix-ownership.sh","docker":"docker run --rm --name opennms-js -v `pwd`:/build -w /build node:carbon yarn --ignore-engines docker-build"}};
 
 /***/ }),
 
@@ -52780,9 +52780,12 @@ var __awaiter = undefined && undefined.__awaiter || function (thisArg, _argument
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var OnmsError_1 = __webpack_require__(/*! ../api/OnmsError */ "./src/api/OnmsError.ts");
+var NestedRestriction_1 = __webpack_require__(/*! ../api/NestedRestriction */ "./src/api/NestedRestriction.ts");
 var OnmsHTTPOptions_1 = __webpack_require__(/*! ../api/OnmsHTTPOptions */ "./src/api/OnmsHTTPOptions.ts");
+var Restriction_1 = __webpack_require__(/*! ../api/Restriction */ "./src/api/Restriction.ts");
 var SearchProperty_1 = __webpack_require__(/*! ../api/SearchProperty */ "./src/api/SearchProperty.ts");
 var SearchPropertyType_1 = __webpack_require__(/*! ../api/SearchPropertyType */ "./src/api/SearchPropertyType.ts");
+var Log_1 = __webpack_require__(/*! ../api/Log */ "./src/api/Log.ts");
 var V1FilterProcessor_1 = __webpack_require__(/*! ./V1FilterProcessor */ "./src/dao/V1FilterProcessor.ts");
 var V2FilterProcessor_1 = __webpack_require__(/*! ./V2FilterProcessor */ "./src/dao/V2FilterProcessor.ts");
 var PropertiesCache_1 = __webpack_require__(/*! ./PropertiesCache */ "./src/dao/PropertiesCache.ts");
@@ -53012,6 +53015,46 @@ var AbstractDAO = function (_BaseDAO_1$BaseDAO) {
             }
             return data;
         }
+    }, {
+        key: "visitClause",
+        value: function visitClause(clause, visitor) {
+            var self = this;
+            if (visitor.onClause) {
+                visitor.onClause(clause);
+            }
+            var restriction = clause.restriction;
+            if (restriction instanceof Restriction_1.Restriction) {
+                if (visitor.onRestriction) {
+                    visitor.onRestriction(restriction);
+                }
+            } else if (restriction instanceof NestedRestriction_1.NestedRestriction) {
+                if (visitor.onNestedRestriction) {
+                    visitor.onNestedRestriction(restriction);
+                }
+                restriction.clauses.forEach(function (c) {
+                    self.visitClause(c, visitor);
+                });
+            } else {
+                Log_1.log.warn('Restriction is of an unknown type: ' + JSON.stringify(restriction), Log_1.catDao);
+            }
+        }
+        /**
+         * Iterate over a Filter object and its children.
+         * @param filter the filter to visit
+         * @param visitor the class to invoke while visiting the filter
+         */
+
+    }, {
+        key: "visitFilter",
+        value: function visitFilter(filter, visitor) {
+            var self = this;
+            if (visitor.onFilter) {
+                visitor.onFilter(filter);
+            }
+            filter.clauses.forEach(function (clause) {
+                self.visitClause(clause, visitor);
+            });
+        }
         /**
          * Create an [[OnmsHTTPOptions]] object for DAO calls given an optional filter.
          * @param filter - the filter to use
@@ -53147,6 +53190,7 @@ var __awaiter = undefined && undefined.__awaiter || function (thisArg, _argument
 Object.defineProperty(exports, "__esModule", { value: true });
 var AbstractDAO_1 = __webpack_require__(/*! ./AbstractDAO */ "./src/dao/AbstractDAO.ts");
 var EventDAO_1 = __webpack_require__(/*! ./EventDAO */ "./src/dao/EventDAO.ts");
+var Comparator_1 = __webpack_require__(/*! ../api/Comparator */ "./src/api/Comparator.ts");
 var OnmsError_1 = __webpack_require__(/*! ../api/OnmsError */ "./src/api/OnmsError.ts");
 var OnmsHTTPOptions_1 = __webpack_require__(/*! ../api/OnmsHTTPOptions */ "./src/api/OnmsHTTPOptions.ts");
 var OnmsAlarm_1 = __webpack_require__(/*! ../model/OnmsAlarm */ "./src/model/OnmsAlarm.ts");
@@ -53857,6 +53901,21 @@ var AlarmDAO = function (_AbstractDAO_1$Abstra) {
                     while (1) {
                         switch (_context16.prev = _context16.next) {
                             case 0:
+                                if (filter) {
+                                    this.visitFilter(filter, {
+                                        onRestriction: function onRestriction(restriction) {
+                                            if (restriction.attribute === 'isAcknowledged') {
+                                                var value = String(restriction.value).toLowerCase() === 'true';
+                                                restriction.attribute = 'alarmAckTime';
+                                                if (restriction.comparator.label === Comparator_1.Comparators.NE.label) {
+                                                    value = !value;
+                                                }
+                                                restriction.comparator = value ? Comparator_1.Comparators.NOTNULL : Comparator_1.Comparators.NULL;
+                                                restriction.value = undefined;
+                                            }
+                                        }
+                                    });
+                                }
                                 return _context16.abrupt("return", _super("getOptions").call(this, filter).then(function (options) {
                                     // always use application/json for v2 calls
                                     if (_this8.getApiVersion() === 2) {
@@ -53865,7 +53924,7 @@ var AlarmDAO = function (_AbstractDAO_1$Abstra) {
                                     return options;
                                 }));
 
-                            case 1:
+                            case 2:
                             case "end":
                                 return _context16.stop();
                         }
@@ -56328,6 +56387,13 @@ var OnmsAlarm = function () {
             }
             return undefined;
         }
+        /** whether the alarm has been acknowledged */
+
+    }, {
+        key: "isAcknowledged",
+        get: function get() {
+            return this.ackTime !== undefined && this.ackTime !== null;
+        }
         /** whether the alarm is a situation */
 
     }, {
@@ -58303,7 +58369,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 Object.defineProperty(exports, "__esModule", { value: true });
 var axios_1 = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-var clonedeep = __webpack_require__(/*! lodash.clonedeep */ "./node_modules/lodash.clonedeep/index.js");
+var lodash_clonedeep_1 = __webpack_require__(/*! lodash.clonedeep */ "./node_modules/lodash.clonedeep/index.js");
 /** @hidden */
 // tslint:disable-next-line
 var URI = __webpack_require__(/*! urijs */ "./node_modules/urijs/src/URI.js");
@@ -58478,7 +58544,7 @@ var AxiosHTTP = function (_AbstractHTTP_1$Abstr) {
                 ret.timeout = allOptions.timeout;
             }
             if (allOptions.headers) {
-                ret.headers = clonedeep(allOptions.headers);
+                ret.headers = lodash_clonedeep_1.default(allOptions.headers);
             } else {
                 ret.headers = {};
             }
@@ -58500,10 +58566,10 @@ var AxiosHTTP = function (_AbstractHTTP_1$Abstr) {
                 throw new OnmsError_1.OnmsError('Unhandled "Accept" header: ' + type);
             }
             if (allOptions.parameters) {
-                ret.params = clonedeep(allOptions.parameters);
+                ret.params = lodash_clonedeep_1.default(allOptions.parameters);
             }
             if (allOptions.data) {
-                ret.data = clonedeep(allOptions.data);
+                ret.data = lodash_clonedeep_1.default(allOptions.data);
             }
             return ret;
         }
@@ -58621,7 +58687,7 @@ var AbstractHTTP_1 = __webpack_require__(/*! ./AbstractHTTP */ "./src/rest/Abstr
 var OnmsResult_1 = __webpack_require__(/*! ../api/OnmsResult */ "./src/api/OnmsResult.ts");
 var Log_1 = __webpack_require__(/*! ../api/Log */ "./src/api/Log.ts");
 var typescript_logging_1 = __webpack_require__(/*! typescript-logging */ "./node_modules/typescript-logging/dist/commonjs/typescript-logging.js");
-var clonedeep = __webpack_require__(/*! lodash.clonedeep */ "./node_modules/lodash.clonedeep/index.js");
+var lodash_clonedeep_1 = __webpack_require__(/*! lodash.clonedeep */ "./node_modules/lodash.clonedeep/index.js");
 var GrafanaError_1 = __webpack_require__(/*! ./GrafanaError */ "./src/rest/GrafanaError.ts");
 /** @hidden */
 var catGrafana = new typescript_logging_1.Category('grafana', Log_1.catRest);
@@ -58774,10 +58840,10 @@ var GrafanaHTTP = function (_AbstractHTTP_1$Abstr) {
         key: "getConfig",
         value: function getConfig(options) {
             var allOptions = this.getOptions(options);
-            var ret = clonedeep(allOptions.toJSON());
+            var ret = lodash_clonedeep_1.default(allOptions.toJSON());
             ret.transformResponse = []; // we do this so we can post-process only on success
             if (allOptions.headers) {
-                ret.headers = clonedeep(allOptions.headers);
+                ret.headers = lodash_clonedeep_1.default(allOptions.headers);
             } else {
                 ret.headers = {};
             }
