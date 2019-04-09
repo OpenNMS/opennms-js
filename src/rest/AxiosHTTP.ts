@@ -1,7 +1,6 @@
 import axios from 'axios';
 import {AxiosStatic, AxiosInstance, AxiosResponse, AxiosRequestConfig} from 'axios';
-import * as qs from 'qs';
-import clonedeep from 'lodash.clonedeep';
+import {cloneDeep} from 'lodash';
 
 /** @hidden */
 // tslint:disable-next-line
@@ -184,7 +183,7 @@ export class AxiosHTTP extends AbstractHTTP {
     }
 
     if (allOptions.headers) {
-      ret.headers = clonedeep(allOptions.headers);
+      ret.headers = cloneDeep(allOptions.headers);
     } else {
       ret.headers = {};
     }
@@ -209,11 +208,11 @@ export class AxiosHTTP extends AbstractHTTP {
     }
 
     if (allOptions.parameters) {
-      ret.params = clonedeep(allOptions.parameters);
+      ret.params = cloneDeep(allOptions.parameters);
     }
 
     if (allOptions.data) {
-      ret.data = clonedeep(allOptions.data);
+      ret.data = cloneDeep(allOptions.data);
     }
 
     return ret;

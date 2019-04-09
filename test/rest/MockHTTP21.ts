@@ -5,7 +5,7 @@ declare const Promise, require;
 // tslint:disable-next-line
 const URI = require('urijs');
 
-import clonedeep from 'lodash.clonedeep';
+import {cloneDeep} from 'lodash';
 
 import {AbstractHTTP} from '../../src/rest/AbstractHTTP';
 
@@ -38,7 +38,7 @@ export class MockHTTP21 extends AbstractHTTP {
         return Promise.resolve(result);
       }
       case 'api/v2/alarms?limit=1000&_s=alarmAckTime%21%3D%00': {
-        const ret = clonedeep(require('./21.0.0/get/api/v2/alarms/id.eq.6806.json'));
+        const ret =cloneDeep(require('./21.0.0/get/api/v2/alarms/id.eq.6806.json'));
         ret.alarm[0].ackTime = 1495806508530;
         ret.alarm[0].ackUser = 'ranger';
         const result = OnmsResult.ok(ret);
@@ -46,7 +46,7 @@ export class MockHTTP21 extends AbstractHTTP {
         return Promise.resolve(result);
       }
       case 'api/v2/alarms?limit=1000&_s=alarmAckTime%3D%3D%00': {
-        const ret = clonedeep(require('./21.0.0/get/api/v2/alarms/id.eq.6806.json'));
+        const ret = cloneDeep(require('./21.0.0/get/api/v2/alarms/id.eq.6806.json'));
         delete ret.alarm[0].ackId;
         delete ret.alarm[0].ackTime;
         delete ret.alarm[0].ackUser;
