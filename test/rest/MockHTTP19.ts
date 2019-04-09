@@ -5,7 +5,7 @@ declare const Promise, require;
 // tslint:disable-next-line
 const URI = require('urijs');
 
-import clonedeep from 'lodash.clonedeep';
+import {cloneDeep} from 'lodash';
 
 import {AbstractHTTP} from '../../src/rest/AbstractHTTP';
 
@@ -33,7 +33,7 @@ export class MockHTTP19 extends AbstractHTTP {
         return Promise.resolve(result);
       }
       case 'rest/alarms?limit=1000&alarmAckTime=notnull': {
-        const ret = clonedeep(require('./19.1.0/get/rest/alarms/id.eq.404725.json'));
+        const ret = cloneDeep(require('./19.1.0/get/rest/alarms/id.eq.404725.json'));
         ret.alarm[0].ackTime = 1495806508530;
         ret.alarm[0].ackUser = 'ranger';
         const result = OnmsResult.ok(ret);
@@ -41,7 +41,7 @@ export class MockHTTP19 extends AbstractHTTP {
         return Promise.resolve(result);
       }
       case 'rest/alarms?limit=1000&alarmAckTime=null': {
-        const ret = clonedeep(require('./19.1.0/get/rest/alarms/id.eq.404725.json'));
+        const ret = cloneDeep(require('./19.1.0/get/rest/alarms/id.eq.404725.json'));
         delete ret.alarm[0].ackId;
         delete ret.alarm[0].ackTime;
         delete ret.alarm[0].ackUser;
@@ -141,7 +141,7 @@ export class MockHTTP19 extends AbstractHTTP {
     throw new Error('19: Not yet implemented: PUT ' + urlObj.toString());
   }
 
-  public post(url: string, options?: OnmsHTTPOptions) {
+  public post(url: string, options?: OnmsHTTPOptions): Promise<OnmsResult<any>> {
     const urlObj = new URI(url);
     if (options && options.parameters) {
       urlObj.search(options.parameters);

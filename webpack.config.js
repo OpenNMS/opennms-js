@@ -6,7 +6,7 @@ var pkginfo = require('./package.json');
 
 var createVariants = require('parallel-webpack').createVariants;
 
-var clonedeep = require('lodash.clonedeep');
+var cloneDeep = require('lodash').cloneDeep;
 
 var argv = require('yargs').argv;
 var isProduction = argv.env === 'production';
@@ -77,7 +77,7 @@ var config = {
 };
 
 function createConfig(options) {
-  var myconf = clonedeep(config);
+  var myconf = cloneDeep(config);
   myconf.output.filename = '[name]';
   var defs = {
     'IS_WEB': options.target === 'web',
