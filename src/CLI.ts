@@ -1,6 +1,4 @@
-import * as startCase from 'lodash.startcase';
-
-import {API, Model, Rest, DAO, Client} from './API';
+import {API, Rest, DAO, Client} from './API';
 
 import {log, catRoot, setLogLevel} from './api/Log';
 import {
@@ -10,15 +8,18 @@ import {
   LogLevel,
 } from 'typescript-logging';
 
+import chalk from 'chalk';
+import {cloneDeep, startCase} from 'lodash';
+import {table, getBorderCharacters} from 'table';
+
 /** @hidden */
 const CLI = () => {
   const version = global.OPENNMS_JS_VERSION || require('../package.json').version || 'unknown';
   const catCLI = new Category('cli', catRoot);
 
   // tslint:disable
-  const Table = require('cli-table3');
-  const colors = require('colors');
   const fs = require('fs');
+  const htmlToFormattedText = require("html-to-formatted-text");
   const path = require('path');
   const program = require('commander');
   // tslint:enable
@@ -26,32 +27,15 @@ const CLI = () => {
   const homedir = process.env[(process.platform === 'win32') ? 'USERPROFILE' : 'HOME'];
   const defaultConfigFile = path.join(homedir, '.opennms-cli.config.json');
 
-  const tableFormat = {
-    /* tslint:disable:object-literal-sort-keys */
-    head: [],
-    colWidths: [],
-    chars: {
-      'middle': '  ',
-      'top': '',
-      'top-mid': '',
-      'top-left': '',
-      'top-right': '',
-      'left': '',
-      'left-mid': '',
-      'mid': '',
-      'mid-mid': '',
-      'right': '',
-      'right-mid': '',
-      'bottom': '',
-      'bottom-mid': '',
-      'bottom-left': '',
-      'bottom-right': '',
+  const tableConfig = {
+    border: getBorderCharacters(`void`),
+    columnDefault: {
+      paddingLeft: 0,
+      paddingRight: 2,
     },
-    style: {
-      'padding-left': 0,
-      'padding-right': 0,
+    drawHorizontalLine: () => {
+      return false;
     },
-    wordWrap: true,
   };
 
   const readConfig = () => {
@@ -106,7 +90,7 @@ const CLI = () => {
     .option('-u, --username <username>', 'The username to authenticate as (default: admin)')
     .option('-p, --password <password>', 'The password to authenticate with (default: admin)')
     .action((url, options) => {
-      console.log(colors.red('WARNING: This command saves your login'
+      console.log(chalk.red('WARNING: This command saves your login'
         + ' information to ~/.opennms-cli.config.json in clear text.'));
       const config = readConfig();
       if (url) {
@@ -126,7 +110,7 @@ const CLI = () => {
       const server = new API.OnmsServer('OpenNMS', config.url, auth);
       const http = new Rest.AxiosHTTP(server);
       return Client.checkServer(server, http).then(() => {
-        console.log(colors.green('Connection succeeded.'));
+        console.log(chalk.green('Connection succeeded.'));
         if (!program.config) { // don't write the config if a config was passed in
           log.debug('Saving configuration to ' + defaultConfigFile, catCLI);
           fs.writeFileSync(defaultConfigFile, JSON.stringify(config, undefined, 2), { mode: 0o600 });
@@ -147,24 +131,24 @@ const CLI = () => {
       const server = new API.OnmsServer('OpenNMS', config.url, auth);
       const http = new Rest.AxiosHTTP(server);
       return Client.getMetadata(server, http).then((res) => {
-        let c = colors.green;
+        let c = chalk.green;
         if (res.type === API.ServerTypes.MERIDIAN) {
-          console.log(colors.blue('OpenNMS Meridian ' + res.version.displayVersion + ' Capabilities:'));
-          c = colors.blue;
+          console.log(chalk.blue('OpenNMS Meridian ' + res.version.displayVersion + ' Capabilities:'));
+          c = chalk.blue;
         } else {
-          console.log(colors.green('OpenNMS Horizon ' + res.version.displayVersion + ' Capabilities:'));
+          console.log(chalk.green('OpenNMS Horizon ' + res.version.displayVersion + ' Capabilities:'));
         }
         console.log('');
 
+        const data = [];
         const caps = res.capabilities();
-        const t = new Table(tableFormat);
         for (const cap in caps) {
           if (cap === 'type') {
             continue;
           }
-          t.push([startCase(cap) + ':', caps[cap]]);
+          data.push([chalk.bold(startCase(cap) + ':'), caps[cap]]);
         }
-        console.log(t.toString());
+        console.log(table(data, tableConfig));
         console.log('');
 
         return res;
@@ -177,13 +161,13 @@ const CLI = () => {
 
   const colorify = (severity: string) => {
     switch (severity) {
-      case 'INDETERMINATE': return colors.grey(severity);
-      case 'CLEARED': return colors.white(severity);
-      case 'NORMAL': return colors.green(severity);
-      case 'WARNING': return colors.magenta(severity);
-      case 'MINOR': return colors.yellow(severity);
-      case 'MAJOR': return colors.bold.yellow(severity);
-      case 'CRITICAL': return colors.bold.red(severity);
+      case 'INDETERMINATE': return chalk.grey(severity);
+      case 'CLEARED': return chalk.white(severity);
+      case 'NORMAL': return chalk.green(severity);
+      case 'WARNING': return chalk.magenta(severity);
+      case 'MINOR': return chalk.yellow(severity);
+      case 'MAJOR': return chalk.bold.yellow(severity);
+      case 'CRITICAL': return chalk.bold.red(severity);
       default: return severity;
     }
   };
@@ -194,14 +178,17 @@ const CLI = () => {
     return Math.min(m, max);
   };
 
-  const logMessageLength = 50;
   const formatAlarms = (alarms) => {
     return alarms.map((alarm) => {
       const severityLabel = ((alarm.severity && alarm.severity.label) ? alarm.severity.label : '');
 
       let logMessage = '';
       if (alarm.logMessage) {
-        logMessage = alarm.logMessage.replace('[\r\n].*$', '').replace('<p>', '').replace('</p>', '').trim();
+        logMessage = alarm.logMessage
+          .replace(new RegExp('[\r\n]+', 'gs'), ' ')
+          .replace(new RegExp('\s+', 'gs'), ' ')
+          .trim();
+        logMessage = htmlToFormattedText(logMessage);
       }
 
       return {
@@ -243,20 +230,44 @@ const CLI = () => {
             return;
           }
 
-          const format = Object.assign({}, tableFormat);
           const formatted = formatAlarms(alarms);
 
-          format.head = [ 'ID', 'Severity', 'Node', 'Count', 'Time', 'Log' ];
-          format.colWidths = [3, 8, getMaxWidth(formatted, 'node', 30), 5, 17];
-          const existingWidths = format.colWidths.reduce((acc, val) => acc + val);
-          const spacers = (format.colWidths.length * 2);
-          const remainder = process.stdout.columns - existingWidths - spacers;
-          format.colWidths.push(remainder);
-          const t = new Table(format);
+          const alarmTableConfig = cloneDeep(tableConfig) as any;
+          alarmTableConfig.columns = {};
+
+          const data = [
+            [ 'ID', 'Severity', 'Node', 'Count', 'Time', 'Log' ].map((header) => chalk.bold(header)),
+          ];
+
+          const colWidths = [
+            /* id */
+            getMaxWidth(formatted, 'id', 10),
+            /* severity */
+            8,
+            /* node */
+            getMaxWidth(formatted, 'node', 30),
+            /* count */
+            5,
+            /* time */
+            16,
+          ];
+          const existingWidths = colWidths.reduce((acc, val) => acc + val);
+          const spacers = (colWidths.length + 1) * 2;
+          const remainder = (process.stdout.columns || 200) - existingWidths - spacers;
+          /* log */
+          colWidths.push(remainder);
+
+          colWidths.forEach((width, index) => {
+            alarmTableConfig.columns[index] = {
+              width,
+            };
+          });
+
+          alarmTableConfig.columns[5].wrapWord = true;
           for (const alarm of formatted) {
-            t.push([alarm.id, alarm.severity, alarm.node, alarm.count, alarm.time, alarm.log]);
+            data.push([alarm.id, alarm.severity, alarm.node, alarm.count, alarm.time, alarm.log]);
           }
-          console.log(t.toString());
+          console.log(table(data, alarmTableConfig));
           console.log('');
         });
       }).catch((err) => {
