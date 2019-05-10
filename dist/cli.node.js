@@ -88,6 +88,20 @@ return /******/ (function(modules) { // webpackBootstrap
 /************************************************************************/
 /******/ ({
 
+/***/ "./node_modules/ajv/lib/compile/equal.js":
+/*!***********************************************!*\
+  !*** ./node_modules/ajv/lib/compile/equal.js ***!
+  \***********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+module.exports = __webpack_require__(/*! fast-deep-equal */ "./node_modules/fast-deep-equal/index.js");
+
+/***/ }),
+
 /***/ "./node_modules/ansi-regex/index.js":
 /*!******************************************!*\
   !*** ./node_modules/ansi-regex/index.js ***!
@@ -101,6 +115,277 @@ return /******/ (function(modules) { // webpackBootstrap
 module.exports = function () {
 	return (/[\u001b\u009b][[()#;?]*(?:[0-9]{1,4}(?:;[0-9]{0,4})*)?[0-9A-PRZcf-nqry=><]/g
 	);
+};
+
+/***/ }),
+
+/***/ "./node_modules/ansi-styles/index.js":
+/*!*******************************************!*\
+  !*** ./node_modules/ansi-styles/index.js ***!
+  \*******************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(module) {
+
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
+var colorConvert = __webpack_require__(/*! color-convert */ "./node_modules/color-convert/index.js");
+
+var wrapAnsi16 = function wrapAnsi16(fn, offset) {
+	return function () {
+		var code = fn.apply(colorConvert, arguments);
+		return '\x1B[' + (code + offset) + 'm';
+	};
+};
+
+var wrapAnsi256 = function wrapAnsi256(fn, offset) {
+	return function () {
+		var code = fn.apply(colorConvert, arguments);
+		return '\x1B[' + (38 + offset) + ';5;' + code + 'm';
+	};
+};
+
+var wrapAnsi16m = function wrapAnsi16m(fn, offset) {
+	return function () {
+		var rgb = fn.apply(colorConvert, arguments);
+		return '\x1B[' + (38 + offset) + ';2;' + rgb[0] + ';' + rgb[1] + ';' + rgb[2] + 'm';
+	};
+};
+
+function assembleStyles() {
+	var codes = new Map();
+	var styles = {
+		modifier: {
+			reset: [0, 0],
+			// 21 isn't widely supported and 22 does the same thing
+			bold: [1, 22],
+			dim: [2, 22],
+			italic: [3, 23],
+			underline: [4, 24],
+			inverse: [7, 27],
+			hidden: [8, 28],
+			strikethrough: [9, 29]
+		},
+		color: {
+			black: [30, 39],
+			red: [31, 39],
+			green: [32, 39],
+			yellow: [33, 39],
+			blue: [34, 39],
+			magenta: [35, 39],
+			cyan: [36, 39],
+			white: [37, 39],
+			gray: [90, 39],
+
+			// Bright color
+			redBright: [91, 39],
+			greenBright: [92, 39],
+			yellowBright: [93, 39],
+			blueBright: [94, 39],
+			magentaBright: [95, 39],
+			cyanBright: [96, 39],
+			whiteBright: [97, 39]
+		},
+		bgColor: {
+			bgBlack: [40, 49],
+			bgRed: [41, 49],
+			bgGreen: [42, 49],
+			bgYellow: [43, 49],
+			bgBlue: [44, 49],
+			bgMagenta: [45, 49],
+			bgCyan: [46, 49],
+			bgWhite: [47, 49],
+
+			// Bright color
+			bgBlackBright: [100, 49],
+			bgRedBright: [101, 49],
+			bgGreenBright: [102, 49],
+			bgYellowBright: [103, 49],
+			bgBlueBright: [104, 49],
+			bgMagentaBright: [105, 49],
+			bgCyanBright: [106, 49],
+			bgWhiteBright: [107, 49]
+		}
+	};
+
+	// Fix humans
+	styles.color.grey = styles.color.gray;
+
+	var _iteratorNormalCompletion = true;
+	var _didIteratorError = false;
+	var _iteratorError = undefined;
+
+	try {
+		for (var _iterator = Object.keys(styles)[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+			var groupName = _step.value;
+
+			var group = styles[groupName];
+
+			var _iteratorNormalCompletion3 = true;
+			var _didIteratorError3 = false;
+			var _iteratorError3 = undefined;
+
+			try {
+				for (var _iterator3 = Object.keys(group)[Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
+					var styleName = _step3.value;
+
+					var style = group[styleName];
+
+					styles[styleName] = {
+						open: '\x1B[' + style[0] + 'm',
+						close: '\x1B[' + style[1] + 'm'
+					};
+
+					group[styleName] = styles[styleName];
+
+					codes.set(style[0], style[1]);
+				}
+			} catch (err) {
+				_didIteratorError3 = true;
+				_iteratorError3 = err;
+			} finally {
+				try {
+					if (!_iteratorNormalCompletion3 && _iterator3.return) {
+						_iterator3.return();
+					}
+				} finally {
+					if (_didIteratorError3) {
+						throw _iteratorError3;
+					}
+				}
+			}
+
+			Object.defineProperty(styles, groupName, {
+				value: group,
+				enumerable: false
+			});
+
+			Object.defineProperty(styles, 'codes', {
+				value: codes,
+				enumerable: false
+			});
+		}
+	} catch (err) {
+		_didIteratorError = true;
+		_iteratorError = err;
+	} finally {
+		try {
+			if (!_iteratorNormalCompletion && _iterator.return) {
+				_iterator.return();
+			}
+		} finally {
+			if (_didIteratorError) {
+				throw _iteratorError;
+			}
+		}
+	}
+
+	var ansi2ansi = function ansi2ansi(n) {
+		return n;
+	};
+	var rgb2rgb = function rgb2rgb(r, g, b) {
+		return [r, g, b];
+	};
+
+	styles.color.close = '\x1B[39m';
+	styles.bgColor.close = '\x1B[49m';
+
+	styles.color.ansi = {
+		ansi: wrapAnsi16(ansi2ansi, 0)
+	};
+	styles.color.ansi256 = {
+		ansi256: wrapAnsi256(ansi2ansi, 0)
+	};
+	styles.color.ansi16m = {
+		rgb: wrapAnsi16m(rgb2rgb, 0)
+	};
+
+	styles.bgColor.ansi = {
+		ansi: wrapAnsi16(ansi2ansi, 10)
+	};
+	styles.bgColor.ansi256 = {
+		ansi256: wrapAnsi256(ansi2ansi, 10)
+	};
+	styles.bgColor.ansi16m = {
+		rgb: wrapAnsi16m(rgb2rgb, 10)
+	};
+
+	var _iteratorNormalCompletion2 = true;
+	var _didIteratorError2 = false;
+	var _iteratorError2 = undefined;
+
+	try {
+		for (var _iterator2 = Object.keys(colorConvert)[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
+			var key = _step2.value;
+
+			if (_typeof(colorConvert[key]) !== 'object') {
+				continue;
+			}
+
+			var suite = colorConvert[key];
+
+			if (key === 'ansi16') {
+				key = 'ansi';
+			}
+
+			if ('ansi16' in suite) {
+				styles.color.ansi[key] = wrapAnsi16(suite.ansi16, 0);
+				styles.bgColor.ansi[key] = wrapAnsi16(suite.ansi16, 10);
+			}
+
+			if ('ansi256' in suite) {
+				styles.color.ansi256[key] = wrapAnsi256(suite.ansi256, 0);
+				styles.bgColor.ansi256[key] = wrapAnsi256(suite.ansi256, 10);
+			}
+
+			if ('rgb' in suite) {
+				styles.color.ansi16m[key] = wrapAnsi16m(suite.rgb, 0);
+				styles.bgColor.ansi16m[key] = wrapAnsi16m(suite.rgb, 10);
+			}
+		}
+	} catch (err) {
+		_didIteratorError2 = true;
+		_iteratorError2 = err;
+	} finally {
+		try {
+			if (!_iteratorNormalCompletion2 && _iterator2.return) {
+				_iterator2.return();
+			}
+		} finally {
+			if (_didIteratorError2) {
+				throw _iteratorError2;
+			}
+		}
+	}
+
+	return styles;
+}
+
+// Make the export immutable
+Object.defineProperty(module, 'exports', {
+	enumerable: true,
+	get: assembleStyles
+});
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../webpack/buildin/module.js */ "./node_modules/webpack/buildin/module.js")(module)))
+
+/***/ }),
+
+/***/ "./node_modules/astral-regex/index.js":
+/*!********************************************!*\
+  !*** ./node_modules/astral-regex/index.js ***!
+  \********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var regex = '[\uD800-\uDBFF][\uDC00-\uDFFF]';
+
+module.exports = function (opts) {
+  return opts && opts.exact ? new RegExp('^' + regex + '$') : new RegExp(regex, 'g');
 };
 
 /***/ }),
@@ -1951,1114 +2236,557 @@ module.exports = __webpack_require__(/*! regenerator-runtime */ "./node_modules/
 
 /***/ }),
 
-/***/ "./node_modules/cli-table3/index.js":
-/*!******************************************!*\
-  !*** ./node_modules/cli-table3/index.js ***!
-  \******************************************/
+/***/ "./node_modules/chalk/index.js":
+/*!*************************************!*\
+  !*** ./node_modules/chalk/index.js ***!
+  \*************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-module.exports = __webpack_require__(/*! ./src/table */ "./node_modules/cli-table3/src/table.js");
+var escapeStringRegexp = __webpack_require__(/*! escape-string-regexp */ "./node_modules/escape-string-regexp/index.js");
+var ansiStyles = __webpack_require__(/*! ansi-styles */ "./node_modules/ansi-styles/index.js");
+var stdoutColor = __webpack_require__(/*! supports-color */ "./node_modules/supports-color/index.js").stdout;
+
+var template = __webpack_require__(/*! ./templates.js */ "./node_modules/chalk/templates.js");
+
+var isSimpleWindowsTerm = process.platform === 'win32' && !(process.env.TERM || '').toLowerCase().startsWith('xterm');
+
+// `supportsColor.level` → `ansiStyles.color[name]` mapping
+var levelMapping = ['ansi', 'ansi', 'ansi256', 'ansi16m'];
+
+// `color-convert` models to exclude from the Chalk API due to conflicts and such
+var skipModels = new Set(['gray']);
+
+var styles = Object.create(null);
+
+function applyOptions(obj, options) {
+	options = options || {};
+
+	// Detect level if not set manually
+	var scLevel = stdoutColor ? stdoutColor.level : 0;
+	obj.level = options.level === undefined ? scLevel : options.level;
+	obj.enabled = 'enabled' in options ? options.enabled : obj.level > 0;
+}
+
+function Chalk(options) {
+	// We check for this.template here since calling `chalk.constructor()`
+	// by itself will have a `this` of a previously constructed chalk object
+	if (!this || !(this instanceof Chalk) || this.template) {
+		var chalk = {};
+		applyOptions(chalk, options);
+
+		chalk.template = function () {
+			var args = [].slice.call(arguments);
+			return chalkTag.apply(null, [chalk.template].concat(args));
+		};
+
+		Object.setPrototypeOf(chalk, Chalk.prototype);
+		Object.setPrototypeOf(chalk.template, chalk);
+
+		chalk.template.constructor = Chalk;
+
+		return chalk.template;
+	}
+
+	applyOptions(this, options);
+}
+
+// Use bright blue on Windows as the normal blue color is illegible
+if (isSimpleWindowsTerm) {
+	ansiStyles.blue.open = '\x1B[94m';
+}
+
+var _iteratorNormalCompletion = true;
+var _didIteratorError = false;
+var _iteratorError = undefined;
+
+try {
+	var _loop = function _loop() {
+		var key = _step.value;
+
+		ansiStyles[key].closeRe = new RegExp(escapeStringRegexp(ansiStyles[key].close), 'g');
+
+		styles[key] = {
+			get: function get() {
+				var codes = ansiStyles[key];
+				return build.call(this, this._styles ? this._styles.concat(codes) : [codes], this._empty, key);
+			}
+		};
+	};
+
+	for (var _iterator = Object.keys(ansiStyles)[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+		_loop();
+	}
+} catch (err) {
+	_didIteratorError = true;
+	_iteratorError = err;
+} finally {
+	try {
+		if (!_iteratorNormalCompletion && _iterator.return) {
+			_iterator.return();
+		}
+	} finally {
+		if (_didIteratorError) {
+			throw _iteratorError;
+		}
+	}
+}
+
+styles.visible = {
+	get: function get() {
+		return build.call(this, this._styles || [], true, 'visible');
+	}
+};
+
+ansiStyles.color.closeRe = new RegExp(escapeStringRegexp(ansiStyles.color.close), 'g');
+var _iteratorNormalCompletion2 = true;
+var _didIteratorError2 = false;
+var _iteratorError2 = undefined;
+
+try {
+	var _loop2 = function _loop2() {
+		var model = _step2.value;
+
+		if (skipModels.has(model)) {
+			return 'continue';
+		}
+
+		styles[model] = {
+			get: function get() {
+				var level = this.level;
+				return function () {
+					var open = ansiStyles.color[levelMapping[level]][model].apply(null, arguments);
+					var codes = {
+						open: open,
+						close: ansiStyles.color.close,
+						closeRe: ansiStyles.color.closeRe
+					};
+					return build.call(this, this._styles ? this._styles.concat(codes) : [codes], this._empty, model);
+				};
+			}
+		};
+	};
+
+	for (var _iterator2 = Object.keys(ansiStyles.color.ansi)[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
+		var _ret2 = _loop2();
+
+		if (_ret2 === 'continue') continue;
+	}
+} catch (err) {
+	_didIteratorError2 = true;
+	_iteratorError2 = err;
+} finally {
+	try {
+		if (!_iteratorNormalCompletion2 && _iterator2.return) {
+			_iterator2.return();
+		}
+	} finally {
+		if (_didIteratorError2) {
+			throw _iteratorError2;
+		}
+	}
+}
+
+ansiStyles.bgColor.closeRe = new RegExp(escapeStringRegexp(ansiStyles.bgColor.close), 'g');
+var _iteratorNormalCompletion3 = true;
+var _didIteratorError3 = false;
+var _iteratorError3 = undefined;
+
+try {
+	var _loop3 = function _loop3() {
+		var model = _step3.value;
+
+		if (skipModels.has(model)) {
+			return 'continue';
+		}
+
+		var bgModel = 'bg' + model[0].toUpperCase() + model.slice(1);
+		styles[bgModel] = {
+			get: function get() {
+				var level = this.level;
+				return function () {
+					var open = ansiStyles.bgColor[levelMapping[level]][model].apply(null, arguments);
+					var codes = {
+						open: open,
+						close: ansiStyles.bgColor.close,
+						closeRe: ansiStyles.bgColor.closeRe
+					};
+					return build.call(this, this._styles ? this._styles.concat(codes) : [codes], this._empty, model);
+				};
+			}
+		};
+	};
+
+	for (var _iterator3 = Object.keys(ansiStyles.bgColor.ansi)[Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
+		var _ret3 = _loop3();
+
+		if (_ret3 === 'continue') continue;
+	}
+} catch (err) {
+	_didIteratorError3 = true;
+	_iteratorError3 = err;
+} finally {
+	try {
+		if (!_iteratorNormalCompletion3 && _iterator3.return) {
+			_iterator3.return();
+		}
+	} finally {
+		if (_didIteratorError3) {
+			throw _iteratorError3;
+		}
+	}
+}
+
+var proto = Object.defineProperties(function () {}, styles);
+
+function build(_styles, _empty, key) {
+	var builder = function builder() {
+		return applyStyle.apply(builder, arguments);
+	};
+
+	builder._styles = _styles;
+	builder._empty = _empty;
+
+	var self = this;
+
+	Object.defineProperty(builder, 'level', {
+		enumerable: true,
+		get: function get() {
+			return self.level;
+		},
+		set: function set(level) {
+			self.level = level;
+		}
+	});
+
+	Object.defineProperty(builder, 'enabled', {
+		enumerable: true,
+		get: function get() {
+			return self.enabled;
+		},
+		set: function set(enabled) {
+			self.enabled = enabled;
+		}
+	});
+
+	// See below for fix regarding invisible grey/dim combination on Windows
+	builder.hasGrey = this.hasGrey || key === 'gray' || key === 'grey';
+
+	// `__proto__` is used because we must return a function, but there is
+	// no way to create a function with a different prototype
+	builder.__proto__ = proto; // eslint-disable-line no-proto
+
+	return builder;
+}
+
+function applyStyle() {
+	// Support varags, but simply cast to string in case there's only one arg
+	var args = arguments;
+	var argsLen = args.length;
+	var str = String(arguments[0]);
+
+	if (argsLen === 0) {
+		return '';
+	}
+
+	if (argsLen > 1) {
+		// Don't slice `arguments`, it prevents V8 optimizations
+		for (var a = 1; a < argsLen; a++) {
+			str += ' ' + args[a];
+		}
+	}
+
+	if (!this.enabled || this.level <= 0 || !str) {
+		return this._empty ? '' : str;
+	}
+
+	// Turns out that on Windows dimmed gray text becomes invisible in cmd.exe,
+	// see https://github.com/chalk/chalk/issues/58
+	// If we're on Windows and we're dealing with a gray color, temporarily make 'dim' a noop.
+	var originalDim = ansiStyles.dim.open;
+	if (isSimpleWindowsTerm && this.hasGrey) {
+		ansiStyles.dim.open = '';
+	}
+
+	var _iteratorNormalCompletion4 = true;
+	var _didIteratorError4 = false;
+	var _iteratorError4 = undefined;
+
+	try {
+		for (var _iterator4 = this._styles.slice().reverse()[Symbol.iterator](), _step4; !(_iteratorNormalCompletion4 = (_step4 = _iterator4.next()).done); _iteratorNormalCompletion4 = true) {
+			var code = _step4.value;
+
+			// Replace any instances already present with a re-opening code
+			// otherwise only the part of the string until said closing code
+			// will be colored, and the rest will simply be 'plain'.
+			str = code.open + str.replace(code.closeRe, code.open) + code.close;
+
+			// Close the styling before a linebreak and reopen
+			// after next line to fix a bleed issue on macOS
+			// https://github.com/chalk/chalk/pull/92
+			str = str.replace(/\r?\n/g, code.close + '$&' + code.open);
+		}
+
+		// Reset the original `dim` if we changed it to work around the Windows dimmed gray issue
+	} catch (err) {
+		_didIteratorError4 = true;
+		_iteratorError4 = err;
+	} finally {
+		try {
+			if (!_iteratorNormalCompletion4 && _iterator4.return) {
+				_iterator4.return();
+			}
+		} finally {
+			if (_didIteratorError4) {
+				throw _iteratorError4;
+			}
+		}
+	}
+
+	ansiStyles.dim.open = originalDim;
+
+	return str;
+}
+
+function chalkTag(chalk, strings) {
+	if (!Array.isArray(strings)) {
+		// If chalk() was called by itself or with a string,
+		// return the string itself as a string.
+		return [].slice.call(arguments, 1).join(' ');
+	}
+
+	var args = [].slice.call(arguments, 2);
+	var parts = [strings.raw[0]];
+
+	for (var i = 1; i < strings.length; i++) {
+		parts.push(String(args[i - 1]).replace(/[{}\\]/g, '\\$&'));
+		parts.push(String(strings.raw[i]));
+	}
+
+	return template(chalk, parts.join(''));
+}
+
+Object.defineProperties(Chalk.prototype, styles);
+
+module.exports = Chalk(); // eslint-disable-line new-cap
+module.exports.supportsColor = stdoutColor;
+module.exports.default = module.exports; // For TypeScript
 
 /***/ }),
 
-/***/ "./node_modules/cli-table3/src/cell.js":
-/*!*********************************************!*\
-  !*** ./node_modules/cli-table3/src/cell.js ***!
-  \*********************************************/
+/***/ "./node_modules/chalk/templates.js":
+/*!*****************************************!*\
+  !*** ./node_modules/chalk/templates.js ***!
+  \*****************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+var TEMPLATE_REGEX = /(?:\\(u[a-f\d]{4}|x[a-f\d]{2}|.))|(?:\{(~)?(\w+(?:\([^)]*\))?(?:\.\w+(?:\([^)]*\))?)*)(?:[ \t]|(?=\r?\n)))|(\})|((?:.|[\r\n\f])+?)/gi;
+var STYLE_REGEX = /(?:^|\.)(\w+)(?:\(([^)]*)\))?/g;
+var STRING_REGEX = /^(['"])((?:\\.|(?!\1)[^\\])*)\1$/;
+var ESCAPE_REGEX = /\\(u[a-f\d]{4}|x[a-f\d]{2}|.)|([^\\])/gi;
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+var ESCAPES = new Map([['n', '\n'], ['r', '\r'], ['t', '\t'], ['b', '\b'], ['f', '\f'], ['v', '\v'], ['0', '\0'], ['\\', '\\'], ['e', '\x1B'], ['a', '\x07']]);
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+function unescape(c) {
+	if (c[0] === 'u' && c.length === 5 || c[0] === 'x' && c.length === 3) {
+		return String.fromCharCode(parseInt(c.slice(1), 16));
+	}
 
-var utils = __webpack_require__(/*! ./utils */ "./node_modules/cli-table3/src/utils.js");
-
-var Cell = function () {
-  /**
-   * A representation of a cell within the table.
-   * Implementations must have `init` and `draw` methods,
-   * as well as `colSpan`, `rowSpan`, `desiredHeight` and `desiredWidth` properties.
-   * @param options
-   * @constructor
-   */
-  function Cell(options) {
-    _classCallCheck(this, Cell);
-
-    this.setOptions(options);
-
-    /**
-     * Each cell will have it's `x` and `y` values set by the `layout-manager` prior to
-     * `init` being called;
-     * @type {Number}
-     */
-    this.x = null;
-    this.y = null;
-  }
-
-  _createClass(Cell, [{
-    key: 'setOptions',
-    value: function setOptions(options) {
-      if (['boolean', 'number', 'string'].indexOf(typeof options === 'undefined' ? 'undefined' : _typeof(options)) !== -1) {
-        options = { content: '' + options };
-      }
-      options = options || {};
-      this.options = options;
-      var content = options.content;
-      if (['boolean', 'number', 'string'].indexOf(typeof content === 'undefined' ? 'undefined' : _typeof(content)) !== -1) {
-        this.content = String(content);
-      } else if (!content) {
-        this.content = '';
-      } else {
-        throw new Error('Content needs to be a primitive, got: ' + (typeof content === 'undefined' ? 'undefined' : _typeof(content)));
-      }
-      this.colSpan = options.colSpan || 1;
-      this.rowSpan = options.rowSpan || 1;
-    }
-  }, {
-    key: 'mergeTableOptions',
-    value: function mergeTableOptions(tableOptions, cells) {
-      this.cells = cells;
-
-      var optionsChars = this.options.chars || {};
-      var tableChars = tableOptions.chars;
-      var chars = this.chars = {};
-      CHAR_NAMES.forEach(function (name) {
-        setOption(optionsChars, tableChars, name, chars);
-      });
-
-      this.truncate = this.options.truncate || tableOptions.truncate;
-
-      var style = this.options.style = this.options.style || {};
-      var tableStyle = tableOptions.style;
-      setOption(style, tableStyle, 'padding-left', this);
-      setOption(style, tableStyle, 'padding-right', this);
-      this.head = style.head || tableStyle.head;
-      this.border = style.border || tableStyle.border;
-
-      var fixedWidth = tableOptions.colWidths[this.x];
-      if (tableOptions.wordWrap && fixedWidth) {
-        fixedWidth -= this.paddingLeft + this.paddingRight;
-        if (this.colSpan) {
-          var i = 1;
-          while (i < this.colSpan) {
-            fixedWidth += tableOptions.colWidths[this.x + i];
-            i++;
-          }
-        }
-        this.lines = utils.colorizeLines(utils.wordWrap(fixedWidth, this.content));
-      } else {
-        this.lines = utils.colorizeLines(this.content.split('\n'));
-      }
-
-      this.desiredWidth = utils.strlen(this.content) + this.paddingLeft + this.paddingRight;
-      this.desiredHeight = this.lines.length;
-    }
-
-    /**
-     * Initializes the Cells data structure.
-     *
-     * @param tableOptions - A fully populated set of tableOptions.
-     * In addition to the standard default values, tableOptions must have fully populated the
-     * `colWidths` and `rowWidths` arrays. Those arrays must have lengths equal to the number
-     * of columns or rows (respectively) in this table, and each array item must be a Number.
-     *
-     */
-
-  }, {
-    key: 'init',
-    value: function init(tableOptions) {
-      var x = this.x;
-      var y = this.y;
-      this.widths = tableOptions.colWidths.slice(x, x + this.colSpan);
-      this.heights = tableOptions.rowHeights.slice(y, y + this.rowSpan);
-      this.width = this.widths.reduce(sumPlusOne, -1);
-      this.height = this.heights.reduce(sumPlusOne, -1);
-
-      this.hAlign = this.options.hAlign || tableOptions.colAligns[x];
-      this.vAlign = this.options.vAlign || tableOptions.rowAligns[y];
-
-      this.drawRight = x + this.colSpan == tableOptions.colWidths.length;
-    }
-
-    /**
-     * Draws the given line of the cell.
-     * This default implementation defers to methods `drawTop`, `drawBottom`, `drawLine` and `drawEmpty`.
-     * @param lineNum - can be `top`, `bottom` or a numerical line number.
-     * @param spanningCell - will be a number if being called from a RowSpanCell, and will represent how
-     * many rows below it's being called from. Otherwise it's undefined.
-     * @returns {String} The representation of this line.
-     */
-
-  }, {
-    key: 'draw',
-    value: function draw(lineNum, spanningCell) {
-      if (lineNum == 'top') return this.drawTop(this.drawRight);
-      if (lineNum == 'bottom') return this.drawBottom(this.drawRight);
-      var padLen = Math.max(this.height - this.lines.length, 0);
-      var padTop = void 0;
-      switch (this.vAlign) {
-        case 'center':
-          padTop = Math.ceil(padLen / 2);
-          break;
-        case 'bottom':
-          padTop = padLen;
-          break;
-        default:
-          padTop = 0;
-      }
-      if (lineNum < padTop || lineNum >= padTop + this.lines.length) {
-        return this.drawEmpty(this.drawRight, spanningCell);
-      }
-      var forceTruncation = this.lines.length > this.height && lineNum + 1 >= this.height;
-      return this.drawLine(lineNum - padTop, this.drawRight, forceTruncation, spanningCell);
-    }
-
-    /**
-     * Renders the top line of the cell.
-     * @param drawRight - true if this method should render the right edge of the cell.
-     * @returns {String}
-     */
-
-  }, {
-    key: 'drawTop',
-    value: function drawTop(drawRight) {
-      var content = [];
-      if (this.cells) {
-        //TODO: cells should always exist - some tests don't fill it in though
-        this.widths.forEach(function (width, index) {
-          content.push(this._topLeftChar(index));
-          content.push(utils.repeat(this.chars[this.y == 0 ? 'top' : 'mid'], width));
-        }, this);
-      } else {
-        content.push(this._topLeftChar(0));
-        content.push(utils.repeat(this.chars[this.y == 0 ? 'top' : 'mid'], this.width));
-      }
-      if (drawRight) {
-        content.push(this.chars[this.y == 0 ? 'topRight' : 'rightMid']);
-      }
-      return this.wrapWithStyleColors('border', content.join(''));
-    }
-  }, {
-    key: '_topLeftChar',
-    value: function _topLeftChar(offset) {
-      var x = this.x + offset;
-      var leftChar = void 0;
-      if (this.y == 0) {
-        leftChar = x == 0 ? 'topLeft' : offset == 0 ? 'topMid' : 'top';
-      } else {
-        if (x == 0) {
-          leftChar = 'leftMid';
-        } else {
-          leftChar = offset == 0 ? 'midMid' : 'bottomMid';
-          if (this.cells) {
-            //TODO: cells should always exist - some tests don't fill it in though
-            var spanAbove = this.cells[this.y - 1][x] instanceof Cell.ColSpanCell;
-            if (spanAbove) {
-              leftChar = offset == 0 ? 'topMid' : 'mid';
-            }
-            if (offset == 0) {
-              var i = 1;
-              while (this.cells[this.y][x - i] instanceof Cell.ColSpanCell) {
-                i++;
-              }
-              if (this.cells[this.y][x - i] instanceof Cell.RowSpanCell) {
-                leftChar = 'leftMid';
-              }
-            }
-          }
-        }
-      }
-      return this.chars[leftChar];
-    }
-  }, {
-    key: 'wrapWithStyleColors',
-    value: function wrapWithStyleColors(styleProperty, content) {
-      if (this[styleProperty] && this[styleProperty].length) {
-        try {
-          var colors = __webpack_require__(/*! colors/safe */ "./node_modules/colors/safe.js");
-          for (var i = this[styleProperty].length - 1; i >= 0; i--) {
-            colors = colors[this[styleProperty][i]];
-          }
-          return colors(content);
-        } catch (e) {
-          return content;
-        }
-      } else {
-        return content;
-      }
-    }
-
-    /**
-     * Renders a line of text.
-     * @param lineNum - Which line of text to render. This is not necessarily the line within the cell.
-     * There may be top-padding above the first line of text.
-     * @param drawRight - true if this method should render the right edge of the cell.
-     * @param forceTruncationSymbol - `true` if the rendered text should end with the truncation symbol even
-     * if the text fits. This is used when the cell is vertically truncated. If `false` the text should
-     * only include the truncation symbol if the text will not fit horizontally within the cell width.
-     * @param spanningCell - a number of if being called from a RowSpanCell. (how many rows below). otherwise undefined.
-     * @returns {String}
-     */
-
-  }, {
-    key: 'drawLine',
-    value: function drawLine(lineNum, drawRight, forceTruncationSymbol, spanningCell) {
-      var left = this.chars[this.x == 0 ? 'left' : 'middle'];
-      if (this.x && spanningCell && this.cells) {
-        var cellLeft = this.cells[this.y + spanningCell][this.x - 1];
-        while (cellLeft instanceof ColSpanCell) {
-          cellLeft = this.cells[cellLeft.y][cellLeft.x - 1];
-        }
-        if (!(cellLeft instanceof RowSpanCell)) {
-          left = this.chars['rightMid'];
-        }
-      }
-      var leftPadding = utils.repeat(' ', this.paddingLeft);
-      var right = drawRight ? this.chars['right'] : '';
-      var rightPadding = utils.repeat(' ', this.paddingRight);
-      var line = this.lines[lineNum];
-      var len = this.width - (this.paddingLeft + this.paddingRight);
-      if (forceTruncationSymbol) line += this.truncate || '…';
-      var content = utils.truncate(line, len, this.truncate);
-      content = utils.pad(content, len, ' ', this.hAlign);
-      content = leftPadding + content + rightPadding;
-      return this.stylizeLine(left, content, right);
-    }
-  }, {
-    key: 'stylizeLine',
-    value: function stylizeLine(left, content, right) {
-      left = this.wrapWithStyleColors('border', left);
-      right = this.wrapWithStyleColors('border', right);
-      if (this.y === 0) {
-        content = this.wrapWithStyleColors('head', content);
-      }
-      return left + content + right;
-    }
-
-    /**
-     * Renders the bottom line of the cell.
-     * @param drawRight - true if this method should render the right edge of the cell.
-     * @returns {String}
-     */
-
-  }, {
-    key: 'drawBottom',
-    value: function drawBottom(drawRight) {
-      var left = this.chars[this.x == 0 ? 'bottomLeft' : 'bottomMid'];
-      var content = utils.repeat(this.chars.bottom, this.width);
-      var right = drawRight ? this.chars['bottomRight'] : '';
-      return this.wrapWithStyleColors('border', left + content + right);
-    }
-
-    /**
-     * Renders a blank line of text within the cell. Used for top and/or bottom padding.
-     * @param drawRight - true if this method should render the right edge of the cell.
-     * @param spanningCell - a number of if being called from a RowSpanCell. (how many rows below). otherwise undefined.
-     * @returns {String}
-     */
-
-  }, {
-    key: 'drawEmpty',
-    value: function drawEmpty(drawRight, spanningCell) {
-      var left = this.chars[this.x == 0 ? 'left' : 'middle'];
-      if (this.x && spanningCell && this.cells) {
-        var cellLeft = this.cells[this.y + spanningCell][this.x - 1];
-        while (cellLeft instanceof ColSpanCell) {
-          cellLeft = this.cells[cellLeft.y][cellLeft.x - 1];
-        }
-        if (!(cellLeft instanceof RowSpanCell)) {
-          left = this.chars['rightMid'];
-        }
-      }
-      var right = drawRight ? this.chars['right'] : '';
-      var content = utils.repeat(' ', this.width);
-      return this.stylizeLine(left, content, right);
-    }
-  }]);
-
-  return Cell;
-}();
-
-var ColSpanCell = function () {
-  /**
-   * A Cell that doesn't do anything. It just draws empty lines.
-   * Used as a placeholder in column spanning.
-   * @constructor
-   */
-  function ColSpanCell() {
-    _classCallCheck(this, ColSpanCell);
-  }
-
-  _createClass(ColSpanCell, [{
-    key: 'draw',
-    value: function draw() {
-      return '';
-    }
-  }, {
-    key: 'init',
-    value: function init() {}
-  }, {
-    key: 'mergeTableOptions',
-    value: function mergeTableOptions() {}
-  }]);
-
-  return ColSpanCell;
-}();
-
-var RowSpanCell = function () {
-  /**
-   * A placeholder Cell for a Cell that spans multiple rows.
-   * It delegates rendering to the original cell, but adds the appropriate offset.
-   * @param originalCell
-   * @constructor
-   */
-  function RowSpanCell(originalCell) {
-    _classCallCheck(this, RowSpanCell);
-
-    this.originalCell = originalCell;
-  }
-
-  _createClass(RowSpanCell, [{
-    key: 'init',
-    value: function init(tableOptions) {
-      var y = this.y;
-      var originalY = this.originalCell.y;
-      this.cellOffset = y - originalY;
-      this.offset = findDimension(tableOptions.rowHeights, originalY, this.cellOffset);
-    }
-  }, {
-    key: 'draw',
-    value: function draw(lineNum) {
-      if (lineNum == 'top') {
-        return this.originalCell.draw(this.offset, this.cellOffset);
-      }
-      if (lineNum == 'bottom') {
-        return this.originalCell.draw('bottom');
-      }
-      return this.originalCell.draw(this.offset + 1 + lineNum);
-    }
-  }, {
-    key: 'mergeTableOptions',
-    value: function mergeTableOptions() {}
-  }]);
-
-  return RowSpanCell;
-}();
-
-// HELPER FUNCTIONS
-
-
-function setOption(objA, objB, nameB, targetObj) {
-  var nameA = nameB.split('-');
-  if (nameA.length > 1) {
-    nameA[1] = nameA[1].charAt(0).toUpperCase() + nameA[1].substr(1);
-    nameA = nameA.join('');
-    targetObj[nameA] = objA[nameA] || objA[nameB] || objB[nameA] || objB[nameB];
-  } else {
-    targetObj[nameB] = objA[nameB] || objB[nameB];
-  }
+	return ESCAPES.get(c) || c;
 }
 
-function findDimension(dimensionTable, startingIndex, span) {
-  var ret = dimensionTable[startingIndex];
-  for (var i = 1; i < span; i++) {
-    ret += 1 + dimensionTable[startingIndex + i];
-  }
-  return ret;
+function parseArguments(name, args) {
+	var results = [];
+	var chunks = args.trim().split(/\s*,\s*/g);
+	var matches = void 0;
+
+	var _iteratorNormalCompletion = true;
+	var _didIteratorError = false;
+	var _iteratorError = undefined;
+
+	try {
+		for (var _iterator = chunks[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+			var chunk = _step.value;
+
+			if (!isNaN(chunk)) {
+				results.push(Number(chunk));
+			} else if (matches = chunk.match(STRING_REGEX)) {
+				results.push(matches[2].replace(ESCAPE_REGEX, function (m, escape, chr) {
+					return escape ? unescape(escape) : chr;
+				}));
+			} else {
+				throw new Error('Invalid Chalk template style argument: ' + chunk + ' (in style \'' + name + '\')');
+			}
+		}
+	} catch (err) {
+		_didIteratorError = true;
+		_iteratorError = err;
+	} finally {
+		try {
+			if (!_iteratorNormalCompletion && _iterator.return) {
+				_iterator.return();
+			}
+		} finally {
+			if (_didIteratorError) {
+				throw _iteratorError;
+			}
+		}
+	}
+
+	return results;
 }
 
-function sumPlusOne(a, b) {
-  return a + b + 1;
+function parseStyle(style) {
+	STYLE_REGEX.lastIndex = 0;
+
+	var results = [];
+	var matches = void 0;
+
+	while ((matches = STYLE_REGEX.exec(style)) !== null) {
+		var name = matches[1];
+
+		if (matches[2]) {
+			var args = parseArguments(name, matches[2]);
+			results.push([name].concat(args));
+		} else {
+			results.push([name]);
+		}
+	}
+
+	return results;
 }
 
-var CHAR_NAMES = ['top', 'top-mid', 'top-left', 'top-right', 'bottom', 'bottom-mid', 'bottom-left', 'bottom-right', 'left', 'left-mid', 'mid', 'mid-mid', 'right', 'right-mid', 'middle'];
-module.exports = Cell;
-module.exports.ColSpanCell = ColSpanCell;
-module.exports.RowSpanCell = RowSpanCell;
+function buildStyle(chalk, styles) {
+	var enabled = {};
 
-/***/ }),
+	var _iteratorNormalCompletion2 = true;
+	var _didIteratorError2 = false;
+	var _iteratorError2 = undefined;
 
-/***/ "./node_modules/cli-table3/src/layout-manager.js":
-/*!*******************************************************!*\
-  !*** ./node_modules/cli-table3/src/layout-manager.js ***!
-  \*******************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+	try {
+		for (var _iterator2 = styles[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
+			var layer = _step2.value;
+			var _iteratorNormalCompletion4 = true;
+			var _didIteratorError4 = false;
+			var _iteratorError4 = undefined;
 
-"use strict";
+			try {
+				for (var _iterator4 = layer.styles[Symbol.iterator](), _step4; !(_iteratorNormalCompletion4 = (_step4 = _iterator4.next()).done); _iteratorNormalCompletion4 = true) {
+					var style = _step4.value;
 
+					enabled[style[0]] = layer.inverse ? null : style.slice(1);
+				}
+			} catch (err) {
+				_didIteratorError4 = true;
+				_iteratorError4 = err;
+			} finally {
+				try {
+					if (!_iteratorNormalCompletion4 && _iterator4.return) {
+						_iterator4.return();
+					}
+				} finally {
+					if (_didIteratorError4) {
+						throw _iteratorError4;
+					}
+				}
+			}
+		}
+	} catch (err) {
+		_didIteratorError2 = true;
+		_iteratorError2 = err;
+	} finally {
+		try {
+			if (!_iteratorNormalCompletion2 && _iterator2.return) {
+				_iterator2.return();
+			}
+		} finally {
+			if (_didIteratorError2) {
+				throw _iteratorError2;
+			}
+		}
+	}
 
-var objectAssign = __webpack_require__(/*! object-assign */ "./node_modules/object-assign/index.js");
-var Cell = __webpack_require__(/*! ./cell */ "./node_modules/cli-table3/src/cell.js");
-var ColSpanCell = Cell.ColSpanCell,
-    RowSpanCell = Cell.RowSpanCell;
+	var current = chalk;
+	var _iteratorNormalCompletion3 = true;
+	var _didIteratorError3 = false;
+	var _iteratorError3 = undefined;
 
+	try {
+		for (var _iterator3 = Object.keys(enabled)[Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
+			var styleName = _step3.value;
 
-(function () {
-  function layoutTable(table) {
-    table.forEach(function (row, rowIndex) {
-      row.forEach(function (cell, columnIndex) {
-        cell.y = rowIndex;
-        cell.x = columnIndex;
-        for (var y = rowIndex; y >= 0; y--) {
-          var row2 = table[y];
-          var xMax = y === rowIndex ? columnIndex : row2.length;
-          for (var x = 0; x < xMax; x++) {
-            var cell2 = row2[x];
-            while (cellsConflict(cell, cell2)) {
-              cell.x++;
-            }
-          }
-        }
-      });
-    });
-  }
+			if (Array.isArray(enabled[styleName])) {
+				if (!(styleName in current)) {
+					throw new Error('Unknown Chalk style: ' + styleName);
+				}
 
-  function maxWidth(table) {
-    var mw = 0;
-    table.forEach(function (row) {
-      row.forEach(function (cell) {
-        mw = Math.max(mw, cell.x + (cell.colSpan || 1));
-      });
-    });
-    return mw;
-  }
+				if (enabled[styleName].length > 0) {
+					current = current[styleName].apply(current, enabled[styleName]);
+				} else {
+					current = current[styleName];
+				}
+			}
+		}
+	} catch (err) {
+		_didIteratorError3 = true;
+		_iteratorError3 = err;
+	} finally {
+		try {
+			if (!_iteratorNormalCompletion3 && _iterator3.return) {
+				_iterator3.return();
+			}
+		} finally {
+			if (_didIteratorError3) {
+				throw _iteratorError3;
+			}
+		}
+	}
 
-  function maxHeight(table) {
-    return table.length;
-  }
-
-  function cellsConflict(cell1, cell2) {
-    var yMin1 = cell1.y;
-    var yMax1 = cell1.y - 1 + (cell1.rowSpan || 1);
-    var yMin2 = cell2.y;
-    var yMax2 = cell2.y - 1 + (cell2.rowSpan || 1);
-    var yConflict = !(yMin1 > yMax2 || yMin2 > yMax1);
-
-    var xMin1 = cell1.x;
-    var xMax1 = cell1.x - 1 + (cell1.colSpan || 1);
-    var xMin2 = cell2.x;
-    var xMax2 = cell2.x - 1 + (cell2.colSpan || 1);
-    var xConflict = !(xMin1 > xMax2 || xMin2 > xMax1);
-
-    return yConflict && xConflict;
-  }
-
-  function conflictExists(rows, x, y) {
-    var i_max = Math.min(rows.length - 1, y);
-    var cell = { x: x, y: y };
-    for (var i = 0; i <= i_max; i++) {
-      var row = rows[i];
-      for (var j = 0; j < row.length; j++) {
-        if (cellsConflict(cell, row[j])) {
-          return true;
-        }
-      }
-    }
-    return false;
-  }
-
-  function allBlank(rows, y, xMin, xMax) {
-    for (var x = xMin; x < xMax; x++) {
-      if (conflictExists(rows, x, y)) {
-        return false;
-      }
-    }
-    return true;
-  }
-
-  function addRowSpanCells(table) {
-    table.forEach(function (row, rowIndex) {
-      row.forEach(function (cell) {
-        for (var i = 1; i < cell.rowSpan; i++) {
-          var rowSpanCell = new RowSpanCell(cell);
-          rowSpanCell.x = cell.x;
-          rowSpanCell.y = cell.y + i;
-          rowSpanCell.colSpan = cell.colSpan;
-          insertCell(rowSpanCell, table[rowIndex + i]);
-        }
-      });
-    });
-  }
-
-  function addColSpanCells(cellRows) {
-    for (var rowIndex = cellRows.length - 1; rowIndex >= 0; rowIndex--) {
-      var cellColumns = cellRows[rowIndex];
-      for (var columnIndex = 0; columnIndex < cellColumns.length; columnIndex++) {
-        var cell = cellColumns[columnIndex];
-        for (var k = 1; k < cell.colSpan; k++) {
-          var colSpanCell = new ColSpanCell();
-          colSpanCell.x = cell.x + k;
-          colSpanCell.y = cell.y;
-          cellColumns.splice(columnIndex + 1, 0, colSpanCell);
-        }
-      }
-    }
-  }
-
-  function insertCell(cell, row) {
-    var x = 0;
-    while (x < row.length && row[x].x < cell.x) {
-      x++;
-    }
-    row.splice(x, 0, cell);
-  }
-
-  function fillInTable(table) {
-    var h_max = maxHeight(table);
-    var w_max = maxWidth(table);
-    for (var y = 0; y < h_max; y++) {
-      for (var x = 0; x < w_max; x++) {
-        if (!conflictExists(table, x, y)) {
-          var opts = { x: x, y: y, colSpan: 1, rowSpan: 1 };
-          x++;
-          while (x < w_max && !conflictExists(table, x, y)) {
-            opts.colSpan++;
-            x++;
-          }
-          var y2 = y + 1;
-          while (y2 < h_max && allBlank(table, y2, opts.x, opts.x + opts.colSpan)) {
-            opts.rowSpan++;
-            y2++;
-          }
-
-          var cell = new Cell(opts);
-          cell.x = opts.x;
-          cell.y = opts.y;
-          insertCell(cell, table[y]);
-        }
-      }
-    }
-  }
-
-  function generateCells(rows) {
-    return rows.map(function (row) {
-      if (!Array.isArray(row)) {
-        var key = Object.keys(row)[0];
-        row = row[key];
-        if (Array.isArray(row)) {
-          row = row.slice();
-          row.unshift(key);
-        } else {
-          row = [key, row];
-        }
-      }
-      return row.map(function (cell) {
-        return new Cell(cell);
-      });
-    });
-  }
-
-  function makeTableLayout(rows) {
-    var cellRows = generateCells(rows);
-    layoutTable(cellRows);
-    fillInTable(cellRows);
-    addRowSpanCells(cellRows);
-    addColSpanCells(cellRows);
-    return cellRows;
-  }
-
-  module.exports = {
-    makeTableLayout: makeTableLayout,
-    layoutTable: layoutTable,
-    addRowSpanCells: addRowSpanCells,
-    maxWidth: maxWidth,
-    fillInTable: fillInTable,
-    computeWidths: makeComputeWidths('colSpan', 'desiredWidth', 'x', 1),
-    computeHeights: makeComputeWidths('rowSpan', 'desiredHeight', 'y', 1)
-  };
-})();
-
-function makeComputeWidths(colSpan, desiredWidth, x, forcedMin) {
-  return function (vals, table) {
-    var result = [];
-    var spanners = [];
-    table.forEach(function (row) {
-      row.forEach(function (cell) {
-        if ((cell[colSpan] || 1) > 1) {
-          spanners.push(cell);
-        } else {
-          result[cell[x]] = Math.max(result[cell[x]] || 0, cell[desiredWidth] || 0, forcedMin);
-        }
-      });
-    });
-
-    vals.forEach(function (val, index) {
-      if (typeof val === 'number') {
-        result[index] = val;
-      }
-    });
-
-    //spanners.forEach(function(cell){
-    for (var k = spanners.length - 1; k >= 0; k--) {
-      var cell = spanners[k];
-      var span = cell[colSpan];
-      var col = cell[x];
-      var existingWidth = result[col];
-      var editableCols = typeof vals[col] === 'number' ? 0 : 1;
-      for (var i = 1; i < span; i++) {
-        existingWidth += 1 + result[col + i];
-        if (typeof vals[col + i] !== 'number') {
-          editableCols++;
-        }
-      }
-      if (cell[desiredWidth] > existingWidth) {
-        var _i = 0;
-        while (editableCols > 0 && cell[desiredWidth] > existingWidth) {
-          if (typeof vals[col + _i] !== 'number') {
-            var dif = Math.round((cell[desiredWidth] - existingWidth) / editableCols);
-            existingWidth += dif;
-            result[col + _i] += dif;
-            editableCols--;
-          }
-          _i++;
-        }
-      }
-    }
-
-    objectAssign(vals, result);
-    for (var j = 0; j < vals.length; j++) {
-      vals[j] = Math.max(forcedMin, vals[j] || 0);
-    }
-  };
+	return current;
 }
 
-/***/ }),
-
-/***/ "./node_modules/cli-table3/src/table.js":
-/*!**********************************************!*\
-  !*** ./node_modules/cli-table3/src/table.js ***!
-  \**********************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var utils = __webpack_require__(/*! ./utils */ "./node_modules/cli-table3/src/utils.js");
-var tableLayout = __webpack_require__(/*! ./layout-manager */ "./node_modules/cli-table3/src/layout-manager.js");
-
-var Table = function (_Array) {
-  _inherits(Table, _Array);
-
-  function Table(options) {
-    _classCallCheck(this, Table);
-
-    var _this = _possibleConstructorReturn(this, (Table.__proto__ || Object.getPrototypeOf(Table)).call(this));
-
-    _this.options = utils.mergeOptions(options);
-    return _this;
-  }
-
-  _createClass(Table, [{
-    key: 'toString',
-    value: function toString() {
-      var array = this;
-      var headersPresent = this.options.head && this.options.head.length;
-      if (headersPresent) {
-        array = [this.options.head];
-        if (this.length) {
-          array.push.apply(array, this);
-        }
-      } else {
-        this.options.style.head = [];
-      }
-
-      var cells = tableLayout.makeTableLayout(array);
-
-      cells.forEach(function (row) {
-        row.forEach(function (cell) {
-          cell.mergeTableOptions(this.options, cells);
-        }, this);
-      }, this);
-
-      tableLayout.computeWidths(this.options.colWidths, cells);
-      tableLayout.computeHeights(this.options.rowHeights, cells);
-
-      cells.forEach(function (row) {
-        row.forEach(function (cell) {
-          cell.init(this.options);
-        }, this);
-      }, this);
-
-      var result = [];
-
-      for (var rowIndex = 0; rowIndex < cells.length; rowIndex++) {
-        var row = cells[rowIndex];
-        var heightOfRow = this.options.rowHeights[rowIndex];
-
-        if (rowIndex === 0 || !this.options.style.compact || rowIndex == 1 && headersPresent) {
-          doDraw(row, 'top', result);
-        }
-
-        for (var lineNum = 0; lineNum < heightOfRow; lineNum++) {
-          doDraw(row, lineNum, result);
-        }
-
-        if (rowIndex + 1 == cells.length) {
-          doDraw(row, 'bottom', result);
-        }
-      }
-
-      return result.join('\n');
-    }
-  }, {
-    key: 'width',
-    get: function get() {
-      var str = this.toString().split('\n');
-      return str[0].length;
-    }
-  }]);
-
-  return Table;
-}(Array);
-
-function doDraw(row, lineNum, result) {
-  var line = [];
-  row.forEach(function (cell) {
-    line.push(cell.draw(lineNum));
-  });
-  var str = line.join('');
-  if (str.length) result.push(str);
-}
-
-module.exports = Table;
-
-/***/ }),
-
-/***/ "./node_modules/cli-table3/src/utils.js":
-/*!**********************************************!*\
-  !*** ./node_modules/cli-table3/src/utils.js ***!
-  \**********************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var objectAssign = __webpack_require__(/*! object-assign */ "./node_modules/object-assign/index.js");
-var stringWidth = __webpack_require__(/*! string-width */ "./node_modules/string-width/index.js");
-
-function codeRegex(capture) {
-  return capture ? /\u001b\[((?:\d*;){0,5}\d*)m/g : /\u001b\[(?:\d*;){0,5}\d*m/g;
-}
-
-function strlen(str) {
-  var code = codeRegex();
-  var stripped = ('' + str).replace(code, '');
-  var split = stripped.split('\n');
-  return split.reduce(function (memo, s) {
-    return stringWidth(s) > memo ? stringWidth(s) : memo;
-  }, 0);
-}
-
-function repeat(str, times) {
-  return Array(times + 1).join(str);
-}
-
-function pad(str, len, pad, dir) {
-  var length = strlen(str);
-  if (len + 1 >= length) {
-    var padlen = len - length;
-    switch (dir) {
-      case 'right':
-        {
-          str = repeat(pad, padlen) + str;
-          break;
-        }
-      case 'center':
-        {
-          var right = Math.ceil(padlen / 2);
-          var left = padlen - right;
-          str = repeat(pad, left) + str + repeat(pad, right);
-          break;
-        }
-      default:
-        {
-          str = str + repeat(pad, padlen);
-          break;
-        }
-    }
-  }
-  return str;
-}
-
-var codeCache = {};
-
-function addToCodeCache(name, on, off) {
-  on = '\x1B[' + on + 'm';
-  off = '\x1B[' + off + 'm';
-  codeCache[on] = { set: name, to: true };
-  codeCache[off] = { set: name, to: false };
-  codeCache[name] = { on: on, off: off };
-}
-
-//https://github.com/Marak/colors.js/blob/master/lib/styles.js
-addToCodeCache('bold', 1, 22);
-addToCodeCache('italics', 3, 23);
-addToCodeCache('underline', 4, 24);
-addToCodeCache('inverse', 7, 27);
-addToCodeCache('strikethrough', 9, 29);
-
-function updateState(state, controlChars) {
-  var controlCode = controlChars[1] ? parseInt(controlChars[1].split(';')[0]) : 0;
-  if (controlCode >= 30 && controlCode <= 39 || controlCode >= 90 && controlCode <= 97) {
-    state.lastForegroundAdded = controlChars[0];
-    return;
-  }
-  if (controlCode >= 40 && controlCode <= 49 || controlCode >= 100 && controlCode <= 107) {
-    state.lastBackgroundAdded = controlChars[0];
-    return;
-  }
-  if (controlCode === 0) {
-    for (var i in state) {
-      /* istanbul ignore else */
-      if (state.hasOwnProperty(i)) {
-        delete state[i];
-      }
-    }
-    return;
-  }
-  var info = codeCache[controlChars[0]];
-  if (info) {
-    state[info.set] = info.to;
-  }
-}
-
-function readState(line) {
-  var code = codeRegex(true);
-  var controlChars = code.exec(line);
-  var state = {};
-  while (controlChars !== null) {
-    updateState(state, controlChars);
-    controlChars = code.exec(line);
-  }
-  return state;
-}
-
-function unwindState(state, ret) {
-  var lastBackgroundAdded = state.lastBackgroundAdded;
-  var lastForegroundAdded = state.lastForegroundAdded;
-
-  delete state.lastBackgroundAdded;
-  delete state.lastForegroundAdded;
-
-  Object.keys(state).forEach(function (key) {
-    if (state[key]) {
-      ret += codeCache[key].off;
-    }
-  });
-
-  if (lastBackgroundAdded && lastBackgroundAdded != '\x1B[49m') {
-    ret += '\x1B[49m';
-  }
-  if (lastForegroundAdded && lastForegroundAdded != '\x1B[39m') {
-    ret += '\x1B[39m';
-  }
-
-  return ret;
-}
-
-function rewindState(state, ret) {
-  var lastBackgroundAdded = state.lastBackgroundAdded;
-  var lastForegroundAdded = state.lastForegroundAdded;
-
-  delete state.lastBackgroundAdded;
-  delete state.lastForegroundAdded;
-
-  Object.keys(state).forEach(function (key) {
-    if (state[key]) {
-      ret = codeCache[key].on + ret;
-    }
-  });
-
-  if (lastBackgroundAdded && lastBackgroundAdded != '\x1B[49m') {
-    ret = lastBackgroundAdded + ret;
-  }
-  if (lastForegroundAdded && lastForegroundAdded != '\x1B[39m') {
-    ret = lastForegroundAdded + ret;
-  }
-
-  return ret;
-}
-
-function truncateWidth(str, desiredLength) {
-  if (str.length === strlen(str)) {
-    return str.substr(0, desiredLength);
-  }
-
-  while (strlen(str) > desiredLength) {
-    str = str.slice(0, -1);
-  }
-
-  return str;
-}
-
-function truncateWidthWithAnsi(str, desiredLength) {
-  var code = codeRegex(true);
-  var split = str.split(codeRegex());
-  var splitIndex = 0;
-  var retLen = 0;
-  var ret = '';
-  var myArray = void 0;
-  var state = {};
-
-  while (retLen < desiredLength) {
-    myArray = code.exec(str);
-    var toAdd = split[splitIndex];
-    splitIndex++;
-    if (retLen + strlen(toAdd) > desiredLength) {
-      toAdd = truncateWidth(toAdd, desiredLength - retLen);
-    }
-    ret += toAdd;
-    retLen += strlen(toAdd);
-
-    if (retLen < desiredLength) {
-      if (!myArray) {
-        break;
-      } // full-width chars may cause a whitespace which cannot be filled
-      ret += myArray[0];
-      updateState(state, myArray);
-    }
-  }
-
-  return unwindState(state, ret);
-}
-
-function truncate(str, desiredLength, truncateChar) {
-  truncateChar = truncateChar || '…';
-  var lengthOfStr = strlen(str);
-  if (lengthOfStr <= desiredLength) {
-    return str;
-  }
-  desiredLength -= strlen(truncateChar);
-
-  var ret = truncateWidthWithAnsi(str, desiredLength);
-
-  return ret + truncateChar;
-}
-
-function defaultOptions() {
-  return {
-    chars: {
-      top: '─',
-      'top-mid': '┬',
-      'top-left': '┌',
-      'top-right': '┐',
-      bottom: '─',
-      'bottom-mid': '┴',
-      'bottom-left': '└',
-      'bottom-right': '┘',
-      left: '│',
-      'left-mid': '├',
-      mid: '─',
-      'mid-mid': '┼',
-      right: '│',
-      'right-mid': '┤',
-      middle: '│'
-    },
-    truncate: '…',
-    colWidths: [],
-    rowHeights: [],
-    colAligns: [],
-    rowAligns: [],
-    style: {
-      'padding-left': 1,
-      'padding-right': 1,
-      head: ['red'],
-      border: ['grey'],
-      compact: false
-    },
-    head: []
-  };
-}
-
-function mergeOptions(options, defaults) {
-  options = options || {};
-  defaults = defaults || defaultOptions();
-  var ret = objectAssign({}, defaults, options);
-  ret.chars = objectAssign({}, defaults.chars, options.chars);
-  ret.style = objectAssign({}, defaults.style, options.style);
-  return ret;
-}
-
-function wordWrap(maxLength, input) {
-  var lines = [];
-  var split = input.split(/(\s+)/g);
-  var line = [];
-  var lineLength = 0;
-  var whitespace = void 0;
-  for (var i = 0; i < split.length; i += 2) {
-    var word = split[i];
-    var newLength = lineLength + strlen(word);
-    if (lineLength > 0 && whitespace) {
-      newLength += whitespace.length;
-    }
-    if (newLength > maxLength) {
-      if (lineLength !== 0) {
-        lines.push(line.join(''));
-      }
-      line = [word];
-      lineLength = strlen(word);
-    } else {
-      line.push(whitespace || '', word);
-      lineLength = newLength;
-    }
-    whitespace = split[i + 1];
-  }
-  if (lineLength) {
-    lines.push(line.join(''));
-  }
-  return lines;
-}
-
-function multiLineWordWrap(maxLength, input) {
-  var output = [];
-  input = input.split('\n');
-  for (var i = 0; i < input.length; i++) {
-    output.push.apply(output, wordWrap(maxLength, input[i]));
-  }
-  return output;
-}
-
-function colorizeLines(input) {
-  var state = {};
-  var output = [];
-  for (var i = 0; i < input.length; i++) {
-    var line = rewindState(state, input[i]);
-    state = readState(line);
-    var temp = objectAssign({}, state);
-    output.push(unwindState(temp, line));
-  }
-  return output;
-}
-
-module.exports = {
-  strlen: strlen,
-  repeat: repeat,
-  pad: pad,
-  truncate: truncate,
-  mergeOptions: mergeOptions,
-  wordWrap: multiLineWordWrap,
-  colorizeLines: colorizeLines
+module.exports = function (chalk, tmp) {
+	var styles = [];
+	var chunks = [];
+	var chunk = [];
+
+	// eslint-disable-next-line max-params
+	tmp.replace(TEMPLATE_REGEX, function (m, escapeChar, inverse, style, close, chr) {
+		if (escapeChar) {
+			chunk.push(unescape(escapeChar));
+		} else if (style) {
+			var str = chunk.join('');
+			chunk = [];
+			chunks.push(styles.length === 0 ? str : buildStyle(chalk, styles)(str));
+			styles.push({ inverse: inverse, styles: parseStyle(style) });
+		} else if (close) {
+			if (styles.length === 0) {
+				throw new Error('Found extraneous } in Chalk template literal');
+			}
+
+			chunks.push(buildStyle(chalk, styles)(chunk.join('')));
+			chunk = [];
+			styles.pop();
+		} else {
+			chunk.push(chr);
+		}
+	});
+
+	chunks.push(chunk.join(''));
+
+	if (styles.length > 0) {
+		var errMsg = 'Chalk template literal is missing ' + styles.length + ' closing bracket' + (styles.length === 1 ? '' : 's') + ' (`}`)';
+		throw new Error(errMsg);
+	}
+
+	return chunks.join('');
 };
 
 /***/ }),
@@ -3107,29 +2835,865 @@ module.exports = function (str, pos) {
 
 /***/ }),
 
-/***/ "./node_modules/colors/lib sync recursive":
-/*!**************************************!*\
-  !*** ./node_modules/colors/lib sync ***!
-  \**************************************/
+/***/ "./node_modules/color-convert/conversions.js":
+/*!***************************************************!*\
+  !*** ./node_modules/color-convert/conversions.js ***!
+  \***************************************************/
 /*! no static exports found */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
 
-function webpackEmptyContext(req) {
-	var e = new Error('Cannot find module "' + req + '".');
-	e.code = 'MODULE_NOT_FOUND';
-	throw e;
+"use strict";
+
+
+/* MIT license */
+var cssKeywords = __webpack_require__(/*! color-name */ "./node_modules/color-name/index.js");
+
+// NOTE: conversions should only return primitive values (i.e. arrays, or
+//       values that give correct `typeof` results).
+//       do not use box values types (i.e. Number(), String(), etc.)
+
+var reverseKeywords = {};
+for (var key in cssKeywords) {
+	if (cssKeywords.hasOwnProperty(key)) {
+		reverseKeywords[cssKeywords[key]] = key;
+	}
 }
-webpackEmptyContext.keys = function() { return []; };
-webpackEmptyContext.resolve = webpackEmptyContext;
-module.exports = webpackEmptyContext;
-webpackEmptyContext.id = "./node_modules/colors/lib sync recursive";
+
+var convert = module.exports = {
+	rgb: { channels: 3, labels: 'rgb' },
+	hsl: { channels: 3, labels: 'hsl' },
+	hsv: { channels: 3, labels: 'hsv' },
+	hwb: { channels: 3, labels: 'hwb' },
+	cmyk: { channels: 4, labels: 'cmyk' },
+	xyz: { channels: 3, labels: 'xyz' },
+	lab: { channels: 3, labels: 'lab' },
+	lch: { channels: 3, labels: 'lch' },
+	hex: { channels: 1, labels: ['hex'] },
+	keyword: { channels: 1, labels: ['keyword'] },
+	ansi16: { channels: 1, labels: ['ansi16'] },
+	ansi256: { channels: 1, labels: ['ansi256'] },
+	hcg: { channels: 3, labels: ['h', 'c', 'g'] },
+	apple: { channels: 3, labels: ['r16', 'g16', 'b16'] },
+	gray: { channels: 1, labels: ['gray'] }
+};
+
+// hide .channels and .labels properties
+for (var model in convert) {
+	if (convert.hasOwnProperty(model)) {
+		if (!('channels' in convert[model])) {
+			throw new Error('missing channels property: ' + model);
+		}
+
+		if (!('labels' in convert[model])) {
+			throw new Error('missing channel labels property: ' + model);
+		}
+
+		if (convert[model].labels.length !== convert[model].channels) {
+			throw new Error('channel and label counts mismatch: ' + model);
+		}
+
+		var channels = convert[model].channels;
+		var labels = convert[model].labels;
+		delete convert[model].channels;
+		delete convert[model].labels;
+		Object.defineProperty(convert[model], 'channels', { value: channels });
+		Object.defineProperty(convert[model], 'labels', { value: labels });
+	}
+}
+
+convert.rgb.hsl = function (rgb) {
+	var r = rgb[0] / 255;
+	var g = rgb[1] / 255;
+	var b = rgb[2] / 255;
+	var min = Math.min(r, g, b);
+	var max = Math.max(r, g, b);
+	var delta = max - min;
+	var h;
+	var s;
+	var l;
+
+	if (max === min) {
+		h = 0;
+	} else if (r === max) {
+		h = (g - b) / delta;
+	} else if (g === max) {
+		h = 2 + (b - r) / delta;
+	} else if (b === max) {
+		h = 4 + (r - g) / delta;
+	}
+
+	h = Math.min(h * 60, 360);
+
+	if (h < 0) {
+		h += 360;
+	}
+
+	l = (min + max) / 2;
+
+	if (max === min) {
+		s = 0;
+	} else if (l <= 0.5) {
+		s = delta / (max + min);
+	} else {
+		s = delta / (2 - max - min);
+	}
+
+	return [h, s * 100, l * 100];
+};
+
+convert.rgb.hsv = function (rgb) {
+	var r = rgb[0];
+	var g = rgb[1];
+	var b = rgb[2];
+	var min = Math.min(r, g, b);
+	var max = Math.max(r, g, b);
+	var delta = max - min;
+	var h;
+	var s;
+	var v;
+
+	if (max === 0) {
+		s = 0;
+	} else {
+		s = delta / max * 1000 / 10;
+	}
+
+	if (max === min) {
+		h = 0;
+	} else if (r === max) {
+		h = (g - b) / delta;
+	} else if (g === max) {
+		h = 2 + (b - r) / delta;
+	} else if (b === max) {
+		h = 4 + (r - g) / delta;
+	}
+
+	h = Math.min(h * 60, 360);
+
+	if (h < 0) {
+		h += 360;
+	}
+
+	v = max / 255 * 1000 / 10;
+
+	return [h, s, v];
+};
+
+convert.rgb.hwb = function (rgb) {
+	var r = rgb[0];
+	var g = rgb[1];
+	var b = rgb[2];
+	var h = convert.rgb.hsl(rgb)[0];
+	var w = 1 / 255 * Math.min(r, Math.min(g, b));
+
+	b = 1 - 1 / 255 * Math.max(r, Math.max(g, b));
+
+	return [h, w * 100, b * 100];
+};
+
+convert.rgb.cmyk = function (rgb) {
+	var r = rgb[0] / 255;
+	var g = rgb[1] / 255;
+	var b = rgb[2] / 255;
+	var c;
+	var m;
+	var y;
+	var k;
+
+	k = Math.min(1 - r, 1 - g, 1 - b);
+	c = (1 - r - k) / (1 - k) || 0;
+	m = (1 - g - k) / (1 - k) || 0;
+	y = (1 - b - k) / (1 - k) || 0;
+
+	return [c * 100, m * 100, y * 100, k * 100];
+};
+
+/**
+ * See https://en.m.wikipedia.org/wiki/Euclidean_distance#Squared_Euclidean_distance
+ * */
+function comparativeDistance(x, y) {
+	return Math.pow(x[0] - y[0], 2) + Math.pow(x[1] - y[1], 2) + Math.pow(x[2] - y[2], 2);
+}
+
+convert.rgb.keyword = function (rgb) {
+	var reversed = reverseKeywords[rgb];
+	if (reversed) {
+		return reversed;
+	}
+
+	var currentClosestDistance = Infinity;
+	var currentClosestKeyword;
+
+	for (var keyword in cssKeywords) {
+		if (cssKeywords.hasOwnProperty(keyword)) {
+			var value = cssKeywords[keyword];
+
+			// Compute comparative distance
+			var distance = comparativeDistance(rgb, value);
+
+			// Check if its less, if so set as closest
+			if (distance < currentClosestDistance) {
+				currentClosestDistance = distance;
+				currentClosestKeyword = keyword;
+			}
+		}
+	}
+
+	return currentClosestKeyword;
+};
+
+convert.keyword.rgb = function (keyword) {
+	return cssKeywords[keyword];
+};
+
+convert.rgb.xyz = function (rgb) {
+	var r = rgb[0] / 255;
+	var g = rgb[1] / 255;
+	var b = rgb[2] / 255;
+
+	// assume sRGB
+	r = r > 0.04045 ? Math.pow((r + 0.055) / 1.055, 2.4) : r / 12.92;
+	g = g > 0.04045 ? Math.pow((g + 0.055) / 1.055, 2.4) : g / 12.92;
+	b = b > 0.04045 ? Math.pow((b + 0.055) / 1.055, 2.4) : b / 12.92;
+
+	var x = r * 0.4124 + g * 0.3576 + b * 0.1805;
+	var y = r * 0.2126 + g * 0.7152 + b * 0.0722;
+	var z = r * 0.0193 + g * 0.1192 + b * 0.9505;
+
+	return [x * 100, y * 100, z * 100];
+};
+
+convert.rgb.lab = function (rgb) {
+	var xyz = convert.rgb.xyz(rgb);
+	var x = xyz[0];
+	var y = xyz[1];
+	var z = xyz[2];
+	var l;
+	var a;
+	var b;
+
+	x /= 95.047;
+	y /= 100;
+	z /= 108.883;
+
+	x = x > 0.008856 ? Math.pow(x, 1 / 3) : 7.787 * x + 16 / 116;
+	y = y > 0.008856 ? Math.pow(y, 1 / 3) : 7.787 * y + 16 / 116;
+	z = z > 0.008856 ? Math.pow(z, 1 / 3) : 7.787 * z + 16 / 116;
+
+	l = 116 * y - 16;
+	a = 500 * (x - y);
+	b = 200 * (y - z);
+
+	return [l, a, b];
+};
+
+convert.hsl.rgb = function (hsl) {
+	var h = hsl[0] / 360;
+	var s = hsl[1] / 100;
+	var l = hsl[2] / 100;
+	var t1;
+	var t2;
+	var t3;
+	var rgb;
+	var val;
+
+	if (s === 0) {
+		val = l * 255;
+		return [val, val, val];
+	}
+
+	if (l < 0.5) {
+		t2 = l * (1 + s);
+	} else {
+		t2 = l + s - l * s;
+	}
+
+	t1 = 2 * l - t2;
+
+	rgb = [0, 0, 0];
+	for (var i = 0; i < 3; i++) {
+		t3 = h + 1 / 3 * -(i - 1);
+		if (t3 < 0) {
+			t3++;
+		}
+		if (t3 > 1) {
+			t3--;
+		}
+
+		if (6 * t3 < 1) {
+			val = t1 + (t2 - t1) * 6 * t3;
+		} else if (2 * t3 < 1) {
+			val = t2;
+		} else if (3 * t3 < 2) {
+			val = t1 + (t2 - t1) * (2 / 3 - t3) * 6;
+		} else {
+			val = t1;
+		}
+
+		rgb[i] = val * 255;
+	}
+
+	return rgb;
+};
+
+convert.hsl.hsv = function (hsl) {
+	var h = hsl[0];
+	var s = hsl[1] / 100;
+	var l = hsl[2] / 100;
+	var smin = s;
+	var lmin = Math.max(l, 0.01);
+	var sv;
+	var v;
+
+	l *= 2;
+	s *= l <= 1 ? l : 2 - l;
+	smin *= lmin <= 1 ? lmin : 2 - lmin;
+	v = (l + s) / 2;
+	sv = l === 0 ? 2 * smin / (lmin + smin) : 2 * s / (l + s);
+
+	return [h, sv * 100, v * 100];
+};
+
+convert.hsv.rgb = function (hsv) {
+	var h = hsv[0] / 60;
+	var s = hsv[1] / 100;
+	var v = hsv[2] / 100;
+	var hi = Math.floor(h) % 6;
+
+	var f = h - Math.floor(h);
+	var p = 255 * v * (1 - s);
+	var q = 255 * v * (1 - s * f);
+	var t = 255 * v * (1 - s * (1 - f));
+	v *= 255;
+
+	switch (hi) {
+		case 0:
+			return [v, t, p];
+		case 1:
+			return [q, v, p];
+		case 2:
+			return [p, v, t];
+		case 3:
+			return [p, q, v];
+		case 4:
+			return [t, p, v];
+		case 5:
+			return [v, p, q];
+	}
+};
+
+convert.hsv.hsl = function (hsv) {
+	var h = hsv[0];
+	var s = hsv[1] / 100;
+	var v = hsv[2] / 100;
+	var vmin = Math.max(v, 0.01);
+	var lmin;
+	var sl;
+	var l;
+
+	l = (2 - s) * v;
+	lmin = (2 - s) * vmin;
+	sl = s * vmin;
+	sl /= lmin <= 1 ? lmin : 2 - lmin;
+	sl = sl || 0;
+	l /= 2;
+
+	return [h, sl * 100, l * 100];
+};
+
+// http://dev.w3.org/csswg/css-color/#hwb-to-rgb
+convert.hwb.rgb = function (hwb) {
+	var h = hwb[0] / 360;
+	var wh = hwb[1] / 100;
+	var bl = hwb[2] / 100;
+	var ratio = wh + bl;
+	var i;
+	var v;
+	var f;
+	var n;
+
+	// wh + bl cant be > 1
+	if (ratio > 1) {
+		wh /= ratio;
+		bl /= ratio;
+	}
+
+	i = Math.floor(6 * h);
+	v = 1 - bl;
+	f = 6 * h - i;
+
+	if ((i & 0x01) !== 0) {
+		f = 1 - f;
+	}
+
+	n = wh + f * (v - wh); // linear interpolation
+
+	var r;
+	var g;
+	var b;
+	switch (i) {
+		default:
+		case 6:
+		case 0:
+			r = v;g = n;b = wh;break;
+		case 1:
+			r = n;g = v;b = wh;break;
+		case 2:
+			r = wh;g = v;b = n;break;
+		case 3:
+			r = wh;g = n;b = v;break;
+		case 4:
+			r = n;g = wh;b = v;break;
+		case 5:
+			r = v;g = wh;b = n;break;
+	}
+
+	return [r * 255, g * 255, b * 255];
+};
+
+convert.cmyk.rgb = function (cmyk) {
+	var c = cmyk[0] / 100;
+	var m = cmyk[1] / 100;
+	var y = cmyk[2] / 100;
+	var k = cmyk[3] / 100;
+	var r;
+	var g;
+	var b;
+
+	r = 1 - Math.min(1, c * (1 - k) + k);
+	g = 1 - Math.min(1, m * (1 - k) + k);
+	b = 1 - Math.min(1, y * (1 - k) + k);
+
+	return [r * 255, g * 255, b * 255];
+};
+
+convert.xyz.rgb = function (xyz) {
+	var x = xyz[0] / 100;
+	var y = xyz[1] / 100;
+	var z = xyz[2] / 100;
+	var r;
+	var g;
+	var b;
+
+	r = x * 3.2406 + y * -1.5372 + z * -0.4986;
+	g = x * -0.9689 + y * 1.8758 + z * 0.0415;
+	b = x * 0.0557 + y * -0.2040 + z * 1.0570;
+
+	// assume sRGB
+	r = r > 0.0031308 ? 1.055 * Math.pow(r, 1.0 / 2.4) - 0.055 : r * 12.92;
+
+	g = g > 0.0031308 ? 1.055 * Math.pow(g, 1.0 / 2.4) - 0.055 : g * 12.92;
+
+	b = b > 0.0031308 ? 1.055 * Math.pow(b, 1.0 / 2.4) - 0.055 : b * 12.92;
+
+	r = Math.min(Math.max(0, r), 1);
+	g = Math.min(Math.max(0, g), 1);
+	b = Math.min(Math.max(0, b), 1);
+
+	return [r * 255, g * 255, b * 255];
+};
+
+convert.xyz.lab = function (xyz) {
+	var x = xyz[0];
+	var y = xyz[1];
+	var z = xyz[2];
+	var l;
+	var a;
+	var b;
+
+	x /= 95.047;
+	y /= 100;
+	z /= 108.883;
+
+	x = x > 0.008856 ? Math.pow(x, 1 / 3) : 7.787 * x + 16 / 116;
+	y = y > 0.008856 ? Math.pow(y, 1 / 3) : 7.787 * y + 16 / 116;
+	z = z > 0.008856 ? Math.pow(z, 1 / 3) : 7.787 * z + 16 / 116;
+
+	l = 116 * y - 16;
+	a = 500 * (x - y);
+	b = 200 * (y - z);
+
+	return [l, a, b];
+};
+
+convert.lab.xyz = function (lab) {
+	var l = lab[0];
+	var a = lab[1];
+	var b = lab[2];
+	var x;
+	var y;
+	var z;
+
+	y = (l + 16) / 116;
+	x = a / 500 + y;
+	z = y - b / 200;
+
+	var y2 = Math.pow(y, 3);
+	var x2 = Math.pow(x, 3);
+	var z2 = Math.pow(z, 3);
+	y = y2 > 0.008856 ? y2 : (y - 16 / 116) / 7.787;
+	x = x2 > 0.008856 ? x2 : (x - 16 / 116) / 7.787;
+	z = z2 > 0.008856 ? z2 : (z - 16 / 116) / 7.787;
+
+	x *= 95.047;
+	y *= 100;
+	z *= 108.883;
+
+	return [x, y, z];
+};
+
+convert.lab.lch = function (lab) {
+	var l = lab[0];
+	var a = lab[1];
+	var b = lab[2];
+	var hr;
+	var h;
+	var c;
+
+	hr = Math.atan2(b, a);
+	h = hr * 360 / 2 / Math.PI;
+
+	if (h < 0) {
+		h += 360;
+	}
+
+	c = Math.sqrt(a * a + b * b);
+
+	return [l, c, h];
+};
+
+convert.lch.lab = function (lch) {
+	var l = lch[0];
+	var c = lch[1];
+	var h = lch[2];
+	var a;
+	var b;
+	var hr;
+
+	hr = h / 360 * 2 * Math.PI;
+	a = c * Math.cos(hr);
+	b = c * Math.sin(hr);
+
+	return [l, a, b];
+};
+
+convert.rgb.ansi16 = function (args) {
+	var r = args[0];
+	var g = args[1];
+	var b = args[2];
+	var value = 1 in arguments ? arguments[1] : convert.rgb.hsv(args)[2]; // hsv -> ansi16 optimization
+
+	value = Math.round(value / 50);
+
+	if (value === 0) {
+		return 30;
+	}
+
+	var ansi = 30 + (Math.round(b / 255) << 2 | Math.round(g / 255) << 1 | Math.round(r / 255));
+
+	if (value === 2) {
+		ansi += 60;
+	}
+
+	return ansi;
+};
+
+convert.hsv.ansi16 = function (args) {
+	// optimization here; we already know the value and don't need to get
+	// it converted for us.
+	return convert.rgb.ansi16(convert.hsv.rgb(args), args[2]);
+};
+
+convert.rgb.ansi256 = function (args) {
+	var r = args[0];
+	var g = args[1];
+	var b = args[2];
+
+	// we use the extended greyscale palette here, with the exception of
+	// black and white. normal palette only has 4 greyscale shades.
+	if (r === g && g === b) {
+		if (r < 8) {
+			return 16;
+		}
+
+		if (r > 248) {
+			return 231;
+		}
+
+		return Math.round((r - 8) / 247 * 24) + 232;
+	}
+
+	var ansi = 16 + 36 * Math.round(r / 255 * 5) + 6 * Math.round(g / 255 * 5) + Math.round(b / 255 * 5);
+
+	return ansi;
+};
+
+convert.ansi16.rgb = function (args) {
+	var color = args % 10;
+
+	// handle greyscale
+	if (color === 0 || color === 7) {
+		if (args > 50) {
+			color += 3.5;
+		}
+
+		color = color / 10.5 * 255;
+
+		return [color, color, color];
+	}
+
+	var mult = (~~(args > 50) + 1) * 0.5;
+	var r = (color & 1) * mult * 255;
+	var g = (color >> 1 & 1) * mult * 255;
+	var b = (color >> 2 & 1) * mult * 255;
+
+	return [r, g, b];
+};
+
+convert.ansi256.rgb = function (args) {
+	// handle greyscale
+	if (args >= 232) {
+		var c = (args - 232) * 10 + 8;
+		return [c, c, c];
+	}
+
+	args -= 16;
+
+	var rem;
+	var r = Math.floor(args / 36) / 5 * 255;
+	var g = Math.floor((rem = args % 36) / 6) / 5 * 255;
+	var b = rem % 6 / 5 * 255;
+
+	return [r, g, b];
+};
+
+convert.rgb.hex = function (args) {
+	var integer = ((Math.round(args[0]) & 0xFF) << 16) + ((Math.round(args[1]) & 0xFF) << 8) + (Math.round(args[2]) & 0xFF);
+
+	var string = integer.toString(16).toUpperCase();
+	return '000000'.substring(string.length) + string;
+};
+
+convert.hex.rgb = function (args) {
+	var match = args.toString(16).match(/[a-f0-9]{6}|[a-f0-9]{3}/i);
+	if (!match) {
+		return [0, 0, 0];
+	}
+
+	var colorString = match[0];
+
+	if (match[0].length === 3) {
+		colorString = colorString.split('').map(function (char) {
+			return char + char;
+		}).join('');
+	}
+
+	var integer = parseInt(colorString, 16);
+	var r = integer >> 16 & 0xFF;
+	var g = integer >> 8 & 0xFF;
+	var b = integer & 0xFF;
+
+	return [r, g, b];
+};
+
+convert.rgb.hcg = function (rgb) {
+	var r = rgb[0] / 255;
+	var g = rgb[1] / 255;
+	var b = rgb[2] / 255;
+	var max = Math.max(Math.max(r, g), b);
+	var min = Math.min(Math.min(r, g), b);
+	var chroma = max - min;
+	var grayscale;
+	var hue;
+
+	if (chroma < 1) {
+		grayscale = min / (1 - chroma);
+	} else {
+		grayscale = 0;
+	}
+
+	if (chroma <= 0) {
+		hue = 0;
+	} else if (max === r) {
+		hue = (g - b) / chroma % 6;
+	} else if (max === g) {
+		hue = 2 + (b - r) / chroma;
+	} else {
+		hue = 4 + (r - g) / chroma + 4;
+	}
+
+	hue /= 6;
+	hue %= 1;
+
+	return [hue * 360, chroma * 100, grayscale * 100];
+};
+
+convert.hsl.hcg = function (hsl) {
+	var s = hsl[1] / 100;
+	var l = hsl[2] / 100;
+	var c = 1;
+	var f = 0;
+
+	if (l < 0.5) {
+		c = 2.0 * s * l;
+	} else {
+		c = 2.0 * s * (1.0 - l);
+	}
+
+	if (c < 1.0) {
+		f = (l - 0.5 * c) / (1.0 - c);
+	}
+
+	return [hsl[0], c * 100, f * 100];
+};
+
+convert.hsv.hcg = function (hsv) {
+	var s = hsv[1] / 100;
+	var v = hsv[2] / 100;
+
+	var c = s * v;
+	var f = 0;
+
+	if (c < 1.0) {
+		f = (v - c) / (1 - c);
+	}
+
+	return [hsv[0], c * 100, f * 100];
+};
+
+convert.hcg.rgb = function (hcg) {
+	var h = hcg[0] / 360;
+	var c = hcg[1] / 100;
+	var g = hcg[2] / 100;
+
+	if (c === 0.0) {
+		return [g * 255, g * 255, g * 255];
+	}
+
+	var pure = [0, 0, 0];
+	var hi = h % 1 * 6;
+	var v = hi % 1;
+	var w = 1 - v;
+	var mg = 0;
+
+	switch (Math.floor(hi)) {
+		case 0:
+			pure[0] = 1;pure[1] = v;pure[2] = 0;break;
+		case 1:
+			pure[0] = w;pure[1] = 1;pure[2] = 0;break;
+		case 2:
+			pure[0] = 0;pure[1] = 1;pure[2] = v;break;
+		case 3:
+			pure[0] = 0;pure[1] = w;pure[2] = 1;break;
+		case 4:
+			pure[0] = v;pure[1] = 0;pure[2] = 1;break;
+		default:
+			pure[0] = 1;pure[1] = 0;pure[2] = w;
+	}
+
+	mg = (1.0 - c) * g;
+
+	return [(c * pure[0] + mg) * 255, (c * pure[1] + mg) * 255, (c * pure[2] + mg) * 255];
+};
+
+convert.hcg.hsv = function (hcg) {
+	var c = hcg[1] / 100;
+	var g = hcg[2] / 100;
+
+	var v = c + g * (1.0 - c);
+	var f = 0;
+
+	if (v > 0.0) {
+		f = c / v;
+	}
+
+	return [hcg[0], f * 100, v * 100];
+};
+
+convert.hcg.hsl = function (hcg) {
+	var c = hcg[1] / 100;
+	var g = hcg[2] / 100;
+
+	var l = g * (1.0 - c) + 0.5 * c;
+	var s = 0;
+
+	if (l > 0.0 && l < 0.5) {
+		s = c / (2 * l);
+	} else if (l >= 0.5 && l < 1.0) {
+		s = c / (2 * (1 - l));
+	}
+
+	return [hcg[0], s * 100, l * 100];
+};
+
+convert.hcg.hwb = function (hcg) {
+	var c = hcg[1] / 100;
+	var g = hcg[2] / 100;
+	var v = c + g * (1.0 - c);
+	return [hcg[0], (v - c) * 100, (1 - v) * 100];
+};
+
+convert.hwb.hcg = function (hwb) {
+	var w = hwb[1] / 100;
+	var b = hwb[2] / 100;
+	var v = 1 - b;
+	var c = v - w;
+	var g = 0;
+
+	if (c < 1) {
+		g = (v - c) / (1 - c);
+	}
+
+	return [hwb[0], c * 100, g * 100];
+};
+
+convert.apple.rgb = function (apple) {
+	return [apple[0] / 65535 * 255, apple[1] / 65535 * 255, apple[2] / 65535 * 255];
+};
+
+convert.rgb.apple = function (rgb) {
+	return [rgb[0] / 255 * 65535, rgb[1] / 255 * 65535, rgb[2] / 255 * 65535];
+};
+
+convert.gray.rgb = function (args) {
+	return [args[0] / 100 * 255, args[0] / 100 * 255, args[0] / 100 * 255];
+};
+
+convert.gray.hsl = convert.gray.hsv = function (args) {
+	return [0, 0, args[0]];
+};
+
+convert.gray.hwb = function (gray) {
+	return [0, 100, gray[0]];
+};
+
+convert.gray.cmyk = function (gray) {
+	return [0, 0, 0, gray[0]];
+};
+
+convert.gray.lab = function (gray) {
+	return [gray[0], 0, 0];
+};
+
+convert.gray.hex = function (gray) {
+	var val = Math.round(gray[0] / 100 * 255) & 0xFF;
+	var integer = (val << 16) + (val << 8) + val;
+
+	var string = integer.toString(16).toUpperCase();
+	return '000000'.substring(string.length) + string;
+};
+
+convert.rgb.gray = function (rgb) {
+	var val = (rgb[0] + rgb[1] + rgb[2]) / 3;
+	return [val / 255 * 100];
+};
 
 /***/ }),
 
-/***/ "./node_modules/colors/lib/colors.js":
-/*!*******************************************!*\
-  !*** ./node_modules/colors/lib/colors.js ***!
-  \*******************************************/
+/***/ "./node_modules/color-convert/index.js":
+/*!*********************************************!*\
+  !*** ./node_modules/color-convert/index.js ***!
+  \*********************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -3138,461 +3702,199 @@ webpackEmptyContext.id = "./node_modules/colors/lib sync recursive";
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
+var conversions = __webpack_require__(/*! ./conversions */ "./node_modules/color-convert/conversions.js");
+var route = __webpack_require__(/*! ./route */ "./node_modules/color-convert/route.js");
+
+var convert = {};
+
+var models = Object.keys(conversions);
+
+function wrapRaw(fn) {
+	var wrappedFn = function wrappedFn(args) {
+		if (args === undefined || args === null) {
+			return args;
+		}
+
+		if (arguments.length > 1) {
+			args = Array.prototype.slice.call(arguments);
+		}
+
+		return fn(args);
+	};
+
+	// preserve .conversion property if there is one
+	if ('conversion' in fn) {
+		wrappedFn.conversion = fn.conversion;
+	}
+
+	return wrappedFn;
+}
+
+function wrapRounded(fn) {
+	var wrappedFn = function wrappedFn(args) {
+		if (args === undefined || args === null) {
+			return args;
+		}
+
+		if (arguments.length > 1) {
+			args = Array.prototype.slice.call(arguments);
+		}
+
+		var result = fn(args);
+
+		// we're assuming the result is an array here.
+		// see notice in conversions.js; don't use box types
+		// in conversion functions.
+		if ((typeof result === 'undefined' ? 'undefined' : _typeof(result)) === 'object') {
+			for (var len = result.length, i = 0; i < len; i++) {
+				result[i] = Math.round(result[i]);
+			}
+		}
+
+		return result;
+	};
+
+	// preserve .conversion property if there is one
+	if ('conversion' in fn) {
+		wrappedFn.conversion = fn.conversion;
+	}
+
+	return wrappedFn;
+}
+
+models.forEach(function (fromModel) {
+	convert[fromModel] = {};
+
+	Object.defineProperty(convert[fromModel], 'channels', { value: conversions[fromModel].channels });
+	Object.defineProperty(convert[fromModel], 'labels', { value: conversions[fromModel].labels });
+
+	var routes = route(fromModel);
+	var routeModels = Object.keys(routes);
+
+	routeModels.forEach(function (toModel) {
+		var fn = routes[toModel];
+
+		convert[fromModel][toModel] = wrapRounded(fn);
+		convert[fromModel][toModel].raw = wrapRaw(fn);
+	});
+});
+
+module.exports = convert;
+
+/***/ }),
+
+/***/ "./node_modules/color-convert/route.js":
+/*!*********************************************!*\
+  !*** ./node_modules/color-convert/route.js ***!
+  \*********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var conversions = __webpack_require__(/*! ./conversions */ "./node_modules/color-convert/conversions.js");
+
 /*
+	this function routes a model to all other models.
 
-The MIT License (MIT)
+	all functions that are routed have a property `.conversion` attached
+	to the returned synthetic function. This property is an array
+	of strings, each with the steps in between the 'from' and 'to'
+	color models (inclusive).
 
-Original Library 
-  - Copyright (c) Marak Squires
-
-Additional functionality
- - Copyright (c) Sindre Sorhus <sindresorhus@gmail.com> (sindresorhus.com)
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in
-all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-THE SOFTWARE.
-
+	conversions that are not possible simply are not included.
 */
 
-var colors = {};
-module['exports'] = colors;
+function buildGraph() {
+	var graph = {};
+	// https://jsperf.com/object-keys-vs-for-in-with-closure/3
+	var models = Object.keys(conversions);
 
-colors.themes = {};
+	for (var len = models.length, i = 0; i < len; i++) {
+		graph[models[i]] = {
+			// http://jsperf.com/1-vs-infinity
+			// micro-opt, but this is simple.
+			distance: -1,
+			parent: null
+		};
+	}
 
-var ansiStyles = colors.styles = __webpack_require__(/*! ./styles */ "./node_modules/colors/lib/styles.js");
-var defineProps = Object.defineProperties;
-
-colors.supportsColor = __webpack_require__(/*! ./system/supports-colors */ "./node_modules/colors/lib/system/supports-colors.js");
-
-if (typeof colors.enabled === "undefined") {
-  colors.enabled = colors.supportsColor;
+	return graph;
 }
 
-colors.stripColors = colors.strip = function (str) {
-  return ("" + str).replace(/\x1B\[\d+m/g, '');
-};
+// https://en.wikipedia.org/wiki/Breadth-first_search
+function deriveBFS(fromModel) {
+	var graph = buildGraph();
+	var queue = [fromModel]; // unshift -> queue -> pop
 
-var stylize = colors.stylize = function stylize(str, style) {
-  if (!colors.enabled) {
-    return str + '';
-  }
+	graph[fromModel].distance = 0;
 
-  return ansiStyles[style].open + str + ansiStyles[style].close;
-};
+	while (queue.length) {
+		var current = queue.pop();
+		var adjacents = Object.keys(conversions[current]);
 
-var matchOperatorsRe = /[|\\{}()[\]^$+*?.]/g;
-var escapeStringRegexp = function escapeStringRegexp(str) {
-  if (typeof str !== 'string') {
-    throw new TypeError('Expected a string');
-  }
-  return str.replace(matchOperatorsRe, '\\$&');
-};
+		for (var len = adjacents.length, i = 0; i < len; i++) {
+			var adjacent = adjacents[i];
+			var node = graph[adjacent];
 
-function build(_styles) {
-  var builder = function builder() {
-    return applyStyle.apply(builder, arguments);
-  };
-  builder._styles = _styles;
-  // __proto__ is used because we must return a function, but there is
-  // no way to create a function with a different prototype.
-  builder.__proto__ = proto;
-  return builder;
+			if (node.distance === -1) {
+				node.distance = graph[current].distance + 1;
+				node.parent = current;
+				queue.unshift(adjacent);
+			}
+		}
+	}
+
+	return graph;
 }
 
-var styles = function () {
-  var ret = {};
-  ansiStyles.grey = ansiStyles.gray;
-  Object.keys(ansiStyles).forEach(function (key) {
-    ansiStyles[key].closeRe = new RegExp(escapeStringRegexp(ansiStyles[key].close), 'g');
-    ret[key] = {
-      get: function get() {
-        return build(this._styles.concat(key));
-      }
-    };
-  });
-  return ret;
-}();
-
-var proto = defineProps(function colors() {}, styles);
-
-function applyStyle() {
-  var args = arguments;
-  var argsLen = args.length;
-  var str = argsLen !== 0 && String(arguments[0]);
-  if (argsLen > 1) {
-    for (var a = 1; a < argsLen; a++) {
-      str += ' ' + args[a];
-    }
-  }
-
-  if (!colors.enabled || !str) {
-    return str;
-  }
-
-  var nestedStyles = this._styles;
-
-  var i = nestedStyles.length;
-  while (i--) {
-    var code = ansiStyles[nestedStyles[i]];
-    str = code.open + str.replace(code.closeRe, code.open) + code.close;
-  }
-
-  return str;
+function link(from, to) {
+	return function (args) {
+		return to(from(args));
+	};
 }
 
-function applyTheme(theme) {
-  for (var style in theme) {
-    (function (style) {
-      colors[style] = function (str) {
-        if (_typeof(theme[style]) === 'object') {
-          var out = str;
-          for (var i in theme[style]) {
-            out = colors[theme[style][i]](out);
-          }
-          return out;
-        }
-        return colors[theme[style]](str);
-      };
-    })(style);
-  }
+function wrapConversion(toModel, graph) {
+	var path = [graph[toModel].parent, toModel];
+	var fn = conversions[graph[toModel].parent][toModel];
+
+	var cur = graph[toModel].parent;
+	while (graph[cur].parent) {
+		path.unshift(graph[cur].parent);
+		fn = link(conversions[graph[cur].parent][cur], fn);
+		cur = graph[cur].parent;
+	}
+
+	fn.conversion = path;
+	return fn;
 }
 
-colors.setTheme = function (theme) {
-  if (typeof theme === 'string') {
-    try {
-      colors.themes[theme] = __webpack_require__("./node_modules/colors/lib sync recursive")(theme);
-      applyTheme(colors.themes[theme]);
-      return colors.themes[theme];
-    } catch (err) {
-      console.log(err);
-      return err;
-    }
-  } else {
-    applyTheme(theme);
-  }
-};
+module.exports = function (fromModel) {
+	var graph = deriveBFS(fromModel);
+	var conversion = {};
 
-function init() {
-  var ret = {};
-  Object.keys(styles).forEach(function (name) {
-    ret[name] = {
-      get: function get() {
-        return build([name]);
-      }
-    };
-  });
-  return ret;
-}
+	var models = Object.keys(graph);
+	for (var len = models.length, i = 0; i < len; i++) {
+		var toModel = models[i];
+		var node = graph[toModel];
 
-var sequencer = function sequencer(map, str) {
-  var exploded = str.split(""),
-      i = 0;
-  exploded = exploded.map(map);
-  return exploded.join("");
-};
+		if (node.parent === null) {
+			// no possible conversion, or this node is the source model.
+			continue;
+		}
 
-// custom formatter methods
-colors.trap = __webpack_require__(/*! ./custom/trap */ "./node_modules/colors/lib/custom/trap.js");
-colors.zalgo = __webpack_require__(/*! ./custom/zalgo */ "./node_modules/colors/lib/custom/zalgo.js");
+		conversion[toModel] = wrapConversion(toModel, graph);
+	}
 
-// maps
-colors.maps = {};
-colors.maps.america = __webpack_require__(/*! ./maps/america */ "./node_modules/colors/lib/maps/america.js");
-colors.maps.zebra = __webpack_require__(/*! ./maps/zebra */ "./node_modules/colors/lib/maps/zebra.js");
-colors.maps.rainbow = __webpack_require__(/*! ./maps/rainbow */ "./node_modules/colors/lib/maps/rainbow.js");
-colors.maps.random = __webpack_require__(/*! ./maps/random */ "./node_modules/colors/lib/maps/random.js");
-
-for (var map in colors.maps) {
-  (function (map) {
-    colors[map] = function (str) {
-      return sequencer(colors.maps[map], str);
-    };
-  })(map);
-}
-
-defineProps(colors, init());
-
-/***/ }),
-
-/***/ "./node_modules/colors/lib/custom/trap.js":
-/*!************************************************!*\
-  !*** ./node_modules/colors/lib/custom/trap.js ***!
-  \************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-module['exports'] = function runTheTrap(text, options) {
-  var result = "";
-  text = text || "Run the trap, drop the bass";
-  text = text.split('');
-  var trap = {
-    a: ["@", "\u0104", "\u023A", "\u0245", "\u0394", "\u039B", "\u0414"],
-    b: ["\xDF", "\u0181", "\u0243", "\u026E", "\u03B2", "\u0E3F"],
-    c: ["\xA9", "\u023B", "\u03FE"],
-    d: ["\xD0", "\u018A", "\u0500", "\u0501", "\u0502", "\u0503"],
-    e: ["\xCB", "\u0115", "\u018E", "\u0258", "\u03A3", "\u03BE", "\u04BC", "\u0A6C"],
-    f: ["\u04FA"],
-    g: ["\u0262"],
-    h: ["\u0126", "\u0195", "\u04A2", "\u04BA", "\u04C7", "\u050A"],
-    i: ["\u0F0F"],
-    j: ["\u0134"],
-    k: ["\u0138", "\u04A0", "\u04C3", "\u051E"],
-    l: ["\u0139"],
-    m: ["\u028D", "\u04CD", "\u04CE", "\u0520", "\u0521", "\u0D69"],
-    n: ["\xD1", "\u014B", "\u019D", "\u0376", "\u03A0", "\u048A"],
-    o: ["\xD8", "\xF5", "\xF8", "\u01FE", "\u0298", "\u047A", "\u05DD", "\u06DD", "\u0E4F"],
-    p: ["\u01F7", "\u048E"],
-    q: ["\u09CD"],
-    r: ["\xAE", "\u01A6", "\u0210", "\u024C", "\u0280", "\u042F"],
-    s: ["\xA7", "\u03DE", "\u03DF", "\u03E8"],
-    t: ["\u0141", "\u0166", "\u0373"],
-    u: ["\u01B1", "\u054D"],
-    v: ["\u05D8"],
-    w: ["\u0428", "\u0460", "\u047C", "\u0D70"],
-    x: ["\u04B2", "\u04FE", "\u04FC", "\u04FD"],
-    y: ["\xA5", "\u04B0", "\u04CB"],
-    z: ["\u01B5", "\u0240"]
-  };
-  text.forEach(function (c) {
-    c = c.toLowerCase();
-    var chars = trap[c] || [" "];
-    var rand = Math.floor(Math.random() * chars.length);
-    if (typeof trap[c] !== "undefined") {
-      result += trap[c][rand];
-    } else {
-      result += c;
-    }
-  });
-  return result;
+	return conversion;
 };
 
 /***/ }),
 
-/***/ "./node_modules/colors/lib/custom/zalgo.js":
-/*!*************************************************!*\
-  !*** ./node_modules/colors/lib/custom/zalgo.js ***!
-  \*************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-// please no
-module['exports'] = function zalgo(text, options) {
-  text = text || "   he is here   ";
-  var soul = {
-    "up": ['̍', '̎', '̄', '̅', '̿', '̑', '̆', '̐', '͒', '͗', '͑', '̇', '̈', '̊', '͂', '̓', '̈', '͊', '͋', '͌', '̃', '̂', '̌', '͐', '̀', '́', '̋', '̏', '̒', '̓', '̔', '̽', '̉', 'ͣ', 'ͤ', 'ͥ', 'ͦ', 'ͧ', 'ͨ', 'ͩ', 'ͪ', 'ͫ', 'ͬ', 'ͭ', 'ͮ', 'ͯ', '̾', '͛', '͆', '̚'],
-    "down": ['̖', '̗', '̘', '̙', '̜', '̝', '̞', '̟', '̠', '̤', '̥', '̦', '̩', '̪', '̫', '̬', '̭', '̮', '̯', '̰', '̱', '̲', '̳', '̹', '̺', '̻', '̼', 'ͅ', '͇', '͈', '͉', '͍', '͎', '͓', '͔', '͕', '͖', '͙', '͚', '̣'],
-    "mid": ['̕', '̛', '̀', '́', '͘', '̡', '̢', '̧', '̨', '̴', '̵', '̶', '͜', '͝', '͞', '͟', '͠', '͢', '̸', '̷', '͡', ' ҉']
-  },
-      all = [].concat(soul.up, soul.down, soul.mid),
-      zalgo = {};
-
-  function randomNumber(range) {
-    var r = Math.floor(Math.random() * range);
-    return r;
-  }
-
-  function is_char(character) {
-    var bool = false;
-    all.filter(function (i) {
-      bool = i === character;
-    });
-    return bool;
-  }
-
-  function heComes(text, options) {
-    var result = '',
-        counts,
-        l;
-    options = options || {};
-    options["up"] = typeof options["up"] !== 'undefined' ? options["up"] : true;
-    options["mid"] = typeof options["mid"] !== 'undefined' ? options["mid"] : true;
-    options["down"] = typeof options["down"] !== 'undefined' ? options["down"] : true;
-    options["size"] = typeof options["size"] !== 'undefined' ? options["size"] : "maxi";
-    text = text.split('');
-    for (l in text) {
-      if (is_char(l)) {
-        continue;
-      }
-      result = result + text[l];
-      counts = { "up": 0, "down": 0, "mid": 0 };
-      switch (options.size) {
-        case 'mini':
-          counts.up = randomNumber(8);
-          counts.mid = randomNumber(2);
-          counts.down = randomNumber(8);
-          break;
-        case 'maxi':
-          counts.up = randomNumber(16) + 3;
-          counts.mid = randomNumber(4) + 1;
-          counts.down = randomNumber(64) + 3;
-          break;
-        default:
-          counts.up = randomNumber(8) + 1;
-          counts.mid = randomNumber(6) / 2;
-          counts.down = randomNumber(8) + 1;
-          break;
-      }
-
-      var arr = ["up", "mid", "down"];
-      for (var d in arr) {
-        var index = arr[d];
-        for (var i = 0; i <= counts[index]; i++) {
-          if (options[index]) {
-            result = result + soul[index][randomNumber(soul[index].length)];
-          }
-        }
-      }
-    }
-    return result;
-  }
-  // don't summon him
-  return heComes(text, options);
-};
-
-/***/ }),
-
-/***/ "./node_modules/colors/lib/extendStringPrototype.js":
-/*!**********************************************************!*\
-  !*** ./node_modules/colors/lib/extendStringPrototype.js ***!
-  \**********************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var colors = __webpack_require__(/*! ./colors */ "./node_modules/colors/lib/colors.js");
-
-module['exports'] = function () {
-
-  //
-  // Extends prototype of native string object to allow for "foo".red syntax
-  //
-  var addProperty = function addProperty(color, func) {
-    String.prototype.__defineGetter__(color, func);
-  };
-
-  var sequencer = function sequencer(map, str) {
-    return function () {
-      var exploded = this.split(""),
-          i = 0;
-      exploded = exploded.map(map);
-      return exploded.join("");
-    };
-  };
-
-  addProperty('strip', function () {
-    return colors.strip(this);
-  });
-
-  addProperty('stripColors', function () {
-    return colors.strip(this);
-  });
-
-  addProperty("trap", function () {
-    return colors.trap(this);
-  });
-
-  addProperty("zalgo", function () {
-    return colors.zalgo(this);
-  });
-
-  addProperty("zebra", function () {
-    return colors.zebra(this);
-  });
-
-  addProperty("rainbow", function () {
-    return colors.rainbow(this);
-  });
-
-  addProperty("random", function () {
-    return colors.random(this);
-  });
-
-  addProperty("america", function () {
-    return colors.america(this);
-  });
-
-  //
-  // Iterate through all default styles and colors
-  //
-  var x = Object.keys(colors.styles);
-  x.forEach(function (style) {
-    addProperty(style, function () {
-      return colors.stylize(this, style);
-    });
-  });
-
-  function applyTheme(theme) {
-    //
-    // Remark: This is a list of methods that exist
-    // on String that you should not overwrite.
-    //
-    var stringPrototypeBlacklist = ['__defineGetter__', '__defineSetter__', '__lookupGetter__', '__lookupSetter__', 'charAt', 'constructor', 'hasOwnProperty', 'isPrototypeOf', 'propertyIsEnumerable', 'toLocaleString', 'toString', 'valueOf', 'charCodeAt', 'indexOf', 'lastIndexof', 'length', 'localeCompare', 'match', 'replace', 'search', 'slice', 'split', 'substring', 'toLocaleLowerCase', 'toLocaleUpperCase', 'toLowerCase', 'toUpperCase', 'trim', 'trimLeft', 'trimRight'];
-
-    Object.keys(theme).forEach(function (prop) {
-      if (stringPrototypeBlacklist.indexOf(prop) !== -1) {
-        console.log('warn: '.red + ('String.prototype' + prop).magenta + ' is probably something you don\'t want to override. Ignoring style name');
-      } else {
-        if (typeof theme[prop] === 'string') {
-          colors[prop] = colors[theme[prop]];
-          addProperty(prop, function () {
-            return colors[theme[prop]](this);
-          });
-        } else {
-          addProperty(prop, function () {
-            var ret = this;
-            for (var t = 0; t < theme[prop].length; t++) {
-              ret = colors[theme[prop][t]](ret);
-            }
-            return ret;
-          });
-        }
-      }
-    });
-  }
-
-  colors.setTheme = function (theme) {
-    if (typeof theme === 'string') {
-      try {
-        colors.themes[theme] = __webpack_require__("./node_modules/colors/lib sync recursive")(theme);
-        applyTheme(colors.themes[theme]);
-        return colors.themes[theme];
-      } catch (err) {
-        console.log(err);
-        return err;
-      }
-    } else {
-      applyTheme(theme);
-    }
-  };
-};
-
-/***/ }),
-
-/***/ "./node_modules/colors/lib/index.js":
+/***/ "./node_modules/color-name/index.js":
 /*!******************************************!*\
-  !*** ./node_modules/colors/lib/index.js ***!
+  !*** ./node_modules/color-name/index.js ***!
   \******************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
@@ -3600,293 +3902,156 @@ module['exports'] = function () {
 "use strict";
 
 
-var colors = __webpack_require__(/*! ./colors */ "./node_modules/colors/lib/colors.js");
-module['exports'] = colors;
-
-// Remark: By default, colors will add style properties to String.prototype
-//
-// If you don't wish to extend String.prototype you can do this instead and native String will not be touched
-//
-//   var colors = require('colors/safe);
-//   colors.red("foo")
-//
-//
-__webpack_require__(/*! ./extendStringPrototype */ "./node_modules/colors/lib/extendStringPrototype.js")();
-
-/***/ }),
-
-/***/ "./node_modules/colors/lib/maps/america.js":
-/*!*************************************************!*\
-  !*** ./node_modules/colors/lib/maps/america.js ***!
-  \*************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var colors = __webpack_require__(/*! ../colors */ "./node_modules/colors/lib/colors.js");
-
-module['exports'] = function () {
-  return function (letter, i, exploded) {
-    if (letter === " ") return letter;
-    switch (i % 3) {
-      case 0:
-        return colors.red(letter);
-      case 1:
-        return colors.white(letter);
-      case 2:
-        return colors.blue(letter);
-    }
-  };
-}();
-
-/***/ }),
-
-/***/ "./node_modules/colors/lib/maps/rainbow.js":
-/*!*************************************************!*\
-  !*** ./node_modules/colors/lib/maps/rainbow.js ***!
-  \*************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var colors = __webpack_require__(/*! ../colors */ "./node_modules/colors/lib/colors.js");
-
-module['exports'] = function () {
-  var rainbowColors = ['red', 'yellow', 'green', 'blue', 'magenta']; //RoY G BiV
-  return function (letter, i, exploded) {
-    if (letter === " ") {
-      return letter;
-    } else {
-      return colors[rainbowColors[i++ % rainbowColors.length]](letter);
-    }
-  };
-}();
-
-/***/ }),
-
-/***/ "./node_modules/colors/lib/maps/random.js":
-/*!************************************************!*\
-  !*** ./node_modules/colors/lib/maps/random.js ***!
-  \************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var colors = __webpack_require__(/*! ../colors */ "./node_modules/colors/lib/colors.js");
-
-module['exports'] = function () {
-  var available = ['underline', 'inverse', 'grey', 'yellow', 'red', 'green', 'blue', 'white', 'cyan', 'magenta'];
-  return function (letter, i, exploded) {
-    return letter === " " ? letter : colors[available[Math.round(Math.random() * (available.length - 1))]](letter);
-  };
-}();
-
-/***/ }),
-
-/***/ "./node_modules/colors/lib/maps/zebra.js":
-/*!***********************************************!*\
-  !*** ./node_modules/colors/lib/maps/zebra.js ***!
-  \***********************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var colors = __webpack_require__(/*! ../colors */ "./node_modules/colors/lib/colors.js");
-
-module['exports'] = function (letter, i, exploded) {
-  return i % 2 === 0 ? letter : colors.inverse(letter);
+module.exports = {
+	"aliceblue": [240, 248, 255],
+	"antiquewhite": [250, 235, 215],
+	"aqua": [0, 255, 255],
+	"aquamarine": [127, 255, 212],
+	"azure": [240, 255, 255],
+	"beige": [245, 245, 220],
+	"bisque": [255, 228, 196],
+	"black": [0, 0, 0],
+	"blanchedalmond": [255, 235, 205],
+	"blue": [0, 0, 255],
+	"blueviolet": [138, 43, 226],
+	"brown": [165, 42, 42],
+	"burlywood": [222, 184, 135],
+	"cadetblue": [95, 158, 160],
+	"chartreuse": [127, 255, 0],
+	"chocolate": [210, 105, 30],
+	"coral": [255, 127, 80],
+	"cornflowerblue": [100, 149, 237],
+	"cornsilk": [255, 248, 220],
+	"crimson": [220, 20, 60],
+	"cyan": [0, 255, 255],
+	"darkblue": [0, 0, 139],
+	"darkcyan": [0, 139, 139],
+	"darkgoldenrod": [184, 134, 11],
+	"darkgray": [169, 169, 169],
+	"darkgreen": [0, 100, 0],
+	"darkgrey": [169, 169, 169],
+	"darkkhaki": [189, 183, 107],
+	"darkmagenta": [139, 0, 139],
+	"darkolivegreen": [85, 107, 47],
+	"darkorange": [255, 140, 0],
+	"darkorchid": [153, 50, 204],
+	"darkred": [139, 0, 0],
+	"darksalmon": [233, 150, 122],
+	"darkseagreen": [143, 188, 143],
+	"darkslateblue": [72, 61, 139],
+	"darkslategray": [47, 79, 79],
+	"darkslategrey": [47, 79, 79],
+	"darkturquoise": [0, 206, 209],
+	"darkviolet": [148, 0, 211],
+	"deeppink": [255, 20, 147],
+	"deepskyblue": [0, 191, 255],
+	"dimgray": [105, 105, 105],
+	"dimgrey": [105, 105, 105],
+	"dodgerblue": [30, 144, 255],
+	"firebrick": [178, 34, 34],
+	"floralwhite": [255, 250, 240],
+	"forestgreen": [34, 139, 34],
+	"fuchsia": [255, 0, 255],
+	"gainsboro": [220, 220, 220],
+	"ghostwhite": [248, 248, 255],
+	"gold": [255, 215, 0],
+	"goldenrod": [218, 165, 32],
+	"gray": [128, 128, 128],
+	"green": [0, 128, 0],
+	"greenyellow": [173, 255, 47],
+	"grey": [128, 128, 128],
+	"honeydew": [240, 255, 240],
+	"hotpink": [255, 105, 180],
+	"indianred": [205, 92, 92],
+	"indigo": [75, 0, 130],
+	"ivory": [255, 255, 240],
+	"khaki": [240, 230, 140],
+	"lavender": [230, 230, 250],
+	"lavenderblush": [255, 240, 245],
+	"lawngreen": [124, 252, 0],
+	"lemonchiffon": [255, 250, 205],
+	"lightblue": [173, 216, 230],
+	"lightcoral": [240, 128, 128],
+	"lightcyan": [224, 255, 255],
+	"lightgoldenrodyellow": [250, 250, 210],
+	"lightgray": [211, 211, 211],
+	"lightgreen": [144, 238, 144],
+	"lightgrey": [211, 211, 211],
+	"lightpink": [255, 182, 193],
+	"lightsalmon": [255, 160, 122],
+	"lightseagreen": [32, 178, 170],
+	"lightskyblue": [135, 206, 250],
+	"lightslategray": [119, 136, 153],
+	"lightslategrey": [119, 136, 153],
+	"lightsteelblue": [176, 196, 222],
+	"lightyellow": [255, 255, 224],
+	"lime": [0, 255, 0],
+	"limegreen": [50, 205, 50],
+	"linen": [250, 240, 230],
+	"magenta": [255, 0, 255],
+	"maroon": [128, 0, 0],
+	"mediumaquamarine": [102, 205, 170],
+	"mediumblue": [0, 0, 205],
+	"mediumorchid": [186, 85, 211],
+	"mediumpurple": [147, 112, 219],
+	"mediumseagreen": [60, 179, 113],
+	"mediumslateblue": [123, 104, 238],
+	"mediumspringgreen": [0, 250, 154],
+	"mediumturquoise": [72, 209, 204],
+	"mediumvioletred": [199, 21, 133],
+	"midnightblue": [25, 25, 112],
+	"mintcream": [245, 255, 250],
+	"mistyrose": [255, 228, 225],
+	"moccasin": [255, 228, 181],
+	"navajowhite": [255, 222, 173],
+	"navy": [0, 0, 128],
+	"oldlace": [253, 245, 230],
+	"olive": [128, 128, 0],
+	"olivedrab": [107, 142, 35],
+	"orange": [255, 165, 0],
+	"orangered": [255, 69, 0],
+	"orchid": [218, 112, 214],
+	"palegoldenrod": [238, 232, 170],
+	"palegreen": [152, 251, 152],
+	"paleturquoise": [175, 238, 238],
+	"palevioletred": [219, 112, 147],
+	"papayawhip": [255, 239, 213],
+	"peachpuff": [255, 218, 185],
+	"peru": [205, 133, 63],
+	"pink": [255, 192, 203],
+	"plum": [221, 160, 221],
+	"powderblue": [176, 224, 230],
+	"purple": [128, 0, 128],
+	"rebeccapurple": [102, 51, 153],
+	"red": [255, 0, 0],
+	"rosybrown": [188, 143, 143],
+	"royalblue": [65, 105, 225],
+	"saddlebrown": [139, 69, 19],
+	"salmon": [250, 128, 114],
+	"sandybrown": [244, 164, 96],
+	"seagreen": [46, 139, 87],
+	"seashell": [255, 245, 238],
+	"sienna": [160, 82, 45],
+	"silver": [192, 192, 192],
+	"skyblue": [135, 206, 235],
+	"slateblue": [106, 90, 205],
+	"slategray": [112, 128, 144],
+	"slategrey": [112, 128, 144],
+	"snow": [255, 250, 250],
+	"springgreen": [0, 255, 127],
+	"steelblue": [70, 130, 180],
+	"tan": [210, 180, 140],
+	"teal": [0, 128, 128],
+	"thistle": [216, 191, 216],
+	"tomato": [255, 99, 71],
+	"turquoise": [64, 224, 208],
+	"violet": [238, 130, 238],
+	"wheat": [245, 222, 179],
+	"white": [255, 255, 255],
+	"whitesmoke": [245, 245, 245],
+	"yellow": [255, 255, 0],
+	"yellowgreen": [154, 205, 50]
 };
-
-/***/ }),
-
-/***/ "./node_modules/colors/lib/styles.js":
-/*!*******************************************!*\
-  !*** ./node_modules/colors/lib/styles.js ***!
-  \*******************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-/*
-The MIT License (MIT)
-
-Copyright (c) Sindre Sorhus <sindresorhus@gmail.com> (sindresorhus.com)
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in
-all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-THE SOFTWARE.
-
-*/
-
-var styles = {};
-module['exports'] = styles;
-
-var codes = {
-  reset: [0, 0],
-
-  bold: [1, 22],
-  dim: [2, 22],
-  italic: [3, 23],
-  underline: [4, 24],
-  inverse: [7, 27],
-  hidden: [8, 28],
-  strikethrough: [9, 29],
-
-  black: [30, 39],
-  red: [31, 39],
-  green: [32, 39],
-  yellow: [33, 39],
-  blue: [34, 39],
-  magenta: [35, 39],
-  cyan: [36, 39],
-  white: [37, 39],
-  gray: [90, 39],
-  grey: [90, 39],
-
-  bgBlack: [40, 49],
-  bgRed: [41, 49],
-  bgGreen: [42, 49],
-  bgYellow: [43, 49],
-  bgBlue: [44, 49],
-  bgMagenta: [45, 49],
-  bgCyan: [46, 49],
-  bgWhite: [47, 49],
-
-  // legacy styles for colors pre v1.0.0
-  blackBG: [40, 49],
-  redBG: [41, 49],
-  greenBG: [42, 49],
-  yellowBG: [43, 49],
-  blueBG: [44, 49],
-  magentaBG: [45, 49],
-  cyanBG: [46, 49],
-  whiteBG: [47, 49]
-
-};
-
-Object.keys(codes).forEach(function (key) {
-  var val = codes[key];
-  var style = styles[key] = [];
-  style.open = '\x1B[' + val[0] + 'm';
-  style.close = '\x1B[' + val[1] + 'm';
-});
-
-/***/ }),
-
-/***/ "./node_modules/colors/lib/system/supports-colors.js":
-/*!***********************************************************!*\
-  !*** ./node_modules/colors/lib/system/supports-colors.js ***!
-  \***********************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-/*
-The MIT License (MIT)
-
-Copyright (c) Sindre Sorhus <sindresorhus@gmail.com> (sindresorhus.com)
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in
-all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-THE SOFTWARE.
-
-*/
-
-var argv = process.argv;
-
-module.exports = function () {
-  if (argv.indexOf('--no-color') !== -1 || argv.indexOf('--color=false') !== -1) {
-    return false;
-  }
-
-  if (argv.indexOf('--color') !== -1 || argv.indexOf('--color=true') !== -1 || argv.indexOf('--color=always') !== -1) {
-    return true;
-  }
-
-  if (process.stdout && !process.stdout.isTTY) {
-    return false;
-  }
-
-  if (process.platform === 'win32') {
-    return true;
-  }
-
-  if ('COLORTERM' in process.env) {
-    return true;
-  }
-
-  if (process.env.TERM === 'dumb') {
-    return false;
-  }
-
-  if (/^screen|^xterm|^vt100|color|ansi|cygwin|linux/i.test(process.env.TERM)) {
-    return true;
-  }
-
-  return false;
-}();
-
-/***/ }),
-
-/***/ "./node_modules/colors/safe.js":
-/*!*************************************!*\
-  !*** ./node_modules/colors/safe.js ***!
-  \*************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-//
-// Remark: Requiring this file will use the "safe" colors API which will not touch String.prototype
-//
-//   var colors = require('colors/safe);
-//   colors.red("foo")
-//
-//
-var colors = __webpack_require__(/*! ./lib/colors */ "./node_modules/colors/lib/colors.js");
-module['exports'] = colors;
 
 /***/ }),
 
@@ -5902,6 +6067,92 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
 /***/ }),
 
+/***/ "./node_modules/escape-string-regexp/index.js":
+/*!****************************************************!*\
+  !*** ./node_modules/escape-string-regexp/index.js ***!
+  \****************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var matchOperatorsRe = /[|\\{}()[\]^$+*?.]/g;
+
+module.exports = function (str) {
+	if (typeof str !== 'string') {
+		throw new TypeError('Expected a string');
+	}
+
+	return str.replace(matchOperatorsRe, '\\$&');
+};
+
+/***/ }),
+
+/***/ "./node_modules/fast-deep-equal/index.js":
+/*!***********************************************!*\
+  !*** ./node_modules/fast-deep-equal/index.js ***!
+  \***********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var isArray = Array.isArray;
+var keyList = Object.keys;
+var hasProp = Object.prototype.hasOwnProperty;
+
+module.exports = function equal(a, b) {
+  if (a === b) return true;
+
+  var arrA = isArray(a),
+      arrB = isArray(b),
+      i,
+      length,
+      key;
+
+  if (arrA && arrB) {
+    length = a.length;
+    if (length != b.length) return false;
+    for (i = 0; i < length; i++) {
+      if (!equal(a[i], b[i])) return false;
+    }return true;
+  }
+
+  if (arrA != arrB) return false;
+
+  var dateA = a instanceof Date,
+      dateB = b instanceof Date;
+  if (dateA != dateB) return false;
+  if (dateA && dateB) return a.getTime() == b.getTime();
+
+  var regexpA = a instanceof RegExp,
+      regexpB = b instanceof RegExp;
+  if (regexpA != regexpB) return false;
+  if (regexpA && regexpB) return a.toString() == b.toString();
+
+  if (a instanceof Object && b instanceof Object) {
+    var keys = keyList(a);
+    length = keys.length;
+
+    if (length !== keyList(b).length) return false;
+
+    for (i = 0; i < length; i++) {
+      if (!hasProp.call(b, keys[i])) return false;
+    }for (i = 0; i < length; i++) {
+      key = keys[i];
+      if (!equal(a[key], b[key])) return false;
+    }
+
+    return true;
+  }
+
+  return false;
+};
+
+/***/ }),
+
 /***/ "./node_modules/follow-redirects/index.js":
 /*!************************************************!*\
   !*** ./node_modules/follow-redirects/index.js ***!
@@ -6336,6 +6587,82 @@ function urlToOptions(urlObject) {
 // Exports
 module.exports = wrap({ http: http, https: https });
 module.exports.wrap = wrap;
+
+/***/ }),
+
+/***/ "./node_modules/has-flag/index.js":
+/*!****************************************!*\
+  !*** ./node_modules/has-flag/index.js ***!
+  \****************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+module.exports = function (flag, argv) {
+	argv = argv || process.argv;
+	var prefix = flag.startsWith('-') ? '' : flag.length === 1 ? '-' : '--';
+	var pos = argv.indexOf(prefix + flag);
+	var terminatorPos = argv.indexOf('--');
+	return pos !== -1 && (terminatorPos === -1 ? true : pos < terminatorPos);
+};
+
+/***/ }),
+
+/***/ "./node_modules/html-to-formatted-text/dist/index.js":
+/*!***********************************************************!*\
+  !*** ./node_modules/html-to-formatted-text/dist/index.js ***!
+  \***********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var _striptags = __webpack_require__(/*! striptags */ "./node_modules/striptags/src/striptags.js"),
+    _striptags2 = _interopRequireDefault(_striptags),
+    _utils = __webpack_require__(/*! ./utils */ "./node_modules/html-to-formatted-text/dist/utils.js");function _interopRequireDefault(a) {
+  return a && a.__esModule ? a : { default: a };
+}var TAGS_TO_BREAK_ON = ['p', 'div', 'br', 'hr', 'title', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'ol', 'ul', 'li', 'pre', 'table', 'td', 'header', 'footer', 'nav', 'section', 'aside', 'article', 'address'],
+    removeAllNonTagsToBreakOn = function removeAllNonTagsToBreakOn(a) {
+  return (0, _striptags2.default)(a, TAGS_TO_BREAK_ON);
+},
+    convertTagsToBreak = function convertTagsToBreak(a) {
+  return (0, _striptags2.default)(a, [], '\n');
+},
+    replaceSpaces = function replaceSpaces(a) {
+  return a.replace(/&nbsp;/g, ' ');
+},
+    replaceMultiNewLines = function replaceMultiNewLines(a) {
+  return a.replace(/\n\n/g, '\n');
+},
+    removeLeadingNewLines = function removeLeadingNewLines(a) {
+  return a.replace(/\n+$/, '');
+},
+    removeTrailingNewLines = function removeTrailingNewLines(a) {
+  return a.replace(/^\n+/, '');
+};module.exports = (0, _utils.compose)(removeTrailingNewLines, removeLeadingNewLines, replaceMultiNewLines, replaceSpaces, convertTagsToBreak, removeAllNonTagsToBreakOn);
+
+/***/ }),
+
+/***/ "./node_modules/html-to-formatted-text/dist/utils.js":
+/*!***********************************************************!*\
+  !*** ./node_modules/html-to-formatted-text/dist/utils.js ***!
+  \***********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var compose = function compose() {
+  for (var a = arguments.length, b = Array(a), c = 0; c < a; c++) {
+    b[c] = arguments[c];
+  }return b.reduce(function (a, b) {
+    return function () {
+      return a(b.apply(void 0, arguments));
+    };
+  });
+};module.exports = { compose: compose };
 
 /***/ }),
 
@@ -8203,21 +8530,18 @@ function isSlowBuffer(obj) {
 
 "use strict";
 
-
-var numberIsNan = __webpack_require__(/*! number-is-nan */ "./node_modules/number-is-nan/index.js");
+/* eslint-disable yoda */
 
 module.exports = function (x) {
-	if (numberIsNan(x)) {
+	if (Number.isNaN(x)) {
 		return false;
 	}
-
-	// https://github.com/nodejs/io.js/blob/cff7300a578be1b10001f2d967aaedc88aee6402/lib/readline.js#L1369
 
 	// code points are derived from:
 	// http://www.unix.org/Public/UNIDATA/EastAsianWidth.txt
 	if (x >= 0x1100 && (x <= 0x115f || // Hangul Jamo
-	0x2329 === x || // LEFT-POINTING ANGLE BRACKET
-	0x232a === x || // RIGHT-POINTING ANGLE BRACKET
+	x === 0x2329 || // LEFT-POINTING ANGLE BRACKET
+	x === 0x232a || // RIGHT-POINTING ANGLE BRACKET
 	// CJK Radicals Supplement .. Enclosed CJK Letters and Months
 	0x2e80 <= x && x <= 0x3247 && x !== 0x303f ||
 	// Enclosed CJK Letters and Months .. CJK Unified Ideographs Extension A
@@ -15396,585 +15720,6 @@ function repeat(string, n, guard) {
 }
 
 module.exports = repeat;
-
-/***/ }),
-
-/***/ "./node_modules/lodash.startcase/index.js":
-/*!************************************************!*\
-  !*** ./node_modules/lodash.startcase/index.js ***!
-  \************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
-/**
- * lodash (Custom Build) <https://lodash.com/>
- * Build: `lodash modularize exports="npm" -o ./`
- * Copyright jQuery Foundation and other contributors <https://jquery.org/>
- * Released under MIT license <https://lodash.com/license>
- * Based on Underscore.js 1.8.3 <http://underscorejs.org/LICENSE>
- * Copyright Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
- */
-
-/** Used as references for various `Number` constants. */
-var INFINITY = 1 / 0;
-
-/** `Object#toString` result references. */
-var symbolTag = '[object Symbol]';
-
-/** Used to match words composed of alphanumeric characters. */
-var reAsciiWord = /[^\x00-\x2f\x3a-\x40\x5b-\x60\x7b-\x7f]+/g;
-
-/** Used to match Latin Unicode letters (excluding mathematical operators). */
-var reLatin = /[\xc0-\xd6\xd8-\xf6\xf8-\xff\u0100-\u017f]/g;
-
-/** Used to compose unicode character classes. */
-var rsAstralRange = '\\ud800-\\udfff',
-    rsComboMarksRange = '\\u0300-\\u036f\\ufe20-\\ufe23',
-    rsComboSymbolsRange = '\\u20d0-\\u20f0',
-    rsDingbatRange = '\\u2700-\\u27bf',
-    rsLowerRange = 'a-z\\xdf-\\xf6\\xf8-\\xff',
-    rsMathOpRange = '\\xac\\xb1\\xd7\\xf7',
-    rsNonCharRange = '\\x00-\\x2f\\x3a-\\x40\\x5b-\\x60\\x7b-\\xbf',
-    rsPunctuationRange = '\\u2000-\\u206f',
-    rsSpaceRange = ' \\t\\x0b\\f\\xa0\\ufeff\\n\\r\\u2028\\u2029\\u1680\\u180e\\u2000\\u2001\\u2002\\u2003\\u2004\\u2005\\u2006\\u2007\\u2008\\u2009\\u200a\\u202f\\u205f\\u3000',
-    rsUpperRange = 'A-Z\\xc0-\\xd6\\xd8-\\xde',
-    rsVarRange = '\\ufe0e\\ufe0f',
-    rsBreakRange = rsMathOpRange + rsNonCharRange + rsPunctuationRange + rsSpaceRange;
-
-/** Used to compose unicode capture groups. */
-var rsApos = '[\'\u2019]',
-    rsAstral = '[' + rsAstralRange + ']',
-    rsBreak = '[' + rsBreakRange + ']',
-    rsCombo = '[' + rsComboMarksRange + rsComboSymbolsRange + ']',
-    rsDigits = '\\d+',
-    rsDingbat = '[' + rsDingbatRange + ']',
-    rsLower = '[' + rsLowerRange + ']',
-    rsMisc = '[^' + rsAstralRange + rsBreakRange + rsDigits + rsDingbatRange + rsLowerRange + rsUpperRange + ']',
-    rsFitz = '\\ud83c[\\udffb-\\udfff]',
-    rsModifier = '(?:' + rsCombo + '|' + rsFitz + ')',
-    rsNonAstral = '[^' + rsAstralRange + ']',
-    rsRegional = '(?:\\ud83c[\\udde6-\\uddff]){2}',
-    rsSurrPair = '[\\ud800-\\udbff][\\udc00-\\udfff]',
-    rsUpper = '[' + rsUpperRange + ']',
-    rsZWJ = '\\u200d';
-
-/** Used to compose unicode regexes. */
-var rsLowerMisc = '(?:' + rsLower + '|' + rsMisc + ')',
-    rsUpperMisc = '(?:' + rsUpper + '|' + rsMisc + ')',
-    rsOptLowerContr = '(?:' + rsApos + '(?:d|ll|m|re|s|t|ve))?',
-    rsOptUpperContr = '(?:' + rsApos + '(?:D|LL|M|RE|S|T|VE))?',
-    reOptMod = rsModifier + '?',
-    rsOptVar = '[' + rsVarRange + ']?',
-    rsOptJoin = '(?:' + rsZWJ + '(?:' + [rsNonAstral, rsRegional, rsSurrPair].join('|') + ')' + rsOptVar + reOptMod + ')*',
-    rsSeq = rsOptVar + reOptMod + rsOptJoin,
-    rsEmoji = '(?:' + [rsDingbat, rsRegional, rsSurrPair].join('|') + ')' + rsSeq,
-    rsSymbol = '(?:' + [rsNonAstral + rsCombo + '?', rsCombo, rsRegional, rsSurrPair, rsAstral].join('|') + ')';
-
-/** Used to match apostrophes. */
-var reApos = RegExp(rsApos, 'g');
-
-/**
- * Used to match [combining diacritical marks](https://en.wikipedia.org/wiki/Combining_Diacritical_Marks) and
- * [combining diacritical marks for symbols](https://en.wikipedia.org/wiki/Combining_Diacritical_Marks_for_Symbols).
- */
-var reComboMark = RegExp(rsCombo, 'g');
-
-/** Used to match [string symbols](https://mathiasbynens.be/notes/javascript-unicode). */
-var reUnicode = RegExp(rsFitz + '(?=' + rsFitz + ')|' + rsSymbol + rsSeq, 'g');
-
-/** Used to match complex or compound words. */
-var reUnicodeWord = RegExp([rsUpper + '?' + rsLower + '+' + rsOptLowerContr + '(?=' + [rsBreak, rsUpper, '$'].join('|') + ')', rsUpperMisc + '+' + rsOptUpperContr + '(?=' + [rsBreak, rsUpper + rsLowerMisc, '$'].join('|') + ')', rsUpper + '?' + rsLowerMisc + '+' + rsOptLowerContr, rsUpper + '+' + rsOptUpperContr, rsDigits, rsEmoji].join('|'), 'g');
-
-/** Used to detect strings with [zero-width joiners or code points from the astral planes](http://eev.ee/blog/2015/09/12/dark-corners-of-unicode/). */
-var reHasUnicode = RegExp('[' + rsZWJ + rsAstralRange + rsComboMarksRange + rsComboSymbolsRange + rsVarRange + ']');
-
-/** Used to detect strings that need a more robust regexp to match words. */
-var reHasUnicodeWord = /[a-z][A-Z]|[A-Z]{2,}[a-z]|[0-9][a-zA-Z]|[a-zA-Z][0-9]|[^a-zA-Z0-9 ]/;
-
-/** Used to map Latin Unicode letters to basic Latin letters. */
-var deburredLetters = {
-  // Latin-1 Supplement block.
-  '\xc0': 'A', '\xc1': 'A', '\xc2': 'A', '\xc3': 'A', '\xc4': 'A', '\xc5': 'A',
-  '\xe0': 'a', '\xe1': 'a', '\xe2': 'a', '\xe3': 'a', '\xe4': 'a', '\xe5': 'a',
-  '\xc7': 'C', '\xe7': 'c',
-  '\xd0': 'D', '\xf0': 'd',
-  '\xc8': 'E', '\xc9': 'E', '\xca': 'E', '\xcb': 'E',
-  '\xe8': 'e', '\xe9': 'e', '\xea': 'e', '\xeb': 'e',
-  '\xcc': 'I', '\xcd': 'I', '\xce': 'I', '\xcf': 'I',
-  '\xec': 'i', '\xed': 'i', '\xee': 'i', '\xef': 'i',
-  '\xd1': 'N', '\xf1': 'n',
-  '\xd2': 'O', '\xd3': 'O', '\xd4': 'O', '\xd5': 'O', '\xd6': 'O', '\xd8': 'O',
-  '\xf2': 'o', '\xf3': 'o', '\xf4': 'o', '\xf5': 'o', '\xf6': 'o', '\xf8': 'o',
-  '\xd9': 'U', '\xda': 'U', '\xdb': 'U', '\xdc': 'U',
-  '\xf9': 'u', '\xfa': 'u', '\xfb': 'u', '\xfc': 'u',
-  '\xdd': 'Y', '\xfd': 'y', '\xff': 'y',
-  '\xc6': 'Ae', '\xe6': 'ae',
-  '\xde': 'Th', '\xfe': 'th',
-  '\xdf': 'ss',
-  // Latin Extended-A block.
-  '\u0100': 'A', '\u0102': 'A', '\u0104': 'A',
-  '\u0101': 'a', '\u0103': 'a', '\u0105': 'a',
-  '\u0106': 'C', '\u0108': 'C', '\u010A': 'C', '\u010C': 'C',
-  '\u0107': 'c', '\u0109': 'c', '\u010B': 'c', '\u010D': 'c',
-  '\u010E': 'D', '\u0110': 'D', '\u010F': 'd', '\u0111': 'd',
-  '\u0112': 'E', '\u0114': 'E', '\u0116': 'E', '\u0118': 'E', '\u011A': 'E',
-  '\u0113': 'e', '\u0115': 'e', '\u0117': 'e', '\u0119': 'e', '\u011B': 'e',
-  '\u011C': 'G', '\u011E': 'G', '\u0120': 'G', '\u0122': 'G',
-  '\u011D': 'g', '\u011F': 'g', '\u0121': 'g', '\u0123': 'g',
-  '\u0124': 'H', '\u0126': 'H', '\u0125': 'h', '\u0127': 'h',
-  '\u0128': 'I', '\u012A': 'I', '\u012C': 'I', '\u012E': 'I', '\u0130': 'I',
-  '\u0129': 'i', '\u012B': 'i', '\u012D': 'i', '\u012F': 'i', '\u0131': 'i',
-  '\u0134': 'J', '\u0135': 'j',
-  '\u0136': 'K', '\u0137': 'k', '\u0138': 'k',
-  '\u0139': 'L', '\u013B': 'L', '\u013D': 'L', '\u013F': 'L', '\u0141': 'L',
-  '\u013A': 'l', '\u013C': 'l', '\u013E': 'l', '\u0140': 'l', '\u0142': 'l',
-  '\u0143': 'N', '\u0145': 'N', '\u0147': 'N', '\u014A': 'N',
-  '\u0144': 'n', '\u0146': 'n', '\u0148': 'n', '\u014B': 'n',
-  '\u014C': 'O', '\u014E': 'O', '\u0150': 'O',
-  '\u014D': 'o', '\u014F': 'o', '\u0151': 'o',
-  '\u0154': 'R', '\u0156': 'R', '\u0158': 'R',
-  '\u0155': 'r', '\u0157': 'r', '\u0159': 'r',
-  '\u015A': 'S', '\u015C': 'S', '\u015E': 'S', '\u0160': 'S',
-  '\u015B': 's', '\u015D': 's', '\u015F': 's', '\u0161': 's',
-  '\u0162': 'T', '\u0164': 'T', '\u0166': 'T',
-  '\u0163': 't', '\u0165': 't', '\u0167': 't',
-  '\u0168': 'U', '\u016A': 'U', '\u016C': 'U', '\u016E': 'U', '\u0170': 'U', '\u0172': 'U',
-  '\u0169': 'u', '\u016B': 'u', '\u016D': 'u', '\u016F': 'u', '\u0171': 'u', '\u0173': 'u',
-  '\u0174': 'W', '\u0175': 'w',
-  '\u0176': 'Y', '\u0177': 'y', '\u0178': 'Y',
-  '\u0179': 'Z', '\u017B': 'Z', '\u017D': 'Z',
-  '\u017A': 'z', '\u017C': 'z', '\u017E': 'z',
-  '\u0132': 'IJ', '\u0133': 'ij',
-  '\u0152': 'Oe', '\u0153': 'oe',
-  '\u0149': "'n", '\u017F': 'ss'
-};
-
-/** Detect free variable `global` from Node.js. */
-var freeGlobal = (typeof global === 'undefined' ? 'undefined' : _typeof(global)) == 'object' && global && global.Object === Object && global;
-
-/** Detect free variable `self`. */
-var freeSelf = (typeof self === 'undefined' ? 'undefined' : _typeof(self)) == 'object' && self && self.Object === Object && self;
-
-/** Used as a reference to the global object. */
-var root = freeGlobal || freeSelf || Function('return this')();
-
-/**
- * A specialized version of `_.reduce` for arrays without support for
- * iteratee shorthands.
- *
- * @private
- * @param {Array} [array] The array to iterate over.
- * @param {Function} iteratee The function invoked per iteration.
- * @param {*} [accumulator] The initial value.
- * @param {boolean} [initAccum] Specify using the first element of `array` as
- *  the initial value.
- * @returns {*} Returns the accumulated value.
- */
-function arrayReduce(array, iteratee, accumulator, initAccum) {
-  var index = -1,
-      length = array ? array.length : 0;
-
-  if (initAccum && length) {
-    accumulator = array[++index];
-  }
-  while (++index < length) {
-    accumulator = iteratee(accumulator, array[index], index, array);
-  }
-  return accumulator;
-}
-
-/**
- * Converts an ASCII `string` to an array.
- *
- * @private
- * @param {string} string The string to convert.
- * @returns {Array} Returns the converted array.
- */
-function asciiToArray(string) {
-  return string.split('');
-}
-
-/**
- * Splits an ASCII `string` into an array of its words.
- *
- * @private
- * @param {string} The string to inspect.
- * @returns {Array} Returns the words of `string`.
- */
-function asciiWords(string) {
-  return string.match(reAsciiWord) || [];
-}
-
-/**
- * The base implementation of `_.propertyOf` without support for deep paths.
- *
- * @private
- * @param {Object} object The object to query.
- * @returns {Function} Returns the new accessor function.
- */
-function basePropertyOf(object) {
-  return function (key) {
-    return object == null ? undefined : object[key];
-  };
-}
-
-/**
- * Used by `_.deburr` to convert Latin-1 Supplement and Latin Extended-A
- * letters to basic Latin letters.
- *
- * @private
- * @param {string} letter The matched letter to deburr.
- * @returns {string} Returns the deburred letter.
- */
-var deburrLetter = basePropertyOf(deburredLetters);
-
-/**
- * Checks if `string` contains Unicode symbols.
- *
- * @private
- * @param {string} string The string to inspect.
- * @returns {boolean} Returns `true` if a symbol is found, else `false`.
- */
-function hasUnicode(string) {
-  return reHasUnicode.test(string);
-}
-
-/**
- * Checks if `string` contains a word composed of Unicode symbols.
- *
- * @private
- * @param {string} string The string to inspect.
- * @returns {boolean} Returns `true` if a word is found, else `false`.
- */
-function hasUnicodeWord(string) {
-  return reHasUnicodeWord.test(string);
-}
-
-/**
- * Converts `string` to an array.
- *
- * @private
- * @param {string} string The string to convert.
- * @returns {Array} Returns the converted array.
- */
-function stringToArray(string) {
-  return hasUnicode(string) ? unicodeToArray(string) : asciiToArray(string);
-}
-
-/**
- * Converts a Unicode `string` to an array.
- *
- * @private
- * @param {string} string The string to convert.
- * @returns {Array} Returns the converted array.
- */
-function unicodeToArray(string) {
-  return string.match(reUnicode) || [];
-}
-
-/**
- * Splits a Unicode `string` into an array of its words.
- *
- * @private
- * @param {string} The string to inspect.
- * @returns {Array} Returns the words of `string`.
- */
-function unicodeWords(string) {
-  return string.match(reUnicodeWord) || [];
-}
-
-/** Used for built-in method references. */
-var objectProto = Object.prototype;
-
-/**
- * Used to resolve the
- * [`toStringTag`](http://ecma-international.org/ecma-262/7.0/#sec-object.prototype.tostring)
- * of values.
- */
-var objectToString = objectProto.toString;
-
-/** Built-in value references. */
-var _Symbol = root.Symbol;
-
-/** Used to convert symbols to primitives and strings. */
-var symbolProto = _Symbol ? _Symbol.prototype : undefined,
-    symbolToString = symbolProto ? symbolProto.toString : undefined;
-
-/**
- * The base implementation of `_.slice` without an iteratee call guard.
- *
- * @private
- * @param {Array} array The array to slice.
- * @param {number} [start=0] The start position.
- * @param {number} [end=array.length] The end position.
- * @returns {Array} Returns the slice of `array`.
- */
-function baseSlice(array, start, end) {
-  var index = -1,
-      length = array.length;
-
-  if (start < 0) {
-    start = -start > length ? 0 : length + start;
-  }
-  end = end > length ? length : end;
-  if (end < 0) {
-    end += length;
-  }
-  length = start > end ? 0 : end - start >>> 0;
-  start >>>= 0;
-
-  var result = Array(length);
-  while (++index < length) {
-    result[index] = array[index + start];
-  }
-  return result;
-}
-
-/**
- * The base implementation of `_.toString` which doesn't convert nullish
- * values to empty strings.
- *
- * @private
- * @param {*} value The value to process.
- * @returns {string} Returns the string.
- */
-function baseToString(value) {
-  // Exit early for strings to avoid a performance hit in some environments.
-  if (typeof value == 'string') {
-    return value;
-  }
-  if (isSymbol(value)) {
-    return symbolToString ? symbolToString.call(value) : '';
-  }
-  var result = value + '';
-  return result == '0' && 1 / value == -INFINITY ? '-0' : result;
-}
-
-/**
- * Casts `array` to a slice if it's needed.
- *
- * @private
- * @param {Array} array The array to inspect.
- * @param {number} start The start position.
- * @param {number} [end=array.length] The end position.
- * @returns {Array} Returns the cast slice.
- */
-function castSlice(array, start, end) {
-  var length = array.length;
-  end = end === undefined ? length : end;
-  return !start && end >= length ? array : baseSlice(array, start, end);
-}
-
-/**
- * Creates a function like `_.lowerFirst`.
- *
- * @private
- * @param {string} methodName The name of the `String` case method to use.
- * @returns {Function} Returns the new case function.
- */
-function createCaseFirst(methodName) {
-  return function (string) {
-    string = toString(string);
-
-    var strSymbols = hasUnicode(string) ? stringToArray(string) : undefined;
-
-    var chr = strSymbols ? strSymbols[0] : string.charAt(0);
-
-    var trailing = strSymbols ? castSlice(strSymbols, 1).join('') : string.slice(1);
-
-    return chr[methodName]() + trailing;
-  };
-}
-
-/**
- * Creates a function like `_.camelCase`.
- *
- * @private
- * @param {Function} callback The function to combine each word.
- * @returns {Function} Returns the new compounder function.
- */
-function createCompounder(callback) {
-  return function (string) {
-    return arrayReduce(words(deburr(string).replace(reApos, '')), callback, '');
-  };
-}
-
-/**
- * Checks if `value` is object-like. A value is object-like if it's not `null`
- * and has a `typeof` result of "object".
- *
- * @static
- * @memberOf _
- * @since 4.0.0
- * @category Lang
- * @param {*} value The value to check.
- * @returns {boolean} Returns `true` if `value` is object-like, else `false`.
- * @example
- *
- * _.isObjectLike({});
- * // => true
- *
- * _.isObjectLike([1, 2, 3]);
- * // => true
- *
- * _.isObjectLike(_.noop);
- * // => false
- *
- * _.isObjectLike(null);
- * // => false
- */
-function isObjectLike(value) {
-  return !!value && (typeof value === 'undefined' ? 'undefined' : _typeof(value)) == 'object';
-}
-
-/**
- * Checks if `value` is classified as a `Symbol` primitive or object.
- *
- * @static
- * @memberOf _
- * @since 4.0.0
- * @category Lang
- * @param {*} value The value to check.
- * @returns {boolean} Returns `true` if `value` is a symbol, else `false`.
- * @example
- *
- * _.isSymbol(Symbol.iterator);
- * // => true
- *
- * _.isSymbol('abc');
- * // => false
- */
-function isSymbol(value) {
-  return (typeof value === 'undefined' ? 'undefined' : _typeof(value)) == 'symbol' || isObjectLike(value) && objectToString.call(value) == symbolTag;
-}
-
-/**
- * Converts `value` to a string. An empty string is returned for `null`
- * and `undefined` values. The sign of `-0` is preserved.
- *
- * @static
- * @memberOf _
- * @since 4.0.0
- * @category Lang
- * @param {*} value The value to process.
- * @returns {string} Returns the string.
- * @example
- *
- * _.toString(null);
- * // => ''
- *
- * _.toString(-0);
- * // => '-0'
- *
- * _.toString([1, 2, 3]);
- * // => '1,2,3'
- */
-function toString(value) {
-  return value == null ? '' : baseToString(value);
-}
-
-/**
- * Deburrs `string` by converting
- * [Latin-1 Supplement](https://en.wikipedia.org/wiki/Latin-1_Supplement_(Unicode_block)#Character_table)
- * and [Latin Extended-A](https://en.wikipedia.org/wiki/Latin_Extended-A)
- * letters to basic Latin letters and removing
- * [combining diacritical marks](https://en.wikipedia.org/wiki/Combining_Diacritical_Marks).
- *
- * @static
- * @memberOf _
- * @since 3.0.0
- * @category String
- * @param {string} [string=''] The string to deburr.
- * @returns {string} Returns the deburred string.
- * @example
- *
- * _.deburr('déjà vu');
- * // => 'deja vu'
- */
-function deburr(string) {
-  string = toString(string);
-  return string && string.replace(reLatin, deburrLetter).replace(reComboMark, '');
-}
-
-/**
- * Converts `string` to
- * [start case](https://en.wikipedia.org/wiki/Letter_case#Stylistic_or_specialised_usage).
- *
- * @static
- * @memberOf _
- * @since 3.1.0
- * @category String
- * @param {string} [string=''] The string to convert.
- * @returns {string} Returns the start cased string.
- * @example
- *
- * _.startCase('--foo-bar--');
- * // => 'Foo Bar'
- *
- * _.startCase('fooBar');
- * // => 'Foo Bar'
- *
- * _.startCase('__FOO_BAR__');
- * // => 'FOO BAR'
- */
-var startCase = createCompounder(function (result, word, index) {
-  return result + (index ? ' ' : '') + upperFirst(word);
-});
-
-/**
- * Converts the first character of `string` to upper case.
- *
- * @static
- * @memberOf _
- * @since 4.0.0
- * @category String
- * @param {string} [string=''] The string to convert.
- * @returns {string} Returns the converted string.
- * @example
- *
- * _.upperFirst('fred');
- * // => 'Fred'
- *
- * _.upperFirst('FRED');
- * // => 'FRED'
- */
-var upperFirst = createCaseFirst('toUpperCase');
-
-/**
- * Splits `string` into an array of its words.
- *
- * @static
- * @memberOf _
- * @since 3.0.0
- * @category String
- * @param {string} [string=''] The string to inspect.
- * @param {RegExp|string} [pattern] The pattern to match words.
- * @param- {Object} [guard] Enables use as an iteratee for methods like `_.map`.
- * @returns {Array} Returns the words of `string`.
- * @example
- *
- * _.words('fred, barney, & pebbles');
- * // => ['fred', 'barney', 'pebbles']
- *
- * _.words('fred, barney, & pebbles', /[^, ]+/g);
- * // => ['fred', 'barney', '&', 'pebbles']
- */
-function words(string, pattern, guard) {
-  string = toString(string);
-  pattern = guard ? undefined : pattern;
-
-  if (pattern === undefined) {
-    return hasUnicodeWord(string) ? unicodeWords(string) : asciiWords(string);
-  }
-  return string.match(pattern) || [];
-}
-
-module.exports = startCase;
 
 /***/ }),
 
@@ -42924,123 +42669,6 @@ function plural(ms, n, name) {
 
 /***/ }),
 
-/***/ "./node_modules/number-is-nan/index.js":
-/*!*********************************************!*\
-  !*** ./node_modules/number-is-nan/index.js ***!
-  \*********************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-module.exports = Number.isNaN || function (x) {
-	return x !== x;
-};
-
-/***/ }),
-
-/***/ "./node_modules/object-assign/index.js":
-/*!*********************************************!*\
-  !*** ./node_modules/object-assign/index.js ***!
-  \*********************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/*
-object-assign
-(c) Sindre Sorhus
-@license MIT
-*/
-
-
-/* eslint-disable no-unused-vars */
-
-var getOwnPropertySymbols = Object.getOwnPropertySymbols;
-var hasOwnProperty = Object.prototype.hasOwnProperty;
-var propIsEnumerable = Object.prototype.propertyIsEnumerable;
-
-function toObject(val) {
-	if (val === null || val === undefined) {
-		throw new TypeError('Object.assign cannot be called with null or undefined');
-	}
-
-	return Object(val);
-}
-
-function shouldUseNative() {
-	try {
-		if (!Object.assign) {
-			return false;
-		}
-
-		// Detect buggy property enumeration order in older V8 versions.
-
-		// https://bugs.chromium.org/p/v8/issues/detail?id=4118
-		var test1 = new String('abc'); // eslint-disable-line no-new-wrappers
-		test1[5] = 'de';
-		if (Object.getOwnPropertyNames(test1)[0] === '5') {
-			return false;
-		}
-
-		// https://bugs.chromium.org/p/v8/issues/detail?id=3056
-		var test2 = {};
-		for (var i = 0; i < 10; i++) {
-			test2['_' + String.fromCharCode(i)] = i;
-		}
-		var order2 = Object.getOwnPropertyNames(test2).map(function (n) {
-			return test2[n];
-		});
-		if (order2.join('') !== '0123456789') {
-			return false;
-		}
-
-		// https://bugs.chromium.org/p/v8/issues/detail?id=3056
-		var test3 = {};
-		'abcdefghijklmnopqrst'.split('').forEach(function (letter) {
-			test3[letter] = letter;
-		});
-		if (Object.keys(Object.assign({}, test3)).join('') !== 'abcdefghijklmnopqrst') {
-			return false;
-		}
-
-		return true;
-	} catch (err) {
-		// We don't expect any of the above to throw, but better to be safe.
-		return false;
-	}
-}
-
-module.exports = shouldUseNative() ? Object.assign : function (target, source) {
-	var from;
-	var to = toObject(target);
-	var symbols;
-
-	for (var s = 1; s < arguments.length; s++) {
-		from = Object(arguments[s]);
-
-		for (var key in from) {
-			if (hasOwnProperty.call(from, key)) {
-				to[key] = from[key];
-			}
-		}
-
-		if (getOwnPropertySymbols) {
-			symbols = getOwnPropertySymbols(from);
-			for (var i = 0; i < symbols.length; i++) {
-				if (propIsEnumerable.call(from, symbols[i])) {
-					to[symbols[i]] = from[symbols[i]];
-				}
-			}
-		}
-	}
-
-	return to;
-};
-
-/***/ }),
-
 /***/ "./node_modules/regenerator-runtime/runtime-module.js":
 /*!************************************************************!*\
   !*** ./node_modules/regenerator-runtime/runtime-module.js ***!
@@ -43800,6 +43428,106 @@ function () {
   return this;
 }() || Function("return this")());
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../webpack/buildin/module.js */ "./node_modules/webpack/buildin/module.js")(module)))
+
+/***/ }),
+
+/***/ "./node_modules/slice-ansi/index.js":
+/*!******************************************!*\
+  !*** ./node_modules/slice-ansi/index.js ***!
+  \******************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
+
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
+var isFullwidthCodePoint = __webpack_require__(/*! is-fullwidth-code-point */ "./node_modules/is-fullwidth-code-point/index.js");
+var astralRegex = __webpack_require__(/*! astral-regex */ "./node_modules/astral-regex/index.js");
+var ansiStyles = __webpack_require__(/*! ansi-styles */ "./node_modules/ansi-styles/index.js");
+
+var ESCAPES = ['\x1B', '\x9B'];
+
+var END_CODE = 39;
+
+var wrapAnsi = function wrapAnsi(code) {
+	return ESCAPES[0] + '[' + code + 'm';
+};
+
+module.exports = function (str, begin, end) {
+	var arr = [].concat(_toConsumableArray(str.normalize()));
+
+	end = typeof end === 'number' ? end : arr.length;
+
+	var insideEscape = false;
+	var escapeCode = null;
+	var visible = 0;
+	var output = '';
+
+	var _iteratorNormalCompletion = true;
+	var _didIteratorError = false;
+	var _iteratorError = undefined;
+
+	try {
+		for (var _iterator = arr.entries()[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+			var _ref3 = _step.value;
+
+			var _ref2 = _slicedToArray(_ref3, 2);
+
+			var i = _ref2[0];
+			var x = _ref2[1];
+
+			var leftEscape = false;
+
+			if (ESCAPES.includes(x)) {
+				insideEscape = true;
+				var code = /\d[^m]*/.exec(str.slice(i, i + 18));
+				escapeCode = code === END_CODE ? null : code;
+			} else if (insideEscape && x === 'm') {
+				insideEscape = false;
+				leftEscape = true;
+			}
+
+			if (!insideEscape && !leftEscape) {
+				++visible;
+			}
+
+			if (!astralRegex({ exact: true }).test(x) && isFullwidthCodePoint(x.codePointAt())) {
+				++visible;
+			}
+
+			if (visible > begin && visible <= end) {
+				output += x;
+			} else if (visible === begin && !insideEscape && escapeCode !== null && escapeCode !== END_CODE) {
+				output += wrapAnsi(escapeCode);
+			} else if (visible >= end) {
+				if (escapeCode !== null) {
+					output += wrapAnsi(ansiStyles.codes.get(parseInt(escapeCode, 10)) || END_CODE);
+				}
+
+				break;
+			}
+		}
+	} catch (err) {
+		_didIteratorError = true;
+		_iteratorError = err;
+	} finally {
+		try {
+			if (!_iteratorNormalCompletion && _iterator.return) {
+				_iterator.return();
+			}
+		} finally {
+			if (_didIteratorError) {
+				throw _iteratorError;
+			}
+		}
+	}
+
+	return output;
+};
 
 /***/ }),
 
@@ -47952,6 +47680,2810 @@ var ansiRegex = __webpack_require__(/*! ansi-regex */ "./node_modules/ansi-regex
 module.exports = function (str) {
 	return typeof str === 'string' ? str.replace(ansiRegex, '') : str;
 };
+
+/***/ }),
+
+/***/ "./node_modules/striptags/src/striptags.js":
+/*!*************************************************!*\
+  !*** ./node_modules/striptags/src/striptags.js ***!
+  \*************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+var __WEBPACK_AMD_DEFINE_RESULT__;
+
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
+(function (global) {
+
+    // minimal symbol polyfill for IE11 and others
+    if (typeof _Symbol !== 'function') {
+        var _Symbol = function _Symbol(name) {
+            return name;
+        };
+
+        _Symbol.nonNative = true;
+    }
+
+    var STATE_PLAINTEXT = _Symbol('plaintext');
+    var STATE_HTML = _Symbol('html');
+    var STATE_COMMENT = _Symbol('comment');
+
+    var ALLOWED_TAGS_REGEX = /<(\w*)>/g;
+    var NORMALIZE_TAG_REGEX = /<\/?([^\s\/>]+)/;
+
+    function striptags(html, allowable_tags, tag_replacement) {
+        html = html || '';
+        allowable_tags = allowable_tags || [];
+        tag_replacement = tag_replacement || '';
+
+        var context = init_context(allowable_tags, tag_replacement);
+
+        return striptags_internal(html, context);
+    }
+
+    function init_striptags_stream(allowable_tags, tag_replacement) {
+        allowable_tags = allowable_tags || [];
+        tag_replacement = tag_replacement || '';
+
+        var context = init_context(allowable_tags, tag_replacement);
+
+        return function striptags_stream(html) {
+            return striptags_internal(html || '', context);
+        };
+    }
+
+    striptags.init_streaming_mode = init_striptags_stream;
+
+    function init_context(allowable_tags, tag_replacement) {
+        allowable_tags = parse_allowable_tags(allowable_tags);
+
+        return {
+            allowable_tags: allowable_tags,
+            tag_replacement: tag_replacement,
+
+            state: STATE_PLAINTEXT,
+            tag_buffer: '',
+            depth: 0,
+            in_quote_char: ''
+        };
+    }
+
+    function striptags_internal(html, context) {
+        var allowable_tags = context.allowable_tags;
+        var tag_replacement = context.tag_replacement;
+
+        var state = context.state;
+        var tag_buffer = context.tag_buffer;
+        var depth = context.depth;
+        var in_quote_char = context.in_quote_char;
+        var output = '';
+
+        for (var idx = 0, length = html.length; idx < length; idx++) {
+            var char = html[idx];
+
+            if (state === STATE_PLAINTEXT) {
+                switch (char) {
+                    case '<':
+                        state = STATE_HTML;
+                        tag_buffer += char;
+                        break;
+
+                    default:
+                        output += char;
+                        break;
+                }
+            } else if (state === STATE_HTML) {
+                switch (char) {
+                    case '<':
+                        // ignore '<' if inside a quote
+                        if (in_quote_char) {
+                            break;
+                        }
+
+                        // we're seeing a nested '<'
+                        depth++;
+                        break;
+
+                    case '>':
+                        // ignore '>' if inside a quote
+                        if (in_quote_char) {
+                            break;
+                        }
+
+                        // something like this is happening: '<<>>'
+                        if (depth) {
+                            depth--;
+
+                            break;
+                        }
+
+                        // this is closing the tag in tag_buffer
+                        in_quote_char = '';
+                        state = STATE_PLAINTEXT;
+                        tag_buffer += '>';
+
+                        if (allowable_tags.has(normalize_tag(tag_buffer))) {
+                            output += tag_buffer;
+                        } else {
+                            output += tag_replacement;
+                        }
+
+                        tag_buffer = '';
+                        break;
+
+                    case '"':
+                    case '\'':
+                        // catch both single and double quotes
+
+                        if (char === in_quote_char) {
+                            in_quote_char = '';
+                        } else {
+                            in_quote_char = in_quote_char || char;
+                        }
+
+                        tag_buffer += char;
+                        break;
+
+                    case '-':
+                        if (tag_buffer === '<!-') {
+                            state = STATE_COMMENT;
+                        }
+
+                        tag_buffer += char;
+                        break;
+
+                    case ' ':
+                    case '\n':
+                        if (tag_buffer === '<') {
+                            state = STATE_PLAINTEXT;
+                            output += '< ';
+                            tag_buffer = '';
+
+                            break;
+                        }
+
+                        tag_buffer += char;
+                        break;
+
+                    default:
+                        tag_buffer += char;
+                        break;
+                }
+            } else if (state === STATE_COMMENT) {
+                switch (char) {
+                    case '>':
+                        if (tag_buffer.slice(-2) == '--') {
+                            // close the comment
+                            state = STATE_PLAINTEXT;
+                        }
+
+                        tag_buffer = '';
+                        break;
+
+                    default:
+                        tag_buffer += char;
+                        break;
+                }
+            }
+        }
+
+        // save the context for future iterations
+        context.state = state;
+        context.tag_buffer = tag_buffer;
+        context.depth = depth;
+        context.in_quote_char = in_quote_char;
+
+        return output;
+    }
+
+    function parse_allowable_tags(allowable_tags) {
+        var tag_set = new Set();
+
+        if (typeof allowable_tags === 'string') {
+            var match = void 0;
+
+            while (match = ALLOWED_TAGS_REGEX.exec(allowable_tags)) {
+                tag_set.add(match[1]);
+            }
+        } else if (!_Symbol.nonNative && typeof allowable_tags[_Symbol.iterator] === 'function') {
+
+            tag_set = new Set(allowable_tags);
+        } else if (typeof allowable_tags.forEach === 'function') {
+            // IE11 compatible
+            allowable_tags.forEach(tag_set.add, tag_set);
+        }
+
+        return tag_set;
+    }
+
+    function normalize_tag(tag_buffer) {
+        var match = NORMALIZE_TAG_REGEX.exec(tag_buffer);
+
+        return match ? match[1].toLowerCase() : null;
+    }
+
+    if (true) {
+        // AMD
+        !(__WEBPACK_AMD_DEFINE_RESULT__ = (function module_factory() {
+            return striptags;
+        }).call(exports, __webpack_require__, exports, module),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+    } else {}
+})(undefined);
+
+/***/ }),
+
+/***/ "./node_modules/supports-color/index.js":
+/*!**********************************************!*\
+  !*** ./node_modules/supports-color/index.js ***!
+  \**********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var os = __webpack_require__(/*! os */ "os");
+var hasFlag = __webpack_require__(/*! has-flag */ "./node_modules/has-flag/index.js");
+
+var env = process.env;
+
+var forceColor = void 0;
+if (hasFlag('no-color') || hasFlag('no-colors') || hasFlag('color=false')) {
+	forceColor = false;
+} else if (hasFlag('color') || hasFlag('colors') || hasFlag('color=true') || hasFlag('color=always')) {
+	forceColor = true;
+}
+if ('FORCE_COLOR' in env) {
+	forceColor = env.FORCE_COLOR.length === 0 || parseInt(env.FORCE_COLOR, 10) !== 0;
+}
+
+function translateLevel(level) {
+	if (level === 0) {
+		return false;
+	}
+
+	return {
+		level: level,
+		hasBasic: true,
+		has256: level >= 2,
+		has16m: level >= 3
+	};
+}
+
+function supportsColor(stream) {
+	if (forceColor === false) {
+		return 0;
+	}
+
+	if (hasFlag('color=16m') || hasFlag('color=full') || hasFlag('color=truecolor')) {
+		return 3;
+	}
+
+	if (hasFlag('color=256')) {
+		return 2;
+	}
+
+	if (stream && !stream.isTTY && forceColor !== true) {
+		// VS code debugger doesn't have isTTY set
+		if (env.VSCODE_PID) {
+			return 1;
+		}
+		return 0;
+	}
+
+	var min = forceColor ? 1 : 0;
+
+	if (process.platform === 'win32') {
+		// Node.js 7.5.0 is the first version of Node.js to include a patch to
+		// libuv that enables 256 color output on Windows. Anything earlier and it
+		// won't work. However, here we target Node.js 8 at minimum as it is an LTS
+		// release, and Node.js 7 is not. Windows 10 build 10586 is the first Windows
+		// release that supports 256 colors. Windows 10 build 14931 is the first release
+		// that supports 16m/TrueColor.
+		var osRelease = os.release().split('.');
+		if (Number(process.versions.node.split('.')[0]) >= 8 && Number(osRelease[0]) >= 10 && Number(osRelease[2]) >= 10586) {
+			return Number(osRelease[2]) >= 14931 ? 3 : 2;
+		}
+
+		return 1;
+	}
+
+	if ('CI' in env) {
+		if (['TRAVIS', 'CIRCLECI', 'APPVEYOR', 'GITLAB_CI'].some(function (sign) {
+			return sign in env;
+		}) || env.CI_NAME === 'codeship') {
+			return 1;
+		}
+
+		return min;
+	}
+
+	if ('TEAMCITY_VERSION' in env) {
+		return (/^(9\.(0*[1-9]\d*)\.|\d{2,}\.)/.test(env.TEAMCITY_VERSION) ? 1 : 0
+		);
+	}
+
+	if (env.COLORTERM === 'truecolor') {
+		return 3;
+	}
+
+	if ('TERM_PROGRAM' in env) {
+		var version = parseInt((env.TERM_PROGRAM_VERSION || '').split('.')[0], 10);
+
+		switch (env.TERM_PROGRAM) {
+			case 'iTerm.app':
+				return version >= 3 ? 3 : 2;
+			case 'Apple_Terminal':
+				return 2;
+			// No default
+		}
+	}
+
+	if (/-256(color)?$/i.test(env.TERM)) {
+		return 2;
+	}
+
+	if (/^screen|^xterm|^vt100|^rxvt|color|ansi|cygwin|linux/i.test(env.TERM)) {
+		return 1;
+	}
+
+	if ('COLORTERM' in env) {
+		return 1;
+	}
+
+	if (env.TERM === 'dumb') {
+		return min;
+	}
+
+	return min;
+}
+
+function getSupportLevel(stream) {
+	var level = supportsColor(stream);
+	return translateLevel(level);
+}
+
+module.exports = {
+	supportsColor: getSupportLevel,
+	stdout: getSupportLevel(process.stdout),
+	stderr: getSupportLevel(process.stderr)
+};
+
+/***/ }),
+
+/***/ "./node_modules/table/dist/alignString.js":
+/*!************************************************!*\
+  !*** ./node_modules/table/dist/alignString.js ***!
+  \************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _lodash = _interopRequireDefault(__webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js"));
+
+var _stringWidth = _interopRequireDefault(__webpack_require__(/*! string-width */ "./node_modules/string-width/index.js"));
+
+function _interopRequireDefault(obj) {
+  return obj && obj.__esModule ? obj : { default: obj };
+}
+
+var alignments = ['left', 'right', 'center'];
+/**
+ * @param {string} subject
+ * @param {number} width
+ * @returns {string}
+ */
+
+var alignLeft = function alignLeft(subject, width) {
+  return subject + ' '.repeat(width);
+};
+/**
+ * @param {string} subject
+ * @param {number} width
+ * @returns {string}
+ */
+
+var alignRight = function alignRight(subject, width) {
+  return ' '.repeat(width) + subject;
+};
+/**
+ * @param {string} subject
+ * @param {number} width
+ * @returns {string}
+ */
+
+var alignCenter = function alignCenter(subject, width) {
+  var halfWidth = void 0;
+  halfWidth = width / 2;
+
+  if (halfWidth % 2 === 0) {
+    return ' '.repeat(halfWidth) + subject + ' '.repeat(halfWidth);
+  } else {
+    halfWidth = Math.floor(halfWidth);
+    return ' '.repeat(halfWidth) + subject + ' '.repeat(halfWidth + 1);
+  }
+};
+/**
+ * Pads a string to the left and/or right to position the subject
+ * text in a desired alignment within a container.
+ *
+ * @param {string} subject
+ * @param {number} containerWidth
+ * @param {string} alignment One of the valid options (left, right, center).
+ * @returns {string}
+ */
+
+var alignString = function alignString(subject, containerWidth, alignment) {
+  if (!_lodash.default.isString(subject)) {
+    throw new TypeError('Subject parameter value must be a string.');
+  }
+
+  if (!_lodash.default.isNumber(containerWidth)) {
+    throw new TypeError('Container width parameter value must be a number.');
+  }
+
+  var subjectWidth = (0, _stringWidth.default)(subject);
+
+  if (subjectWidth > containerWidth) {
+    // console.log('subjectWidth', subjectWidth, 'containerWidth', containerWidth, 'subject', subject);
+    throw new Error('Subject parameter value width cannot be greater than the container width.');
+  }
+
+  if (!_lodash.default.isString(alignment)) {
+    throw new TypeError('Alignment parameter value must be a string.');
+  }
+
+  if (alignments.indexOf(alignment) === -1) {
+    throw new Error('Alignment parameter value must be a known alignment parameter value (left, right, center).');
+  }
+
+  if (subjectWidth === 0) {
+    return ' '.repeat(containerWidth);
+  }
+
+  var availableWidth = containerWidth - subjectWidth;
+
+  if (alignment === 'left') {
+    return alignLeft(subject, availableWidth);
+  }
+
+  if (alignment === 'right') {
+    return alignRight(subject, availableWidth);
+  }
+
+  return alignCenter(subject, availableWidth);
+};
+
+var _default = alignString;
+exports.default = _default;
+//# sourceMappingURL=alignString.js.map
+
+/***/ }),
+
+/***/ "./node_modules/table/dist/alignTableData.js":
+/*!***************************************************!*\
+  !*** ./node_modules/table/dist/alignTableData.js ***!
+  \***************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _stringWidth = _interopRequireDefault(__webpack_require__(/*! string-width */ "./node_modules/string-width/index.js"));
+
+var _alignString = _interopRequireDefault(__webpack_require__(/*! ./alignString */ "./node_modules/table/dist/alignString.js"));
+
+function _interopRequireDefault(obj) {
+  return obj && obj.__esModule ? obj : { default: obj };
+}
+
+/**
+ * @param {table~row[]} rows
+ * @param {Object} config
+ * @returns {table~row[]}
+ */
+var alignTableData = function alignTableData(rows, config) {
+  return rows.map(function (cells) {
+    return cells.map(function (value, index1) {
+      var column = config.columns[index1];
+
+      if ((0, _stringWidth.default)(value) === column.width) {
+        return value;
+      } else {
+        return (0, _alignString.default)(value, column.width, column.alignment);
+      }
+    });
+  });
+};
+
+var _default = alignTableData;
+exports.default = _default;
+//# sourceMappingURL=alignTableData.js.map
+
+/***/ }),
+
+/***/ "./node_modules/table/dist/calculateCellHeight.js":
+/*!********************************************************!*\
+  !*** ./node_modules/table/dist/calculateCellHeight.js ***!
+  \********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _lodash = _interopRequireDefault(__webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js"));
+
+var _wrapCell = _interopRequireDefault(__webpack_require__(/*! ./wrapCell */ "./node_modules/table/dist/wrapCell.js"));
+
+function _interopRequireDefault(obj) {
+  return obj && obj.__esModule ? obj : { default: obj };
+}
+
+/**
+ * @param {string} value
+ * @param {number} columnWidth
+ * @param {boolean} useWrapWord
+ * @returns {number}
+ */
+var calculateCellHeight = function calculateCellHeight(value, columnWidth) {
+  var useWrapWord = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
+
+  if (!_lodash.default.isString(value)) {
+    throw new TypeError('Value must be a string.');
+  }
+
+  if (!Number.isInteger(columnWidth)) {
+    throw new TypeError('Column width must be an integer.');
+  }
+
+  if (columnWidth < 1) {
+    throw new Error('Column width must be greater than 0.');
+  }
+
+  return (0, _wrapCell.default)(value, columnWidth, useWrapWord).length;
+};
+
+var _default = calculateCellHeight;
+exports.default = _default;
+//# sourceMappingURL=calculateCellHeight.js.map
+
+/***/ }),
+
+/***/ "./node_modules/table/dist/calculateCellWidthIndex.js":
+/*!************************************************************!*\
+  !*** ./node_modules/table/dist/calculateCellWidthIndex.js ***!
+  \************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _stringWidth = _interopRequireDefault(__webpack_require__(/*! string-width */ "./node_modules/string-width/index.js"));
+
+function _interopRequireDefault(obj) {
+  return obj && obj.__esModule ? obj : { default: obj };
+}
+
+/**
+ * Calculates width of each cell contents.
+ *
+ * @param {string[]} cells
+ * @returns {number[]}
+ */
+var calculateCellWidthIndex = function calculateCellWidthIndex(cells) {
+  return cells.map(function (value) {
+    return Math.max.apply(Math, _toConsumableArray(value.split('\n').map(function (line) {
+      return (0, _stringWidth.default)(line);
+    })));
+  });
+};
+
+var _default = calculateCellWidthIndex;
+exports.default = _default;
+//# sourceMappingURL=calculateCellWidthIndex.js.map
+
+/***/ }),
+
+/***/ "./node_modules/table/dist/calculateMaximumColumnWidthIndex.js":
+/*!*********************************************************************!*\
+  !*** ./node_modules/table/dist/calculateMaximumColumnWidthIndex.js ***!
+  \*********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _calculateCellWidthIndex = _interopRequireDefault(__webpack_require__(/*! ./calculateCellWidthIndex */ "./node_modules/table/dist/calculateCellWidthIndex.js"));
+
+function _interopRequireDefault(obj) {
+  return obj && obj.__esModule ? obj : { default: obj };
+}
+
+/**
+ * Produces an array of values that describe the largest value length (width) in every column.
+ *
+ * @param {Array[]} rows
+ * @returns {number[]}
+ */
+var calculateMaximumColumnWidthIndex = function calculateMaximumColumnWidthIndex(rows) {
+  if (!rows[0]) {
+    throw new Error('Dataset must have at least one row.');
+  }
+
+  var columns = new Array(rows[0].length).fill(0);
+  rows.forEach(function (row) {
+    var columnWidthIndex = (0, _calculateCellWidthIndex.default)(row);
+    columnWidthIndex.forEach(function (valueWidth, index0) {
+      if (columns[index0] < valueWidth) {
+        columns[index0] = valueWidth;
+      }
+    });
+  });
+  return columns;
+};
+
+var _default = calculateMaximumColumnWidthIndex;
+exports.default = _default;
+//# sourceMappingURL=calculateMaximumColumnWidthIndex.js.map
+
+/***/ }),
+
+/***/ "./node_modules/table/dist/calculateRowHeightIndex.js":
+/*!************************************************************!*\
+  !*** ./node_modules/table/dist/calculateRowHeightIndex.js ***!
+  \************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _lodash = _interopRequireDefault(__webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js"));
+
+var _calculateCellHeight = _interopRequireDefault(__webpack_require__(/*! ./calculateCellHeight */ "./node_modules/table/dist/calculateCellHeight.js"));
+
+function _interopRequireDefault(obj) {
+  return obj && obj.__esModule ? obj : { default: obj };
+}
+
+/**
+ * Calculates the vertical row span index.
+ *
+ * @param {Array[]} rows
+ * @param {Object} config
+ * @returns {number[]}
+ */
+var calculateRowHeightIndex = function calculateRowHeightIndex(rows, config) {
+  var tableWidth = rows[0].length;
+  var rowSpanIndex = [];
+  rows.forEach(function (cells) {
+    var cellHeightIndex = new Array(tableWidth).fill(1);
+    cells.forEach(function (value, index1) {
+      if (!_lodash.default.isNumber(config.columns[index1].width)) {
+        throw new TypeError('column[index].width must be a number.');
+      }
+
+      if (!_lodash.default.isBoolean(config.columns[index1].wrapWord)) {
+        throw new TypeError('column[index].wrapWord must be a boolean.');
+      }
+
+      cellHeightIndex[index1] = (0, _calculateCellHeight.default)(value, config.columns[index1].width, config.columns[index1].wrapWord);
+    });
+    rowSpanIndex.push(_lodash.default.max(cellHeightIndex));
+  });
+  return rowSpanIndex;
+};
+
+var _default = calculateRowHeightIndex;
+exports.default = _default;
+//# sourceMappingURL=calculateRowHeightIndex.js.map
+
+/***/ }),
+
+/***/ "./node_modules/table/dist/createStream.js":
+/*!*************************************************!*\
+  !*** ./node_modules/table/dist/createStream.js ***!
+  \*************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _lodash = _interopRequireDefault(__webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js"));
+
+var _makeStreamConfig = _interopRequireDefault(__webpack_require__(/*! ./makeStreamConfig */ "./node_modules/table/dist/makeStreamConfig.js"));
+
+var _drawRow = _interopRequireDefault(__webpack_require__(/*! ./drawRow */ "./node_modules/table/dist/drawRow.js"));
+
+var _drawBorder = __webpack_require__(/*! ./drawBorder */ "./node_modules/table/dist/drawBorder.js");
+
+var _stringifyTableData = _interopRequireDefault(__webpack_require__(/*! ./stringifyTableData */ "./node_modules/table/dist/stringifyTableData.js"));
+
+var _truncateTableData = _interopRequireDefault(__webpack_require__(/*! ./truncateTableData */ "./node_modules/table/dist/truncateTableData.js"));
+
+var _mapDataUsingRowHeightIndex = _interopRequireDefault(__webpack_require__(/*! ./mapDataUsingRowHeightIndex */ "./node_modules/table/dist/mapDataUsingRowHeightIndex.js"));
+
+var _alignTableData = _interopRequireDefault(__webpack_require__(/*! ./alignTableData */ "./node_modules/table/dist/alignTableData.js"));
+
+var _padTableData = _interopRequireDefault(__webpack_require__(/*! ./padTableData */ "./node_modules/table/dist/padTableData.js"));
+
+var _calculateRowHeightIndex = _interopRequireDefault(__webpack_require__(/*! ./calculateRowHeightIndex */ "./node_modules/table/dist/calculateRowHeightIndex.js"));
+
+function _interopRequireDefault(obj) {
+  return obj && obj.__esModule ? obj : { default: obj };
+}
+
+/**
+ * @param {Array} data
+ * @param {Object} config
+ * @returns {Array}
+ */
+var prepareData = function prepareData(data, config) {
+  var rows = void 0;
+  rows = (0, _stringifyTableData.default)(data);
+  rows = (0, _truncateTableData.default)(data, config);
+  var rowHeightIndex = (0, _calculateRowHeightIndex.default)(rows, config);
+  rows = (0, _mapDataUsingRowHeightIndex.default)(rows, rowHeightIndex, config);
+  rows = (0, _alignTableData.default)(rows, config);
+  rows = (0, _padTableData.default)(rows, config);
+  return rows;
+};
+/**
+ * @param {string[]} row
+ * @param {number[]} columnWidthIndex
+ * @param {Object} config
+ * @returns {undefined}
+ */
+
+var create = function create(row, columnWidthIndex, config) {
+  var rows = prepareData([row], config);
+  var body = rows.map(function (literalRow) {
+    return (0, _drawRow.default)(literalRow, config.border);
+  }).join('');
+  var output = void 0;
+  output = '';
+  output += (0, _drawBorder.drawBorderTop)(columnWidthIndex, config.border);
+  output += body;
+  output += (0, _drawBorder.drawBorderBottom)(columnWidthIndex, config.border);
+  output = _lodash.default.trimEnd(output);
+  process.stdout.write(output);
+};
+/**
+ * @param {string[]} row
+ * @param {number[]} columnWidthIndex
+ * @param {Object} config
+ * @returns {undefined}
+ */
+
+var append = function append(row, columnWidthIndex, config) {
+  var rows = prepareData([row], config);
+  var body = rows.map(function (literalRow) {
+    return (0, _drawRow.default)(literalRow, config.border);
+  }).join('');
+  var output = void 0;
+  output = "\r\x1B[K";
+  output += (0, _drawBorder.drawBorderJoin)(columnWidthIndex, config.border);
+  output += body;
+  output += (0, _drawBorder.drawBorderBottom)(columnWidthIndex, config.border);
+  output = _lodash.default.trimEnd(output);
+  process.stdout.write(output);
+};
+/**
+ * @param {Object} userConfig
+ * @returns {Object}
+ */
+
+var createStream = function createStream() {
+  var userConfig = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+
+  var config = (0, _makeStreamConfig.default)(userConfig); // @todo Use 'Object.values' when Node.js v6 support is dropped.
+
+  var columnWidthIndex = _lodash.default.values(_lodash.default.mapValues(config.columns, function (column) {
+    return column.width + column.paddingLeft + column.paddingRight;
+  }));
+
+  var empty = void 0;
+  empty = true;
+  return {
+    /**
+     * @param {string[]} row
+     * @returns {undefined}
+     */
+    write: function write(row) {
+      if (row.length !== config.columnCount) {
+        throw new Error('Row cell count does not match the config.columnCount.');
+      }
+
+      if (empty) {
+        empty = false;
+        return create(row, columnWidthIndex, config);
+      } else {
+        return append(row, columnWidthIndex, config);
+      }
+    }
+  };
+};
+
+var _default = createStream;
+exports.default = _default;
+//# sourceMappingURL=createStream.js.map
+
+/***/ }),
+
+/***/ "./node_modules/table/dist/drawBorder.js":
+/*!***********************************************!*\
+  !*** ./node_modules/table/dist/drawBorder.js ***!
+  \***********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.drawBorderTop = exports.drawBorderJoin = exports.drawBorderBottom = exports.drawBorder = void 0;
+
+/**
+ * @typedef drawBorder~parts
+ * @property {string} left
+ * @property {string} right
+ * @property {string} body
+ * @property {string} join
+ */
+
+/**
+ * @param {number[]} columnSizeIndex
+ * @param {drawBorder~parts} parts
+ * @returns {string}
+ */
+var drawBorder = function drawBorder(columnSizeIndex, parts) {
+  var columns = columnSizeIndex.map(function (size) {
+    return parts.body.repeat(size);
+  }).join(parts.join);
+  return parts.left + columns + parts.right + '\n';
+};
+/**
+ * @typedef drawBorderTop~parts
+ * @property {string} topLeft
+ * @property {string} topRight
+ * @property {string} topBody
+ * @property {string} topJoin
+ */
+
+/**
+ * @param {number[]} columnSizeIndex
+ * @param {drawBorderTop~parts} parts
+ * @returns {string}
+ */
+
+exports.drawBorder = drawBorder;
+
+var drawBorderTop = function drawBorderTop(columnSizeIndex, parts) {
+  return drawBorder(columnSizeIndex, {
+    body: parts.topBody,
+    join: parts.topJoin,
+    left: parts.topLeft,
+    right: parts.topRight
+  });
+};
+/**
+ * @typedef drawBorderJoin~parts
+ * @property {string} joinLeft
+ * @property {string} joinRight
+ * @property {string} joinBody
+ * @property {string} joinJoin
+ */
+
+/**
+ * @param {number[]} columnSizeIndex
+ * @param {drawBorderJoin~parts} parts
+ * @returns {string}
+ */
+
+exports.drawBorderTop = drawBorderTop;
+
+var drawBorderJoin = function drawBorderJoin(columnSizeIndex, parts) {
+  return drawBorder(columnSizeIndex, {
+    body: parts.joinBody,
+    join: parts.joinJoin,
+    left: parts.joinLeft,
+    right: parts.joinRight
+  });
+};
+/**
+ * @typedef drawBorderBottom~parts
+ * @property {string} topLeft
+ * @property {string} topRight
+ * @property {string} topBody
+ * @property {string} topJoin
+ */
+
+/**
+ * @param {number[]} columnSizeIndex
+ * @param {drawBorderBottom~parts} parts
+ * @returns {string}
+ */
+
+exports.drawBorderJoin = drawBorderJoin;
+
+var drawBorderBottom = function drawBorderBottom(columnSizeIndex, parts) {
+  return drawBorder(columnSizeIndex, {
+    body: parts.bottomBody,
+    join: parts.bottomJoin,
+    left: parts.bottomLeft,
+    right: parts.bottomRight
+  });
+};
+
+exports.drawBorderBottom = drawBorderBottom;
+//# sourceMappingURL=drawBorder.js.map
+
+/***/ }),
+
+/***/ "./node_modules/table/dist/drawRow.js":
+/*!********************************************!*\
+  !*** ./node_modules/table/dist/drawRow.js ***!
+  \********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+/**
+ * @typedef {Object} drawRow~border
+ * @property {string} bodyLeft
+ * @property {string} bodyRight
+ * @property {string} bodyJoin
+ */
+
+/**
+ * @param {number[]} columns
+ * @param {drawRow~border} border
+ * @returns {string}
+ */
+var drawRow = function drawRow(columns, border) {
+  return border.bodyLeft + columns.join(border.bodyJoin) + border.bodyRight + '\n';
+};
+
+var _default = drawRow;
+exports.default = _default;
+//# sourceMappingURL=drawRow.js.map
+
+/***/ }),
+
+/***/ "./node_modules/table/dist/drawTable.js":
+/*!**********************************************!*\
+  !*** ./node_modules/table/dist/drawTable.js ***!
+  \**********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _drawBorder = __webpack_require__(/*! ./drawBorder */ "./node_modules/table/dist/drawBorder.js");
+
+var _drawRow = _interopRequireDefault(__webpack_require__(/*! ./drawRow */ "./node_modules/table/dist/drawRow.js"));
+
+function _interopRequireDefault(obj) {
+  return obj && obj.__esModule ? obj : { default: obj };
+}
+
+/**
+ * @param {Array} rows
+ * @param {Object} border
+ * @param {Array} columnSizeIndex
+ * @param {Array} rowSpanIndex
+ * @param {Function} drawHorizontalLine
+ * @returns {string}
+ */
+var drawTable = function drawTable(rows, border, columnSizeIndex, rowSpanIndex, drawHorizontalLine) {
+  var output = void 0;
+  var realRowIndex = void 0;
+  var rowHeight = void 0;
+  var rowCount = rows.length;
+  realRowIndex = 0;
+  output = '';
+
+  if (drawHorizontalLine(realRowIndex, rowCount)) {
+    output += (0, _drawBorder.drawBorderTop)(columnSizeIndex, border);
+  }
+
+  rows.forEach(function (row, index0) {
+    output += (0, _drawRow.default)(row, border);
+
+    if (!rowHeight) {
+      rowHeight = rowSpanIndex[realRowIndex];
+      realRowIndex++;
+    }
+
+    rowHeight--;
+
+    if (rowHeight === 0 && index0 !== rowCount - 1 && drawHorizontalLine(realRowIndex, rowCount)) {
+      output += (0, _drawBorder.drawBorderJoin)(columnSizeIndex, border);
+    }
+  });
+
+  if (drawHorizontalLine(realRowIndex, rowCount)) {
+    output += (0, _drawBorder.drawBorderBottom)(columnSizeIndex, border);
+  }
+
+  return output;
+};
+
+var _default = drawTable;
+exports.default = _default;
+//# sourceMappingURL=drawTable.js.map
+
+/***/ }),
+
+/***/ "./node_modules/table/dist/getBorderCharacters.js":
+/*!********************************************************!*\
+  !*** ./node_modules/table/dist/getBorderCharacters.js ***!
+  \********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+/* eslint-disable sort-keys */
+
+/**
+ * @typedef border
+ * @property {string} topBody
+ * @property {string} topJoin
+ * @property {string} topLeft
+ * @property {string} topRight
+ * @property {string} bottomBody
+ * @property {string} bottomJoin
+ * @property {string} bottomLeft
+ * @property {string} bottomRight
+ * @property {string} bodyLeft
+ * @property {string} bodyRight
+ * @property {string} bodyJoin
+ * @property {string} joinBody
+ * @property {string} joinLeft
+ * @property {string} joinRight
+ * @property {string} joinJoin
+ */
+
+/**
+ * @param {string} name
+ * @returns {border}
+ */
+var getBorderCharacters = function getBorderCharacters(name) {
+  if (name === 'honeywell') {
+    return {
+      topBody: '═',
+      topJoin: '╤',
+      topLeft: '╔',
+      topRight: '╗',
+      bottomBody: '═',
+      bottomJoin: '╧',
+      bottomLeft: '╚',
+      bottomRight: '╝',
+      bodyLeft: '║',
+      bodyRight: '║',
+      bodyJoin: '│',
+      joinBody: '─',
+      joinLeft: '╟',
+      joinRight: '╢',
+      joinJoin: '┼'
+    };
+  }
+
+  if (name === 'norc') {
+    return {
+      topBody: '─',
+      topJoin: '┬',
+      topLeft: '┌',
+      topRight: '┐',
+      bottomBody: '─',
+      bottomJoin: '┴',
+      bottomLeft: '└',
+      bottomRight: '┘',
+      bodyLeft: '│',
+      bodyRight: '│',
+      bodyJoin: '│',
+      joinBody: '─',
+      joinLeft: '├',
+      joinRight: '┤',
+      joinJoin: '┼'
+    };
+  }
+
+  if (name === 'ramac') {
+    return {
+      topBody: '-',
+      topJoin: '+',
+      topLeft: '+',
+      topRight: '+',
+      bottomBody: '-',
+      bottomJoin: '+',
+      bottomLeft: '+',
+      bottomRight: '+',
+      bodyLeft: '|',
+      bodyRight: '|',
+      bodyJoin: '|',
+      joinBody: '-',
+      joinLeft: '|',
+      joinRight: '|',
+      joinJoin: '|'
+    };
+  }
+
+  if (name === 'void') {
+    return {
+      topBody: '',
+      topJoin: '',
+      topLeft: '',
+      topRight: '',
+      bottomBody: '',
+      bottomJoin: '',
+      bottomLeft: '',
+      bottomRight: '',
+      bodyLeft: '',
+      bodyRight: '',
+      bodyJoin: '',
+      joinBody: '',
+      joinLeft: '',
+      joinRight: '',
+      joinJoin: ''
+    };
+  }
+
+  throw new Error('Unknown border template "' + name + '".');
+};
+
+var _default = getBorderCharacters;
+exports.default = _default;
+//# sourceMappingURL=getBorderCharacters.js.map
+
+/***/ }),
+
+/***/ "./node_modules/table/dist/index.js":
+/*!******************************************!*\
+  !*** ./node_modules/table/dist/index.js ***!
+  \******************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+Object.defineProperty(exports, "table", {
+  enumerable: true,
+  get: function get() {
+    return _table.default;
+  }
+});
+Object.defineProperty(exports, "createStream", {
+  enumerable: true,
+  get: function get() {
+    return _createStream.default;
+  }
+});
+Object.defineProperty(exports, "getBorderCharacters", {
+  enumerable: true,
+  get: function get() {
+    return _getBorderCharacters.default;
+  }
+});
+
+var _table = _interopRequireDefault(__webpack_require__(/*! ./table */ "./node_modules/table/dist/table.js"));
+
+var _createStream = _interopRequireDefault(__webpack_require__(/*! ./createStream */ "./node_modules/table/dist/createStream.js"));
+
+var _getBorderCharacters = _interopRequireDefault(__webpack_require__(/*! ./getBorderCharacters */ "./node_modules/table/dist/getBorderCharacters.js"));
+
+function _interopRequireDefault(obj) {
+  return obj && obj.__esModule ? obj : { default: obj };
+}
+//# sourceMappingURL=index.js.map
+
+/***/ }),
+
+/***/ "./node_modules/table/dist/makeConfig.js":
+/*!***********************************************!*\
+  !*** ./node_modules/table/dist/makeConfig.js ***!
+  \***********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _lodash = _interopRequireDefault(__webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js"));
+
+var _getBorderCharacters = _interopRequireDefault(__webpack_require__(/*! ./getBorderCharacters */ "./node_modules/table/dist/getBorderCharacters.js"));
+
+var _validateConfig = _interopRequireDefault(__webpack_require__(/*! ./validateConfig */ "./node_modules/table/dist/validateConfig.js"));
+
+var _calculateMaximumColumnWidthIndex = _interopRequireDefault(__webpack_require__(/*! ./calculateMaximumColumnWidthIndex */ "./node_modules/table/dist/calculateMaximumColumnWidthIndex.js"));
+
+function _interopRequireDefault(obj) {
+  return obj && obj.__esModule ? obj : { default: obj };
+}
+
+/**
+ * Merges user provided border characters with the default border ("honeywell") characters.
+ *
+ * @param {Object} border
+ * @returns {Object}
+ */
+var makeBorder = function makeBorder() {
+  var border = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+
+  return Object.assign({}, (0, _getBorderCharacters.default)('honeywell'), border);
+};
+/**
+ * Creates a configuration for every column using default
+ * values for the missing configuration properties.
+ *
+ * @param {Array[]} rows
+ * @param {Object} columns
+ * @param {Object} columnDefault
+ * @returns {Object}
+ */
+
+var makeColumns = function makeColumns(rows) {
+  var columns = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+  var columnDefault = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
+
+  var maximumColumnWidthIndex = (0, _calculateMaximumColumnWidthIndex.default)(rows);
+
+  _lodash.default.times(rows[0].length, function (index) {
+    if (_lodash.default.isUndefined(columns[index])) {
+      columns[index] = {};
+    }
+
+    columns[index] = Object.assign({
+      alignment: 'left',
+      paddingLeft: 1,
+      paddingRight: 1,
+      truncate: Infinity,
+      width: maximumColumnWidthIndex[index],
+      wrapWord: false
+    }, columnDefault, columns[index]);
+  });
+
+  return columns;
+};
+/**
+ * Makes a new configuration object out of the userConfig object
+ * using default values for the missing configuration properties.
+ *
+ * @param {Array[]} rows
+ * @param {Object} userConfig
+ * @returns {Object}
+ */
+
+var makeConfig = function makeConfig(rows) {
+  var userConfig = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+
+  (0, _validateConfig.default)('config.json', userConfig);
+
+  var config = _lodash.default.cloneDeep(userConfig);
+
+  config.border = makeBorder(config.border);
+  config.columns = makeColumns(rows, config.columns, config.columnDefault);
+
+  if (!config.drawHorizontalLine) {
+    /**
+         * @returns {boolean}
+         */
+    config.drawHorizontalLine = function () {
+      return true;
+    };
+  }
+
+  return config;
+};
+
+var _default = makeConfig;
+exports.default = _default;
+//# sourceMappingURL=makeConfig.js.map
+
+/***/ }),
+
+/***/ "./node_modules/table/dist/makeStreamConfig.js":
+/*!*****************************************************!*\
+  !*** ./node_modules/table/dist/makeStreamConfig.js ***!
+  \*****************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _lodash = _interopRequireDefault(__webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js"));
+
+var _getBorderCharacters = _interopRequireDefault(__webpack_require__(/*! ./getBorderCharacters */ "./node_modules/table/dist/getBorderCharacters.js"));
+
+var _validateConfig = _interopRequireDefault(__webpack_require__(/*! ./validateConfig */ "./node_modules/table/dist/validateConfig.js"));
+
+function _interopRequireDefault(obj) {
+  return obj && obj.__esModule ? obj : { default: obj };
+}
+
+/**
+ * Merges user provided border characters with the default border ("honeywell") characters.
+ *
+ * @param {Object} border
+ * @returns {Object}
+ */
+var makeBorder = function makeBorder() {
+  var border = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+
+  return Object.assign({}, (0, _getBorderCharacters.default)('honeywell'), border);
+};
+/**
+ * Creates a configuration for every column using default
+ * values for the missing configuration properties.
+ *
+ * @param {number} columnCount
+ * @param {Object} columns
+ * @param {Object} columnDefault
+ * @returns {Object}
+ */
+
+var makeColumns = function makeColumns(columnCount) {
+  var columns = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+  var columnDefault = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
+
+  _lodash.default.times(columnCount, function (index) {
+    if (_lodash.default.isUndefined(columns[index])) {
+      columns[index] = {};
+    }
+
+    columns[index] = Object.assign({
+      alignment: 'left',
+      paddingLeft: 1,
+      paddingRight: 1,
+      truncate: Infinity,
+      wrapWord: false
+    }, columnDefault, columns[index]);
+  });
+
+  return columns;
+};
+/**
+ * @typedef {Object} columnConfig
+ * @property {string} alignment
+ * @property {number} width
+ * @property {number} truncate
+ * @property {number} paddingLeft
+ * @property {number} paddingRight
+ */
+
+/**
+ * @typedef {Object} streamConfig
+ * @property {columnConfig} columnDefault
+ * @property {Object} border
+ * @property {columnConfig[]}
+ * @property {number} columnCount Number of columns in the table (required).
+ */
+
+/**
+ * Makes a new configuration object out of the userConfig object
+ * using default values for the missing configuration properties.
+ *
+ * @param {streamConfig} userConfig
+ * @returns {Object}
+ */
+
+var makeStreamConfig = function makeStreamConfig() {
+  var userConfig = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+
+  (0, _validateConfig.default)('streamConfig.json', userConfig);
+
+  var config = _lodash.default.cloneDeep(userConfig);
+
+  if (!config.columnDefault || !config.columnDefault.width) {
+    throw new Error('Must provide config.columnDefault.width when creating a stream.');
+  }
+
+  if (!config.columnCount) {
+    throw new Error('Must provide config.columnCount.');
+  }
+
+  config.border = makeBorder(config.border);
+  config.columns = makeColumns(config.columnCount, config.columns, config.columnDefault);
+  return config;
+};
+
+var _default = makeStreamConfig;
+exports.default = _default;
+//# sourceMappingURL=makeStreamConfig.js.map
+
+/***/ }),
+
+/***/ "./node_modules/table/dist/mapDataUsingRowHeightIndex.js":
+/*!***************************************************************!*\
+  !*** ./node_modules/table/dist/mapDataUsingRowHeightIndex.js ***!
+  \***************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _lodash = _interopRequireDefault(__webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js"));
+
+var _wrapCell = _interopRequireDefault(__webpack_require__(/*! ./wrapCell */ "./node_modules/table/dist/wrapCell.js"));
+
+function _interopRequireDefault(obj) {
+  return obj && obj.__esModule ? obj : { default: obj };
+}
+
+/**
+ * @param {Array} unmappedRows
+ * @param {number[]} rowHeightIndex
+ * @param {Object} config
+ * @returns {Array}
+ */
+var mapDataUsingRowHeightIndex = function mapDataUsingRowHeightIndex(unmappedRows, rowHeightIndex, config) {
+  var tableWidth = unmappedRows[0].length;
+  var mappedRows = unmappedRows.map(function (cells, index0) {
+    var rowHeight = _lodash.default.times(rowHeightIndex[index0], function () {
+      return new Array(tableWidth).fill('');
+    }); // rowHeight
+    //     [{row index within rowSaw; index2}]
+    //     [{cell index within a virtual row; index1}]
+
+
+    cells.forEach(function (value, index1) {
+      var cellLines = (0, _wrapCell.default)(value, config.columns[index1].width, config.columns[index1].wrapWord);
+      cellLines.forEach(function (cellLine, index2) {
+        rowHeight[index2][index1] = cellLine;
+      });
+    });
+    return rowHeight;
+  });
+  return _lodash.default.flatten(mappedRows);
+};
+
+var _default = mapDataUsingRowHeightIndex;
+exports.default = _default;
+//# sourceMappingURL=mapDataUsingRowHeightIndex.js.map
+
+/***/ }),
+
+/***/ "./node_modules/table/dist/padTableData.js":
+/*!*************************************************!*\
+  !*** ./node_modules/table/dist/padTableData.js ***!
+  \*************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+/**
+ * @param {table~row[]} rows
+ * @param {Object} config
+ * @returns {table~row[]}
+ */
+var padTableData = function padTableData(rows, config) {
+  return rows.map(function (cells) {
+    return cells.map(function (value, index1) {
+      var column = config.columns[index1];
+      return ' '.repeat(column.paddingLeft) + value + ' '.repeat(column.paddingRight);
+    });
+  });
+};
+
+var _default = padTableData;
+exports.default = _default;
+//# sourceMappingURL=padTableData.js.map
+
+/***/ }),
+
+/***/ "./node_modules/table/dist/stringifyTableData.js":
+/*!*******************************************************!*\
+  !*** ./node_modules/table/dist/stringifyTableData.js ***!
+  \*******************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+/**
+ * Casts all cell values to a string.
+ *
+ * @param {table~row[]} rows
+ * @returns {table~row[]}
+ */
+var stringifyTableData = function stringifyTableData(rows) {
+  return rows.map(function (cells) {
+    return cells.map(String);
+  });
+};
+
+var _default = stringifyTableData;
+exports.default = _default;
+//# sourceMappingURL=stringifyTableData.js.map
+
+/***/ }),
+
+/***/ "./node_modules/table/dist/table.js":
+/*!******************************************!*\
+  !*** ./node_modules/table/dist/table.js ***!
+  \******************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _drawTable = _interopRequireDefault(__webpack_require__(/*! ./drawTable */ "./node_modules/table/dist/drawTable.js"));
+
+var _calculateCellWidthIndex = _interopRequireDefault(__webpack_require__(/*! ./calculateCellWidthIndex */ "./node_modules/table/dist/calculateCellWidthIndex.js"));
+
+var _makeConfig = _interopRequireDefault(__webpack_require__(/*! ./makeConfig */ "./node_modules/table/dist/makeConfig.js"));
+
+var _calculateRowHeightIndex = _interopRequireDefault(__webpack_require__(/*! ./calculateRowHeightIndex */ "./node_modules/table/dist/calculateRowHeightIndex.js"));
+
+var _mapDataUsingRowHeightIndex = _interopRequireDefault(__webpack_require__(/*! ./mapDataUsingRowHeightIndex */ "./node_modules/table/dist/mapDataUsingRowHeightIndex.js"));
+
+var _alignTableData = _interopRequireDefault(__webpack_require__(/*! ./alignTableData */ "./node_modules/table/dist/alignTableData.js"));
+
+var _padTableData = _interopRequireDefault(__webpack_require__(/*! ./padTableData */ "./node_modules/table/dist/padTableData.js"));
+
+var _validateTableData = _interopRequireDefault(__webpack_require__(/*! ./validateTableData */ "./node_modules/table/dist/validateTableData.js"));
+
+var _stringifyTableData = _interopRequireDefault(__webpack_require__(/*! ./stringifyTableData */ "./node_modules/table/dist/stringifyTableData.js"));
+
+var _truncateTableData = _interopRequireDefault(__webpack_require__(/*! ./truncateTableData */ "./node_modules/table/dist/truncateTableData.js"));
+
+function _interopRequireDefault(obj) {
+  return obj && obj.__esModule ? obj : { default: obj };
+}
+
+/**
+ * @typedef {string} table~cell
+ */
+
+/**
+ * @typedef {table~cell[]} table~row
+ */
+
+/**
+ * @typedef {Object} table~columns
+ * @property {string} alignment Cell content alignment (enum: left, center, right) (default: left).
+ * @property {number} width Column width (default: auto).
+ * @property {number} truncate Number of characters are which the content will be truncated (default: Infinity).
+ * @property {boolean} wrapWord When true the text is broken at the nearest space or one of the special characters
+ * @property {number} paddingLeft Cell content padding width left (default: 1).
+ * @property {number} paddingRight Cell content padding width right (default: 1).
+ */
+
+/**
+ * @typedef {Object} table~border
+ * @property {string} topBody
+ * @property {string} topJoin
+ * @property {string} topLeft
+ * @property {string} topRight
+ * @property {string} bottomBody
+ * @property {string} bottomJoin
+ * @property {string} bottomLeft
+ * @property {string} bottomRight
+ * @property {string} bodyLeft
+ * @property {string} bodyRight
+ * @property {string} bodyJoin
+ * @property {string} joinBody
+ * @property {string} joinLeft
+ * @property {string} joinRight
+ * @property {string} joinJoin
+ */
+
+/**
+ * Used to tell whether to draw a horizontal line.
+ * This callback is called for each non-content line of the table.
+ * The default behavior is to always return true.
+ *
+ * @typedef {Function} drawHorizontalLine
+ * @param {number} index
+ * @param {number} size
+ * @returns {boolean}
+ */
+
+/**
+ * @typedef {Object} table~config
+ * @property {table~border} border
+ * @property {table~columns[]} columns Column specific configuration.
+ * @property {table~columns} columnDefault Default values for all columns. Column specific settings overwrite the default values.
+ * @property {table~drawHorizontalLine} drawHorizontalLine
+ */
+
+/**
+ * Generates a text table.
+ *
+ * @param {table~row[]} data
+ * @param {table~config} userConfig
+ * @returns {string}
+ */
+var table = function table(data) {
+  var userConfig = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+
+  var rows = void 0;
+  (0, _validateTableData.default)(data);
+  rows = (0, _stringifyTableData.default)(data);
+  var config = (0, _makeConfig.default)(rows, userConfig);
+  rows = (0, _truncateTableData.default)(data, config);
+  var rowHeightIndex = (0, _calculateRowHeightIndex.default)(rows, config);
+  rows = (0, _mapDataUsingRowHeightIndex.default)(rows, rowHeightIndex, config);
+  rows = (0, _alignTableData.default)(rows, config);
+  rows = (0, _padTableData.default)(rows, config);
+  var cellWidthIndex = (0, _calculateCellWidthIndex.default)(rows[0]);
+  return (0, _drawTable.default)(rows, config.border, cellWidthIndex, rowHeightIndex, config.drawHorizontalLine);
+};
+
+var _default = table;
+exports.default = _default;
+//# sourceMappingURL=table.js.map
+
+/***/ }),
+
+/***/ "./node_modules/table/dist/truncateTableData.js":
+/*!******************************************************!*\
+  !*** ./node_modules/table/dist/truncateTableData.js ***!
+  \******************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _lodash = _interopRequireDefault(__webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js"));
+
+function _interopRequireDefault(obj) {
+  return obj && obj.__esModule ? obj : { default: obj };
+}
+
+/**
+ * @todo Make it work with ASCII content.
+ * @param {table~row[]} rows
+ * @param {Object} config
+ * @returns {table~row[]}
+ */
+var truncateTableData = function truncateTableData(rows, config) {
+  return rows.map(function (cells) {
+    return cells.map(function (content, index) {
+      return _lodash.default.truncate(content, {
+        length: config.columns[index].truncate
+      });
+    });
+  });
+};
+
+var _default = truncateTableData;
+exports.default = _default;
+//# sourceMappingURL=truncateTableData.js.map
+
+/***/ }),
+
+/***/ "./node_modules/table/dist/validateConfig.js":
+/*!***************************************************!*\
+  !*** ./node_modules/table/dist/validateConfig.js ***!
+  \***************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
+var equal = __webpack_require__(/*! ajv/lib/compile/equal */ "./node_modules/ajv/lib/compile/equal.js");
+var validate = function () {
+  var pattern0 = new RegExp('^[0-9]+$');
+  var refVal = [];
+  var refVal1 = function () {
+    var pattern0 = new RegExp('^[0-9]+$');
+    return function validate(data, dataPath, parentData, parentDataProperty, rootData) {
+      'use strict';
+
+      var vErrors = null;
+      var errors = 0;
+      if (rootData === undefined) rootData = data;
+      if (data && (typeof data === 'undefined' ? 'undefined' : _typeof(data)) === "object" && !Array.isArray(data)) {
+        var errs__0 = errors;
+        var valid1 = true;
+        for (var key0 in data) {
+          var isAdditional0 = !(false || validate.schema.properties.hasOwnProperty(key0));
+          if (isAdditional0) {
+            valid1 = false;
+            var err = {
+              keyword: 'additionalProperties',
+              dataPath: (dataPath || '') + "",
+              schemaPath: '#/additionalProperties',
+              params: {
+                additionalProperty: '' + key0 + ''
+              },
+              message: 'should NOT have additional properties'
+            };
+            if (vErrors === null) vErrors = [err];else vErrors.push(err);
+            errors++;
+          }
+        }
+        if (data.topBody !== undefined) {
+          var errs_1 = errors;
+          if (!refVal2(data.topBody, (dataPath || '') + '.topBody', data, 'topBody', rootData)) {
+            if (vErrors === null) vErrors = refVal2.errors;else vErrors = vErrors.concat(refVal2.errors);
+            errors = vErrors.length;
+          }
+          var valid1 = errors === errs_1;
+        }
+        if (data.topJoin !== undefined) {
+          var errs_1 = errors;
+          if (!refVal[2](data.topJoin, (dataPath || '') + '.topJoin', data, 'topJoin', rootData)) {
+            if (vErrors === null) vErrors = refVal[2].errors;else vErrors = vErrors.concat(refVal[2].errors);
+            errors = vErrors.length;
+          }
+          var valid1 = errors === errs_1;
+        }
+        if (data.topLeft !== undefined) {
+          var errs_1 = errors;
+          if (!refVal[2](data.topLeft, (dataPath || '') + '.topLeft', data, 'topLeft', rootData)) {
+            if (vErrors === null) vErrors = refVal[2].errors;else vErrors = vErrors.concat(refVal[2].errors);
+            errors = vErrors.length;
+          }
+          var valid1 = errors === errs_1;
+        }
+        if (data.topRight !== undefined) {
+          var errs_1 = errors;
+          if (!refVal[2](data.topRight, (dataPath || '') + '.topRight', data, 'topRight', rootData)) {
+            if (vErrors === null) vErrors = refVal[2].errors;else vErrors = vErrors.concat(refVal[2].errors);
+            errors = vErrors.length;
+          }
+          var valid1 = errors === errs_1;
+        }
+        if (data.bottomBody !== undefined) {
+          var errs_1 = errors;
+          if (!refVal[2](data.bottomBody, (dataPath || '') + '.bottomBody', data, 'bottomBody', rootData)) {
+            if (vErrors === null) vErrors = refVal[2].errors;else vErrors = vErrors.concat(refVal[2].errors);
+            errors = vErrors.length;
+          }
+          var valid1 = errors === errs_1;
+        }
+        if (data.bottomJoin !== undefined) {
+          var errs_1 = errors;
+          if (!refVal[2](data.bottomJoin, (dataPath || '') + '.bottomJoin', data, 'bottomJoin', rootData)) {
+            if (vErrors === null) vErrors = refVal[2].errors;else vErrors = vErrors.concat(refVal[2].errors);
+            errors = vErrors.length;
+          }
+          var valid1 = errors === errs_1;
+        }
+        if (data.bottomLeft !== undefined) {
+          var errs_1 = errors;
+          if (!refVal[2](data.bottomLeft, (dataPath || '') + '.bottomLeft', data, 'bottomLeft', rootData)) {
+            if (vErrors === null) vErrors = refVal[2].errors;else vErrors = vErrors.concat(refVal[2].errors);
+            errors = vErrors.length;
+          }
+          var valid1 = errors === errs_1;
+        }
+        if (data.bottomRight !== undefined) {
+          var errs_1 = errors;
+          if (!refVal[2](data.bottomRight, (dataPath || '') + '.bottomRight', data, 'bottomRight', rootData)) {
+            if (vErrors === null) vErrors = refVal[2].errors;else vErrors = vErrors.concat(refVal[2].errors);
+            errors = vErrors.length;
+          }
+          var valid1 = errors === errs_1;
+        }
+        if (data.bodyLeft !== undefined) {
+          var errs_1 = errors;
+          if (!refVal[2](data.bodyLeft, (dataPath || '') + '.bodyLeft', data, 'bodyLeft', rootData)) {
+            if (vErrors === null) vErrors = refVal[2].errors;else vErrors = vErrors.concat(refVal[2].errors);
+            errors = vErrors.length;
+          }
+          var valid1 = errors === errs_1;
+        }
+        if (data.bodyRight !== undefined) {
+          var errs_1 = errors;
+          if (!refVal[2](data.bodyRight, (dataPath || '') + '.bodyRight', data, 'bodyRight', rootData)) {
+            if (vErrors === null) vErrors = refVal[2].errors;else vErrors = vErrors.concat(refVal[2].errors);
+            errors = vErrors.length;
+          }
+          var valid1 = errors === errs_1;
+        }
+        if (data.bodyJoin !== undefined) {
+          var errs_1 = errors;
+          if (!refVal[2](data.bodyJoin, (dataPath || '') + '.bodyJoin', data, 'bodyJoin', rootData)) {
+            if (vErrors === null) vErrors = refVal[2].errors;else vErrors = vErrors.concat(refVal[2].errors);
+            errors = vErrors.length;
+          }
+          var valid1 = errors === errs_1;
+        }
+        if (data.joinBody !== undefined) {
+          var errs_1 = errors;
+          if (!refVal[2](data.joinBody, (dataPath || '') + '.joinBody', data, 'joinBody', rootData)) {
+            if (vErrors === null) vErrors = refVal[2].errors;else vErrors = vErrors.concat(refVal[2].errors);
+            errors = vErrors.length;
+          }
+          var valid1 = errors === errs_1;
+        }
+        if (data.joinLeft !== undefined) {
+          var errs_1 = errors;
+          if (!refVal[2](data.joinLeft, (dataPath || '') + '.joinLeft', data, 'joinLeft', rootData)) {
+            if (vErrors === null) vErrors = refVal[2].errors;else vErrors = vErrors.concat(refVal[2].errors);
+            errors = vErrors.length;
+          }
+          var valid1 = errors === errs_1;
+        }
+        if (data.joinRight !== undefined) {
+          var errs_1 = errors;
+          if (!refVal[2](data.joinRight, (dataPath || '') + '.joinRight', data, 'joinRight', rootData)) {
+            if (vErrors === null) vErrors = refVal[2].errors;else vErrors = vErrors.concat(refVal[2].errors);
+            errors = vErrors.length;
+          }
+          var valid1 = errors === errs_1;
+        }
+        if (data.joinJoin !== undefined) {
+          var errs_1 = errors;
+          if (!refVal[2](data.joinJoin, (dataPath || '') + '.joinJoin', data, 'joinJoin', rootData)) {
+            if (vErrors === null) vErrors = refVal[2].errors;else vErrors = vErrors.concat(refVal[2].errors);
+            errors = vErrors.length;
+          }
+          var valid1 = errors === errs_1;
+        }
+      } else {
+        var err = {
+          keyword: 'type',
+          dataPath: (dataPath || '') + "",
+          schemaPath: '#/type',
+          params: {
+            type: 'object'
+          },
+          message: 'should be object'
+        };
+        if (vErrors === null) vErrors = [err];else vErrors.push(err);
+        errors++;
+      }
+      validate.errors = vErrors;
+      return errors === 0;
+    };
+  }();
+  refVal1.schema = {
+    "type": "object",
+    "properties": {
+      "topBody": {
+        "$ref": "#/definitions/border"
+      },
+      "topJoin": {
+        "$ref": "#/definitions/border"
+      },
+      "topLeft": {
+        "$ref": "#/definitions/border"
+      },
+      "topRight": {
+        "$ref": "#/definitions/border"
+      },
+      "bottomBody": {
+        "$ref": "#/definitions/border"
+      },
+      "bottomJoin": {
+        "$ref": "#/definitions/border"
+      },
+      "bottomLeft": {
+        "$ref": "#/definitions/border"
+      },
+      "bottomRight": {
+        "$ref": "#/definitions/border"
+      },
+      "bodyLeft": {
+        "$ref": "#/definitions/border"
+      },
+      "bodyRight": {
+        "$ref": "#/definitions/border"
+      },
+      "bodyJoin": {
+        "$ref": "#/definitions/border"
+      },
+      "joinBody": {
+        "$ref": "#/definitions/border"
+      },
+      "joinLeft": {
+        "$ref": "#/definitions/border"
+      },
+      "joinRight": {
+        "$ref": "#/definitions/border"
+      },
+      "joinJoin": {
+        "$ref": "#/definitions/border"
+      }
+    },
+    "additionalProperties": false
+  };
+  refVal1.errors = null;
+  refVal[1] = refVal1;
+  var refVal2 = function () {
+    var pattern0 = new RegExp('^[0-9]+$');
+    return function validate(data, dataPath, parentData, parentDataProperty, rootData) {
+      'use strict';
+
+      var vErrors = null;
+      var errors = 0;
+      if (typeof data !== "string") {
+        var err = {
+          keyword: 'type',
+          dataPath: (dataPath || '') + "",
+          schemaPath: '#/type',
+          params: {
+            type: 'string'
+          },
+          message: 'should be string'
+        };
+        if (vErrors === null) vErrors = [err];else vErrors.push(err);
+        errors++;
+      }
+      validate.errors = vErrors;
+      return errors === 0;
+    };
+  }();
+  refVal2.schema = {
+    "type": "string"
+  };
+  refVal2.errors = null;
+  refVal[2] = refVal2;
+  var refVal3 = function () {
+    var pattern0 = new RegExp('^[0-9]+$');
+    return function validate(data, dataPath, parentData, parentDataProperty, rootData) {
+      'use strict';
+
+      var vErrors = null;
+      var errors = 0;
+      if (rootData === undefined) rootData = data;
+      if (data && (typeof data === 'undefined' ? 'undefined' : _typeof(data)) === "object" && !Array.isArray(data)) {
+        var errs__0 = errors;
+        var valid1 = true;
+        for (var key0 in data) {
+          var isAdditional0 = !(false || pattern0.test(key0));
+          if (isAdditional0) {
+            valid1 = false;
+            var err = {
+              keyword: 'additionalProperties',
+              dataPath: (dataPath || '') + "",
+              schemaPath: '#/additionalProperties',
+              params: {
+                additionalProperty: '' + key0 + ''
+              },
+              message: 'should NOT have additional properties'
+            };
+            if (vErrors === null) vErrors = [err];else vErrors.push(err);
+            errors++;
+          }
+        }
+        for (var key0 in data) {
+          if (pattern0.test(key0)) {
+            var errs_1 = errors;
+            if (!refVal4(data[key0], (dataPath || '') + '[\'' + key0 + '\']', data, key0, rootData)) {
+              if (vErrors === null) vErrors = refVal4.errors;else vErrors = vErrors.concat(refVal4.errors);
+              errors = vErrors.length;
+            }
+            var valid1 = errors === errs_1;
+          }
+        }
+      } else {
+        var err = {
+          keyword: 'type',
+          dataPath: (dataPath || '') + "",
+          schemaPath: '#/type',
+          params: {
+            type: 'object'
+          },
+          message: 'should be object'
+        };
+        if (vErrors === null) vErrors = [err];else vErrors.push(err);
+        errors++;
+      }
+      validate.errors = vErrors;
+      return errors === 0;
+    };
+  }();
+  refVal3.schema = {
+    "type": "object",
+    "patternProperties": {
+      "^[0-9]+$": {
+        "$ref": "#/definitions/column"
+      }
+    },
+    "additionalProperties": false
+  };
+  refVal3.errors = null;
+  refVal[3] = refVal3;
+  var refVal4 = function () {
+    var pattern0 = new RegExp('^[0-9]+$');
+    return function validate(data, dataPath, parentData, parentDataProperty, rootData) {
+      'use strict';
+
+      var vErrors = null;
+      var errors = 0;
+      if (data && (typeof data === 'undefined' ? 'undefined' : _typeof(data)) === "object" && !Array.isArray(data)) {
+        var errs__0 = errors;
+        var valid1 = true;
+        for (var key0 in data) {
+          var isAdditional0 = !(false || key0 == 'alignment' || key0 == 'width' || key0 == 'wrapWord' || key0 == 'truncate' || key0 == 'paddingLeft' || key0 == 'paddingRight');
+          if (isAdditional0) {
+            valid1 = false;
+            var err = {
+              keyword: 'additionalProperties',
+              dataPath: (dataPath || '') + "",
+              schemaPath: '#/additionalProperties',
+              params: {
+                additionalProperty: '' + key0 + ''
+              },
+              message: 'should NOT have additional properties'
+            };
+            if (vErrors === null) vErrors = [err];else vErrors.push(err);
+            errors++;
+          }
+        }
+        var data1 = data.alignment;
+        if (data1 !== undefined) {
+          var errs_1 = errors;
+          if (typeof data1 !== "string") {
+            var err = {
+              keyword: 'type',
+              dataPath: (dataPath || '') + '.alignment',
+              schemaPath: '#/properties/alignment/type',
+              params: {
+                type: 'string'
+              },
+              message: 'should be string'
+            };
+            if (vErrors === null) vErrors = [err];else vErrors.push(err);
+            errors++;
+          }
+          var schema1 = validate.schema.properties.alignment.enum;
+          var valid1;
+          valid1 = false;
+          for (var i1 = 0; i1 < schema1.length; i1++) {
+            if (equal(data1, schema1[i1])) {
+              valid1 = true;
+              break;
+            }
+          }if (!valid1) {
+            var err = {
+              keyword: 'enum',
+              dataPath: (dataPath || '') + '.alignment',
+              schemaPath: '#/properties/alignment/enum',
+              params: {
+                allowedValues: schema1
+              },
+              message: 'should be equal to one of the allowed values'
+            };
+            if (vErrors === null) vErrors = [err];else vErrors.push(err);
+            errors++;
+          }
+          var valid1 = errors === errs_1;
+        }
+        if (data.width !== undefined) {
+          var errs_1 = errors;
+          if (typeof data.width !== "number") {
+            var err = {
+              keyword: 'type',
+              dataPath: (dataPath || '') + '.width',
+              schemaPath: '#/properties/width/type',
+              params: {
+                type: 'number'
+              },
+              message: 'should be number'
+            };
+            if (vErrors === null) vErrors = [err];else vErrors.push(err);
+            errors++;
+          }
+          var valid1 = errors === errs_1;
+        }
+        if (data.wrapWord !== undefined) {
+          var errs_1 = errors;
+          if (typeof data.wrapWord !== "boolean") {
+            var err = {
+              keyword: 'type',
+              dataPath: (dataPath || '') + '.wrapWord',
+              schemaPath: '#/properties/wrapWord/type',
+              params: {
+                type: 'boolean'
+              },
+              message: 'should be boolean'
+            };
+            if (vErrors === null) vErrors = [err];else vErrors.push(err);
+            errors++;
+          }
+          var valid1 = errors === errs_1;
+        }
+        if (data.truncate !== undefined) {
+          var errs_1 = errors;
+          if (typeof data.truncate !== "number") {
+            var err = {
+              keyword: 'type',
+              dataPath: (dataPath || '') + '.truncate',
+              schemaPath: '#/properties/truncate/type',
+              params: {
+                type: 'number'
+              },
+              message: 'should be number'
+            };
+            if (vErrors === null) vErrors = [err];else vErrors.push(err);
+            errors++;
+          }
+          var valid1 = errors === errs_1;
+        }
+        if (data.paddingLeft !== undefined) {
+          var errs_1 = errors;
+          if (typeof data.paddingLeft !== "number") {
+            var err = {
+              keyword: 'type',
+              dataPath: (dataPath || '') + '.paddingLeft',
+              schemaPath: '#/properties/paddingLeft/type',
+              params: {
+                type: 'number'
+              },
+              message: 'should be number'
+            };
+            if (vErrors === null) vErrors = [err];else vErrors.push(err);
+            errors++;
+          }
+          var valid1 = errors === errs_1;
+        }
+        if (data.paddingRight !== undefined) {
+          var errs_1 = errors;
+          if (typeof data.paddingRight !== "number") {
+            var err = {
+              keyword: 'type',
+              dataPath: (dataPath || '') + '.paddingRight',
+              schemaPath: '#/properties/paddingRight/type',
+              params: {
+                type: 'number'
+              },
+              message: 'should be number'
+            };
+            if (vErrors === null) vErrors = [err];else vErrors.push(err);
+            errors++;
+          }
+          var valid1 = errors === errs_1;
+        }
+      } else {
+        var err = {
+          keyword: 'type',
+          dataPath: (dataPath || '') + "",
+          schemaPath: '#/type',
+          params: {
+            type: 'object'
+          },
+          message: 'should be object'
+        };
+        if (vErrors === null) vErrors = [err];else vErrors.push(err);
+        errors++;
+      }
+      validate.errors = vErrors;
+      return errors === 0;
+    };
+  }();
+  refVal4.schema = {
+    "type": "object",
+    "properties": {
+      "alignment": {
+        "type": "string",
+        "enum": ["left", "right", "center"]
+      },
+      "width": {
+        "type": "number"
+      },
+      "wrapWord": {
+        "type": "boolean"
+      },
+      "truncate": {
+        "type": "number"
+      },
+      "paddingLeft": {
+        "type": "number"
+      },
+      "paddingRight": {
+        "type": "number"
+      }
+    },
+    "additionalProperties": false
+  };
+  refVal4.errors = null;
+  refVal[4] = refVal4;
+  return function validate(data, dataPath, parentData, parentDataProperty, rootData) {
+    'use strict'; /*# sourceURL=config.json */
+
+    var vErrors = null;
+    var errors = 0;
+    if (rootData === undefined) rootData = data;
+    if (data && (typeof data === 'undefined' ? 'undefined' : _typeof(data)) === "object" && !Array.isArray(data)) {
+      var errs__0 = errors;
+      var valid1 = true;
+      for (var key0 in data) {
+        var isAdditional0 = !(false || key0 == 'border' || key0 == 'columns' || key0 == 'columnDefault' || key0 == 'drawHorizontalLine');
+        if (isAdditional0) {
+          valid1 = false;
+          var err = {
+            keyword: 'additionalProperties',
+            dataPath: (dataPath || '') + "",
+            schemaPath: '#/additionalProperties',
+            params: {
+              additionalProperty: '' + key0 + ''
+            },
+            message: 'should NOT have additional properties'
+          };
+          if (vErrors === null) vErrors = [err];else vErrors.push(err);
+          errors++;
+        }
+      }
+      if (data.border !== undefined) {
+        var errs_1 = errors;
+        if (!refVal1(data.border, (dataPath || '') + '.border', data, 'border', rootData)) {
+          if (vErrors === null) vErrors = refVal1.errors;else vErrors = vErrors.concat(refVal1.errors);
+          errors = vErrors.length;
+        }
+        var valid1 = errors === errs_1;
+      }
+      if (data.columns !== undefined) {
+        var errs_1 = errors;
+        if (!refVal3(data.columns, (dataPath || '') + '.columns', data, 'columns', rootData)) {
+          if (vErrors === null) vErrors = refVal3.errors;else vErrors = vErrors.concat(refVal3.errors);
+          errors = vErrors.length;
+        }
+        var valid1 = errors === errs_1;
+      }
+      if (data.columnDefault !== undefined) {
+        var errs_1 = errors;
+        if (!refVal[4](data.columnDefault, (dataPath || '') + '.columnDefault', data, 'columnDefault', rootData)) {
+          if (vErrors === null) vErrors = refVal[4].errors;else vErrors = vErrors.concat(refVal[4].errors);
+          errors = vErrors.length;
+        }
+        var valid1 = errors === errs_1;
+      }
+      if (data.drawHorizontalLine !== undefined) {
+        var errs_1 = errors;
+        var errs__1 = errors;
+        var valid1;
+        valid1 = typeof data.drawHorizontalLine == "function";
+        if (!valid1) {
+          if (errs__1 == errors) {
+            var err = {
+              keyword: 'typeof',
+              dataPath: (dataPath || '') + '.drawHorizontalLine',
+              schemaPath: '#/properties/drawHorizontalLine/typeof',
+              params: {
+                keyword: 'typeof'
+              },
+              message: 'should pass "typeof" keyword validation'
+            };
+            if (vErrors === null) vErrors = [err];else vErrors.push(err);
+            errors++;
+          } else {
+            for (var i1 = errs__1; i1 < errors; i1++) {
+              var ruleErr1 = vErrors[i1];
+              if (ruleErr1.dataPath === undefined) ruleErr1.dataPath = (dataPath || '') + '.drawHorizontalLine';
+              if (ruleErr1.schemaPath === undefined) {
+                ruleErr1.schemaPath = "#/properties/drawHorizontalLine/typeof";
+              }
+            }
+          }
+        }
+        var valid1 = errors === errs_1;
+      }
+    } else {
+      var err = {
+        keyword: 'type',
+        dataPath: (dataPath || '') + "",
+        schemaPath: '#/type',
+        params: {
+          type: 'object'
+        },
+        message: 'should be object'
+      };
+      if (vErrors === null) vErrors = [err];else vErrors.push(err);
+      errors++;
+    }
+    validate.errors = vErrors;
+    return errors === 0;
+  };
+}();
+validate.schema = {
+  "$id": "config.json",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "border": {
+      "$ref": "#/definitions/borders"
+    },
+    "columns": {
+      "$ref": "#/definitions/columns"
+    },
+    "columnDefault": {
+      "$ref": "#/definitions/column"
+    },
+    "drawHorizontalLine": {
+      "typeof": "function"
+    }
+  },
+  "additionalProperties": false,
+  "definitions": {
+    "columns": {
+      "type": "object",
+      "patternProperties": {
+        "^[0-9]+$": {
+          "$ref": "#/definitions/column"
+        }
+      },
+      "additionalProperties": false
+    },
+    "column": {
+      "type": "object",
+      "properties": {
+        "alignment": {
+          "type": "string",
+          "enum": ["left", "right", "center"]
+        },
+        "width": {
+          "type": "number"
+        },
+        "wrapWord": {
+          "type": "boolean"
+        },
+        "truncate": {
+          "type": "number"
+        },
+        "paddingLeft": {
+          "type": "number"
+        },
+        "paddingRight": {
+          "type": "number"
+        }
+      },
+      "additionalProperties": false
+    },
+    "borders": {
+      "type": "object",
+      "properties": {
+        "topBody": {
+          "$ref": "#/definitions/border"
+        },
+        "topJoin": {
+          "$ref": "#/definitions/border"
+        },
+        "topLeft": {
+          "$ref": "#/definitions/border"
+        },
+        "topRight": {
+          "$ref": "#/definitions/border"
+        },
+        "bottomBody": {
+          "$ref": "#/definitions/border"
+        },
+        "bottomJoin": {
+          "$ref": "#/definitions/border"
+        },
+        "bottomLeft": {
+          "$ref": "#/definitions/border"
+        },
+        "bottomRight": {
+          "$ref": "#/definitions/border"
+        },
+        "bodyLeft": {
+          "$ref": "#/definitions/border"
+        },
+        "bodyRight": {
+          "$ref": "#/definitions/border"
+        },
+        "bodyJoin": {
+          "$ref": "#/definitions/border"
+        },
+        "joinBody": {
+          "$ref": "#/definitions/border"
+        },
+        "joinLeft": {
+          "$ref": "#/definitions/border"
+        },
+        "joinRight": {
+          "$ref": "#/definitions/border"
+        },
+        "joinJoin": {
+          "$ref": "#/definitions/border"
+        }
+      },
+      "additionalProperties": false
+    },
+    "border": {
+      "type": "string"
+    }
+  }
+};
+validate.errors = null;
+module.exports = validate;
+
+/***/ }),
+
+/***/ "./node_modules/table/dist/validateTableData.js":
+/*!******************************************************!*\
+  !*** ./node_modules/table/dist/validateTableData.js ***!
+  \******************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+/**
+ * @typedef {string} cell
+ */
+
+/**
+ * @typedef {cell[]} validateData~column
+ */
+
+/**
+ * @param {column[]} rows
+ * @returns {undefined}
+ */
+var validateTableData = function validateTableData(rows) {
+  if (!Array.isArray(rows)) {
+    throw new TypeError('Table data must be an array.');
+  }
+
+  if (rows.length === 0) {
+    throw new Error('Table must define at least one row.');
+  }
+
+  if (rows[0].length === 0) {
+    throw new Error('Table must define at least one column.');
+  }
+
+  var columnNumber = rows[0].length;
+  var _iteratorNormalCompletion = true;
+  var _didIteratorError = false;
+  var _iteratorError = undefined;
+
+  try {
+    for (var _iterator = rows[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+      var cells = _step.value;
+
+      if (!Array.isArray(cells)) {
+        throw new TypeError('Table row data must be an array.');
+      }
+
+      if (cells.length !== columnNumber) {
+        throw new Error('Table must have a consistent number of cells.');
+      }
+
+      var _iteratorNormalCompletion2 = true;
+      var _didIteratorError2 = false;
+      var _iteratorError2 = undefined;
+
+      try {
+        for (var _iterator2 = cells[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
+          var cell = _step2.value;
+
+          // eslint-disable-next-line no-control-regex
+          if (/[\u0001-\u0009\u000B-\u001A]/.test(cell)) {
+            throw new Error('Table data must not contain control characters.');
+          }
+        }
+      } catch (err) {
+        _didIteratorError2 = true;
+        _iteratorError2 = err;
+      } finally {
+        try {
+          if (!_iteratorNormalCompletion2 && _iterator2.return != null) {
+            _iterator2.return();
+          }
+        } finally {
+          if (_didIteratorError2) {
+            throw _iteratorError2;
+          }
+        }
+      }
+    }
+  } catch (err) {
+    _didIteratorError = true;
+    _iteratorError = err;
+  } finally {
+    try {
+      if (!_iteratorNormalCompletion && _iterator.return != null) {
+        _iterator.return();
+      }
+    } finally {
+      if (_didIteratorError) {
+        throw _iteratorError;
+      }
+    }
+  }
+};
+
+var _default = validateTableData;
+exports.default = _default;
+//# sourceMappingURL=validateTableData.js.map
+
+/***/ }),
+
+/***/ "./node_modules/table/dist/wrapCell.js":
+/*!*********************************************!*\
+  !*** ./node_modules/table/dist/wrapCell.js ***!
+  \*********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _wrapString = _interopRequireDefault(__webpack_require__(/*! ./wrapString */ "./node_modules/table/dist/wrapString.js"));
+
+var _wrapWord = _interopRequireDefault(__webpack_require__(/*! ./wrapWord */ "./node_modules/table/dist/wrapWord.js"));
+
+function _interopRequireDefault(obj) {
+  return obj && obj.__esModule ? obj : { default: obj };
+}
+
+/**
+ * Wrap a single cell value into a list of lines
+ *
+ * Always wraps on newlines, for the remainder uses either word or string wrapping
+ * depending on user configuration.
+ *
+ * @param {string} cellValue
+ * @param {number} columnWidth
+ * @param {boolean} useWrapWord
+ * @returns {Array}
+ */
+var wrapCell = function wrapCell(cellValue, columnWidth, useWrapWord) {
+  // First split on literal newlines
+  var cellLines = cellValue.split('\n'); // Then iterate over the list and word-wrap every remaining line if necessary.
+
+  for (var lineNr = 0; lineNr < cellLines.length;) {
+    var lineChunks = void 0;
+
+    if (useWrapWord) {
+      lineChunks = (0, _wrapWord.default)(cellLines[lineNr], columnWidth);
+    } else {
+      lineChunks = (0, _wrapString.default)(cellLines[lineNr], columnWidth);
+    } // Replace our original array element with whatever the wrapping returned
+
+
+    cellLines.splice.apply(cellLines, [lineNr, 1].concat(_toConsumableArray(lineChunks)));
+    lineNr += lineChunks.length;
+  }
+
+  return cellLines;
+};
+
+var _default = wrapCell;
+exports.default = _default;
+//# sourceMappingURL=wrapCell.js.map
+
+/***/ }),
+
+/***/ "./node_modules/table/dist/wrapString.js":
+/*!***********************************************!*\
+  !*** ./node_modules/table/dist/wrapString.js ***!
+  \***********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _sliceAnsi = _interopRequireDefault(__webpack_require__(/*! slice-ansi */ "./node_modules/slice-ansi/index.js"));
+
+var _stringWidth = _interopRequireDefault(__webpack_require__(/*! string-width */ "./node_modules/string-width/index.js"));
+
+function _interopRequireDefault(obj) {
+  return obj && obj.__esModule ? obj : { default: obj };
+}
+
+/**
+ * Creates an array of strings split into groups the length of size.
+ * This function works with strings that contain ASCII characters.
+ *
+ * wrapText is different from would-be "chunk" implementation
+ * in that whitespace characters that occur on a chunk size limit are trimmed.
+ *
+ * @param {string} subject
+ * @param {number} size
+ * @returns {Array}
+ */
+var wrapString = function wrapString(subject, size) {
+  var subjectSlice = void 0;
+  subjectSlice = subject;
+  var chunks = [];
+
+  do {
+    chunks.push((0, _sliceAnsi.default)(subjectSlice, 0, size));
+    subjectSlice = (0, _sliceAnsi.default)(subjectSlice, size).trim();
+  } while ((0, _stringWidth.default)(subjectSlice));
+
+  return chunks;
+};
+
+var _default = wrapString;
+exports.default = _default;
+//# sourceMappingURL=wrapString.js.map
+
+/***/ }),
+
+/***/ "./node_modules/table/dist/wrapWord.js":
+/*!*********************************************!*\
+  !*** ./node_modules/table/dist/wrapWord.js ***!
+  \*********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _sliceAnsi = _interopRequireDefault(__webpack_require__(/*! slice-ansi */ "./node_modules/slice-ansi/index.js"));
+
+var _stringWidth = _interopRequireDefault(__webpack_require__(/*! string-width */ "./node_modules/string-width/index.js"));
+
+function _interopRequireDefault(obj) {
+  return obj && obj.__esModule ? obj : { default: obj };
+}
+
+/**
+ * @param {string} input
+ * @param {number} size
+ * @returns {Array}
+ */
+var wrapWord = function wrapWord(input, size) {
+  var subject = void 0;
+  subject = input;
+  var chunks = []; // https://regex101.com/r/gY5kZ1/1
+
+  var re = new RegExp('(^.{1,' + size + '}(\\s+|$))|(^.{1,' + (size - 1) + '}(\\\\|/|_|\\.|,|;|-))');
+
+  do {
+    var chunk = void 0;
+    chunk = subject.match(re);
+
+    if (chunk) {
+      chunk = chunk[0];
+      subject = (0, _sliceAnsi.default)(subject, (0, _stringWidth.default)(chunk));
+      chunk = chunk.trim();
+    } else {
+      chunk = (0, _sliceAnsi.default)(subject, 0, size);
+      subject = (0, _sliceAnsi.default)(subject, size);
+    }
+
+    chunks.push(chunk);
+  } while ((0, _stringWidth.default)(subject));
+
+  return chunks;
+};
+
+var _default = wrapWord;
+exports.default = _default;
+//# sourceMappingURL=wrapWord.js.map
 
 /***/ }),
 
@@ -58103,7 +60635,7 @@ exports.XMLReader = XMLReader;
 /*! exports provided: name, version, description, main, bin, author, license, bugs, homepage, repository, devDependencies, jest, dependencies, resolutions, husky, scripts, default */
 /***/ (function(module) {
 
-module.exports = {"name":"opennms","version":"1.4.1-SNAPSHOT","description":"Client API for the OpenNMS network monitoring platform","main":"dist/opennms.js","bin":{"opennms":"dist/cli.node.js"},"author":"Benjamin Reed","license":"MIT","bugs":{"url":"https://github.com/OpenNMS/opennms-js/issues"},"homepage":"https://github.com/OpenNMS/opennms-js","repository":{"type":"git","url":"https://github.com/OpenNMS/opennms-js.git"},"devDependencies":{"@types/jest":"^22.2.3","@types/lodash":"^4.14.104","@types/node":"^9.4.6","@types/urijs":"^1.15.36","babel-cli":"^6.26.0","babel-jest":"^23.6.0","babel-loader":"^7.1.4","babel-plugin-syntax-async-functions":"^6.13.0","babel-plugin-transform-class-properties":"^6.24.1","babel-plugin-transform-es2015-destructuring":"^6.23.0","babel-plugin-transform-es2015-for-of":"^6.23.0","babel-plugin-transform-es2015-modules-commonjs":"^6.26.0","babel-plugin-transform-object-rest-spread":"^6.26.0","babel-plugin-transform-regenerator":"^6.26.0","babel-plugin-transform-runtime":"^6.23.0","babel-polyfill":"^6.26.0","babel-preset-env":"^1.6.1","babel-preset-es2015":"^6.24.1","babel-preset-latest":"^6.24.1","cache-loader":"^1.2.2","chai":"^4.1.2","child_process":"^1.0.2","conventional-changelog-lint":"^2.1.1","husky":"^1.3.1","jest":"^23.6.0","jest-environment-node-debug":"^2.0.0","lodash":"^4.17.11","parallel-webpack":"^2.3.0","regenerator-runtime":"^0.11.1","standard-changelog":"^1.0.13","ts-jest":"^23.10.5","ts-loader":"^4.0.1","ts-node":"^5.0.1","tslint":"^5.9.1","tslint-loader":"https://github.com/wbuchwalter/tslint-loader.git#093230076f3b453c4f8b7aa2ee074932aa109e84","typedoc":"^0.11.0","typedoc-plugin-external-module-name":"^1.1.1","typedoc-webpack-plugin":"^1.1.4","typescript":"^2.7.0","uglifyjs-webpack-plugin":"^1.2.2","urijs":"^1.19.1","webpack":"^4.1.1","webpack-cli":"^2.0.10","webpack-closure-compiler":"^2.1.6","yargs":"^11.0.0","yarn":"^1.7.0"},"jest":{"verbose":true,"transform":{"^.+\\.tsx?$":"ts-jest"},"moduleFileExtensions":["ts","tsx","js","json"],"testRegex":"(/__tests__/.*|\\.(test|spec))\\.(ts|tsx|js)$"},"dependencies":{"axios":"^0.16.1","cli-table3":"^0.5.0","commander":"^2.9.0","fs":"^0.0.1-security","ip-address":"^5.8.8","lodash.startcase":"^4.4.0","moment":"^2.19.3","qs":"^6.5.0","typescript-logging":"^0.3.1","version_compare":"^0.0.3","x2js":"^3.1.1","xmldom":"^0.1.27"},"resolutions":{"atob":"^2.1.2","babel-plugin-istanbul":"^4.1.6","babel-traverse":"^6.26.0","exec-sh":"^0.3.2","chokidar":"^2.1.4","deep-extend":"^0.6.0","follow-redirects":"^1.7.0","handlebars":"^4.1.1","istanbul-lib-source-maps":"^1.2.6","jest-config":"^23.6.0","js-yaml":"^3.13.0","lodash":"^4.17.11","micromatch":"^3.1.10","request":"^2.88.0","sane":"^2.5.2","sshpk":"^1.16.1","typescript":"^2.x"},"husky":{"hooks":{"pre-commit":"jest","pre-push":"conventional-changelog-lint --from=origin/master && yarn --ignore-engines lint"}},"scripts":{"changelog":"standard-changelog -i CHANGELOG.md -s -r 1","build":"webpack --define process.env.NODE_ENV=production --env production","dev":"webpack --progress --colors","dist":"yarn --ignore-engines lint && yarn --ignore-engines test && yarn --ignore-engines build","docs":"webpack --env docs","watch":"webpack --progress --colors --watch","test":"jest","watch-test":"jest --watch","lint":"tslint 'src/**/*.ts'","cli":"ts-node src/CLI.ts","docker-build":"yarn --ignore-engines && yarn --ignore-engines lint && yarn --ignore-engines test && yarn --ignore-engines  build && yarn --ignore-engines changelog && ./fix-ownership.sh","docker":"docker run --rm --name opennms-js -v `pwd`:/build -w /build node:carbon yarn --ignore-engines docker-build"}};
+module.exports = {"name":"opennms","version":"1.4.1-SNAPSHOT","description":"Client API for the OpenNMS network monitoring platform","main":"dist/opennms.js","bin":{"opennms":"dist/cli.node.js"},"author":"Benjamin Reed","license":"MIT","bugs":{"url":"https://github.com/OpenNMS/opennms-js/issues"},"homepage":"https://github.com/OpenNMS/opennms-js","repository":{"type":"git","url":"https://github.com/OpenNMS/opennms-js.git"},"devDependencies":{"@types/jest":"^22.2.3","@types/lodash":"^4.14.104","@types/node":"^9.4.6","@types/urijs":"^1.15.36","babel-cli":"^6.26.0","babel-jest":"^23.6.0","babel-loader":"^7.1.4","babel-plugin-syntax-async-functions":"^6.13.0","babel-plugin-transform-class-properties":"^6.24.1","babel-plugin-transform-es2015-destructuring":"^6.23.0","babel-plugin-transform-es2015-for-of":"^6.23.0","babel-plugin-transform-es2015-modules-commonjs":"^6.26.0","babel-plugin-transform-object-rest-spread":"^6.26.0","babel-plugin-transform-regenerator":"^6.26.0","babel-plugin-transform-runtime":"^6.23.0","babel-polyfill":"^6.26.0","babel-preset-env":"^1.6.1","babel-preset-es2015":"^6.24.1","babel-preset-latest":"^6.24.1","cache-loader":"^1.2.2","chai":"^4.1.2","child_process":"^1.0.2","conventional-changelog-lint":"^2.1.1","husky":"^1.3.1","jest":"^23.6.0","jest-environment-node-debug":"^2.0.0","parallel-webpack":"^2.3.0","regenerator-runtime":"^0.11.1","standard-changelog":"^1.0.13","ts-jest":"^23.10.5","ts-loader":"^4.0.1","ts-node":"^5.0.1","tslint":"^5.9.1","tslint-loader":"https://github.com/wbuchwalter/tslint-loader.git#093230076f3b453c4f8b7aa2ee074932aa109e84","typedoc":"^0.11.0","typedoc-plugin-external-module-name":"^1.1.1","typedoc-webpack-plugin":"^1.1.4","typescript":"^2.7.0","uglifyjs-webpack-plugin":"^1.2.2","urijs":"^1.19.1","webpack":"^4.1.1","webpack-cli":"^2.0.10","webpack-closure-compiler":"^2.1.6","yargs":"^11.0.0","yarn":"^1.7.0"},"jest":{"verbose":true,"transform":{"^.+\\.tsx?$":"ts-jest"},"moduleFileExtensions":["ts","tsx","js","json"],"testRegex":"(/__tests__/.*|\\.(test|spec))\\.(ts|tsx|js)$"},"dependencies":{"axios":"^0.16.1","chalk":"^2.4.2","cli-table3":"^0.5.0","commander":"^2.9.0","fs":"^0.0.1-security","html-to-formatted-text":"^2.6.0","ip-address":"^5.8.8","lodash":"^4.17.11","moment":"^2.19.3","qs":"^6.5.0","table":"^5.2.3","typescript-logging":"^0.3.1","version_compare":"^0.0.3","x2js":"^3.1.1","xmldom":"^0.1.27"},"resolutions":{"atob":"^2.1.2","babel-plugin-istanbul":"^4.1.6","babel-traverse":"^6.26.0","exec-sh":"^0.3.2","chokidar":"^2.1.4","deep-extend":"^0.6.0","follow-redirects":"^1.7.0","handlebars":"^4.1.1","istanbul-lib-source-maps":"^1.2.6","jest-config":"^23.6.0","js-yaml":"^3.13.0","lodash":"^4.17.11","micromatch":"^3.1.10","request":"^2.88.0","sane":"^2.5.2","sshpk":"^1.16.1","typescript":"^2.x"},"husky":{"hooks":{"pre-commit":"jest","pre-push":"conventional-changelog-lint --from=origin/master && yarn --ignore-engines lint"}},"scripts":{"changelog":"standard-changelog -i CHANGELOG.md -s -r 1","build":"webpack --define process.env.NODE_ENV=production --env production","dev":"webpack --progress --colors","dist":"yarn --ignore-engines lint && yarn --ignore-engines test && yarn --ignore-engines build","docs":"webpack --env docs","watch":"webpack --progress --colors --watch","test":"jest","watch-test":"jest --watch","lint":"tslint 'src/**/*.ts'","cli":"ts-node src/CLI.ts","docker-build":"yarn --ignore-engines && yarn --ignore-engines lint && yarn --ignore-engines test && yarn --ignore-engines  build && yarn --ignore-engines changelog && ./fix-ownership.sh","docker":"docker run --rm --name opennms-js -v `pwd`:/build -w /build node:carbon yarn --ignore-engines docker-build"}};
 
 /***/ }),
 
@@ -58271,49 +60803,33 @@ exports.Rest = Rest;
 function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var startCase = __webpack_require__(/*! lodash.startcase */ "./node_modules/lodash.startcase/index.js");
 var API_1 = __webpack_require__(/*! ./API */ "./src/API.ts");
 var Log_1 = __webpack_require__(/*! ./api/Log */ "./src/api/Log.ts");
 var typescript_logging_1 = __webpack_require__(/*! typescript-logging */ "./node_modules/typescript-logging/dist/commonjs/typescript-logging.js");
+var chalk_1 = __webpack_require__(/*! chalk */ "./node_modules/chalk/index.js");
+var lodash_1 = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
+var table_1 = __webpack_require__(/*! table */ "./node_modules/table/dist/index.js");
 /** @hidden */
 var CLI = function CLI() {
     var version = "1.4.1-SNAPSHOT" || __webpack_require__(/*! ../package.json */ "./package.json").version || 'unknown';
     var catCLI = new typescript_logging_1.Category('cli', Log_1.catRoot);
     // tslint:disable
-    var Table = __webpack_require__(/*! cli-table3 */ "./node_modules/cli-table3/index.js");
-    var colors = __webpack_require__(/*! colors */ "./node_modules/colors/lib/index.js");
     var fs = __webpack_require__(/*! fs */ "fs");
+    var htmlToFormattedText = __webpack_require__(/*! html-to-formatted-text */ "./node_modules/html-to-formatted-text/dist/index.js");
     var path = __webpack_require__(/*! path */ "path");
     var program = __webpack_require__(/*! commander */ "./node_modules/commander/index.js");
     // tslint:enable
     var homedir = process.env[process.platform === 'win32' ? 'USERPROFILE' : 'HOME'];
     var defaultConfigFile = path.join(homedir, '.opennms-cli.config.json');
-    var tableFormat = {
-        /* tslint:disable:object-literal-sort-keys */
-        head: [],
-        colWidths: [],
-        chars: {
-            'middle': '  ',
-            'top': '',
-            'top-mid': '',
-            'top-left': '',
-            'top-right': '',
-            'left': '',
-            'left-mid': '',
-            'mid': '',
-            'mid-mid': '',
-            'right': '',
-            'right-mid': '',
-            'bottom': '',
-            'bottom-mid': '',
-            'bottom-left': '',
-            'bottom-right': ''
+    var tableConfig = {
+        border: table_1.getBorderCharacters("void"),
+        columnDefault: {
+            paddingLeft: 0,
+            paddingRight: 2
         },
-        style: {
-            'padding-left': 0,
-            'padding-right': 0
-        },
-        wordWrap: true
+        drawHorizontalLine: function drawHorizontalLine() {
+            return false;
+        }
     };
     var readConfig = function readConfig() {
         var configfile = program.config || defaultConfigFile;
@@ -58355,7 +60871,7 @@ var CLI = function CLI() {
     });
     // connect (validate server and save config)
     program.command('connect [url]').description('Connect to an OpenNMS Horizon or Meridian server').option('-u, --username <username>', 'The username to authenticate as (default: admin)').option('-p, --password <password>', 'The password to authenticate with (default: admin)').action(function (url, options) {
-        console.log(colors.red('WARNING: This command saves your login' + ' information to ~/.opennms-cli.config.json in clear text.'));
+        console.log(chalk_1.default.red('WARNING: This command saves your login' + ' information to ~/.opennms-cli.config.json in clear text.'));
         var config = readConfig();
         if (url) {
             // the user is passing a URL, reset the config
@@ -58373,7 +60889,7 @@ var CLI = function CLI() {
         var server = new API_1.API.OnmsServer('OpenNMS', config.url, auth);
         var http = new API_1.Rest.AxiosHTTP(server);
         return API_1.Client.checkServer(server, http).then(function () {
-            console.log(colors.green('Connection succeeded.'));
+            console.log(chalk_1.default.green('Connection succeeded.'));
             if (!program.config) {
                 Log_1.log.debug('Saving configuration to ' + defaultConfigFile, catCLI);
                 fs.writeFileSync(defaultConfigFile, JSON.stringify(config, undefined, 2), { mode: 384 });
@@ -58390,23 +60906,23 @@ var CLI = function CLI() {
         var server = new API_1.API.OnmsServer('OpenNMS', config.url, auth);
         var http = new API_1.Rest.AxiosHTTP(server);
         return API_1.Client.getMetadata(server, http).then(function (res) {
-            var c = colors.green;
+            var c = chalk_1.default.green;
             if (res.type === API_1.API.ServerTypes.MERIDIAN) {
-                console.log(colors.blue('OpenNMS Meridian ' + res.version.displayVersion + ' Capabilities:'));
-                c = colors.blue;
+                console.log(chalk_1.default.blue('OpenNMS Meridian ' + res.version.displayVersion + ' Capabilities:'));
+                c = chalk_1.default.blue;
             } else {
-                console.log(colors.green('OpenNMS Horizon ' + res.version.displayVersion + ' Capabilities:'));
+                console.log(chalk_1.default.green('OpenNMS Horizon ' + res.version.displayVersion + ' Capabilities:'));
             }
             console.log('');
+            var data = [];
             var caps = res.capabilities();
-            var t = new Table(tableFormat);
             for (var cap in caps) {
                 if (cap === 'type') {
                     continue;
                 }
-                t.push([startCase(cap) + ':', caps[cap]]);
+                data.push([chalk_1.default.bold(lodash_1.startCase(cap) + ':'), caps[cap]]);
             }
-            console.log(t.toString());
+            console.log(table_1.table(data, tableConfig));
             console.log('');
             return res;
         }).catch(function (err) {
@@ -58417,19 +60933,19 @@ var CLI = function CLI() {
     var colorify = function colorify(severity) {
         switch (severity) {
             case 'INDETERMINATE':
-                return colors.grey(severity);
+                return chalk_1.default.grey(severity);
             case 'CLEARED':
-                return colors.white(severity);
+                return chalk_1.default.white(severity);
             case 'NORMAL':
-                return colors.green(severity);
+                return chalk_1.default.green(severity);
             case 'WARNING':
-                return colors.magenta(severity);
+                return chalk_1.default.magenta(severity);
             case 'MINOR':
-                return colors.yellow(severity);
+                return chalk_1.default.yellow(severity);
             case 'MAJOR':
-                return colors.bold.yellow(severity);
+                return chalk_1.default.bold.yellow(severity);
             case 'CRITICAL':
-                return colors.bold.red(severity);
+                return chalk_1.default.bold.red(severity);
             default:
                 return severity;
         }
@@ -58441,13 +60957,13 @@ var CLI = function CLI() {
         var m = Math.max.apply(Math, _toConsumableArray(filtered));
         return Math.min(m, max);
     };
-    var logMessageLength = 50;
     var formatAlarms = function formatAlarms(alarms) {
         return alarms.map(function (alarm) {
             var severityLabel = alarm.severity && alarm.severity.label ? alarm.severity.label : '';
             var logMessage = '';
             if (alarm.logMessage) {
-                logMessage = alarm.logMessage.replace('[\r\n].*$', '').replace('<p>', '').replace('</p>', '').trim();
+                logMessage = alarm.logMessage.replace(new RegExp('[\r\n]+', 'gs'), ' ').replace(new RegExp('\s+', 'gs'), ' ').trim();
+                logMessage = htmlToFormattedText(logMessage);
             }
             return {
                 count: alarm.count,
@@ -58502,17 +61018,36 @@ var CLI = function CLI() {
                     console.log('');
                     return;
                 }
-                var format = Object.assign({}, tableFormat);
                 var formatted = formatAlarms(alarms);
-                format.head = ['ID', 'Severity', 'Node', 'Count', 'Time', 'Log'];
-                format.colWidths = [3, 8, getMaxWidth(formatted, 'node', 30), 5, 17];
-                var existingWidths = format.colWidths.reduce(function (acc, val) {
+                var alarmTableConfig = lodash_1.cloneDeep(tableConfig);
+                alarmTableConfig.columns = {};
+                var data = [['ID', 'Severity', 'Node', 'Count', 'Time', 'Log'].map(function (header) {
+                    return chalk_1.default.bold(header);
+                })];
+                var colWidths = [
+                /* id */
+                getMaxWidth(formatted, 'id', 10),
+                /* severity */
+                8,
+                /* node */
+                getMaxWidth(formatted, 'node', 30),
+                /* count */
+                5,
+                /* time */
+                16];
+                var existingWidths = colWidths.reduce(function (acc, val) {
                     return acc + val;
                 });
-                var spacers = format.colWidths.length * 2;
-                var remainder = process.stdout.columns - existingWidths - spacers;
-                format.colWidths.push(remainder);
-                var t = new Table(format);
+                var spacers = (colWidths.length + 1) * 2;
+                var remainder = (process.stdout.columns || 200) - existingWidths - spacers;
+                /* log */
+                colWidths.push(remainder);
+                colWidths.forEach(function (width, index) {
+                    alarmTableConfig.columns[index] = {
+                        width: width
+                    };
+                });
+                alarmTableConfig.columns[5].wrapWord = true;
                 var _iteratorNormalCompletion2 = true;
                 var _didIteratorError2 = false;
                 var _iteratorError2 = undefined;
@@ -58521,7 +61056,7 @@ var CLI = function CLI() {
                     for (var _iterator2 = formatted[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
                         var alarm = _step2.value;
 
-                        t.push([alarm.id, alarm.severity, alarm.node, alarm.count, alarm.time, alarm.log]);
+                        data.push([alarm.id, alarm.severity, alarm.node, alarm.count, alarm.time, alarm.log]);
                     }
                 } catch (err) {
                     _didIteratorError2 = true;
@@ -58538,7 +61073,7 @@ var CLI = function CLI() {
                     }
                 }
 
-                console.log(t.toString());
+                console.log(table_1.table(data, alarmTableConfig));
                 console.log('');
             });
         }).catch(function (err) {
@@ -66837,6 +69372,17 @@ module.exports = require("https");
 /***/ (function(module, exports) {
 
 module.exports = require("net");
+
+/***/ }),
+
+/***/ "os":
+/*!*********************!*\
+  !*** external "os" ***!
+  \*********************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = require("os");
 
 /***/ }),
 
