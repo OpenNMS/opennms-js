@@ -103,7 +103,7 @@ export class ServerMetadata {
   /** Does this version support the drift 2.0 flows enhancements? */
   public enhancedFlows() {
     if (this.type && this.type === ServerTypes.MERIDIAN) {
-      return this.version.ge('2020.0.0');
+      return this.version.ge('2019.0.0');
     } else {
       return this.version.ge('25.0.0');
     }
