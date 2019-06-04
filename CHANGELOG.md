@@ -1,10 +1,11 @@
 <a name="1.4.1"></a>
-## [1.4.1](https://github.com/OpenNMS/opennms-js/compare/v1.4.0...v1.4.1) (2019-05-15)
+## [1.4.1](https://github.com/OpenNMS/opennms-js/compare/v1.4.0...v1.4.1) (2019-06-04)
 
 
 ### Bug Fixes
 
 * **cli:** fix broken table formatting in prod cli build (JS-33) ([db50724](https://github.com/OpenNMS/opennms-js/commit/db50724))
+* **security:** upgrade to Axios 0.19.0 ([a731c60](https://github.com/OpenNMS/opennms-js/commit/a731c60))
 
 
 
