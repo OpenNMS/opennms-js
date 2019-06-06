@@ -133,7 +133,7 @@ export class FlowDAO extends BaseDAO {
     }
 
     /**
-     * Summarize the top N applications/protocols based on parameters.
+     * Summarize the given applications/protocols based on parameters.
      * @param applications - the applications to include
      * @param start - the start of the timespan to query (defaults to 4 hours ago)
      * @param end - the end of the timespan to query (defaults to now)
@@ -229,24 +229,27 @@ export class FlowDAO extends BaseDAO {
 
     /**
      * Summarize the top N conversations based on parameters.
-     * @param N - how many conversations to return
+     * @param NOptions - how many conversations to return or an object that also includes whether or not to include
+     * other
      * @param start - the start of the timespan to query (defaults to 4 hours ago)
      * @param end - the end of the timespan to query (defaults to now)
-     * @param includeOther - include an additional "other" result that
-     *                       represents everything that does not match the top N
      * @param exporterNodeCriteria - the node ID or foreignSource:foreignId tuple
      * @param ifIndex - filter for flows that came through this SNMP interface
      */
-    public async getSummaryForTopNConversations(N?: number, start?: number, end?: number,
-                                                includeOther?: boolean, exporterNodeCriteria?: string,
+    public async getSummaryForTopNConversations(NOptions?: number | ITopNOptions, start?: number, end?: number,
+                                                exporterNodeCriteria?: string,
                                                 ifIndex?: number): Promise<OnmsFlowTable> {
         return FlowDAO.getOptions().then((opts) => {
-            opts.withParameter('N', N)
-                .withParameter('start', start)
+            if (typeof NOptions === 'number') {
+                opts.withParameter('N', NOptions);
+            } else if (NOptions) {
+                opts.withParameter('N', NOptions.N);
+                opts.withParameter('includeOther', NOptions.includeOther);
+            }
+            opts.withParameter('start', start)
                 .withParameter('end', end)
                 .withParameter('exporterNode', exporterNodeCriteria)
-                .withParameter('ifIndex', ifIndex)
-                .withParameter('includeOther', includeOther);
+                .withParameter('ifIndex', ifIndex);
             return this.http.get(this.pathToFlowsEndpoint() + '/conversations', opts).then((result) => {
                 return this.tableFromData(result.data);
             });
@@ -286,26 +289,29 @@ export class FlowDAO extends BaseDAO {
 
     /**
      * Get time series data for the top N conversations based on parameters.
-     * @param N - how many conversations' series to return
+     * @param NOptions - how many conversations to return or an object that also includes whether or not to include
+     * other
      * @param start - the start of the timespan to query (defaults to 4 hours ago)
      * @param end - the end of the timespan to query (defaults to now)
      * @param step - the requested time interval between rows
-     * @param includeOther - include an additional "other" result that
-     *                       represents everything that does not match the top N
      * @param exporterNodeCriteria - the node ID or foreignSource:foreignId tuple
      * @param ifIndex - filter for flows that came through this SNMP interface
      */
-    public async getSeriesForTopNConversations(N?: number, start?: number, end?: number,
-                                               step?: number, includeOther?: boolean, exporterNodeCriteria?: string,
+    public async getSeriesForTopNConversations(NOptions?: number | ITopNOptions, start?: number, end?: number,
+                                               step?: number, exporterNodeCriteria?: string,
                                                ifIndex?: number): Promise<OnmsFlowSeries> {
         return FlowDAO.getOptions().then((opts) => {
-            opts.withParameter('N', N)
-                .withParameter('start', start)
+            if (typeof NOptions === 'number') {
+                opts.withParameter('N', NOptions);
+            } else if (NOptions) {
+                opts.withParameter('N', NOptions.N);
+                opts.withParameter('includeOther', NOptions.includeOther);
+            }
+            opts.withParameter('start', start)
                 .withParameter('end', end)
                 .withParameter('step', step)
                 .withParameter('exporterNode', exporterNodeCriteria)
-                .withParameter('ifIndex', ifIndex)
-                .withParameter('includeOther', includeOther);
+                .withParameter('ifIndex', ifIndex);
             return this.http.get(this.pathToFlowsEndpoint() + '/conversations/series', opts).then((result) => {
                 return this.seriesFromData(result.data);
             });
@@ -597,4 +603,9 @@ export class FlowDAO extends BaseDAO {
             throw new OnmsError('Enhanced flow API is not supported by this version of OpenNMS.');
         }
     }
+}
+
+export interface ITopNOptions {
+    N: number;
+    includeOther: boolean;
 }
