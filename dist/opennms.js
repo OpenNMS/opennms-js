@@ -53820,7 +53820,21 @@ var OnmsHTTPOptions = function () {
          */
         value: function withParameter(key, value) {
             if (value !== undefined) {
-                this.parameters[key] = '' + value;
+                // Since parameters can be repeated an arbitrary number of times we will store them in an array in the map
+                // as soon as the occurrence of a given key is > 1
+                if (this.parameters[key]) {
+                    var currentValue = this.parameters[key];
+                    if (Array.isArray(currentValue)) {
+                        currentValue.push('' + value);
+                    } else {
+                        var newArrayValue = [];
+                        newArrayValue.push(currentValue);
+                        newArrayValue.push(value);
+                        this.parameters[key] = newArrayValue;
+                    }
+                } else {
+                    this.parameters[key] = '' + value;
+                }
             }
             return this;
         }
@@ -54663,7 +54677,18 @@ var ServerMetadata = function () {
                 return this.version.ge('20.1.0') ? 2 : 1;
             }
         }
-        /** Returs a convenient data structure with all capabilities listed. */
+        /** Does this version support the drift 2.0 flows enhancements? */
+
+    }, {
+        key: "enhancedFlows",
+        value: function enhancedFlows() {
+            if (this.type && this.type === ServerType_1.ServerTypes.MERIDIAN) {
+                return this.version.ge('2019.0.0');
+            } else {
+                return this.version.ge('25.0.0');
+            }
+        }
+        /** Returns a convenient data structure with all capabilities listed. */
 
     }, {
         key: "capabilities",
@@ -54671,6 +54696,7 @@ var ServerMetadata = function () {
             return {
                 ackAlarms: this.ackAlarms(),
                 apiVersion: this.apiVersion(),
+                enhancedFlows: this.enhancedFlows(),
                 flows: this.flows(),
                 graphs: this.graphs(),
                 outageSummaries: this.outageSummaries(),
@@ -54685,7 +54711,7 @@ var ServerMetadata = function () {
     }, {
         key: "toString",
         value: function toString() {
-            return 'ServerMetadata[version=' + this.version.toString() + ',apiVersion=' + this.apiVersion() + ',type=' + this.type.toString() + ',ackAlarms=' + this.ackAlarms() + ',flows=' + this.flows() + ',graphs=' + this.graphs() + ',outageSummaries=' + this.outageSummaries() + ',setNodeLocation=' + this.setNodeLocation() + ',situations=' + this.situations() + ',ticketer=' + this.ticketer() + ']';
+            return 'ServerMetadata[version=' + this.version.toString() + ',apiVersion=' + this.apiVersion() + ',type=' + this.type.toString() + ',ackAlarms=' + this.ackAlarms() + ',enhancedFlows=' + this.enhancedFlows() + ',flows=' + this.flows() + ',graphs=' + this.graphs() + ',outageSummaries=' + this.outageSummaries() + ',setNodeLocation=' + this.setNodeLocation() + ',situations=' + this.situations() + ',ticketer=' + this.ticketer() + ']';
         }
         /**
          * Create a new metadata object from this existing one.
@@ -56669,6 +56695,40 @@ var FlowDAO = function (_BaseDAO_1$BaseDAO) {
             }));
         }
         /**
+         * Enumerate the applications matching the given prefix and filters.
+         * @param prefix - the prefix to match
+         * @param start - the start of the timespan to query (defaults to 4 hours ago)
+         * @param end - the end of the timespan to query (defaults to now)
+         * @param exporterNodeCriteria - the node ID or foreignSource:foreignId tuple
+         * @param ifIndex - filter for flows that came through this SNMP interface
+         */
+
+    }, {
+        key: "getApplications",
+        value: function getApplications(prefix, start, end, exporterNodeCriteria, ifIndex) {
+            return __awaiter(this, void 0, void 0, /*#__PURE__*/_regenerator2.default.mark(function _callee3() {
+                var _this4 = this;
+
+                return _regenerator2.default.wrap(function _callee3$(_context3) {
+                    while (1) {
+                        switch (_context3.prev = _context3.next) {
+                            case 0:
+                                return _context3.abrupt("return", FlowDAO.getOptions().then(function (opts) {
+                                    opts.withParameter('start', start).withParameter('end', end).withParameter('exporterNode', exporterNodeCriteria).withParameter('ifIndex', ifIndex).withParameter('prefix', prefix);
+                                    return _this4.http.get(_this4.pathToFlowsEndpoint() + '/applications/enumerate', opts).then(function (result) {
+                                        return result.data;
+                                    });
+                                }));
+
+                            case 1:
+                            case "end":
+                                return _context3.stop();
+                        }
+                    }
+                }, _callee3, this);
+            }));
+        }
+        /**
          * Summarize the top N applications/protocols based on parameters.
          * @param N - how many applications to return
          * @param start - the start of the timespan to query (defaults to 4 hours ago)
@@ -56682,40 +56742,6 @@ var FlowDAO = function (_BaseDAO_1$BaseDAO) {
     }, {
         key: "getSummaryForTopNApplications",
         value: function getSummaryForTopNApplications(N, start, end, includeOther, exporterNodeCriteria, ifIndex) {
-            return __awaiter(this, void 0, void 0, /*#__PURE__*/_regenerator2.default.mark(function _callee3() {
-                var _this4 = this;
-
-                return _regenerator2.default.wrap(function _callee3$(_context3) {
-                    while (1) {
-                        switch (_context3.prev = _context3.next) {
-                            case 0:
-                                return _context3.abrupt("return", FlowDAO.getOptions().then(function (opts) {
-                                    opts.withParameter('N', N).withParameter('start', start).withParameter('end', end).withParameter('exporterNode', exporterNodeCriteria).withParameter('ifIndex', ifIndex).withParameter('includeOther', includeOther);
-                                    return _this4.http.get(_this4.pathToFlowsEndpoint() + '/applications', opts).then(function (result) {
-                                        return _this4.tableFromData(result.data);
-                                    });
-                                }));
-
-                            case 1:
-                            case "end":
-                                return _context3.stop();
-                        }
-                    }
-                }, _callee3, this);
-            }));
-        }
-        /**
-         * Summarize the top N conversations based on parameters.
-         * @param N - how many conversations to return
-         * @param start - the start of the timespan to query (defaults to 4 hours ago)
-         * @param end - the end of the timespan to query (defaults to now)
-         * @param exporterNodeCriteria - the node ID or foreignSource:foreignId tuple
-         * @param ifIndex - filter for flows that came through this SNMP interface
-         */
-
-    }, {
-        key: "getSummaryForTopNConversations",
-        value: function getSummaryForTopNConversations(N, start, end, exporterNodeCriteria, ifIndex) {
             return __awaiter(this, void 0, void 0, /*#__PURE__*/_regenerator2.default.mark(function _callee4() {
                 var _this5 = this;
 
@@ -56724,8 +56750,8 @@ var FlowDAO = function (_BaseDAO_1$BaseDAO) {
                         switch (_context4.prev = _context4.next) {
                             case 0:
                                 return _context4.abrupt("return", FlowDAO.getOptions().then(function (opts) {
-                                    opts.withParameter('N', N).withParameter('start', start).withParameter('end', end).withParameter('exporterNode', exporterNodeCriteria).withParameter('ifIndex', ifIndex);
-                                    return _this5.http.get(_this5.pathToFlowsEndpoint() + '/conversations', opts).then(function (result) {
+                                    opts.withParameter('N', N).withParameter('start', start).withParameter('end', end).withParameter('exporterNode', exporterNodeCriteria).withParameter('ifIndex', ifIndex).withParameter('includeOther', includeOther);
+                                    return _this5.http.get(_this5.pathToFlowsEndpoint() + '/applications', opts).then(function (result) {
                                         return _this5.tableFromData(result.data);
                                     });
                                 }));
@@ -56736,6 +56762,48 @@ var FlowDAO = function (_BaseDAO_1$BaseDAO) {
                         }
                     }
                 }, _callee4, this);
+            }));
+        }
+        /**
+         * Summarize the given applications/protocols based on parameters.
+         * @param applications - the applications to include
+         * @param start - the start of the timespan to query (defaults to 4 hours ago)
+         * @param end - the end of the timespan to query (defaults to now)
+         * @param includeOther - include an additional "other" result that
+         *                       represents everything that does not match the given applications
+         * @param exporterNodeCriteria - the node ID or foreignSource:foreignId tuple
+         * @param ifIndex - filter for flows that came through this SNMP interface
+         */
+
+    }, {
+        key: "getSummaryForApplications",
+        value: function getSummaryForApplications(applications, start, end, includeOther, exporterNodeCriteria, ifIndex) {
+            return __awaiter(this, void 0, void 0, /*#__PURE__*/_regenerator2.default.mark(function _callee5() {
+                var _this6 = this;
+
+                return _regenerator2.default.wrap(function _callee5$(_context5) {
+                    while (1) {
+                        switch (_context5.prev = _context5.next) {
+                            case 0:
+                                this.checkForEnhancedFlows();
+                                return _context5.abrupt("return", FlowDAO.getOptions().then(function (opts) {
+                                    opts.withParameter('start', start).withParameter('end', end).withParameter('exporterNode', exporterNodeCriteria).withParameter('ifIndex', ifIndex).withParameter('includeOther', includeOther);
+                                    if (applications) {
+                                        applications.forEach(function (application) {
+                                            opts.withParameter('application', application);
+                                        });
+                                    }
+                                    return _this6.http.get(_this6.pathToFlowsEndpoint() + '/applications', opts).then(function (result) {
+                                        return _this6.tableFromData(result.data);
+                                    });
+                                }));
+
+                            case 2:
+                            case "end":
+                                return _context5.stop();
+                        }
+                    }
+                }, _callee5, this);
             }));
         }
         /**
@@ -56753,41 +56821,6 @@ var FlowDAO = function (_BaseDAO_1$BaseDAO) {
     }, {
         key: "getSeriesForTopNApplications",
         value: function getSeriesForTopNApplications(N, start, end, step, includeOther, exporterNodeCriteria, ifIndex) {
-            return __awaiter(this, void 0, void 0, /*#__PURE__*/_regenerator2.default.mark(function _callee5() {
-                var _this6 = this;
-
-                return _regenerator2.default.wrap(function _callee5$(_context5) {
-                    while (1) {
-                        switch (_context5.prev = _context5.next) {
-                            case 0:
-                                return _context5.abrupt("return", FlowDAO.getOptions().then(function (opts) {
-                                    opts.withParameter('N', N).withParameter('start', start).withParameter('end', end).withParameter('step', step).withParameter('exporterNode', exporterNodeCriteria).withParameter('ifIndex', ifIndex).withParameter('includeOther', includeOther);
-                                    return _this6.http.get(_this6.pathToFlowsEndpoint() + '/applications/series', opts).then(function (result) {
-                                        return _this6.seriesFromData(result.data);
-                                    });
-                                }));
-
-                            case 1:
-                            case "end":
-                                return _context5.stop();
-                        }
-                    }
-                }, _callee5, this);
-            }));
-        }
-        /**
-         * Get time series data for the top N conversations based on parameters.
-         * @param N - how many conversations' series to return
-         * @param start - the start of the timespan to query (defaults to 4 hours ago)
-         * @param end - the end of the timespan to query (defaults to now)
-         * @param step - the requested time interval between rows
-         * @param exporterNodeCriteria - the node ID or foreignSource:foreignId tuple
-         * @param ifIndex - filter for flows that came through this SNMP interface
-         */
-
-    }, {
-        key: "getSeriesForTopNConversations",
-        value: function getSeriesForTopNConversations(N, start, end, step, exporterNodeCriteria, ifIndex) {
             return __awaiter(this, void 0, void 0, /*#__PURE__*/_regenerator2.default.mark(function _callee6() {
                 var _this7 = this;
 
@@ -56796,8 +56829,8 @@ var FlowDAO = function (_BaseDAO_1$BaseDAO) {
                         switch (_context6.prev = _context6.next) {
                             case 0:
                                 return _context6.abrupt("return", FlowDAO.getOptions().then(function (opts) {
-                                    opts.withParameter('N', N).withParameter('start', start).withParameter('end', end).withParameter('step', step).withParameter('exporterNode', exporterNodeCriteria).withParameter('ifIndex', ifIndex);
-                                    return _this7.http.get(_this7.pathToFlowsEndpoint() + '/conversations/series', opts).then(function (result) {
+                                    opts.withParameter('N', N).withParameter('start', start).withParameter('end', end).withParameter('step', step).withParameter('exporterNode', exporterNodeCriteria).withParameter('ifIndex', ifIndex).withParameter('includeOther', includeOther);
+                                    return _this7.http.get(_this7.pathToFlowsEndpoint() + '/applications/series', opts).then(function (result) {
                                         return _this7.seriesFromData(result.data);
                                     });
                                 }));
@@ -56808,6 +56841,453 @@ var FlowDAO = function (_BaseDAO_1$BaseDAO) {
                         }
                     }
                 }, _callee6, this);
+            }));
+        }
+        /**
+         * Get time series data for the top N applications/protocols based on parameters.
+         * @param applications - the applications to include
+         * @param start - the start of the timespan to query (defaults to 4 hours ago)
+         * @param end - the end of the timespan to query (defaults to now)
+         * @param step - the requested time interval between rows
+         * @param includeOther - include an additional "other" result that
+         *                       represents everything that does not match the given applications
+         * @param exporterNodeCriteria - the node ID or foreignSource:foreignId tuple
+         * @param ifIndex - filter for flows that came through this SNMP interface
+         */
+
+    }, {
+        key: "getSeriesForApplications",
+        value: function getSeriesForApplications(applications, start, end, step, includeOther, exporterNodeCriteria, ifIndex) {
+            return __awaiter(this, void 0, void 0, /*#__PURE__*/_regenerator2.default.mark(function _callee7() {
+                var _this8 = this;
+
+                return _regenerator2.default.wrap(function _callee7$(_context7) {
+                    while (1) {
+                        switch (_context7.prev = _context7.next) {
+                            case 0:
+                                this.checkForEnhancedFlows();
+                                return _context7.abrupt("return", FlowDAO.getOptions().then(function (opts) {
+                                    opts.withParameter('start', start).withParameter('end', end).withParameter('step', step).withParameter('exporterNode', exporterNodeCriteria).withParameter('ifIndex', ifIndex).withParameter('includeOther', includeOther);
+                                    if (applications) {
+                                        applications.forEach(function (application) {
+                                            opts.withParameter('application', application);
+                                        });
+                                    }
+                                    return _this8.http.get(_this8.pathToFlowsEndpoint() + '/applications/series', opts).then(function (result) {
+                                        return _this8.seriesFromData(result.data);
+                                    });
+                                }));
+
+                            case 2:
+                            case "end":
+                                return _context7.stop();
+                        }
+                    }
+                }, _callee7, this);
+            }));
+        }
+        /**
+         * Summarize the top N conversations based on parameters.
+         * @param NOptions - how many conversations to return or an object that includes all of the parameters to be set on
+         * the API call
+         * @param start - the start of the timespan to query (defaults to 4 hours ago)
+         * @param end - the end of the timespan to query (defaults to now)
+         * @param exporterNodeCriteria - the node ID or foreignSource:foreignId tuple
+         * @param ifIndex - filter for flows that came through this SNMP interface
+         */
+
+    }, {
+        key: "getSummaryForTopNConversations",
+        value: function getSummaryForTopNConversations(NOptions, start, end, exporterNodeCriteria, ifIndex) {
+            return __awaiter(this, void 0, void 0, /*#__PURE__*/_regenerator2.default.mark(function _callee8() {
+                var _this9 = this;
+
+                return _regenerator2.default.wrap(function _callee8$(_context8) {
+                    while (1) {
+                        switch (_context8.prev = _context8.next) {
+                            case 0:
+                                return _context8.abrupt("return", FlowDAO.getOptions().then(function (opts) {
+                                    if (typeof NOptions === 'number') {
+                                        opts.withParameter('N', NOptions).withParameter('start', start).withParameter('end', end).withParameter('exporterNode', exporterNodeCriteria).withParameter('ifIndex', ifIndex);
+                                    } else if (NOptions) {
+                                        var _iteratorNormalCompletion = true;
+                                        var _didIteratorError = false;
+                                        var _iteratorError = undefined;
+
+                                        try {
+                                            for (var _iterator = Object.keys(NOptions)[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+                                                var key = _step.value;
+
+                                                opts.withParameter(key, NOptions[key]);
+                                            }
+                                        } catch (err) {
+                                            _didIteratorError = true;
+                                            _iteratorError = err;
+                                        } finally {
+                                            try {
+                                                if (!_iteratorNormalCompletion && _iterator.return) {
+                                                    _iterator.return();
+                                                }
+                                            } finally {
+                                                if (_didIteratorError) {
+                                                    throw _iteratorError;
+                                                }
+                                            }
+                                        }
+                                    }
+                                    return _this9.http.get(_this9.pathToFlowsEndpoint() + '/conversations', opts).then(function (result) {
+                                        return _this9.tableFromData(result.data);
+                                    });
+                                }));
+
+                            case 1:
+                            case "end":
+                                return _context8.stop();
+                        }
+                    }
+                }, _callee8, this);
+            }));
+        }
+        /**
+         * Summarize the given conversations based on parameters.
+         * @param conversations - how many conversations to return
+         * @param start - the start of the timespan to query (defaults to 4 hours ago)
+         * @param end - the end of the timespan to query (defaults to now)
+         * @param includeOther - include an additional "other" result that
+         *                       represents everything that does not match the given conversations
+         * @param exporterNodeCriteria - the node ID or foreignSource:foreignId tuple
+         * @param ifIndex - filter for flows that came through this SNMP interface
+         */
+
+    }, {
+        key: "getSummaryForConversations",
+        value: function getSummaryForConversations(conversations, start, end, includeOther, exporterNodeCriteria, ifIndex) {
+            return __awaiter(this, void 0, void 0, /*#__PURE__*/_regenerator2.default.mark(function _callee9() {
+                var _this10 = this;
+
+                return _regenerator2.default.wrap(function _callee9$(_context9) {
+                    while (1) {
+                        switch (_context9.prev = _context9.next) {
+                            case 0:
+                                this.checkForEnhancedFlows();
+                                return _context9.abrupt("return", FlowDAO.getOptions().then(function (opts) {
+                                    opts.withParameter('start', start).withParameter('end', end).withParameter('exporterNode', exporterNodeCriteria).withParameter('ifIndex', ifIndex).withParameter('includeOther', includeOther);
+                                    if (conversations) {
+                                        conversations.forEach(function (conversation) {
+                                            opts.withParameter('conversation', conversation);
+                                        });
+                                    }
+                                    return _this10.http.get(_this10.pathToFlowsEndpoint() + '/conversations', opts).then(function (result) {
+                                        return _this10.tableFromData(result.data);
+                                    });
+                                }));
+
+                            case 2:
+                            case "end":
+                                return _context9.stop();
+                        }
+                    }
+                }, _callee9, this);
+            }));
+        }
+        /**
+         * Get time series data for the top N conversations based on parameters.
+         * @param NOptions - how many conversations to return or an object that includes all of the parameters to be set on
+         * the API call
+         * @param start - the start of the timespan to query (defaults to 4 hours ago)
+         * @param end - the end of the timespan to query (defaults to now)
+         * @param step - the requested time interval between rows
+         * @param exporterNodeCriteria - the node ID or foreignSource:foreignId tuple
+         * @param ifIndex - filter for flows that came through this SNMP interface
+         */
+
+    }, {
+        key: "getSeriesForTopNConversations",
+        value: function getSeriesForTopNConversations(NOptions, start, end, step, exporterNodeCriteria, ifIndex) {
+            return __awaiter(this, void 0, void 0, /*#__PURE__*/_regenerator2.default.mark(function _callee10() {
+                var _this11 = this;
+
+                return _regenerator2.default.wrap(function _callee10$(_context10) {
+                    while (1) {
+                        switch (_context10.prev = _context10.next) {
+                            case 0:
+                                return _context10.abrupt("return", FlowDAO.getOptions().then(function (opts) {
+                                    if (typeof NOptions === 'number') {
+                                        opts.withParameter('N', NOptions).withParameter('start', start).withParameter('end', end).withParameter('step', step).withParameter('exporterNode', exporterNodeCriteria).withParameter('ifIndex', ifIndex);
+                                    } else if (NOptions) {
+                                        var _iteratorNormalCompletion2 = true;
+                                        var _didIteratorError2 = false;
+                                        var _iteratorError2 = undefined;
+
+                                        try {
+                                            for (var _iterator2 = Object.keys(NOptions)[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
+                                                var key = _step2.value;
+
+                                                opts.withParameter(key, NOptions[key]);
+                                            }
+                                        } catch (err) {
+                                            _didIteratorError2 = true;
+                                            _iteratorError2 = err;
+                                        } finally {
+                                            try {
+                                                if (!_iteratorNormalCompletion2 && _iterator2.return) {
+                                                    _iterator2.return();
+                                                }
+                                            } finally {
+                                                if (_didIteratorError2) {
+                                                    throw _iteratorError2;
+                                                }
+                                            }
+                                        }
+                                    }
+                                    return _this11.http.get(_this11.pathToFlowsEndpoint() + '/conversations/series', opts).then(function (result) {
+                                        return _this11.seriesFromData(result.data);
+                                    });
+                                }));
+
+                            case 1:
+                            case "end":
+                                return _context10.stop();
+                        }
+                    }
+                }, _callee10, this);
+            }));
+        }
+        /**
+         * Get time series data for the given conversations based on parameters.
+         * @param conversations - how many conversations' series to return
+         * @param start - the start of the timespan to query (defaults to 4 hours ago)
+         * @param end - the end of the timespan to query (defaults to now)
+         * @param step - the requested time interval between rows
+         * @param includeOther - include an additional "other" result that
+         *                       represents everything that does not match the given conversations
+         * @param exporterNodeCriteria - the node ID or foreignSource:foreignId tuple
+         * @param ifIndex - filter for flows that came through this SNMP interface
+         */
+
+    }, {
+        key: "getSeriesForConversations",
+        value: function getSeriesForConversations(conversations, start, end, step, includeOther, exporterNodeCriteria, ifIndex) {
+            return __awaiter(this, void 0, void 0, /*#__PURE__*/_regenerator2.default.mark(function _callee11() {
+                var _this12 = this;
+
+                return _regenerator2.default.wrap(function _callee11$(_context11) {
+                    while (1) {
+                        switch (_context11.prev = _context11.next) {
+                            case 0:
+                                this.checkForEnhancedFlows();
+                                return _context11.abrupt("return", FlowDAO.getOptions().then(function (opts) {
+                                    opts.withParameter('start', start).withParameter('end', end).withParameter('step', step).withParameter('exporterNode', exporterNodeCriteria).withParameter('ifIndex', ifIndex).withParameter('includeOther', includeOther);
+                                    if (conversations) {
+                                        conversations.forEach(function (conversation) {
+                                            opts.withParameter('conversation', conversation);
+                                        });
+                                    }
+                                    return _this12.http.get(_this12.pathToFlowsEndpoint() + '/conversations/series', opts).then(function (result) {
+                                        return _this12.seriesFromData(result.data);
+                                    });
+                                }));
+
+                            case 2:
+                            case "end":
+                                return _context11.stop();
+                        }
+                    }
+                }, _callee11, this);
+            }));
+        }
+        /**
+         * Enumerate all the hosts matching the given pattern and filters.
+         * @param pattern - the regex pattern to match
+         * @param start - the start of the timespan to query (defaults to 4 hours ago)
+         * @param end - the end of the timespan to query (defaults to now)
+         * @param exporterNodeCriteria - the node ID or foreignSource:foreignId tuple
+         * @param ifIndex - filter for flows that came through this SNMP interface
+         */
+
+    }, {
+        key: "getHosts",
+        value: function getHosts(pattern, start, end, exporterNodeCriteria, ifIndex) {
+            return __awaiter(this, void 0, void 0, /*#__PURE__*/_regenerator2.default.mark(function _callee12() {
+                var _this13 = this;
+
+                return _regenerator2.default.wrap(function _callee12$(_context12) {
+                    while (1) {
+                        switch (_context12.prev = _context12.next) {
+                            case 0:
+                                return _context12.abrupt("return", FlowDAO.getOptions().then(function (opts) {
+                                    opts.withParameter('start', start).withParameter('end', end).withParameter('exporterNode', exporterNodeCriteria).withParameter('ifIndex', ifIndex).withParameter('pattern', pattern);
+                                    return _this13.http.get(_this13.pathToFlowsEndpoint() + '/hosts/enumerate', opts).then(function (result) {
+                                        return result.data;
+                                    });
+                                }));
+
+                            case 1:
+                            case "end":
+                                return _context12.stop();
+                        }
+                    }
+                }, _callee12, this);
+            }));
+        }
+        /**
+         * Summarize the given hosts based on parameters.
+         * @param hosts - the hosts to include
+         * @param start - the start of the timespan to query (defaults to 4 hours ago)
+         * @param end - the end of the timespan to query (defaults to now)
+         * @param includeOther - include an additional "other" result that
+         *                       represents everything that does not match the given hosts
+         * @param exporterNodeCriteria - the node ID or foreignSource:foreignId tuple
+         * @param ifIndex - filter for flows that came through this SNMP interface
+         */
+
+    }, {
+        key: "getSummaryForHosts",
+        value: function getSummaryForHosts(hosts, start, end, includeOther, exporterNodeCriteria, ifIndex) {
+            return __awaiter(this, void 0, void 0, /*#__PURE__*/_regenerator2.default.mark(function _callee13() {
+                var _this14 = this;
+
+                return _regenerator2.default.wrap(function _callee13$(_context13) {
+                    while (1) {
+                        switch (_context13.prev = _context13.next) {
+                            case 0:
+                                this.checkForEnhancedFlows();
+                                return _context13.abrupt("return", FlowDAO.getOptions().then(function (opts) {
+                                    opts.withParameter('start', start).withParameter('end', end).withParameter('exporterNode', exporterNodeCriteria).withParameter('ifIndex', ifIndex).withParameter('includeOther', includeOther);
+                                    if (hosts) {
+                                        hosts.forEach(function (host) {
+                                            opts.withParameter('host', host);
+                                        });
+                                    }
+                                    return _this14.http.get(_this14.pathToFlowsEndpoint() + '/hosts', opts).then(function (result) {
+                                        return _this14.tableFromData(result.data);
+                                    });
+                                }));
+
+                            case 2:
+                            case "end":
+                                return _context13.stop();
+                        }
+                    }
+                }, _callee13, this);
+            }));
+        }
+        /**
+         * Summarize the top N hosts based on parameters.
+         * @param N - how many conversations to return
+         * @param start - the start of the timespan to query (defaults to 4 hours ago)
+         * @param end - the end of the timespan to query (defaults to now)
+         * @param includeOther - include an additional "other" result that
+         *                       represents everything that does not match the top N
+         * @param exporterNodeCriteria - the node ID or foreignSource:foreignId tuple
+         * @param ifIndex - filter for flows that came through this SNMP interface
+         */
+
+    }, {
+        key: "getSummaryForTopNHosts",
+        value: function getSummaryForTopNHosts(N, start, end, includeOther, exporterNodeCriteria, ifIndex) {
+            return __awaiter(this, void 0, void 0, /*#__PURE__*/_regenerator2.default.mark(function _callee14() {
+                var _this15 = this;
+
+                return _regenerator2.default.wrap(function _callee14$(_context14) {
+                    while (1) {
+                        switch (_context14.prev = _context14.next) {
+                            case 0:
+                                this.checkForEnhancedFlows();
+                                return _context14.abrupt("return", FlowDAO.getOptions().then(function (opts) {
+                                    opts.withParameter('N', N).withParameter('start', start).withParameter('end', end).withParameter('exporterNode', exporterNodeCriteria).withParameter('ifIndex', ifIndex).withParameter('includeOther', includeOther);
+                                    return _this15.http.get(_this15.pathToFlowsEndpoint() + '/hosts', opts).then(function (result) {
+                                        return _this15.tableFromData(result.data);
+                                    });
+                                }));
+
+                            case 2:
+                            case "end":
+                                return _context14.stop();
+                        }
+                    }
+                }, _callee14, this);
+            }));
+        }
+        /**
+         * Get time series data for the top N hosts based on parameters.
+         * @param N - how many applications' series to return
+         * @param start - the start of the timespan to query (defaults to 4 hours ago)
+         * @param end - the end of the timespan to query (defaults to now)
+         * @param step - the requested time interval between rows
+         * @param includeOther - include an additional "other" result that
+         *                       represents everything that does not match the top N
+         * @param exporterNodeCriteria - the node ID or foreignSource:foreignId tuple
+         * @param ifIndex - filter for flows that came through this SNMP interface
+         */
+
+    }, {
+        key: "getSeriesForTopNHosts",
+        value: function getSeriesForTopNHosts(N, start, end, step, includeOther, exporterNodeCriteria, ifIndex) {
+            return __awaiter(this, void 0, void 0, /*#__PURE__*/_regenerator2.default.mark(function _callee15() {
+                var _this16 = this;
+
+                return _regenerator2.default.wrap(function _callee15$(_context15) {
+                    while (1) {
+                        switch (_context15.prev = _context15.next) {
+                            case 0:
+                                this.checkForEnhancedFlows();
+                                return _context15.abrupt("return", FlowDAO.getOptions().then(function (opts) {
+                                    opts.withParameter('N', N).withParameter('start', start).withParameter('end', end).withParameter('step', step).withParameter('exporterNode', exporterNodeCriteria).withParameter('ifIndex', ifIndex).withParameter('includeOther', includeOther);
+                                    return _this16.http.get(_this16.pathToFlowsEndpoint() + '/hosts/series', opts).then(function (result) {
+                                        return _this16.seriesFromData(result.data);
+                                    });
+                                }));
+
+                            case 2:
+                            case "end":
+                                return _context15.stop();
+                        }
+                    }
+                }, _callee15, this);
+            }));
+        }
+        /**
+         * Get time series data for the given hosts based on parameters.
+         * @param hosts - the hosts to include
+         * @param start - the start of the timespan to query (defaults to 4 hours ago)
+         * @param end - the end of the timespan to query (defaults to now)
+         * @param step - the requested time interval between rows
+         * @param includeOther - include an additional "other" result that
+         *                       represents everything that does not match the given hosts
+         * @param exporterNodeCriteria - the node ID or foreignSource:foreignId tuple
+         * @param ifIndex - filter for flows that came through this SNMP interface
+         */
+
+    }, {
+        key: "getSeriesForHosts",
+        value: function getSeriesForHosts(hosts, start, end, step, includeOther, exporterNodeCriteria, ifIndex) {
+            return __awaiter(this, void 0, void 0, /*#__PURE__*/_regenerator2.default.mark(function _callee16() {
+                var _this17 = this;
+
+                return _regenerator2.default.wrap(function _callee16$(_context16) {
+                    while (1) {
+                        switch (_context16.prev = _context16.next) {
+                            case 0:
+                                this.checkForEnhancedFlows();
+                                return _context16.abrupt("return", FlowDAO.getOptions().then(function (opts) {
+                                    opts.withParameter('start', start).withParameter('end', end).withParameter('step', step).withParameter('exporterNode', exporterNodeCriteria).withParameter('ifIndex', ifIndex).withParameter('includeOther', includeOther);
+                                    if (hosts) {
+                                        hosts.forEach(function (host) {
+                                            opts.withParameter('host', host);
+                                        });
+                                    }
+                                    return _this17.http.get(_this17.pathToFlowsEndpoint() + '/hosts/series', opts).then(function (result) {
+                                        return _this17.seriesFromData(result.data);
+                                    });
+                                }));
+
+                            case 2:
+                            case "end":
+                                return _context16.stop();
+                        }
+                    }
+                }, _callee16, this);
             }));
         }
         /**
@@ -56833,7 +57313,7 @@ var FlowDAO = function (_BaseDAO_1$BaseDAO) {
     }, {
         key: "toFlowExporter",
         value: function toFlowExporter(data) {
-            var _this8 = this;
+            var _this18 = this;
 
             var exporter = new OnmsFlowExporter_1.OnmsFlowExporter();
             exporter.id = data.id;
@@ -56843,7 +57323,7 @@ var FlowDAO = function (_BaseDAO_1$BaseDAO) {
             exporter.interfaces = [];
             if (data.interface) {
                 exporter.interfaces = data.interface.map(function (iff) {
-                    return _this8.toInterface(iff);
+                    return _this18.toInterface(iff);
                 });
             }
             return exporter;
@@ -56897,28 +57377,28 @@ var FlowDAO = function (_BaseDAO_1$BaseDAO) {
                 columns = [columns];
             }
             series.columns = [];
-            var _iteratorNormalCompletion = true;
-            var _didIteratorError = false;
-            var _iteratorError = undefined;
+            var _iteratorNormalCompletion3 = true;
+            var _didIteratorError3 = false;
+            var _iteratorError3 = undefined;
 
             try {
-                for (var _iterator = columns[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-                    var column = _step.value;
+                for (var _iterator3 = columns[Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
+                    var column = _step3.value;
 
                     column = new OnmsFlowSeriesColumn_1.OnmsFlowSeriesColumn(column.label, column.ingress);
                     series.columns.push(column);
                 }
             } catch (err) {
-                _didIteratorError = true;
-                _iteratorError = err;
+                _didIteratorError3 = true;
+                _iteratorError3 = err;
             } finally {
                 try {
-                    if (!_iteratorNormalCompletion && _iterator.return) {
-                        _iterator.return();
+                    if (!_iteratorNormalCompletion3 && _iterator3.return) {
+                        _iterator3.return();
                     }
                 } finally {
-                    if (_didIteratorError) {
-                        throw _iteratorError;
+                    if (_didIteratorError3) {
+                        throw _iteratorError3;
                     }
                 }
             }
@@ -56935,6 +57415,17 @@ var FlowDAO = function (_BaseDAO_1$BaseDAO) {
         value: function pathToFlowsEndpoint() {
             return 'rest/flows';
         }
+        /**
+         * Check if this version of OpenNMS supports enhanced flow API and if not throw an error.
+         */
+
+    }, {
+        key: "checkForEnhancedFlows",
+        value: function checkForEnhancedFlows() {
+            if (!this.http.server.metadata.capabilities().enhancedFlows) {
+                throw new OnmsError_1.OnmsError('Enhanced flow API is not supported by this version of OpenNMS.');
+            }
+        }
     }], [{
         key: "getOptions",
 
@@ -56942,22 +57433,22 @@ var FlowDAO = function (_BaseDAO_1$BaseDAO) {
          * Create an [[OnmsHTTPOptions]] object for DAO calls.
          */
         value: function getOptions() {
-            return __awaiter(this, void 0, void 0, /*#__PURE__*/_regenerator2.default.mark(function _callee7() {
-                return _regenerator2.default.wrap(function _callee7$(_context7) {
+            return __awaiter(this, void 0, void 0, /*#__PURE__*/_regenerator2.default.mark(function _callee17() {
+                return _regenerator2.default.wrap(function _callee17$(_context17) {
                     while (1) {
-                        switch (_context7.prev = _context7.next) {
+                        switch (_context17.prev = _context17.next) {
                             case 0:
-                                return _context7.abrupt("return", Promise.resolve(new OnmsHTTPOptions_1.OnmsHTTPOptions()).then(function (options) {
+                                return _context17.abrupt("return", Promise.resolve(new OnmsHTTPOptions_1.OnmsHTTPOptions()).then(function (options) {
                                     options.headers.accept = 'application/json';
                                     return options;
                                 }));
 
                             case 1:
                             case "end":
-                                return _context7.stop();
+                                return _context17.stop();
                         }
                     }
-                }, _callee7, this);
+                }, _callee17, this);
             }));
         }
     }]);

@@ -1,11 +1,19 @@
 <a name="1.4.1"></a>
-## [1.4.1](https://github.com/OpenNMS/opennms-js/compare/v1.4.0...v1.4.1) (2019-06-04)
+## [1.4.1](https://github.com/OpenNMS/opennms-js/compare/v1.4.0...v1.4.1) (2019-06-07)
 
 
 ### Bug Fixes
 
 * **cli:** fix broken table formatting in prod cli build (JS-33) ([db50724](https://github.com/OpenNMS/opennms-js/commit/db50724))
 * **security:** upgrade to Axios 0.19.0 ([a731c60](https://github.com/OpenNMS/opennms-js/commit/a731c60))
+
+
+### Features
+
+* **drift2:** HZN-1559,HZN-1570,HZN-1571 ([9b684cf](https://github.com/OpenNMS/opennms-js/commit/9b684cf))
+* **drift2:** HZN-1559,HZN-1570,HZN-1571 ([8afd6a2](https://github.com/OpenNMS/opennms-js/commit/8afd6a2))
+* **drift2:** HZN-1559,HZN-1570,HZN-1571 ([1f0fd21](https://github.com/OpenNMS/opennms-js/commit/1f0fd21))
+* **drift2:** HZN-1559,HZN-1570,HZN-1571 ([77b094d](https://github.com/OpenNMS/opennms-js/commit/77b094d))
 
 
 
