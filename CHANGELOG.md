@@ -11,10 +11,9 @@
 
 ### Features
 
-* **drift2:** HZN-1559,HZN-1570,HZN-1571 ([9b684cf](https://github.com/OpenNMS/opennms-js/commit/9b684cf))
-* **drift2:** HZN-1559,HZN-1570,HZN-1571 ([8afd6a2](https://github.com/OpenNMS/opennms-js/commit/8afd6a2))
-* **drift2:** HZN-1559,HZN-1570,HZN-1571 ([1f0fd21](https://github.com/OpenNMS/opennms-js/commit/1f0fd21))
-* **drift2:** HZN-1559,HZN-1570,HZN-1571 ([77b094d](https://github.com/OpenNMS/opennms-js/commit/77b094d))
+* **drift2:** Support querying traffic for applications, conversations, and hosts
+  ([9b684cf](https://github.com/OpenNMS/opennms-js/commit/9b684cf), [8afd6a2](https://github.com/OpenNMS/opennms-js/commit/8afd6a2),
+  [1f0fd21](https://github.com/OpenNMS/opennms-js/commit/1f0fd21), [77b094d](https://github.com/OpenNMS/opennms-js/commit/77b094d))
 
 
 
