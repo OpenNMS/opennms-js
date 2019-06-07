@@ -43,7 +43,7 @@ export class OnmsHTTPOptions {
   public headers = {} as IHash<string>;
 
   /** HTTP parameters to be passed on the URL. */
-  public parameters = {} as IHash<string>;
+  public parameters = {} as IHash<string | string[]>;
 
   /** HTTP data to be passed when POSTing */
   public data: any;
@@ -75,7 +75,21 @@ export class OnmsHTTPOptions {
    */
   public withParameter(key: string, value?: any): OnmsHTTPOptions {
     if (value !== undefined) {
-      this.parameters[key] = '' + value;
+      // Since parameters can be repeated an arbitrary number of times we will store them in an array in the map
+      // as soon as the occurrence of a given key is > 1
+      if (this.parameters[key]) {
+        const currentValue = this.parameters[key];
+        if (Array.isArray(currentValue)) {
+          currentValue.push('' + value);
+        } else {
+          const newArrayValue = [];
+          newArrayValue.push(currentValue);
+          newArrayValue.push(value);
+          this.parameters[key] = newArrayValue;
+        }
+      } else {
+        this.parameters[key] = '' + value;
+      }
     }
     return this;
   }

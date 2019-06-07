@@ -83,6 +83,29 @@ export class FlowDAO extends BaseDAO {
     }
 
     /**
+     * Enumerate the applications matching the given prefix and filters.
+     * @param prefix - the prefix to match
+     * @param start - the start of the timespan to query (defaults to 4 hours ago)
+     * @param end - the end of the timespan to query (defaults to now)
+     * @param exporterNodeCriteria - the node ID or foreignSource:foreignId tuple
+     * @param ifIndex - filter for flows that came through this SNMP interface
+     */
+    public async getApplications(prefix?: string, start?: number, end?: number,
+                                 exporterNodeCriteria?: string,
+                                 ifIndex?: number): Promise<OnmsFlowTable> {
+        return FlowDAO.getOptions().then((opts) => {
+            opts.withParameter('start', start)
+                .withParameter('end', end)
+                .withParameter('exporterNode', exporterNodeCriteria)
+                .withParameter('ifIndex', ifIndex)
+                .withParameter('prefix', prefix);
+            return this.http.get(this.pathToFlowsEndpoint() + '/applications/enumerate', opts).then((result) => {
+                return result.data;
+            });
+        });
+    }
+
+    /**
      * Summarize the top N applications/protocols based on parameters.
      * @param N - how many applications to return
      * @param start - the start of the timespan to query (defaults to 4 hours ago)
@@ -110,23 +133,32 @@ export class FlowDAO extends BaseDAO {
     }
 
     /**
-     * Summarize the top N conversations based on parameters.
-     * @param N - how many conversations to return
+     * Summarize the given applications/protocols based on parameters.
+     * @param applications - the applications to include
      * @param start - the start of the timespan to query (defaults to 4 hours ago)
      * @param end - the end of the timespan to query (defaults to now)
+     * @param includeOther - include an additional "other" result that
+     *                       represents everything that does not match the given applications
      * @param exporterNodeCriteria - the node ID or foreignSource:foreignId tuple
      * @param ifIndex - filter for flows that came through this SNMP interface
      */
-    public async getSummaryForTopNConversations(N?: number, start?: number, end?: number,
-                                                exporterNodeCriteria?: string,
-                                                ifIndex?: number): Promise<OnmsFlowTable> {
+    public async getSummaryForApplications(applications?: string[], start?: number, end?: number,
+                                           includeOther?: boolean,
+                                           exporterNodeCriteria?: string,
+                                           ifIndex?: number): Promise<OnmsFlowTable> {
+        this.checkForEnhancedFlows();
         return FlowDAO.getOptions().then((opts) => {
-            opts.withParameter('N', N)
-                .withParameter('start', start)
+            opts.withParameter('start', start)
                 .withParameter('end', end)
                 .withParameter('exporterNode', exporterNodeCriteria)
-                .withParameter('ifIndex', ifIndex);
-            return this.http.get(this.pathToFlowsEndpoint() + '/conversations', opts).then((result) => {
+                .withParameter('ifIndex', ifIndex)
+                .withParameter('includeOther', includeOther);
+            if (applications) {
+                applications.forEach((application) => {
+                    opts.withParameter('application', application);
+                });
+            }
+            return this.http.get(this.pathToFlowsEndpoint() + '/applications', opts).then((result) => {
                 return this.tableFromData(result.data);
             });
         });
@@ -162,25 +194,306 @@ export class FlowDAO extends BaseDAO {
     }
 
     /**
+     * Get time series data for the top N applications/protocols based on parameters.
+     * @param applications - the applications to include
+     * @param start - the start of the timespan to query (defaults to 4 hours ago)
+     * @param end - the end of the timespan to query (defaults to now)
+     * @param step - the requested time interval between rows
+     * @param includeOther - include an additional "other" result that
+     *                       represents everything that does not match the given applications
+     * @param exporterNodeCriteria - the node ID or foreignSource:foreignId tuple
+     * @param ifIndex - filter for flows that came through this SNMP interface
+     */
+    public async getSeriesForApplications(applications?: string[], start?: number, end?: number,
+                                          step?: number, includeOther?: boolean,
+                                          exporterNodeCriteria?: string,
+                                          ifIndex?: number): Promise<OnmsFlowSeries> {
+        this.checkForEnhancedFlows();
+        return FlowDAO.getOptions().then((opts) => {
+            opts.withParameter('start', start)
+                .withParameter('end', end)
+                .withParameter('step', step)
+                .withParameter('exporterNode', exporterNodeCriteria)
+                .withParameter('ifIndex', ifIndex)
+                .withParameter('includeOther', includeOther);
+            if (applications) {
+                applications.forEach((application) => {
+                    opts.withParameter('application', application);
+                });
+            }
+            return this.http.get(this.pathToFlowsEndpoint() + '/applications/series', opts).then((result) => {
+                return this.seriesFromData(result.data);
+            });
+        });
+    }
+
+    /**
+     * Summarize the top N conversations based on parameters.
+     * @param NOptions - how many conversations to return or an object that includes all of the parameters to be set on
+     * the API call
+     * @param start - the start of the timespan to query (defaults to 4 hours ago)
+     * @param end - the end of the timespan to query (defaults to now)
+     * @param exporterNodeCriteria - the node ID or foreignSource:foreignId tuple
+     * @param ifIndex - filter for flows that came through this SNMP interface
+     */
+    public async getSummaryForTopNConversations(NOptions?: number | ITopNOptions, start?: number, end?: number,
+                                                exporterNodeCriteria?: string,
+                                                ifIndex?: number): Promise<OnmsFlowTable> {
+        return FlowDAO.getOptions().then((opts) => {
+            if (typeof NOptions === 'number') {
+                opts.withParameter('N', NOptions)
+                    .withParameter('start', start)
+                    .withParameter('end', end)
+                    .withParameter('exporterNode', exporterNodeCriteria)
+                    .withParameter('ifIndex', ifIndex);
+            } else if (NOptions) {
+                for (const key of Object.keys(NOptions)) {
+                    opts.withParameter(key, NOptions[key]);
+                }
+            }
+            return this.http.get(this.pathToFlowsEndpoint() + '/conversations', opts).then((result) => {
+                return this.tableFromData(result.data);
+            });
+        });
+    }
+
+    /**
+     * Summarize the given conversations based on parameters.
+     * @param conversations - how many conversations to return
+     * @param start - the start of the timespan to query (defaults to 4 hours ago)
+     * @param end - the end of the timespan to query (defaults to now)
+     * @param includeOther - include an additional "other" result that
+     *                       represents everything that does not match the given conversations
+     * @param exporterNodeCriteria - the node ID or foreignSource:foreignId tuple
+     * @param ifIndex - filter for flows that came through this SNMP interface
+     */
+    public async getSummaryForConversations(conversations?: string[], start?: number, end?: number,
+                                            includeOther?: boolean, exporterNodeCriteria?: string,
+                                            ifIndex?: number): Promise<OnmsFlowTable> {
+        this.checkForEnhancedFlows();
+        return FlowDAO.getOptions().then((opts) => {
+            opts.withParameter('start', start)
+                .withParameter('end', end)
+                .withParameter('exporterNode', exporterNodeCriteria)
+                .withParameter('ifIndex', ifIndex)
+                .withParameter('includeOther', includeOther);
+            if (conversations) {
+                conversations.forEach((conversation) => {
+                    opts.withParameter('conversation', conversation);
+                });
+            }
+            return this.http.get(this.pathToFlowsEndpoint() + '/conversations', opts).then((result) => {
+                return this.tableFromData(result.data);
+            });
+        });
+    }
+
+    /**
      * Get time series data for the top N conversations based on parameters.
-     * @param N - how many conversations' series to return
+     * @param NOptions - how many conversations to return or an object that includes all of the parameters to be set on
+     * the API call
      * @param start - the start of the timespan to query (defaults to 4 hours ago)
      * @param end - the end of the timespan to query (defaults to now)
      * @param step - the requested time interval between rows
      * @param exporterNodeCriteria - the node ID or foreignSource:foreignId tuple
      * @param ifIndex - filter for flows that came through this SNMP interface
      */
-    public async getSeriesForTopNConversations(N?: number, start?: number, end?: number,
+    public async getSeriesForTopNConversations(NOptions?: number | ITopNOptions, start?: number, end?: number,
                                                step?: number, exporterNodeCriteria?: string,
                                                ifIndex?: number): Promise<OnmsFlowSeries> {
+        return FlowDAO.getOptions().then((opts) => {
+            if (typeof NOptions === 'number') {
+                opts.withParameter('N', NOptions)
+                    .withParameter('start', start)
+                    .withParameter('end', end)
+                    .withParameter('step', step)
+                    .withParameter('exporterNode', exporterNodeCriteria)
+                    .withParameter('ifIndex', ifIndex);
+            } else if (NOptions) {
+                for (const key of Object.keys(NOptions)) {
+                    opts.withParameter(key, NOptions[key]);
+                }
+            }
+            return this.http.get(this.pathToFlowsEndpoint() + '/conversations/series', opts).then((result) => {
+                return this.seriesFromData(result.data);
+            });
+        });
+    }
+
+    /**
+     * Get time series data for the given conversations based on parameters.
+     * @param conversations - how many conversations' series to return
+     * @param start - the start of the timespan to query (defaults to 4 hours ago)
+     * @param end - the end of the timespan to query (defaults to now)
+     * @param step - the requested time interval between rows
+     * @param includeOther - include an additional "other" result that
+     *                       represents everything that does not match the given conversations
+     * @param exporterNodeCriteria - the node ID or foreignSource:foreignId tuple
+     * @param ifIndex - filter for flows that came through this SNMP interface
+     */
+    public async getSeriesForConversations(conversations?: string[], start?: number, end?: number,
+                                           step?: number, includeOther?: boolean, exporterNodeCriteria?: string,
+                                           ifIndex?: number): Promise<OnmsFlowSeries> {
+        this.checkForEnhancedFlows();
+        return FlowDAO.getOptions().then((opts) => {
+            opts.withParameter('start', start)
+                .withParameter('end', end)
+                .withParameter('step', step)
+                .withParameter('exporterNode', exporterNodeCriteria)
+                .withParameter('ifIndex', ifIndex)
+                .withParameter('includeOther', includeOther);
+            if (conversations) {
+                conversations.forEach((conversation) => {
+                    opts.withParameter('conversation', conversation);
+                });
+            }
+            return this.http.get(this.pathToFlowsEndpoint() + '/conversations/series', opts).then((result) => {
+                return this.seriesFromData(result.data);
+            });
+        });
+    }
+
+    /**
+     * Enumerate all the hosts matching the given pattern and filters.
+     * @param pattern - the regex pattern to match
+     * @param start - the start of the timespan to query (defaults to 4 hours ago)
+     * @param end - the end of the timespan to query (defaults to now)
+     * @param exporterNodeCriteria - the node ID or foreignSource:foreignId tuple
+     * @param ifIndex - filter for flows that came through this SNMP interface
+     */
+    public async getHosts(pattern?: string, start?: number, end?: number,
+                          exporterNodeCriteria?: string,
+                          ifIndex?: number): Promise<OnmsFlowTable> {
+        return FlowDAO.getOptions().then((opts) => {
+            opts.withParameter('start', start)
+                .withParameter('end', end)
+                .withParameter('exporterNode', exporterNodeCriteria)
+                .withParameter('ifIndex', ifIndex)
+                .withParameter('pattern', pattern);
+            return this.http.get(this.pathToFlowsEndpoint() + '/hosts/enumerate', opts).then((result) => {
+                return result.data;
+            });
+        });
+    }
+
+    /**
+     * Summarize the given hosts based on parameters.
+     * @param hosts - the hosts to include
+     * @param start - the start of the timespan to query (defaults to 4 hours ago)
+     * @param end - the end of the timespan to query (defaults to now)
+     * @param includeOther - include an additional "other" result that
+     *                       represents everything that does not match the given hosts
+     * @param exporterNodeCriteria - the node ID or foreignSource:foreignId tuple
+     * @param ifIndex - filter for flows that came through this SNMP interface
+     */
+    public async getSummaryForHosts(hosts?: string[], start?: number, end?: number,
+                                    includeOther?: boolean,
+                                    exporterNodeCriteria?: string,
+                                    ifIndex?: number): Promise<OnmsFlowTable> {
+        this.checkForEnhancedFlows();
+        return FlowDAO.getOptions().then((opts) => {
+            opts.withParameter('start', start)
+                .withParameter('end', end)
+                .withParameter('exporterNode', exporterNodeCriteria)
+                .withParameter('ifIndex', ifIndex)
+                .withParameter('includeOther', includeOther);
+            if (hosts) {
+                hosts.forEach((host) => {
+                    opts.withParameter('host', host);
+                });
+            }
+            return this.http.get(this.pathToFlowsEndpoint() + '/hosts', opts).then((result) => {
+                return this.tableFromData(result.data);
+            });
+        });
+    }
+
+    /**
+     * Summarize the top N hosts based on parameters.
+     * @param N - how many conversations to return
+     * @param start - the start of the timespan to query (defaults to 4 hours ago)
+     * @param end - the end of the timespan to query (defaults to now)
+     * @param includeOther - include an additional "other" result that
+     *                       represents everything that does not match the top N
+     * @param exporterNodeCriteria - the node ID or foreignSource:foreignId tuple
+     * @param ifIndex - filter for flows that came through this SNMP interface
+     */
+    public async getSummaryForTopNHosts(N?: number, start?: number, end?: number,
+                                        includeOther?: boolean, exporterNodeCriteria?: string,
+                                        ifIndex?: number): Promise<OnmsFlowTable> {
+        this.checkForEnhancedFlows();
+        return FlowDAO.getOptions().then((opts) => {
+            opts.withParameter('N', N)
+                .withParameter('start', start)
+                .withParameter('end', end)
+                .withParameter('exporterNode', exporterNodeCriteria)
+                .withParameter('ifIndex', ifIndex)
+                .withParameter('includeOther', includeOther);
+            return this.http.get(this.pathToFlowsEndpoint() + '/hosts', opts).then((result) => {
+                return this.tableFromData(result.data);
+            });
+        });
+    }
+
+    /**
+     * Get time series data for the top N hosts based on parameters.
+     * @param N - how many applications' series to return
+     * @param start - the start of the timespan to query (defaults to 4 hours ago)
+     * @param end - the end of the timespan to query (defaults to now)
+     * @param step - the requested time interval between rows
+     * @param includeOther - include an additional "other" result that
+     *                       represents everything that does not match the top N
+     * @param exporterNodeCriteria - the node ID or foreignSource:foreignId tuple
+     * @param ifIndex - filter for flows that came through this SNMP interface
+     */
+    public async getSeriesForTopNHosts(N?: number, start?: number, end?: number,
+                                       step?: number, includeOther?: boolean,
+                                       exporterNodeCriteria?: string,
+                                       ifIndex?: number): Promise<OnmsFlowSeries> {
+        this.checkForEnhancedFlows();
         return FlowDAO.getOptions().then((opts) => {
             opts.withParameter('N', N)
                 .withParameter('start', start)
                 .withParameter('end', end)
                 .withParameter('step', step)
                 .withParameter('exporterNode', exporterNodeCriteria)
-                .withParameter('ifIndex', ifIndex);
-            return this.http.get(this.pathToFlowsEndpoint() + '/conversations/series', opts).then((result) => {
+                .withParameter('ifIndex', ifIndex)
+                .withParameter('includeOther', includeOther);
+            return this.http.get(this.pathToFlowsEndpoint() + '/hosts/series', opts).then((result) => {
+                return this.seriesFromData(result.data);
+            });
+        });
+    }
+
+    /**
+     * Get time series data for the given hosts based on parameters.
+     * @param hosts - the hosts to include
+     * @param start - the start of the timespan to query (defaults to 4 hours ago)
+     * @param end - the end of the timespan to query (defaults to now)
+     * @param step - the requested time interval between rows
+     * @param includeOther - include an additional "other" result that
+     *                       represents everything that does not match the given hosts
+     * @param exporterNodeCriteria - the node ID or foreignSource:foreignId tuple
+     * @param ifIndex - filter for flows that came through this SNMP interface
+     */
+    public async getSeriesForHosts(hosts?: string[], start?: number, end?: number,
+                                   step?: number, includeOther?: boolean,
+                                   exporterNodeCriteria?: string,
+                                   ifIndex?: number): Promise<OnmsFlowSeries> {
+        this.checkForEnhancedFlows();
+        return FlowDAO.getOptions().then((opts) => {
+            opts.withParameter('start', start)
+                .withParameter('end', end)
+                .withParameter('step', step)
+                .withParameter('exporterNode', exporterNodeCriteria)
+                .withParameter('ifIndex', ifIndex)
+                .withParameter('includeOther', includeOther);
+            if (hosts) {
+                hosts.forEach((host) => {
+                    opts.withParameter('host', host);
+                });
+            }
+            return this.http.get(this.pathToFlowsEndpoint() + '/hosts/series', opts).then((result) => {
                 return this.seriesFromData(result.data);
             });
         });
@@ -283,4 +596,23 @@ export class FlowDAO extends BaseDAO {
     private pathToFlowsEndpoint() {
         return 'rest/flows';
     }
+
+    /**
+     * Check if this version of OpenNMS supports enhanced flow API and if not throw an error.
+     */
+    private checkForEnhancedFlows() {
+        if (!this.http.server.metadata.capabilities().enhancedFlows) {
+            throw new OnmsError('Enhanced flow API is not supported by this version of OpenNMS.');
+        }
+    }
+}
+
+export interface ITopNOptions {
+    N: number;
+    start?: number;
+    end?: number;
+    step?: number;
+    includeOther?: boolean;
+    exporterNodeCriteria?: string;
+    ifIndex?: number;
 }

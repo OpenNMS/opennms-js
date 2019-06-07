@@ -100,11 +100,21 @@ export class ServerMetadata {
     }
   }
 
-  /** Returs a convenient data structure with all capabilities listed. */
+  /** Does this version support the drift 2.0 flows enhancements? */
+  public enhancedFlows() {
+    if (this.type && this.type === ServerTypes.MERIDIAN) {
+      return this.version.ge('2019.0.0');
+    } else {
+      return this.version.ge('25.0.0');
+    }
+  }
+
+  /** Returns a convenient data structure with all capabilities listed. */
   public capabilities() {
     return {
       ackAlarms: this.ackAlarms(),
       apiVersion: this.apiVersion(),
+      enhancedFlows: this.enhancedFlows(),
       flows: this.flows(),
       graphs: this.graphs(),
       outageSummaries: this.outageSummaries(),
@@ -121,6 +131,7 @@ export class ServerMetadata {
       + ',apiVersion=' + this.apiVersion()
       + ',type=' + this.type.toString()
       + ',ackAlarms=' + this.ackAlarms()
+      + ',enhancedFlows=' + this.enhancedFlows()
       + ',flows=' + this.flows()
       + ',graphs=' + this.graphs()
       + ',outageSummaries=' + this.outageSummaries()
