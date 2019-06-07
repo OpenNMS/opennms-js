@@ -94,6 +94,7 @@
     "xmldom": "^0.1.27"
   },
   "resolutions": {
+    "@types/marked": "^0.6.5",
     "atob": "^2.1.2",
     "babel-plugin-istanbul": "^4.1.6",
     "babel-traverse": "^6.26.0",
@@ -101,11 +102,12 @@
     "chokidar": "^2.1.4",
     "deep-extend": "^0.6.0",
     "follow-redirects": "^1.7.0",
-    "handlebars": "^4.1.1",
+    "handlebars": "^4.1.2",
     "istanbul-lib-source-maps": "^1.2.6",
     "jest-config": "^23.6.0",
-    "js-yaml": "^3.13.0",
+    "js-yaml": "^3.13.1",
     "lodash": "^4.17.11",
+    "marked": "^0.6.2",
     "micromatch": "^3.1.10",
     "request": "^2.88.0",
     "sane": "^2.5.2",
