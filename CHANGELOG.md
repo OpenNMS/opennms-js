@@ -1,3 +1,8 @@
+<a name="1.5.1-SNAPSHOT"></a>
+## [1.5.1-SNAPSHOT](https://github.com/OpenNMS/opennms-js/compare/v1.5.0...v1.5.1-SNAPSHOT) (2019-06-07)
+
+
+
 <a name="1.5.0"></a>
 # [1.5.0](https://github.com/OpenNMS/opennms-js/compare/v1.4.0...v1.5.0) (2019-06-07)
 
