@@ -229,8 +229,8 @@ export class FlowDAO extends BaseDAO {
 
     /**
      * Summarize the top N conversations based on parameters.
-     * @param NOptions - how many conversations to return or an object that also includes whether or not to include
-     * other
+     * @param NOptions - how many conversations to return or an object that includes all of the parameters to be set on
+     * the API call
      * @param start - the start of the timespan to query (defaults to 4 hours ago)
      * @param end - the end of the timespan to query (defaults to now)
      * @param exporterNodeCriteria - the node ID or foreignSource:foreignId tuple
@@ -241,15 +241,16 @@ export class FlowDAO extends BaseDAO {
                                                 ifIndex?: number): Promise<OnmsFlowTable> {
         return FlowDAO.getOptions().then((opts) => {
             if (typeof NOptions === 'number') {
-                opts.withParameter('N', NOptions);
+                opts.withParameter('N', NOptions)
+                    .withParameter('start', start)
+                    .withParameter('end', end)
+                    .withParameter('exporterNode', exporterNodeCriteria)
+                    .withParameter('ifIndex', ifIndex);
             } else if (NOptions) {
-                opts.withParameter('N', NOptions.N);
-                opts.withParameter('includeOther', NOptions.includeOther);
+                for (const key of Object.keys(NOptions)) {
+                    opts.withParameter(key, NOptions[key]);
+                }
             }
-            opts.withParameter('start', start)
-                .withParameter('end', end)
-                .withParameter('exporterNode', exporterNodeCriteria)
-                .withParameter('ifIndex', ifIndex);
             return this.http.get(this.pathToFlowsEndpoint() + '/conversations', opts).then((result) => {
                 return this.tableFromData(result.data);
             });
@@ -289,8 +290,8 @@ export class FlowDAO extends BaseDAO {
 
     /**
      * Get time series data for the top N conversations based on parameters.
-     * @param NOptions - how many conversations to return or an object that also includes whether or not to include
-     * other
+     * @param NOptions - how many conversations to return or an object that includes all of the parameters to be set on
+     * the API call
      * @param start - the start of the timespan to query (defaults to 4 hours ago)
      * @param end - the end of the timespan to query (defaults to now)
      * @param step - the requested time interval between rows
@@ -302,16 +303,17 @@ export class FlowDAO extends BaseDAO {
                                                ifIndex?: number): Promise<OnmsFlowSeries> {
         return FlowDAO.getOptions().then((opts) => {
             if (typeof NOptions === 'number') {
-                opts.withParameter('N', NOptions);
+                opts.withParameter('N', NOptions)
+                    .withParameter('start', start)
+                    .withParameter('end', end)
+                    .withParameter('step', step)
+                    .withParameter('exporterNode', exporterNodeCriteria)
+                    .withParameter('ifIndex', ifIndex);
             } else if (NOptions) {
-                opts.withParameter('N', NOptions.N);
-                opts.withParameter('includeOther', NOptions.includeOther);
+                for (const key of Object.keys(NOptions)) {
+                    opts.withParameter(key, NOptions[key]);
+                }
             }
-            opts.withParameter('start', start)
-                .withParameter('end', end)
-                .withParameter('step', step)
-                .withParameter('exporterNode', exporterNodeCriteria)
-                .withParameter('ifIndex', ifIndex);
             return this.http.get(this.pathToFlowsEndpoint() + '/conversations/series', opts).then((result) => {
                 return this.seriesFromData(result.data);
             });
@@ -607,5 +609,10 @@ export class FlowDAO extends BaseDAO {
 
 export interface ITopNOptions {
     N: number;
-    includeOther: boolean;
+    start?: number;
+    end?: number;
+    step?: number;
+    includeOther?: boolean;
+    exporterNodeCriteria?: string;
+    ifIndex?: number;
 }
