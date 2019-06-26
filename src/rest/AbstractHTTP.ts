@@ -2,7 +2,6 @@
 /// <reference path="../../typings/index.d.ts" />
 
 import {IOnmsHTTP} from '../api/IOnmsHTTP';
-import {IFilterProcessor} from '../api/IFilterProcessor';
 
 import {OnmsError} from '../api/OnmsError';
 import {OnmsHTTPOptions} from '../api/OnmsHTTPOptions';
@@ -10,6 +9,9 @@ import {OnmsResult} from '../api/OnmsResult';
 import {OnmsServer} from '../api/OnmsServer';
 import {XmlTransformer} from './XmlTransformer';
 import {JsonTransformer} from './JsonTransformer';
+
+// tslint:disable-next-line:no-var-requires
+import btoa from 'btoa';
 
 /** @hidden */
 const xmlTransformer = new XmlTransformer();
@@ -25,7 +27,11 @@ const OPTIONS_PROP = Symbol.for('options');
  * @implements IOnmsHTTP
  */
 export abstract class AbstractHTTP implements IOnmsHTTP {
+  /** @hidden */
   private [OPTIONS_PROP] = new OnmsHTTPOptions();
+
+  /** @hidden */
+  private authHash: string;
 
   /** The default set of HTTP options associated with this ReST client. */
   public get options(): OnmsHTTPOptions {
@@ -78,7 +84,7 @@ export abstract class AbstractHTTP implements IOnmsHTTP {
    */
   constructor(server?: OnmsServer, timeout?: number) {
     if (server) {
-      this.serverObj = server;
+      this.server = server;
     }
     if (timeout) {
       this.options.timeout = timeout;
@@ -154,9 +160,12 @@ export abstract class AbstractHTTP implements IOnmsHTTP {
    * passed in the [[OnmsHTTPOptions]], otherwise it falls back to the default server associated
    * with the HTTP implementation.
    */
-  protected getServer(options?: OnmsHTTPOptions) {
+  protected getServer(options?: OnmsHTTPOptions): OnmsServer {
     if (options && options.server) {
       return options.server;
+    }
+    if (!this.serverObj) {
+      throw new OnmsError('Server not configured!');
     }
     return this.serverObj;
   }
@@ -176,10 +185,38 @@ export abstract class AbstractHTTP implements IOnmsHTTP {
       ret.auth = Object.assign(ret.auth, server.auth);
     }
     Object.assign(ret, options);
+
     if (!ret.headers.hasOwnProperty('X-Requested-With')) {
       ret.headers['X-Requested-With'] = 'XMLHttpRequest';
     }
+
+    if (!ret.headers.accept && !ret.headers.Accept) {
+      ret.headers.accept = 'application/json';
+    }
+    if (!ret.headers['content-type'] && !ret.headers['Content-Type']) {
+      ret.headers['content-type'] = 'application/json;charset=utf-8';
+    }
+
     return ret;
+  }
+
+  /**
+   * Set or update the basic auth credentials to be used in making connections.
+   * @param username The username to connect with
+   * @param password The password to connect with
+   */
+  protected useBasicAuth(username?: string, password?: string) {
+    if (username && password) {
+      const hash = btoa(username + ':' + password);
+      if (hash !== this.authHash) {
+        this.onBasicAuth(username, password, hash, this.authHash);
+        this.authHash = hash;
+      }
+    }
+  }
+
+  protected onBasicAuth(username, password, newHash, oldHash) {
+    // do nothing by default
   }
 
   /**
@@ -187,7 +224,10 @@ export abstract class AbstractHTTP implements IOnmsHTTP {
    * (like clearing a cache) when server settings change.
    */
   protected onSetServer() {
-    // do nothing by default
+    const auth = this.server.auth;
+    if (auth && auth.username) {
+      this.useBasicAuth(auth.username, auth.password);
+    }
   }
 
   /**
@@ -246,6 +286,9 @@ export abstract class AbstractHTTP implements IOnmsHTTP {
   protected static extractData(err: any): any {
     if (err && err.response && err.response.data) {
       return err.response.data;
+    }
+    if (err && err.data && err.data.response && (typeof (err.data.response) === 'string')) {
+      return err.data.response;
     }
     return undefined;
   }

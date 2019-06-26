@@ -77,7 +77,9 @@
     "testRegex": "(/__tests__/.*|\\.(test|spec))\\.(ts|tsx|js)$"
   },
   "dependencies": {
+    "@types/btoa": "^1.2.3",
     "axios": "^0.19.0",
+    "btoa": "^1.2.1",
     "chalk": "^2.4.2",
     "cli-table3": "^0.5.0",
     "commander": "^2.9.0",
