@@ -57,6 +57,27 @@ export class GrafanaHTTP extends AbstractHTTP {
     });
   }
 
+  /** Make an HTTP HEAD call using the Grafana `BackendSrv`. */
+  public head(url: string, options?: OnmsHTTPOptions) {
+    const realUrl = this.getServer(options).resolveURL(url);
+    log.debug('HEAD ' + realUrl);
+    const query = this.getConfig(options);
+    query.method = 'HEAD';
+    query.url = realUrl;
+    return this.backendSrv.datasourceRequest(query).then((response) => {
+      let type = 'application/xml';
+      if (query && query.headers && query.headers.accept) {
+        type = query.headers.accept;
+      }
+      if (response.headers && response.headers['content-type']) {
+        type = response.headers['content-type'];
+      }
+      return OnmsResult.ok(this.getData(response), undefined, response.status, type);
+    }).catch((e) => {
+      this.handleError(e, query);
+    });
+  }
+
   /** Make an HTTP PUT call using the Grafana `BackendSrv`. */
   public put(url: string, options?: OnmsHTTPOptions) {
     const realUrl = this.getServer(options).resolveURL(url);

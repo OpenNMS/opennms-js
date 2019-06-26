@@ -59,6 +59,11 @@ export class MockHTTP23 extends AbstractHTTP {
     throw new Error('23: Not yet implemented: POST ' + urlObj.toString());
   }
 
+  public head(url: string, options?: OnmsHTTPOptions): Promise<OnmsResult<any>> {
+    const urlObj = new URI(url);
+    throw new Error('19: Not yet implemented: HEAD ' + urlObj.toString());
+  }
+
   public httpDelete(url: string, options?: OnmsHTTPOptions): Promise<OnmsResult<any>> {
     const urlObj = new URI(url);
     throw new Error('23: Not yet implemented: DELETE ' + urlObj.toString());

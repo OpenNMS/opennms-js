@@ -76,6 +76,31 @@ export class AxiosHTTP extends AbstractHTTP {
   }
 
   /**
+   * Make an HTTP HEAD call using `axios.request({method:'head'})`.
+   */
+  public head(url: string, options?: OnmsHTTPOptions) {
+    const realUrl = this.getServer(options).resolveURL(url);
+    const opts = this.getConfig(options);
+
+    const urlObj = new URI(realUrl);
+    urlObj.search(opts.params);
+    log.debug('HEAD ' + urlObj.toString(), catAxios);
+
+    opts.method = 'head';
+    opts.url = realUrl;
+
+    return this.getImpl(options).request(opts).then((response) => {
+      let type;
+      if (response.headers && response.headers['content-type']) {
+        type = response.headers['content-type'];
+      }
+      return OnmsResult.ok(this.getData(response), undefined, response.status, type);
+    }).catch((err) => {
+      throw this.handleError(err, opts);
+    });
+  }
+
+  /**
    * Make an HTTP PUT call using `axios.request({method:'put'})`.
    */
   public put(url: string, options?: OnmsHTTPOptions) {

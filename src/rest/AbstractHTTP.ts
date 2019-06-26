@@ -88,6 +88,9 @@ export abstract class AbstractHTTP implements IOnmsHTTP {
   /** Make an HTTP GET call. This must be implemented by the concrete implementation. */
   public abstract get(url: string, options?: OnmsHTTPOptions): Promise<OnmsResult<any>>;
 
+  /** Make an HTTP HEAD call. This must be implemented by the concrete implementation. */
+  public abstract head(url: string, options?: OnmsHTTPOptions): Promise<OnmsResult<any>>;
+
   /** Make an HTTP PUT call. This must be overridden by the concrete implementation. */
   public abstract put(url: string, options?: OnmsHTTPOptions): Promise<OnmsResult<any>>;
 

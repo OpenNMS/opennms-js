@@ -39,6 +39,14 @@ export interface IOnmsHTTP {
   get(url: string, options?: OnmsHTTPOptions): Promise<OnmsResult<any>>;
 
   /**
+   * Perform an HTTP HEAD to the provided URL.
+   * @param url The URL to connect to.
+   * @param options The [[OnmsHTTPOptions]] options to use when connecting.
+   * @returns An [[OnmsResult]] result object.
+   */
+  head(url: string, options?: OnmsHTTPOptions): Promise<OnmsResult<any>>;
+
+  /**
    * Perform an HTTP PUT to the provided URL.
    * @param url The URL to connect to.
    * @param options The [[OnmsHTTPOptions]] options to use when connecting.
