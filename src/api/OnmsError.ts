@@ -7,7 +7,7 @@ export class OnmsError extends Error {
    * The response status code, if any.
    * @hidden
    */
-  private statusCode: number;
+  private statusCode?: number;
 
   /**
    * The data (payload) associated with a response.

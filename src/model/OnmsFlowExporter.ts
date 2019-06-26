@@ -7,6 +7,6 @@ import {OnmsFlowExporterSummary} from './OnmsFlowExporterSummary';
  */
 export class OnmsFlowExporter extends OnmsFlowExporterSummary {
     /** a collection of interface information */
-    public interfaces: OnmsFlowSnmpInterface[];
+    public interfaces?: OnmsFlowSnmpInterface[];
 
 }

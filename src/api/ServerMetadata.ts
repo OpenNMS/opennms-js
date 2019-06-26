@@ -14,7 +14,7 @@ export class ServerMetadata {
   public type: ServerType;
 
   /** The ticketer config. Requires at least version 21.0.0 of OpenNMS. */
-  public ticketerConfig: TicketerConfig;
+  public ticketerConfig?: TicketerConfig;
 
   /**
    * Construct a ServerMetadata object.

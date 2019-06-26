@@ -25,8 +25,11 @@ export class GrafanaHTTP extends AbstractHTTP {
    */
   private backendSrv: any;
 
-  /** @hidden */
-  private authString: string;
+  /**
+   * Used to store the pre-rendered Basic Auth string for making requests.
+   * @hidden
+   */
+  private authString?: string;
 
   /**
    * Construct a new GrafanaHTTP implementation.
@@ -46,7 +49,7 @@ export class GrafanaHTTP extends AbstractHTTP {
     const query = this.getConfig(options);
     query.method = 'GET';
     query.url = realUrl;
-    return this.backendSrv.datasourceRequest(query).then((response) => {
+    return this.backendSrv.datasourceRequest(query).then((response: any) => {
       let type = 'application/xml';
       if (query && query.headers && query.headers.accept) {
         type = query.headers.accept;
@@ -55,7 +58,7 @@ export class GrafanaHTTP extends AbstractHTTP {
         type = response.headers['content-type'];
       }
       return OnmsResult.ok(this.getData(response), undefined, response.status, type);
-    }).catch((e) => {
+    }).catch((e: any) => {
       this.handleError(e, query);
     });
   }
@@ -67,7 +70,7 @@ export class GrafanaHTTP extends AbstractHTTP {
     const query = this.getConfig(options);
     query.method = 'HEAD';
     query.url = realUrl;
-    return this.backendSrv.datasourceRequest(query).then((response) => {
+    return this.backendSrv.datasourceRequest(query).then((response: any) => {
       let type = 'application/xml';
       if (query && query.headers && query.headers.accept) {
         type = query.headers.accept;
@@ -76,7 +79,7 @@ export class GrafanaHTTP extends AbstractHTTP {
         type = response.headers['content-type'];
       }
       return OnmsResult.ok(this.getData(response), undefined, response.status, type);
-    }).catch((e) => {
+    }).catch((e: any) => {
       this.handleError(e, query);
     });
   }
@@ -89,7 +92,7 @@ export class GrafanaHTTP extends AbstractHTTP {
     query.method = 'PUT';
     query.url = realUrl;
     query.data = Object.apply({}, query.parameters);
-    return this.backendSrv.datasourceRequest(query).then((response) => {
+    return this.backendSrv.datasourceRequest(query).then((response: any) => {
       let type = 'application/xml';
       if (query && query.headers && query.headers.accept) {
         type = query.headers.accept;
@@ -98,7 +101,7 @@ export class GrafanaHTTP extends AbstractHTTP {
         type = response.headers['content-type'];
       }
       return OnmsResult.ok(this.getData(response), undefined, response.status, type);
-    }).catch((e) => {
+    }).catch((e: any) => {
       this.handleError(e, query);
     });
   }
@@ -110,7 +113,7 @@ export class GrafanaHTTP extends AbstractHTTP {
     const query = this.getConfig(options);
     query.method = 'POST';
     query.url = realUrl;
-    return this.backendSrv.datasourceRequest(query).then((response) => {
+    return this.backendSrv.datasourceRequest(query).then((response: any) => {
       let type = 'application/xml';
       if (query && query.headers && query.headers.accept) {
         type = query.headers.accept;
@@ -119,7 +122,7 @@ export class GrafanaHTTP extends AbstractHTTP {
         type = response.headers['content-type'];
       }
       return OnmsResult.ok(this.getData(response), undefined, response.status, type);
-    }).catch((e) => {
+    }).catch((e: any) => {
       this.handleError(e, query);
     });
   }
@@ -131,7 +134,7 @@ export class GrafanaHTTP extends AbstractHTTP {
     const query = this.getConfig(options);
     query.method = 'DELETE';
     query.url = realUrl;
-    return this.backendSrv.datasourceRequest(query).then((response) => {
+    return this.backendSrv.datasourceRequest(query).then((response: any) => {
       let type = 'application/xml';
       if (query && query.headers && query.headers.accept) {
         type = query.headers.accept;
@@ -140,7 +143,7 @@ export class GrafanaHTTP extends AbstractHTTP {
         type = response.headers['content-type'];
       }
       return OnmsResult.ok(this.getData(response), undefined, response.status, type);
-    }).catch((e) => {
+    }).catch((e: any) => {
         this.handleError(e, query);
     });
   }
@@ -158,7 +161,10 @@ export class GrafanaHTTP extends AbstractHTTP {
     throw new GrafanaError(message, status, options, err);
   }
 
-  protected onBasicAuth(username: string, password: string, newHash: string, oldHash: string) {
+  /**
+   * @inheritdoc
+   */
+  protected onBasicAuth(username: string, password: string, newHash: string, oldHash?: string) {
     super.onBasicAuth(username, password, newHash, oldHash);
     this.authString = 'Basic ' + newHash;
   }

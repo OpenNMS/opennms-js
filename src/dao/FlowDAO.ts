@@ -248,7 +248,7 @@ export class FlowDAO extends BaseDAO {
                     .withParameter('ifIndex', ifIndex);
             } else if (NOptions) {
                 for (const key of Object.keys(NOptions)) {
-                    opts.withParameter(key, NOptions[key]);
+                    opts.withParameter(key, (NOptions as any)[key]);
                 }
             }
             return this.http.get(this.pathToFlowsEndpoint() + '/conversations', opts).then((result) => {
@@ -311,7 +311,7 @@ export class FlowDAO extends BaseDAO {
                     .withParameter('ifIndex', ifIndex);
             } else if (NOptions) {
                 for (const key of Object.keys(NOptions)) {
-                    opts.withParameter(key, NOptions[key]);
+                    opts.withParameter(key, (NOptions as any)[key]);
                 }
             }
             return this.http.get(this.pathToFlowsEndpoint() + '/conversations/series', opts).then((result) => {
@@ -524,7 +524,7 @@ export class FlowDAO extends BaseDAO {
         exporter.label = data.label;
         exporter.interfaces = [];
         if (data.interface) {
-            exporter.interfaces = data.interface.map((iff) => {
+            exporter.interfaces = data.interface.map((iff: any) => {
                return this.toInterface(iff);
             });
         }
@@ -601,18 +601,28 @@ export class FlowDAO extends BaseDAO {
      * Check if this version of OpenNMS supports enhanced flow API and if not throw an error.
      */
     private checkForEnhancedFlows() {
-        if (!this.http.server.metadata.capabilities().enhancedFlows) {
+        if (!this.http
+            || !this.http.server
+            || !this.http.server.metadata
+            || !this.http.server.metadata.capabilities().enhancedFlows) {
             throw new OnmsError('Enhanced flow API is not supported by this version of OpenNMS.');
         }
     }
 }
 
 export interface ITopNOptions {
+    /** how many series to return */
     N: number;
+    /** the start of the timespan to query */
     start?: number;
+    /** the end of the timespan to query */
     end?: number;
+    /** the requested time interval between rows */
     step?: number;
+    /** include an additional "other" result for non-matches */
     includeOther?: boolean;
+    /** the node ID or foreignSource:foreignId tuple */
     exporterNodeCriteria?: string;
+    /** filter based on SNMP interface */
     ifIndex?: number;
 }

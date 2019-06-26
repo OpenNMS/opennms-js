@@ -4,17 +4,17 @@
  */
 export class OnmsFlowExporterSummary {
     /** node unique identifier */
-    public id: number;
+    public id?: number;
 
     /** node foreign source */
-    public foreignSource: string;
+    public foreignSource?: string;
 
     /** node foreign ID */
-    public foreignId: string;
+    public foreignId?: string;
 
     /** node label */
-    public label: string;
+    public label?: string;
 
     /** the categories the node is in */
-    public categories: string[];
+    public categories?: string[];
 }

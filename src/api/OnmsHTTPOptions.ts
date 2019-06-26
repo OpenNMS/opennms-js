@@ -2,10 +2,10 @@ import {OnmsAuthConfig} from './OnmsAuthConfig';
 import {OnmsServer} from './OnmsServer';
 import {IHash} from '../internal/IHash';
 
-const DEFAULT_TIMEOUT = 10000;
+export const DEFAULT_TIMEOUT = 10000;
 
-const TIMEOUT_PROP = Symbol.for('timeout');
-const AUTH_PROP = Symbol.for('auth');
+export const TIMEOUT_PROP = Symbol.for('timeout');
+export const AUTH_PROP = Symbol.for('auth');
 
 /**
  * Options to be used when making HTTP ReST calls.
@@ -37,7 +37,7 @@ export class OnmsHTTPOptions {
   }
 
   /** The server to use if no server is set on the HTTP implementation. */
-  public server: OnmsServer;
+  public server?: OnmsServer | null;
 
   /** HTTP headers to be passed to the request. */
   public headers = {} as IHash<string>;
@@ -48,8 +48,20 @@ export class OnmsHTTPOptions {
   /** HTTP data to be passed when POSTing */
   public data: any;
 
+  /**
+   * The default timeout associated with these options.
+   *
+   * This is a trick for making sure serialization to JSON happens properly
+   * without exposing internals.
+   */
   private [TIMEOUT_PROP]: number;
 
+  /**
+   * The default authentication credentials associated with these options.
+   *
+   * This is a trick for making sure serialization to JSON happens properly
+   * without exposing internals.
+   */
   private [AUTH_PROP]: OnmsAuthConfig;
 
   /**
@@ -57,15 +69,9 @@ export class OnmsHTTPOptions {
    * @constructor
    */
   constructor(timeout?: number, auth?: OnmsAuthConfig, server?: OnmsServer) {
-    if (timeout !== undefined) {
-      this.timeout = timeout;
-    }
-    if (auth !== undefined) {
-      this.auth = auth;
-    }
-    if (server !== undefined) {
-      this.server = server;
-    }
+    this.timeout = timeout || DEFAULT_TIMEOUT;
+    this.auth = auth || new OnmsAuthConfig();
+    this.server = server || null;
   }
 
   /**
@@ -94,6 +100,9 @@ export class OnmsHTTPOptions {
     return this;
   }
 
+  /**
+   * Convert the options to a plain JSON object.
+   */
   public toJSON(): object {
     const ret = Object.assign({}, this);
     if (this[TIMEOUT_PROP]) {

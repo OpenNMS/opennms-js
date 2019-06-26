@@ -36,7 +36,7 @@ export class AxiosHTTP extends AbstractHTTP {
    * The Axios instance we'll use for making ReST calls.  This will be reinitialized whenever
    * the server configuration changes.
    */
-  private axiosObj: AxiosInstance;
+  private axiosObj?: AxiosInstance;
 
   /**
    * Construct an AxiosHTTP instance.

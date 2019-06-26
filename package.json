@@ -17,9 +17,11 @@
     "url": "https://github.com/OpenNMS/opennms-js.git"
   },
   "devDependencies": {
+    "@types/ip-address": "^5.8.2",
     "@types/jest": "^22.2.3",
     "@types/lodash": "^4.14.104",
     "@types/node": "^9.4.6",
+    "@types/table": "^4.0.5",
     "@types/urijs": "^1.15.36",
     "babel-cli": "^6.26.0",
     "babel-jest": "^23.6.0",
@@ -54,11 +56,11 @@
     "typedoc": "^0.11.0",
     "typedoc-plugin-external-module-name": "^1.1.1",
     "typedoc-webpack-plugin": "^1.1.4",
-    "typescript": "^2.7.0",
+    "typescript": "~2.8.4",
     "uglifyjs-webpack-plugin": "^1.2.2",
     "urijs": "^1.19.1",
     "webpack": "^4.1.1",
-    "webpack-cli": "^2.0.10",
+    "webpack-cli": "^3.0.0",
     "webpack-closure-compiler": "^2.1.6",
     "yargs": "^11.0.0",
     "yarn": "^1.7.0"
@@ -114,12 +116,12 @@
     "request": "^2.88.0",
     "sane": "^2.5.2",
     "sshpk": "^1.16.1",
-    "typescript": "^2.x"
+    "typescript": "~2.8.4"
   },
   "husky": {
     "hooks": {
-      "pre-commit": "jest",
-      "pre-push": "conventional-changelog-lint --from=origin/master && yarn --ignore-engines lint"
+      "pre-commit": "npm run test && npm run lint",
+      "pre-push": "conventional-changelog-lint --from=origin/master && npm run lint"
     }
   },
   "scripts": {
@@ -131,7 +133,7 @@
     "watch": "webpack --progress --colors --watch",
     "test": "jest",
     "watch-test": "jest --watch",
-    "lint": "tslint 'src/**/*.ts'",
+    "lint": "tslint 'src/**/*.ts' && tsc --project tsconfig-check.json",
     "cli": "ts-node src/CLI.ts",
     "docker-build": "yarn --ignore-engines && yarn --ignore-engines lint && yarn --ignore-engines test && yarn --ignore-engines  build && yarn --ignore-engines changelog && ./fix-ownership.sh",
     "docker": "docker run --rm --name opennms-js -v `pwd`:/build -w /build node:carbon yarn --ignore-engines docker-build"

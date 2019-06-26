@@ -1,3 +1,4 @@
+// @ts-ignore
 import * as VersionCompare from 'version_compare';
 
 /**
@@ -19,7 +20,7 @@ export class OnmsVersion {
     return this.dv || this.version;
   }
 
-  public set displayVersion(displayVersion: string) {
+  public set displayVersion(displayVersion: string|undefined) {
     this.dv = displayVersion;
   }
 
@@ -33,7 +34,7 @@ export class OnmsVersion {
    * The internal display version.
    * @hidden
    */
-  private dv: string;
+  private dv?: string;
 
   /**
    * Construct a new version.
@@ -42,7 +43,7 @@ export class OnmsVersion {
    *                         (including extra designators like `x.x.x-SNAPSHOT`).
    */
   constructor(version?: string, displayVersion?: string) {
-    this.version = version || '0.0.0';
+    this.rv = version || '0.0.0';
     this.displayVersion = displayVersion;
   }
 

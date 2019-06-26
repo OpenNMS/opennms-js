@@ -7,17 +7,17 @@ import {OnmsFlowSeriesColumn} from './OnmsFlowSeriesColumn';
  */
 export class OnmsFlowSeries {
     /** start time */
-    public start: Moment;
+    public start?: Moment;
 
     /** end time */
-    public end: Moment;
+    public end?: Moment;
 
     /** columns */
-    public columns: OnmsFlowSeriesColumn[];
+    public columns?: OnmsFlowSeriesColumn[];
 
     /** row timestamps */
-    public timestamps: number[];
+    public timestamps?: number[];
 
     /** cell values */
-    public values: number[][];
+    public values?: number[][];
 }

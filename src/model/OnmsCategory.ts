@@ -8,7 +8,7 @@ const cat = new Category('category', catModel);
 
 /** @hidden */
 export const Categories = {
-};
+} as {[key: number]: OnmsCategory};
 
 /**
  * Represents an OpenNMS category.
@@ -41,6 +41,7 @@ export class OnmsCategory implements IHasUrlValue {
     this.name = name;
   }
 
+  /** @inheritdoc */
   public get urlValue() {
     return this.name;
   }

@@ -11,49 +11,49 @@ import {OnmsSeverity} from './OnmsSeverity';
  */
 export class OnmsEvent implements IHasUrlValue {
   /** the event ID */
-  public id: number;
+  public id?: number;
 
   /** the UEI of this event */
-  public uei: string;
+  public uei?: string;
 
   /** the label of this event as defined in the event configuration */
-  public label: string;
+  public label?: string;
 
   /** which location the event originated from */
-  public location: string;
+  public location?: string;
 
   /** the node's ID associated with this event */
-  public nodeId: number;
+  public nodeId?: number;
 
   /** the node's label associated with this event */
-  public nodeLabel: string;
+  public nodeLabel?: string;
 
   /** the interface associated with this event */
-  public ipAddress: Address4 | Address6;
+  public ipAddress?: Address4 | Address6;
 
   /** the severity of this event */
-  public severity: OnmsSeverity;
+  public severity?: OnmsSeverity;
 
   /** when the event was created */
-  public createTime: Moment;
+  public createTime?: Moment;
 
   /** when the event was received by OpenNMS */
-  public time: Moment;
+  public time?: Moment;
 
   /** which subsystem the event came from */
-  public source: string;
+  public source?: string;
 
   /** the description of is event */
-  public description: string;
+  public description?: string;
 
   /** the log message of the event */
-  public logMessage: string;
+  public logMessage?: string;
 
   /** the service associated with the event */
-  public service: OnmsServiceType;
+  public service?: OnmsServiceType;
 
   /** the parameters emitted with this alarm's event */
-  public parameters: OnmsParm[];
+  public parameters?: OnmsParm[];
 
   /** the service name associated with the event */
   public get serviceName() {
@@ -63,6 +63,7 @@ export class OnmsEvent implements IHasUrlValue {
     return undefined;
   }
 
+  /** @inheritdoc */
   public get urlValue() {
     return String(this.id);
   }

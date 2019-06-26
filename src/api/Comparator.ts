@@ -74,7 +74,7 @@ const Comparators = {
   IPLIKE: new Comparator(17, 'IPLIKE'),
   SQL: new Comparator(16, 'SQL'),
   */
-};
+} as { [key: string]: Comparator };
 
 /** @hidden */
 const frozen = Object.freeze(Comparators);

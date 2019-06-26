@@ -35,7 +35,7 @@ export class V2FilterProcessor implements IFilterProcessor {
   private static NULL_DATE_ENCODED = encodeURIComponent(V2FilterProcessor.NULL_DATE);
 
   /** The accessor for Properties */
-  private searchPropertyAccessor: ISearchPropertyAccessor;
+  private searchPropertyAccessor?: ISearchPropertyAccessor;
 
   constructor(searchPropertyAccessor?: ISearchPropertyAccessor) {
       this.searchPropertyAccessor = searchPropertyAccessor;
@@ -93,7 +93,8 @@ export class V2FilterProcessor implements IFilterProcessor {
           return restriction.value === undefined ? V2FilterProcessor.NULL_VALUE : encodeURIComponent(restriction.value);
       default:
           if (restriction.value === 'null' || restriction.value === void 0) {
-              const property = this.searchPropertyAccessor.getProperty(restriction.attribute);
+              const property = this.searchPropertyAccessor
+                && this.searchPropertyAccessor.getProperty(restriction.attribute);
               if (property && property.type === SearchPropertyTypes.TIMESTAMP) {
                   return V2FilterProcessor.NULL_DATE_ENCODED;
               }

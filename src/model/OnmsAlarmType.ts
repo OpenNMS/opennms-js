@@ -1,11 +1,17 @@
 import {IHasUrlValue} from '../api/IHasUrlValue';
-import {OnmsEnum} from '../internal/OnmsEnum';
+import {OnmsEnum, forId} from '../internal/OnmsEnum';
 
 /**
  * Represents an OpenNMS alarm type.
  * @module OnmsAlarmType
  */
 export class OnmsAlarmType extends OnmsEnum<number> implements IHasUrlValue {
+  /** @inheritdoc */
+  public static forId(id?: number) {
+    return forId(AlarmTypes, id);
+  }
+
+  /** @inheritdoc */
   public get urlValue() {
     return String(this.id);
   }

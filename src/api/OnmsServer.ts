@@ -19,13 +19,13 @@ export class OnmsServer {
   public name?: string;
 
   /** The base URL to the server. */
-  public url: string;
+  public url?: string;
 
   /** The authorization configuration associated with the server. */
-  public auth: OnmsAuthConfig;
+  public auth?: OnmsAuthConfig;
 
   /** The capabilities of the server */
-  public metadata: ServerMetadata;
+  public metadata?: ServerMetadata;
 
   /**
    * Construct a new OnmsServer object representing a remote server.

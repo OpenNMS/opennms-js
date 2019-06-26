@@ -8,15 +8,16 @@ import {OnmsEnum, forId, forLabel} from '../internal/OnmsEnum';
  */
 export class OnmsSnmpStatusType extends OnmsEnum<number> implements IHasUrlValue {
   /** Given an ID, return the matching snmp status type object. */
-  public static forId(id: number) {
+  public static forId(id?: number) {
     return forId(SnmpStatusTypes, id);
   }
 
   /** Given a label, return the matching snmp status type object. */
-  public static forLabel(label: string) {
+  public static forLabel(label?: string) {
     return forLabel(SnmpStatusTypes, label);
   }
 
+  /** @inheritdoc */
   public get urlValue() {
     return String(this.id);
   }

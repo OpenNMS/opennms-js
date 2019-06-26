@@ -10,9 +10,9 @@
     "allowJs": true,
     "lib": [ "es6", "dom" ],
     "skipLibCheck": true,
-    "outDir": "build"
+    "outDir": "dist"
   },
   "include": [
-    "src/**/*"
+    "src"
   ]
 }

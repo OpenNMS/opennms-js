@@ -10,7 +10,7 @@ import {Util} from '../internal/Util';
 import {OnmsEvent} from '../model/OnmsEvent';
 import {OnmsParm} from '../model/OnmsParm';
 import {OnmsServiceType} from '../model/OnmsServiceType';
-import {Severities} from '../model/OnmsSeverity';
+import {Severities, OnmsSeverity} from '../model/OnmsSeverity';
 
 import {log, catDao} from '../api/Log';
 import {Category} from 'typescript-logging';
@@ -55,7 +55,7 @@ export class EventDAO extends AbstractDAO<number, OnmsEvent> {
                     throw new OnmsError('Expected an array of events but got "' + (typeof data) + '" instead.');
                 }
             }
-            return data.map((eventData) => {
+            return data.map((eventData: any) => {
                 return this.fromData(eventData);
             });
         });
@@ -83,7 +83,7 @@ export class EventDAO extends AbstractDAO<number, OnmsEvent> {
     event.logMessage = data.logMessage;
 
     if (data.severity) {
-      event.severity = Severities[data.severity];
+      event.severity = OnmsSeverity.forLabel(data.severity);
     }
 
     if (data.serviceType) {

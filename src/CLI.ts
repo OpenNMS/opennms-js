@@ -53,7 +53,7 @@ const CLI = () => {
     return config;
   };
 
-  const handleError = (message, err) => {
+  const handleError = (message: string, err: any) => {
     let realError: any = new Error(message);
     if (err instanceof API.OnmsResult) {
       realError = new API.OnmsError(message + ': ' + err.message, err.code);
@@ -65,7 +65,7 @@ const CLI = () => {
     if (program.debug) {
       log.error(realError.message, realError, catCLI);
     } else {
-      log.error(realError.message, undefined, catCLI);
+      log.error(realError.message, null, catCLI);
     }
     return realError;
   };
@@ -89,7 +89,7 @@ const CLI = () => {
     .description('Connect to an OpenNMS Horizon or Meridian server')
     .option('-u, --username <username>', 'The username to authenticate as (default: admin)')
     .option('-p, --password <password>', 'The password to authenticate with (default: admin)')
-    .action((url, options) => {
+    .action((url: string, options: any) => {
       console.log(chalk.red('WARNING: This command saves your login'
         + ' information to ~/.opennms-cli.config.json in clear text.'));
       const config = readConfig();
@@ -172,13 +172,13 @@ const CLI = () => {
     }
   };
 
-  const getMaxWidth = (data, prop, max) => {
+  const getMaxWidth = (data: any[], prop: string, max: number) => {
     const filtered = data.map((d) => ('' + d[prop]).length);
     const m = Math.max(...filtered);
     return Math.min(m, max);
   };
 
-  const formatAlarms = (alarms) => {
+  const formatAlarms = (alarms: any[]) => {
     return alarms.map((alarm) => {
       const severityLabel = ((alarm.severity && alarm.severity.label) ? alarm.severity.label : '');
 
@@ -206,7 +206,7 @@ const CLI = () => {
   program
     .command('alarms [filters...]')
     .description('List current alarms with optional filters (eg: "severity eq MAJOR" or "node.label like dns*")')
-    .action((filters) => {
+    .action((filters: string[]) => {
       const config = readConfig();
       return new Client().connect('OpenNMS', config.url, config.username, config.password).then((client) => {
         const dao = new DAO.AlarmDAO(client);
@@ -281,11 +281,12 @@ const CLI = () => {
       p.alias(alias);
     }
     p.description(description);
-    p.action((id) => {
-      id = parseInt(id, 10);
+    p.action((passedId: string) => {
+      const id = parseInt(passedId, 10);
       const config = readConfig();
       return new Client().connect('OpenNMS', config.url, config.username, config.password).then((client) => {
-        return client.alarms()[name](id).then(() => {
+        const dao = client.alarms();
+        return (dao as any)[name](id).then(() => {
           console.log('Success!');
           return true;
         });
@@ -301,8 +302,8 @@ const CLI = () => {
     .alias('ack')
     .description('Acknowledge an alarm')
     .option('-u, --user <user>', 'Which user to acknowledge as (only administrators can do this)')
-    .action((id, options) => {
-      id = parseInt(id, 10);
+    .action((passedId: string, options: any) => {
+      const id = parseInt(passedId, 10);
       const config = readConfig();
       return new Client().connect('OpenNMS', config.url, config.username, config.password).then((client) => {
         return client.alarms().acknowledge(id, options.user).then(() => {
@@ -321,8 +322,8 @@ const CLI = () => {
       .description('Create or update the sticky memo associated with the alarm')
       .option('-u, --user <user>', 'Which user to update the memo as (only administrators can do this)')
       .option('-b, --body <body>', 'Memo body')
-      .action((id, options) => {
-          id = parseInt(id, 10);
+      .action((passedId: string, options: any) => {
+          const id = parseInt(passedId, 10);
           const config = readConfig();
           return new Client().connect('OpenNMS', config.url, config.username, config.password).then((client) => {
               return client.alarms().saveStickyMemo(id, options.body, options.user).then(() => {
@@ -341,8 +342,8 @@ const CLI = () => {
       .description('Create or update the journal memo associated with the alarm')
       .option('-u, --user <user>', 'Which user to update the memo as (only administrators can do this)')
       .option('-b, --body <body>', 'Memo body')
-      .action((id, options) => {
-          id = parseInt(id, 10);
+      .action((passedId: string, options: any) => {
+          const id = parseInt(passedId, 10);
           const config = readConfig();
           return new Client().connect('OpenNMS', config.url, config.username, config.password).then((client) => {
               return client.alarms().saveJournalMemo(id, options.body, options.user).then(() => {

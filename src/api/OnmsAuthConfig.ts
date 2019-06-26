@@ -4,16 +4,16 @@
  */
 export class OnmsAuthConfig {
   /** The password to authenticate with. */
-  public password: string;
+  public password?: string;
 
   /** The username to connect as. */
-  public username: string;
+  public username?: string;
 
   /**
    * Construct an auth configuration object.
    * @constructor
    */
-  constructor(username: string, password: string) {
+  constructor(username?: string, password?: string) {
     this.username = username;
     this.password = password;
   }

@@ -19,7 +19,7 @@ const xmlTransformer = new XmlTransformer();
 /** @hidden */
 const jsonTransformer = new JsonTransformer();
 
-const OPTIONS_PROP = Symbol.for('options');
+export const OPTIONS_PROP = Symbol.for('options');
 
 /**
  * Abstract implementation of the OnmsHTTP interface meant to be extended by a concrete class.
@@ -27,11 +27,17 @@ const OPTIONS_PROP = Symbol.for('options');
  * @implements IOnmsHTTP
  */
 export abstract class AbstractHTTP implements IOnmsHTTP {
-  /** @hidden */
+  /**
+   * This is a trick to make sure it doesn't get serialized and is always unique to the impl.
+   * @hidden
+   */
   private [OPTIONS_PROP] = new OnmsHTTPOptions();
 
-  /** @hidden */
-  private authHash: string;
+  /**
+   * We keep a computed basic auth hash so we can react when user/pass change in the impl.
+   * @hidden
+   */
+  private authHash?: string;
 
   /** The default set of HTTP options associated with this ReST client. */
   public get options(): OnmsHTTPOptions {
@@ -64,14 +70,14 @@ export abstract class AbstractHTTP implements IOnmsHTTP {
    * The server metadata we'll use for constructing ReST calls.
    * @hidden
    */
-  private serverObj: OnmsServer;
+  private serverObj: OnmsServer | null = null;
 
   /** The server associated with this HTTP implementation. */
   public get server() {
     return this.serverObj;
   }
 
-  public set server(server: OnmsServer) {
+  public set server(server: OnmsServer | null) {
     this.serverObj = server;
     this.onSetServer();
   }
@@ -186,6 +192,10 @@ export abstract class AbstractHTTP implements IOnmsHTTP {
     }
     Object.assign(ret, options);
 
+    if (!ret.headers) {
+      ret.headers = {};
+    }
+
     if (!ret.headers.hasOwnProperty('X-Requested-With')) {
       ret.headers['X-Requested-With'] = 'XMLHttpRequest';
     }
@@ -215,7 +225,14 @@ export abstract class AbstractHTTP implements IOnmsHTTP {
     }
   }
 
-  protected onBasicAuth(username, password, newHash, oldHash) {
+  /**
+   * Keep the basic auth string in sync when username/password changes.
+   * @param username The username
+   * @param password The user's password
+   * @param newHash The newly-computed hash of username + password
+   * @param oldHash The previous hash
+   */
+  protected onBasicAuth(username: string, password: string, newHash: string, oldHash?: string) {
     // do nothing by default
   }
 
@@ -224,7 +241,7 @@ export abstract class AbstractHTTP implements IOnmsHTTP {
    * (like clearing a cache) when server settings change.
    */
   protected onSetServer() {
-    const auth = this.server.auth;
+    const auth = this.server ? this.server.auth : undefined;
     if (auth && auth.username) {
       this.useBasicAuth(auth.username, auth.password);
     }

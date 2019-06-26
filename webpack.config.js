@@ -48,15 +48,6 @@ var config = {
           'babel-loader'
         ]
       },
-      {
-        test: /(\.tsx?)$/,
-        use: [
-          'cache-loader',
-          'babel-loader',
-          'ts-loader'
-        ],
-        exclude: [/node_modules/]
-      }
     ],
   },
   resolve: {
@@ -109,6 +100,18 @@ function createConfig(options) {
     myconf.optimization = {};
   }
 
+  if (!options.production) {
+    myconf.module.rules.unshift({
+      test: /(\.tsx?)$/,
+      use: [
+        'cache-loader',
+        'babel-loader',
+        'ts-loader'
+      ],
+      exclude: [/node_modules/]
+    });
+  }
+
   if (options.production) {
     myconf.optimization.minimize = true;
     if (!myconf.optimization.minimizer) {
@@ -135,9 +138,21 @@ function createConfig(options) {
       test: /\.tsx?$/,
       use: [
         {
-          loader: 'tslint-loader',
+          loader: 'tslint-loader'
+        }
+      ],
+      exclude: [/node_modules/]
+    });
+
+    myconf.module.rules.unshift({
+      test: /(\.tsx?)$/,
+      use: [
+        'cache-loader',
+        'babel-loader',
+        {
+          loader: 'ts-loader',
           options: {
-            typeCheck: true
+            configFile: 'tsconfig-prod.json',
           }
         }
       ],
