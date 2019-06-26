@@ -12,11 +12,7 @@ import {OnmsHTTPOptions} from '../api/OnmsHTTPOptions';
 import {OnmsResult} from '../api/OnmsResult';
 import {OnmsServer} from '../api/OnmsServer';
 
-import {log, catRest} from '../api/Log';
-import {Category} from 'typescript-logging';
-
-/** @hidden */
-const catAxios = new Category('axios', catRest);
+import {log} from '../api/Log';
 
 /**
  * Implementation of the [[IOnmsHTTP]] interface using Axios: https://github.com/mzabriskie/axios
@@ -58,7 +54,7 @@ export class AxiosHTTP extends AbstractHTTP {
 
     const urlObj = new URI(realUrl);
     urlObj.search(opts.params);
-    log.debug('GET ' + urlObj.toString(), catAxios);
+    log.debug('GET ' + urlObj.toString());
 
     opts.method = 'get';
     opts.url = realUrl;
@@ -83,7 +79,7 @@ export class AxiosHTTP extends AbstractHTTP {
 
     const urlObj = new URI(realUrl);
     urlObj.search(opts.params);
-    log.debug('HEAD ' + urlObj.toString(), catAxios);
+    log.debug('HEAD ' + urlObj.toString());
 
     opts.method = 'head';
     opts.url = realUrl;
@@ -108,7 +104,7 @@ export class AxiosHTTP extends AbstractHTTP {
 
     const urlObj = new URI(realUrl);
     urlObj.search(opts.params);
-    log.debug('PUT ' + urlObj.toString(), catAxios);
+    log.debug('PUT ' + urlObj.toString());
 
     opts.data = Object.apply({}, opts.params);
     opts.method = 'put';
@@ -134,7 +130,7 @@ export class AxiosHTTP extends AbstractHTTP {
 
     const urlObj = new URI(realUrl);
     urlObj.search(opts.params);
-    log.debug('POST ' + urlObj.toString(), catAxios);
+    log.debug('POST ' + urlObj.toString());
 
     opts.method = 'post';
     opts.url = realUrl;
@@ -159,7 +155,7 @@ export class AxiosHTTP extends AbstractHTTP {
 
     const urlObj = new URI(realUrl);
     urlObj.search(opts.params);
-    log.debug('DELETE ' + urlObj.toString(), catAxios);
+    log.debug('DELETE ' + urlObj.toString());
 
     opts.method = 'delete';
     opts.url = realUrl;

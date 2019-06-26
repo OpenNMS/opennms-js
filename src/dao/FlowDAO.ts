@@ -1,5 +1,3 @@
-import {IHasHTTP} from '../api/IHasHTTP';
-import {IOnmsHTTP} from '../api/IOnmsHTTP';
 import {OnmsError} from '../api/OnmsError';
 import {OnmsFlowSeries} from '../model/OnmsFlowSeries';
 import {OnmsFlowSeriesColumn} from '../model/OnmsFlowSeriesColumn';
@@ -14,10 +12,6 @@ import {BaseDAO} from './BaseDAO';
 /** @hidden */
 // tslint:disable-next-line
 const moment = require('moment');
-
-/** @hidden */
-// tslint:disable-next-line
-import {Moment} from 'moment';
 
 /**
  * DAO for accessing flow (Netflow/IPFIX/sFlow) data.

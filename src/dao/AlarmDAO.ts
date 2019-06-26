@@ -10,23 +10,16 @@ import {OnmsError} from '../api/OnmsError';
 import {OnmsHTTPOptions} from '../api/OnmsHTTPOptions';
 import {OnmsResult} from '../api/OnmsResult';
 import {Restriction} from '../api/Restriction';
-import {SearchProperty} from '../api/SearchProperty';
 
 import {OnmsAlarm} from '../model/OnmsAlarm';
-import {OnmsAlarmSummary} from '../model/OnmsAlarmSummary';
-import {AlarmTypes, OnmsAlarmType} from '../model/OnmsAlarmType';
+import {OnmsAlarmType} from '../model/OnmsAlarmType';
 import {OnmsParm} from '../model/OnmsParm';
 import {OnmsServiceType} from '../model/OnmsServiceType';
-import {Severities, OnmsSeverity} from '../model/OnmsSeverity';
+import {OnmsSeverity} from '../model/OnmsSeverity';
 import {OnmsTroubleTicketState, TroubleTicketStates} from '../model/OnmsTroubleTicketState';
 import {OnmsMemo} from '../model/OnmsMemo';
 
-import {log, catDao} from '../api/Log';
-import {Category} from 'typescript-logging';
-import { IFilterVisitor } from '../api/IFilterVisitor';
-
-/** @hidden */
-const cat = new Category('alarms', catDao);
+import {log} from '../api/Log';
 
 /**
  * Data access for [[OnmsAlarm]] objects.
@@ -212,7 +205,7 @@ export class AlarmDAO extends AbstractDAO<number, OnmsAlarm> {
     const options = new OnmsHTTPOptions();
     options.headers.accept = 'text/plain';
     return this.http.post(this.pathToAlarmsEndpoint() + '/' + alarmId + '/ticket/create', options).then(() => {
-      log.debug('Ticket creation pending.', cat);
+      log.debug('Ticket creation pending.');
     }).catch(this.handleError);
   }
 
@@ -232,7 +225,7 @@ export class AlarmDAO extends AbstractDAO<number, OnmsAlarm> {
     const options = new OnmsHTTPOptions();
     options.headers.accept = 'text/plain';
     return this.http.post(this.pathToAlarmsEndpoint() + '/' + alarmId + '/ticket/update', options).then(() => {
-      log.debug('Ticket update pending.', cat);
+      log.debug('Ticket update pending.');
     }).catch(this.handleError);
   }
 
@@ -252,7 +245,7 @@ export class AlarmDAO extends AbstractDAO<number, OnmsAlarm> {
     const options = new OnmsHTTPOptions();
     options.headers.accept = 'text/plain';
     return this.http.post(this.pathToAlarmsEndpoint() + '/' + alarmId + '/ticket/close', options).then(() => {
-      log.debug('Ticket close pending.', cat);
+      log.debug('Ticket close pending.');
     }).catch(this.handleError);
   }
 

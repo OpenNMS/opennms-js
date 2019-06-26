@@ -1,8 +1,5 @@
 declare const await, describe, beforeEach, it, expect, jest;
 
-import {log,catRoot,setLogLevel} from '../../src/api/Log';
-import {LogLevel} from 'typescript-logging';
-
 import {OnmsError} from '../../src/api/OnmsError';
 import {Comparator, Comparators} from '../../src/api/Comparator';
 import {Filter} from '../../src/api/Filter';

@@ -1,8 +1,5 @@
 declare const await, describe, beforeEach, it, expect, jest;
 
-import {log,catRoot,setLogLevel} from '../../src/api/Log';
-import {LogLevel} from 'typescript-logging';
-
 import {Comparators} from '../../src/api/Comparator';
 import {Filter} from '../../src/api/Filter';
 import {Restriction} from '../../src/api/Restriction';
@@ -10,7 +7,6 @@ import {SearchProperty} from '../../src/api/SearchProperty';
 import {SearchPropertyTypes} from '../../src/api/SearchPropertyType';
 import {NestedRestriction} from '../../src/api/NestedRestriction';
 
-import {OnmsAlarm} from '../../src/model/OnmsAlarm';
 import {Severities} from '../../src/model/OnmsSeverity';
 
 import {PropertiesCache} from '../../src/dao/PropertiesCache';

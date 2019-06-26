@@ -1,10 +1,6 @@
 import {IHasUrlValue} from '../api/IHasUrlValue';
 
-import {log, catModel} from '../api/Log';
-import {Category} from 'typescript-logging';
-
-/** @hidden */
-const cat = new Category('category', catModel);
+import {log} from '../api/Log';
 
 /** @hidden */
 export const Categories = {
@@ -22,7 +18,7 @@ export class OnmsCategory implements IHasUrlValue {
         return Categories[id];
       } else {
         log.warn('Category ID ' + id + ' is already cached, but names do not match!'
-          + ' (' + Categories[id].name + ' != ' + name + ')', cat);
+          + ' (' + Categories[id].name + ' != ' + name + ')');
       }
     }
     Categories[id] = new OnmsCategory(id, name);

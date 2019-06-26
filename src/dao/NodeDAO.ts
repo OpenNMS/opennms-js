@@ -19,14 +19,8 @@ import {OnmsPrimaryType} from '../model/OnmsPrimaryType';
 import {OnmsServiceType} from '../model/OnmsServiceType';
 import {OnmsServiceStatusType} from '../model/OnmsServiceStatusType';
 import {OnmsSnmpInterface} from '../model/OnmsSnmpInterface';
-import {OnmsSnmpStatusType, SnmpStatusTypes} from '../model/OnmsSnmpStatusType';
+import {OnmsSnmpStatusType} from '../model/OnmsSnmpStatusType';
 import {PhysAddr} from '../model/PhysAddr';
-
-import {log, catDao} from '../api/Log';
-import {Category} from 'typescript-logging';
-
-/** @hidden */
-const cat = new Category('nodes', catDao);
 
 /**
  * Data access for [[OnmsNode]] objects.

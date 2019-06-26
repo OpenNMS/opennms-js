@@ -8,7 +8,7 @@ import {OnmsHTTPOptions} from '../api/OnmsHTTPOptions';
 import {SearchProperty} from '../api/SearchProperty';
 import {SearchPropertyType} from '../api/SearchPropertyType';
 
-import {log, catDao} from '../api/Log';
+import {log} from '../api/Log';
 
 import {V1FilterProcessor} from './V1FilterProcessor';
 import {V2FilterProcessor} from './V2FilterProcessor';
@@ -85,7 +85,7 @@ export abstract class BaseDAO {
     } else if (data.totalCount !== undefined) {
       count = parseInt(data.totalCount, 10);
     } else {
-      log.debug('data is missing count and totalCount properties', catDao);
+      log.debug('data is missing count and totalCount properties');
     }
     return count;
   }

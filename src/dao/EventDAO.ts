@@ -12,12 +12,6 @@ import {OnmsParm} from '../model/OnmsParm';
 import {OnmsServiceType} from '../model/OnmsServiceType';
 import {Severities, OnmsSeverity} from '../model/OnmsSeverity';
 
-import {log, catDao} from '../api/Log';
-import {Category} from 'typescript-logging';
-
-/** @hidden */
-const cat = new Category('events', catDao);
-
 /**
  * Data access for [[OnmsEvent]] objects.
  * @module EventDAO

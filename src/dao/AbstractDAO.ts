@@ -10,7 +10,7 @@ import {Restriction} from '../api/Restriction';
 import {SearchProperty} from '../api/SearchProperty';
 import {SearchPropertyType} from '../api/SearchPropertyType';
 
-import {log, catDao} from '../api/Log';
+import {log} from '../api/Log';
 
 import {V1FilterProcessor} from './V1FilterProcessor';
 import {V2FilterProcessor} from './V2FilterProcessor';
@@ -191,7 +191,7 @@ export abstract class AbstractDAO<K, T> extends BaseDAO implements IValueProvide
         self.visitClause(c, visitor);
       });
     } else {
-      log.warn('Restriction is of an unknown type: ' + JSON.stringify(restriction), catDao);
+      log.warn('Restriction is of an unknown type: ' + JSON.stringify(restriction));
     }
   }
 
