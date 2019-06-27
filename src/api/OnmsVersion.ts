@@ -82,6 +82,15 @@ export class OnmsVersion {
   }
 
   /**
+   * Whether this version object is the same as another.
+   */
+  public equals(that: OnmsVersion) {
+    return that &&
+      this.version === that.version &&
+      this.displayVersion === that.displayVersion;
+  }
+
+  /**
    * Create a new version object from this existing one.
    */
   public clone() {

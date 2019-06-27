@@ -83,6 +83,18 @@ export class OnmsServer {
   }
 
   /**
+   * Whether this server object is the same as another.
+   */
+  public equals(that?: OnmsServer) {
+    return that &&
+      this.id === that.id &&
+      this.name === that.name &&
+      this.url === that.url &&
+      (this.auth === that.auth || (this.auth && this.auth.equals(that.auth))) &&
+      (this.metadata === that.metadata || (this.metadata && this.metadata.equals(that.metadata)));
+  }
+
+  /**
    * Create a new server object from this existing one.
    */
   public clone() {

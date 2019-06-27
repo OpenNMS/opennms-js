@@ -19,6 +19,15 @@ export class OnmsAuthConfig {
   }
 
   /**
+   * Whether this auth object is the same as another.
+   */
+  public equals(that?: OnmsAuthConfig) {
+    return that &&
+      this.username === that.username &&
+      this.password === that.password;
+  }
+
+  /**
    * Create a new config object from this existing one.
    */
   public clone() {

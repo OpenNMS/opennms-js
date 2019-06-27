@@ -110,7 +110,7 @@ export class ServerMetadata {
   }
 
   /** Returns a convenient data structure with all capabilities listed. */
-  public capabilities() {
+  public capabilities(): {[key: string]: any} {
     return {
       ackAlarms: this.ackAlarms(),
       apiVersion: this.apiVersion(),
@@ -139,6 +139,17 @@ export class ServerMetadata {
       + ',situations=' + this.situations()
       + ',ticketer=' + this.ticketer()
       + ']';
+  }
+
+  /**
+   * Whether this metadata object is the same as another.
+   */
+  public equals(that?: ServerMetadata) {
+    return that &&
+      (this.version === that.version || (this.version && this.version.equals(that.version))) &&
+      (this.type === that.type || this.type.id === that.type.id) &&
+      (this.ticketerConfig === that.ticketerConfig ||
+        (this.ticketerConfig && this.ticketerConfig.equals(that.ticketerConfig)));
   }
 
   /**
