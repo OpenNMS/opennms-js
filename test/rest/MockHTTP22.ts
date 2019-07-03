@@ -10,7 +10,13 @@ import {AbstractHTTP} from '../../src/rest/AbstractHTTP';
 import {OnmsHTTPOptions} from '../../src/api/OnmsHTTPOptions';
 import {OnmsResult} from '../../src/api/OnmsResult';
 
+/** Mock OpenNMS 22.x HTTP */
 export class MockHTTP22 extends AbstractHTTP {
+  /** Mock HTTP servers have no external dependencies. ;) */
+  public static isValid() {
+    return true;
+  }
+
   /** make an HTTP get call -- this should be overridden by the implementation */
   public get(url: string, options?: OnmsHTTPOptions): Promise<OnmsResult<any>> {
     const urlObj = new URI(url);
@@ -18,7 +24,7 @@ export class MockHTTP22 extends AbstractHTTP {
       urlObj.search(options.parameters);
     }
 
-    switch(urlObj.toString()) {
+    switch (urlObj.toString()) {
       case 'http://demo.opennms.org/opennms/rest/info': {
         return Promise.resolve(OnmsResult.ok({
           displayVersion: '22.0.0',
@@ -62,21 +68,25 @@ export class MockHTTP22 extends AbstractHTTP {
     throw new Error('22: Not yet implemented: GET ' + urlObj.toString());
   }
 
+  /** @inheritdoc */
   public put(url: string, options?: OnmsHTTPOptions): Promise<OnmsResult<any>> {
     const urlObj = new URI(url);
     throw new Error('22: Not yet implemented: PUT ' + urlObj.toString());
   }
 
+  /** @inheritdoc */
   public post(url: string, options?: OnmsHTTPOptions): Promise<OnmsResult<any>> {
     const urlObj = new URI(url);
     throw new Error('22: Not yet implemented: POST ' + urlObj.toString());
   }
 
+  /** @inheritdoc */
   public head(url: string, options?: OnmsHTTPOptions): Promise<OnmsResult<any>> {
     const urlObj = new URI(url);
     throw new Error('19: Not yet implemented: HEAD ' + urlObj.toString());
   }
 
+  /** @inheritdoc */
   public httpDelete(url: string, options?: OnmsHTTPOptions): Promise<OnmsResult<any>> {
     const urlObj = new URI(url);
     throw new Error('22: Not yet implemented: DELETE ' + urlObj.toString());

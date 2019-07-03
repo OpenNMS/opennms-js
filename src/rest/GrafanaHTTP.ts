@@ -19,6 +19,11 @@ const catGrafana = new Category('grafana', catRest);
  * @implements IOnmsHTTP
  */
 export class GrafanaHTTP extends AbstractHTTP {
+  /** GrafanaHTTP has no external dependencies. */
+  public static isValid() {
+    return true;
+  }
+
   /**
    * The Grafana backend object we'll use for making ReST calls.
    * @hidden

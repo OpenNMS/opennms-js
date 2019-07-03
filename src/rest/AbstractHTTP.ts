@@ -27,6 +27,9 @@ export const OPTIONS_PROP = Symbol.for('options');
  * @implements IOnmsHTTP
  */
 export abstract class AbstractHTTP implements IOnmsHTTP {
+  /** @inheritdoc */
+  public isValid = false;
+
   /**
    * This is a trick to make sure it doesn't get serialized and is always unique to the impl.
    * @hidden

@@ -24,6 +24,11 @@ const catAxios = new Category('axios', catRest);
  * @implements IOnmsHTTP
  */
 export class AxiosHTTP extends AbstractHTTP {
+  /** AxiosHTTP has no external dependencies. */
+  public static isValid() {
+    return true;
+  }
+
   /**
    * The Axios implementation class we'll use for making ReST calls.  This is necessary
    * to make sure we end up with the correct backend (XMLHttpRequest or Node.js 'http')

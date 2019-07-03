@@ -21,6 +21,14 @@ import {OnmsServer} from './OnmsServer';
  *   configuration is supplied in the server property.
  */
 export interface IOnmsHTTP {
+  /**
+   * Whether this plugin is valid and can be initialized.
+   *
+   * Implementations can use this to signal whether any optional dependencies
+   * or other conditions have been met for the plugin to work.
+   */
+  isValid: boolean;
+
   /** The server associated with this instance. */
   server?: OnmsServer | null;
 
