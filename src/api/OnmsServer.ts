@@ -83,15 +83,15 @@ export class OnmsServer {
   }
 
   /**
-   * Whether this server object is the same as another.
+   * Deep-checks equality including auth and metadata.
    */
   public equals(that?: OnmsServer) {
-    return that &&
-      this.id === that.id &&
-      this.name === that.name &&
-      this.url === that.url &&
-      (this.auth === that.auth || (this.auth && this.auth.equals(that.auth))) &&
-      (this.metadata === that.metadata || (this.metadata && this.metadata.equals(that.metadata)));
+    return that
+      && this.id === that.id
+      && this.name === that.name
+      && this.url === that.url
+      && (this.auth === that.auth || (this.auth && this.auth.equals(that.auth)))
+      && (this.metadata === that.metadata || (this.metadata && this.metadata.equals(that.metadata)));
   }
 
   /**
