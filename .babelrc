@@ -1,25 +1,37 @@
 {
   "presets": [
-    ["es2015", { "modules": false }],
-    ["env", {
+    ["@babel/preset-env", {
       "targets": {
-        "browsers": [ "last 2 versions", "safari >= 7" ],
-        "node": true
-      }
-    }]
+        "node": "current",
+        "browsers": [ "last 2 versions", "safari >= 7", "> 5%" ]
+      },
+      "modules": "umd",
+      "useBuiltIns": "usage",
+      "corejs": 2
+    }],
+    "@babel/preset-typescript"
   ],
   "plugins": [
-    ["transform-runtime", {
-      helpers: false,
-      polyfill: false,
-      regenerator: true
+    "angularjs-annotate",
+    ["module-resolver", {
+      "root": [
+        "src/main/assets/modules",
+        "src/main/assets/js",
+        "src/main/assets/style",
+        "node_modules"
+      ]
       }],
-    "transform-class-properties",
-    "transform-es2015-destructuring",
-    "transform-es2015-for-of",
-    "transform-es2015-modules-commonjs",
-    "transform-object-rest-spread",
-    "transform-regenerator",
-    "syntax-async-functions",
+    ["@babel/plugin-transform-runtime", {
+      "corejs": 2,
+      "helpers": false,
+      "regenerator": true
+      }],
+    "@babel/plugin-proposal-async-generator-functions",
+    "@babel/plugin-proposal-class-properties",
+    "@babel/plugin-proposal-object-rest-spread",
+    "@babel/plugin-transform-destructuring",
+    "@babel/plugin-transform-for-of",
+    "@babel/plugin-transform-modules-commonjs",
+    "@babel/plugin-transform-regenerator"
   ]
 }
