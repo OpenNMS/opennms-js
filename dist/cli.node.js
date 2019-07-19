@@ -61087,7 +61087,7 @@ var CLI = function CLI() {
             var severityLabel = alarm.severity && alarm.severity.label ? alarm.severity.label : '';
             var logMessage = '';
             if (alarm.logMessage) {
-                logMessage = alarm.logMessage.replace(new RegExp('[\r\n]+', 'gs'), ' ').replace(new RegExp('\s+', 'gs'), ' ').trim();
+                logMessage = alarm.logMessage.replace(new RegExp('[\r\n]+', 'gs'), ' ').replace(new RegExp('\\s+', 'gs'), ' ').trim();
                 logMessage = htmlToFormattedText(logMessage);
             }
             return {
