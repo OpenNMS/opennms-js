@@ -186,7 +186,7 @@ const CLI = () => {
       if (alarm.logMessage) {
         logMessage = alarm.logMessage
           .replace(new RegExp('[\r\n]+', 'gs'), ' ')
-          .replace(new RegExp('\s+', 'gs'), ' ')
+          .replace(new RegExp('\\s+', 'gs'), ' ')
           .trim();
         logMessage = htmlToFormattedText(logMessage);
       }
