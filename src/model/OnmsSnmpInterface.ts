@@ -12,50 +12,51 @@ import {PhysAddr} from './PhysAddr';
  */
 export class OnmsSnmpInterface implements IHasUrlValue {
   /** the interface ID */
-  public id: number;
+  public id?: number;
 
   /** the physical (MAC) address of the interface */
-  public physAddr: PhysAddr;
+  public physAddr?: PhysAddr;
 
   /** the node associated with this interface */
-  public node: any;
+  public node?: any;
 
   /** the SNMP interface index */
-  public ifIndex: number;
+  public ifIndex?: number;
 
   /** the description of the interface */
-  public ifDescr: string;
+  public ifDescr?: string;
 
   /** the type of interface */
-  public ifType: number;
+  public ifType?: number;
 
   /** the name of the interface */
-  public ifName: string;
+  public ifName?: string;
 
   /** the speed of the interface */
-  public ifSpeed: number;
+  public ifSpeed?: number;
 
   /** the administrative status of the interface */
-  public ifAdminStatus: OnmsSnmpStatusType;
+  public ifAdminStatus?: OnmsSnmpStatusType;
 
   /** the operator status of the interface */
-  public ifOperStatus: OnmsSnmpStatusType;
+  public ifOperStatus?: OnmsSnmpStatusType;
 
   /** the alias of the interface */
-  public ifAlias: string;
+  public ifAlias?: string;
 
   /** the last time the SNMP interface was provisioned */
-  public lastCapsdPoll: Moment;
+  public lastCapsdPoll?: Moment;
 
   /** whether the SNMP interface will be collected */
-  public collect: OnmsCollectType;
+  public collect?: OnmsCollectType;
 
   /** whether the interface is set to poll */
-  public poll: boolean;
+  public poll?: boolean;
 
   /** the last time the SNMP interface was polled */
-  public lastSnmpPoll: Moment;
+  public lastSnmpPoll?: Moment;
 
+  /** @inheritdoc */
   public get urlValue() {
     return String(this.id);
   }

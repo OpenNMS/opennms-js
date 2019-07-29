@@ -14,7 +14,6 @@ import {OnmsServer} from '../api/OnmsServer';
 
 import {log, catRest} from '../api/Log';
 import {Category} from 'typescript-logging';
-import {Util} from '../internal/Util';
 
 /** @hidden */
 const catAxios = new Category('axios', catRest);
@@ -37,7 +36,7 @@ export class AxiosHTTP extends AbstractHTTP {
    * The Axios instance we'll use for making ReST calls.  This will be reinitialized whenever
    * the server configuration changes.
    */
-  private axiosObj: AxiosInstance;
+  private axiosObj?: AxiosInstance;
 
   /**
    * Construct an AxiosHTTP instance.
@@ -62,6 +61,31 @@ export class AxiosHTTP extends AbstractHTTP {
     log.debug('GET ' + urlObj.toString(), catAxios);
 
     opts.method = 'get';
+    opts.url = realUrl;
+
+    return this.getImpl(options).request(opts).then((response) => {
+      let type;
+      if (response.headers && response.headers['content-type']) {
+        type = response.headers['content-type'];
+      }
+      return OnmsResult.ok(this.getData(response), undefined, response.status, type);
+    }).catch((err) => {
+      throw this.handleError(err, opts);
+    });
+  }
+
+  /**
+   * Make an HTTP HEAD call using `axios.request({method:'head'})`.
+   */
+  public head(url: string, options?: OnmsHTTPOptions) {
+    const realUrl = this.getServer(options).resolveURL(url);
+    const opts = this.getConfig(options);
+
+    const urlObj = new URI(realUrl);
+    urlObj.search(opts.params);
+    log.debug('HEAD ' + urlObj.toString(), catAxios);
+
+    opts.method = 'head';
     opts.url = realUrl;
 
     return this.getImpl(options).request(opts).then((response) => {
@@ -151,6 +175,14 @@ export class AxiosHTTP extends AbstractHTTP {
     });
   }
 
+  /** @inheritdoc */
+  protected onBasicAuth(username: string, password: string, newHash: string, oldHash?: string) {
+    this.axiosImpl.defaults.auth = {
+      password,
+      username,
+    };
+  }
+
   /**
    * Clear the current [[AxiosInstance]] so it is recreated on next request with the
    * new server configuration.
@@ -232,10 +264,6 @@ export class AxiosHTTP extends AbstractHTTP {
       const allOptions = this.getOptions(options);
 
       const axiosOpts = {
-        auth: {
-          password: allOptions.auth.password,
-          username: allOptions.auth.username,
-        },
         baseURL: server.url,
         timeout: allOptions.timeout,
         withCredentials: true,

@@ -8,12 +8,12 @@ import {OnmsEnum, forId, forLabel} from '../internal/OnmsEnum';
  */
 export class OnmsManagedType extends OnmsEnum<string> implements IHasUrlValue {
   /** Given an ID, return the matching managed type object. */
-  public static forId(id: string) {
+  public static forId(id?: string) {
     return forId(ManagedTypes, id);
   }
 
   /** Given a label, return the matching managed type object. */
-  public static forLabel(label: string) {
+  public static forLabel(label?: string) {
     return forLabel(ManagedTypes, label);
   }
 
@@ -22,6 +22,7 @@ export class OnmsManagedType extends OnmsEnum<string> implements IHasUrlValue {
     return this.id === 'M';
   }
 
+  /** @inheritdoc */
   public get urlValue() {
     return this.id;
   }

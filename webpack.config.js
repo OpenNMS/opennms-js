@@ -1,7 +1,7 @@
 var webpack = require('webpack');
 var path = require('path');
+var TerserPlugin = require('terser-webpack-plugin');
 var TypedocWebpackPlugin = require('typedoc-webpack-plugin');
-var UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 var pkginfo = require('./package.json');
 
 var createVariants = require('parallel-webpack').createVariants;
@@ -48,15 +48,6 @@ var config = {
           'babel-loader'
         ]
       },
-      {
-        test: /(\.tsx?)$/,
-        use: [
-          'cache-loader',
-          'babel-loader',
-          'ts-loader'
-        ],
-        exclude: [/node_modules/]
-      }
     ],
   },
   resolve: {
@@ -109,6 +100,17 @@ function createConfig(options) {
     myconf.optimization = {};
   }
 
+  if (!options.production) {
+    myconf.module.rules.unshift({
+      test: /(\.tsx?)$/,
+      use: [
+        'cache-loader',
+        'babel-loader'
+      ],
+      exclude: [/node_modules/]
+    });
+  }
+
   if (options.production) {
     myconf.optimization.minimize = true;
     if (!myconf.optimization.minimizer) {
@@ -116,16 +118,16 @@ function createConfig(options) {
     } else {
       console.log('minimizer exists:',myconf.optimization.minimizer);
     }
-    myconf.optimization.minimizer.push(new UglifyJsPlugin({
+    myconf.optimization.minimizer.push(new TerserPlugin({
       cache: true,
       parallel: true,
       sourceMap: true,
-      uglifyOptions: {
+      terserOptions: {
         mangle: {
           keep_fnames: true,
-          reserved: [ '$element', '$super', '$scope', '$uib', '$', 'jQuery', 'exports', 'require', 'angular', 'c3', 'd3' ]
+          reserved: [ '$element', '$super', '$scope', '$uib', '$', 'jQuery', 'exports', 'require', 'angular', 'c3', 'd3' ],
         },
-        compress: true
+        compress: true,
       }
     }));
 
@@ -135,11 +137,17 @@ function createConfig(options) {
       test: /\.tsx?$/,
       use: [
         {
-          loader: 'tslint-loader',
-          options: {
-            typeCheck: true
-          }
+          loader: 'tslint-loader'
         }
+      ],
+      exclude: [/node_modules/]
+    });
+
+    myconf.module.rules.unshift({
+      test: /(\.tsx?)$/,
+      use: [
+        'cache-loader',
+        'babel-loader'
       ],
       exclude: [/node_modules/]
     });

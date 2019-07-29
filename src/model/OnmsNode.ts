@@ -14,58 +14,58 @@ import {OnmsSnmpInterface} from './OnmsSnmpInterface';
  */
 export class OnmsNode implements IHasUrlValue {
   /** the node ID */
-  public id: number;
+  public id?: number;
 
   /** the label (name) of the node */
-  public label: string;
+  public label?: string;
 
   /** how the label was set */
-  public labelSource: OnmsNodeLabelSource;
+  public labelSource?: OnmsNodeLabelSource;
 
   /** the foreign source of the node */
-  public foreignSource: string;
+  public foreignSource?: string;
 
   /** the foreign ID of the node */
-  public foreignId: string;
+  public foreignId?: string;
 
   /** the location of the node */
-  public location: string;
+  public location?: string;
 
   /** the time the node was created */
-  public createTime: Moment;
+  public createTime?: Moment;
 
   /** the parent of this node */
-  public parent: OnmsNode;
+  public parent?: OnmsNode;
 
   /** the type of node */
-  public type: OnmsNodeType;
+  public type?: OnmsNodeType;
 
   /** the SNMP sysObjectId of the node */
-  public sysObjectId: string;
+  public sysObjectId?: string;
 
   /** the SNMP sysName of the node */
-  public sysName: string;
+  public sysName?: string;
 
   /** the SNMP sysDescription of the node */
-  public sysDescription: string;
+  public sysDescription?: string;
 
   /** the SNMP sysLocation of the node */
-  public sysLocation: string;
+  public sysLocation?: string;
 
   /** the SNMP sysContact for the node */
-  public sysContact: string;
+  public sysContact?: string;
 
   /** the NETBIOS/SMB name for the node */
-  public netBiosName: string;
+  public netBiosName?: string;
 
   /** the NETBIOS/SMB domain for the node */
-  public netBiosDomain: string;
+  public netBiosDomain?: string;
 
   /** the operating system of the node */
-  public operatingSystem: string;
+  public operatingSystem?: string;
 
   /** the last time this node was provisioned */
-  public lastCapsdPoll: Moment;
+  public lastCapsdPoll?: Moment;
 
   /** the LLDP element associated with this node */
   // public lldpElement: LldpElement;
@@ -94,6 +94,7 @@ export class OnmsNode implements IHasUrlValue {
   /** the assets of the node */
   public assets = {} as any;
 
+  /** @inheritdoc */
   public get urlValue() {
     return String(this.id);
   }

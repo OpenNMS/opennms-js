@@ -8,10 +8,10 @@ import {Restriction} from './Restriction';
  */
 export class NestedRestriction {
     /** given a nested restriction JSON structure, return a NestedRestriction object */
-    public static fromJson(nestedRestriction): NestedRestriction {
+    public static fromJson(nestedRestriction: any): NestedRestriction {
         const newNestedRestriction = new NestedRestriction();
         if (nestedRestriction && nestedRestriction.clauses) {
-            nestedRestriction.clauses.forEach((clause) => {
+            nestedRestriction.clauses.forEach((clause: any) => {
                 newNestedRestriction.withClause(Clause.fromJson(clause));
             });
         }

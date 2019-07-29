@@ -18,5 +18,5 @@ export interface ISearchPropertyAccessor {
      * @param {string} id The property id to find the property for.
      * @returns {SearchProperty} The property found.
      */
-    getProperty(id: string): SearchProperty;
+    getProperty(id: string): SearchProperty | undefined;
 }

@@ -8,12 +8,12 @@ import {OnmsEnum, forId, forLabel} from '../internal/OnmsEnum';
  */
 export class OnmsPrimaryType extends OnmsEnum<string> implements IHasUrlValue {
   /** Given an ID, return the matching primary type object. */
-  public static forId(id: string) {
+  public static forId(id?: string) {
     return forId(PrimaryTypes, id);
   }
 
   /** Given a label, return the matching primary type object. */
-  public static forLabel(label: string) {
+  public static forLabel(label?: string) {
     return forLabel(PrimaryTypes, label);
   }
 
@@ -22,6 +22,7 @@ export class OnmsPrimaryType extends OnmsEnum<string> implements IHasUrlValue {
     return this.id === 'P';
   }
 
+  /** @inheritdoc */
   public get urlValue() {
     return this.id;
   }

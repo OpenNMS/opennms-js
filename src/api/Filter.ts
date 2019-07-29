@@ -8,7 +8,7 @@ import {NestedRestriction} from './NestedRestriction';
  */
 export class Filter extends NestedRestriction {
   /** given a filter JSON structure, return a Filter object */
-  public static fromJson(filter): Filter {
+  public static fromJson(filter: any): Filter {
     const newFilter = new Filter();
     if (filter) {
       newFilter.limit = filter.limit;

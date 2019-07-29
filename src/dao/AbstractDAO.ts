@@ -5,6 +5,7 @@ import {Filter} from '../api/Filter';
 import {IFilterVisitor} from '../api/IFilterVisitor';
 import {NestedRestriction} from '../api/NestedRestriction';
 import {OnmsHTTPOptions} from '../api/OnmsHTTPOptions';
+import {OnmsServer} from '../api/OnmsServer';
 import {Restriction} from '../api/Restriction';
 import {SearchProperty} from '../api/SearchProperty';
 import {SearchPropertyType} from '../api/SearchPropertyType';
@@ -23,8 +24,6 @@ import {BaseDAO} from './BaseDAO';
 const moment = require('moment');
 
 /** @hidden */
-// tslint:disable-next-line
-import {Moment} from 'moment';
 import {IValueProvider} from './IValueProvider';
 import { Clause } from '../api/Clause';
 
@@ -69,9 +68,11 @@ export abstract class AbstractDAO<K, T> extends BaseDAO implements IValueProvide
    * Get the list properties that can be used in queries.
    * @version ReST v2
    */
-  public async searchProperties(): Promise<SearchProperty[]> {
+  public async searchProperties(): Promise<SearchProperty[] | undefined> {
     return this.getPropertiesCache().then((cache) => {
-      return cache.getProperties();
+      if (cache) {
+        return cache.getProperties();
+      }
     });
   }
 
@@ -80,9 +81,11 @@ export abstract class AbstractDAO<K, T> extends BaseDAO implements IValueProvide
      *
      * @param id The id to search the property by.
      */
-  public async searchProperty(id: string): Promise<SearchProperty> {
+  public async searchProperty(id: string): Promise<SearchProperty | undefined> {
       return this.getPropertiesCache().then((cache) => {
-        return cache.getProperty(id);
+        if (cache) {
+          return cache.getProperty(id);
+        }
       });
   }
 
@@ -91,7 +94,7 @@ export abstract class AbstractDAO<K, T> extends BaseDAO implements IValueProvide
    *
    * @return the [[PropertiesCache]] for this dao. It is created if it does not exist.
    */
-  public async getPropertiesCache(): Promise<PropertiesCache> {
+  public async getPropertiesCache(): Promise<PropertiesCache | undefined> {
       if (this.getApiVersion() === 1) {
           throw new OnmsError('Search property metadata is only available in OpenNMS ' +
               'versions that support the ReSTv2 API.');
@@ -103,7 +106,7 @@ export abstract class AbstractDAO<K, T> extends BaseDAO implements IValueProvide
               opts.headers.accept = 'application/json';
               return this.http.get(this.searchPropertyPath(), opts).then((result) => {
                   const searchProperties = this.parseResultList(result, 'searchProperty',
-                        this.searchPropertyPath(), (prop) => {
+                        this.searchPropertyPath(), (prop: any) => {
                       return this.toSearchProperty(prop);
                   });
                   PropertiesCache.put(this, searchProperties);
@@ -124,6 +127,9 @@ export abstract class AbstractDAO<K, T> extends BaseDAO implements IValueProvide
    */
   public async findValues(propertyId: string, options?: any): Promise<any> {
     return this.searchProperty(propertyId).then((property) => {
+        if (!property) {
+            return [];
+        }
         return this.getOptions().then((opts) => {
            const path = this.searchPropertyPath() + '/' + property.id;
            opts.headers.accept = 'application/json';
@@ -131,7 +137,7 @@ export abstract class AbstractDAO<K, T> extends BaseDAO implements IValueProvide
                Object.assign(opts, options);
            }
            return this.http.get(path, opts).then((result) => {
-               return this.parseResultList(result, 'value', path, (value) => value);
+               return this.parseResultList(result, 'value', path, (value: any) => value);
            });
         });
     });
@@ -151,23 +157,28 @@ export abstract class AbstractDAO<K, T> extends BaseDAO implements IValueProvide
    * @param path The path where the result was fetched from. This is for error handling
    * @param mapCallbackFunction Callback function to convert each entry from <code>result.data[dataFieldName]</code>.
    */
-  protected parseResultList(result: any, dataFieldName: string, path: string, mapCallbackFunction: any): any {
-      let data = result.data;
+  protected parseResultList(result: any, dataFieldName: string, path: string, mapCallbackFunction: any): any[] {
+      let ret = [] as any[];
+
+      const data = result.data;
       if (this.getCount(data) > 0 && data[dataFieldName]) {
-          data = data[dataFieldName];
-      } else {
-          data = [];
+          ret = data[dataFieldName];
       }
 
-      if (!Array.isArray(data)) {
-          throw new OnmsError('Expected an array but got "' + (typeof data) + '" instead: ' + path);
+      if (!Array.isArray(ret)) {
+          throw new OnmsError('Expected an array but got "' + (typeof ret) + '" instead: ' + path);
       }
       if (mapCallbackFunction) {
-          return data.map(mapCallbackFunction);
+          return ret.map(mapCallbackFunction);
       }
-      return data;
+      return ret;
   }
 
+  /**
+   * "visits" a filter clause, applying it to the filter visitor
+   * @param clause the clause to visit
+   * @param visitor the visitor impl to invoke
+   */
   protected visitClause(clause: Clause, visitor: IFilterVisitor) {
     const self = this;
     if (visitor.onClause) { visitor.onClause(clause); }
@@ -225,7 +236,7 @@ export abstract class AbstractDAO<K, T> extends BaseDAO implements IValueProvide
    * Generate a [[SearchProperty]] from the given dictionary.
    * @hidden
    */
-  protected toSearchProperty(data: any): SearchProperty {
+  protected toSearchProperty(data: any): SearchProperty | null {
     if (!data) {
       return null;
     }
@@ -243,9 +254,19 @@ export abstract class AbstractDAO<K, T> extends BaseDAO implements IValueProvide
    * Retrieve the API version from the currently configured server.
    */
   protected getApiVersion(): number {
-    if (this.http === undefined || this.http.server === undefined || this.http.server.metadata === undefined) {
+    if (this.http === undefined || !this.http.server || this.http.server.metadata === undefined) {
       throw new OnmsError('Server meta-data must be populated prior to making DAO calls.');
     }
     return this.http.server.metadata.apiVersion();
+  }
+
+  /**
+   * Return the current server.
+   */
+  protected getServer(): OnmsServer {
+    if (this.http && this.http.server) {
+      return this.http.server;
+    }
+    throw new OnmsError('No server configured!');
   }
 }

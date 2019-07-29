@@ -8,12 +8,12 @@ import {OnmsEnum, forId, forLabel} from '../internal/OnmsEnum';
  */
 export class OnmsServiceStatusType extends OnmsEnum<string> implements IHasUrlValue {
   /** Given an ID, return the matching service status type object. */
-  public static forId(id: string) {
+  public static forId(id?: string) {
     return forId(ServiceStatusTypes, id);
   }
 
   /** Given a label, return the matching service status type object. */
-  public static forLabel(label: string) {
+  public static forLabel(label?: string) {
     return forLabel(ServiceStatusTypes, label);
   }
 
@@ -22,6 +22,7 @@ export class OnmsServiceStatusType extends OnmsEnum<string> implements IHasUrlVa
     return this.id === 'A';
   }
 
+  /** @inheritdoc */
   public get urlValue() {
     return this.id;
   }

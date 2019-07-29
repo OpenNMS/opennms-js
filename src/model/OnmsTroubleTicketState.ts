@@ -1,12 +1,23 @@
 import {IHasUrlValue} from '../api/IHasUrlValue';
 
-import {OnmsEnum} from '../internal/OnmsEnum';
+import {OnmsEnum, forId, forLabel} from '../internal/OnmsEnum';
 
 /**
  * Represents an OpenNMS trouble ticket state.
  * @module OnmsTroubleTicketState
  */
 export class OnmsTroubleTicketState extends OnmsEnum<number> implements IHasUrlValue {
+  /** @inheritdoc */
+  public static forId(id?: string) {
+    return forId(TroubleTicketStates, id);
+  }
+
+  /** @inheritdoc */
+  public static forLabel(label?: string) {
+    return forLabel(TroubleTicketStates, label);
+  }
+
+  /** @inheritdoc */
   public get urlValue() {
     return this.label;
   }

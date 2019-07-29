@@ -6,17 +6,17 @@ import {Moment} from 'moment';
  */
 export class OnmsMemo {
     /** the memo ID */
-    public id: number;
+    public id?: number;
 
     /** the content of the memo */
-    public body: string;
+    public body?: string;
 
     /** the user who last updated (or created) the memo */
-    public author: string;
+    public author?: string;
 
     /** when the memo was last updated */
-    public updated: Moment;
+    public updated?: Moment;
 
     /** when the memo was created */
-    public created: Moment;
+    public created?: Moment;
 }

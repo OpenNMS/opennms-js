@@ -8,7 +8,7 @@ const catServiceType = new Category('service-type', catModel);
 
 /** @hidden */
 export const ServiceTypes = {
-};
+} as {[key: number]: OnmsServiceType};
 
 /**
  * Represents an OpenNMS service.
@@ -41,6 +41,7 @@ export class OnmsServiceType implements IHasUrlValue {
     this.name = name;
   }
 
+  /** @inheritdoc */
   public get urlValue() {
     return this.name;
   }

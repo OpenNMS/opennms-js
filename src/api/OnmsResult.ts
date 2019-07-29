@@ -18,13 +18,13 @@ export class OnmsResult<T> {
   public data: T;
 
   /** The request type, if any. */
-  public type: string;
+  public type?: string;
 
   /** The status message associated with this result. */
-  public message: string;
+  public message?: string;
 
   /** The response code associated with this result. */
-  public code: number;
+  public code?: number;
 
   /**
    * Construct a new result.

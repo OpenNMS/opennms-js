@@ -6,9 +6,14 @@ import {Comparator, Comparators} from './Comparator';
  * @module SearchPropertyType
  */
 export class SearchPropertyType extends OnmsEnum<string> {
-  /** given an ID, return the matching search property type object */
-  public static forId(id: string) {
+  /** @inheritdoc */
+  public static forId(id?: string) {
     return forId(SearchPropertyTypes, id);
+  }
+
+  /** @inheritdoc */
+  public static forLabel(label?: string) {
+    return forLabel(SearchPropertyTypes, label);
   }
 
   /** supported comparators. */

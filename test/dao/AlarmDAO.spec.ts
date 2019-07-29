@@ -298,7 +298,6 @@ describe('AlarmDAO with v2 API', () => {
   it('AlarmDAO.find(isAcknowledged=true)', () => {
     const filter = new Filter().withOrRestriction(new Restriction('isAcknowledged', Comparators.EQ, 'true'));
     return dao.find(filter).then((alarms) => {
-      console.log('alarms=', JSON.stringify(alarms, undefined, 2));
       expect(alarms.length).toEqual(1);
       expect(alarms[0].ackTime).toBeDefined();
       expect(alarms[0].ackTime.valueOf()).toEqual(1495806508530);

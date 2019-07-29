@@ -8,7 +8,7 @@ import {NestedRestriction} from './NestedRestriction';
  */
 export class Clause {
   /** Given a clause JSON structure, return a Clause object. */
-  public static fromJson(clause) {
+  public static fromJson(clause: any) {
     const operator = Operator.forLabel(clause.operator.label);
     if (clause.restriction.clauses) {
       const nestedRestriction = NestedRestriction.fromJson(clause.restriction);

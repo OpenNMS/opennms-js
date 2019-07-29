@@ -1,6 +1,3 @@
-/** @hidden */
-declare const Promise;
-
 import {IFilterProcessor} from './IFilterProcessor';
 
 import {OnmsHTTPOptions} from './OnmsHTTPOptions';
@@ -25,10 +22,10 @@ import {OnmsServer} from './OnmsServer';
  */
 export interface IOnmsHTTP {
   /** The server associated with this instance. */
-  server: OnmsServer;
+  server?: OnmsServer | null;
 
   /** The default options used when making requests with this instance. */
-  options: OnmsHTTPOptions;
+  options?: OnmsHTTPOptions | null;
 
   /**
    * Perform an HTTP GET to the provided URL.
@@ -37,6 +34,14 @@ export interface IOnmsHTTP {
    * @returns An [[OnmsResult]] result object.
    */
   get(url: string, options?: OnmsHTTPOptions): Promise<OnmsResult<any>>;
+
+  /**
+   * Perform an HTTP HEAD to the provided URL.
+   * @param url The URL to connect to.
+   * @param options The [[OnmsHTTPOptions]] options to use when connecting.
+   * @returns An [[OnmsResult]] result object.
+   */
+  head(url: string, options?: OnmsHTTPOptions): Promise<OnmsResult<any>>;
 
   /**
    * Perform an HTTP PUT to the provided URL.

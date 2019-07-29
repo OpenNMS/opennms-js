@@ -10,26 +10,27 @@ import {OnmsSeverity} from './OnmsSeverity';
  */
 export class OnmsAlarmSummary implements IHasUrlValue {
   /** the alarm ID */
-  public id: number;
+  public id?: number;
 
   /** the alarm's reduction key */
-  public reductionKey: string;
+  public reductionKey?: string;
 
   /** the alarm's type */
-  public type: OnmsAlarmType;
+  public type?: OnmsAlarmType;
 
   /** the alarm's severity */
-  public severity: OnmsSeverity;
+  public severity?: OnmsSeverity;
 
   /** the alarm's description */
-  public description: string;
+  public description?: string;
 
   /** the alarm's log message */
-  public logMessage: string;
+  public logMessage?: string;
 
   /** the label of this alarm as defined in the alarm configuration */
-  public label: string;
+  public label?: string;
 
+  /** @inheritdoc */
   public get urlValue() {
     return String(this.id);
   }

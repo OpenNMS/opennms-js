@@ -74,7 +74,7 @@ export class Client implements IHasHTTP {
       }
       httpImpl = Client.defaultHttp;
     }
-    if (!timeout && httpImpl.options.timeout) {
+    if (!timeout && httpImpl && httpImpl.options && httpImpl.options.timeout) {
       opts.timeout = httpImpl.options.timeout;
     }
 
@@ -107,7 +107,7 @@ export class Client implements IHasHTTP {
   public http: IOnmsHTTP;
 
   /** The remote server to connect to */
-  public server: OnmsServer;
+  public server?: OnmsServer;
 
   /**
    * Construct a new OpenNMS client.

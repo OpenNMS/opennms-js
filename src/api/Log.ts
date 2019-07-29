@@ -43,7 +43,16 @@ export const setLogLevel = (level: LogLevel, cat?: Category) => {
     cat = catRoot;
   }
   // console.log('setting category ' + cat.name + ' to ' + level.toString());
-  CategoryServiceFactory.getRuntimeSettings().getCategorySettings(cat).logLevel = level;
+  const runtimeSettings = CategoryServiceFactory.getRuntimeSettings();
+  if (!runtimeSettings) {
+    return;
+  }
+
+  const catSettings = runtimeSettings.getCategorySettings(cat);
+  if (catSettings) {
+    catSettings.logLevel = level;
+  }
+
   for (const subCat of cat.children) {
     setLogLevel(level, subCat);
   }

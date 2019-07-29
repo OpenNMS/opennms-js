@@ -8,12 +8,12 @@ import {OnmsEnum, forId, forLabel} from '../internal/OnmsEnum';
  */
 export class OnmsCollectType extends OnmsEnum<string> implements IHasUrlValue {
   /** given an ID, return the matching collect type object */
-  public static forId(id: string) {
+  public static forId(id?: string) {
     return forId(CollectTypes, id);
   }
 
   /** given a label, return the matching collect type object */
-  public static forLabel(label: string) {
+  public static forLabel(label?: string) {
     return forLabel(CollectTypes, label);
   }
 
@@ -22,6 +22,7 @@ export class OnmsCollectType extends OnmsEnum<string> implements IHasUrlValue {
     return this.id === 'C' || this.id === 'UC';
   }
 
+  /** @inheritdoc */
   public get urlValue() {
     return this.id;
   }
