@@ -5,7 +5,7 @@ import {Util} from '../internal/Util';
 import {IFilterProcessor} from '../api/IFilterProcessor';
 
 import {Filter} from '../api/Filter';
-import {Comparators} from '../api/Comparator';
+import {Comparator, Comparators} from '../api/Comparator';
 import {Operators} from '../api/Operator';
 import {OnmsError} from '../api/OnmsError';
 import {Restriction} from '../api/Restriction';
@@ -18,7 +18,7 @@ const nonExclusiveComparators = [
 ];
 
 /** @hidden */
-const isExclusive = (comparator) => {
+const isExclusive = (comparator: Comparator) => {
   return nonExclusiveComparators.indexOf(comparator) < 0;
 };
 
@@ -63,7 +63,10 @@ export class V1FilterProcessor implements IFilterProcessor {
           if (restriction.value instanceof OnmsEnum) {
             ret[restriction.attribute] = (restriction.value as OnmsEnum<any>).label;
           } else if (Util.isDateObject(restriction.value)) {
-            ret[restriction.attribute] = Util.toDateString(restriction.value);
+            const v = Util.toDateString(restriction.value);
+            if (v) {
+              ret[restriction.attribute] = v;
+            }
           } else {
             ret[restriction.attribute] = '' + restriction.value;
           }

@@ -9,8 +9,15 @@ import {Restriction} from './Restriction';
  * @module FilterVisitor
  */
 export interface IFilterVisitor {
+  /** Process a [[Filter]] */
   onFilter?: (filter: Filter) => void;
+
+  /** Process a [[Clause]] */
   onClause?: (clause: Clause) => void;
+
+  /** Process a [[Restriction]] */
   onRestriction?: (restriction: Restriction) => void;
+
+  /** Process a [[NestedRestriction]] */
   onNestedRestriction?: (restriction: NestedRestriction) => void;
 }

@@ -13,9 +13,9 @@ export class PropertiesCache implements ISearchPropertyAccessor {
      * @param {AbstractDAO<any, any>} dao The dao to get the cache for.
      * @returns {any} The cache if it exists.
      */
-    public static get(dao: AbstractDAO<any, any>): PropertiesCache {
+    public static get(dao: AbstractDAO<any, any>): PropertiesCache | undefined {
         const className = dao.constructor.name;
-        return this.caches[className];
+        return this.caches.get(className);
     }
 
     /**
@@ -26,7 +26,7 @@ export class PropertiesCache implements ISearchPropertyAccessor {
      */
     public static put(dao: AbstractDAO<any, any>, searchProperties: SearchProperty[]) {
         const className = dao.constructor.name;
-        this.caches[className] = new PropertiesCache(searchProperties);
+        this.caches.set(className, new PropertiesCache(searchProperties));
     }
 
     /** The cache persistence. */
@@ -44,11 +44,10 @@ export class PropertiesCache implements ISearchPropertyAccessor {
      * @param {string} id The property id to find the property for.
      * @returns {SearchProperty} The property
      */
-    public getProperty(id: string): SearchProperty {
-        const result = this.getProperties().find((property) => {
+    public getProperty(id: string): SearchProperty | undefined {
+        return this.getProperties().find((property) => {
             return property.id === id;
         });
-        return result;
     }
 
     /**

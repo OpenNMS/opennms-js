@@ -49,6 +49,10 @@ export class SituationFeedbackDAO extends BaseDAO {
     });
   }
 
+  /**
+   * Retrieve the tags for a given prefix
+   * @param prefix the prefix associated with the tags
+   */
   public async getTags(prefix: string): Promise<string[]> {
     const options = new OnmsHTTPOptions();
     options.headers.accept = 'application/json';
@@ -115,7 +119,7 @@ export class SituationFeedbackDAO extends BaseDAO {
    * @hidden
    */
   public serializeFeedback(feedback: OnmsSituationFeedback[]): any[] {
-    const serializeFeedback = [];
+    const serializeFeedback = [] as any[];
     feedback.forEach((fb) => {
         // Create a shallow clone
         const sfb = Object.assign({}, fb) as any;

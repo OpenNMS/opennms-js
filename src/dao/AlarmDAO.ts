@@ -14,10 +14,10 @@ import {SearchProperty} from '../api/SearchProperty';
 
 import {OnmsAlarm} from '../model/OnmsAlarm';
 import {OnmsAlarmSummary} from '../model/OnmsAlarmSummary';
-import {AlarmTypes} from '../model/OnmsAlarmType';
+import {AlarmTypes, OnmsAlarmType} from '../model/OnmsAlarmType';
 import {OnmsParm} from '../model/OnmsParm';
 import {OnmsServiceType} from '../model/OnmsServiceType';
-import {Severities} from '../model/OnmsSeverity';
+import {Severities, OnmsSeverity} from '../model/OnmsSeverity';
 import {OnmsTroubleTicketState, TroubleTicketStates} from '../model/OnmsTroubleTicketState';
 import {OnmsMemo} from '../model/OnmsMemo';
 
@@ -213,12 +213,7 @@ export class AlarmDAO extends AbstractDAO<number, OnmsAlarm> {
     options.headers.accept = 'text/plain';
     return this.http.post(this.pathToAlarmsEndpoint() + '/' + alarmId + '/ticket/create', options).then(() => {
       log.debug('Ticket creation pending.', cat);
-    }).catch((err: OnmsResult<OnmsAlarm>) => {
-      if (err.code === 501) {
-        log.warn('Trouble ticketing is not enabled on ' + this.http.server.toString());
-      }
-      throw err;
-    });
+    }).catch(this.handleError);
   }
 
   /**
@@ -238,12 +233,7 @@ export class AlarmDAO extends AbstractDAO<number, OnmsAlarm> {
     options.headers.accept = 'text/plain';
     return this.http.post(this.pathToAlarmsEndpoint() + '/' + alarmId + '/ticket/update', options).then(() => {
       log.debug('Ticket update pending.', cat);
-    }).catch((err: OnmsResult<OnmsAlarm>) => {
-      if (err.code === 501) {
-        log.warn('Trouble ticketing is not enabled on ' + this.http.server.toString());
-      }
-      throw err;
-    });
+    }).catch(this.handleError);
   }
 
   /**
@@ -263,12 +253,7 @@ export class AlarmDAO extends AbstractDAO<number, OnmsAlarm> {
     options.headers.accept = 'text/plain';
     return this.http.post(this.pathToAlarmsEndpoint() + '/' + alarmId + '/ticket/close', options).then(() => {
       log.debug('Ticket close pending.', cat);
-    }).catch((err: OnmsResult<OnmsAlarm>) => {
-      if (err.code === 501) {
-        log.warn('Trouble ticketing is not enabled on ' + this.http.server.toString());
-      }
-      throw err;
-    });
+    }).catch(this.handleError);
   }
 
   /**
@@ -346,21 +331,16 @@ export class AlarmDAO extends AbstractDAO<number, OnmsAlarm> {
     }
 
     if (data.severity) {
-      alarm.severity = Severities[data.severity];
+      alarm.severity = OnmsSeverity.forLabel(data.severity);
     }
 
     if (data.type) {
       const type = this.toNumber(data.type);
-      alarm.type = AlarmTypes[type];
+      alarm.type = OnmsAlarmType.forId(type);
     }
 
     if (typeof data.troubleTicketState !== 'undefined') {
-        const troubleTicketKey = Object.keys(TroubleTicketStates).find((key) => {
-            return TroubleTicketStates[key].id === data.troubleTicketState;
-        });
-        if (troubleTicketKey) {
-            alarm.troubleTicketState = TroubleTicketStates[troubleTicketKey];
-        }
+      alarm.troubleTicketState = OnmsTroubleTicketState.forId(data.troubleTicketState);
     }
 
     if (data.serviceType) {
@@ -415,9 +395,9 @@ export class AlarmDAO extends AbstractDAO<number, OnmsAlarm> {
    * Generate a memo from the given dictionary.
    * @hidden
    */
-  public toMemo(data: any): OnmsMemo {
+  public toMemo(data: any): OnmsMemo | undefined {
     if (!data) {
-      return null;
+      return undefined;
     }
 
     const memo = new OnmsMemo();
@@ -473,7 +453,7 @@ export class AlarmDAO extends AbstractDAO<number, OnmsAlarm> {
   private async put(url: string, parameters = {} as IHash<string>): Promise<void> {
     return this.getOptions().then((opts) => {
         opts.headers['content-type'] = 'application/x-www-form-urlencoded';
-        opts.headers.accept = null;
+        delete opts.headers.accept;
         opts.parameters = parameters;
         return this.http.put(url, opts).then((result) => {
             if (!result.isSuccess) {
@@ -491,7 +471,7 @@ export class AlarmDAO extends AbstractDAO<number, OnmsAlarm> {
   private async httpDelete(url: string, parameters = {} as IHash<string>): Promise<void> {
       return this.getOptions().then((opts) => {
           opts.headers['content-type'] = 'application/x-www-form-urlencoded';
-          opts.headers.accept = null;
+          delete opts.headers.accept;
           opts.parameters = parameters;
           return this.http.httpDelete(url, opts).then((result) => {
               if (!result.isSuccess) {
@@ -551,6 +531,22 @@ export class AlarmDAO extends AbstractDAO<number, OnmsAlarm> {
    */
   private getDetailsPage(alarm: number|OnmsAlarm): string {
       const alarmId = (typeof(alarm) === 'number' ? alarm : alarm.id);
-      return this.http.server.resolveURL(`alarm/detail.htm`, {id: alarmId});
+      return this.getServer().resolveURL(`alarm/detail.htm`, {id: alarmId});
+  }
+
+  /**
+   * Handle response errors and automatically log "ticketing not enabled" responses.
+   * @param err the HTTP result error
+   */
+  private handleError(err: OnmsResult<OnmsAlarm>): void {
+    if (err.code === 501) {
+      try {
+        const server = this.getServer();
+        log.warn('Trouble ticketing is not enabled on ' + server.toString());
+      } catch (e) {
+        log.warn('Trouble ticketing is not enabled.');
+      }
+    }
+    throw err;
   }
 }

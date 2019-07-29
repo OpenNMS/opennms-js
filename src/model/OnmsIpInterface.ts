@@ -13,26 +13,27 @@ import {OnmsPrimaryType} from './OnmsPrimaryType';
  */
 export class OnmsIpInterface implements IHasUrlValue {
   /** the interface ID */
-  public id: number;
+  public id?: number;
 
   /** the IP address */
-  public ipAddress: Address4 | Address6;
+  public ipAddress?: Address4 | Address6;
 
   /** the hostname */
-  public hostname: string;
+  public hostname?: string;
 
   /** whether the interface is managed */
-  public isManaged: OnmsManagedType;
+  public isManaged?: OnmsManagedType;
 
   /** the last time the interface was provisioned */
-  public lastCapsdPoll: Moment;
+  public lastCapsdPoll?: Moment;
 
   /** the SNMP primary status of the interface */
-  public snmpPrimary: OnmsPrimaryType;
+  public snmpPrimary?: OnmsPrimaryType;
 
   /** the SNMP interface ID associated with this interface */
-  public snmpInterfaceId: number;
+  public snmpInterfaceId?: number;
 
+  /** the SNMP interface, if it appears on the node */
   public get snmpInterface() {
     if (this.node) {
       for (const iface of this.node.snmpInterfaces) {
@@ -45,11 +46,12 @@ export class OnmsIpInterface implements IHasUrlValue {
   }
 
   /** the node this interface is associated with */
-  public node: any;
+  public node?: any;
 
   /** the services on this interface */
   public services = [] as OnmsMonitoredService[];
 
+  /** @inheritdoc */
   public get urlValue() {
     return String(this.id);
   }

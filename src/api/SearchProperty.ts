@@ -7,16 +7,16 @@ import {IValueProvider} from '../dao/IValueProvider';
  */
 export class SearchProperty {
   /** the search property ID */
-  public id: string;
+  public id?: string;
 
   /** a descriptive name for the property */
-  public name: string;
+  public name?: string;
 
   /** whether the property is sortable */
-  public orderBy: boolean;
+  public orderBy?: boolean;
 
   /** the property type */
-  public type: SearchPropertyType;
+  public type?: SearchPropertyType;
 
   /** the values if any */
   public values: any;
@@ -35,6 +35,8 @@ export class SearchProperty {
    * @returns {Promise<any>}
    */
   public async findValues(options: any): Promise<any> {
-    return this.valueProvider.findValues(this.id, options);
+    if (this.id) {
+      return this.valueProvider.findValues(this.id, options);
+    }
   }
 }

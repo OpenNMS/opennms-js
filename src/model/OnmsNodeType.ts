@@ -8,15 +8,16 @@ import {OnmsEnum, forId, forLabel} from '../internal/OnmsEnum';
  */
 export class OnmsNodeType extends OnmsEnum<string> implements IHasUrlValue {
   /** Given an ID (A, D, etc.), return the corresponding node type object. */
-  public static forId(id: string) {
+  public static forId(id?: string) {
     return forId(NodeTypes, id);
   }
 
   /** Given a label (ACTIVE, etc.), return the corresponding node type object. */
-  public static forLabel(label: string) {
+  public static forLabel(label?: string) {
     return forLabel(NodeTypes, label);
   }
 
+  /** @inheritdoc */
   public get urlValue() {
     return this.id;
   }

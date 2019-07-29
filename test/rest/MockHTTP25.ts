@@ -20,7 +20,12 @@ export class MockHTTP25 extends AbstractHTTP {
 
     switch(urlObj.toString()) {
       case 'http://demo.opennms.org/opennms/rest/info': {
-        return Promise.resolve(OnmsResult.ok({'packageDescription':'OpenNMS','displayVersion':'25.0.0','packageName':'opennms','version':'25.0.0'}));
+        return Promise.resolve(OnmsResult.ok({
+          displayVersion: '25.0.0',
+          packageDescription: 'OpenNMS',
+          packageName: 'opennms',
+          version: '25.0.0',
+        }));
       }
       // Use the v22 responses
       case 'rest/flows/applications': {
@@ -77,6 +82,11 @@ export class MockHTTP25 extends AbstractHTTP {
   public post(url: string, options?: OnmsHTTPOptions): Promise<OnmsResult<any>> {
     const urlObj = new URI(url);
     throw new Error('25: Not yet implemented: POST ' + urlObj.toString());
+  }
+
+  public head(url: string, options?: OnmsHTTPOptions): Promise<OnmsResult<any>> {
+    const urlObj = new URI(url);
+    throw new Error('19: Not yet implemented: HEAD ' + urlObj.toString());
   }
 
   public httpDelete(url: string, options?: OnmsHTTPOptions): Promise<OnmsResult<any>> {

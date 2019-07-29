@@ -43,7 +43,7 @@ export class Util {
    * [[Moment]] dates in OpenNMS.js will always be converted internally to UTC to avoid time
    * zone issues.
    */
-  public static toMoment(date: Date|Moment|string|number): Moment {
+  public static toMoment(date: Date|Moment|string|number): Moment | undefined {
     if (date === undefined || date === null) {
       return undefined;
     } else if (moment.isMoment(date)) {

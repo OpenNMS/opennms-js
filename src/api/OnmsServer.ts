@@ -19,13 +19,13 @@ export class OnmsServer {
   public name?: string;
 
   /** The base URL to the server. */
-  public url: string;
+  public url?: string;
 
   /** The authorization configuration associated with the server. */
-  public auth: OnmsAuthConfig;
+  public auth?: OnmsAuthConfig;
 
   /** The capabilities of the server */
-  public metadata: ServerMetadata;
+  public metadata?: ServerMetadata;
 
   /**
    * Construct a new OnmsServer object representing a remote server.
@@ -80,6 +80,18 @@ export class OnmsServer {
         uri = uri.addQuery(withQuery);
     }
     return uri.toString();
+  }
+
+  /**
+   * Deep-checks equality including auth and metadata.
+   */
+  public equals(that?: OnmsServer) {
+    return that
+      && this.id === that.id
+      && this.name === that.name
+      && this.url === that.url
+      && (this.auth === that.auth || (this.auth && this.auth.equals(that.auth)))
+      && (this.metadata === that.metadata || (this.metadata && this.metadata.equals(that.metadata)));
   }
 
   /**

@@ -6,15 +6,15 @@ import {Moment} from 'moment';
  */
 export class OnmsFlowTable {
     /** start time */
-    public start: Moment;
+    public start?: Moment;
 
     /** end time */
-    public end: Moment;
+    public end?: Moment;
 
     /** headers */
-    public headers: string[];
+    public headers?: string[];
 
     /** rows */
-    public rows: any[][];
+    public rows?: any[][];
 
 }

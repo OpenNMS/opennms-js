@@ -76,7 +76,7 @@ export class NodeDAO extends AbstractDAO<number, OnmsNode> {
                     throw new OnmsError('Expected an array of nodes but got "' + (typeof data) + '" instead.');
                 }
             }
-            return data.map((nodeData) => {
+            return data.map((nodeData: any) => {
                 return this.fromData(nodeData);
             });
         });
@@ -111,9 +111,12 @@ export class NodeDAO extends AbstractDAO<number, OnmsNode> {
   }
 
   /** Given a node, get the IP interfaces for that node. */
-  public async ipInterfaces(node: number | OnmsNode, filter?: Filter): Promise<OnmsIpInterface[]> {
-      if (node instanceof OnmsNode) {
-          node = node.id;
+  public async ipInterfaces(passedNode: number | OnmsNode, filter?: Filter): Promise<OnmsIpInterface[]> {
+      let node: string;
+      if (passedNode instanceof OnmsNode) {
+          node = String(passedNode.id);
+      } else {
+        node = String(passedNode);
       }
       return this.getOptions(filter).then((opts) => {
         return this.http.get(this.pathToNodesEndpoint() + '/' + node + '/ipinterfaces', opts).then((result) => {
@@ -132,7 +135,7 @@ export class NodeDAO extends AbstractDAO<number, OnmsNode> {
                     throw new OnmsError('Expected an array of IP interfaces but got "' + (typeof data) + '" instead.');
                 }
             }
-            return data.map((ifaceData) => {
+            return data.map((ifaceData: any) => {
                 return this.fromIpInterfaceData(ifaceData);
             });
         });
@@ -140,11 +143,9 @@ export class NodeDAO extends AbstractDAO<number, OnmsNode> {
   }
 
   /** Given a node, get the SNMP interfaces for that node. */
-  public async snmpInterfaces(node: number | OnmsNode, filter?: Filter): Promise<OnmsSnmpInterface[]> {
+  public async snmpInterfaces(passedNode: number | OnmsNode, filter?: Filter): Promise<OnmsSnmpInterface[]> {
+    const node = String(this.getNodeId(passedNode));
     return this.getOptions(filter).then((opts) => {
-        if (node instanceof OnmsNode) {
-            node = node.id;
-        }
         return this.http.get(this.pathToNodesEndpoint() + '/' + node + '/snmpinterfaces', opts).then((result) => {
             let data = result.data;
 
@@ -162,7 +163,7 @@ export class NodeDAO extends AbstractDAO<number, OnmsNode> {
                         + (typeof data) + '" instead.');
                 }
             }
-            return data.map((ifaceData) => {
+            return data.map((ifaceData: any) => {
                 return this.fromSnmpData(ifaceData);
             });
         });
@@ -171,15 +172,13 @@ export class NodeDAO extends AbstractDAO<number, OnmsNode> {
 
   /** Given a node, get the IP interfaces for that node. */
   public async services(
-    node: number | OnmsNode,
+    passedNode: number | OnmsNode,
     ipInterface: string | OnmsIpInterface,
     filter?: Filter,
   ): Promise<OnmsMonitoredService[]> {
+    const node = String(this.getNodeId(passedNode));
 
     return this.getOptions(filter).then((opts) => {
-        if (node instanceof OnmsNode) {
-            node = node.id;
-        }
         if (ipInterface instanceof OnmsIpInterface && ipInterface.ipAddress) {
             ipInterface = ipInterface.ipAddress.address;
         }
@@ -200,7 +199,7 @@ export class NodeDAO extends AbstractDAO<number, OnmsNode> {
                     throw new OnmsError('Expected an array of services but got "' + (typeof data) + '" instead.');
                 }
             }
-            return data.map((ifaceData) => {
+            return data.map((ifaceData: any) => {
                 return this.fromServiceData(ifaceData);
             });
         });
@@ -240,7 +239,7 @@ export class NodeDAO extends AbstractDAO<number, OnmsNode> {
 
     node.categories = [];
     if (data.categories) {
-      node.categories = data.categories.map((c) => {
+      node.categories = data.categories.map((c: any) => {
         return OnmsCategory.for(c.id, c.name);
       });
     }
@@ -334,6 +333,17 @@ export class NodeDAO extends AbstractDAO<number, OnmsNode> {
       throw new OnmsError('Search properties are not supported in Node ReSTv1.');
     }
     return this.pathToNodesEndpoint() + '/properties';
+  }
+
+  /**
+   * Get the node's ID
+   * @param node the node
+   */
+  private getNodeId(node: number | OnmsNode): number | undefined {
+    if (node instanceof OnmsNode) {
+      return node.id;
+    }
+    return node;
   }
 
   /**

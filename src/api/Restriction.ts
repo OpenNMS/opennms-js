@@ -10,9 +10,12 @@ const symbolPattern = /^(\w+?)\s*(\=\=|\=|\!\=|\>\=|\<\=|\>|\<)\s*(\w+?)$/;
  */
 export class Restriction {
   /** Given a restriction JSON structure, return a Restriction object. */
-  public static fromJson(restriction) {
+  public static fromJson(restriction: any) {
     const comparator = Comparator.find(restriction.comparator.label);
-    return new Restriction(restriction.attribute, comparator, restriction.value);
+    if (!comparator) {
+      log.warn('Restriction.fromString: unable to match comparator: ' + JSON.stringify(restriction.comparator));
+    }
+    return new Restriction(restriction.attribute, comparator || Comparators.EQ, restriction.value);
   }
 
   /**
