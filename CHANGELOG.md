@@ -1,10 +1,26 @@
-<a name="1.5.1-SNAPSHOT"></a>
-## [1.5.1-SNAPSHOT](https://github.com/OpenNMS/opennms-js/compare/v1.5.0...v1.5.1-SNAPSHOT) (2019-07-19)
+## [1.5.1-SNAPSHOT](https://github.com/OpenNMS/opennms-js/compare/v1.5.0...v1.5.1-SNAPSHOT) (2019-07-29)
 
 
 ### Bug Fixes
 
 * **cli:** fix typo in space-cleaning regex ([de5f5cc](https://github.com/OpenNMS/opennms-js/commit/de5f5cc))
+
+
+### Code Refactoring
+
+* **rest:** pull up authentication into the abstract impl ([6f565bd](https://github.com/OpenNMS/opennms-js/commit/6f565bd))
+
+
+### Features
+
+* **rest:** add HTTP HEAD ([bea34a5](https://github.com/OpenNMS/opennms-js/commit/bea34a5))
+* add .equals() to various metadata objects ([cf3ff5f](https://github.com/OpenNMS/opennms-js/commit/cf3ff5f))
+
+
+### BREAKING CHANGES
+
+* **rest:** AbstractHTTP.getServer now throws an error if a
+server cannot be returned when it is called.
 
 
 

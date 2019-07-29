@@ -102,6 +102,7 @@
 							<h3>Methods</h3>
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="onmsauthconfig.html#clone" class="tsd-kind-icon">clone</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="onmsauthconfig.html#equals" class="tsd-kind-icon">equals</a></li>
 							</ul>
 						</section>
 					</div>
@@ -113,13 +114,13 @@
 					<a name="constructor" class="tsd-anchor"></a>
 					<h3>constructor</h3>
 					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">new <wbr>Onms<wbr>Auth<wbr>Config<span class="tsd-signature-symbol">(</span>username<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, password<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="onmsauthconfig.html" class="tsd-signature-type">OnmsAuthConfig</a></li>
+						<li class="tsd-signature tsd-kind-icon">new <wbr>Onms<wbr>Auth<wbr>Config<span class="tsd-signature-symbol">(</span>username<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span>, password<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="onmsauthconfig.html" class="tsd-signature-type">OnmsAuthConfig</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/62642f9/src/api/OnmsAuthConfig.ts#L10">api/OnmsAuthConfig.ts:10</a></li>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/699ddd4/src/api/OnmsAuthConfig.ts#L10">api/OnmsAuthConfig.ts:10</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -134,10 +135,10 @@
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>username: <span class="tsd-signature-type">string</span></h5>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> username: <span class="tsd-signature-type">string</span></h5>
 								</li>
 								<li>
-									<h5>password: <span class="tsd-signature-type">string</span></h5>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> password: <span class="tsd-signature-type">string</span></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="onmsauthconfig.html" class="tsd-signature-type">OnmsAuthConfig</a></h4>
@@ -149,11 +150,11 @@
 				<h2>Properties</h2>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
 					<a name="password" class="tsd-anchor"></a>
-					<h3>password</h3>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> password</h3>
 					<div class="tsd-signature tsd-kind-icon">password<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/62642f9/src/api/OnmsAuthConfig.ts#L7">api/OnmsAuthConfig.ts:7</a></li>
+							<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/699ddd4/src/api/OnmsAuthConfig.ts#L7">api/OnmsAuthConfig.ts:7</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -164,11 +165,11 @@
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
 					<a name="username" class="tsd-anchor"></a>
-					<h3>username</h3>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> username</h3>
 					<div class="tsd-signature tsd-kind-icon">username<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/62642f9/src/api/OnmsAuthConfig.ts#L10">api/OnmsAuthConfig.ts:10</a></li>
+							<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/699ddd4/src/api/OnmsAuthConfig.ts#L10">api/OnmsAuthConfig.ts:10</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -190,7 +191,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/62642f9/src/api/OnmsAuthConfig.ts#L24">api/OnmsAuthConfig.ts:24</a></li>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/699ddd4/src/api/OnmsAuthConfig.ts#L33">api/OnmsAuthConfig.ts:33</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -199,6 +200,34 @@
 								</div>
 							</div>
 							<h4 class="tsd-returns-title">Returns <a href="onmsauthconfig.html" class="tsd-signature-type">OnmsAuthConfig</a></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="equals" class="tsd-anchor"></a>
+					<h3>equals</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">equals<span class="tsd-signature-symbol">(</span>that<span class="tsd-signature-symbol">?: </span><a href="onmsauthconfig.html" class="tsd-signature-type">OnmsAuthConfig</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/699ddd4/src/api/OnmsAuthConfig.ts#L24">api/OnmsAuthConfig.ts:24</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Whether this auth object is the same as another.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> that: <a href="onmsauthconfig.html" class="tsd-signature-type">OnmsAuthConfig</a></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -230,6 +259,9 @@
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="onmsauthconfig.html#clone" class="tsd-kind-icon">clone</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="onmsauthconfig.html#equals" class="tsd-kind-icon">equals</a>
 							</li>
 						</ul>
 					</li>

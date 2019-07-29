@@ -122,12 +122,15 @@
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected"><a href="grafanahttp.html#getdata" class="tsd-kind-icon">get<wbr>Data</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected"><a href="grafanahttp.html#getoptions" class="tsd-kind-icon">get<wbr>Options</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected"><a href="grafanahttp.html#getserver" class="tsd-kind-icon">get<wbr>Server</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite"><a href="grafanahttp.html#head" class="tsd-kind-icon">head</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite"><a href="grafanahttp.html#httpdelete" class="tsd-kind-icon">http<wbr>Delete</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-protected"><a href="grafanahttp.html#onbasicauth" class="tsd-kind-icon">on<wbr>Basic<wbr>Auth</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected"><a href="grafanahttp.html#onsetserver" class="tsd-kind-icon">on<wbr>Set<wbr>Server</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite"><a href="grafanahttp.html#post" class="tsd-kind-icon">post</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite"><a href="grafanahttp.html#put" class="tsd-kind-icon">put</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected"><a href="grafanahttp.html#transformjson" class="tsd-kind-icon">transformJSON</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected"><a href="grafanahttp.html#transformxml" class="tsd-kind-icon">transformXML</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected"><a href="grafanahttp.html#usebasicauth" class="tsd-kind-icon">use<wbr>Basic<wbr>Auth</a></li>
 							</ul>
 						</section>
 					</div>
@@ -146,7 +149,7 @@
 							<aside class="tsd-sources">
 								<p>Overrides <a href="abstracthttp.html">AbstractHTTP</a>.<a href="abstracthttp.html#constructor">constructor</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/62642f9/src/rest/GrafanaHTTP.ts#L26">rest/GrafanaHTTP.ts:26</a></li>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/699ddd4/src/rest/GrafanaHTTP.ts#L32">rest/GrafanaHTTP.ts:32</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -199,7 +202,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="abstracthttp.html">AbstractHTTP</a>.<a href="abstracthttp.html#options">options</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/62642f9/src/rest/AbstractHTTP.ts#L31">rest/AbstractHTTP.ts:31</a></li>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/699ddd4/src/rest/AbstractHTTP.ts#L43">rest/AbstractHTTP.ts:43</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -213,7 +216,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="abstracthttp.html">AbstractHTTP</a>.<a href="abstracthttp.html#options">options</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/62642f9/src/rest/AbstractHTTP.ts#L38">rest/AbstractHTTP.ts:38</a></li>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/699ddd4/src/rest/AbstractHTTP.ts#L50">rest/AbstractHTTP.ts:50</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -236,14 +239,14 @@
 					<h3>server</h3>
 					<ul class="tsd-signatures tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited">
 						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> server<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="onmsserver.html" class="tsd-signature-type">OnmsServer</a></li>
-						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">set</span> server<span class="tsd-signature-symbol">(</span>server<span class="tsd-signature-symbol">: </span><a href="onmsserver.html" class="tsd-signature-type">OnmsServer</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">set</span> server<span class="tsd-signature-symbol">(</span>server<span class="tsd-signature-symbol">: </span><a href="onmsserver.html" class="tsd-signature-type">OnmsServer</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="abstracthttp.html">AbstractHTTP</a>.<a href="abstracthttp.html#server">server</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/62642f9/src/rest/AbstractHTTP.ts#L64">rest/AbstractHTTP.ts:64</a></li>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/699ddd4/src/rest/AbstractHTTP.ts#L76">rest/AbstractHTTP.ts:76</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -257,7 +260,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="abstracthttp.html">AbstractHTTP</a>.<a href="abstracthttp.html#server">server</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/62642f9/src/rest/AbstractHTTP.ts#L68">rest/AbstractHTTP.ts:68</a></li>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/699ddd4/src/rest/AbstractHTTP.ts#L80">rest/AbstractHTTP.ts:80</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -268,7 +271,7 @@
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>server: <a href="onmsserver.html" class="tsd-signature-type">OnmsServer</a></h5>
+									<h5>server: <a href="onmsserver.html" class="tsd-signature-type">OnmsServer</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -287,7 +290,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="abstracthttp.html">AbstractHTTP</a>.<a href="abstracthttp.html#timeout">timeout</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/62642f9/src/rest/AbstractHTTP.ts#L46">rest/AbstractHTTP.ts:46</a></li>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/699ddd4/src/rest/AbstractHTTP.ts#L58">rest/AbstractHTTP.ts:58</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -306,7 +309,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="abstracthttp.html">AbstractHTTP</a>.<a href="abstracthttp.html#timeout">timeout</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/62642f9/src/rest/AbstractHTTP.ts#L50">rest/AbstractHTTP.ts:50</a></li>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/699ddd4/src/rest/AbstractHTTP.ts#L62">rest/AbstractHTTP.ts:62</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -339,7 +342,7 @@
 								<p>Implementation of <a href="../interfaces/ionmshttp.html">IOnmsHTTP</a>.<a href="../interfaces/ionmshttp.html#get">get</a></p>
 								<p>Overrides <a href="abstracthttp.html">AbstractHTTP</a>.<a href="abstracthttp.html#get">get</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/62642f9/src/rest/GrafanaHTTP.ts#L40">rest/GrafanaHTTP.ts:40</a></li>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/699ddd4/src/rest/GrafanaHTTP.ts#L46">rest/GrafanaHTTP.ts:46</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -371,7 +374,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="abstracthttp.html">AbstractHTTP</a>.<a href="abstracthttp.html#getdata">getData</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/62642f9/src/rest/AbstractHTTP.ts#L117">rest/AbstractHTTP.ts:117</a></li>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/699ddd4/src/rest/AbstractHTTP.ts#L132">rest/AbstractHTTP.ts:132</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -400,7 +403,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="abstracthttp.html">AbstractHTTP</a>.<a href="abstracthttp.html#getoptions">getOptions</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/62642f9/src/rest/AbstractHTTP.ts#L166">rest/AbstractHTTP.ts:166</a></li>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/699ddd4/src/rest/AbstractHTTP.ts#L184">rest/AbstractHTTP.ts:184</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -431,7 +434,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="abstracthttp.html">AbstractHTTP</a>.<a href="abstracthttp.html#getserver">getServer</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/62642f9/src/rest/AbstractHTTP.ts#L154">rest/AbstractHTTP.ts:154</a></li>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/699ddd4/src/rest/AbstractHTTP.ts#L169">rest/AbstractHTTP.ts:169</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -452,6 +455,39 @@
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
+					<a name="head" class="tsd-anchor"></a>
+					<h3>head</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
+						<li class="tsd-signature tsd-kind-icon">head<span class="tsd-signature-symbol">(</span>url<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, options<span class="tsd-signature-symbol">?: </span><a href="onmshttpoptions.html" class="tsd-signature-type">OnmsHTTPOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Implementation of <a href="../interfaces/ionmshttp.html">IOnmsHTTP</a>.<a href="../interfaces/ionmshttp.html#head">head</a></p>
+								<p>Overrides <a href="abstracthttp.html">AbstractHTTP</a>.<a href="abstracthttp.html#head">head</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/699ddd4/src/rest/GrafanaHTTP.ts#L67">rest/GrafanaHTTP.ts:67</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Make an HTTP HEAD call using the Grafana <code>BackendSrv</code>.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>url: <span class="tsd-signature-type">string</span></h5>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> options: <a href="onmshttpoptions.html" class="tsd-signature-type">OnmsHTTPOptions</a></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
 					<a name="httpdelete" class="tsd-anchor"></a>
 					<h3>http<wbr>Delete</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
@@ -463,7 +499,7 @@
 								<p>Implementation of <a href="../interfaces/ionmshttp.html">IOnmsHTTP</a>.<a href="../interfaces/ionmshttp.html#httpdelete">httpDelete</a></p>
 								<p>Overrides <a href="abstracthttp.html">AbstractHTTP</a>.<a href="abstracthttp.html#httpdelete">httpDelete</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/62642f9/src/rest/GrafanaHTTP.ts#L104">rest/GrafanaHTTP.ts:104</a></li>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/699ddd4/src/rest/GrafanaHTTP.ts#L131">rest/GrafanaHTTP.ts:131</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -484,6 +520,45 @@
 						</li>
 					</ul>
 				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-protected">
+					<a name="onbasicauth" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagProtected">Protected</span> on<wbr>Basic<wbr>Auth</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-protected">
+						<li class="tsd-signature tsd-kind-icon">on<wbr>Basic<wbr>Auth<span class="tsd-signature-symbol">(</span>username<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, password<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, newHash<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, oldHash<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Overrides <a href="abstracthttp.html">AbstractHTTP</a>.<a href="abstracthttp.html#onbasicauth">onBasicAuth</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/699ddd4/src/rest/GrafanaHTTP.ts#L167">rest/GrafanaHTTP.ts:167</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<dl class="tsd-comment-tags">
+									<dt>inheritdoc</dt>
+									<dd></dd>
+								</dl>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>username: <span class="tsd-signature-type">string</span></h5>
+								</li>
+								<li>
+									<h5>password: <span class="tsd-signature-type">string</span></h5>
+								</li>
+								<li>
+									<h5>newHash: <span class="tsd-signature-type">string</span></h5>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> oldHash: <span class="tsd-signature-type">string</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
 					<a name="onsetserver" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagProtected">Protected</span> on<wbr>Set<wbr>Server</h3>
@@ -495,7 +570,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="abstracthttp.html">AbstractHTTP</a>.<a href="abstracthttp.html#onsetserver">onSetServer</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/62642f9/src/rest/AbstractHTTP.ts#L186">rest/AbstractHTTP.ts:186</a></li>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/699ddd4/src/rest/AbstractHTTP.ts#L243">rest/AbstractHTTP.ts:243</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -520,7 +595,7 @@
 								<p>Implementation of <a href="../interfaces/ionmshttp.html">IOnmsHTTP</a>.<a href="../interfaces/ionmshttp.html#post">post</a></p>
 								<p>Overrides <a href="abstracthttp.html">AbstractHTTP</a>.<a href="abstracthttp.html#post">post</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/62642f9/src/rest/GrafanaHTTP.ts#L83">rest/GrafanaHTTP.ts:83</a></li>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/699ddd4/src/rest/GrafanaHTTP.ts#L110">rest/GrafanaHTTP.ts:110</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -553,7 +628,7 @@
 								<p>Implementation of <a href="../interfaces/ionmshttp.html">IOnmsHTTP</a>.<a href="../interfaces/ionmshttp.html#put">put</a></p>
 								<p>Overrides <a href="abstracthttp.html">AbstractHTTP</a>.<a href="abstracthttp.html#put">put</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/62642f9/src/rest/GrafanaHTTP.ts#L61">rest/GrafanaHTTP.ts:61</a></li>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/699ddd4/src/rest/GrafanaHTTP.ts#L88">rest/GrafanaHTTP.ts:88</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -585,7 +660,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="abstracthttp.html">AbstractHTTP</a>.<a href="abstracthttp.html#transformjson">transformJSON</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/62642f9/src/rest/AbstractHTTP.ts#L104">rest/AbstractHTTP.ts:104</a></li>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/699ddd4/src/rest/AbstractHTTP.ts#L119">rest/AbstractHTTP.ts:119</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -615,7 +690,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="abstracthttp.html">AbstractHTTP</a>.<a href="abstracthttp.html#transformxml">transformXML</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/62642f9/src/rest/AbstractHTTP.ts#L112">rest/AbstractHTTP.ts:112</a></li>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/699ddd4/src/rest/AbstractHTTP.ts#L127">rest/AbstractHTTP.ts:127</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -631,6 +706,44 @@
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
+					<a name="usebasicauth" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagProtected">Protected</span> use<wbr>Basic<wbr>Auth</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
+						<li class="tsd-signature tsd-kind-icon">use<wbr>Basic<wbr>Auth<span class="tsd-signature-symbol">(</span>username<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span>, password<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Inherited from <a href="abstracthttp.html">AbstractHTTP</a>.<a href="abstracthttp.html#usebasicauth">useBasicAuth</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/699ddd4/src/rest/AbstractHTTP.ts#L218">rest/AbstractHTTP.ts:218</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Set or update the basic auth credentials to be used in making connections.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> username: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The username to connect with</p>
+									</div>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> password: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The password to connect with</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -676,7 +789,13 @@
 								<a href="grafanahttp.html#getserver" class="tsd-kind-icon">get<wbr>Server</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
+								<a href="grafanahttp.html#head" class="tsd-kind-icon">head</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
 								<a href="grafanahttp.html#httpdelete" class="tsd-kind-icon">http<wbr>Delete</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-protected">
+								<a href="grafanahttp.html#onbasicauth" class="tsd-kind-icon">on<wbr>Basic<wbr>Auth</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
 								<a href="grafanahttp.html#onsetserver" class="tsd-kind-icon">on<wbr>Set<wbr>Server</a>
@@ -692,6 +811,9 @@
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
 								<a href="grafanahttp.html#transformxml" class="tsd-kind-icon">transformXML</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
+								<a href="grafanahttp.html#usebasicauth" class="tsd-kind-icon">use<wbr>Basic<wbr>Auth</a>
 							</li>
 						</ul>
 					</li>
