@@ -531,7 +531,7 @@ export class AlarmDAO extends AbstractDAO<number, OnmsAlarm> {
    */
   private getDetailsPage(alarm: number|OnmsAlarm): string {
       const alarmId = (typeof(alarm) === 'number' ? alarm : alarm.id);
-      return this.getServer().resolveURL(`alarm/detail.htm`, {id: alarmId});
+      return this.server.resolveURL(`alarm/detail.htm`, {id: alarmId});
   }
 
   /**
@@ -541,8 +541,7 @@ export class AlarmDAO extends AbstractDAO<number, OnmsAlarm> {
   private handleError(err: OnmsResult<OnmsAlarm>): void {
     if (err.code === 501) {
       try {
-        const server = this.getServer();
-        log.warn('Trouble ticketing is not enabled on ' + server.toString());
+        log.warn('Trouble ticketing is not enabled on ' + this.server.toString());
       } catch (e) {
         log.warn('Trouble ticketing is not enabled.');
       }

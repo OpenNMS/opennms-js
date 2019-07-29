@@ -1,0 +1,25 @@
+{
+    "count": 3,
+    "offset": 0,
+    "searchProperty": [
+        {
+            "id": "alarmAckTime",
+            "name": "Acknowledged Time",
+            "orderBy": true,
+            "type": "TIMESTAMP"
+        },
+        {
+            "id": "alarmAckUser",
+            "name": "Acknowledging User",
+            "orderBy": true,
+            "type": "STRING"
+        },
+        {
+            "id": "alarmType",
+            "name": "Alarm Type",
+            "orderBy": true,
+            "type": "INTEGER"
+        }
+    ],
+    "totalCount": 3
+}

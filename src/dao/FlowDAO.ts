@@ -601,10 +601,9 @@ export class FlowDAO extends BaseDAO {
      * Check if this version of OpenNMS supports enhanced flow API and if not throw an error.
      */
     private checkForEnhancedFlows() {
-        if (!this.http
-            || !this.http.server
-            || !this.http.server.metadata
-            || !this.http.server.metadata.capabilities().enhancedFlows) {
+        if (!this.server
+            || !this.server.metadata
+            || !this.server.metadata.capabilities().enhancedFlows) {
             throw new OnmsError('Enhanced flow API is not supported by this version of OpenNMS.');
         }
     }
