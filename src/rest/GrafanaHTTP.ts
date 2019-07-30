@@ -59,7 +59,7 @@ export class GrafanaHTTP extends AbstractHTTP {
       }
       return OnmsResult.ok(this.getData(response), undefined, response.status, type);
     }).catch((e: any) => {
-      this.handleError(e, query);
+      throw this.handleError(e, query);
     });
   }
 
@@ -80,7 +80,7 @@ export class GrafanaHTTP extends AbstractHTTP {
       }
       return OnmsResult.ok(this.getData(response), undefined, response.status, type);
     }).catch((e: any) => {
-      this.handleError(e, query);
+      throw this.handleError(e, query);
     });
   }
 
@@ -102,7 +102,7 @@ export class GrafanaHTTP extends AbstractHTTP {
       }
       return OnmsResult.ok(this.getData(response), undefined, response.status, type);
     }).catch((e: any) => {
-      this.handleError(e, query);
+      throw this.handleError(e, query);
     });
   }
 
@@ -123,7 +123,7 @@ export class GrafanaHTTP extends AbstractHTTP {
       }
       return OnmsResult.ok(this.getData(response), undefined, response.status, type);
     }).catch((e: any) => {
-      this.handleError(e, query);
+      throw this.handleError(e, query);
     });
   }
 
@@ -144,7 +144,7 @@ export class GrafanaHTTP extends AbstractHTTP {
       }
       return OnmsResult.ok(this.getData(response), undefined, response.status, type);
     }).catch((e: any) => {
-        this.handleError(e, query);
+        throw this.handleError(e, query);
     });
   }
 
