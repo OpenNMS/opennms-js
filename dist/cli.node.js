@@ -76999,7 +76999,7 @@ function (_AbstractHTTP) {
 
         return _OnmsResult.OnmsResult.ok(_this2.getData(response), undefined, response.status, type);
       }).catch(function (e) {
-        _this2.handleError(e, query);
+        throw _this2.handleError(e, query);
       });
     }
     /** Make an HTTP HEAD call using the Grafana `BackendSrv`. */
@@ -77029,7 +77029,7 @@ function (_AbstractHTTP) {
 
         return _OnmsResult.OnmsResult.ok(_this3.getData(response), undefined, response.status, type);
       }).catch(function (e) {
-        _this3.handleError(e, query);
+        throw _this3.handleError(e, query);
       });
     }
     /** Make an HTTP PUT call using the Grafana `BackendSrv`. */
@@ -77060,7 +77060,7 @@ function (_AbstractHTTP) {
 
         return _OnmsResult.OnmsResult.ok(_this4.getData(response), undefined, response.status, type);
       }).catch(function (e) {
-        _this4.handleError(e, query);
+        throw _this4.handleError(e, query);
       });
     }
     /** Make an HTTP POST call using the Grafana `BackendSrv`. */
@@ -77090,7 +77090,7 @@ function (_AbstractHTTP) {
 
         return _OnmsResult.OnmsResult.ok(_this5.getData(response), undefined, response.status, type);
       }).catch(function (e) {
-        _this5.handleError(e, query);
+        throw _this5.handleError(e, query);
       });
     }
     /** Make an HTTP DELETE call using the Grafana `BackendSrv`. */
@@ -77120,7 +77120,7 @@ function (_AbstractHTTP) {
 
         return _OnmsResult.OnmsResult.ok(_this6.getData(response), undefined, response.status, type);
       }).catch(function (e) {
-        _this6.handleError(e, query);
+        throw _this6.handleError(e, query);
       });
     }
     /**

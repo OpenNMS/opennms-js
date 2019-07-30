@@ -1,9 +1,10 @@
-## [1.5.1-SNAPSHOT](https://github.com/OpenNMS/opennms-js/compare/v1.5.0...v1.5.1-SNAPSHOT) (2019-07-29)
+## [1.5.1-SNAPSHOT](https://github.com/OpenNMS/opennms-js/compare/v1.5.0...v1.5.1-SNAPSHOT) (2019-07-30)
 
 
 ### Bug Fixes
 
 * **cli:** fix typo in space-cleaning regex ([de5f5cc](https://github.com/OpenNMS/opennms-js/commit/de5f5cc))
+* **rest:** caught errors in GrafanaHTTP should be re-thrown ([fc35b12](https://github.com/OpenNMS/opennms-js/commit/fc35b12))
 
 
 ### Code Refactoring
