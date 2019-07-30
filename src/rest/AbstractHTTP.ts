@@ -10,8 +10,7 @@ import {OnmsServer} from '../api/OnmsServer';
 import {XmlTransformer} from './XmlTransformer';
 import {JsonTransformer} from './JsonTransformer';
 
-// tslint:disable-next-line:no-var-requires
-import btoa from 'btoa';
+import {cloneDeep} from 'lodash';
 
 /** @hidden */
 const xmlTransformer = new XmlTransformer();
@@ -32,12 +31,6 @@ export abstract class AbstractHTTP implements IOnmsHTTP {
    * @hidden
    */
   private [OPTIONS_PROP] = new OnmsHTTPOptions();
-
-  /**
-   * We keep a computed basic auth hash so we can react when user/pass change in the impl.
-   * @hidden
-   */
-  private authHash?: string;
 
   /** The default set of HTTP options associated with this ReST client. */
   public get options(): OnmsHTTPOptions {
@@ -183,14 +176,13 @@ export abstract class AbstractHTTP implements IOnmsHTTP {
    */
   protected getOptions(options?: OnmsHTTPOptions): OnmsHTTPOptions {
     const ret = new OnmsHTTPOptions();
-    Object.assign(ret, this.options);
+    Object.assign(ret, cloneDeep(options), cloneDeep(this.options));
 
-    const server = this.getServer(options);
+    const server = this.getServer(ret);
     ret.server = server;
     if (server && server.auth) {
-      ret.auth = Object.assign(ret.auth, server.auth);
+      Object.assign(ret.auth, cloneDeep(server.auth));
     }
-    Object.assign(ret, options);
 
     if (!ret.headers) {
       ret.headers = {};
@@ -211,40 +203,11 @@ export abstract class AbstractHTTP implements IOnmsHTTP {
   }
 
   /**
-   * Set or update the basic auth credentials to be used in making connections.
-   * @param username The username to connect with
-   * @param password The password to connect with
-   */
-  protected useBasicAuth(username?: string, password?: string) {
-    if (username && password) {
-      const hash = btoa(username + ':' + password);
-      if (hash !== this.authHash) {
-        this.onBasicAuth(username, password, hash, this.authHash);
-        this.authHash = hash;
-      }
-    }
-  }
-
-  /**
-   * Keep the basic auth string in sync when username/password changes.
-   * @param username The username
-   * @param password The user's password
-   * @param newHash The newly-computed hash of username + password
-   * @param oldHash The previous hash
-   */
-  protected onBasicAuth(username: string, password: string, newHash: string, oldHash?: string) {
-    // do nothing by default
-  }
-
-  /**
    * Implementers should override this method if they have actions that need to be performed
    * (like clearing a cache) when server settings change.
    */
   protected onSetServer() {
-    const auth = this.server ? this.server.auth : undefined;
-    if (auth && auth.username) {
-      this.useBasicAuth(auth.username, auth.password);
-    }
+    // do nothing by default
   }
 
   /**
