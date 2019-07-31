@@ -1,0 +1,19 @@
+{
+    "count": 2,
+    "offset": 0,
+    "searchProperty": [
+        {
+            "id": "alarmAckTime",
+            "name": "Acknowledged Time",
+            "orderBy": true,
+            "type": "TIMESTAMP"
+        },
+        {
+            "id": "alarmAckUser",
+            "name": "Acknowledging User",
+            "orderBy": true,
+            "type": "STRING"
+        }
+    ],
+    "totalCount": 2
+}
