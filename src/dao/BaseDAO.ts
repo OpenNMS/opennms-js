@@ -1,19 +1,9 @@
-import {IFilterProcessor} from '../api/IFilterProcessor';
 import {IHasHTTP} from '../api/IHasHTTP';
 import {IOnmsHTTP} from '../api/IOnmsHTTP';
 import {OnmsError} from '../api/OnmsError';
-
-import {Filter} from '../api/Filter';
-import {OnmsHTTPOptions} from '../api/OnmsHTTPOptions';
-import {SearchProperty} from '../api/SearchProperty';
-import {SearchPropertyType} from '../api/SearchPropertyType';
+import {OnmsServer} from '../api/OnmsServer';
 
 import {log} from '../api/Log';
-
-import {V1FilterProcessor} from './V1FilterProcessor';
-import {V2FilterProcessor} from './V2FilterProcessor';
-
-import {PropertiesCache} from './PropertiesCache';
 
 /** @hidden */
 // tslint:disable-next-line
@@ -22,7 +12,6 @@ const moment = require('moment');
 /** @hidden */
 // tslint:disable-next-line
 import {Moment} from 'moment';
-import {IValueProvider} from './IValueProvider';
 
 /**
  * A base DAO useful for subclassing to create real DAOs.  This differs from
@@ -39,6 +28,14 @@ export abstract class BaseDAO {
   private httpImpl: IOnmsHTTP;
 
   /**
+   * The [[OnmsServer]] that was last updated/retrieved.  This is used to check whether caches
+   * need to be invalidated.
+   * @hidden
+   * @param serverImpl The last [[OnmsServer]] seen.
+   */
+  private serverImpl?: OnmsServer | null;
+
+  /**
    * Construct a DAO instance.
    *
    * @param impl - The HTTP implementation to use.  It is also legal to pass any object
@@ -49,12 +46,14 @@ export abstract class BaseDAO {
       impl = (impl as IHasHTTP).http;
     }
     this.httpImpl = impl as IOnmsHTTP;
+    this.serverImpl = this.httpImpl.server;
   }
 
   /**
    * The HTTP implementation to use internally when making DAO requests.
    */
   public get http() {
+    this.validateServer();
     return this.httpImpl;
   }
 
@@ -63,13 +62,73 @@ export abstract class BaseDAO {
   }
 
   /**
+   * The [[OnmsServer]] being connected to by this DAO.
+   */
+  public get server(): OnmsServer {
+    this.validateServer();
+    if (this.serverImpl) {
+      return this.serverImpl;
+    }
+    throw new OnmsError('No server configured!');
+  }
+
+  public set server(s: OnmsServer) {
+    this.httpImpl.server = s;
+    this.serverImpl = s;
+    this.onSetServer(s || undefined);
+  }
+
+  /**
+   * Called whenever accessing the HTTP impl or server to validate whether it has changed.
+   * @hidden
+   */
+  protected validateServer() {
+    if (this.serverImpl) {
+      // we have a cached server, evaluate if it is still correct
+
+      if (this.httpImpl) {
+        // we have both a locally set server and a server in the HTTP implementation
+
+        if (this.serverImpl.equals(this.httpImpl.server || undefined)) {
+          // if they match, we're fine
+          return;
+        } else {
+          // if not, cache the HTTP impl version locally and call `onSetServer`
+          this.serverImpl = this.httpImpl.server;
+          this.onSetServer(this.serverImpl || undefined);
+        }
+
+      } else {
+        // HTTP impl server has become unset or HTTP impl has changed, set server impl to undefined
+        this.serverImpl = null;
+        this.onSetServer(this.serverImpl || undefined);
+      }
+
+    } else {
+      // no server impl set, if there's an HTTP impl, sync with its server, otherwise just set to undefined
+      if (this.httpImpl) {
+        this.serverImpl = this.httpImpl.server;
+        this.onSetServer(this.serverImpl || undefined);
+      }
+    }
+  }
+
+  /**
+   * Called whenever the OpenNMS server has changed.
+   * @param server the new server
+   */
+  protected onSetServer(server?: OnmsServer) {
+    // this should be overridden by implementations
+  }
+
+  /**
    * Whether or not to use JSON when making ReST requests.
    */
   protected useJson(): boolean {
-    if (this.http === undefined || !this.http.server || this.http.server.metadata === undefined) {
+    if (!this.server || this.server.metadata === undefined) {
       throw new OnmsError('Server meta-data must be populated prior to making DAO calls.');
     }
-    return this.http.server.metadata.useJson();
+    return this.server.metadata.useJson();
   }
 
   /**

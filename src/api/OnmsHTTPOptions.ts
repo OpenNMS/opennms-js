@@ -24,10 +24,13 @@ export class OnmsHTTPOptions {
     this[TIMEOUT_PROP] = t;
   }
 
-  /** The authentication config that should be used when no auth is associated with the [[OnmsServer]]. */
+  /** The authentication config that should be used. */
   public get auth(): OnmsAuthConfig {
     if (this[AUTH_PROP]) {
       return this[AUTH_PROP];
+    }
+    if (this.server && this.server.auth) {
+      return this.server.auth;
     }
     return {} as OnmsAuthConfig;
   }

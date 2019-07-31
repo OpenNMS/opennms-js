@@ -124,6 +124,7 @@ function createConfig(options) {
       sourceMap: true,
       terserOptions: {
         mangle: {
+          keep_classnames: true,
           keep_fnames: true,
           reserved: [ '$element', '$super', '$scope', '$uib', '$', 'jQuery', 'exports', 'require', 'angular', 'c3', 'd3' ],
         },

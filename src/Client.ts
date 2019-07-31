@@ -12,6 +12,7 @@ import {TicketerConfig} from './api/TicketerConfig';
 import {OnmsServer} from './api/OnmsServer';
 import {ServerMetadata} from './api/ServerMetadata';
 
+import {BaseDAO} from './dao/BaseDAO';
 import {AlarmDAO} from './dao/AlarmDAO';
 import {EventDAO} from './dao/EventDAO';
 import {FlowDAO} from './dao/FlowDAO';
@@ -102,6 +103,12 @@ export class Client implements IHasHTTP {
   public server?: OnmsServer;
 
   /**
+   * A cache of initialized DAOs, kept until server configuration changes
+   * @hidden
+   */
+  private daos = new Map() as Map<string, BaseDAO>;
+
+  /**
    * Construct a new OpenNMS client.
    * @constructor
    * @param httpImpl - The OnmsHTTP implementation to use. Normally
@@ -140,27 +147,49 @@ export class Client implements IHasHTTP {
   }
 
   /** Get an alarm DAO for querying alarms. */
-  public alarms() {
-    return new AlarmDAO(this);
+  public alarms(): AlarmDAO {
+    return this.getDao('alarms', AlarmDAO) as AlarmDAO;
   }
 
   /** Get an event DAO for querying events. */
   public events() {
-    return new EventDAO(this);
+    return this.getDao('events', EventDAO) as EventDAO;
   }
 
   /** Get a node DAO for querying nodes. */
   public nodes() {
-    return new NodeDAO(this);
+    return this.getDao('nodes', NodeDAO) as NodeDAO;
   }
 
   /** Get a flow DAO for querying flows. */
   public flows() {
-    return new FlowDAO(this);
+    return this.getDao('flows', FlowDAO) as FlowDAO;
   }
 
   /** Get a situationFeedback DAO for submitting and querying correlation feedback. */
   public situationfeedback() {
-    return new SituationFeedbackDAO(this);
+    return this.getDao('situationfeedback', SituationFeedbackDAO) as SituationFeedbackDAO;
+  }
+
+  /**
+   * A convenience method to validate cached DAOs and create them if they don't exist
+   * @hidden
+   * @param key a unique key used for caching the DAO
+   * @param daoClass the DAO class to retrieve or create
+   */
+  private getDao(
+    key: string,
+    daoClass: typeof AlarmDAO | typeof EventDAO | typeof NodeDAO | typeof FlowDAO | typeof SituationFeedbackDAO,
+  ) {
+    const existing = this.daos.get(key);
+    if (existing) {
+      if (existing.server && existing.server.equals(this.server)) {
+        return existing;
+      }
+    }
+    const dao = new daoClass(this);
+    dao.http = this.http;
+    this.daos.set(key, dao);
+    return dao;
   }
 }

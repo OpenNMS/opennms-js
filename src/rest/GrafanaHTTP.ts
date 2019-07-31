@@ -1,5 +1,4 @@
 import {AbstractHTTP} from './AbstractHTTP';
-import {OnmsError} from '../api/OnmsError';
 import {OnmsHTTPOptions} from '../api/OnmsHTTPOptions';
 import {OnmsResult} from '../api/OnmsResult';
 import {OnmsServer} from '../api/OnmsServer';
@@ -8,6 +7,8 @@ import {log} from '../api/Log';
 
 import {cloneDeep} from 'lodash';
 import {GrafanaError} from './GrafanaError';
+
+import btoa from 'btoa';
 
 /**
  * Implementation of the [[IOnmsHTTP]] interface for Grafana.
@@ -20,12 +21,6 @@ export class GrafanaHTTP extends AbstractHTTP {
    * @hidden
    */
   private backendSrv: any;
-
-  /**
-   * Used to store the pre-rendered Basic Auth string for making requests.
-   * @hidden
-   */
-  private authString?: string;
 
   /**
    * Construct a new GrafanaHTTP implementation.
@@ -158,14 +153,6 @@ export class GrafanaHTTP extends AbstractHTTP {
   }
 
   /**
-   * @inheritdoc
-   */
-  protected onBasicAuth(username: string, password: string, newHash: string, oldHash?: string) {
-    super.onBasicAuth(username, password, newHash, oldHash);
-    this.authString = 'Basic ' + newHash;
-  }
-
-  /**
    * Internal method to turn [[OnmsHTTPOptions]] into a Grafana `BackendSrv` request object.
    * @hidden
    */
@@ -175,18 +162,14 @@ export class GrafanaHTTP extends AbstractHTTP {
 
     const allOptions = this.getOptions(options);
 
-    if (allOptions && allOptions.auth && allOptions.auth.username) {
-      this.useBasicAuth(allOptions.auth.username, allOptions.auth.password);
-    }
-
     if (allOptions.headers) {
       ret.headers = cloneDeep(allOptions.headers);
     } else {
       ret.headers = {};
     }
 
-    if (this.authString) {
-      ret.headers.Authorization = this.authString;
+    if (allOptions && allOptions.auth && allOptions.auth.username) {
+      ret.headers.Authorization = 'Basic ' + btoa(allOptions.auth.username + ':' + allOptions.auth.password);
       ret.withCredentials = true;
     }
 
