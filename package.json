@@ -91,7 +91,7 @@
     "commander": "^2.9.0",
     "fs": "^0.0.1-security",
     "html-to-formatted-text": "^2.6.0",
-    "ip-address": "^5.8.8",
+    "ip-address": "^6.1.0",
     "lodash": "^4.17.15",
     "moment": "^2.19.3",
     "qs": "^6.5.0",
