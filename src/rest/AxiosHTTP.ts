@@ -175,14 +175,6 @@ export class AxiosHTTP extends AbstractHTTP {
     });
   }
 
-  /** @inheritdoc */
-  protected onBasicAuth(username: string, password: string, newHash: string, oldHash?: string) {
-    this.axiosImpl.defaults.auth = {
-      password,
-      username,
-    };
-  }
-
   /**
    * Clear the current [[AxiosInstance]] so it is recreated on next request with the
    * new server configuration.
@@ -208,6 +200,7 @@ export class AxiosHTTP extends AbstractHTTP {
         password: allOptions.auth.password,
         username: allOptions.auth.username,
       };
+      this.axiosImpl.defaults.auth = cloneDeep(ret.auth);
     }
 
     if (allOptions.timeout) {
@@ -261,6 +254,7 @@ export class AxiosHTTP extends AbstractHTTP {
       if (!server) {
         throw new OnmsError('You must set a server before attempting to make queries using Axios!');
       }
+
       const allOptions = this.getOptions(options);
 
       const axiosOpts = {
@@ -277,6 +271,7 @@ export class AxiosHTTP extends AbstractHTTP {
 
       this.axiosObj = this.axiosImpl.create(axiosOpts);
     }
+
     return this.axiosObj;
   }
 
