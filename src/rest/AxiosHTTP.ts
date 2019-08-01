@@ -62,6 +62,7 @@ export class AxiosHTTP extends AbstractHTTP {
 
     opts.method = 'get';
     opts.url = realUrl;
+    log.debug(JSON.stringify(opts, undefined, 2), catAxios);
 
     return this.getImpl(options).request(opts).then((response) => {
       let type;
@@ -110,7 +111,7 @@ export class AxiosHTTP extends AbstractHTTP {
     urlObj.search(opts.params);
     log.debug('PUT ' + urlObj.toString(), catAxios);
 
-    opts.data = Object.apply({}, opts.params);
+    opts.data = Object.assign({}, opts.params);
     opts.method = 'put';
     opts.url = realUrl;
 

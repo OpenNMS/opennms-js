@@ -3,8 +3,6 @@ import {API, Rest, DAO, Client} from './API';
 import {log, catRoot, setLogLevel} from './api/Log';
 import {
   Category,
-  CategoryServiceFactory,
-  CategoryDefaultConfiguration,
   LogLevel,
 } from 'typescript-logging';
 
@@ -67,7 +65,7 @@ const CLI = () => {
     } else {
       log.error(realError.message, null, catCLI);
     }
-    return realError;
+    process.exit(1);
   };
 
   /* tslint:disable:no-console */
