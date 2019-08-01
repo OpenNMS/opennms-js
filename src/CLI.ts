@@ -60,7 +60,7 @@ const CLI = () => {
     } else {
       log.error(realError.message);
     }
-    return realError;
+    process.exit(1);
   };
 
   /* tslint:disable:no-console */

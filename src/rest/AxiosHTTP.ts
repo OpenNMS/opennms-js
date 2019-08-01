@@ -106,7 +106,7 @@ export class AxiosHTTP extends AbstractHTTP {
     urlObj.search(opts.params);
     log.debug('PUT ' + urlObj.toString());
 
-    opts.data = Object.apply({}, opts.params);
+    opts.data = Object.assign({}, opts.params);
     opts.method = 'put';
     opts.url = realUrl;
 

@@ -82,7 +82,7 @@ export class GrafanaHTTP extends AbstractHTTP {
     const query = this.getConfig(options);
     query.method = 'PUT';
     query.url = realUrl;
-    query.data = Object.apply({}, query.parameters);
+    query.data = Object.assign({}, query.parameters);
     return this.backendSrv.datasourceRequest(query).then((response: any) => {
       let type = 'application/xml';
       if (query && query.headers && query.headers.accept) {
