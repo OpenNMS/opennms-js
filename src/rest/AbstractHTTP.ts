@@ -176,7 +176,8 @@ export abstract class AbstractHTTP implements IOnmsHTTP {
    */
   protected getOptions(options?: OnmsHTTPOptions): OnmsHTTPOptions {
     const ret = new OnmsHTTPOptions();
-    Object.assign(ret, cloneDeep(options), cloneDeep(this.options));
+    Object.assign(ret, cloneDeep(this.options));
+    Object.assign(ret, cloneDeep(options));
 
     const server = this.getServer(ret);
     ret.server = server;
