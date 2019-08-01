@@ -69529,7 +69529,8 @@ function () {
     key: "getOptions",
     value: function getOptions(options) {
       var ret = new _OnmsHTTPOptions.OnmsHTTPOptions();
-      (0, _assign.default)(ret, (0, _lodash.cloneDeep)(options), (0, _lodash.cloneDeep)(this.options));
+      (0, _assign.default)(ret, (0, _lodash.cloneDeep)(this.options));
+      (0, _assign.default)(ret, (0, _lodash.cloneDeep)(options));
       var server = this.getServer(ret);
       ret.server = server;
 
@@ -69684,6 +69685,10 @@ var _setPrototypeOf2 = _interopRequireDefault(__webpack_require__(/*! ../../node
 
 var _defineProperty2 = _interopRequireDefault(__webpack_require__(/*! ../../node_modules/@babel/runtime-corejs2/core-js/object/define-property */ "./node_modules/@babel/runtime-corejs2/core-js/object/define-property.js"));
 
+var _assign = _interopRequireDefault(__webpack_require__(/*! ../../node_modules/@babel/runtime-corejs2/core-js/object/assign */ "./node_modules/@babel/runtime-corejs2/core-js/object/assign.js"));
+
+var _stringify = _interopRequireDefault(__webpack_require__(/*! ../../node_modules/@babel/runtime-corejs2/core-js/json/stringify */ "./node_modules/@babel/runtime-corejs2/core-js/json/stringify.js"));
+
 __webpack_require__(/*! ../../node_modules/core-js/modules/es6.regexp.to-string */ "./node_modules/core-js/modules/es6.regexp.to-string.js");
 
 __webpack_require__(/*! ../../node_modules/core-js/modules/es6.object.to-string */ "./node_modules/core-js/modules/es6.object.to-string.js");
@@ -69800,6 +69805,9 @@ function (_AbstractHTTP) {
 
       opts.method = 'get';
       opts.url = realUrl;
+
+      _Log.log.debug((0, _stringify.default)(opts, undefined, 2), catAxios);
+
       return this.getImpl(options).request(opts).then(function (response) {
         var type;
 
@@ -69858,7 +69866,7 @@ function (_AbstractHTTP) {
 
       _Log.log.debug('PUT ' + urlObj.toString(), catAxios);
 
-      opts.data = Object.apply({}, opts.params);
+      opts.data = (0, _assign.default)({}, opts.params);
       opts.method = 'put';
       opts.url = realUrl;
       return this.getImpl(options).request(opts).then(function (response) {
@@ -70172,6 +70180,8 @@ var _setPrototypeOf2 = _interopRequireDefault(__webpack_require__(/*! ../../node
 
 var _defineProperty2 = _interopRequireDefault(__webpack_require__(/*! ../../node_modules/@babel/runtime-corejs2/core-js/object/define-property */ "./node_modules/@babel/runtime-corejs2/core-js/object/define-property.js"));
 
+var _assign = _interopRequireDefault(__webpack_require__(/*! ../../node_modules/@babel/runtime-corejs2/core-js/object/assign */ "./node_modules/@babel/runtime-corejs2/core-js/object/assign.js"));
+
 var _AbstractHTTP2 = __webpack_require__(/*! ./AbstractHTTP */ "./src/rest/AbstractHTTP.ts");
 
 var _OnmsResult = __webpack_require__(/*! ../api/OnmsResult */ "./src/api/OnmsResult.ts");
@@ -70319,7 +70329,7 @@ function (_AbstractHTTP) {
       var query = this.getConfig(options);
       query.method = 'PUT';
       query.url = realUrl;
-      query.data = Object.apply({}, query.parameters);
+      query.data = (0, _assign.default)({}, query.parameters);
       return this.backendSrv.datasourceRequest(query).then(function (response) {
         var type = 'application/xml';
 
