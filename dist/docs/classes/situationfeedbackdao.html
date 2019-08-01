@@ -100,6 +100,7 @@
 							<h3>Accessors</h3>
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited"><a href="situationfeedbackdao.html#http" class="tsd-kind-icon">http</a></li>
+								<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited"><a href="situationfeedbackdao.html#server" class="tsd-kind-icon">server</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
@@ -109,6 +110,7 @@
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="situationfeedbackdao.html#getdata" class="tsd-kind-icon">get<wbr>Data</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="situationfeedbackdao.html#getfeedback" class="tsd-kind-icon">get<wbr>Feedback</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="situationfeedbackdao.html#gettags" class="tsd-kind-icon">get<wbr>Tags</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected"><a href="situationfeedbackdao.html#onsetserver" class="tsd-kind-icon">on<wbr>Set<wbr>Server</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="situationfeedbackdao.html#savefeedback" class="tsd-kind-icon">save<wbr>Feedback</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected"><a href="situationfeedbackdao.html#todate" class="tsd-kind-icon">to<wbr>Date</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected"><a href="situationfeedbackdao.html#tonumber" class="tsd-kind-icon">to<wbr>Number</a></li>
@@ -131,7 +133,7 @@
 							<aside class="tsd-sources">
 								<p>Overrides <a href="basedao.html">BaseDAO</a>.<a href="basedao.html#constructor">constructor</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/966a908/src/dao/SituationFeedbackDAO.ts#L22">dao/SituationFeedbackDAO.ts:22</a></li>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/e0bcedc/src/dao/SituationFeedbackDAO.ts#L22">dao/SituationFeedbackDAO.ts:22</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -159,7 +161,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="basedao.html">BaseDAO</a>.<a href="basedao.html#http">http</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/966a908/src/dao/BaseDAO.ts#L57">dao/BaseDAO.ts:57</a></li>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/e0bcedc/src/dao/BaseDAO.ts#L55">dao/BaseDAO.ts:55</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -173,7 +175,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="basedao.html">BaseDAO</a>.<a href="basedao.html#http">http</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/966a908/src/dao/BaseDAO.ts#L61">dao/BaseDAO.ts:61</a></li>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/e0bcedc/src/dao/BaseDAO.ts#L60">dao/BaseDAO.ts:60</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -185,6 +187,50 @@
 							<ul class="tsd-parameters">
 								<li>
 									<h5>impl: <a href="../interfaces/ionmshttp.html" class="tsd-signature-type">IOnmsHTTP</a></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited">
+					<a name="server" class="tsd-anchor"></a>
+					<h3>server</h3>
+					<ul class="tsd-signatures tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited">
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> server<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="onmsserver.html" class="tsd-signature-type">OnmsServer</a></li>
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">set</span> server<span class="tsd-signature-symbol">(</span>s<span class="tsd-signature-symbol">: </span><a href="onmsserver.html" class="tsd-signature-type">OnmsServer</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Inherited from <a href="basedao.html">BaseDAO</a>.<a href="basedao.html#server">server</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/e0bcedc/src/dao/BaseDAO.ts#L67">dao/BaseDAO.ts:67</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>The <a href="onmsserver.html">OnmsServer</a> being connected to by this DAO.</p>
+								</div>
+							</div>
+							<h4 class="tsd-returns-title">Returns <a href="onmsserver.html" class="tsd-signature-type">OnmsServer</a></h4>
+						</li>
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Inherited from <a href="basedao.html">BaseDAO</a>.<a href="basedao.html#server">server</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/e0bcedc/src/dao/BaseDAO.ts#L75">dao/BaseDAO.ts:75</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>The <a href="onmsserver.html">OnmsServer</a> being connected to by this DAO.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>s: <a href="onmsserver.html" class="tsd-signature-type">OnmsServer</a></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -205,7 +251,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="basedao.html">BaseDAO</a>.<a href="basedao.html#getcount">getCount</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/966a908/src/dao/BaseDAO.ts#L79">dao/BaseDAO.ts:79</a></li>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/e0bcedc/src/dao/BaseDAO.ts#L138">dao/BaseDAO.ts:138</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -234,7 +280,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/966a908/src/dao/SituationFeedbackDAO.ts#L88">dao/SituationFeedbackDAO.ts:88</a></li>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/e0bcedc/src/dao/SituationFeedbackDAO.ts#L88">dao/SituationFeedbackDAO.ts:88</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -266,7 +312,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/966a908/src/dao/SituationFeedbackDAO.ts#L35">dao/SituationFeedbackDAO.ts:35</a></li>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/e0bcedc/src/dao/SituationFeedbackDAO.ts#L35">dao/SituationFeedbackDAO.ts:35</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -303,7 +349,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/966a908/src/dao/SituationFeedbackDAO.ts#L56">dao/SituationFeedbackDAO.ts:56</a></li>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/e0bcedc/src/dao/SituationFeedbackDAO.ts#L56">dao/SituationFeedbackDAO.ts:56</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -324,6 +370,38 @@
 						</li>
 					</ul>
 				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
+					<a name="onsetserver" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagProtected">Protected</span> on<wbr>Set<wbr>Server</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
+						<li class="tsd-signature tsd-kind-icon">on<wbr>Set<wbr>Server<span class="tsd-signature-symbol">(</span>server<span class="tsd-signature-symbol">?: </span><a href="onmsserver.html" class="tsd-signature-type">OnmsServer</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Inherited from <a href="basedao.html">BaseDAO</a>.<a href="basedao.html#onsetserver">onSetServer</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/e0bcedc/src/dao/BaseDAO.ts#L120">dao/BaseDAO.ts:120</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Called whenever the OpenNMS server has changed.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> server: <a href="onmsserver.html" class="tsd-signature-type">OnmsServer</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>the new server</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
 					<a name="savefeedback" class="tsd-anchor"></a>
 					<h3>save<wbr>Feedback</h3>
@@ -334,7 +412,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/966a908/src/dao/SituationFeedbackDAO.ts#L78">dao/SituationFeedbackDAO.ts:78</a></li>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/e0bcedc/src/dao/SituationFeedbackDAO.ts#L78">dao/SituationFeedbackDAO.ts:78</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -377,7 +455,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="basedao.html">BaseDAO</a>.<a href="basedao.html#todate">toDate</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/966a908/src/dao/BaseDAO.ts#L96">dao/BaseDAO.ts:96</a></li>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/e0bcedc/src/dao/BaseDAO.ts#L155">dao/BaseDAO.ts:155</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -409,7 +487,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="basedao.html">BaseDAO</a>.<a href="basedao.html#tonumber">toNumber</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/966a908/src/dao/BaseDAO.ts#L106">dao/BaseDAO.ts:106</a></li>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/e0bcedc/src/dao/BaseDAO.ts#L165">dao/BaseDAO.ts:165</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -441,7 +519,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="basedao.html">BaseDAO</a>.<a href="basedao.html#usejson">useJson</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/966a908/src/dao/BaseDAO.ts#L68">dao/BaseDAO.ts:68</a></li>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/e0bcedc/src/dao/BaseDAO.ts#L127">dao/BaseDAO.ts:127</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -476,6 +554,9 @@
 							<li class=" tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited">
 								<a href="situationfeedbackdao.html#http" class="tsd-kind-icon">http</a>
 							</li>
+							<li class=" tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited">
+								<a href="situationfeedbackdao.html#server" class="tsd-kind-icon">server</a>
+							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
 								<a href="situationfeedbackdao.html#getcount" class="tsd-kind-icon">get<wbr>Count</a>
 							</li>
@@ -487,6 +568,9 @@
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="situationfeedbackdao.html#gettags" class="tsd-kind-icon">get<wbr>Tags</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
+								<a href="situationfeedbackdao.html#onsetserver" class="tsd-kind-icon">on<wbr>Set<wbr>Server</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="situationfeedbackdao.html#savefeedback" class="tsd-kind-icon">save<wbr>Feedback</a>

@@ -58598,6 +58598,8 @@ var _promise = _interopRequireDefault(__webpack_require__(/*! ../node_modules/@b
 
 var _defineProperty2 = _interopRequireDefault(__webpack_require__(/*! ../node_modules/@babel/runtime-corejs2/core-js/object/define-property */ "./node_modules/@babel/runtime-corejs2/core-js/object/define-property.js"));
 
+var _map = _interopRequireDefault(__webpack_require__(/*! ../node_modules/@babel/runtime-corejs2/core-js/map */ "./node_modules/@babel/runtime-corejs2/core-js/map.js"));
+
 var _regenerator = _interopRequireDefault(__webpack_require__(/*! ../node_modules/@babel/runtime-corejs2/regenerator */ "./node_modules/@babel/runtime-corejs2/regenerator/index.js"));
 
 __webpack_require__(/*! ../node_modules/regenerator-runtime/runtime */ "./node_modules/regenerator-runtime/runtime.js");
@@ -58825,6 +58827,8 @@ function () {
 
     _defineProperty(this, "server", void 0);
 
+    _defineProperty(this, "daos", new _map.default());
+
     if (httpImpl) {
       Client.defaultHttp = httpImpl;
     } else {
@@ -58892,35 +58896,58 @@ function () {
   }, {
     key: "alarms",
     value: function alarms() {
-      return new _AlarmDAO.AlarmDAO(this);
+      return this.getDao('alarms', _AlarmDAO.AlarmDAO);
     }
     /** Get an event DAO for querying events. */
 
   }, {
     key: "events",
     value: function events() {
-      return new _EventDAO.EventDAO(this);
+      return this.getDao('events', _EventDAO.EventDAO);
     }
     /** Get a node DAO for querying nodes. */
 
   }, {
     key: "nodes",
     value: function nodes() {
-      return new _NodeDAO.NodeDAO(this);
+      return this.getDao('nodes', _NodeDAO.NodeDAO);
     }
     /** Get a flow DAO for querying flows. */
 
   }, {
     key: "flows",
     value: function flows() {
-      return new _FlowDAO.FlowDAO(this);
+      return this.getDao('flows', _FlowDAO.FlowDAO);
     }
     /** Get a situationFeedback DAO for submitting and querying correlation feedback. */
 
   }, {
     key: "situationfeedback",
     value: function situationfeedback() {
-      return new _SituationFeedbackDAO.SituationFeedbackDAO(this);
+      return this.getDao('situationfeedback', _SituationFeedbackDAO.SituationFeedbackDAO);
+    }
+    /**
+     * A convenience method to validate cached DAOs and create them if they don't exist
+     * @hidden
+     * @param key a unique key used for caching the DAO
+     * @param daoClass the DAO class to retrieve or create
+     */
+
+  }, {
+    key: "getDao",
+    value: function getDao(key, daoClass) {
+      var existing = this.daos.get(key);
+
+      if (existing) {
+        if (existing.server && existing.server.equals(this.server)) {
+          return existing;
+        }
+      }
+
+      var dao = new daoClass(this);
+      dao.http = this.http;
+      this.daos.set(key, dao);
+      return dao;
     }
   }]);
 
@@ -59820,13 +59847,17 @@ function () {
     set: function set(t) {
       this[TIMEOUT_PROP] = t;
     }
-    /** The authentication config that should be used when no auth is associated with the [[OnmsServer]]. */
+    /** The authentication config that should be used. */
 
   }, {
     key: "auth",
     get: function get() {
       if (this[AUTH_PROP]) {
         return this[AUTH_PROP];
+      }
+
+      if (this.server && this.server.auth) {
+        return this.server.auth;
       }
 
       return {};
@@ -61274,13 +61305,23 @@ var _iterator = _interopRequireDefault(__webpack_require__(/*! ../../node_module
 
 var _symbol = _interopRequireDefault(__webpack_require__(/*! ../../node_modules/@babel/runtime-corejs2/core-js/symbol */ "./node_modules/@babel/runtime-corejs2/core-js/symbol.js"));
 
-var _defineProperty = _interopRequireDefault(__webpack_require__(/*! ../../node_modules/@babel/runtime-corejs2/core-js/object/define-property */ "./node_modules/@babel/runtime-corejs2/core-js/object/define-property.js"));
+var _getIterator2 = _interopRequireDefault(__webpack_require__(/*! ../../node_modules/@babel/runtime-corejs2/core-js/get-iterator */ "./node_modules/@babel/runtime-corejs2/core-js/get-iterator.js"));
 
-var _getPrototypeOf2 = _interopRequireDefault(__webpack_require__(/*! ../../node_modules/@babel/runtime-corejs2/core-js/object/get-prototype-of */ "./node_modules/@babel/runtime-corejs2/core-js/object/get-prototype-of.js"));
+var _getPrototypeOf3 = _interopRequireDefault(__webpack_require__(/*! ../../node_modules/@babel/runtime-corejs2/core-js/object/get-prototype-of */ "./node_modules/@babel/runtime-corejs2/core-js/object/get-prototype-of.js"));
 
 var _create = _interopRequireDefault(__webpack_require__(/*! ../../node_modules/@babel/runtime-corejs2/core-js/object/create */ "./node_modules/@babel/runtime-corejs2/core-js/object/create.js"));
 
 var _setPrototypeOf2 = _interopRequireDefault(__webpack_require__(/*! ../../node_modules/@babel/runtime-corejs2/core-js/object/set-prototype-of */ "./node_modules/@babel/runtime-corejs2/core-js/object/set-prototype-of.js"));
+
+var _defineProperty2 = _interopRequireDefault(__webpack_require__(/*! ../../node_modules/@babel/runtime-corejs2/core-js/object/define-property */ "./node_modules/@babel/runtime-corejs2/core-js/object/define-property.js"));
+
+__webpack_require__(/*! ../../node_modules/core-js/modules/es6.function.name */ "./node_modules/core-js/modules/es6.function.name.js");
+
+var _isArray = _interopRequireDefault(__webpack_require__(/*! ../../node_modules/@babel/runtime-corejs2/core-js/array/is-array */ "./node_modules/@babel/runtime-corejs2/core-js/array/is-array.js"));
+
+var _stringify = _interopRequireDefault(__webpack_require__(/*! ../../node_modules/@babel/runtime-corejs2/core-js/json/stringify */ "./node_modules/@babel/runtime-corejs2/core-js/json/stringify.js"));
+
+var _assign = _interopRequireDefault(__webpack_require__(/*! ../../node_modules/@babel/runtime-corejs2/core-js/object/assign */ "./node_modules/@babel/runtime-corejs2/core-js/object/assign.js"));
 
 __webpack_require__(/*! ../../node_modules/core-js/modules/web.dom.iterable */ "./node_modules/core-js/modules/web.dom.iterable.js");
 
@@ -61288,13 +61329,9 @@ __webpack_require__(/*! ../../node_modules/core-js/modules/es6.array.iterator */
 
 __webpack_require__(/*! ../../node_modules/core-js/modules/es6.object.to-string */ "./node_modules/core-js/modules/es6.object.to-string.js");
 
-__webpack_require__(/*! ../../node_modules/core-js/modules/es6.function.name */ "./node_modules/core-js/modules/es6.function.name.js");
+__webpack_require__(/*! ../../node_modules/core-js/modules/es6.string.iterator */ "./node_modules/core-js/modules/es6.string.iterator.js");
 
-var _stringify = _interopRequireDefault(__webpack_require__(/*! ../../node_modules/@babel/runtime-corejs2/core-js/json/stringify */ "./node_modules/@babel/runtime-corejs2/core-js/json/stringify.js"));
-
-var _isArray = _interopRequireDefault(__webpack_require__(/*! ../../node_modules/@babel/runtime-corejs2/core-js/array/is-array */ "./node_modules/@babel/runtime-corejs2/core-js/array/is-array.js"));
-
-var _assign = _interopRequireDefault(__webpack_require__(/*! ../../node_modules/@babel/runtime-corejs2/core-js/object/assign */ "./node_modules/@babel/runtime-corejs2/core-js/object/assign.js"));
+__webpack_require__(/*! ../../node_modules/core-js/modules/es6.array.find */ "./node_modules/core-js/modules/es6.array.find.js");
 
 var _regenerator = _interopRequireDefault(__webpack_require__(/*! ../../node_modules/@babel/runtime-corejs2/regenerator */ "./node_modules/@babel/runtime-corejs2/regenerator/index.js"));
 
@@ -61320,13 +61357,19 @@ var _V1FilterProcessor = __webpack_require__(/*! ./V1FilterProcessor */ "./src/d
 
 var _V2FilterProcessor = __webpack_require__(/*! ./V2FilterProcessor */ "./src/dao/V2FilterProcessor.ts");
 
-var _PropertiesCache = __webpack_require__(/*! ./PropertiesCache */ "./src/dao/PropertiesCache.ts");
-
 var _BaseDAO2 = __webpack_require__(/*! ./BaseDAO */ "./src/dao/BaseDAO.ts");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _typeof(obj) { if (typeof _symbol.default === "function" && typeof _iterator.default === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof _symbol.default === "function" && obj.constructor === _symbol.default && obj !== _symbol.default.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance"); }
+
+function _iterableToArrayLimit(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = (0, _getIterator2.default)(arr), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if ((0, _isArray.default)(arr)) return arr; }
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { _promise.default.resolve(value).then(_next, _throw); } }
 
@@ -61334,25 +61377,21 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; (0, _defineProperty.default)(target, descriptor.key, descriptor); } }
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; (0, _defineProperty2.default)(target, descriptor.key, descriptor); } }
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
 function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
 
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+function _getPrototypeOf(o) { _getPrototypeOf = _setPrototypeOf2.default ? _getPrototypeOf3.default : function _getPrototypeOf(o) { return o.__proto__ || (0, _getPrototypeOf3.default)(o); }; return _getPrototypeOf(o); }
 
-function _getPrototypeOf(o) { _getPrototypeOf = _setPrototypeOf2.default ? _getPrototypeOf2.default : function _getPrototypeOf(o) { return o.__proto__ || (0, _getPrototypeOf2.default)(o); }; return _getPrototypeOf(o); }
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = (0, _create.default)(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = _setPrototypeOf2.default || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
-/** @hidden */
-// tslint:disable-next-line
-var moment = __webpack_require__(/*! ../../node_modules/moment/moment */ "./node_modules/moment/moment.js");
-/** @hidden */
-
+function _defineProperty(obj, key, value) { if (key in obj) { (0, _defineProperty2.default)(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 /**
  * An abstract data access layer API, meant to (somewhat) mirror the DAO interfaces
@@ -61369,9 +61408,21 @@ function (_BaseDAO) {
   _inherits(AbstractDAO, _BaseDAO);
 
   function AbstractDAO() {
+    var _getPrototypeOf2;
+
+    var _this;
+
     _classCallCheck(this, AbstractDAO);
 
-    return _possibleConstructorReturn(this, _getPrototypeOf(AbstractDAO).apply(this, arguments));
+    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    _this = _possibleConstructorReturn(this, (_getPrototypeOf2 = _getPrototypeOf(AbstractDAO)).call.apply(_getPrototypeOf2, [this].concat(args)));
+
+    _defineProperty(_assertThisInitialized(_this), "propertiesCache", void 0);
+
+    return _this;
   }
 
   _createClass(AbstractDAO, [{
@@ -61385,23 +61436,27 @@ function (_BaseDAO) {
       var _getFilterProcessor = _asyncToGenerator(
       /*#__PURE__*/
       _regenerator.default.mark(function _callee() {
+        var cache;
         return _regenerator.default.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
                 _context.t0 = this.getApiVersion();
-                _context.next = _context.t0 === 2 ? 3 : 4;
+                _context.next = _context.t0 === 2 ? 3 : 7;
                 break;
 
               case 3:
-                return _context.abrupt("return", this.getPropertiesCache().then(function (cache) {
-                  return new _V2FilterProcessor.V2FilterProcessor(cache);
-                }));
-
-              case 4:
-                return _context.abrupt("return", _promise.default.resolve(new _V1FilterProcessor.V1FilterProcessor()));
+                _context.next = 5;
+                return this.getPropertiesCache();
 
               case 5:
+                cache = _context.sent;
+                return _context.abrupt("return", new _V2FilterProcessor.V2FilterProcessor(cache));
+
+              case 7:
+                return _context.abrupt("return", _promise.default.resolve(new _V1FilterProcessor.V1FilterProcessor()));
+
+              case 8:
               case "end":
                 return _context.stop();
             }
@@ -61435,13 +61490,13 @@ function (_BaseDAO) {
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
-                return _context2.abrupt("return", this.getPropertiesCache().then(function (cache) {
-                  if (cache) {
-                    return cache.getProperties();
-                  }
-                }));
+                _context2.next = 2;
+                return this.getPropertiesCache();
 
-              case 1:
+              case 2:
+                return _context2.abrupt("return", _context2.sent);
+
+              case 3:
               case "end":
                 return _context2.stop();
             }
@@ -61467,17 +61522,21 @@ function (_BaseDAO) {
       var _searchProperty = _asyncToGenerator(
       /*#__PURE__*/
       _regenerator.default.mark(function _callee3(id) {
+        var cache;
         return _regenerator.default.wrap(function _callee3$(_context3) {
           while (1) {
             switch (_context3.prev = _context3.next) {
               case 0:
-                return _context3.abrupt("return", this.getPropertiesCache().then(function (cache) {
-                  if (cache) {
-                    return cache.getProperty(id);
-                  }
+                _context3.next = 2;
+                return this.getPropertiesCache();
+
+              case 2:
+                cache = _context3.sent;
+                return _context3.abrupt("return", cache.find(function (prop) {
+                  return prop.id === id;
                 }));
 
-              case 1:
+              case 4:
               case "end":
                 return _context3.stop();
             }
@@ -61492,9 +61551,9 @@ function (_BaseDAO) {
       return searchProperty;
     }()
     /**
-     * Returns or creates the [[PropertiesCache]] for this dao.
+     * Returns or creates a cache of properties for this dao.
      *
-     * @return the [[PropertiesCache]] for this dao. It is created if it does not exist.
+     * @return the cache for this dao. It is created if it does not exist.
      */
 
   }, {
@@ -61503,8 +61562,9 @@ function (_BaseDAO) {
       var _getPropertiesCache = _asyncToGenerator(
       /*#__PURE__*/
       _regenerator.default.mark(function _callee4() {
-        var _this = this;
+        var _this2 = this;
 
+        var opts, result;
         return _regenerator.default.wrap(function _callee4$(_context4) {
           while (1) {
             switch (_context4.prev = _context4.next) {
@@ -61517,28 +61577,30 @@ function (_BaseDAO) {
                 throw new _OnmsError.OnmsError('Search property metadata is only available in OpenNMS ' + 'versions that support the ReSTv2 API.');
 
               case 2:
-                if (_PropertiesCache.PropertiesCache.get(this)) {
-                  _context4.next = 4;
+                if (this.propertiesCache) {
+                  _context4.next = 11;
                   break;
                 }
 
-                return _context4.abrupt("return", this.getOptions().then(function (opts) {
-                  opts.headers.accept = 'application/json';
-                  return _this.http.get(_this.searchPropertyPath(), opts).then(function (result) {
-                    var searchProperties = _this.parseResultList(result, 'searchProperty', _this.searchPropertyPath(), function (prop) {
-                      return _this.toSearchProperty(prop);
-                    });
-
-                    _PropertiesCache.PropertiesCache.put(_this, searchProperties);
-
-                    return _promise.default.resolve(_PropertiesCache.PropertiesCache.get(_this));
-                  });
-                }));
-
-              case 4:
-                return _context4.abrupt("return", _promise.default.resolve(_PropertiesCache.PropertiesCache.get(this)));
+                _context4.next = 5;
+                return this.getOptions();
 
               case 5:
+                opts = _context4.sent;
+                opts.headers.accept = 'application/json';
+                _context4.next = 9;
+                return this.http.get(this.searchPropertyPath(), opts);
+
+              case 9:
+                result = _context4.sent;
+                this.propertiesCache = this.parseResultList(result, 'searchProperty', this.searchPropertyPath(), function (prop) {
+                  return _this2.toSearchProperty(prop);
+                });
+
+              case 11:
+                return _context4.abrupt("return", this.propertiesCache);
+
+              case 12:
               case "end":
                 return _context4.stop();
             }
@@ -61566,34 +61628,46 @@ function (_BaseDAO) {
       var _findValues = _asyncToGenerator(
       /*#__PURE__*/
       _regenerator.default.mark(function _callee5(propertyId, options) {
-        var _this2 = this;
+        var _ref, _ref2, property, opts, path, result;
 
         return _regenerator.default.wrap(function _callee5$(_context5) {
           while (1) {
             switch (_context5.prev = _context5.next) {
               case 0:
-                return _context5.abrupt("return", this.searchProperty(propertyId).then(function (property) {
-                  if (!property) {
-                    return [];
-                  }
+                _context5.next = 2;
+                return _promise.default.all([this.searchProperty(propertyId), this.getOptions()]);
 
-                  return _this2.getOptions().then(function (opts) {
-                    var path = _this2.searchPropertyPath() + '/' + property.id;
-                    opts.headers.accept = 'application/json';
+              case 2:
+                _ref = _context5.sent;
+                _ref2 = _slicedToArray(_ref, 2);
+                property = _ref2[0];
+                opts = _ref2[1];
 
-                    if (options) {
-                      (0, _assign.default)(opts, options);
-                    }
+                if (!(!property || !property.id)) {
+                  _context5.next = 8;
+                  break;
+                }
 
-                    return _this2.http.get(path, opts).then(function (result) {
-                      return _this2.parseResultList(result, 'value', path, function (value) {
-                        return value;
-                      });
-                    });
-                  });
+                throw new _OnmsError.OnmsError('Unable to determine property for ID ' + propertyId);
+
+              case 8:
+                path = this.searchPropertyPath() + '/' + property.id;
+                opts.headers.accept = 'application/json';
+
+                if (options) {
+                  (0, _assign.default)(opts, options);
+                }
+
+                _context5.next = 13;
+                return this.http.get(path, opts);
+
+              case 13:
+                result = _context5.sent;
+                return _context5.abrupt("return", this.parseResultList(result, 'value', path, function (value) {
+                  return value;
                 }));
 
-              case 1:
+              case 15:
               case "end":
                 return _context5.stop();
             }
@@ -61607,6 +61681,15 @@ function (_BaseDAO) {
 
       return findValues;
     }()
+    /** @inheritdoc */
+
+  }, {
+    key: "onSetServer",
+    value: function onSetServer(server) {
+      _Log.log.debug('Server has changed, invalidating DAO cache:' + (0, _stringify.default)(server), _Log.catDao);
+
+      this.propertiesCache = undefined;
+    }
     /**
      * The path to retrieve search properties for this DAO.
      */
@@ -61704,37 +61787,42 @@ function (_BaseDAO) {
       var _getOptions = _asyncToGenerator(
       /*#__PURE__*/
       _regenerator.default.mark(function _callee6(filter) {
-        var _this3 = this;
-
+        var options, processor;
         return _regenerator.default.wrap(function _callee6$(_context6) {
           while (1) {
             switch (_context6.prev = _context6.next) {
               case 0:
-                return _context6.abrupt("return", _promise.default.resolve(new _OnmsHTTPOptions.OnmsHTTPOptions()).then(function (options) {
-                  if (_this3.useJson()) {
-                    options.headers.accept = 'application/json';
-                  } else {
-                    // always use application/xml in DAO calls when we're not sure how
-                    // usable JSON output will be.
-                    options.headers.accept = 'application/xml';
-                  }
+                options = new _OnmsHTTPOptions.OnmsHTTPOptions();
 
-                  if (filter) {
-                    return _this3.getFilterProcessor().then(function (processor) {
-                      options.parameters = processor.getParameters(filter);
-                      return options;
-                    });
-                  }
+                if (this.useJson()) {
+                  options.headers.accept = 'application/json';
+                } else {
+                  // always use application/xml in DAO calls when we're not sure how
+                  // usable JSON output will be.
+                  options.headers.accept = 'application/xml';
+                }
 
-                  return options;
-                }));
+                if (!filter) {
+                  _context6.next = 7;
+                  break;
+                }
 
-              case 1:
+                _context6.next = 5;
+                return this.getFilterProcessor();
+
+              case 5:
+                processor = _context6.sent;
+                options.parameters = processor.getParameters(filter);
+
+              case 7:
+                return _context6.abrupt("return", options);
+
+              case 8:
               case "end":
                 return _context6.stop();
             }
           }
-        }, _callee6);
+        }, _callee6, this);
       }));
 
       function getOptions(_x4) {
@@ -61770,24 +61858,11 @@ function (_BaseDAO) {
   }, {
     key: "getApiVersion",
     value: function getApiVersion() {
-      if (this.http === undefined || !this.http.server || this.http.server.metadata === undefined) {
+      if (!this.server || this.server.metadata === undefined) {
         throw new _OnmsError.OnmsError('Server meta-data must be populated prior to making DAO calls.');
       }
 
-      return this.http.server.metadata.apiVersion();
-    }
-    /**
-     * Return the current server.
-     */
-
-  }, {
-    key: "getServer",
-    value: function getServer() {
-      if (this.http && this.http.server) {
-        return this.http.server;
-      }
-
-      throw new _OnmsError.OnmsError('No server configured!');
+      return this.server.metadata.apiVersion();
     }
   }]);
 
@@ -62964,7 +63039,7 @@ function (_AbstractDAO) {
     key: "getDetailsPage",
     value: function getDetailsPage(alarm) {
       var alarmId = typeof alarm === 'number' ? alarm : alarm.id;
-      return this.getServer().resolveURL("alarm/detail.htm", {
+      return this.server.resolveURL("alarm/detail.htm", {
         id: alarmId
       });
     }
@@ -62978,9 +63053,7 @@ function (_AbstractDAO) {
     value: function handleError(err) {
       if (err.code === 501) {
         try {
-          var server = this.getServer();
-
-          _Log.log.warn('Trouble ticketing is not enabled on ' + server.toString());
+          _Log.log.warn('Trouble ticketing is not enabled on ' + this.server.toString());
         } catch (e) {
           _Log.log.warn('Trouble ticketing is not enabled.');
         }
@@ -63056,6 +63129,13 @@ function () {
    */
 
   /**
+   * The [[OnmsServer]] that was last updated/retrieved.  This is used to check whether caches
+   * need to be invalidated.
+   * @hidden
+   * @param serverImpl The last [[OnmsServer]] seen.
+   */
+
+  /**
    * Construct a DAO instance.
    *
    * @param impl - The HTTP implementation to use.  It is also legal to pass any object
@@ -63066,11 +63146,14 @@ function () {
 
     _defineProperty(this, "httpImpl", void 0);
 
+    _defineProperty(this, "serverImpl", void 0);
+
     if (impl.http) {
       impl = impl.http;
     }
 
     this.httpImpl = impl;
+    this.serverImpl = this.httpImpl.server;
   }
   /**
    * The HTTP implementation to use internally when making DAO requests.
@@ -63078,17 +63161,59 @@ function () {
 
 
   _createClass(BaseDAO, [{
-    key: "useJson",
+    key: "validateServer",
+
+    /**
+     * Called whenever accessing the HTTP impl or server to validate whether it has changed.
+     * @hidden
+     */
+    value: function validateServer() {
+      if (this.serverImpl) {
+        // we have a cached server, evaluate if it is still correct
+        if (this.httpImpl) {
+          // we have both a locally set server and a server in the HTTP implementation
+          if (this.serverImpl.equals(this.httpImpl.server || undefined)) {
+            // if they match, we're fine
+            return;
+          } else {
+            // if not, cache the HTTP impl version locally and call `onSetServer`
+            this.serverImpl = this.httpImpl.server;
+            this.onSetServer(this.serverImpl || undefined);
+          }
+        } else {
+          // HTTP impl server has become unset or HTTP impl has changed, set server impl to undefined
+          this.serverImpl = null;
+          this.onSetServer(this.serverImpl || undefined);
+        }
+      } else {
+        // no server impl set, if there's an HTTP impl, sync with its server, otherwise just set to undefined
+        if (this.httpImpl) {
+          this.serverImpl = this.httpImpl.server;
+          this.onSetServer(this.serverImpl || undefined);
+        }
+      }
+    }
+    /**
+     * Called whenever the OpenNMS server has changed.
+     * @param server the new server
+     */
+
+  }, {
+    key: "onSetServer",
+    value: function onSetServer(server) {} // this should be overridden by implementations
 
     /**
      * Whether or not to use JSON when making ReST requests.
      */
+
+  }, {
+    key: "useJson",
     value: function useJson() {
-      if (this.http === undefined || !this.http.server || this.http.server.metadata === undefined) {
+      if (!this.server || this.server.metadata === undefined) {
         throw new _OnmsError.OnmsError('Server meta-data must be populated prior to making DAO calls.');
       }
 
-      return this.http.server.metadata.useJson();
+      return this.server.metadata.useJson();
     }
     /**
      * A convenience method to make it easy for implementers to extract the count
@@ -63138,10 +63263,31 @@ function () {
   }, {
     key: "http",
     get: function get() {
+      this.validateServer();
       return this.httpImpl;
     },
     set: function set(impl) {
       this.httpImpl = impl;
+    }
+    /**
+     * The [[OnmsServer]] being connected to by this DAO.
+     */
+
+  }, {
+    key: "server",
+    get: function get() {
+      this.validateServer();
+
+      if (this.serverImpl) {
+        return this.serverImpl;
+      }
+
+      throw new _OnmsError.OnmsError('No server configured!');
+    },
+    set: function set(s) {
+      this.httpImpl.server = s;
+      this.serverImpl = s;
+      this.onSetServer(s || undefined);
     }
   }]);
 
@@ -64464,7 +64610,7 @@ function (_BaseDAO) {
   }, {
     key: "checkForEnhancedFlows",
     value: function checkForEnhancedFlows() {
-      if (!this.http || !this.http.server || !this.http.server.metadata || !this.http.server.metadata.capabilities().enhancedFlows) {
+      if (!this.server || !this.server.metadata || !this.server.metadata.capabilities().enhancedFlows) {
         throw new _OnmsError.OnmsError('Enhanced flow API is not supported by this version of OpenNMS.');
       }
     }
@@ -65134,121 +65280,6 @@ exports.NodeDAO = NodeDAO;
 
 /***/ }),
 
-/***/ "./src/dao/PropertiesCache.ts":
-/*!************************************!*\
-  !*** ./src/dao/PropertiesCache.ts ***!
-  \************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _Object$defineProperty2 = __webpack_require__(/*! @babel/runtime-corejs2/core-js/object/define-property */ "./node_modules/@babel/runtime-corejs2/core-js/object/define-property.js");
-
-_Object$defineProperty2(exports, "__esModule", {
-  value: true
-});
-
-exports.PropertiesCache = void 0;
-
-var _map = _interopRequireDefault(__webpack_require__(/*! ../../node_modules/@babel/runtime-corejs2/core-js/map */ "./node_modules/@babel/runtime-corejs2/core-js/map.js"));
-
-var _defineProperty2 = _interopRequireDefault(__webpack_require__(/*! ../../node_modules/@babel/runtime-corejs2/core-js/object/define-property */ "./node_modules/@babel/runtime-corejs2/core-js/object/define-property.js"));
-
-__webpack_require__(/*! ../../node_modules/core-js/modules/es6.array.find */ "./node_modules/core-js/modules/es6.array.find.js");
-
-__webpack_require__(/*! ../../node_modules/core-js/modules/es6.function.name */ "./node_modules/core-js/modules/es6.function.name.js");
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; (0, _defineProperty2.default)(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { (0, _defineProperty2.default)(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-/**
- * The Properties Cache persists all properties for each [[AbstractDAO]].
- */
-var PropertiesCache =
-/*#__PURE__*/
-function () {
-  _createClass(PropertiesCache, null, [{
-    key: "get",
-
-    /**
-     * Returns the cache for the given dao if exists.
-     *
-     * @param {AbstractDAO<any, any>} dao The dao to get the cache for.
-     * @returns {any} The cache if it exists.
-     */
-    value: function get(dao) {
-      var className = dao.constructor.name;
-      return this.caches.get(className);
-    }
-    /**
-     * Stores the search properties for the given dao.
-     *
-     * @param {AbstractDAO<any, any>} dao The dao to persist the properties for.
-     * @param {SearchProperty[]} searchProperties The properties to persist.
-     */
-
-  }, {
-    key: "put",
-    value: function put(dao, searchProperties) {
-      var className = dao.constructor.name;
-      this.caches.set(className, new PropertiesCache(searchProperties));
-    }
-    /** The cache persistence. */
-
-  }]);
-
-  function PropertiesCache(properties) {
-    _classCallCheck(this, PropertiesCache);
-
-    _defineProperty(this, "properties", void 0);
-
-    this.properties = properties;
-  }
-  /**
-   * Returns the property identified by id, if it exists.
-   * @param {string} id The property id to find the property for.
-   * @returns {SearchProperty} The property
-   */
-
-
-  _createClass(PropertiesCache, [{
-    key: "getProperty",
-    value: function getProperty(id) {
-      return this.getProperties().find(function (property) {
-        return property.id === id;
-      });
-    }
-    /**
-     * Returns all existing properties in the cache.
-     *
-     * @returns {SearchProperty[]} All existing properties in the cache.
-     */
-
-  }, {
-    key: "getProperties",
-    value: function getProperties() {
-      return this.properties;
-    }
-  }]);
-
-  return PropertiesCache;
-}();
-
-exports.PropertiesCache = PropertiesCache;
-
-_defineProperty(PropertiesCache, "caches", new _map.default());
-
-/***/ }),
-
 /***/ "./src/dao/SituationFeedbackDAO.ts":
 /*!*****************************************!*\
   !*** ./src/dao/SituationFeedbackDAO.ts ***!
@@ -65772,6 +65803,8 @@ var _defineProperty2 = _interopRequireDefault(__webpack_require__(/*! ../../node
 
 var _getIterator2 = _interopRequireDefault(__webpack_require__(/*! ../../node_modules/@babel/runtime-corejs2/core-js/get-iterator */ "./node_modules/@babel/runtime-corejs2/core-js/get-iterator.js"));
 
+__webpack_require__(/*! ../../node_modules/core-js/modules/es6.array.find */ "./node_modules/core-js/modules/es6.array.find.js");
+
 var _Util = __webpack_require__(/*! ../internal/Util */ "./src/internal/Util.ts");
 
 var _Comparator = __webpack_require__(/*! ../api/Comparator */ "./src/api/Comparator.ts");
@@ -65814,12 +65847,12 @@ function () {
    */
 
   /** The accessor for Properties */
-  function V2FilterProcessor(searchPropertyAccessor) {
+  function V2FilterProcessor(searchProperties) {
     _classCallCheck(this, V2FilterProcessor);
 
-    _defineProperty(this, "searchPropertyAccessor", void 0);
+    _defineProperty(this, "searchProperties", void 0);
 
-    this.searchPropertyAccessor = searchPropertyAccessor;
+    this.searchProperties = searchProperties;
   }
   /** Given a filter, return a hash of URL parameters. */
 
@@ -65878,6 +65911,19 @@ function () {
           throw new _OnmsError.OnmsError('Unsupported comparator type: ' + comparator);
       }
     }
+    /** Return a search property by ID */
+
+  }, {
+    key: "getProperty",
+    value: function getProperty(id) {
+      if (this.searchProperties) {
+        return this.searchProperties.find(function (prop) {
+          return prop.id === id;
+        });
+      }
+
+      return undefined;
+    }
     /** Given a restriction, compute the value to use in the FIQL expression. */
 
   }, {
@@ -65890,7 +65936,7 @@ function () {
 
         default:
           if (restriction.value === 'null' || restriction.value === void 0) {
-            var property = this.searchPropertyAccessor && this.searchPropertyAccessor.getProperty(restriction.attribute);
+            var property = this.getProperty(restriction.attribute);
 
             if (property && property.type === _SearchPropertyType.SearchPropertyTypes.TIMESTAMP) {
               return V2FilterProcessor.NULL_DATE_ENCODED;
@@ -69289,7 +69335,7 @@ var _XmlTransformer = __webpack_require__(/*! ./XmlTransformer */ "./src/rest/Xm
 
 var _JsonTransformer = __webpack_require__(/*! ./JsonTransformer */ "./src/rest/JsonTransformer.ts");
 
-var _btoa = _interopRequireDefault(__webpack_require__(/*! ../../node_modules/btoa */ "./node_modules/btoa/index.js"));
+var _lodash = __webpack_require__(/*! ../../node_modules/lodash/lodash */ "./node_modules/lodash/lodash.js");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -69323,11 +69369,6 @@ function () {
 
     /**
      * This is a trick to make sure it doesn't get serialized and is always unique to the impl.
-     * @hidden
-     */
-
-    /**
-     * We keep a computed basic auth hash so we can react when user/pass change in the impl.
      * @hidden
      */
 
@@ -69386,8 +69427,6 @@ function () {
     _classCallCheck(this, AbstractHTTP);
 
     _defineProperty(this, OPTIONS_PROP, new _OnmsHTTPOptions.OnmsHTTPOptions());
-
-    _defineProperty(this, "authHash", void 0);
 
     _defineProperty(this, "serverObj", null);
 
@@ -69490,15 +69529,13 @@ function () {
     key: "getOptions",
     value: function getOptions(options) {
       var ret = new _OnmsHTTPOptions.OnmsHTTPOptions();
-      (0, _assign.default)(ret, this.options);
-      var server = this.getServer(options);
+      (0, _assign.default)(ret, (0, _lodash.cloneDeep)(options), (0, _lodash.cloneDeep)(this.options));
+      var server = this.getServer(ret);
       ret.server = server;
 
       if (server && server.auth) {
-        ret.auth = (0, _assign.default)(ret.auth, server.auth);
+        (0, _assign.default)(ret.auth, (0, _lodash.cloneDeep)(server.auth));
       }
-
-      (0, _assign.default)(ret, options);
 
       if (!ret.headers) {
         ret.headers = {};
@@ -69519,49 +69556,14 @@ function () {
       return ret;
     }
     /**
-     * Set or update the basic auth credentials to be used in making connections.
-     * @param username The username to connect with
-     * @param password The password to connect with
-     */
-
-  }, {
-    key: "useBasicAuth",
-    value: function useBasicAuth(username, password) {
-      if (username && password) {
-        var hash = (0, _btoa.default)(username + ':' + password);
-
-        if (hash !== this.authHash) {
-          this.onBasicAuth(username, password, hash, this.authHash);
-          this.authHash = hash;
-        }
-      }
-    }
-    /**
-     * Keep the basic auth string in sync when username/password changes.
-     * @param username The username
-     * @param password The user's password
-     * @param newHash The newly-computed hash of username + password
-     * @param oldHash The previous hash
-     */
-
-  }, {
-    key: "onBasicAuth",
-    value: function onBasicAuth(username, password, newHash, oldHash) {} // do nothing by default
-
-    /**
      * Implementers should override this method if they have actions that need to be performed
      * (like clearing a cache) when server settings change.
      */
 
   }, {
     key: "onSetServer",
-    value: function onSetServer() {
-      var auth = this.server ? this.server.auth : undefined;
+    value: function onSetServer() {} // do nothing by default
 
-      if (auth && auth.username) {
-        this.useBasicAuth(auth.username, auth.password);
-      }
-    }
     /**
      * Create an [[OnmsError]] from an error response.
      * @hidden
@@ -69931,16 +69933,6 @@ function (_AbstractHTTP) {
         throw _this6.handleError(err, opts);
       });
     }
-    /** @inheritdoc */
-
-  }, {
-    key: "onBasicAuth",
-    value: function onBasicAuth(username, password, newHash, oldHash) {
-      this.axiosImpl.defaults.auth = {
-        password: password,
-        username: username
-      };
-    }
     /**
      * Clear the current [[AxiosInstance]] so it is recreated on next request with the
      * new server configuration.
@@ -69972,6 +69964,7 @@ function (_AbstractHTTP) {
           password: allOptions.auth.password,
           username: allOptions.auth.username
         };
+        this.axiosImpl.defaults.auth = (0, _lodash.cloneDeep)(ret.auth);
       }
 
       if (allOptions.timeout) {
@@ -70171,10 +70164,6 @@ var _iterator = _interopRequireDefault(__webpack_require__(/*! ../../node_module
 
 var _symbol = _interopRequireDefault(__webpack_require__(/*! ../../node_modules/@babel/runtime-corejs2/core-js/symbol */ "./node_modules/@babel/runtime-corejs2/core-js/symbol.js"));
 
-var _getOwnPropertyDescriptor = _interopRequireDefault(__webpack_require__(/*! ../../node_modules/@babel/runtime-corejs2/core-js/object/get-own-property-descriptor */ "./node_modules/@babel/runtime-corejs2/core-js/object/get-own-property-descriptor.js"));
-
-var _get2 = _interopRequireDefault(__webpack_require__(/*! ../../node_modules/@babel/runtime-corejs2/core-js/reflect/get */ "./node_modules/@babel/runtime-corejs2/core-js/reflect/get.js"));
-
 var _getPrototypeOf2 = _interopRequireDefault(__webpack_require__(/*! ../../node_modules/@babel/runtime-corejs2/core-js/object/get-prototype-of */ "./node_modules/@babel/runtime-corejs2/core-js/object/get-prototype-of.js"));
 
 var _create = _interopRequireDefault(__webpack_require__(/*! ../../node_modules/@babel/runtime-corejs2/core-js/object/create */ "./node_modules/@babel/runtime-corejs2/core-js/object/create.js"));
@@ -70195,6 +70184,8 @@ var _lodash = __webpack_require__(/*! ../../node_modules/lodash/lodash */ "./nod
 
 var _GrafanaError = __webpack_require__(/*! ./GrafanaError */ "./src/rest/GrafanaError.ts");
 
+var _btoa = _interopRequireDefault(__webpack_require__(/*! ../../node_modules/btoa */ "./node_modules/btoa/index.js"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _typeof(obj) { if (typeof _symbol.default === "function" && typeof _iterator.default === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof _symbol.default === "function" && obj.constructor === _symbol.default && obj !== _symbol.default.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
@@ -70207,13 +70198,9 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
 
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
-function _get(target, property, receiver) { if (typeof Reflect !== "undefined" && _get2.default) { _get = _get2.default; } else { _get = function _get(target, property, receiver) { var base = _superPropBase(target, property); if (!base) return; var desc = (0, _getOwnPropertyDescriptor.default)(base, property); if (desc.get) { return desc.get.call(receiver); } return desc.value; }; } return _get(target, property, receiver || target); }
-
-function _superPropBase(object, property) { while (!Object.prototype.hasOwnProperty.call(object, property)) { object = _getPrototypeOf(object); if (object === null) break; } return object; }
-
 function _getPrototypeOf(o) { _getPrototypeOf = _setPrototypeOf2.default ? _getPrototypeOf2.default : function _getPrototypeOf(o) { return o.__proto__ || (0, _getPrototypeOf2.default)(o); }; return _getPrototypeOf(o); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = (0, _create.default)(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
@@ -70240,11 +70227,6 @@ function (_AbstractHTTP) {
    */
 
   /**
-   * Used to store the pre-rendered Basic Auth string for making requests.
-   * @hidden
-   */
-
-  /**
    * Construct a new GrafanaHTTP implementation.
    * @constructor
    * @param backendSrv - The Grafana BackendSrv object to use for requests.
@@ -70258,8 +70240,6 @@ function (_AbstractHTTP) {
     _this = _possibleConstructorReturn(this, _getPrototypeOf(GrafanaHTTP).call(this, server, timeout));
 
     _defineProperty(_assertThisInitialized(_this), "backendSrv", void 0);
-
-    _defineProperty(_assertThisInitialized(_this), "authString", void 0);
 
     _this.backendSrv = backendSrv;
     return _this;
@@ -70435,17 +70415,6 @@ function (_AbstractHTTP) {
       throw new _GrafanaError.GrafanaError(message, status, options, err);
     }
     /**
-     * @inheritdoc
-     */
-
-  }, {
-    key: "onBasicAuth",
-    value: function onBasicAuth(username, password, newHash, oldHash) {
-      _get(_getPrototypeOf(GrafanaHTTP.prototype), "onBasicAuth", this).call(this, username, password, newHash, oldHash);
-
-      this.authString = 'Basic ' + newHash;
-    }
-    /**
      * Internal method to turn [[OnmsHTTPOptions]] into a Grafana `BackendSrv` request object.
      * @hidden
      */
@@ -70458,18 +70427,14 @@ function (_AbstractHTTP) {
 
       var allOptions = this.getOptions(options);
 
-      if (allOptions && allOptions.auth && allOptions.auth.username) {
-        this.useBasicAuth(allOptions.auth.username, allOptions.auth.password);
-      }
-
       if (allOptions.headers) {
         ret.headers = (0, _lodash.cloneDeep)(allOptions.headers);
       } else {
         ret.headers = {};
       }
 
-      if (this.authString) {
-        ret.headers.Authorization = this.authString;
+      if (allOptions && allOptions.auth && allOptions.auth.username) {
+        ret.headers.Authorization = 'Basic ' + (0, _btoa.default)(allOptions.auth.username + ':' + allOptions.auth.password);
         ret.withCredentials = true;
       }
 

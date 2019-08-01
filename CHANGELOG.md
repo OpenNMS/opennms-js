@@ -1,10 +1,12 @@
-## [1.5.1-SNAPSHOT](https://github.com/OpenNMS/opennms-js/compare/v1.5.0...v1.5.1-SNAPSHOT) (2019-07-30)
+# [2.0.0-SNAPSHOT](https://github.com/OpenNMS/opennms-js/compare/v1.5.0...v2.0.0-SNAPSHOT) (2019-08-01)
 
 
 ### Bug Fixes
 
 * **cli:** fix typo in space-cleaning regex ([de5f5cc](https://github.com/OpenNMS/opennms-js/commit/de5f5cc))
+* **dao:** fix DAO property caching (JS-38) ([178a31d](https://github.com/OpenNMS/opennms-js/commit/178a31d))
 * **rest:** caught errors in GrafanaHTTP should be re-thrown ([fc35b12](https://github.com/OpenNMS/opennms-js/commit/fc35b12))
+* **rest:** fix auth initialization broken during refactor (JS-39) ([85200fd](https://github.com/OpenNMS/opennms-js/commit/85200fd))
 
 
 ### Code Refactoring
@@ -14,8 +16,9 @@
 
 ### Features
 
-* **rest:** add HTTP HEAD ([bea34a5](https://github.com/OpenNMS/opennms-js/commit/bea34a5))
 * add .equals() to various metadata objects ([cf3ff5f](https://github.com/OpenNMS/opennms-js/commit/cf3ff5f))
+* **client:** cache DAOs accessed through the Client API (JS-38) ([76c9205](https://github.com/OpenNMS/opennms-js/commit/76c9205))
+* **rest:** add HTTP HEAD ([bea34a5](https://github.com/OpenNMS/opennms-js/commit/bea34a5))
 
 
 ### BREAKING CHANGES
