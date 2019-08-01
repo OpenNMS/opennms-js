@@ -1,8 +1,5 @@
 declare const await, describe, beforeEach, it, expect, jest;
 
-import {log,catRoot,setLogLevel} from '../../src/api/Log';
-import {LogLevel} from 'typescript-logging';
-
 import {Comparators} from '../../src/api/Comparator';
 import {Filter} from '../../src/api/Filter';
 import {Restriction} from '../../src/api/Restriction';
@@ -13,7 +10,6 @@ import {NestedRestriction} from '../../src/api/NestedRestriction';
 import {OnmsAlarm} from '../../src/model/OnmsAlarm';
 import {Severities} from '../../src/model/OnmsSeverity';
 
-import {PropertiesCache} from '../../src/dao/PropertiesCache';
 import {V2FilterProcessor} from '../../src/dao/V2FilterProcessor';
 
 describe('V2FilterProcessor', () => {
@@ -107,10 +103,9 @@ describe('V2FilterProcessor', () => {
           .withAndRestriction(new Restriction('alarmAckTime', Comparators.NE, 'null'))
           .withAndRestriction(new Restriction('id', Comparators.EQ, 'null'))
           .withAndRestriction(new Restriction('id', Comparators.NE, 'null'));
-      const proc = new V2FilterProcessor(
-          new PropertiesCache([
-              { id: 'alarmAckTime', type: SearchPropertyTypes.TIMESTAMP } as SearchProperty,
-          ]));
+      const proc = new V2FilterProcessor([
+        { id: 'alarmAckTime', type: SearchPropertyTypes.TIMESTAMP } as SearchProperty,
+      ]);
       expect(toSearch(filter, proc)).toEqual(
           'alarmAckTime==1970-01-01T00%3A00%3A00.000%2B0000'
           + ';alarmAckTime!=1970-01-01T00%3A00%3A00.000%2B0000'

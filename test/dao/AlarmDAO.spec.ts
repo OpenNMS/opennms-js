@@ -1,13 +1,9 @@
 declare const await, describe, beforeEach, it, xit, expect, jest;
 
-import {log,catRoot,setLogLevel} from '../../src/api/Log';
-import {LogLevel} from 'typescript-logging';
-
 import {Client} from '../../src/Client';
 
 import {OnmsAuthConfig} from '../../src/api/OnmsAuthConfig';
 import {OnmsServer} from '../../src/api/OnmsServer';
-import {OnmsResult} from '../../src/api/OnmsResult';
 
 import {Comparators} from '../../src/api/Comparator';
 import {Filter} from '../../src/api/Filter';
@@ -449,9 +445,45 @@ describe('AlarmDAO with AlarmSummaryDTO', () => {
       expect(alarms[0].relatedAlarms[0].id).toEqual(5);
       expect(alarms[0].relatedAlarms[0].type).toEqual(2);
       expect(alarms[0].relatedAlarms[0].severity).toEqual('CRITICAL');
-      expect(alarms[0].relatedAlarms[0].reductionKey).toEqual('uei.opennms.org/alarms/trigger:localhost:0.0.0.0:HTTPS_APOOLs');
+      expect(alarms[0].relatedAlarms[0].reductionKey)
+        .toEqual('uei.opennms.org/alarms/trigger:localhost:0.0.0.0:HTTPS_APOOLs');
       expect(alarms[0].relatedAlarms[0].description).toEqual('A problem has been triggered.');
     });
+  });
+});
+
+describe('Server and property caching', () => {
+  beforeEach((done) => {
+    auth = new OnmsAuthConfig(SERVER_USER, SERVER_PASSWORD);
+    server = new OnmsServer(SERVER_NAME, SERVER_URL, auth);
+    mockHTTP = new MockHTTP23(server);
+    opennms = new Client(mockHTTP);
+    dao = new AlarmDAO(mockHTTP);
+    Client.getMetadata(server, mockHTTP).then((metadata) => {
+      server.metadata = metadata;
+      done();
+    });
+  });
+  it('AlarmDAO.searchProperties()', async () => {
+    let props = await dao.searchProperties();
+    expect(props).toBeDefined();
+    expect(props.length).toEqual(3);
+
+    // update the server on the HTTP impl
+    server = new OnmsServer(SERVER_NAME, 'http://demo1.opennms.org/opennms/', auth);
+    mockHTTP.server = server;
+    server.metadata = await Client.getMetadata(server, mockHTTP);
+    props = await dao.searchProperties();
+    expect(props).toBeDefined();
+    expect(props.length).toEqual(1);
+
+    // update the server on the DAO
+    server = new OnmsServer(SERVER_NAME, 'http://demo2.opennms.org/opennms/', auth);
+    dao.server = server;
+    server.metadata = await Client.getMetadata(server, mockHTTP);
+    props = await dao.searchProperties();
+    expect(props).toBeDefined();
+    expect(props.length).toEqual(2);
   });
 });
 

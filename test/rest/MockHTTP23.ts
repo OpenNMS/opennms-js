@@ -19,11 +19,14 @@ export class MockHTTP23 extends AbstractHTTP {
     }
 
     switch (urlObj.toString()) {
-      case 'http://demo.opennms.org/opennms/rest/info': {
-        return Promise.resolve(
-          OnmsResult.ok({displayVersion: '23.0.0', packageDescription: 'OpenNMS',
-          packageName: 'opennms', version: '23.0.0'}));
-      }
+      case 'http://demo.opennms.org/opennms/rest/info':
+      case 'http://demo1.opennms.org/opennms/rest/info':
+      case 'http://demo2.opennms.org/opennms/rest/info':
+        {
+          return Promise.resolve(
+            OnmsResult.ok({displayVersion: '23.0.0', packageDescription: 'OpenNMS',
+            packageName: 'opennms', version: '23.0.0'}));
+        }
       case 'api/v2/alarms/8': {
         const result = OnmsResult.ok(require('./23.0.0/get/api/v2/alarms/8.json'));
         result.type = 'application/json';
@@ -41,6 +44,36 @@ export class MockHTTP23 extends AbstractHTTP {
       }
       case 'api/v2/alarms?limit=1000&_s=isSituation%3D%3Dtrue': {
         const result = OnmsResult.ok(require('./23.0.0/get/api/v2/alarms/243.json'));
+        result.type = 'application/json';
+        return Promise.resolve(result);
+      }
+      case 'api/v2/alarms/properties': {
+        let result;
+        switch (this.server.url) {
+          case 'http://demo1.opennms.org/opennms/':
+            result = OnmsResult.ok(require('./23.0.0/get/api/v2/alarms/properties-demo1.json'));
+            break;
+          case 'http://demo2.opennms.org/opennms/':
+            result = OnmsResult.ok(require('./23.0.0/get/api/v2/alarms/properties-demo2.json'));
+            break;
+          default:
+            result = OnmsResult.ok(require('./23.0.0/get/api/v2/alarms/properties.json'));
+        }
+        result.type = 'application/json';
+        return Promise.resolve(result);
+      }
+      case 'api/v2/alarms/properties?cache=1': {
+        const result = OnmsResult.ok(require('./23.0.0/get/api/v2/alarms/properties-1.json'));
+        result.type = 'application/json';
+        return Promise.resolve(result);
+      }
+      case 'api/v2/alarms/properties?cache=2': {
+        const result = OnmsResult.ok(require('./23.0.0/get/api/v2/alarms/properties-2.json'));
+        result.type = 'application/json';
+        return Promise.resolve(result);
+      }
+      case 'api/v2/alarms/properties?cache=3': {
+        const result = OnmsResult.ok(require('./23.0.0/get/api/v2/alarms/properties-3.json'));
         result.type = 'application/json';
         return Promise.resolve(result);
       }

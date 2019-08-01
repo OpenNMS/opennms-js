@@ -1,15 +1,11 @@
 declare const await, describe, beforeEach, it, expect, jest;
 
-import {log,catRoot,setLogLevel} from '../../src/api/Log';
-import {LogLevel} from 'typescript-logging';
-
 import {OnmsError} from '../../src/api/OnmsError';
-import {Comparator, Comparators} from '../../src/api/Comparator';
+import {Comparators} from '../../src/api/Comparator';
 import {Filter} from '../../src/api/Filter';
 import {Restriction} from '../../src/api/Restriction';
 
-import {OnmsAlarm} from '../../src/model/OnmsAlarm';
-import {OnmsSeverity, Severities} from '../../src/model/OnmsSeverity';
+import {Severities} from '../../src/model/OnmsSeverity';
 
 import {V1FilterProcessor} from '../../src/dao/V1FilterProcessor';
 
@@ -82,7 +78,7 @@ describe('V1FilterProcessor', () => {
     filter.withOrRestriction(new Restriction('lastEventTime', Comparators.EQ, new Date(198288000000)));
     const proc = new V1FilterProcessor();
     expect(proc.getParameters(filter)).toMatchObject({
-      lastEventTime: '1976-04-14T00:00:00.000+0000'
+      lastEventTime: '1976-04-14T00:00:00.000+0000',
     });
   });
 });
