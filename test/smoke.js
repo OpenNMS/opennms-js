@@ -4,9 +4,9 @@ function doExec(command, ...args) {
   const ret = spawnSync(command, args, {
     encoding: 'utf8',
   });
+  console.info(ret.stdout);
+  console.error(ret.stderr);
   if (ret.status !== null && ret.status > 0) {
-    console.info(ret.stdout);
-    console.error(ret.stderr);
     process.exit(ret.status);
   }
 }
