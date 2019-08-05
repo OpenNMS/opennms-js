@@ -21,4 +21,4 @@ jobs:
             - node_modules/
       - run:
           name: Run tests
-          command: yarn test
+          command: yarn dist-test

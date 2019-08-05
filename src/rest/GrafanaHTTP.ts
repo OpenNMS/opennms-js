@@ -3,16 +3,12 @@ import {OnmsHTTPOptions} from '../api/OnmsHTTPOptions';
 import {OnmsResult} from '../api/OnmsResult';
 import {OnmsServer} from '../api/OnmsServer';
 
-import {log, catRest} from '../api/Log';
-import {Category} from 'typescript-logging';
+import {log} from '../api/Log';
 
 import {cloneDeep} from 'lodash';
 import {GrafanaError} from './GrafanaError';
 
 import btoa from 'btoa';
-
-/** @hidden */
-const catGrafana = new Category('grafana', catRest);
 
 /**
  * Implementation of the [[IOnmsHTTP]] interface for Grafana.

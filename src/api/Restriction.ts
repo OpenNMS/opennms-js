@@ -1,5 +1,5 @@
 import {Comparator, Comparators} from './Comparator';
-import {log, catAPI} from './Log';
+import {log} from './Log';
 
 const namePattern = /^(.*?)\s+(eq|ne|ilike|like|gt|lt|ge|le|null|isnull|notnull)\s+(.*?)$/i;
 const symbolPattern = /^(\w+?)\s*(\=\=|\=|\!\=|\>\=|\<\=|\>|\<)\s*(\w+?)$/;
@@ -32,9 +32,9 @@ export class Restriction {
         return new Restriction(match[1], comp, match[3]);
       }
       log.warn('Restriction.fromString matched "' + filter +
-        '", but was unable to match "' + match[2] + '" to a comparator.', catAPI);
+        '", but was unable to match "' + match[2] + '" to a comparator.');
     } else {
-      log.debug('Restriction.fromString failed to match "' + filter + '".', catAPI);
+      log.debug('Restriction.fromString failed to match "' + filter + '".');
     }
     return null;
   }

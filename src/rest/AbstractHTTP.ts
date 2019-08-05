@@ -45,21 +45,6 @@ export abstract class AbstractHTTP implements IOnmsHTTP {
   }
 
   /**
-   * The default amount of time to wait before giving up on a request.
-   * @deprecated Set `timeout` on the [[OnmsHTTPOptions]] object instead.  This will go away in OpenNMS.js 2.0.
-   */
-  public get timeout(): number {
-    return this.options.timeout;
-  }
-
-  public set timeout(t: number) {
-    /* tslint:disable:no-console */
-    console.warn('The "timeout" property on OnmsHTTP implementations is deprecated ' +
-      'and will be removed in OpenNMS.js 2.  Use "options.timeout" instead.');
-    this.options.timeout = t;
-  }
-
-  /**
    * The server metadata we'll use for constructing ReST calls.
    * @hidden
    */

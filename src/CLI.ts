@@ -1,10 +1,6 @@
 import {API, Rest, DAO, Client} from './API';
 
-import {log, catRoot, setLogLevel} from './api/Log';
-import {
-  Category,
-  LogLevel,
-} from 'typescript-logging';
+import {log} from './api/Log';
 
 import chalk from 'chalk';
 import {cloneDeep, startCase} from 'lodash';
@@ -13,7 +9,6 @@ import {table, getBorderCharacters} from 'table';
 /** @hidden */
 const CLI = () => {
   const version = global.OPENNMS_JS_VERSION || require('../package.json').version || 'unknown';
-  const catCLI = new Category('cli', catRoot);
 
   // tslint:disable
   const fs = require('fs');
@@ -61,9 +56,9 @@ const CLI = () => {
       realError = new API.OnmsError(message + ': ' + err);
     }
     if (program.debug) {
-      log.error(realError.message, realError, catCLI);
+      log.error(realError.message, realError);
     } else {
-      log.error(realError.message, null, catCLI);
+      log.error(realError.message);
     }
     process.exit(1);
   };
@@ -73,11 +68,11 @@ const CLI = () => {
   // global options
   program
     .option('-d, --debug', 'Enable debug output', () => {
-      setLogLevel(LogLevel.Debug);
+      log.setDebug();
     })
     .option('-c, --config <file>', 'Specify a configuration file (default: ~/.opennms-cli.config.json)')
     .option('-v, --version', 'Print the OpenNMS.js version and exit', () => {
-      console.log(version);
+      log.log(version);
       process.exit(0);
     });
 
@@ -88,7 +83,7 @@ const CLI = () => {
     .option('-u, --username <username>', 'The username to authenticate as (default: admin)')
     .option('-p, --password <password>', 'The password to authenticate with (default: admin)')
     .action((url: string, options: any) => {
-      console.log(chalk.red('WARNING: This command saves your login'
+      log.warn(chalk.red('WARNING: This command saves your login'
         + ' information to ~/.opennms-cli.config.json in clear text.'));
       const config = readConfig();
       if (url) {
@@ -108,9 +103,9 @@ const CLI = () => {
       const server = new API.OnmsServer('OpenNMS', config.url, auth);
       const http = new Rest.AxiosHTTP(server);
       return Client.checkServer(server, http).then(() => {
-        console.log(chalk.green('Connection succeeded.'));
+        log.info(chalk.green('Connection succeeded.'));
         if (!program.config) { // don't write the config if a config was passed in
-          log.debug('Saving configuration to ' + defaultConfigFile, catCLI);
+          log.debug('Saving configuration to ' + defaultConfigFile);
           fs.writeFileSync(defaultConfigFile, JSON.stringify(config, undefined, 2), { mode: 0o600 });
         }
         return true;
@@ -131,12 +126,12 @@ const CLI = () => {
       return Client.getMetadata(server, http).then((res) => {
         let c = chalk.green;
         if (res.type === API.ServerTypes.MERIDIAN) {
-          console.log(chalk.blue('OpenNMS Meridian ' + res.version.displayVersion + ' Capabilities:'));
+          log.log(chalk.blue('OpenNMS Meridian ' + res.version.displayVersion + ' Capabilities:'));
           c = chalk.blue;
         } else {
-          console.log(chalk.green('OpenNMS Horizon ' + res.version.displayVersion + ' Capabilities:'));
+          log.log(chalk.green('OpenNMS Horizon ' + res.version.displayVersion + ' Capabilities:'));
         }
-        console.log('');
+        log.log('');
 
         const data = [];
         const caps = res.capabilities();
@@ -146,8 +141,8 @@ const CLI = () => {
           }
           data.push([chalk.bold(startCase(cap) + ':'), caps[cap]]);
         }
-        console.log(table(data, tableConfig));
-        console.log('');
+        log.log(table(data, tableConfig));
+        log.log('');
 
         return res;
       }).catch((err) => {
@@ -212,19 +207,19 @@ const CLI = () => {
         const filter = new API.Filter();
 
         for (const f of filters) {
-          log.debug('filter=' + f, catCLI);
+          log.debug('filter=' + f);
           const parsed = API.Restriction.fromString(f);
           if (parsed) {
             filter.withOrRestriction(parsed);
           } else {
-            log.warn('Unable to parse filter "' + f + '"', catCLI);
+            log.warn('Unable to parse filter "' + f + '"');
           }
         }
 
         return dao.find(filter).then((alarms) => {
           if (!alarms || alarms.length === 0) {
-            console.log('No alarms found.');
-            console.log('');
+            log.log('No alarms found.');
+            log.log('');
             return;
           }
 
@@ -265,8 +260,8 @@ const CLI = () => {
           for (const alarm of formatted) {
             data.push([alarm.id, alarm.severity, alarm.node, alarm.count, alarm.time, alarm.log]);
           }
-          console.log(table(data, alarmTableConfig));
-          console.log('');
+          log.log(table(data, alarmTableConfig));
+          log.log('');
         });
       }).catch((err) => {
         return handleError('Alarm list failed', err);
@@ -285,7 +280,7 @@ const CLI = () => {
       return new Client().connect('OpenNMS', config.url, config.username, config.password).then((client) => {
         const dao = client.alarms();
         return (dao as any)[name](id).then(() => {
-          console.log('Success!');
+          log.log(chalk.green('Success!'));
           return true;
         });
       }).catch((err) => {
@@ -305,7 +300,7 @@ const CLI = () => {
       const config = readConfig();
       return new Client().connect('OpenNMS', config.url, config.username, config.password).then((client) => {
         return client.alarms().acknowledge(id, options.user).then(() => {
-          console.log('Success!');
+          log.log(chalk.green('Success!'));
           return true;
         });
       }).catch((err) => {
@@ -325,7 +320,7 @@ const CLI = () => {
           const config = readConfig();
           return new Client().connect('OpenNMS', config.url, config.username, config.password).then((client) => {
               return client.alarms().saveStickyMemo(id, options.body, options.user).then(() => {
-                  console.log('Success!');
+                  log.log(chalk.green('Success!'));
                   return true;
               });
           }).catch((err) => {
@@ -345,7 +340,7 @@ const CLI = () => {
           const config = readConfig();
           return new Client().connect('OpenNMS', config.url, config.username, config.password).then((client) => {
               return client.alarms().saveJournalMemo(id, options.body, options.user).then(() => {
-                  console.log('Success!');
+                  log.log(chalk.green('Success!'));
                   return true;
               });
           }).catch((err) => {
@@ -373,7 +368,7 @@ const CLI = () => {
 };
 
 process.on('unhandledRejection', (reason, p) => {
-  console.log('Unhandled Rejection at: Promise', p, 'reason:', reason);
+  log.warn('Unhandled Rejection at: Promise', p, 'reason:', reason);
 });
 
 CLI();

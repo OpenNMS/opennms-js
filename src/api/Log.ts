@@ -1,59 +1,124 @@
-import {
-  Category,
-  CategoryLogger,
-  CategoryServiceFactory,
-  CategoryDefaultConfiguration,
-  LogLevel,
-} from 'typescript-logging';
-
-// Optionally change default settings, in this example set default logging to Info.
-// Without changing configuration, categories will log to Error.
-CategoryServiceFactory.setDefaultConfiguration(new CategoryDefaultConfiguration(LogLevel.Info));
-
-// Create categories, they will autoregister themselves.
-// This creates one root logger, with 1 child sub category.
-
-/** @hidden */
-export const catRoot = new Category('opennms');
-
-/** @hidden */
-export const catAPI = new Category('api', catRoot);
-
-/** @hidden */
-export const catDao = new Category('dao', catRoot);
-
-/** @hidden */
-export const catModel = new Category('model', catRoot);
-
-/** @hidden */
-export const catRest = new Category('rest', catRoot);
-
-/** @hidden */
-export const catUtil = new Category('util', catRoot);
+// tslint:disable:no-empty no-console variable-name
 
 /**
- * Get a logger, this can be retrieved for root categories only (in the example above, the 'service' category).
- * @hidden
+ * Simple logger used for both CLI and browser use.
+ * @module Logger
  */
-export const log: CategoryLogger = CategoryServiceFactory.getLogger(catRoot);
+export class Logger {
+  /** The actual "console" implementation to use. */
+  private impl: Console = console;
 
-/** @hidden */
-export const setLogLevel = (level: LogLevel, cat?: Category) => {
-  if (cat === undefined) {
-    cat = catRoot;
-  }
-  // console.log('setting category ' + cat.name + ' to ' + level.toString());
-  const runtimeSettings = CategoryServiceFactory.getRuntimeSettings();
-  if (!runtimeSettings) {
-    return;
+  /**
+   * Whether debugging is enabled.
+   * @hidden
+   */
+  private _debug?: boolean;
+
+  /**
+   * Whether quiet (error-only) is enabled.
+   * @hidden
+   */
+  private _quiet?: boolean;
+
+  /**
+   * Whether silent (no output) is enabled.
+   * @hidden
+   */
+  private _silent?: boolean;
+
+  /**
+   * Clear the console.
+   */
+  public clear() {
+    this.impl.clear();
   }
 
-  const catSettings = runtimeSettings.getCategorySettings(cat);
-  if (catSettings) {
-    catSettings.logLevel = level;
+  /**
+   * Standard console logging.
+   * @param parms logging parameters
+   */
+  public log(...parms: any[]) {
+    if (!this._silent) {
+      this.impl.log(parms);
+    }
   }
 
-  for (const subCat of cat.children) {
-    setLogLevel(level, subCat);
+  /**
+   * Chatty debug logging.  Enabled only if debug is enabled.
+   * @param parms logging parameters
+   */
+  public trace(...parms: any[]) {
+    if (this._debug) {
+      this.impl.trace(parms);
+    }
   }
-};
+
+  /**
+   * Normal debug logging.  Enabled only if debug is enabled.
+   * @param parms logging parameters
+   */
+  public debug(...parms: any[]) {
+    if (this._debug) {
+      this.impl.debug(parms);
+    }
+  }
+
+  /**
+   * Info logging.  Enabled by default.
+   * @param parms logging parameters
+   */
+  public info(...parms: any[]) {
+    if (!this._quiet && !this._silent) {
+      this.impl.info(parms);
+    }
+  }
+
+  /**
+   * Warning logging. Enabled by default.
+   * @param parms logging parameters
+   */
+  public warn(...parms: any[]) {
+    if (!this._quiet && !this._silent) {
+      this.impl.warn(parms);
+    }
+  }
+
+  /**
+   * Error logging. Enabled unless in silent mode.
+   * @param parms logging parameters
+   */
+  public error(...parms: any[]) {
+    if (!this._silent) {
+      this.impl.error(parms);
+    }
+  }
+
+  /**
+   * Turn on all logging.
+   */
+  public setDebug() {
+    this._debug = true;
+    this._quiet = false;
+    this._silent = false;
+  }
+
+  /**
+   * Turn off all logging other than error.
+   */
+  public setQuiet() {
+    this._debug = false;
+    this._quiet = true;
+    this._silent = false;
+  }
+
+  /**
+   * Turn off all logging.
+   */
+  public setSilent() {
+    this._debug = false;
+    this._quiet = true;
+    this._silent = true;
+  }
+}
+
+export const log = new Logger();

@@ -3,7 +3,7 @@ import {IOnmsHTTP} from '../api/IOnmsHTTP';
 import {OnmsError} from '../api/OnmsError';
 import {OnmsServer} from '../api/OnmsServer';
 
-import {log, catDao} from '../api/Log';
+import {log} from '../api/Log';
 
 /** @hidden */
 // tslint:disable-next-line
@@ -144,7 +144,7 @@ export abstract class BaseDAO {
     } else if (data.totalCount !== undefined) {
       count = parseInt(data.totalCount, 10);
     } else {
-      log.debug('data is missing count and totalCount properties', catDao);
+      log.debug('data is missing count and totalCount properties');
     }
     return count;
   }

@@ -46,6 +46,7 @@
     "chai": "^4.1.2",
     "child_process": "^1.0.2",
     "conventional-changelog-lint": "^2.1.1",
+    "eslint": "^6.1.0",
     "husky": "^3.0.1",
     "jest": "^24.8.0",
     "jest-environment-node-debug": "^2.0.0",
@@ -57,7 +58,7 @@
     "ts-node": "^8.3.0",
     "tslint": "^5.9.1",
     "tslint-loader": "^3.5.4",
-    "typedoc": "^0.14.0",
+    "typedoc": "^0.15.0",
     "typedoc-plugin-external-module-name": "^2.1.0",
     "typedoc-webpack-plugin": "^1.1.4",
     "typescript": "^3.5.0",
@@ -91,12 +92,11 @@
     "commander": "^2.9.0",
     "fs": "^0.0.1-security",
     "html-to-formatted-text": "^2.6.0",
-    "ip-address": "^5.8.8",
+    "ip-address": "^6.1.0",
     "lodash": "^4.17.15",
     "moment": "^2.19.3",
     "qs": "^6.5.0",
     "table": "^5.4.4",
-    "typescript-logging": "^0.3.1",
     "version_compare": "^0.0.3",
     "x2js": "^3.3.1",
     "xmldom": "^0.1.27"
@@ -139,9 +139,11 @@
     "watch": "webpack --progress --colors --watch",
     "test": "jest",
     "watch-test": "jest --watch",
+    "dist-test": "yarn --ignore-engines dist && yarn --ignore-engines smoke",
+    "smoke": "node test/smoke.js",
     "lint": "tslint 'src/**/*.ts' && tsc --project tsconfig-check.json",
     "cli": "ts-node src/CLI.ts",
-    "docker-build": "yarn --ignore-engines && yarn --ignore-engines lint && yarn --ignore-engines test && yarn --ignore-engines  build && yarn --ignore-engines changelog && ./fix-ownership.sh",
+    "docker-build": "yarn --ignore-engines && yarn --ignore-engines dist-test && yarn --ignore-engines changelog && ./fix-ownership.sh",
     "docker": "docker run --rm --name opennms-js -v `pwd`:/build -w /build node:carbon yarn --ignore-engines docker-build"
   }
 }

@@ -1,7 +1,4 @@
-import * as axios from 'axios';
-
-import {log, catRoot} from './api/Log';
-import {Category} from 'typescript-logging';
+import {log} from './api/Log';
 
 import {IHasHTTP} from './api/IHasHTTP';
 import {IOnmsHTTP} from './api/IOnmsHTTP';
@@ -23,9 +20,6 @@ import {NodeDAO} from './dao/NodeDAO';
 import {SituationFeedbackDAO} from './dao/SituationFeedbackDAO';
 
 import {AxiosHTTP} from './rest/AxiosHTTP';
-
-/** @hidden */
-export const cat = new Category('client', catRoot);
 
 /**
  * The OpenNMS client.  This is the primary interface to OpenNMS servers.
@@ -50,7 +44,7 @@ export class Client implements IHasHTTP {
     opts.headers.accept = 'text/plain';
 
     const infoUrl = server.resolveURL('rest/alarms/count');
-    log.debug('checkServer: checking URL: ' + infoUrl, cat);
+    log.debug('checkServer: checking URL: ' + infoUrl);
     await httpImpl.get(infoUrl, opts);
     return true;
   }
@@ -78,7 +72,7 @@ export class Client implements IHasHTTP {
     }
 
     const infoUrl = server.resolveURL('rest/info');
-    log.debug('getMetadata: checking URL: ' + infoUrl, cat);
+    log.debug('getMetadata: checking URL: ' + infoUrl);
 
     const response = await httpImpl.get(infoUrl, opts);
     const version = new OnmsVersion(response.data.version, response.data.displayVersion);
