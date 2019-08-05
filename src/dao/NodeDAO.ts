@@ -57,7 +57,7 @@ export class NodeDAO extends AbstractDAO<number, OnmsNode> {
         return this.http.get(this.pathToNodesEndpoint(), opts).then((result) => {
             let data = result.data;
 
-            if (data !== null && this.getCount(data) > 0 && data.node) {
+            if (data !== null && this.getCount(data, result.code) > 0 && data.node) {
                 data = data.node;
             } else {
                 data = [];
@@ -116,7 +116,7 @@ export class NodeDAO extends AbstractDAO<number, OnmsNode> {
         return this.http.get(this.pathToNodesEndpoint() + '/' + node + '/ipinterfaces', opts).then((result) => {
             let data = result.data;
 
-            if (this.getCount(data) > 0 && data.ipInterface) {
+            if (this.getCount(data, result.code) > 0 && data.ipInterface) {
                 data = data.ipInterface;
             } else {
                 data = [];
@@ -143,7 +143,7 @@ export class NodeDAO extends AbstractDAO<number, OnmsNode> {
         return this.http.get(this.pathToNodesEndpoint() + '/' + node + '/snmpinterfaces', opts).then((result) => {
             let data = result.data;
 
-            if (this.getCount(data) > 0 && data.snmpInterface) {
+            if (this.getCount(data, result.code) > 0 && data.snmpInterface) {
                 data = data.snmpInterface;
             } else {
                 data = [];
@@ -180,7 +180,7 @@ export class NodeDAO extends AbstractDAO<number, OnmsNode> {
         return this.http.get(url, opts).then((result) => {
             let data = result.data;
 
-            if (this.getCount(data) > 0 && data.service) {
+            if (this.getCount(data, result.code) > 0 && data.service) {
                 data = data.service;
             } else {
                 data = [];
