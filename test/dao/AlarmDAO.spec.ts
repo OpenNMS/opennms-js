@@ -3,6 +3,7 @@ declare const await, describe, beforeEach, it, xit, expect, jest;
 import {Client} from '../../src/Client';
 
 import {OnmsAuthConfig} from '../../src/api/OnmsAuthConfig';
+import {OnmsResult} from '../../src/api/OnmsResult';
 import {OnmsServer} from '../../src/api/OnmsServer';
 
 import {Comparators} from '../../src/api/Comparator';
@@ -217,7 +218,7 @@ describe('AlarmDAO with v1 API', () => {
           const jsonObject = new XmlTransformer().transform(rawData);
 
           // if this passes, no exception was thrown
-          dao.getData({ data: jsonObject });
+          dao.getData({ data: jsonObject } as OnmsResult<any>);
       });
   });
 });
