@@ -1,4 +1,4 @@
-# [2.0.0-SNAPSHOT](https://github.com/OpenNMS/opennms-js/compare/v1.5.0...v2.0.0-SNAPSHOT) (2019-08-02)
+# [2.0.0-SNAPSHOT](https://github.com/OpenNMS/opennms-js/compare/v1.5.0...v2.0.0-SNAPSHOT) (2019-08-05)
 
 
 ### Bug Fixes
@@ -19,6 +19,7 @@
 ### Features
 
 * add .equals() to various metadata objects ([cf3ff5f](https://github.com/OpenNMS/opennms-js/commit/cf3ff5f))
+* **build:** add dependabot auto-updater config ([b0eb941](https://github.com/OpenNMS/opennms-js/commit/b0eb941))
 * **client:** cache DAOs accessed through the Client API (JS-38) ([76c9205](https://github.com/OpenNMS/opennms-js/commit/76c9205))
 * **rest:** add HTTP HEAD ([bea34a5](https://github.com/OpenNMS/opennms-js/commit/bea34a5))
 

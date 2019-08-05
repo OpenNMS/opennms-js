@@ -13123,226 +13123,6 @@ formatters.O = function (v) {
 
 /***/ }),
 
-/***/ "./node_modules/emoji-regex/index.js":
-/*!*******************************************!*\
-  !*** ./node_modules/emoji-regex/index.js ***!
-  \*******************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-module.exports = function () {
-  // https://mths.be/emoji
-  return /\uD83C\uDFF4(?:\uDB40\uDC67\uDB40\uDC62(?:\uDB40\uDC65\uDB40\uDC6E\uDB40\uDC67|\uDB40\uDC77\uDB40\uDC6C\uDB40\uDC73|\uDB40\uDC73\uDB40\uDC63\uDB40\uDC74)\uDB40\uDC7F|\u200D\u2620\uFE0F)|\uD83D\uDC69\u200D\uD83D\uDC69\u200D(?:\uD83D\uDC66\u200D\uD83D\uDC66|\uD83D\uDC67\u200D(?:\uD83D[\uDC66\uDC67]))|\uD83D\uDC68(?:\u200D(?:\u2764\uFE0F\u200D(?:\uD83D\uDC8B\u200D)?\uD83D\uDC68|(?:\uD83D[\uDC68\uDC69])\u200D(?:\uD83D\uDC66\u200D\uD83D\uDC66|\uD83D\uDC67\u200D(?:\uD83D[\uDC66\uDC67]))|\uD83D\uDC66\u200D\uD83D\uDC66|\uD83D\uDC67\u200D(?:\uD83D[\uDC66\uDC67])|\uD83C[\uDF3E\uDF73\uDF93\uDFA4\uDFA8\uDFEB\uDFED]|\uD83D[\uDCBB\uDCBC\uDD27\uDD2C\uDE80\uDE92]|\uD83E[\uDDB0-\uDDB3])|(?:\uD83C[\uDFFB-\uDFFF])\u200D(?:\uD83C[\uDF3E\uDF73\uDF93\uDFA4\uDFA8\uDFEB\uDFED]|\uD83D[\uDCBB\uDCBC\uDD27\uDD2C\uDE80\uDE92]|\uD83E[\uDDB0-\uDDB3]))|\uD83D\uDC69\u200D(?:\u2764\uFE0F\u200D(?:\uD83D\uDC8B\u200D(?:\uD83D[\uDC68\uDC69])|\uD83D[\uDC68\uDC69])|\uD83C[\uDF3E\uDF73\uDF93\uDFA4\uDFA8\uDFEB\uDFED]|\uD83D[\uDCBB\uDCBC\uDD27\uDD2C\uDE80\uDE92]|\uD83E[\uDDB0-\uDDB3])|\uD83D\uDC69\u200D\uD83D\uDC66\u200D\uD83D\uDC66|(?:\uD83D\uDC41\uFE0F\u200D\uD83D\uDDE8|\uD83D\uDC69(?:\uD83C[\uDFFB-\uDFFF])\u200D[\u2695\u2696\u2708]|\uD83D\uDC68(?:(?:\uD83C[\uDFFB-\uDFFF])\u200D[\u2695\u2696\u2708]|\u200D[\u2695\u2696\u2708])|(?:(?:\u26F9|\uD83C[\uDFCB\uDFCC]|\uD83D\uDD75)\uFE0F|\uD83D\uDC6F|\uD83E[\uDD3C\uDDDE\uDDDF])\u200D[\u2640\u2642]|(?:\u26F9|\uD83C[\uDFCB\uDFCC]|\uD83D\uDD75)(?:\uD83C[\uDFFB-\uDFFF])\u200D[\u2640\u2642]|(?:\uD83C[\uDFC3\uDFC4\uDFCA]|\uD83D[\uDC6E\uDC71\uDC73\uDC77\uDC81\uDC82\uDC86\uDC87\uDE45-\uDE47\uDE4B\uDE4D\uDE4E\uDEA3\uDEB4-\uDEB6]|\uD83E[\uDD26\uDD37-\uDD39\uDD3D\uDD3E\uDDB8\uDDB9\uDDD6-\uDDDD])(?:(?:\uD83C[\uDFFB-\uDFFF])\u200D[\u2640\u2642]|\u200D[\u2640\u2642])|\uD83D\uDC69\u200D[\u2695\u2696\u2708])\uFE0F|\uD83D\uDC69\u200D\uD83D\uDC67\u200D(?:\uD83D[\uDC66\uDC67])|\uD83D\uDC69\u200D\uD83D\uDC69\u200D(?:\uD83D[\uDC66\uDC67])|\uD83D\uDC68(?:\u200D(?:(?:\uD83D[\uDC68\uDC69])\u200D(?:\uD83D[\uDC66\uDC67])|\uD83D[\uDC66\uDC67])|\uD83C[\uDFFB-\uDFFF])|\uD83C\uDFF3\uFE0F\u200D\uD83C\uDF08|\uD83D\uDC69\u200D\uD83D\uDC67|\uD83D\uDC69(?:\uD83C[\uDFFB-\uDFFF])\u200D(?:\uD83C[\uDF3E\uDF73\uDF93\uDFA4\uDFA8\uDFEB\uDFED]|\uD83D[\uDCBB\uDCBC\uDD27\uDD2C\uDE80\uDE92]|\uD83E[\uDDB0-\uDDB3])|\uD83D\uDC69\u200D\uD83D\uDC66|\uD83C\uDDF6\uD83C\uDDE6|\uD83C\uDDFD\uD83C\uDDF0|\uD83C\uDDF4\uD83C\uDDF2|\uD83D\uDC69(?:\uD83C[\uDFFB-\uDFFF])|\uD83C\uDDED(?:\uD83C[\uDDF0\uDDF2\uDDF3\uDDF7\uDDF9\uDDFA])|\uD83C\uDDEC(?:\uD83C[\uDDE6\uDDE7\uDDE9-\uDDEE\uDDF1-\uDDF3\uDDF5-\uDDFA\uDDFC\uDDFE])|\uD83C\uDDEA(?:\uD83C[\uDDE6\uDDE8\uDDEA\uDDEC\uDDED\uDDF7-\uDDFA])|\uD83C\uDDE8(?:\uD83C[\uDDE6\uDDE8\uDDE9\uDDEB-\uDDEE\uDDF0-\uDDF5\uDDF7\uDDFA-\uDDFF])|\uD83C\uDDF2(?:\uD83C[\uDDE6\uDDE8-\uDDED\uDDF0-\uDDFF])|\uD83C\uDDF3(?:\uD83C[\uDDE6\uDDE8\uDDEA-\uDDEC\uDDEE\uDDF1\uDDF4\uDDF5\uDDF7\uDDFA\uDDFF])|\uD83C\uDDFC(?:\uD83C[\uDDEB\uDDF8])|\uD83C\uDDFA(?:\uD83C[\uDDE6\uDDEC\uDDF2\uDDF3\uDDF8\uDDFE\uDDFF])|\uD83C\uDDF0(?:\uD83C[\uDDEA\uDDEC-\uDDEE\uDDF2\uDDF3\uDDF5\uDDF7\uDDFC\uDDFE\uDDFF])|\uD83C\uDDEF(?:\uD83C[\uDDEA\uDDF2\uDDF4\uDDF5])|\uD83C\uDDF8(?:\uD83C[\uDDE6-\uDDEA\uDDEC-\uDDF4\uDDF7-\uDDF9\uDDFB\uDDFD-\uDDFF])|\uD83C\uDDEE(?:\uD83C[\uDDE8-\uDDEA\uDDF1-\uDDF4\uDDF6-\uDDF9])|\uD83C\uDDFF(?:\uD83C[\uDDE6\uDDF2\uDDFC])|\uD83C\uDDEB(?:\uD83C[\uDDEE-\uDDF0\uDDF2\uDDF4\uDDF7])|\uD83C\uDDF5(?:\uD83C[\uDDE6\uDDEA-\uDDED\uDDF0-\uDDF3\uDDF7-\uDDF9\uDDFC\uDDFE])|\uD83C\uDDE9(?:\uD83C[\uDDEA\uDDEC\uDDEF\uDDF0\uDDF2\uDDF4\uDDFF])|\uD83C\uDDF9(?:\uD83C[\uDDE6\uDDE8\uDDE9\uDDEB-\uDDED\uDDEF-\uDDF4\uDDF7\uDDF9\uDDFB\uDDFC\uDDFF])|\uD83C\uDDE7(?:\uD83C[\uDDE6\uDDE7\uDDE9-\uDDEF\uDDF1-\uDDF4\uDDF6-\uDDF9\uDDFB\uDDFC\uDDFE\uDDFF])|[#\*0-9]\uFE0F\u20E3|\uD83C\uDDF1(?:\uD83C[\uDDE6-\uDDE8\uDDEE\uDDF0\uDDF7-\uDDFB\uDDFE])|\uD83C\uDDE6(?:\uD83C[\uDDE8-\uDDEC\uDDEE\uDDF1\uDDF2\uDDF4\uDDF6-\uDDFA\uDDFC\uDDFD\uDDFF])|\uD83C\uDDF7(?:\uD83C[\uDDEA\uDDF4\uDDF8\uDDFA\uDDFC])|\uD83C\uDDFB(?:\uD83C[\uDDE6\uDDE8\uDDEA\uDDEC\uDDEE\uDDF3\uDDFA])|\uD83C\uDDFE(?:\uD83C[\uDDEA\uDDF9])|(?:\uD83C[\uDFC3\uDFC4\uDFCA]|\uD83D[\uDC6E\uDC71\uDC73\uDC77\uDC81\uDC82\uDC86\uDC87\uDE45-\uDE47\uDE4B\uDE4D\uDE4E\uDEA3\uDEB4-\uDEB6]|\uD83E[\uDD26\uDD37-\uDD39\uDD3D\uDD3E\uDDB8\uDDB9\uDDD6-\uDDDD])(?:\uD83C[\uDFFB-\uDFFF])|(?:\u26F9|\uD83C[\uDFCB\uDFCC]|\uD83D\uDD75)(?:\uD83C[\uDFFB-\uDFFF])|(?:[\u261D\u270A-\u270D]|\uD83C[\uDF85\uDFC2\uDFC7]|\uD83D[\uDC42\uDC43\uDC46-\uDC50\uDC66\uDC67\uDC70\uDC72\uDC74-\uDC76\uDC78\uDC7C\uDC83\uDC85\uDCAA\uDD74\uDD7A\uDD90\uDD95\uDD96\uDE4C\uDE4F\uDEC0\uDECC]|\uD83E[\uDD18-\uDD1C\uDD1E\uDD1F\uDD30-\uDD36\uDDB5\uDDB6\uDDD1-\uDDD5])(?:\uD83C[\uDFFB-\uDFFF])|(?:[\u231A\u231B\u23E9-\u23EC\u23F0\u23F3\u25FD\u25FE\u2614\u2615\u2648-\u2653\u267F\u2693\u26A1\u26AA\u26AB\u26BD\u26BE\u26C4\u26C5\u26CE\u26D4\u26EA\u26F2\u26F3\u26F5\u26FA\u26FD\u2705\u270A\u270B\u2728\u274C\u274E\u2753-\u2755\u2757\u2795-\u2797\u27B0\u27BF\u2B1B\u2B1C\u2B50\u2B55]|\uD83C[\uDC04\uDCCF\uDD8E\uDD91-\uDD9A\uDDE6-\uDDFF\uDE01\uDE1A\uDE2F\uDE32-\uDE36\uDE38-\uDE3A\uDE50\uDE51\uDF00-\uDF20\uDF2D-\uDF35\uDF37-\uDF7C\uDF7E-\uDF93\uDFA0-\uDFCA\uDFCF-\uDFD3\uDFE0-\uDFF0\uDFF4\uDFF8-\uDFFF]|\uD83D[\uDC00-\uDC3E\uDC40\uDC42-\uDCFC\uDCFF-\uDD3D\uDD4B-\uDD4E\uDD50-\uDD67\uDD7A\uDD95\uDD96\uDDA4\uDDFB-\uDE4F\uDE80-\uDEC5\uDECC\uDED0-\uDED2\uDEEB\uDEEC\uDEF4-\uDEF9]|\uD83E[\uDD10-\uDD3A\uDD3C-\uDD3E\uDD40-\uDD45\uDD47-\uDD70\uDD73-\uDD76\uDD7A\uDD7C-\uDDA2\uDDB0-\uDDB9\uDDC0-\uDDC2\uDDD0-\uDDFF])|(?:[#\*0-9\xA9\xAE\u203C\u2049\u2122\u2139\u2194-\u2199\u21A9\u21AA\u231A\u231B\u2328\u23CF\u23E9-\u23F3\u23F8-\u23FA\u24C2\u25AA\u25AB\u25B6\u25C0\u25FB-\u25FE\u2600-\u2604\u260E\u2611\u2614\u2615\u2618\u261D\u2620\u2622\u2623\u2626\u262A\u262E\u262F\u2638-\u263A\u2640\u2642\u2648-\u2653\u265F\u2660\u2663\u2665\u2666\u2668\u267B\u267E\u267F\u2692-\u2697\u2699\u269B\u269C\u26A0\u26A1\u26AA\u26AB\u26B0\u26B1\u26BD\u26BE\u26C4\u26C5\u26C8\u26CE\u26CF\u26D1\u26D3\u26D4\u26E9\u26EA\u26F0-\u26F5\u26F7-\u26FA\u26FD\u2702\u2705\u2708-\u270D\u270F\u2712\u2714\u2716\u271D\u2721\u2728\u2733\u2734\u2744\u2747\u274C\u274E\u2753-\u2755\u2757\u2763\u2764\u2795-\u2797\u27A1\u27B0\u27BF\u2934\u2935\u2B05-\u2B07\u2B1B\u2B1C\u2B50\u2B55\u3030\u303D\u3297\u3299]|\uD83C[\uDC04\uDCCF\uDD70\uDD71\uDD7E\uDD7F\uDD8E\uDD91-\uDD9A\uDDE6-\uDDFF\uDE01\uDE02\uDE1A\uDE2F\uDE32-\uDE3A\uDE50\uDE51\uDF00-\uDF21\uDF24-\uDF93\uDF96\uDF97\uDF99-\uDF9B\uDF9E-\uDFF0\uDFF3-\uDFF5\uDFF7-\uDFFF]|\uD83D[\uDC00-\uDCFD\uDCFF-\uDD3D\uDD49-\uDD4E\uDD50-\uDD67\uDD6F\uDD70\uDD73-\uDD7A\uDD87\uDD8A-\uDD8D\uDD90\uDD95\uDD96\uDDA4\uDDA5\uDDA8\uDDB1\uDDB2\uDDBC\uDDC2-\uDDC4\uDDD1-\uDDD3\uDDDC-\uDDDE\uDDE1\uDDE3\uDDE8\uDDEF\uDDF3\uDDFA-\uDE4F\uDE80-\uDEC5\uDECB-\uDED2\uDEE0-\uDEE5\uDEE9\uDEEB\uDEEC\uDEF0\uDEF3-\uDEF9]|\uD83E[\uDD10-\uDD3A\uDD3C-\uDD3E\uDD40-\uDD45\uDD47-\uDD70\uDD73-\uDD76\uDD7A\uDD7C-\uDDA2\uDDB0-\uDDB9\uDDC0-\uDDC2\uDDD0-\uDDFF])\uFE0F|(?:[\u261D\u26F9\u270A-\u270D]|\uD83C[\uDF85\uDFC2-\uDFC4\uDFC7\uDFCA-\uDFCC]|\uD83D[\uDC42\uDC43\uDC46-\uDC50\uDC66-\uDC69\uDC6E\uDC70-\uDC78\uDC7C\uDC81-\uDC83\uDC85-\uDC87\uDCAA\uDD74\uDD75\uDD7A\uDD90\uDD95\uDD96\uDE45-\uDE47\uDE4B-\uDE4F\uDEA3\uDEB4-\uDEB6\uDEC0\uDECC]|\uD83E[\uDD18-\uDD1C\uDD1E\uDD1F\uDD26\uDD30-\uDD39\uDD3D\uDD3E\uDDB5\uDDB6\uDDB8\uDDB9\uDDD1-\uDDDD])/g;
-};
-
-/***/ }),
-
-/***/ "./node_modules/error-stack-parser/error-stack-parser.js":
-/*!***************************************************************!*\
-  !*** ./node_modules/error-stack-parser/error-stack-parser.js ***!
-  \***************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;(function (root, factory) {
-  'use strict'; // Universal Module Definition (UMD) to support AMD, CommonJS/Node.js, Rhino, and browsers.
-
-  /* istanbul ignore next */
-
-  if (true) {
-    !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! stackframe */ "./node_modules/stackframe/stackframe.js")], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
-				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
-				(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),
-				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
-  } else {}
-})(this, function ErrorStackParser(StackFrame) {
-  'use strict';
-
-  var FIREFOX_SAFARI_STACK_REGEXP = /(^|@)\S+\:\d+/;
-  var CHROME_IE_STACK_REGEXP = /^\s*at .*(\S+\:\d+|\(native\))/m;
-  var SAFARI_NATIVE_CODE_REGEXP = /^(eval@)?(\[native code\])?$/;
-
-  function _map(array, fn, thisArg) {
-    if (typeof Array.prototype.map === 'function') {
-      return array.map(fn, thisArg);
-    } else {
-      var output = new Array(array.length);
-
-      for (var i = 0; i < array.length; i++) {
-        output[i] = fn.call(thisArg, array[i]);
-      }
-
-      return output;
-    }
-  }
-
-  function _filter(array, fn, thisArg) {
-    if (typeof Array.prototype.filter === 'function') {
-      return array.filter(fn, thisArg);
-    } else {
-      var output = [];
-
-      for (var i = 0; i < array.length; i++) {
-        if (fn.call(thisArg, array[i])) {
-          output.push(array[i]);
-        }
-      }
-
-      return output;
-    }
-  }
-
-  function _indexOf(array, target) {
-    if (typeof Array.prototype.indexOf === 'function') {
-      return array.indexOf(target);
-    } else {
-      for (var i = 0; i < array.length; i++) {
-        if (array[i] === target) {
-          return i;
-        }
-      }
-
-      return -1;
-    }
-  }
-
-  return {
-    /**
-     * Given an Error object, extract the most information from it.
-     *
-     * @param {Error} error object
-     * @return {Array} of StackFrames
-     */
-    parse: function ErrorStackParser$$parse(error) {
-      if (typeof error.stacktrace !== 'undefined' || typeof error['opera#sourceloc'] !== 'undefined') {
-        return this.parseOpera(error);
-      } else if (error.stack && error.stack.match(CHROME_IE_STACK_REGEXP)) {
-        return this.parseV8OrIE(error);
-      } else if (error.stack) {
-        return this.parseFFOrSafari(error);
-      } else {
-        throw new Error('Cannot parse given Error object');
-      }
-    },
-    // Separate line and column numbers from a string of the form: (URI:Line:Column)
-    extractLocation: function ErrorStackParser$$extractLocation(urlLike) {
-      // Fail-fast but return locations like "(native)"
-      if (urlLike.indexOf(':') === -1) {
-        return [urlLike];
-      }
-
-      var regExp = /(.+?)(?:\:(\d+))?(?:\:(\d+))?$/;
-      var parts = regExp.exec(urlLike.replace(/[\(\)]/g, ''));
-      return [parts[1], parts[2] || undefined, parts[3] || undefined];
-    },
-    parseV8OrIE: function ErrorStackParser$$parseV8OrIE(error) {
-      var filtered = _filter(error.stack.split('\n'), function (line) {
-        return !!line.match(CHROME_IE_STACK_REGEXP);
-      }, this);
-
-      return _map(filtered, function (line) {
-        if (line.indexOf('(eval ') > -1) {
-          // Throw away eval information until we implement stacktrace.js/stackframe#8
-          line = line.replace(/eval code/g, 'eval').replace(/(\(eval at [^\()]*)|(\)\,.*$)/g, '');
-        }
-
-        var tokens = line.replace(/^\s+/, '').replace(/\(eval code/g, '(').split(/\s+/).slice(1);
-        var locationParts = this.extractLocation(tokens.pop());
-        var functionName = tokens.join(' ') || undefined;
-        var fileName = _indexOf(['eval', '<anonymous>'], locationParts[0]) > -1 ? undefined : locationParts[0];
-        return new StackFrame(functionName, undefined, fileName, locationParts[1], locationParts[2], line);
-      }, this);
-    },
-    parseFFOrSafari: function ErrorStackParser$$parseFFOrSafari(error) {
-      var filtered = _filter(error.stack.split('\n'), function (line) {
-        return !line.match(SAFARI_NATIVE_CODE_REGEXP);
-      }, this);
-
-      return _map(filtered, function (line) {
-        // Throw away eval information until we implement stacktrace.js/stackframe#8
-        if (line.indexOf(' > eval') > -1) {
-          line = line.replace(/ line (\d+)(?: > eval line \d+)* > eval\:\d+\:\d+/g, ':$1');
-        }
-
-        if (line.indexOf('@') === -1 && line.indexOf(':') === -1) {
-          // Safari eval frames only have function names and nothing else
-          return new StackFrame(line);
-        } else {
-          var tokens = line.split('@');
-          var locationParts = this.extractLocation(tokens.pop());
-          var functionName = tokens.join('@') || undefined;
-          return new StackFrame(functionName, undefined, locationParts[0], locationParts[1], locationParts[2], line);
-        }
-      }, this);
-    },
-    parseOpera: function ErrorStackParser$$parseOpera(e) {
-      if (!e.stacktrace || e.message.indexOf('\n') > -1 && e.message.split('\n').length > e.stacktrace.split('\n').length) {
-        return this.parseOpera9(e);
-      } else if (!e.stack) {
-        return this.parseOpera10(e);
-      } else {
-        return this.parseOpera11(e);
-      }
-    },
-    parseOpera9: function ErrorStackParser$$parseOpera9(e) {
-      var lineRE = /Line (\d+).*script (?:in )?(\S+)/i;
-      var lines = e.message.split('\n');
-      var result = [];
-
-      for (var i = 2, len = lines.length; i < len; i += 2) {
-        var match = lineRE.exec(lines[i]);
-
-        if (match) {
-          result.push(new StackFrame(undefined, undefined, match[2], match[1], undefined, lines[i]));
-        }
-      }
-
-      return result;
-    },
-    parseOpera10: function ErrorStackParser$$parseOpera10(e) {
-      var lineRE = /Line (\d+).*script (?:in )?(\S+)(?:: In function (\S+))?$/i;
-      var lines = e.stacktrace.split('\n');
-      var result = [];
-
-      for (var i = 0, len = lines.length; i < len; i += 2) {
-        var match = lineRE.exec(lines[i]);
-
-        if (match) {
-          result.push(new StackFrame(match[3] || undefined, undefined, match[2], match[1], undefined, lines[i]));
-        }
-      }
-
-      return result;
-    },
-    // Opera 10.65+ Error.stack very similar to FF/Safari
-    parseOpera11: function ErrorStackParser$$parseOpera11(error) {
-      var filtered = _filter(error.stack.split('\n'), function (line) {
-        return !!line.match(FIREFOX_SAFARI_STACK_REGEXP) && !line.match(/^Error created at/);
-      }, this);
-
-      return _map(filtered, function (line) {
-        var tokens = line.split('@');
-        var locationParts = this.extractLocation(tokens.pop());
-        var functionCall = tokens.shift() || '';
-        var functionName = functionCall.replace(/<anonymous function(: (\w+))?>/, '$2').replace(/\([^\)]*\)/g, '') || undefined;
-        var argsRaw;
-
-        if (functionCall.match(/\(([^\)]*)\)/)) {
-          argsRaw = functionCall.replace(/^[^\(]+\(([^\)]*)\)$/, '$1');
-        }
-
-        var args = argsRaw === undefined || argsRaw === '[arguments not available]' ? undefined : argsRaw.split(',');
-        return new StackFrame(functionName, args, locationParts[0], locationParts[1], locationParts[2], line);
-      }, this);
-    }
-  };
-});
-
-/***/ }),
-
 /***/ "./node_modules/escape-string-regexp/index.js":
 /*!****************************************************!*\
   !*** ./node_modules/escape-string-regexp/index.js ***!
@@ -14368,11 +14148,22 @@ Address4.prototype.getBitsBase2 = function (start, end) {
 
 Address4.prototype.isInSubnet = common.isInSubnet;
 /**
+ * Returns true if the given address is a multicast address
+ * @memberof Address4
+ * @instance
+ * @returns {boolean}
+ */
+
+Address4.prototype.isMulticast = function () {
+  return this.isInSubnet(new Address4('224.0.0.0/4'));
+};
+/**
  * Returns a zero-padded base-2 string representation of the address
  * @memberof Address4
  * @instance
  * @returns {string}
  */
+
 
 Address4.prototype.binaryZeroPad = function () {
   return _.padStart(this.bigInteger().toString(2), constants.BITS, '0');
@@ -17687,6 +17478,6262 @@ module.exports = x => {
     exports = module.exports = BigInteger;
   } else {}
 }).call(this);
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_DataView.js":
+/*!******************************************!*\
+  !*** ./node_modules/lodash/_DataView.js ***!
+  \******************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var getNative = __webpack_require__(/*! ./_getNative */ "./node_modules/lodash/_getNative.js"),
+    root = __webpack_require__(/*! ./_root */ "./node_modules/lodash/_root.js");
+/* Built-in method references that are verified to be native. */
+
+
+var DataView = getNative(root, 'DataView');
+module.exports = DataView;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_Hash.js":
+/*!**************************************!*\
+  !*** ./node_modules/lodash/_Hash.js ***!
+  \**************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var hashClear = __webpack_require__(/*! ./_hashClear */ "./node_modules/lodash/_hashClear.js"),
+    hashDelete = __webpack_require__(/*! ./_hashDelete */ "./node_modules/lodash/_hashDelete.js"),
+    hashGet = __webpack_require__(/*! ./_hashGet */ "./node_modules/lodash/_hashGet.js"),
+    hashHas = __webpack_require__(/*! ./_hashHas */ "./node_modules/lodash/_hashHas.js"),
+    hashSet = __webpack_require__(/*! ./_hashSet */ "./node_modules/lodash/_hashSet.js");
+/**
+ * Creates a hash object.
+ *
+ * @private
+ * @constructor
+ * @param {Array} [entries] The key-value pairs to cache.
+ */
+
+
+function Hash(entries) {
+  var index = -1,
+      length = entries == null ? 0 : entries.length;
+  this.clear();
+
+  while (++index < length) {
+    var entry = entries[index];
+    this.set(entry[0], entry[1]);
+  }
+} // Add methods to `Hash`.
+
+
+Hash.prototype.clear = hashClear;
+Hash.prototype['delete'] = hashDelete;
+Hash.prototype.get = hashGet;
+Hash.prototype.has = hashHas;
+Hash.prototype.set = hashSet;
+module.exports = Hash;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_ListCache.js":
+/*!*******************************************!*\
+  !*** ./node_modules/lodash/_ListCache.js ***!
+  \*******************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var listCacheClear = __webpack_require__(/*! ./_listCacheClear */ "./node_modules/lodash/_listCacheClear.js"),
+    listCacheDelete = __webpack_require__(/*! ./_listCacheDelete */ "./node_modules/lodash/_listCacheDelete.js"),
+    listCacheGet = __webpack_require__(/*! ./_listCacheGet */ "./node_modules/lodash/_listCacheGet.js"),
+    listCacheHas = __webpack_require__(/*! ./_listCacheHas */ "./node_modules/lodash/_listCacheHas.js"),
+    listCacheSet = __webpack_require__(/*! ./_listCacheSet */ "./node_modules/lodash/_listCacheSet.js");
+/**
+ * Creates an list cache object.
+ *
+ * @private
+ * @constructor
+ * @param {Array} [entries] The key-value pairs to cache.
+ */
+
+
+function ListCache(entries) {
+  var index = -1,
+      length = entries == null ? 0 : entries.length;
+  this.clear();
+
+  while (++index < length) {
+    var entry = entries[index];
+    this.set(entry[0], entry[1]);
+  }
+} // Add methods to `ListCache`.
+
+
+ListCache.prototype.clear = listCacheClear;
+ListCache.prototype['delete'] = listCacheDelete;
+ListCache.prototype.get = listCacheGet;
+ListCache.prototype.has = listCacheHas;
+ListCache.prototype.set = listCacheSet;
+module.exports = ListCache;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_Map.js":
+/*!*************************************!*\
+  !*** ./node_modules/lodash/_Map.js ***!
+  \*************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var getNative = __webpack_require__(/*! ./_getNative */ "./node_modules/lodash/_getNative.js"),
+    root = __webpack_require__(/*! ./_root */ "./node_modules/lodash/_root.js");
+/* Built-in method references that are verified to be native. */
+
+
+var Map = getNative(root, 'Map');
+module.exports = Map;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_MapCache.js":
+/*!******************************************!*\
+  !*** ./node_modules/lodash/_MapCache.js ***!
+  \******************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var mapCacheClear = __webpack_require__(/*! ./_mapCacheClear */ "./node_modules/lodash/_mapCacheClear.js"),
+    mapCacheDelete = __webpack_require__(/*! ./_mapCacheDelete */ "./node_modules/lodash/_mapCacheDelete.js"),
+    mapCacheGet = __webpack_require__(/*! ./_mapCacheGet */ "./node_modules/lodash/_mapCacheGet.js"),
+    mapCacheHas = __webpack_require__(/*! ./_mapCacheHas */ "./node_modules/lodash/_mapCacheHas.js"),
+    mapCacheSet = __webpack_require__(/*! ./_mapCacheSet */ "./node_modules/lodash/_mapCacheSet.js");
+/**
+ * Creates a map cache object to store key-value pairs.
+ *
+ * @private
+ * @constructor
+ * @param {Array} [entries] The key-value pairs to cache.
+ */
+
+
+function MapCache(entries) {
+  var index = -1,
+      length = entries == null ? 0 : entries.length;
+  this.clear();
+
+  while (++index < length) {
+    var entry = entries[index];
+    this.set(entry[0], entry[1]);
+  }
+} // Add methods to `MapCache`.
+
+
+MapCache.prototype.clear = mapCacheClear;
+MapCache.prototype['delete'] = mapCacheDelete;
+MapCache.prototype.get = mapCacheGet;
+MapCache.prototype.has = mapCacheHas;
+MapCache.prototype.set = mapCacheSet;
+module.exports = MapCache;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_Promise.js":
+/*!*****************************************!*\
+  !*** ./node_modules/lodash/_Promise.js ***!
+  \*****************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var getNative = __webpack_require__(/*! ./_getNative */ "./node_modules/lodash/_getNative.js"),
+    root = __webpack_require__(/*! ./_root */ "./node_modules/lodash/_root.js");
+/* Built-in method references that are verified to be native. */
+
+
+var Promise = getNative(root, 'Promise');
+module.exports = Promise;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_Set.js":
+/*!*************************************!*\
+  !*** ./node_modules/lodash/_Set.js ***!
+  \*************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var getNative = __webpack_require__(/*! ./_getNative */ "./node_modules/lodash/_getNative.js"),
+    root = __webpack_require__(/*! ./_root */ "./node_modules/lodash/_root.js");
+/* Built-in method references that are verified to be native. */
+
+
+var Set = getNative(root, 'Set');
+module.exports = Set;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_SetCache.js":
+/*!******************************************!*\
+  !*** ./node_modules/lodash/_SetCache.js ***!
+  \******************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var MapCache = __webpack_require__(/*! ./_MapCache */ "./node_modules/lodash/_MapCache.js"),
+    setCacheAdd = __webpack_require__(/*! ./_setCacheAdd */ "./node_modules/lodash/_setCacheAdd.js"),
+    setCacheHas = __webpack_require__(/*! ./_setCacheHas */ "./node_modules/lodash/_setCacheHas.js");
+/**
+ *
+ * Creates an array cache object to store unique values.
+ *
+ * @private
+ * @constructor
+ * @param {Array} [values] The values to cache.
+ */
+
+
+function SetCache(values) {
+  var index = -1,
+      length = values == null ? 0 : values.length;
+  this.__data__ = new MapCache();
+
+  while (++index < length) {
+    this.add(values[index]);
+  }
+} // Add methods to `SetCache`.
+
+
+SetCache.prototype.add = SetCache.prototype.push = setCacheAdd;
+SetCache.prototype.has = setCacheHas;
+module.exports = SetCache;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_Stack.js":
+/*!***************************************!*\
+  !*** ./node_modules/lodash/_Stack.js ***!
+  \***************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var ListCache = __webpack_require__(/*! ./_ListCache */ "./node_modules/lodash/_ListCache.js"),
+    stackClear = __webpack_require__(/*! ./_stackClear */ "./node_modules/lodash/_stackClear.js"),
+    stackDelete = __webpack_require__(/*! ./_stackDelete */ "./node_modules/lodash/_stackDelete.js"),
+    stackGet = __webpack_require__(/*! ./_stackGet */ "./node_modules/lodash/_stackGet.js"),
+    stackHas = __webpack_require__(/*! ./_stackHas */ "./node_modules/lodash/_stackHas.js"),
+    stackSet = __webpack_require__(/*! ./_stackSet */ "./node_modules/lodash/_stackSet.js");
+/**
+ * Creates a stack cache object to store key-value pairs.
+ *
+ * @private
+ * @constructor
+ * @param {Array} [entries] The key-value pairs to cache.
+ */
+
+
+function Stack(entries) {
+  var data = this.__data__ = new ListCache(entries);
+  this.size = data.size;
+} // Add methods to `Stack`.
+
+
+Stack.prototype.clear = stackClear;
+Stack.prototype['delete'] = stackDelete;
+Stack.prototype.get = stackGet;
+Stack.prototype.has = stackHas;
+Stack.prototype.set = stackSet;
+module.exports = Stack;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_Symbol.js":
+/*!****************************************!*\
+  !*** ./node_modules/lodash/_Symbol.js ***!
+  \****************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var root = __webpack_require__(/*! ./_root */ "./node_modules/lodash/_root.js");
+/** Built-in value references. */
+
+
+var Symbol = root.Symbol;
+module.exports = Symbol;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_Uint8Array.js":
+/*!********************************************!*\
+  !*** ./node_modules/lodash/_Uint8Array.js ***!
+  \********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var root = __webpack_require__(/*! ./_root */ "./node_modules/lodash/_root.js");
+/** Built-in value references. */
+
+
+var Uint8Array = root.Uint8Array;
+module.exports = Uint8Array;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_WeakMap.js":
+/*!*****************************************!*\
+  !*** ./node_modules/lodash/_WeakMap.js ***!
+  \*****************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var getNative = __webpack_require__(/*! ./_getNative */ "./node_modules/lodash/_getNative.js"),
+    root = __webpack_require__(/*! ./_root */ "./node_modules/lodash/_root.js");
+/* Built-in method references that are verified to be native. */
+
+
+var WeakMap = getNative(root, 'WeakMap');
+module.exports = WeakMap;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_arrayEach.js":
+/*!*******************************************!*\
+  !*** ./node_modules/lodash/_arrayEach.js ***!
+  \*******************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/**
+ * A specialized version of `_.forEach` for arrays without support for
+ * iteratee shorthands.
+ *
+ * @private
+ * @param {Array} [array] The array to iterate over.
+ * @param {Function} iteratee The function invoked per iteration.
+ * @returns {Array} Returns `array`.
+ */
+function arrayEach(array, iteratee) {
+  var index = -1,
+      length = array == null ? 0 : array.length;
+
+  while (++index < length) {
+    if (iteratee(array[index], index, array) === false) {
+      break;
+    }
+  }
+
+  return array;
+}
+
+module.exports = arrayEach;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_arrayFilter.js":
+/*!*********************************************!*\
+  !*** ./node_modules/lodash/_arrayFilter.js ***!
+  \*********************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/**
+ * A specialized version of `_.filter` for arrays without support for
+ * iteratee shorthands.
+ *
+ * @private
+ * @param {Array} [array] The array to iterate over.
+ * @param {Function} predicate The function invoked per iteration.
+ * @returns {Array} Returns the new filtered array.
+ */
+function arrayFilter(array, predicate) {
+  var index = -1,
+      length = array == null ? 0 : array.length,
+      resIndex = 0,
+      result = [];
+
+  while (++index < length) {
+    var value = array[index];
+
+    if (predicate(value, index, array)) {
+      result[resIndex++] = value;
+    }
+  }
+
+  return result;
+}
+
+module.exports = arrayFilter;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_arrayLikeKeys.js":
+/*!***********************************************!*\
+  !*** ./node_modules/lodash/_arrayLikeKeys.js ***!
+  \***********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var baseTimes = __webpack_require__(/*! ./_baseTimes */ "./node_modules/lodash/_baseTimes.js"),
+    isArguments = __webpack_require__(/*! ./isArguments */ "./node_modules/lodash/isArguments.js"),
+    isArray = __webpack_require__(/*! ./isArray */ "./node_modules/lodash/isArray.js"),
+    isBuffer = __webpack_require__(/*! ./isBuffer */ "./node_modules/lodash/isBuffer.js"),
+    isIndex = __webpack_require__(/*! ./_isIndex */ "./node_modules/lodash/_isIndex.js"),
+    isTypedArray = __webpack_require__(/*! ./isTypedArray */ "./node_modules/lodash/isTypedArray.js");
+/** Used for built-in method references. */
+
+
+var objectProto = Object.prototype;
+/** Used to check objects for own properties. */
+
+var hasOwnProperty = objectProto.hasOwnProperty;
+/**
+ * Creates an array of the enumerable property names of the array-like `value`.
+ *
+ * @private
+ * @param {*} value The value to query.
+ * @param {boolean} inherited Specify returning inherited property names.
+ * @returns {Array} Returns the array of property names.
+ */
+
+function arrayLikeKeys(value, inherited) {
+  var isArr = isArray(value),
+      isArg = !isArr && isArguments(value),
+      isBuff = !isArr && !isArg && isBuffer(value),
+      isType = !isArr && !isArg && !isBuff && isTypedArray(value),
+      skipIndexes = isArr || isArg || isBuff || isType,
+      result = skipIndexes ? baseTimes(value.length, String) : [],
+      length = result.length;
+
+  for (var key in value) {
+    if ((inherited || hasOwnProperty.call(value, key)) && !(skipIndexes && ( // Safari 9 has enumerable `arguments.length` in strict mode.
+    key == 'length' || // Node.js 0.10 has enumerable non-index properties on buffers.
+    isBuff && (key == 'offset' || key == 'parent') || // PhantomJS 2 has enumerable non-index properties on typed arrays.
+    isType && (key == 'buffer' || key == 'byteLength' || key == 'byteOffset') || // Skip index properties.
+    isIndex(key, length)))) {
+      result.push(key);
+    }
+  }
+
+  return result;
+}
+
+module.exports = arrayLikeKeys;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_arrayMap.js":
+/*!******************************************!*\
+  !*** ./node_modules/lodash/_arrayMap.js ***!
+  \******************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/**
+ * A specialized version of `_.map` for arrays without support for iteratee
+ * shorthands.
+ *
+ * @private
+ * @param {Array} [array] The array to iterate over.
+ * @param {Function} iteratee The function invoked per iteration.
+ * @returns {Array} Returns the new mapped array.
+ */
+function arrayMap(array, iteratee) {
+  var index = -1,
+      length = array == null ? 0 : array.length,
+      result = Array(length);
+
+  while (++index < length) {
+    result[index] = iteratee(array[index], index, array);
+  }
+
+  return result;
+}
+
+module.exports = arrayMap;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_arrayPush.js":
+/*!*******************************************!*\
+  !*** ./node_modules/lodash/_arrayPush.js ***!
+  \*******************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/**
+ * Appends the elements of `values` to `array`.
+ *
+ * @private
+ * @param {Array} array The array to modify.
+ * @param {Array} values The values to append.
+ * @returns {Array} Returns `array`.
+ */
+function arrayPush(array, values) {
+  var index = -1,
+      length = values.length,
+      offset = array.length;
+
+  while (++index < length) {
+    array[offset + index] = values[index];
+  }
+
+  return array;
+}
+
+module.exports = arrayPush;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_arraySome.js":
+/*!*******************************************!*\
+  !*** ./node_modules/lodash/_arraySome.js ***!
+  \*******************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/**
+ * A specialized version of `_.some` for arrays without support for iteratee
+ * shorthands.
+ *
+ * @private
+ * @param {Array} [array] The array to iterate over.
+ * @param {Function} predicate The function invoked per iteration.
+ * @returns {boolean} Returns `true` if any element passes the predicate check,
+ *  else `false`.
+ */
+function arraySome(array, predicate) {
+  var index = -1,
+      length = array == null ? 0 : array.length;
+
+  while (++index < length) {
+    if (predicate(array[index], index, array)) {
+      return true;
+    }
+  }
+
+  return false;
+}
+
+module.exports = arraySome;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_asciiSize.js":
+/*!*******************************************!*\
+  !*** ./node_modules/lodash/_asciiSize.js ***!
+  \*******************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var baseProperty = __webpack_require__(/*! ./_baseProperty */ "./node_modules/lodash/_baseProperty.js");
+/**
+ * Gets the size of an ASCII `string`.
+ *
+ * @private
+ * @param {string} string The string inspect.
+ * @returns {number} Returns the string size.
+ */
+
+
+var asciiSize = baseProperty('length');
+module.exports = asciiSize;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_asciiToArray.js":
+/*!**********************************************!*\
+  !*** ./node_modules/lodash/_asciiToArray.js ***!
+  \**********************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/**
+ * Converts an ASCII `string` to an array.
+ *
+ * @private
+ * @param {string} string The string to convert.
+ * @returns {Array} Returns the converted array.
+ */
+function asciiToArray(string) {
+  return string.split('');
+}
+
+module.exports = asciiToArray;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_assignValue.js":
+/*!*********************************************!*\
+  !*** ./node_modules/lodash/_assignValue.js ***!
+  \*********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var baseAssignValue = __webpack_require__(/*! ./_baseAssignValue */ "./node_modules/lodash/_baseAssignValue.js"),
+    eq = __webpack_require__(/*! ./eq */ "./node_modules/lodash/eq.js");
+/** Used for built-in method references. */
+
+
+var objectProto = Object.prototype;
+/** Used to check objects for own properties. */
+
+var hasOwnProperty = objectProto.hasOwnProperty;
+/**
+ * Assigns `value` to `key` of `object` if the existing value is not equivalent
+ * using [`SameValueZero`](http://ecma-international.org/ecma-262/7.0/#sec-samevaluezero)
+ * for equality comparisons.
+ *
+ * @private
+ * @param {Object} object The object to modify.
+ * @param {string} key The key of the property to assign.
+ * @param {*} value The value to assign.
+ */
+
+function assignValue(object, key, value) {
+  var objValue = object[key];
+
+  if (!(hasOwnProperty.call(object, key) && eq(objValue, value)) || value === undefined && !(key in object)) {
+    baseAssignValue(object, key, value);
+  }
+}
+
+module.exports = assignValue;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_assocIndexOf.js":
+/*!**********************************************!*\
+  !*** ./node_modules/lodash/_assocIndexOf.js ***!
+  \**********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var eq = __webpack_require__(/*! ./eq */ "./node_modules/lodash/eq.js");
+/**
+ * Gets the index at which the `key` is found in `array` of key-value pairs.
+ *
+ * @private
+ * @param {Array} array The array to inspect.
+ * @param {*} key The key to search for.
+ * @returns {number} Returns the index of the matched value, else `-1`.
+ */
+
+
+function assocIndexOf(array, key) {
+  var length = array.length;
+
+  while (length--) {
+    if (eq(array[length][0], key)) {
+      return length;
+    }
+  }
+
+  return -1;
+}
+
+module.exports = assocIndexOf;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_baseAssign.js":
+/*!********************************************!*\
+  !*** ./node_modules/lodash/_baseAssign.js ***!
+  \********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var copyObject = __webpack_require__(/*! ./_copyObject */ "./node_modules/lodash/_copyObject.js"),
+    keys = __webpack_require__(/*! ./keys */ "./node_modules/lodash/keys.js");
+/**
+ * The base implementation of `_.assign` without support for multiple sources
+ * or `customizer` functions.
+ *
+ * @private
+ * @param {Object} object The destination object.
+ * @param {Object} source The source object.
+ * @returns {Object} Returns `object`.
+ */
+
+
+function baseAssign(object, source) {
+  return object && copyObject(source, keys(source), object);
+}
+
+module.exports = baseAssign;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_baseAssignIn.js":
+/*!**********************************************!*\
+  !*** ./node_modules/lodash/_baseAssignIn.js ***!
+  \**********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var copyObject = __webpack_require__(/*! ./_copyObject */ "./node_modules/lodash/_copyObject.js"),
+    keysIn = __webpack_require__(/*! ./keysIn */ "./node_modules/lodash/keysIn.js");
+/**
+ * The base implementation of `_.assignIn` without support for multiple sources
+ * or `customizer` functions.
+ *
+ * @private
+ * @param {Object} object The destination object.
+ * @param {Object} source The source object.
+ * @returns {Object} Returns `object`.
+ */
+
+
+function baseAssignIn(object, source) {
+  return object && copyObject(source, keysIn(source), object);
+}
+
+module.exports = baseAssignIn;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_baseAssignValue.js":
+/*!*************************************************!*\
+  !*** ./node_modules/lodash/_baseAssignValue.js ***!
+  \*************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var defineProperty = __webpack_require__(/*! ./_defineProperty */ "./node_modules/lodash/_defineProperty.js");
+/**
+ * The base implementation of `assignValue` and `assignMergeValue` without
+ * value checks.
+ *
+ * @private
+ * @param {Object} object The object to modify.
+ * @param {string} key The key of the property to assign.
+ * @param {*} value The value to assign.
+ */
+
+
+function baseAssignValue(object, key, value) {
+  if (key == '__proto__' && defineProperty) {
+    defineProperty(object, key, {
+      'configurable': true,
+      'enumerable': true,
+      'value': value,
+      'writable': true
+    });
+  } else {
+    object[key] = value;
+  }
+}
+
+module.exports = baseAssignValue;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_baseClone.js":
+/*!*******************************************!*\
+  !*** ./node_modules/lodash/_baseClone.js ***!
+  \*******************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var Stack = __webpack_require__(/*! ./_Stack */ "./node_modules/lodash/_Stack.js"),
+    arrayEach = __webpack_require__(/*! ./_arrayEach */ "./node_modules/lodash/_arrayEach.js"),
+    assignValue = __webpack_require__(/*! ./_assignValue */ "./node_modules/lodash/_assignValue.js"),
+    baseAssign = __webpack_require__(/*! ./_baseAssign */ "./node_modules/lodash/_baseAssign.js"),
+    baseAssignIn = __webpack_require__(/*! ./_baseAssignIn */ "./node_modules/lodash/_baseAssignIn.js"),
+    cloneBuffer = __webpack_require__(/*! ./_cloneBuffer */ "./node_modules/lodash/_cloneBuffer.js"),
+    copyArray = __webpack_require__(/*! ./_copyArray */ "./node_modules/lodash/_copyArray.js"),
+    copySymbols = __webpack_require__(/*! ./_copySymbols */ "./node_modules/lodash/_copySymbols.js"),
+    copySymbolsIn = __webpack_require__(/*! ./_copySymbolsIn */ "./node_modules/lodash/_copySymbolsIn.js"),
+    getAllKeys = __webpack_require__(/*! ./_getAllKeys */ "./node_modules/lodash/_getAllKeys.js"),
+    getAllKeysIn = __webpack_require__(/*! ./_getAllKeysIn */ "./node_modules/lodash/_getAllKeysIn.js"),
+    getTag = __webpack_require__(/*! ./_getTag */ "./node_modules/lodash/_getTag.js"),
+    initCloneArray = __webpack_require__(/*! ./_initCloneArray */ "./node_modules/lodash/_initCloneArray.js"),
+    initCloneByTag = __webpack_require__(/*! ./_initCloneByTag */ "./node_modules/lodash/_initCloneByTag.js"),
+    initCloneObject = __webpack_require__(/*! ./_initCloneObject */ "./node_modules/lodash/_initCloneObject.js"),
+    isArray = __webpack_require__(/*! ./isArray */ "./node_modules/lodash/isArray.js"),
+    isBuffer = __webpack_require__(/*! ./isBuffer */ "./node_modules/lodash/isBuffer.js"),
+    isMap = __webpack_require__(/*! ./isMap */ "./node_modules/lodash/isMap.js"),
+    isObject = __webpack_require__(/*! ./isObject */ "./node_modules/lodash/isObject.js"),
+    isSet = __webpack_require__(/*! ./isSet */ "./node_modules/lodash/isSet.js"),
+    keys = __webpack_require__(/*! ./keys */ "./node_modules/lodash/keys.js");
+/** Used to compose bitmasks for cloning. */
+
+
+var CLONE_DEEP_FLAG = 1,
+    CLONE_FLAT_FLAG = 2,
+    CLONE_SYMBOLS_FLAG = 4;
+/** `Object#toString` result references. */
+
+var argsTag = '[object Arguments]',
+    arrayTag = '[object Array]',
+    boolTag = '[object Boolean]',
+    dateTag = '[object Date]',
+    errorTag = '[object Error]',
+    funcTag = '[object Function]',
+    genTag = '[object GeneratorFunction]',
+    mapTag = '[object Map]',
+    numberTag = '[object Number]',
+    objectTag = '[object Object]',
+    regexpTag = '[object RegExp]',
+    setTag = '[object Set]',
+    stringTag = '[object String]',
+    symbolTag = '[object Symbol]',
+    weakMapTag = '[object WeakMap]';
+var arrayBufferTag = '[object ArrayBuffer]',
+    dataViewTag = '[object DataView]',
+    float32Tag = '[object Float32Array]',
+    float64Tag = '[object Float64Array]',
+    int8Tag = '[object Int8Array]',
+    int16Tag = '[object Int16Array]',
+    int32Tag = '[object Int32Array]',
+    uint8Tag = '[object Uint8Array]',
+    uint8ClampedTag = '[object Uint8ClampedArray]',
+    uint16Tag = '[object Uint16Array]',
+    uint32Tag = '[object Uint32Array]';
+/** Used to identify `toStringTag` values supported by `_.clone`. */
+
+var cloneableTags = {};
+cloneableTags[argsTag] = cloneableTags[arrayTag] = cloneableTags[arrayBufferTag] = cloneableTags[dataViewTag] = cloneableTags[boolTag] = cloneableTags[dateTag] = cloneableTags[float32Tag] = cloneableTags[float64Tag] = cloneableTags[int8Tag] = cloneableTags[int16Tag] = cloneableTags[int32Tag] = cloneableTags[mapTag] = cloneableTags[numberTag] = cloneableTags[objectTag] = cloneableTags[regexpTag] = cloneableTags[setTag] = cloneableTags[stringTag] = cloneableTags[symbolTag] = cloneableTags[uint8Tag] = cloneableTags[uint8ClampedTag] = cloneableTags[uint16Tag] = cloneableTags[uint32Tag] = true;
+cloneableTags[errorTag] = cloneableTags[funcTag] = cloneableTags[weakMapTag] = false;
+/**
+ * The base implementation of `_.clone` and `_.cloneDeep` which tracks
+ * traversed objects.
+ *
+ * @private
+ * @param {*} value The value to clone.
+ * @param {boolean} bitmask The bitmask flags.
+ *  1 - Deep clone
+ *  2 - Flatten inherited properties
+ *  4 - Clone symbols
+ * @param {Function} [customizer] The function to customize cloning.
+ * @param {string} [key] The key of `value`.
+ * @param {Object} [object] The parent object of `value`.
+ * @param {Object} [stack] Tracks traversed objects and their clone counterparts.
+ * @returns {*} Returns the cloned value.
+ */
+
+function baseClone(value, bitmask, customizer, key, object, stack) {
+  var result,
+      isDeep = bitmask & CLONE_DEEP_FLAG,
+      isFlat = bitmask & CLONE_FLAT_FLAG,
+      isFull = bitmask & CLONE_SYMBOLS_FLAG;
+
+  if (customizer) {
+    result = object ? customizer(value, key, object, stack) : customizer(value);
+  }
+
+  if (result !== undefined) {
+    return result;
+  }
+
+  if (!isObject(value)) {
+    return value;
+  }
+
+  var isArr = isArray(value);
+
+  if (isArr) {
+    result = initCloneArray(value);
+
+    if (!isDeep) {
+      return copyArray(value, result);
+    }
+  } else {
+    var tag = getTag(value),
+        isFunc = tag == funcTag || tag == genTag;
+
+    if (isBuffer(value)) {
+      return cloneBuffer(value, isDeep);
+    }
+
+    if (tag == objectTag || tag == argsTag || isFunc && !object) {
+      result = isFlat || isFunc ? {} : initCloneObject(value);
+
+      if (!isDeep) {
+        return isFlat ? copySymbolsIn(value, baseAssignIn(result, value)) : copySymbols(value, baseAssign(result, value));
+      }
+    } else {
+      if (!cloneableTags[tag]) {
+        return object ? value : {};
+      }
+
+      result = initCloneByTag(value, tag, isDeep);
+    }
+  } // Check for circular references and return its corresponding clone.
+
+
+  stack || (stack = new Stack());
+  var stacked = stack.get(value);
+
+  if (stacked) {
+    return stacked;
+  }
+
+  stack.set(value, result);
+
+  if (isSet(value)) {
+    value.forEach(function (subValue) {
+      result.add(baseClone(subValue, bitmask, customizer, subValue, value, stack));
+    });
+  } else if (isMap(value)) {
+    value.forEach(function (subValue, key) {
+      result.set(key, baseClone(subValue, bitmask, customizer, key, value, stack));
+    });
+  }
+
+  var keysFunc = isFull ? isFlat ? getAllKeysIn : getAllKeys : isFlat ? keysIn : keys;
+  var props = isArr ? undefined : keysFunc(value);
+  arrayEach(props || value, function (subValue, key) {
+    if (props) {
+      key = subValue;
+      subValue = value[key];
+    } // Recursively populate clone (susceptible to call stack limits).
+
+
+    assignValue(result, key, baseClone(subValue, bitmask, customizer, key, value, stack));
+  });
+  return result;
+}
+
+module.exports = baseClone;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_baseCreate.js":
+/*!********************************************!*\
+  !*** ./node_modules/lodash/_baseCreate.js ***!
+  \********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var isObject = __webpack_require__(/*! ./isObject */ "./node_modules/lodash/isObject.js");
+/** Built-in value references. */
+
+
+var objectCreate = Object.create;
+/**
+ * The base implementation of `_.create` without support for assigning
+ * properties to the created object.
+ *
+ * @private
+ * @param {Object} proto The object to inherit from.
+ * @returns {Object} Returns the new object.
+ */
+
+var baseCreate = function () {
+  function object() {}
+
+  return function (proto) {
+    if (!isObject(proto)) {
+      return {};
+    }
+
+    if (objectCreate) {
+      return objectCreate(proto);
+    }
+
+    object.prototype = proto;
+    var result = new object();
+    object.prototype = undefined;
+    return result;
+  };
+}();
+
+module.exports = baseCreate;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_baseExtremum.js":
+/*!**********************************************!*\
+  !*** ./node_modules/lodash/_baseExtremum.js ***!
+  \**********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var isSymbol = __webpack_require__(/*! ./isSymbol */ "./node_modules/lodash/isSymbol.js");
+/**
+ * The base implementation of methods like `_.max` and `_.min` which accepts a
+ * `comparator` to determine the extremum value.
+ *
+ * @private
+ * @param {Array} array The array to iterate over.
+ * @param {Function} iteratee The iteratee invoked per iteration.
+ * @param {Function} comparator The comparator used to compare values.
+ * @returns {*} Returns the extremum value.
+ */
+
+
+function baseExtremum(array, iteratee, comparator) {
+  var index = -1,
+      length = array.length;
+
+  while (++index < length) {
+    var value = array[index],
+        current = iteratee(value);
+
+    if (current != null && (computed === undefined ? current === current && !isSymbol(current) : comparator(current, computed))) {
+      var computed = current,
+          result = value;
+    }
+  }
+
+  return result;
+}
+
+module.exports = baseExtremum;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_baseFindIndex.js":
+/*!***********************************************!*\
+  !*** ./node_modules/lodash/_baseFindIndex.js ***!
+  \***********************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/**
+ * The base implementation of `_.findIndex` and `_.findLastIndex` without
+ * support for iteratee shorthands.
+ *
+ * @private
+ * @param {Array} array The array to inspect.
+ * @param {Function} predicate The function invoked per iteration.
+ * @param {number} fromIndex The index to search from.
+ * @param {boolean} [fromRight] Specify iterating from right to left.
+ * @returns {number} Returns the index of the matched value, else `-1`.
+ */
+function baseFindIndex(array, predicate, fromIndex, fromRight) {
+  var length = array.length,
+      index = fromIndex + (fromRight ? 1 : -1);
+
+  while (fromRight ? index-- : ++index < length) {
+    if (predicate(array[index], index, array)) {
+      return index;
+    }
+  }
+
+  return -1;
+}
+
+module.exports = baseFindIndex;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_baseFlatten.js":
+/*!*********************************************!*\
+  !*** ./node_modules/lodash/_baseFlatten.js ***!
+  \*********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var arrayPush = __webpack_require__(/*! ./_arrayPush */ "./node_modules/lodash/_arrayPush.js"),
+    isFlattenable = __webpack_require__(/*! ./_isFlattenable */ "./node_modules/lodash/_isFlattenable.js");
+/**
+ * The base implementation of `_.flatten` with support for restricting flattening.
+ *
+ * @private
+ * @param {Array} array The array to flatten.
+ * @param {number} depth The maximum recursion depth.
+ * @param {boolean} [predicate=isFlattenable] The function invoked per iteration.
+ * @param {boolean} [isStrict] Restrict to values that pass `predicate` checks.
+ * @param {Array} [result=[]] The initial result value.
+ * @returns {Array} Returns the new flattened array.
+ */
+
+
+function baseFlatten(array, depth, predicate, isStrict, result) {
+  var index = -1,
+      length = array.length;
+  predicate || (predicate = isFlattenable);
+  result || (result = []);
+
+  while (++index < length) {
+    var value = array[index];
+
+    if (depth > 0 && predicate(value)) {
+      if (depth > 1) {
+        // Recursively flatten arrays (susceptible to call stack limits).
+        baseFlatten(value, depth - 1, predicate, isStrict, result);
+      } else {
+        arrayPush(result, value);
+      }
+    } else if (!isStrict) {
+      result[result.length] = value;
+    }
+  }
+
+  return result;
+}
+
+module.exports = baseFlatten;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_baseFor.js":
+/*!*****************************************!*\
+  !*** ./node_modules/lodash/_baseFor.js ***!
+  \*****************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var createBaseFor = __webpack_require__(/*! ./_createBaseFor */ "./node_modules/lodash/_createBaseFor.js");
+/**
+ * The base implementation of `baseForOwn` which iterates over `object`
+ * properties returned by `keysFunc` and invokes `iteratee` for each property.
+ * Iteratee functions may exit iteration early by explicitly returning `false`.
+ *
+ * @private
+ * @param {Object} object The object to iterate over.
+ * @param {Function} iteratee The function invoked per iteration.
+ * @param {Function} keysFunc The function to get the keys of `object`.
+ * @returns {Object} Returns `object`.
+ */
+
+
+var baseFor = createBaseFor();
+module.exports = baseFor;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_baseForOwn.js":
+/*!********************************************!*\
+  !*** ./node_modules/lodash/_baseForOwn.js ***!
+  \********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var baseFor = __webpack_require__(/*! ./_baseFor */ "./node_modules/lodash/_baseFor.js"),
+    keys = __webpack_require__(/*! ./keys */ "./node_modules/lodash/keys.js");
+/**
+ * The base implementation of `_.forOwn` without support for iteratee shorthands.
+ *
+ * @private
+ * @param {Object} object The object to iterate over.
+ * @param {Function} iteratee The function invoked per iteration.
+ * @returns {Object} Returns `object`.
+ */
+
+
+function baseForOwn(object, iteratee) {
+  return object && baseFor(object, iteratee, keys);
+}
+
+module.exports = baseForOwn;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_baseGet.js":
+/*!*****************************************!*\
+  !*** ./node_modules/lodash/_baseGet.js ***!
+  \*****************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var castPath = __webpack_require__(/*! ./_castPath */ "./node_modules/lodash/_castPath.js"),
+    toKey = __webpack_require__(/*! ./_toKey */ "./node_modules/lodash/_toKey.js");
+/**
+ * The base implementation of `_.get` without support for default values.
+ *
+ * @private
+ * @param {Object} object The object to query.
+ * @param {Array|string} path The path of the property to get.
+ * @returns {*} Returns the resolved value.
+ */
+
+
+function baseGet(object, path) {
+  path = castPath(path, object);
+  var index = 0,
+      length = path.length;
+
+  while (object != null && index < length) {
+    object = object[toKey(path[index++])];
+  }
+
+  return index && index == length ? object : undefined;
+}
+
+module.exports = baseGet;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_baseGetAllKeys.js":
+/*!************************************************!*\
+  !*** ./node_modules/lodash/_baseGetAllKeys.js ***!
+  \************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var arrayPush = __webpack_require__(/*! ./_arrayPush */ "./node_modules/lodash/_arrayPush.js"),
+    isArray = __webpack_require__(/*! ./isArray */ "./node_modules/lodash/isArray.js");
+/**
+ * The base implementation of `getAllKeys` and `getAllKeysIn` which uses
+ * `keysFunc` and `symbolsFunc` to get the enumerable property names and
+ * symbols of `object`.
+ *
+ * @private
+ * @param {Object} object The object to query.
+ * @param {Function} keysFunc The function to get the keys of `object`.
+ * @param {Function} symbolsFunc The function to get the symbols of `object`.
+ * @returns {Array} Returns the array of property names and symbols.
+ */
+
+
+function baseGetAllKeys(object, keysFunc, symbolsFunc) {
+  var result = keysFunc(object);
+  return isArray(object) ? result : arrayPush(result, symbolsFunc(object));
+}
+
+module.exports = baseGetAllKeys;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_baseGetTag.js":
+/*!********************************************!*\
+  !*** ./node_modules/lodash/_baseGetTag.js ***!
+  \********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var Symbol = __webpack_require__(/*! ./_Symbol */ "./node_modules/lodash/_Symbol.js"),
+    getRawTag = __webpack_require__(/*! ./_getRawTag */ "./node_modules/lodash/_getRawTag.js"),
+    objectToString = __webpack_require__(/*! ./_objectToString */ "./node_modules/lodash/_objectToString.js");
+/** `Object#toString` result references. */
+
+
+var nullTag = '[object Null]',
+    undefinedTag = '[object Undefined]';
+/** Built-in value references. */
+
+var symToStringTag = Symbol ? Symbol.toStringTag : undefined;
+/**
+ * The base implementation of `getTag` without fallbacks for buggy environments.
+ *
+ * @private
+ * @param {*} value The value to query.
+ * @returns {string} Returns the `toStringTag`.
+ */
+
+function baseGetTag(value) {
+  if (value == null) {
+    return value === undefined ? undefinedTag : nullTag;
+  }
+
+  return symToStringTag && symToStringTag in Object(value) ? getRawTag(value) : objectToString(value);
+}
+
+module.exports = baseGetTag;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_baseGt.js":
+/*!****************************************!*\
+  !*** ./node_modules/lodash/_baseGt.js ***!
+  \****************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/**
+ * The base implementation of `_.gt` which doesn't coerce arguments.
+ *
+ * @private
+ * @param {*} value The value to compare.
+ * @param {*} other The other value to compare.
+ * @returns {boolean} Returns `true` if `value` is greater than `other`,
+ *  else `false`.
+ */
+function baseGt(value, other) {
+  return value > other;
+}
+
+module.exports = baseGt;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_baseHasIn.js":
+/*!*******************************************!*\
+  !*** ./node_modules/lodash/_baseHasIn.js ***!
+  \*******************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/**
+ * The base implementation of `_.hasIn` without support for deep paths.
+ *
+ * @private
+ * @param {Object} [object] The object to query.
+ * @param {Array|string} key The key to check.
+ * @returns {boolean} Returns `true` if `key` exists, else `false`.
+ */
+function baseHasIn(object, key) {
+  return object != null && key in Object(object);
+}
+
+module.exports = baseHasIn;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_baseIndexOf.js":
+/*!*********************************************!*\
+  !*** ./node_modules/lodash/_baseIndexOf.js ***!
+  \*********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var baseFindIndex = __webpack_require__(/*! ./_baseFindIndex */ "./node_modules/lodash/_baseFindIndex.js"),
+    baseIsNaN = __webpack_require__(/*! ./_baseIsNaN */ "./node_modules/lodash/_baseIsNaN.js"),
+    strictIndexOf = __webpack_require__(/*! ./_strictIndexOf */ "./node_modules/lodash/_strictIndexOf.js");
+/**
+ * The base implementation of `_.indexOf` without `fromIndex` bounds checks.
+ *
+ * @private
+ * @param {Array} array The array to inspect.
+ * @param {*} value The value to search for.
+ * @param {number} fromIndex The index to search from.
+ * @returns {number} Returns the index of the matched value, else `-1`.
+ */
+
+
+function baseIndexOf(array, value, fromIndex) {
+  return value === value ? strictIndexOf(array, value, fromIndex) : baseFindIndex(array, baseIsNaN, fromIndex);
+}
+
+module.exports = baseIndexOf;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_baseIsArguments.js":
+/*!*************************************************!*\
+  !*** ./node_modules/lodash/_baseIsArguments.js ***!
+  \*************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var baseGetTag = __webpack_require__(/*! ./_baseGetTag */ "./node_modules/lodash/_baseGetTag.js"),
+    isObjectLike = __webpack_require__(/*! ./isObjectLike */ "./node_modules/lodash/isObjectLike.js");
+/** `Object#toString` result references. */
+
+
+var argsTag = '[object Arguments]';
+/**
+ * The base implementation of `_.isArguments`.
+ *
+ * @private
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is an `arguments` object,
+ */
+
+function baseIsArguments(value) {
+  return isObjectLike(value) && baseGetTag(value) == argsTag;
+}
+
+module.exports = baseIsArguments;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_baseIsEqual.js":
+/*!*********************************************!*\
+  !*** ./node_modules/lodash/_baseIsEqual.js ***!
+  \*********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var baseIsEqualDeep = __webpack_require__(/*! ./_baseIsEqualDeep */ "./node_modules/lodash/_baseIsEqualDeep.js"),
+    isObjectLike = __webpack_require__(/*! ./isObjectLike */ "./node_modules/lodash/isObjectLike.js");
+/**
+ * The base implementation of `_.isEqual` which supports partial comparisons
+ * and tracks traversed objects.
+ *
+ * @private
+ * @param {*} value The value to compare.
+ * @param {*} other The other value to compare.
+ * @param {boolean} bitmask The bitmask flags.
+ *  1 - Unordered comparison
+ *  2 - Partial comparison
+ * @param {Function} [customizer] The function to customize comparisons.
+ * @param {Object} [stack] Tracks traversed `value` and `other` objects.
+ * @returns {boolean} Returns `true` if the values are equivalent, else `false`.
+ */
+
+
+function baseIsEqual(value, other, bitmask, customizer, stack) {
+  if (value === other) {
+    return true;
+  }
+
+  if (value == null || other == null || !isObjectLike(value) && !isObjectLike(other)) {
+    return value !== value && other !== other;
+  }
+
+  return baseIsEqualDeep(value, other, bitmask, customizer, baseIsEqual, stack);
+}
+
+module.exports = baseIsEqual;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_baseIsEqualDeep.js":
+/*!*************************************************!*\
+  !*** ./node_modules/lodash/_baseIsEqualDeep.js ***!
+  \*************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var Stack = __webpack_require__(/*! ./_Stack */ "./node_modules/lodash/_Stack.js"),
+    equalArrays = __webpack_require__(/*! ./_equalArrays */ "./node_modules/lodash/_equalArrays.js"),
+    equalByTag = __webpack_require__(/*! ./_equalByTag */ "./node_modules/lodash/_equalByTag.js"),
+    equalObjects = __webpack_require__(/*! ./_equalObjects */ "./node_modules/lodash/_equalObjects.js"),
+    getTag = __webpack_require__(/*! ./_getTag */ "./node_modules/lodash/_getTag.js"),
+    isArray = __webpack_require__(/*! ./isArray */ "./node_modules/lodash/isArray.js"),
+    isBuffer = __webpack_require__(/*! ./isBuffer */ "./node_modules/lodash/isBuffer.js"),
+    isTypedArray = __webpack_require__(/*! ./isTypedArray */ "./node_modules/lodash/isTypedArray.js");
+/** Used to compose bitmasks for value comparisons. */
+
+
+var COMPARE_PARTIAL_FLAG = 1;
+/** `Object#toString` result references. */
+
+var argsTag = '[object Arguments]',
+    arrayTag = '[object Array]',
+    objectTag = '[object Object]';
+/** Used for built-in method references. */
+
+var objectProto = Object.prototype;
+/** Used to check objects for own properties. */
+
+var hasOwnProperty = objectProto.hasOwnProperty;
+/**
+ * A specialized version of `baseIsEqual` for arrays and objects which performs
+ * deep comparisons and tracks traversed objects enabling objects with circular
+ * references to be compared.
+ *
+ * @private
+ * @param {Object} object The object to compare.
+ * @param {Object} other The other object to compare.
+ * @param {number} bitmask The bitmask flags. See `baseIsEqual` for more details.
+ * @param {Function} customizer The function to customize comparisons.
+ * @param {Function} equalFunc The function to determine equivalents of values.
+ * @param {Object} [stack] Tracks traversed `object` and `other` objects.
+ * @returns {boolean} Returns `true` if the objects are equivalent, else `false`.
+ */
+
+function baseIsEqualDeep(object, other, bitmask, customizer, equalFunc, stack) {
+  var objIsArr = isArray(object),
+      othIsArr = isArray(other),
+      objTag = objIsArr ? arrayTag : getTag(object),
+      othTag = othIsArr ? arrayTag : getTag(other);
+  objTag = objTag == argsTag ? objectTag : objTag;
+  othTag = othTag == argsTag ? objectTag : othTag;
+  var objIsObj = objTag == objectTag,
+      othIsObj = othTag == objectTag,
+      isSameTag = objTag == othTag;
+
+  if (isSameTag && isBuffer(object)) {
+    if (!isBuffer(other)) {
+      return false;
+    }
+
+    objIsArr = true;
+    objIsObj = false;
+  }
+
+  if (isSameTag && !objIsObj) {
+    stack || (stack = new Stack());
+    return objIsArr || isTypedArray(object) ? equalArrays(object, other, bitmask, customizer, equalFunc, stack) : equalByTag(object, other, objTag, bitmask, customizer, equalFunc, stack);
+  }
+
+  if (!(bitmask & COMPARE_PARTIAL_FLAG)) {
+    var objIsWrapped = objIsObj && hasOwnProperty.call(object, '__wrapped__'),
+        othIsWrapped = othIsObj && hasOwnProperty.call(other, '__wrapped__');
+
+    if (objIsWrapped || othIsWrapped) {
+      var objUnwrapped = objIsWrapped ? object.value() : object,
+          othUnwrapped = othIsWrapped ? other.value() : other;
+      stack || (stack = new Stack());
+      return equalFunc(objUnwrapped, othUnwrapped, bitmask, customizer, stack);
+    }
+  }
+
+  if (!isSameTag) {
+    return false;
+  }
+
+  stack || (stack = new Stack());
+  return equalObjects(object, other, bitmask, customizer, equalFunc, stack);
+}
+
+module.exports = baseIsEqualDeep;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_baseIsMap.js":
+/*!*******************************************!*\
+  !*** ./node_modules/lodash/_baseIsMap.js ***!
+  \*******************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var getTag = __webpack_require__(/*! ./_getTag */ "./node_modules/lodash/_getTag.js"),
+    isObjectLike = __webpack_require__(/*! ./isObjectLike */ "./node_modules/lodash/isObjectLike.js");
+/** `Object#toString` result references. */
+
+
+var mapTag = '[object Map]';
+/**
+ * The base implementation of `_.isMap` without Node.js optimizations.
+ *
+ * @private
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is a map, else `false`.
+ */
+
+function baseIsMap(value) {
+  return isObjectLike(value) && getTag(value) == mapTag;
+}
+
+module.exports = baseIsMap;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_baseIsMatch.js":
+/*!*********************************************!*\
+  !*** ./node_modules/lodash/_baseIsMatch.js ***!
+  \*********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var Stack = __webpack_require__(/*! ./_Stack */ "./node_modules/lodash/_Stack.js"),
+    baseIsEqual = __webpack_require__(/*! ./_baseIsEqual */ "./node_modules/lodash/_baseIsEqual.js");
+/** Used to compose bitmasks for value comparisons. */
+
+
+var COMPARE_PARTIAL_FLAG = 1,
+    COMPARE_UNORDERED_FLAG = 2;
+/**
+ * The base implementation of `_.isMatch` without support for iteratee shorthands.
+ *
+ * @private
+ * @param {Object} object The object to inspect.
+ * @param {Object} source The object of property values to match.
+ * @param {Array} matchData The property names, values, and compare flags to match.
+ * @param {Function} [customizer] The function to customize comparisons.
+ * @returns {boolean} Returns `true` if `object` is a match, else `false`.
+ */
+
+function baseIsMatch(object, source, matchData, customizer) {
+  var index = matchData.length,
+      length = index,
+      noCustomizer = !customizer;
+
+  if (object == null) {
+    return !length;
+  }
+
+  object = Object(object);
+
+  while (index--) {
+    var data = matchData[index];
+
+    if (noCustomizer && data[2] ? data[1] !== object[data[0]] : !(data[0] in object)) {
+      return false;
+    }
+  }
+
+  while (++index < length) {
+    data = matchData[index];
+    var key = data[0],
+        objValue = object[key],
+        srcValue = data[1];
+
+    if (noCustomizer && data[2]) {
+      if (objValue === undefined && !(key in object)) {
+        return false;
+      }
+    } else {
+      var stack = new Stack();
+
+      if (customizer) {
+        var result = customizer(objValue, srcValue, key, object, source, stack);
+      }
+
+      if (!(result === undefined ? baseIsEqual(srcValue, objValue, COMPARE_PARTIAL_FLAG | COMPARE_UNORDERED_FLAG, customizer, stack) : result)) {
+        return false;
+      }
+    }
+  }
+
+  return true;
+}
+
+module.exports = baseIsMatch;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_baseIsNaN.js":
+/*!*******************************************!*\
+  !*** ./node_modules/lodash/_baseIsNaN.js ***!
+  \*******************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/**
+ * The base implementation of `_.isNaN` without support for number objects.
+ *
+ * @private
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is `NaN`, else `false`.
+ */
+function baseIsNaN(value) {
+  return value !== value;
+}
+
+module.exports = baseIsNaN;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_baseIsNative.js":
+/*!**********************************************!*\
+  !*** ./node_modules/lodash/_baseIsNative.js ***!
+  \**********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var isFunction = __webpack_require__(/*! ./isFunction */ "./node_modules/lodash/isFunction.js"),
+    isMasked = __webpack_require__(/*! ./_isMasked */ "./node_modules/lodash/_isMasked.js"),
+    isObject = __webpack_require__(/*! ./isObject */ "./node_modules/lodash/isObject.js"),
+    toSource = __webpack_require__(/*! ./_toSource */ "./node_modules/lodash/_toSource.js");
+/**
+ * Used to match `RegExp`
+ * [syntax characters](http://ecma-international.org/ecma-262/7.0/#sec-patterns).
+ */
+
+
+var reRegExpChar = /[\\^$.*+?()[\]{}|]/g;
+/** Used to detect host constructors (Safari). */
+
+var reIsHostCtor = /^\[object .+?Constructor\]$/;
+/** Used for built-in method references. */
+
+var funcProto = Function.prototype,
+    objectProto = Object.prototype;
+/** Used to resolve the decompiled source of functions. */
+
+var funcToString = funcProto.toString;
+/** Used to check objects for own properties. */
+
+var hasOwnProperty = objectProto.hasOwnProperty;
+/** Used to detect if a method is native. */
+
+var reIsNative = RegExp('^' + funcToString.call(hasOwnProperty).replace(reRegExpChar, '\\$&').replace(/hasOwnProperty|(function).*?(?=\\\()| for .+?(?=\\\])/g, '$1.*?') + '$');
+/**
+ * The base implementation of `_.isNative` without bad shim checks.
+ *
+ * @private
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is a native function,
+ *  else `false`.
+ */
+
+function baseIsNative(value) {
+  if (!isObject(value) || isMasked(value)) {
+    return false;
+  }
+
+  var pattern = isFunction(value) ? reIsNative : reIsHostCtor;
+  return pattern.test(toSource(value));
+}
+
+module.exports = baseIsNative;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_baseIsRegExp.js":
+/*!**********************************************!*\
+  !*** ./node_modules/lodash/_baseIsRegExp.js ***!
+  \**********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var baseGetTag = __webpack_require__(/*! ./_baseGetTag */ "./node_modules/lodash/_baseGetTag.js"),
+    isObjectLike = __webpack_require__(/*! ./isObjectLike */ "./node_modules/lodash/isObjectLike.js");
+/** `Object#toString` result references. */
+
+
+var regexpTag = '[object RegExp]';
+/**
+ * The base implementation of `_.isRegExp` without Node.js optimizations.
+ *
+ * @private
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is a regexp, else `false`.
+ */
+
+function baseIsRegExp(value) {
+  return isObjectLike(value) && baseGetTag(value) == regexpTag;
+}
+
+module.exports = baseIsRegExp;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_baseIsSet.js":
+/*!*******************************************!*\
+  !*** ./node_modules/lodash/_baseIsSet.js ***!
+  \*******************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var getTag = __webpack_require__(/*! ./_getTag */ "./node_modules/lodash/_getTag.js"),
+    isObjectLike = __webpack_require__(/*! ./isObjectLike */ "./node_modules/lodash/isObjectLike.js");
+/** `Object#toString` result references. */
+
+
+var setTag = '[object Set]';
+/**
+ * The base implementation of `_.isSet` without Node.js optimizations.
+ *
+ * @private
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is a set, else `false`.
+ */
+
+function baseIsSet(value) {
+  return isObjectLike(value) && getTag(value) == setTag;
+}
+
+module.exports = baseIsSet;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_baseIsTypedArray.js":
+/*!**************************************************!*\
+  !*** ./node_modules/lodash/_baseIsTypedArray.js ***!
+  \**************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var baseGetTag = __webpack_require__(/*! ./_baseGetTag */ "./node_modules/lodash/_baseGetTag.js"),
+    isLength = __webpack_require__(/*! ./isLength */ "./node_modules/lodash/isLength.js"),
+    isObjectLike = __webpack_require__(/*! ./isObjectLike */ "./node_modules/lodash/isObjectLike.js");
+/** `Object#toString` result references. */
+
+
+var argsTag = '[object Arguments]',
+    arrayTag = '[object Array]',
+    boolTag = '[object Boolean]',
+    dateTag = '[object Date]',
+    errorTag = '[object Error]',
+    funcTag = '[object Function]',
+    mapTag = '[object Map]',
+    numberTag = '[object Number]',
+    objectTag = '[object Object]',
+    regexpTag = '[object RegExp]',
+    setTag = '[object Set]',
+    stringTag = '[object String]',
+    weakMapTag = '[object WeakMap]';
+var arrayBufferTag = '[object ArrayBuffer]',
+    dataViewTag = '[object DataView]',
+    float32Tag = '[object Float32Array]',
+    float64Tag = '[object Float64Array]',
+    int8Tag = '[object Int8Array]',
+    int16Tag = '[object Int16Array]',
+    int32Tag = '[object Int32Array]',
+    uint8Tag = '[object Uint8Array]',
+    uint8ClampedTag = '[object Uint8ClampedArray]',
+    uint16Tag = '[object Uint16Array]',
+    uint32Tag = '[object Uint32Array]';
+/** Used to identify `toStringTag` values of typed arrays. */
+
+var typedArrayTags = {};
+typedArrayTags[float32Tag] = typedArrayTags[float64Tag] = typedArrayTags[int8Tag] = typedArrayTags[int16Tag] = typedArrayTags[int32Tag] = typedArrayTags[uint8Tag] = typedArrayTags[uint8ClampedTag] = typedArrayTags[uint16Tag] = typedArrayTags[uint32Tag] = true;
+typedArrayTags[argsTag] = typedArrayTags[arrayTag] = typedArrayTags[arrayBufferTag] = typedArrayTags[boolTag] = typedArrayTags[dataViewTag] = typedArrayTags[dateTag] = typedArrayTags[errorTag] = typedArrayTags[funcTag] = typedArrayTags[mapTag] = typedArrayTags[numberTag] = typedArrayTags[objectTag] = typedArrayTags[regexpTag] = typedArrayTags[setTag] = typedArrayTags[stringTag] = typedArrayTags[weakMapTag] = false;
+/**
+ * The base implementation of `_.isTypedArray` without Node.js optimizations.
+ *
+ * @private
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is a typed array, else `false`.
+ */
+
+function baseIsTypedArray(value) {
+  return isObjectLike(value) && isLength(value.length) && !!typedArrayTags[baseGetTag(value)];
+}
+
+module.exports = baseIsTypedArray;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_baseIteratee.js":
+/*!**********************************************!*\
+  !*** ./node_modules/lodash/_baseIteratee.js ***!
+  \**********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var baseMatches = __webpack_require__(/*! ./_baseMatches */ "./node_modules/lodash/_baseMatches.js"),
+    baseMatchesProperty = __webpack_require__(/*! ./_baseMatchesProperty */ "./node_modules/lodash/_baseMatchesProperty.js"),
+    identity = __webpack_require__(/*! ./identity */ "./node_modules/lodash/identity.js"),
+    isArray = __webpack_require__(/*! ./isArray */ "./node_modules/lodash/isArray.js"),
+    property = __webpack_require__(/*! ./property */ "./node_modules/lodash/property.js");
+/**
+ * The base implementation of `_.iteratee`.
+ *
+ * @private
+ * @param {*} [value=_.identity] The value to convert to an iteratee.
+ * @returns {Function} Returns the iteratee.
+ */
+
+
+function baseIteratee(value) {
+  // Don't store the `typeof` result in a variable to avoid a JIT bug in Safari 9.
+  // See https://bugs.webkit.org/show_bug.cgi?id=156034 for more details.
+  if (typeof value == 'function') {
+    return value;
+  }
+
+  if (value == null) {
+    return identity;
+  }
+
+  if (typeof value == 'object') {
+    return isArray(value) ? baseMatchesProperty(value[0], value[1]) : baseMatches(value);
+  }
+
+  return property(value);
+}
+
+module.exports = baseIteratee;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_baseKeys.js":
+/*!******************************************!*\
+  !*** ./node_modules/lodash/_baseKeys.js ***!
+  \******************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var isPrototype = __webpack_require__(/*! ./_isPrototype */ "./node_modules/lodash/_isPrototype.js"),
+    nativeKeys = __webpack_require__(/*! ./_nativeKeys */ "./node_modules/lodash/_nativeKeys.js");
+/** Used for built-in method references. */
+
+
+var objectProto = Object.prototype;
+/** Used to check objects for own properties. */
+
+var hasOwnProperty = objectProto.hasOwnProperty;
+/**
+ * The base implementation of `_.keys` which doesn't treat sparse arrays as dense.
+ *
+ * @private
+ * @param {Object} object The object to query.
+ * @returns {Array} Returns the array of property names.
+ */
+
+function baseKeys(object) {
+  if (!isPrototype(object)) {
+    return nativeKeys(object);
+  }
+
+  var result = [];
+
+  for (var key in Object(object)) {
+    if (hasOwnProperty.call(object, key) && key != 'constructor') {
+      result.push(key);
+    }
+  }
+
+  return result;
+}
+
+module.exports = baseKeys;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_baseKeysIn.js":
+/*!********************************************!*\
+  !*** ./node_modules/lodash/_baseKeysIn.js ***!
+  \********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var isObject = __webpack_require__(/*! ./isObject */ "./node_modules/lodash/isObject.js"),
+    isPrototype = __webpack_require__(/*! ./_isPrototype */ "./node_modules/lodash/_isPrototype.js"),
+    nativeKeysIn = __webpack_require__(/*! ./_nativeKeysIn */ "./node_modules/lodash/_nativeKeysIn.js");
+/** Used for built-in method references. */
+
+
+var objectProto = Object.prototype;
+/** Used to check objects for own properties. */
+
+var hasOwnProperty = objectProto.hasOwnProperty;
+/**
+ * The base implementation of `_.keysIn` which doesn't treat sparse arrays as dense.
+ *
+ * @private
+ * @param {Object} object The object to query.
+ * @returns {Array} Returns the array of property names.
+ */
+
+function baseKeysIn(object) {
+  if (!isObject(object)) {
+    return nativeKeysIn(object);
+  }
+
+  var isProto = isPrototype(object),
+      result = [];
+
+  for (var key in object) {
+    if (!(key == 'constructor' && (isProto || !hasOwnProperty.call(object, key)))) {
+      result.push(key);
+    }
+  }
+
+  return result;
+}
+
+module.exports = baseKeysIn;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_baseMatches.js":
+/*!*********************************************!*\
+  !*** ./node_modules/lodash/_baseMatches.js ***!
+  \*********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var baseIsMatch = __webpack_require__(/*! ./_baseIsMatch */ "./node_modules/lodash/_baseIsMatch.js"),
+    getMatchData = __webpack_require__(/*! ./_getMatchData */ "./node_modules/lodash/_getMatchData.js"),
+    matchesStrictComparable = __webpack_require__(/*! ./_matchesStrictComparable */ "./node_modules/lodash/_matchesStrictComparable.js");
+/**
+ * The base implementation of `_.matches` which doesn't clone `source`.
+ *
+ * @private
+ * @param {Object} source The object of property values to match.
+ * @returns {Function} Returns the new spec function.
+ */
+
+
+function baseMatches(source) {
+  var matchData = getMatchData(source);
+
+  if (matchData.length == 1 && matchData[0][2]) {
+    return matchesStrictComparable(matchData[0][0], matchData[0][1]);
+  }
+
+  return function (object) {
+    return object === source || baseIsMatch(object, source, matchData);
+  };
+}
+
+module.exports = baseMatches;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_baseMatchesProperty.js":
+/*!*****************************************************!*\
+  !*** ./node_modules/lodash/_baseMatchesProperty.js ***!
+  \*****************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var baseIsEqual = __webpack_require__(/*! ./_baseIsEqual */ "./node_modules/lodash/_baseIsEqual.js"),
+    get = __webpack_require__(/*! ./get */ "./node_modules/lodash/get.js"),
+    hasIn = __webpack_require__(/*! ./hasIn */ "./node_modules/lodash/hasIn.js"),
+    isKey = __webpack_require__(/*! ./_isKey */ "./node_modules/lodash/_isKey.js"),
+    isStrictComparable = __webpack_require__(/*! ./_isStrictComparable */ "./node_modules/lodash/_isStrictComparable.js"),
+    matchesStrictComparable = __webpack_require__(/*! ./_matchesStrictComparable */ "./node_modules/lodash/_matchesStrictComparable.js"),
+    toKey = __webpack_require__(/*! ./_toKey */ "./node_modules/lodash/_toKey.js");
+/** Used to compose bitmasks for value comparisons. */
+
+
+var COMPARE_PARTIAL_FLAG = 1,
+    COMPARE_UNORDERED_FLAG = 2;
+/**
+ * The base implementation of `_.matchesProperty` which doesn't clone `srcValue`.
+ *
+ * @private
+ * @param {string} path The path of the property to get.
+ * @param {*} srcValue The value to match.
+ * @returns {Function} Returns the new spec function.
+ */
+
+function baseMatchesProperty(path, srcValue) {
+  if (isKey(path) && isStrictComparable(srcValue)) {
+    return matchesStrictComparable(toKey(path), srcValue);
+  }
+
+  return function (object) {
+    var objValue = get(object, path);
+    return objValue === undefined && objValue === srcValue ? hasIn(object, path) : baseIsEqual(srcValue, objValue, COMPARE_PARTIAL_FLAG | COMPARE_UNORDERED_FLAG);
+  };
+}
+
+module.exports = baseMatchesProperty;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_baseProperty.js":
+/*!**********************************************!*\
+  !*** ./node_modules/lodash/_baseProperty.js ***!
+  \**********************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/**
+ * The base implementation of `_.property` without support for deep paths.
+ *
+ * @private
+ * @param {string} key The key of the property to get.
+ * @returns {Function} Returns the new accessor function.
+ */
+function baseProperty(key) {
+  return function (object) {
+    return object == null ? undefined : object[key];
+  };
+}
+
+module.exports = baseProperty;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_basePropertyDeep.js":
+/*!**************************************************!*\
+  !*** ./node_modules/lodash/_basePropertyDeep.js ***!
+  \**************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var baseGet = __webpack_require__(/*! ./_baseGet */ "./node_modules/lodash/_baseGet.js");
+/**
+ * A specialized version of `baseProperty` which supports deep paths.
+ *
+ * @private
+ * @param {Array|string} path The path of the property to get.
+ * @returns {Function} Returns the new accessor function.
+ */
+
+
+function basePropertyDeep(path) {
+  return function (object) {
+    return baseGet(object, path);
+  };
+}
+
+module.exports = basePropertyDeep;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_baseSlice.js":
+/*!*******************************************!*\
+  !*** ./node_modules/lodash/_baseSlice.js ***!
+  \*******************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/**
+ * The base implementation of `_.slice` without an iteratee call guard.
+ *
+ * @private
+ * @param {Array} array The array to slice.
+ * @param {number} [start=0] The start position.
+ * @param {number} [end=array.length] The end position.
+ * @returns {Array} Returns the slice of `array`.
+ */
+function baseSlice(array, start, end) {
+  var index = -1,
+      length = array.length;
+
+  if (start < 0) {
+    start = -start > length ? 0 : length + start;
+  }
+
+  end = end > length ? length : end;
+
+  if (end < 0) {
+    end += length;
+  }
+
+  length = start > end ? 0 : end - start >>> 0;
+  start >>>= 0;
+  var result = Array(length);
+
+  while (++index < length) {
+    result[index] = array[index + start];
+  }
+
+  return result;
+}
+
+module.exports = baseSlice;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_baseTimes.js":
+/*!*******************************************!*\
+  !*** ./node_modules/lodash/_baseTimes.js ***!
+  \*******************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/**
+ * The base implementation of `_.times` without support for iteratee shorthands
+ * or max array length checks.
+ *
+ * @private
+ * @param {number} n The number of times to invoke `iteratee`.
+ * @param {Function} iteratee The function invoked per iteration.
+ * @returns {Array} Returns the array of results.
+ */
+function baseTimes(n, iteratee) {
+  var index = -1,
+      result = Array(n);
+
+  while (++index < n) {
+    result[index] = iteratee(index);
+  }
+
+  return result;
+}
+
+module.exports = baseTimes;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_baseToString.js":
+/*!**********************************************!*\
+  !*** ./node_modules/lodash/_baseToString.js ***!
+  \**********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var Symbol = __webpack_require__(/*! ./_Symbol */ "./node_modules/lodash/_Symbol.js"),
+    arrayMap = __webpack_require__(/*! ./_arrayMap */ "./node_modules/lodash/_arrayMap.js"),
+    isArray = __webpack_require__(/*! ./isArray */ "./node_modules/lodash/isArray.js"),
+    isSymbol = __webpack_require__(/*! ./isSymbol */ "./node_modules/lodash/isSymbol.js");
+/** Used as references for various `Number` constants. */
+
+
+var INFINITY = 1 / 0;
+/** Used to convert symbols to primitives and strings. */
+
+var symbolProto = Symbol ? Symbol.prototype : undefined,
+    symbolToString = symbolProto ? symbolProto.toString : undefined;
+/**
+ * The base implementation of `_.toString` which doesn't convert nullish
+ * values to empty strings.
+ *
+ * @private
+ * @param {*} value The value to process.
+ * @returns {string} Returns the string.
+ */
+
+function baseToString(value) {
+  // Exit early for strings to avoid a performance hit in some environments.
+  if (typeof value == 'string') {
+    return value;
+  }
+
+  if (isArray(value)) {
+    // Recursively convert values (susceptible to call stack limits).
+    return arrayMap(value, baseToString) + '';
+  }
+
+  if (isSymbol(value)) {
+    return symbolToString ? symbolToString.call(value) : '';
+  }
+
+  var result = value + '';
+  return result == '0' && 1 / value == -INFINITY ? '-0' : result;
+}
+
+module.exports = baseToString;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_baseUnary.js":
+/*!*******************************************!*\
+  !*** ./node_modules/lodash/_baseUnary.js ***!
+  \*******************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/**
+ * The base implementation of `_.unary` without support for storing metadata.
+ *
+ * @private
+ * @param {Function} func The function to cap arguments for.
+ * @returns {Function} Returns the new capped function.
+ */
+function baseUnary(func) {
+  return function (value) {
+    return func(value);
+  };
+}
+
+module.exports = baseUnary;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_baseValues.js":
+/*!********************************************!*\
+  !*** ./node_modules/lodash/_baseValues.js ***!
+  \********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var arrayMap = __webpack_require__(/*! ./_arrayMap */ "./node_modules/lodash/_arrayMap.js");
+/**
+ * The base implementation of `_.values` and `_.valuesIn` which creates an
+ * array of `object` property values corresponding to the property names
+ * of `props`.
+ *
+ * @private
+ * @param {Object} object The object to query.
+ * @param {Array} props The property names to get values for.
+ * @returns {Object} Returns the array of property values.
+ */
+
+
+function baseValues(object, props) {
+  return arrayMap(props, function (key) {
+    return object[key];
+  });
+}
+
+module.exports = baseValues;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_cacheHas.js":
+/*!******************************************!*\
+  !*** ./node_modules/lodash/_cacheHas.js ***!
+  \******************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/**
+ * Checks if a `cache` value for `key` exists.
+ *
+ * @private
+ * @param {Object} cache The cache to query.
+ * @param {string} key The key of the entry to check.
+ * @returns {boolean} Returns `true` if an entry for `key` exists, else `false`.
+ */
+function cacheHas(cache, key) {
+  return cache.has(key);
+}
+
+module.exports = cacheHas;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_castFunction.js":
+/*!**********************************************!*\
+  !*** ./node_modules/lodash/_castFunction.js ***!
+  \**********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var identity = __webpack_require__(/*! ./identity */ "./node_modules/lodash/identity.js");
+/**
+ * Casts `value` to `identity` if it's not a function.
+ *
+ * @private
+ * @param {*} value The value to inspect.
+ * @returns {Function} Returns cast function.
+ */
+
+
+function castFunction(value) {
+  return typeof value == 'function' ? value : identity;
+}
+
+module.exports = castFunction;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_castPath.js":
+/*!******************************************!*\
+  !*** ./node_modules/lodash/_castPath.js ***!
+  \******************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var isArray = __webpack_require__(/*! ./isArray */ "./node_modules/lodash/isArray.js"),
+    isKey = __webpack_require__(/*! ./_isKey */ "./node_modules/lodash/_isKey.js"),
+    stringToPath = __webpack_require__(/*! ./_stringToPath */ "./node_modules/lodash/_stringToPath.js"),
+    toString = __webpack_require__(/*! ./toString */ "./node_modules/lodash/toString.js");
+/**
+ * Casts `value` to a path array if it's not one.
+ *
+ * @private
+ * @param {*} value The value to inspect.
+ * @param {Object} [object] The object to query keys on.
+ * @returns {Array} Returns the cast property path array.
+ */
+
+
+function castPath(value, object) {
+  if (isArray(value)) {
+    return value;
+  }
+
+  return isKey(value, object) ? [value] : stringToPath(toString(value));
+}
+
+module.exports = castPath;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_castSlice.js":
+/*!*******************************************!*\
+  !*** ./node_modules/lodash/_castSlice.js ***!
+  \*******************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var baseSlice = __webpack_require__(/*! ./_baseSlice */ "./node_modules/lodash/_baseSlice.js");
+/**
+ * Casts `array` to a slice if it's needed.
+ *
+ * @private
+ * @param {Array} array The array to inspect.
+ * @param {number} start The start position.
+ * @param {number} [end=array.length] The end position.
+ * @returns {Array} Returns the cast slice.
+ */
+
+
+function castSlice(array, start, end) {
+  var length = array.length;
+  end = end === undefined ? length : end;
+  return !start && end >= length ? array : baseSlice(array, start, end);
+}
+
+module.exports = castSlice;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_charsEndIndex.js":
+/*!***********************************************!*\
+  !*** ./node_modules/lodash/_charsEndIndex.js ***!
+  \***********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var baseIndexOf = __webpack_require__(/*! ./_baseIndexOf */ "./node_modules/lodash/_baseIndexOf.js");
+/**
+ * Used by `_.trim` and `_.trimEnd` to get the index of the last string symbol
+ * that is not found in the character symbols.
+ *
+ * @private
+ * @param {Array} strSymbols The string symbols to inspect.
+ * @param {Array} chrSymbols The character symbols to find.
+ * @returns {number} Returns the index of the last unmatched string symbol.
+ */
+
+
+function charsEndIndex(strSymbols, chrSymbols) {
+  var index = strSymbols.length;
+
+  while (index-- && baseIndexOf(chrSymbols, strSymbols[index], 0) > -1) {}
+
+  return index;
+}
+
+module.exports = charsEndIndex;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_cloneArrayBuffer.js":
+/*!**************************************************!*\
+  !*** ./node_modules/lodash/_cloneArrayBuffer.js ***!
+  \**************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var Uint8Array = __webpack_require__(/*! ./_Uint8Array */ "./node_modules/lodash/_Uint8Array.js");
+/**
+ * Creates a clone of `arrayBuffer`.
+ *
+ * @private
+ * @param {ArrayBuffer} arrayBuffer The array buffer to clone.
+ * @returns {ArrayBuffer} Returns the cloned array buffer.
+ */
+
+
+function cloneArrayBuffer(arrayBuffer) {
+  var result = new arrayBuffer.constructor(arrayBuffer.byteLength);
+  new Uint8Array(result).set(new Uint8Array(arrayBuffer));
+  return result;
+}
+
+module.exports = cloneArrayBuffer;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_cloneBuffer.js":
+/*!*********************************************!*\
+  !*** ./node_modules/lodash/_cloneBuffer.js ***!
+  \*********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function(module) {var root = __webpack_require__(/*! ./_root */ "./node_modules/lodash/_root.js");
+/** Detect free variable `exports`. */
+
+
+var freeExports =  true && exports && !exports.nodeType && exports;
+/** Detect free variable `module`. */
+
+var freeModule = freeExports && typeof module == 'object' && module && !module.nodeType && module;
+/** Detect the popular CommonJS extension `module.exports`. */
+
+var moduleExports = freeModule && freeModule.exports === freeExports;
+/** Built-in value references. */
+
+var Buffer = moduleExports ? root.Buffer : undefined,
+    allocUnsafe = Buffer ? Buffer.allocUnsafe : undefined;
+/**
+ * Creates a clone of  `buffer`.
+ *
+ * @private
+ * @param {Buffer} buffer The buffer to clone.
+ * @param {boolean} [isDeep] Specify a deep clone.
+ * @returns {Buffer} Returns the cloned buffer.
+ */
+
+function cloneBuffer(buffer, isDeep) {
+  if (isDeep) {
+    return buffer.slice();
+  }
+
+  var length = buffer.length,
+      result = allocUnsafe ? allocUnsafe(length) : new buffer.constructor(length);
+  buffer.copy(result);
+  return result;
+}
+
+module.exports = cloneBuffer;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../webpack/buildin/module.js */ "./node_modules/webpack/buildin/module.js")(module)))
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_cloneDataView.js":
+/*!***********************************************!*\
+  !*** ./node_modules/lodash/_cloneDataView.js ***!
+  \***********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var cloneArrayBuffer = __webpack_require__(/*! ./_cloneArrayBuffer */ "./node_modules/lodash/_cloneArrayBuffer.js");
+/**
+ * Creates a clone of `dataView`.
+ *
+ * @private
+ * @param {Object} dataView The data view to clone.
+ * @param {boolean} [isDeep] Specify a deep clone.
+ * @returns {Object} Returns the cloned data view.
+ */
+
+
+function cloneDataView(dataView, isDeep) {
+  var buffer = isDeep ? cloneArrayBuffer(dataView.buffer) : dataView.buffer;
+  return new dataView.constructor(buffer, dataView.byteOffset, dataView.byteLength);
+}
+
+module.exports = cloneDataView;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_cloneRegExp.js":
+/*!*********************************************!*\
+  !*** ./node_modules/lodash/_cloneRegExp.js ***!
+  \*********************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/** Used to match `RegExp` flags from their coerced string values. */
+var reFlags = /\w*$/;
+/**
+ * Creates a clone of `regexp`.
+ *
+ * @private
+ * @param {Object} regexp The regexp to clone.
+ * @returns {Object} Returns the cloned regexp.
+ */
+
+function cloneRegExp(regexp) {
+  var result = new regexp.constructor(regexp.source, reFlags.exec(regexp));
+  result.lastIndex = regexp.lastIndex;
+  return result;
+}
+
+module.exports = cloneRegExp;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_cloneSymbol.js":
+/*!*********************************************!*\
+  !*** ./node_modules/lodash/_cloneSymbol.js ***!
+  \*********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var Symbol = __webpack_require__(/*! ./_Symbol */ "./node_modules/lodash/_Symbol.js");
+/** Used to convert symbols to primitives and strings. */
+
+
+var symbolProto = Symbol ? Symbol.prototype : undefined,
+    symbolValueOf = symbolProto ? symbolProto.valueOf : undefined;
+/**
+ * Creates a clone of the `symbol` object.
+ *
+ * @private
+ * @param {Object} symbol The symbol object to clone.
+ * @returns {Object} Returns the cloned symbol object.
+ */
+
+function cloneSymbol(symbol) {
+  return symbolValueOf ? Object(symbolValueOf.call(symbol)) : {};
+}
+
+module.exports = cloneSymbol;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_cloneTypedArray.js":
+/*!*************************************************!*\
+  !*** ./node_modules/lodash/_cloneTypedArray.js ***!
+  \*************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var cloneArrayBuffer = __webpack_require__(/*! ./_cloneArrayBuffer */ "./node_modules/lodash/_cloneArrayBuffer.js");
+/**
+ * Creates a clone of `typedArray`.
+ *
+ * @private
+ * @param {Object} typedArray The typed array to clone.
+ * @param {boolean} [isDeep] Specify a deep clone.
+ * @returns {Object} Returns the cloned typed array.
+ */
+
+
+function cloneTypedArray(typedArray, isDeep) {
+  var buffer = isDeep ? cloneArrayBuffer(typedArray.buffer) : typedArray.buffer;
+  return new typedArray.constructor(buffer, typedArray.byteOffset, typedArray.length);
+}
+
+module.exports = cloneTypedArray;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_copyArray.js":
+/*!*******************************************!*\
+  !*** ./node_modules/lodash/_copyArray.js ***!
+  \*******************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/**
+ * Copies the values of `source` to `array`.
+ *
+ * @private
+ * @param {Array} source The array to copy values from.
+ * @param {Array} [array=[]] The array to copy values to.
+ * @returns {Array} Returns `array`.
+ */
+function copyArray(source, array) {
+  var index = -1,
+      length = source.length;
+  array || (array = Array(length));
+
+  while (++index < length) {
+    array[index] = source[index];
+  }
+
+  return array;
+}
+
+module.exports = copyArray;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_copyObject.js":
+/*!********************************************!*\
+  !*** ./node_modules/lodash/_copyObject.js ***!
+  \********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var assignValue = __webpack_require__(/*! ./_assignValue */ "./node_modules/lodash/_assignValue.js"),
+    baseAssignValue = __webpack_require__(/*! ./_baseAssignValue */ "./node_modules/lodash/_baseAssignValue.js");
+/**
+ * Copies properties of `source` to `object`.
+ *
+ * @private
+ * @param {Object} source The object to copy properties from.
+ * @param {Array} props The property identifiers to copy.
+ * @param {Object} [object={}] The object to copy properties to.
+ * @param {Function} [customizer] The function to customize copied values.
+ * @returns {Object} Returns `object`.
+ */
+
+
+function copyObject(source, props, object, customizer) {
+  var isNew = !object;
+  object || (object = {});
+  var index = -1,
+      length = props.length;
+
+  while (++index < length) {
+    var key = props[index];
+    var newValue = customizer ? customizer(object[key], source[key], key, object, source) : undefined;
+
+    if (newValue === undefined) {
+      newValue = source[key];
+    }
+
+    if (isNew) {
+      baseAssignValue(object, key, newValue);
+    } else {
+      assignValue(object, key, newValue);
+    }
+  }
+
+  return object;
+}
+
+module.exports = copyObject;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_copySymbols.js":
+/*!*********************************************!*\
+  !*** ./node_modules/lodash/_copySymbols.js ***!
+  \*********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var copyObject = __webpack_require__(/*! ./_copyObject */ "./node_modules/lodash/_copyObject.js"),
+    getSymbols = __webpack_require__(/*! ./_getSymbols */ "./node_modules/lodash/_getSymbols.js");
+/**
+ * Copies own symbols of `source` to `object`.
+ *
+ * @private
+ * @param {Object} source The object to copy symbols from.
+ * @param {Object} [object={}] The object to copy symbols to.
+ * @returns {Object} Returns `object`.
+ */
+
+
+function copySymbols(source, object) {
+  return copyObject(source, getSymbols(source), object);
+}
+
+module.exports = copySymbols;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_copySymbolsIn.js":
+/*!***********************************************!*\
+  !*** ./node_modules/lodash/_copySymbolsIn.js ***!
+  \***********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var copyObject = __webpack_require__(/*! ./_copyObject */ "./node_modules/lodash/_copyObject.js"),
+    getSymbolsIn = __webpack_require__(/*! ./_getSymbolsIn */ "./node_modules/lodash/_getSymbolsIn.js");
+/**
+ * Copies own and inherited symbols of `source` to `object`.
+ *
+ * @private
+ * @param {Object} source The object to copy symbols from.
+ * @param {Object} [object={}] The object to copy symbols to.
+ * @returns {Object} Returns `object`.
+ */
+
+
+function copySymbolsIn(source, object) {
+  return copyObject(source, getSymbolsIn(source), object);
+}
+
+module.exports = copySymbolsIn;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_coreJsData.js":
+/*!********************************************!*\
+  !*** ./node_modules/lodash/_coreJsData.js ***!
+  \********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var root = __webpack_require__(/*! ./_root */ "./node_modules/lodash/_root.js");
+/** Used to detect overreaching core-js shims. */
+
+
+var coreJsData = root['__core-js_shared__'];
+module.exports = coreJsData;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_createBaseFor.js":
+/*!***********************************************!*\
+  !*** ./node_modules/lodash/_createBaseFor.js ***!
+  \***********************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/**
+ * Creates a base function for methods like `_.forIn` and `_.forOwn`.
+ *
+ * @private
+ * @param {boolean} [fromRight] Specify iterating from right to left.
+ * @returns {Function} Returns the new base function.
+ */
+function createBaseFor(fromRight) {
+  return function (object, iteratee, keysFunc) {
+    var index = -1,
+        iterable = Object(object),
+        props = keysFunc(object),
+        length = props.length;
+
+    while (length--) {
+      var key = props[fromRight ? length : ++index];
+
+      if (iteratee(iterable[key], key, iterable) === false) {
+        break;
+      }
+    }
+
+    return object;
+  };
+}
+
+module.exports = createBaseFor;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_defineProperty.js":
+/*!************************************************!*\
+  !*** ./node_modules/lodash/_defineProperty.js ***!
+  \************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var getNative = __webpack_require__(/*! ./_getNative */ "./node_modules/lodash/_getNative.js");
+
+var defineProperty = function () {
+  try {
+    var func = getNative(Object, 'defineProperty');
+    func({}, '', {});
+    return func;
+  } catch (e) {}
+}();
+
+module.exports = defineProperty;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_equalArrays.js":
+/*!*********************************************!*\
+  !*** ./node_modules/lodash/_equalArrays.js ***!
+  \*********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var SetCache = __webpack_require__(/*! ./_SetCache */ "./node_modules/lodash/_SetCache.js"),
+    arraySome = __webpack_require__(/*! ./_arraySome */ "./node_modules/lodash/_arraySome.js"),
+    cacheHas = __webpack_require__(/*! ./_cacheHas */ "./node_modules/lodash/_cacheHas.js");
+/** Used to compose bitmasks for value comparisons. */
+
+
+var COMPARE_PARTIAL_FLAG = 1,
+    COMPARE_UNORDERED_FLAG = 2;
+/**
+ * A specialized version of `baseIsEqualDeep` for arrays with support for
+ * partial deep comparisons.
+ *
+ * @private
+ * @param {Array} array The array to compare.
+ * @param {Array} other The other array to compare.
+ * @param {number} bitmask The bitmask flags. See `baseIsEqual` for more details.
+ * @param {Function} customizer The function to customize comparisons.
+ * @param {Function} equalFunc The function to determine equivalents of values.
+ * @param {Object} stack Tracks traversed `array` and `other` objects.
+ * @returns {boolean} Returns `true` if the arrays are equivalent, else `false`.
+ */
+
+function equalArrays(array, other, bitmask, customizer, equalFunc, stack) {
+  var isPartial = bitmask & COMPARE_PARTIAL_FLAG,
+      arrLength = array.length,
+      othLength = other.length;
+
+  if (arrLength != othLength && !(isPartial && othLength > arrLength)) {
+    return false;
+  } // Assume cyclic values are equal.
+
+
+  var stacked = stack.get(array);
+
+  if (stacked && stack.get(other)) {
+    return stacked == other;
+  }
+
+  var index = -1,
+      result = true,
+      seen = bitmask & COMPARE_UNORDERED_FLAG ? new SetCache() : undefined;
+  stack.set(array, other);
+  stack.set(other, array); // Ignore non-index properties.
+
+  while (++index < arrLength) {
+    var arrValue = array[index],
+        othValue = other[index];
+
+    if (customizer) {
+      var compared = isPartial ? customizer(othValue, arrValue, index, other, array, stack) : customizer(arrValue, othValue, index, array, other, stack);
+    }
+
+    if (compared !== undefined) {
+      if (compared) {
+        continue;
+      }
+
+      result = false;
+      break;
+    } // Recursively compare arrays (susceptible to call stack limits).
+
+
+    if (seen) {
+      if (!arraySome(other, function (othValue, othIndex) {
+        if (!cacheHas(seen, othIndex) && (arrValue === othValue || equalFunc(arrValue, othValue, bitmask, customizer, stack))) {
+          return seen.push(othIndex);
+        }
+      })) {
+        result = false;
+        break;
+      }
+    } else if (!(arrValue === othValue || equalFunc(arrValue, othValue, bitmask, customizer, stack))) {
+      result = false;
+      break;
+    }
+  }
+
+  stack['delete'](array);
+  stack['delete'](other);
+  return result;
+}
+
+module.exports = equalArrays;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_equalByTag.js":
+/*!********************************************!*\
+  !*** ./node_modules/lodash/_equalByTag.js ***!
+  \********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var Symbol = __webpack_require__(/*! ./_Symbol */ "./node_modules/lodash/_Symbol.js"),
+    Uint8Array = __webpack_require__(/*! ./_Uint8Array */ "./node_modules/lodash/_Uint8Array.js"),
+    eq = __webpack_require__(/*! ./eq */ "./node_modules/lodash/eq.js"),
+    equalArrays = __webpack_require__(/*! ./_equalArrays */ "./node_modules/lodash/_equalArrays.js"),
+    mapToArray = __webpack_require__(/*! ./_mapToArray */ "./node_modules/lodash/_mapToArray.js"),
+    setToArray = __webpack_require__(/*! ./_setToArray */ "./node_modules/lodash/_setToArray.js");
+/** Used to compose bitmasks for value comparisons. */
+
+
+var COMPARE_PARTIAL_FLAG = 1,
+    COMPARE_UNORDERED_FLAG = 2;
+/** `Object#toString` result references. */
+
+var boolTag = '[object Boolean]',
+    dateTag = '[object Date]',
+    errorTag = '[object Error]',
+    mapTag = '[object Map]',
+    numberTag = '[object Number]',
+    regexpTag = '[object RegExp]',
+    setTag = '[object Set]',
+    stringTag = '[object String]',
+    symbolTag = '[object Symbol]';
+var arrayBufferTag = '[object ArrayBuffer]',
+    dataViewTag = '[object DataView]';
+/** Used to convert symbols to primitives and strings. */
+
+var symbolProto = Symbol ? Symbol.prototype : undefined,
+    symbolValueOf = symbolProto ? symbolProto.valueOf : undefined;
+/**
+ * A specialized version of `baseIsEqualDeep` for comparing objects of
+ * the same `toStringTag`.
+ *
+ * **Note:** This function only supports comparing values with tags of
+ * `Boolean`, `Date`, `Error`, `Number`, `RegExp`, or `String`.
+ *
+ * @private
+ * @param {Object} object The object to compare.
+ * @param {Object} other The other object to compare.
+ * @param {string} tag The `toStringTag` of the objects to compare.
+ * @param {number} bitmask The bitmask flags. See `baseIsEqual` for more details.
+ * @param {Function} customizer The function to customize comparisons.
+ * @param {Function} equalFunc The function to determine equivalents of values.
+ * @param {Object} stack Tracks traversed `object` and `other` objects.
+ * @returns {boolean} Returns `true` if the objects are equivalent, else `false`.
+ */
+
+function equalByTag(object, other, tag, bitmask, customizer, equalFunc, stack) {
+  switch (tag) {
+    case dataViewTag:
+      if (object.byteLength != other.byteLength || object.byteOffset != other.byteOffset) {
+        return false;
+      }
+
+      object = object.buffer;
+      other = other.buffer;
+
+    case arrayBufferTag:
+      if (object.byteLength != other.byteLength || !equalFunc(new Uint8Array(object), new Uint8Array(other))) {
+        return false;
+      }
+
+      return true;
+
+    case boolTag:
+    case dateTag:
+    case numberTag:
+      // Coerce booleans to `1` or `0` and dates to milliseconds.
+      // Invalid dates are coerced to `NaN`.
+      return eq(+object, +other);
+
+    case errorTag:
+      return object.name == other.name && object.message == other.message;
+
+    case regexpTag:
+    case stringTag:
+      // Coerce regexes to strings and treat strings, primitives and objects,
+      // as equal. See http://www.ecma-international.org/ecma-262/7.0/#sec-regexp.prototype.tostring
+      // for more details.
+      return object == other + '';
+
+    case mapTag:
+      var convert = mapToArray;
+
+    case setTag:
+      var isPartial = bitmask & COMPARE_PARTIAL_FLAG;
+      convert || (convert = setToArray);
+
+      if (object.size != other.size && !isPartial) {
+        return false;
+      } // Assume cyclic values are equal.
+
+
+      var stacked = stack.get(object);
+
+      if (stacked) {
+        return stacked == other;
+      }
+
+      bitmask |= COMPARE_UNORDERED_FLAG; // Recursively compare objects (susceptible to call stack limits).
+
+      stack.set(object, other);
+      var result = equalArrays(convert(object), convert(other), bitmask, customizer, equalFunc, stack);
+      stack['delete'](object);
+      return result;
+
+    case symbolTag:
+      if (symbolValueOf) {
+        return symbolValueOf.call(object) == symbolValueOf.call(other);
+      }
+
+  }
+
+  return false;
+}
+
+module.exports = equalByTag;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_equalObjects.js":
+/*!**********************************************!*\
+  !*** ./node_modules/lodash/_equalObjects.js ***!
+  \**********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var getAllKeys = __webpack_require__(/*! ./_getAllKeys */ "./node_modules/lodash/_getAllKeys.js");
+/** Used to compose bitmasks for value comparisons. */
+
+
+var COMPARE_PARTIAL_FLAG = 1;
+/** Used for built-in method references. */
+
+var objectProto = Object.prototype;
+/** Used to check objects for own properties. */
+
+var hasOwnProperty = objectProto.hasOwnProperty;
+/**
+ * A specialized version of `baseIsEqualDeep` for objects with support for
+ * partial deep comparisons.
+ *
+ * @private
+ * @param {Object} object The object to compare.
+ * @param {Object} other The other object to compare.
+ * @param {number} bitmask The bitmask flags. See `baseIsEqual` for more details.
+ * @param {Function} customizer The function to customize comparisons.
+ * @param {Function} equalFunc The function to determine equivalents of values.
+ * @param {Object} stack Tracks traversed `object` and `other` objects.
+ * @returns {boolean} Returns `true` if the objects are equivalent, else `false`.
+ */
+
+function equalObjects(object, other, bitmask, customizer, equalFunc, stack) {
+  var isPartial = bitmask & COMPARE_PARTIAL_FLAG,
+      objProps = getAllKeys(object),
+      objLength = objProps.length,
+      othProps = getAllKeys(other),
+      othLength = othProps.length;
+
+  if (objLength != othLength && !isPartial) {
+    return false;
+  }
+
+  var index = objLength;
+
+  while (index--) {
+    var key = objProps[index];
+
+    if (!(isPartial ? key in other : hasOwnProperty.call(other, key))) {
+      return false;
+    }
+  } // Assume cyclic values are equal.
+
+
+  var stacked = stack.get(object);
+
+  if (stacked && stack.get(other)) {
+    return stacked == other;
+  }
+
+  var result = true;
+  stack.set(object, other);
+  stack.set(other, object);
+  var skipCtor = isPartial;
+
+  while (++index < objLength) {
+    key = objProps[index];
+    var objValue = object[key],
+        othValue = other[key];
+
+    if (customizer) {
+      var compared = isPartial ? customizer(othValue, objValue, key, other, object, stack) : customizer(objValue, othValue, key, object, other, stack);
+    } // Recursively compare objects (susceptible to call stack limits).
+
+
+    if (!(compared === undefined ? objValue === othValue || equalFunc(objValue, othValue, bitmask, customizer, stack) : compared)) {
+      result = false;
+      break;
+    }
+
+    skipCtor || (skipCtor = key == 'constructor');
+  }
+
+  if (result && !skipCtor) {
+    var objCtor = object.constructor,
+        othCtor = other.constructor; // Non `Object` object instances with different constructors are not equal.
+
+    if (objCtor != othCtor && 'constructor' in object && 'constructor' in other && !(typeof objCtor == 'function' && objCtor instanceof objCtor && typeof othCtor == 'function' && othCtor instanceof othCtor)) {
+      result = false;
+    }
+  }
+
+  stack['delete'](object);
+  stack['delete'](other);
+  return result;
+}
+
+module.exports = equalObjects;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_freeGlobal.js":
+/*!********************************************!*\
+  !*** ./node_modules/lodash/_freeGlobal.js ***!
+  \********************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/** Detect free variable `global` from Node.js. */
+var freeGlobal = typeof global == 'object' && global && global.Object === Object && global;
+module.exports = freeGlobal;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_getAllKeys.js":
+/*!********************************************!*\
+  !*** ./node_modules/lodash/_getAllKeys.js ***!
+  \********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var baseGetAllKeys = __webpack_require__(/*! ./_baseGetAllKeys */ "./node_modules/lodash/_baseGetAllKeys.js"),
+    getSymbols = __webpack_require__(/*! ./_getSymbols */ "./node_modules/lodash/_getSymbols.js"),
+    keys = __webpack_require__(/*! ./keys */ "./node_modules/lodash/keys.js");
+/**
+ * Creates an array of own enumerable property names and symbols of `object`.
+ *
+ * @private
+ * @param {Object} object The object to query.
+ * @returns {Array} Returns the array of property names and symbols.
+ */
+
+
+function getAllKeys(object) {
+  return baseGetAllKeys(object, keys, getSymbols);
+}
+
+module.exports = getAllKeys;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_getAllKeysIn.js":
+/*!**********************************************!*\
+  !*** ./node_modules/lodash/_getAllKeysIn.js ***!
+  \**********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var baseGetAllKeys = __webpack_require__(/*! ./_baseGetAllKeys */ "./node_modules/lodash/_baseGetAllKeys.js"),
+    getSymbolsIn = __webpack_require__(/*! ./_getSymbolsIn */ "./node_modules/lodash/_getSymbolsIn.js"),
+    keysIn = __webpack_require__(/*! ./keysIn */ "./node_modules/lodash/keysIn.js");
+/**
+ * Creates an array of own and inherited enumerable property names and
+ * symbols of `object`.
+ *
+ * @private
+ * @param {Object} object The object to query.
+ * @returns {Array} Returns the array of property names and symbols.
+ */
+
+
+function getAllKeysIn(object) {
+  return baseGetAllKeys(object, keysIn, getSymbolsIn);
+}
+
+module.exports = getAllKeysIn;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_getMapData.js":
+/*!********************************************!*\
+  !*** ./node_modules/lodash/_getMapData.js ***!
+  \********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var isKeyable = __webpack_require__(/*! ./_isKeyable */ "./node_modules/lodash/_isKeyable.js");
+/**
+ * Gets the data for `map`.
+ *
+ * @private
+ * @param {Object} map The map to query.
+ * @param {string} key The reference key.
+ * @returns {*} Returns the map data.
+ */
+
+
+function getMapData(map, key) {
+  var data = map.__data__;
+  return isKeyable(key) ? data[typeof key == 'string' ? 'string' : 'hash'] : data.map;
+}
+
+module.exports = getMapData;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_getMatchData.js":
+/*!**********************************************!*\
+  !*** ./node_modules/lodash/_getMatchData.js ***!
+  \**********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var isStrictComparable = __webpack_require__(/*! ./_isStrictComparable */ "./node_modules/lodash/_isStrictComparable.js"),
+    keys = __webpack_require__(/*! ./keys */ "./node_modules/lodash/keys.js");
+/**
+ * Gets the property names, values, and compare flags of `object`.
+ *
+ * @private
+ * @param {Object} object The object to query.
+ * @returns {Array} Returns the match data of `object`.
+ */
+
+
+function getMatchData(object) {
+  var result = keys(object),
+      length = result.length;
+
+  while (length--) {
+    var key = result[length],
+        value = object[key];
+    result[length] = [key, value, isStrictComparable(value)];
+  }
+
+  return result;
+}
+
+module.exports = getMatchData;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_getNative.js":
+/*!*******************************************!*\
+  !*** ./node_modules/lodash/_getNative.js ***!
+  \*******************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var baseIsNative = __webpack_require__(/*! ./_baseIsNative */ "./node_modules/lodash/_baseIsNative.js"),
+    getValue = __webpack_require__(/*! ./_getValue */ "./node_modules/lodash/_getValue.js");
+/**
+ * Gets the native function at `key` of `object`.
+ *
+ * @private
+ * @param {Object} object The object to query.
+ * @param {string} key The key of the method to get.
+ * @returns {*} Returns the function if it's native, else `undefined`.
+ */
+
+
+function getNative(object, key) {
+  var value = getValue(object, key);
+  return baseIsNative(value) ? value : undefined;
+}
+
+module.exports = getNative;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_getPrototype.js":
+/*!**********************************************!*\
+  !*** ./node_modules/lodash/_getPrototype.js ***!
+  \**********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var overArg = __webpack_require__(/*! ./_overArg */ "./node_modules/lodash/_overArg.js");
+/** Built-in value references. */
+
+
+var getPrototype = overArg(Object.getPrototypeOf, Object);
+module.exports = getPrototype;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_getRawTag.js":
+/*!*******************************************!*\
+  !*** ./node_modules/lodash/_getRawTag.js ***!
+  \*******************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var Symbol = __webpack_require__(/*! ./_Symbol */ "./node_modules/lodash/_Symbol.js");
+/** Used for built-in method references. */
+
+
+var objectProto = Object.prototype;
+/** Used to check objects for own properties. */
+
+var hasOwnProperty = objectProto.hasOwnProperty;
+/**
+ * Used to resolve the
+ * [`toStringTag`](http://ecma-international.org/ecma-262/7.0/#sec-object.prototype.tostring)
+ * of values.
+ */
+
+var nativeObjectToString = objectProto.toString;
+/** Built-in value references. */
+
+var symToStringTag = Symbol ? Symbol.toStringTag : undefined;
+/**
+ * A specialized version of `baseGetTag` which ignores `Symbol.toStringTag` values.
+ *
+ * @private
+ * @param {*} value The value to query.
+ * @returns {string} Returns the raw `toStringTag`.
+ */
+
+function getRawTag(value) {
+  var isOwn = hasOwnProperty.call(value, symToStringTag),
+      tag = value[symToStringTag];
+
+  try {
+    value[symToStringTag] = undefined;
+    var unmasked = true;
+  } catch (e) {}
+
+  var result = nativeObjectToString.call(value);
+
+  if (unmasked) {
+    if (isOwn) {
+      value[symToStringTag] = tag;
+    } else {
+      delete value[symToStringTag];
+    }
+  }
+
+  return result;
+}
+
+module.exports = getRawTag;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_getSymbols.js":
+/*!********************************************!*\
+  !*** ./node_modules/lodash/_getSymbols.js ***!
+  \********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var arrayFilter = __webpack_require__(/*! ./_arrayFilter */ "./node_modules/lodash/_arrayFilter.js"),
+    stubArray = __webpack_require__(/*! ./stubArray */ "./node_modules/lodash/stubArray.js");
+/** Used for built-in method references. */
+
+
+var objectProto = Object.prototype;
+/** Built-in value references. */
+
+var propertyIsEnumerable = objectProto.propertyIsEnumerable;
+/* Built-in method references for those with the same name as other `lodash` methods. */
+
+var nativeGetSymbols = Object.getOwnPropertySymbols;
+/**
+ * Creates an array of the own enumerable symbols of `object`.
+ *
+ * @private
+ * @param {Object} object The object to query.
+ * @returns {Array} Returns the array of symbols.
+ */
+
+var getSymbols = !nativeGetSymbols ? stubArray : function (object) {
+  if (object == null) {
+    return [];
+  }
+
+  object = Object(object);
+  return arrayFilter(nativeGetSymbols(object), function (symbol) {
+    return propertyIsEnumerable.call(object, symbol);
+  });
+};
+module.exports = getSymbols;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_getSymbolsIn.js":
+/*!**********************************************!*\
+  !*** ./node_modules/lodash/_getSymbolsIn.js ***!
+  \**********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var arrayPush = __webpack_require__(/*! ./_arrayPush */ "./node_modules/lodash/_arrayPush.js"),
+    getPrototype = __webpack_require__(/*! ./_getPrototype */ "./node_modules/lodash/_getPrototype.js"),
+    getSymbols = __webpack_require__(/*! ./_getSymbols */ "./node_modules/lodash/_getSymbols.js"),
+    stubArray = __webpack_require__(/*! ./stubArray */ "./node_modules/lodash/stubArray.js");
+/* Built-in method references for those with the same name as other `lodash` methods. */
+
+
+var nativeGetSymbols = Object.getOwnPropertySymbols;
+/**
+ * Creates an array of the own and inherited enumerable symbols of `object`.
+ *
+ * @private
+ * @param {Object} object The object to query.
+ * @returns {Array} Returns the array of symbols.
+ */
+
+var getSymbolsIn = !nativeGetSymbols ? stubArray : function (object) {
+  var result = [];
+
+  while (object) {
+    arrayPush(result, getSymbols(object));
+    object = getPrototype(object);
+  }
+
+  return result;
+};
+module.exports = getSymbolsIn;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_getTag.js":
+/*!****************************************!*\
+  !*** ./node_modules/lodash/_getTag.js ***!
+  \****************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var DataView = __webpack_require__(/*! ./_DataView */ "./node_modules/lodash/_DataView.js"),
+    Map = __webpack_require__(/*! ./_Map */ "./node_modules/lodash/_Map.js"),
+    Promise = __webpack_require__(/*! ./_Promise */ "./node_modules/lodash/_Promise.js"),
+    Set = __webpack_require__(/*! ./_Set */ "./node_modules/lodash/_Set.js"),
+    WeakMap = __webpack_require__(/*! ./_WeakMap */ "./node_modules/lodash/_WeakMap.js"),
+    baseGetTag = __webpack_require__(/*! ./_baseGetTag */ "./node_modules/lodash/_baseGetTag.js"),
+    toSource = __webpack_require__(/*! ./_toSource */ "./node_modules/lodash/_toSource.js");
+/** `Object#toString` result references. */
+
+
+var mapTag = '[object Map]',
+    objectTag = '[object Object]',
+    promiseTag = '[object Promise]',
+    setTag = '[object Set]',
+    weakMapTag = '[object WeakMap]';
+var dataViewTag = '[object DataView]';
+/** Used to detect maps, sets, and weakmaps. */
+
+var dataViewCtorString = toSource(DataView),
+    mapCtorString = toSource(Map),
+    promiseCtorString = toSource(Promise),
+    setCtorString = toSource(Set),
+    weakMapCtorString = toSource(WeakMap);
+/**
+ * Gets the `toStringTag` of `value`.
+ *
+ * @private
+ * @param {*} value The value to query.
+ * @returns {string} Returns the `toStringTag`.
+ */
+
+var getTag = baseGetTag; // Fallback for data views, maps, sets, and weak maps in IE 11 and promises in Node.js < 6.
+
+if (DataView && getTag(new DataView(new ArrayBuffer(1))) != dataViewTag || Map && getTag(new Map()) != mapTag || Promise && getTag(Promise.resolve()) != promiseTag || Set && getTag(new Set()) != setTag || WeakMap && getTag(new WeakMap()) != weakMapTag) {
+  getTag = function (value) {
+    var result = baseGetTag(value),
+        Ctor = result == objectTag ? value.constructor : undefined,
+        ctorString = Ctor ? toSource(Ctor) : '';
+
+    if (ctorString) {
+      switch (ctorString) {
+        case dataViewCtorString:
+          return dataViewTag;
+
+        case mapCtorString:
+          return mapTag;
+
+        case promiseCtorString:
+          return promiseTag;
+
+        case setCtorString:
+          return setTag;
+
+        case weakMapCtorString:
+          return weakMapTag;
+      }
+    }
+
+    return result;
+  };
+}
+
+module.exports = getTag;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_getValue.js":
+/*!******************************************!*\
+  !*** ./node_modules/lodash/_getValue.js ***!
+  \******************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/**
+ * Gets the value at `key` of `object`.
+ *
+ * @private
+ * @param {Object} [object] The object to query.
+ * @param {string} key The key of the property to get.
+ * @returns {*} Returns the property value.
+ */
+function getValue(object, key) {
+  return object == null ? undefined : object[key];
+}
+
+module.exports = getValue;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_hasPath.js":
+/*!*****************************************!*\
+  !*** ./node_modules/lodash/_hasPath.js ***!
+  \*****************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var castPath = __webpack_require__(/*! ./_castPath */ "./node_modules/lodash/_castPath.js"),
+    isArguments = __webpack_require__(/*! ./isArguments */ "./node_modules/lodash/isArguments.js"),
+    isArray = __webpack_require__(/*! ./isArray */ "./node_modules/lodash/isArray.js"),
+    isIndex = __webpack_require__(/*! ./_isIndex */ "./node_modules/lodash/_isIndex.js"),
+    isLength = __webpack_require__(/*! ./isLength */ "./node_modules/lodash/isLength.js"),
+    toKey = __webpack_require__(/*! ./_toKey */ "./node_modules/lodash/_toKey.js");
+/**
+ * Checks if `path` exists on `object`.
+ *
+ * @private
+ * @param {Object} object The object to query.
+ * @param {Array|string} path The path to check.
+ * @param {Function} hasFunc The function to check properties.
+ * @returns {boolean} Returns `true` if `path` exists, else `false`.
+ */
+
+
+function hasPath(object, path, hasFunc) {
+  path = castPath(path, object);
+  var index = -1,
+      length = path.length,
+      result = false;
+
+  while (++index < length) {
+    var key = toKey(path[index]);
+
+    if (!(result = object != null && hasFunc(object, key))) {
+      break;
+    }
+
+    object = object[key];
+  }
+
+  if (result || ++index != length) {
+    return result;
+  }
+
+  length = object == null ? 0 : object.length;
+  return !!length && isLength(length) && isIndex(key, length) && (isArray(object) || isArguments(object));
+}
+
+module.exports = hasPath;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_hasUnicode.js":
+/*!********************************************!*\
+  !*** ./node_modules/lodash/_hasUnicode.js ***!
+  \********************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/** Used to compose unicode character classes. */
+var rsAstralRange = '\\ud800-\\udfff',
+    rsComboMarksRange = '\\u0300-\\u036f',
+    reComboHalfMarksRange = '\\ufe20-\\ufe2f',
+    rsComboSymbolsRange = '\\u20d0-\\u20ff',
+    rsComboRange = rsComboMarksRange + reComboHalfMarksRange + rsComboSymbolsRange,
+    rsVarRange = '\\ufe0e\\ufe0f';
+/** Used to compose unicode capture groups. */
+
+var rsZWJ = '\\u200d';
+/** Used to detect strings with [zero-width joiners or code points from the astral planes](http://eev.ee/blog/2015/09/12/dark-corners-of-unicode/). */
+
+var reHasUnicode = RegExp('[' + rsZWJ + rsAstralRange + rsComboRange + rsVarRange + ']');
+/**
+ * Checks if `string` contains Unicode symbols.
+ *
+ * @private
+ * @param {string} string The string to inspect.
+ * @returns {boolean} Returns `true` if a symbol is found, else `false`.
+ */
+
+function hasUnicode(string) {
+  return reHasUnicode.test(string);
+}
+
+module.exports = hasUnicode;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_hashClear.js":
+/*!*******************************************!*\
+  !*** ./node_modules/lodash/_hashClear.js ***!
+  \*******************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var nativeCreate = __webpack_require__(/*! ./_nativeCreate */ "./node_modules/lodash/_nativeCreate.js");
+/**
+ * Removes all key-value entries from the hash.
+ *
+ * @private
+ * @name clear
+ * @memberOf Hash
+ */
+
+
+function hashClear() {
+  this.__data__ = nativeCreate ? nativeCreate(null) : {};
+  this.size = 0;
+}
+
+module.exports = hashClear;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_hashDelete.js":
+/*!********************************************!*\
+  !*** ./node_modules/lodash/_hashDelete.js ***!
+  \********************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/**
+ * Removes `key` and its value from the hash.
+ *
+ * @private
+ * @name delete
+ * @memberOf Hash
+ * @param {Object} hash The hash to modify.
+ * @param {string} key The key of the value to remove.
+ * @returns {boolean} Returns `true` if the entry was removed, else `false`.
+ */
+function hashDelete(key) {
+  var result = this.has(key) && delete this.__data__[key];
+  this.size -= result ? 1 : 0;
+  return result;
+}
+
+module.exports = hashDelete;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_hashGet.js":
+/*!*****************************************!*\
+  !*** ./node_modules/lodash/_hashGet.js ***!
+  \*****************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var nativeCreate = __webpack_require__(/*! ./_nativeCreate */ "./node_modules/lodash/_nativeCreate.js");
+/** Used to stand-in for `undefined` hash values. */
+
+
+var HASH_UNDEFINED = '__lodash_hash_undefined__';
+/** Used for built-in method references. */
+
+var objectProto = Object.prototype;
+/** Used to check objects for own properties. */
+
+var hasOwnProperty = objectProto.hasOwnProperty;
+/**
+ * Gets the hash value for `key`.
+ *
+ * @private
+ * @name get
+ * @memberOf Hash
+ * @param {string} key The key of the value to get.
+ * @returns {*} Returns the entry value.
+ */
+
+function hashGet(key) {
+  var data = this.__data__;
+
+  if (nativeCreate) {
+    var result = data[key];
+    return result === HASH_UNDEFINED ? undefined : result;
+  }
+
+  return hasOwnProperty.call(data, key) ? data[key] : undefined;
+}
+
+module.exports = hashGet;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_hashHas.js":
+/*!*****************************************!*\
+  !*** ./node_modules/lodash/_hashHas.js ***!
+  \*****************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var nativeCreate = __webpack_require__(/*! ./_nativeCreate */ "./node_modules/lodash/_nativeCreate.js");
+/** Used for built-in method references. */
+
+
+var objectProto = Object.prototype;
+/** Used to check objects for own properties. */
+
+var hasOwnProperty = objectProto.hasOwnProperty;
+/**
+ * Checks if a hash value for `key` exists.
+ *
+ * @private
+ * @name has
+ * @memberOf Hash
+ * @param {string} key The key of the entry to check.
+ * @returns {boolean} Returns `true` if an entry for `key` exists, else `false`.
+ */
+
+function hashHas(key) {
+  var data = this.__data__;
+  return nativeCreate ? data[key] !== undefined : hasOwnProperty.call(data, key);
+}
+
+module.exports = hashHas;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_hashSet.js":
+/*!*****************************************!*\
+  !*** ./node_modules/lodash/_hashSet.js ***!
+  \*****************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var nativeCreate = __webpack_require__(/*! ./_nativeCreate */ "./node_modules/lodash/_nativeCreate.js");
+/** Used to stand-in for `undefined` hash values. */
+
+
+var HASH_UNDEFINED = '__lodash_hash_undefined__';
+/**
+ * Sets the hash `key` to `value`.
+ *
+ * @private
+ * @name set
+ * @memberOf Hash
+ * @param {string} key The key of the value to set.
+ * @param {*} value The value to set.
+ * @returns {Object} Returns the hash instance.
+ */
+
+function hashSet(key, value) {
+  var data = this.__data__;
+  this.size += this.has(key) ? 0 : 1;
+  data[key] = nativeCreate && value === undefined ? HASH_UNDEFINED : value;
+  return this;
+}
+
+module.exports = hashSet;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_initCloneArray.js":
+/*!************************************************!*\
+  !*** ./node_modules/lodash/_initCloneArray.js ***!
+  \************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/** Used for built-in method references. */
+var objectProto = Object.prototype;
+/** Used to check objects for own properties. */
+
+var hasOwnProperty = objectProto.hasOwnProperty;
+/**
+ * Initializes an array clone.
+ *
+ * @private
+ * @param {Array} array The array to clone.
+ * @returns {Array} Returns the initialized clone.
+ */
+
+function initCloneArray(array) {
+  var length = array.length,
+      result = new array.constructor(length); // Add properties assigned by `RegExp#exec`.
+
+  if (length && typeof array[0] == 'string' && hasOwnProperty.call(array, 'index')) {
+    result.index = array.index;
+    result.input = array.input;
+  }
+
+  return result;
+}
+
+module.exports = initCloneArray;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_initCloneByTag.js":
+/*!************************************************!*\
+  !*** ./node_modules/lodash/_initCloneByTag.js ***!
+  \************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var cloneArrayBuffer = __webpack_require__(/*! ./_cloneArrayBuffer */ "./node_modules/lodash/_cloneArrayBuffer.js"),
+    cloneDataView = __webpack_require__(/*! ./_cloneDataView */ "./node_modules/lodash/_cloneDataView.js"),
+    cloneRegExp = __webpack_require__(/*! ./_cloneRegExp */ "./node_modules/lodash/_cloneRegExp.js"),
+    cloneSymbol = __webpack_require__(/*! ./_cloneSymbol */ "./node_modules/lodash/_cloneSymbol.js"),
+    cloneTypedArray = __webpack_require__(/*! ./_cloneTypedArray */ "./node_modules/lodash/_cloneTypedArray.js");
+/** `Object#toString` result references. */
+
+
+var boolTag = '[object Boolean]',
+    dateTag = '[object Date]',
+    mapTag = '[object Map]',
+    numberTag = '[object Number]',
+    regexpTag = '[object RegExp]',
+    setTag = '[object Set]',
+    stringTag = '[object String]',
+    symbolTag = '[object Symbol]';
+var arrayBufferTag = '[object ArrayBuffer]',
+    dataViewTag = '[object DataView]',
+    float32Tag = '[object Float32Array]',
+    float64Tag = '[object Float64Array]',
+    int8Tag = '[object Int8Array]',
+    int16Tag = '[object Int16Array]',
+    int32Tag = '[object Int32Array]',
+    uint8Tag = '[object Uint8Array]',
+    uint8ClampedTag = '[object Uint8ClampedArray]',
+    uint16Tag = '[object Uint16Array]',
+    uint32Tag = '[object Uint32Array]';
+/**
+ * Initializes an object clone based on its `toStringTag`.
+ *
+ * **Note:** This function only supports cloning values with tags of
+ * `Boolean`, `Date`, `Error`, `Map`, `Number`, `RegExp`, `Set`, or `String`.
+ *
+ * @private
+ * @param {Object} object The object to clone.
+ * @param {string} tag The `toStringTag` of the object to clone.
+ * @param {boolean} [isDeep] Specify a deep clone.
+ * @returns {Object} Returns the initialized clone.
+ */
+
+function initCloneByTag(object, tag, isDeep) {
+  var Ctor = object.constructor;
+
+  switch (tag) {
+    case arrayBufferTag:
+      return cloneArrayBuffer(object);
+
+    case boolTag:
+    case dateTag:
+      return new Ctor(+object);
+
+    case dataViewTag:
+      return cloneDataView(object, isDeep);
+
+    case float32Tag:
+    case float64Tag:
+    case int8Tag:
+    case int16Tag:
+    case int32Tag:
+    case uint8Tag:
+    case uint8ClampedTag:
+    case uint16Tag:
+    case uint32Tag:
+      return cloneTypedArray(object, isDeep);
+
+    case mapTag:
+      return new Ctor();
+
+    case numberTag:
+    case stringTag:
+      return new Ctor(object);
+
+    case regexpTag:
+      return cloneRegExp(object);
+
+    case setTag:
+      return new Ctor();
+
+    case symbolTag:
+      return cloneSymbol(object);
+  }
+}
+
+module.exports = initCloneByTag;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_initCloneObject.js":
+/*!*************************************************!*\
+  !*** ./node_modules/lodash/_initCloneObject.js ***!
+  \*************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var baseCreate = __webpack_require__(/*! ./_baseCreate */ "./node_modules/lodash/_baseCreate.js"),
+    getPrototype = __webpack_require__(/*! ./_getPrototype */ "./node_modules/lodash/_getPrototype.js"),
+    isPrototype = __webpack_require__(/*! ./_isPrototype */ "./node_modules/lodash/_isPrototype.js");
+/**
+ * Initializes an object clone.
+ *
+ * @private
+ * @param {Object} object The object to clone.
+ * @returns {Object} Returns the initialized clone.
+ */
+
+
+function initCloneObject(object) {
+  return typeof object.constructor == 'function' && !isPrototype(object) ? baseCreate(getPrototype(object)) : {};
+}
+
+module.exports = initCloneObject;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_isFlattenable.js":
+/*!***********************************************!*\
+  !*** ./node_modules/lodash/_isFlattenable.js ***!
+  \***********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var Symbol = __webpack_require__(/*! ./_Symbol */ "./node_modules/lodash/_Symbol.js"),
+    isArguments = __webpack_require__(/*! ./isArguments */ "./node_modules/lodash/isArguments.js"),
+    isArray = __webpack_require__(/*! ./isArray */ "./node_modules/lodash/isArray.js");
+/** Built-in value references. */
+
+
+var spreadableSymbol = Symbol ? Symbol.isConcatSpreadable : undefined;
+/**
+ * Checks if `value` is a flattenable `arguments` object or array.
+ *
+ * @private
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is flattenable, else `false`.
+ */
+
+function isFlattenable(value) {
+  return isArray(value) || isArguments(value) || !!(spreadableSymbol && value && value[spreadableSymbol]);
+}
+
+module.exports = isFlattenable;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_isIndex.js":
+/*!*****************************************!*\
+  !*** ./node_modules/lodash/_isIndex.js ***!
+  \*****************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/** Used as references for various `Number` constants. */
+var MAX_SAFE_INTEGER = 9007199254740991;
+/** Used to detect unsigned integer values. */
+
+var reIsUint = /^(?:0|[1-9]\d*)$/;
+/**
+ * Checks if `value` is a valid array-like index.
+ *
+ * @private
+ * @param {*} value The value to check.
+ * @param {number} [length=MAX_SAFE_INTEGER] The upper bounds of a valid index.
+ * @returns {boolean} Returns `true` if `value` is a valid index, else `false`.
+ */
+
+function isIndex(value, length) {
+  var type = typeof value;
+  length = length == null ? MAX_SAFE_INTEGER : length;
+  return !!length && (type == 'number' || type != 'symbol' && reIsUint.test(value)) && value > -1 && value % 1 == 0 && value < length;
+}
+
+module.exports = isIndex;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_isKey.js":
+/*!***************************************!*\
+  !*** ./node_modules/lodash/_isKey.js ***!
+  \***************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var isArray = __webpack_require__(/*! ./isArray */ "./node_modules/lodash/isArray.js"),
+    isSymbol = __webpack_require__(/*! ./isSymbol */ "./node_modules/lodash/isSymbol.js");
+/** Used to match property names within property paths. */
+
+
+var reIsDeepProp = /\.|\[(?:[^[\]]*|(["'])(?:(?!\1)[^\\]|\\.)*?\1)\]/,
+    reIsPlainProp = /^\w*$/;
+/**
+ * Checks if `value` is a property name and not a property path.
+ *
+ * @private
+ * @param {*} value The value to check.
+ * @param {Object} [object] The object to query keys on.
+ * @returns {boolean} Returns `true` if `value` is a property name, else `false`.
+ */
+
+function isKey(value, object) {
+  if (isArray(value)) {
+    return false;
+  }
+
+  var type = typeof value;
+
+  if (type == 'number' || type == 'symbol' || type == 'boolean' || value == null || isSymbol(value)) {
+    return true;
+  }
+
+  return reIsPlainProp.test(value) || !reIsDeepProp.test(value) || object != null && value in Object(object);
+}
+
+module.exports = isKey;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_isKeyable.js":
+/*!*******************************************!*\
+  !*** ./node_modules/lodash/_isKeyable.js ***!
+  \*******************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/**
+ * Checks if `value` is suitable for use as unique object key.
+ *
+ * @private
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is suitable, else `false`.
+ */
+function isKeyable(value) {
+  var type = typeof value;
+  return type == 'string' || type == 'number' || type == 'symbol' || type == 'boolean' ? value !== '__proto__' : value === null;
+}
+
+module.exports = isKeyable;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_isMasked.js":
+/*!******************************************!*\
+  !*** ./node_modules/lodash/_isMasked.js ***!
+  \******************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var coreJsData = __webpack_require__(/*! ./_coreJsData */ "./node_modules/lodash/_coreJsData.js");
+/** Used to detect methods masquerading as native. */
+
+
+var maskSrcKey = function () {
+  var uid = /[^.]+$/.exec(coreJsData && coreJsData.keys && coreJsData.keys.IE_PROTO || '');
+  return uid ? 'Symbol(src)_1.' + uid : '';
+}();
+/**
+ * Checks if `func` has its source masked.
+ *
+ * @private
+ * @param {Function} func The function to check.
+ * @returns {boolean} Returns `true` if `func` is masked, else `false`.
+ */
+
+
+function isMasked(func) {
+  return !!maskSrcKey && maskSrcKey in func;
+}
+
+module.exports = isMasked;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_isPrototype.js":
+/*!*********************************************!*\
+  !*** ./node_modules/lodash/_isPrototype.js ***!
+  \*********************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/** Used for built-in method references. */
+var objectProto = Object.prototype;
+/**
+ * Checks if `value` is likely a prototype object.
+ *
+ * @private
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is a prototype, else `false`.
+ */
+
+function isPrototype(value) {
+  var Ctor = value && value.constructor,
+      proto = typeof Ctor == 'function' && Ctor.prototype || objectProto;
+  return value === proto;
+}
+
+module.exports = isPrototype;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_isStrictComparable.js":
+/*!****************************************************!*\
+  !*** ./node_modules/lodash/_isStrictComparable.js ***!
+  \****************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var isObject = __webpack_require__(/*! ./isObject */ "./node_modules/lodash/isObject.js");
+/**
+ * Checks if `value` is suitable for strict equality comparisons, i.e. `===`.
+ *
+ * @private
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` if suitable for strict
+ *  equality comparisons, else `false`.
+ */
+
+
+function isStrictComparable(value) {
+  return value === value && !isObject(value);
+}
+
+module.exports = isStrictComparable;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_listCacheClear.js":
+/*!************************************************!*\
+  !*** ./node_modules/lodash/_listCacheClear.js ***!
+  \************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/**
+ * Removes all key-value entries from the list cache.
+ *
+ * @private
+ * @name clear
+ * @memberOf ListCache
+ */
+function listCacheClear() {
+  this.__data__ = [];
+  this.size = 0;
+}
+
+module.exports = listCacheClear;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_listCacheDelete.js":
+/*!*************************************************!*\
+  !*** ./node_modules/lodash/_listCacheDelete.js ***!
+  \*************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var assocIndexOf = __webpack_require__(/*! ./_assocIndexOf */ "./node_modules/lodash/_assocIndexOf.js");
+/** Used for built-in method references. */
+
+
+var arrayProto = Array.prototype;
+/** Built-in value references. */
+
+var splice = arrayProto.splice;
+/**
+ * Removes `key` and its value from the list cache.
+ *
+ * @private
+ * @name delete
+ * @memberOf ListCache
+ * @param {string} key The key of the value to remove.
+ * @returns {boolean} Returns `true` if the entry was removed, else `false`.
+ */
+
+function listCacheDelete(key) {
+  var data = this.__data__,
+      index = assocIndexOf(data, key);
+
+  if (index < 0) {
+    return false;
+  }
+
+  var lastIndex = data.length - 1;
+
+  if (index == lastIndex) {
+    data.pop();
+  } else {
+    splice.call(data, index, 1);
+  }
+
+  --this.size;
+  return true;
+}
+
+module.exports = listCacheDelete;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_listCacheGet.js":
+/*!**********************************************!*\
+  !*** ./node_modules/lodash/_listCacheGet.js ***!
+  \**********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var assocIndexOf = __webpack_require__(/*! ./_assocIndexOf */ "./node_modules/lodash/_assocIndexOf.js");
+/**
+ * Gets the list cache value for `key`.
+ *
+ * @private
+ * @name get
+ * @memberOf ListCache
+ * @param {string} key The key of the value to get.
+ * @returns {*} Returns the entry value.
+ */
+
+
+function listCacheGet(key) {
+  var data = this.__data__,
+      index = assocIndexOf(data, key);
+  return index < 0 ? undefined : data[index][1];
+}
+
+module.exports = listCacheGet;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_listCacheHas.js":
+/*!**********************************************!*\
+  !*** ./node_modules/lodash/_listCacheHas.js ***!
+  \**********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var assocIndexOf = __webpack_require__(/*! ./_assocIndexOf */ "./node_modules/lodash/_assocIndexOf.js");
+/**
+ * Checks if a list cache value for `key` exists.
+ *
+ * @private
+ * @name has
+ * @memberOf ListCache
+ * @param {string} key The key of the entry to check.
+ * @returns {boolean} Returns `true` if an entry for `key` exists, else `false`.
+ */
+
+
+function listCacheHas(key) {
+  return assocIndexOf(this.__data__, key) > -1;
+}
+
+module.exports = listCacheHas;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_listCacheSet.js":
+/*!**********************************************!*\
+  !*** ./node_modules/lodash/_listCacheSet.js ***!
+  \**********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var assocIndexOf = __webpack_require__(/*! ./_assocIndexOf */ "./node_modules/lodash/_assocIndexOf.js");
+/**
+ * Sets the list cache `key` to `value`.
+ *
+ * @private
+ * @name set
+ * @memberOf ListCache
+ * @param {string} key The key of the value to set.
+ * @param {*} value The value to set.
+ * @returns {Object} Returns the list cache instance.
+ */
+
+
+function listCacheSet(key, value) {
+  var data = this.__data__,
+      index = assocIndexOf(data, key);
+
+  if (index < 0) {
+    ++this.size;
+    data.push([key, value]);
+  } else {
+    data[index][1] = value;
+  }
+
+  return this;
+}
+
+module.exports = listCacheSet;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_mapCacheClear.js":
+/*!***********************************************!*\
+  !*** ./node_modules/lodash/_mapCacheClear.js ***!
+  \***********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var Hash = __webpack_require__(/*! ./_Hash */ "./node_modules/lodash/_Hash.js"),
+    ListCache = __webpack_require__(/*! ./_ListCache */ "./node_modules/lodash/_ListCache.js"),
+    Map = __webpack_require__(/*! ./_Map */ "./node_modules/lodash/_Map.js");
+/**
+ * Removes all key-value entries from the map.
+ *
+ * @private
+ * @name clear
+ * @memberOf MapCache
+ */
+
+
+function mapCacheClear() {
+  this.size = 0;
+  this.__data__ = {
+    'hash': new Hash(),
+    'map': new (Map || ListCache)(),
+    'string': new Hash()
+  };
+}
+
+module.exports = mapCacheClear;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_mapCacheDelete.js":
+/*!************************************************!*\
+  !*** ./node_modules/lodash/_mapCacheDelete.js ***!
+  \************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var getMapData = __webpack_require__(/*! ./_getMapData */ "./node_modules/lodash/_getMapData.js");
+/**
+ * Removes `key` and its value from the map.
+ *
+ * @private
+ * @name delete
+ * @memberOf MapCache
+ * @param {string} key The key of the value to remove.
+ * @returns {boolean} Returns `true` if the entry was removed, else `false`.
+ */
+
+
+function mapCacheDelete(key) {
+  var result = getMapData(this, key)['delete'](key);
+  this.size -= result ? 1 : 0;
+  return result;
+}
+
+module.exports = mapCacheDelete;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_mapCacheGet.js":
+/*!*********************************************!*\
+  !*** ./node_modules/lodash/_mapCacheGet.js ***!
+  \*********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var getMapData = __webpack_require__(/*! ./_getMapData */ "./node_modules/lodash/_getMapData.js");
+/**
+ * Gets the map value for `key`.
+ *
+ * @private
+ * @name get
+ * @memberOf MapCache
+ * @param {string} key The key of the value to get.
+ * @returns {*} Returns the entry value.
+ */
+
+
+function mapCacheGet(key) {
+  return getMapData(this, key).get(key);
+}
+
+module.exports = mapCacheGet;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_mapCacheHas.js":
+/*!*********************************************!*\
+  !*** ./node_modules/lodash/_mapCacheHas.js ***!
+  \*********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var getMapData = __webpack_require__(/*! ./_getMapData */ "./node_modules/lodash/_getMapData.js");
+/**
+ * Checks if a map value for `key` exists.
+ *
+ * @private
+ * @name has
+ * @memberOf MapCache
+ * @param {string} key The key of the entry to check.
+ * @returns {boolean} Returns `true` if an entry for `key` exists, else `false`.
+ */
+
+
+function mapCacheHas(key) {
+  return getMapData(this, key).has(key);
+}
+
+module.exports = mapCacheHas;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_mapCacheSet.js":
+/*!*********************************************!*\
+  !*** ./node_modules/lodash/_mapCacheSet.js ***!
+  \*********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var getMapData = __webpack_require__(/*! ./_getMapData */ "./node_modules/lodash/_getMapData.js");
+/**
+ * Sets the map `key` to `value`.
+ *
+ * @private
+ * @name set
+ * @memberOf MapCache
+ * @param {string} key The key of the value to set.
+ * @param {*} value The value to set.
+ * @returns {Object} Returns the map cache instance.
+ */
+
+
+function mapCacheSet(key, value) {
+  var data = getMapData(this, key),
+      size = data.size;
+  data.set(key, value);
+  this.size += data.size == size ? 0 : 1;
+  return this;
+}
+
+module.exports = mapCacheSet;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_mapToArray.js":
+/*!********************************************!*\
+  !*** ./node_modules/lodash/_mapToArray.js ***!
+  \********************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/**
+ * Converts `map` to its key-value pairs.
+ *
+ * @private
+ * @param {Object} map The map to convert.
+ * @returns {Array} Returns the key-value pairs.
+ */
+function mapToArray(map) {
+  var index = -1,
+      result = Array(map.size);
+  map.forEach(function (value, key) {
+    result[++index] = [key, value];
+  });
+  return result;
+}
+
+module.exports = mapToArray;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_matchesStrictComparable.js":
+/*!*********************************************************!*\
+  !*** ./node_modules/lodash/_matchesStrictComparable.js ***!
+  \*********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/**
+ * A specialized version of `matchesProperty` for source values suitable
+ * for strict equality comparisons, i.e. `===`.
+ *
+ * @private
+ * @param {string} key The key of the property to get.
+ * @param {*} srcValue The value to match.
+ * @returns {Function} Returns the new spec function.
+ */
+function matchesStrictComparable(key, srcValue) {
+  return function (object) {
+    if (object == null) {
+      return false;
+    }
+
+    return object[key] === srcValue && (srcValue !== undefined || key in Object(object));
+  };
+}
+
+module.exports = matchesStrictComparable;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_memoizeCapped.js":
+/*!***********************************************!*\
+  !*** ./node_modules/lodash/_memoizeCapped.js ***!
+  \***********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var memoize = __webpack_require__(/*! ./memoize */ "./node_modules/lodash/memoize.js");
+/** Used as the maximum memoize cache size. */
+
+
+var MAX_MEMOIZE_SIZE = 500;
+/**
+ * A specialized version of `_.memoize` which clears the memoized function's
+ * cache when it exceeds `MAX_MEMOIZE_SIZE`.
+ *
+ * @private
+ * @param {Function} func The function to have its output memoized.
+ * @returns {Function} Returns the new memoized function.
+ */
+
+function memoizeCapped(func) {
+  var result = memoize(func, function (key) {
+    if (cache.size === MAX_MEMOIZE_SIZE) {
+      cache.clear();
+    }
+
+    return key;
+  });
+  var cache = result.cache;
+  return result;
+}
+
+module.exports = memoizeCapped;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_nativeCreate.js":
+/*!**********************************************!*\
+  !*** ./node_modules/lodash/_nativeCreate.js ***!
+  \**********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var getNative = __webpack_require__(/*! ./_getNative */ "./node_modules/lodash/_getNative.js");
+/* Built-in method references that are verified to be native. */
+
+
+var nativeCreate = getNative(Object, 'create');
+module.exports = nativeCreate;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_nativeKeys.js":
+/*!********************************************!*\
+  !*** ./node_modules/lodash/_nativeKeys.js ***!
+  \********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var overArg = __webpack_require__(/*! ./_overArg */ "./node_modules/lodash/_overArg.js");
+/* Built-in method references for those with the same name as other `lodash` methods. */
+
+
+var nativeKeys = overArg(Object.keys, Object);
+module.exports = nativeKeys;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_nativeKeysIn.js":
+/*!**********************************************!*\
+  !*** ./node_modules/lodash/_nativeKeysIn.js ***!
+  \**********************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/**
+ * This function is like
+ * [`Object.keys`](http://ecma-international.org/ecma-262/7.0/#sec-object.keys)
+ * except that it includes inherited enumerable properties.
+ *
+ * @private
+ * @param {Object} object The object to query.
+ * @returns {Array} Returns the array of property names.
+ */
+function nativeKeysIn(object) {
+  var result = [];
+
+  if (object != null) {
+    for (var key in Object(object)) {
+      result.push(key);
+    }
+  }
+
+  return result;
+}
+
+module.exports = nativeKeysIn;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_nodeUtil.js":
+/*!******************************************!*\
+  !*** ./node_modules/lodash/_nodeUtil.js ***!
+  \******************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function(module) {var freeGlobal = __webpack_require__(/*! ./_freeGlobal */ "./node_modules/lodash/_freeGlobal.js");
+/** Detect free variable `exports`. */
+
+
+var freeExports =  true && exports && !exports.nodeType && exports;
+/** Detect free variable `module`. */
+
+var freeModule = freeExports && typeof module == 'object' && module && !module.nodeType && module;
+/** Detect the popular CommonJS extension `module.exports`. */
+
+var moduleExports = freeModule && freeModule.exports === freeExports;
+/** Detect free variable `process` from Node.js. */
+
+var freeProcess = moduleExports && freeGlobal.process;
+/** Used to access faster Node.js helpers. */
+
+var nodeUtil = function () {
+  try {
+    // Use `util.types` for Node.js 10+.
+    var types = freeModule && freeModule.require && freeModule.require('util').types;
+
+    if (types) {
+      return types;
+    } // Legacy `process.binding('util')` for Node.js < 10.
+
+
+    return freeProcess && freeProcess.binding && freeProcess.binding('util');
+  } catch (e) {}
+}();
+
+module.exports = nodeUtil;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../webpack/buildin/module.js */ "./node_modules/webpack/buildin/module.js")(module)))
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_objectToString.js":
+/*!************************************************!*\
+  !*** ./node_modules/lodash/_objectToString.js ***!
+  \************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/** Used for built-in method references. */
+var objectProto = Object.prototype;
+/**
+ * Used to resolve the
+ * [`toStringTag`](http://ecma-international.org/ecma-262/7.0/#sec-object.prototype.tostring)
+ * of values.
+ */
+
+var nativeObjectToString = objectProto.toString;
+/**
+ * Converts `value` to a string using `Object.prototype.toString`.
+ *
+ * @private
+ * @param {*} value The value to convert.
+ * @returns {string} Returns the converted string.
+ */
+
+function objectToString(value) {
+  return nativeObjectToString.call(value);
+}
+
+module.exports = objectToString;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_overArg.js":
+/*!*****************************************!*\
+  !*** ./node_modules/lodash/_overArg.js ***!
+  \*****************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/**
+ * Creates a unary function that invokes `func` with its argument transformed.
+ *
+ * @private
+ * @param {Function} func The function to wrap.
+ * @param {Function} transform The argument transform.
+ * @returns {Function} Returns the new function.
+ */
+function overArg(func, transform) {
+  return function (arg) {
+    return func(transform(arg));
+  };
+}
+
+module.exports = overArg;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_root.js":
+/*!**************************************!*\
+  !*** ./node_modules/lodash/_root.js ***!
+  \**************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var freeGlobal = __webpack_require__(/*! ./_freeGlobal */ "./node_modules/lodash/_freeGlobal.js");
+/** Detect free variable `self`. */
+
+
+var freeSelf = typeof self == 'object' && self && self.Object === Object && self;
+/** Used as a reference to the global object. */
+
+var root = freeGlobal || freeSelf || Function('return this')();
+module.exports = root;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_setCacheAdd.js":
+/*!*********************************************!*\
+  !*** ./node_modules/lodash/_setCacheAdd.js ***!
+  \*********************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/** Used to stand-in for `undefined` hash values. */
+var HASH_UNDEFINED = '__lodash_hash_undefined__';
+/**
+ * Adds `value` to the array cache.
+ *
+ * @private
+ * @name add
+ * @memberOf SetCache
+ * @alias push
+ * @param {*} value The value to cache.
+ * @returns {Object} Returns the cache instance.
+ */
+
+function setCacheAdd(value) {
+  this.__data__.set(value, HASH_UNDEFINED);
+
+  return this;
+}
+
+module.exports = setCacheAdd;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_setCacheHas.js":
+/*!*********************************************!*\
+  !*** ./node_modules/lodash/_setCacheHas.js ***!
+  \*********************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/**
+ * Checks if `value` is in the array cache.
+ *
+ * @private
+ * @name has
+ * @memberOf SetCache
+ * @param {*} value The value to search for.
+ * @returns {number} Returns `true` if `value` is found, else `false`.
+ */
+function setCacheHas(value) {
+  return this.__data__.has(value);
+}
+
+module.exports = setCacheHas;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_setToArray.js":
+/*!********************************************!*\
+  !*** ./node_modules/lodash/_setToArray.js ***!
+  \********************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/**
+ * Converts `set` to an array of its values.
+ *
+ * @private
+ * @param {Object} set The set to convert.
+ * @returns {Array} Returns the values.
+ */
+function setToArray(set) {
+  var index = -1,
+      result = Array(set.size);
+  set.forEach(function (value) {
+    result[++index] = value;
+  });
+  return result;
+}
+
+module.exports = setToArray;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_stackClear.js":
+/*!********************************************!*\
+  !*** ./node_modules/lodash/_stackClear.js ***!
+  \********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var ListCache = __webpack_require__(/*! ./_ListCache */ "./node_modules/lodash/_ListCache.js");
+/**
+ * Removes all key-value entries from the stack.
+ *
+ * @private
+ * @name clear
+ * @memberOf Stack
+ */
+
+
+function stackClear() {
+  this.__data__ = new ListCache();
+  this.size = 0;
+}
+
+module.exports = stackClear;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_stackDelete.js":
+/*!*********************************************!*\
+  !*** ./node_modules/lodash/_stackDelete.js ***!
+  \*********************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/**
+ * Removes `key` and its value from the stack.
+ *
+ * @private
+ * @name delete
+ * @memberOf Stack
+ * @param {string} key The key of the value to remove.
+ * @returns {boolean} Returns `true` if the entry was removed, else `false`.
+ */
+function stackDelete(key) {
+  var data = this.__data__,
+      result = data['delete'](key);
+  this.size = data.size;
+  return result;
+}
+
+module.exports = stackDelete;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_stackGet.js":
+/*!******************************************!*\
+  !*** ./node_modules/lodash/_stackGet.js ***!
+  \******************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/**
+ * Gets the stack value for `key`.
+ *
+ * @private
+ * @name get
+ * @memberOf Stack
+ * @param {string} key The key of the value to get.
+ * @returns {*} Returns the entry value.
+ */
+function stackGet(key) {
+  return this.__data__.get(key);
+}
+
+module.exports = stackGet;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_stackHas.js":
+/*!******************************************!*\
+  !*** ./node_modules/lodash/_stackHas.js ***!
+  \******************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/**
+ * Checks if a stack value for `key` exists.
+ *
+ * @private
+ * @name has
+ * @memberOf Stack
+ * @param {string} key The key of the entry to check.
+ * @returns {boolean} Returns `true` if an entry for `key` exists, else `false`.
+ */
+function stackHas(key) {
+  return this.__data__.has(key);
+}
+
+module.exports = stackHas;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_stackSet.js":
+/*!******************************************!*\
+  !*** ./node_modules/lodash/_stackSet.js ***!
+  \******************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var ListCache = __webpack_require__(/*! ./_ListCache */ "./node_modules/lodash/_ListCache.js"),
+    Map = __webpack_require__(/*! ./_Map */ "./node_modules/lodash/_Map.js"),
+    MapCache = __webpack_require__(/*! ./_MapCache */ "./node_modules/lodash/_MapCache.js");
+/** Used as the size to enable large array optimizations. */
+
+
+var LARGE_ARRAY_SIZE = 200;
+/**
+ * Sets the stack `key` to `value`.
+ *
+ * @private
+ * @name set
+ * @memberOf Stack
+ * @param {string} key The key of the value to set.
+ * @param {*} value The value to set.
+ * @returns {Object} Returns the stack cache instance.
+ */
+
+function stackSet(key, value) {
+  var data = this.__data__;
+
+  if (data instanceof ListCache) {
+    var pairs = data.__data__;
+
+    if (!Map || pairs.length < LARGE_ARRAY_SIZE - 1) {
+      pairs.push([key, value]);
+      this.size = ++data.size;
+      return this;
+    }
+
+    data = this.__data__ = new MapCache(pairs);
+  }
+
+  data.set(key, value);
+  this.size = data.size;
+  return this;
+}
+
+module.exports = stackSet;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_strictIndexOf.js":
+/*!***********************************************!*\
+  !*** ./node_modules/lodash/_strictIndexOf.js ***!
+  \***********************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/**
+ * A specialized version of `_.indexOf` which performs strict equality
+ * comparisons of values, i.e. `===`.
+ *
+ * @private
+ * @param {Array} array The array to inspect.
+ * @param {*} value The value to search for.
+ * @param {number} fromIndex The index to search from.
+ * @returns {number} Returns the index of the matched value, else `-1`.
+ */
+function strictIndexOf(array, value, fromIndex) {
+  var index = fromIndex - 1,
+      length = array.length;
+
+  while (++index < length) {
+    if (array[index] === value) {
+      return index;
+    }
+  }
+
+  return -1;
+}
+
+module.exports = strictIndexOf;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_stringSize.js":
+/*!********************************************!*\
+  !*** ./node_modules/lodash/_stringSize.js ***!
+  \********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var asciiSize = __webpack_require__(/*! ./_asciiSize */ "./node_modules/lodash/_asciiSize.js"),
+    hasUnicode = __webpack_require__(/*! ./_hasUnicode */ "./node_modules/lodash/_hasUnicode.js"),
+    unicodeSize = __webpack_require__(/*! ./_unicodeSize */ "./node_modules/lodash/_unicodeSize.js");
+/**
+ * Gets the number of symbols in `string`.
+ *
+ * @private
+ * @param {string} string The string to inspect.
+ * @returns {number} Returns the string size.
+ */
+
+
+function stringSize(string) {
+  return hasUnicode(string) ? unicodeSize(string) : asciiSize(string);
+}
+
+module.exports = stringSize;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_stringToArray.js":
+/*!***********************************************!*\
+  !*** ./node_modules/lodash/_stringToArray.js ***!
+  \***********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var asciiToArray = __webpack_require__(/*! ./_asciiToArray */ "./node_modules/lodash/_asciiToArray.js"),
+    hasUnicode = __webpack_require__(/*! ./_hasUnicode */ "./node_modules/lodash/_hasUnicode.js"),
+    unicodeToArray = __webpack_require__(/*! ./_unicodeToArray */ "./node_modules/lodash/_unicodeToArray.js");
+/**
+ * Converts `string` to an array.
+ *
+ * @private
+ * @param {string} string The string to convert.
+ * @returns {Array} Returns the converted array.
+ */
+
+
+function stringToArray(string) {
+  return hasUnicode(string) ? unicodeToArray(string) : asciiToArray(string);
+}
+
+module.exports = stringToArray;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_stringToPath.js":
+/*!**********************************************!*\
+  !*** ./node_modules/lodash/_stringToPath.js ***!
+  \**********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var memoizeCapped = __webpack_require__(/*! ./_memoizeCapped */ "./node_modules/lodash/_memoizeCapped.js");
+/** Used to match property names within property paths. */
+
+
+var rePropName = /[^.[\]]+|\[(?:(-?\d+(?:\.\d+)?)|(["'])((?:(?!\2)[^\\]|\\.)*?)\2)\]|(?=(?:\.|\[\])(?:\.|\[\]|$))/g;
+/** Used to match backslashes in property paths. */
+
+var reEscapeChar = /\\(\\)?/g;
+/**
+ * Converts `string` to a property path array.
+ *
+ * @private
+ * @param {string} string The string to convert.
+ * @returns {Array} Returns the property path array.
+ */
+
+var stringToPath = memoizeCapped(function (string) {
+  var result = [];
+
+  if (string.charCodeAt(0) === 46
+  /* . */
+  ) {
+      result.push('');
+    }
+
+  string.replace(rePropName, function (match, number, quote, subString) {
+    result.push(quote ? subString.replace(reEscapeChar, '$1') : number || match);
+  });
+  return result;
+});
+module.exports = stringToPath;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_toKey.js":
+/*!***************************************!*\
+  !*** ./node_modules/lodash/_toKey.js ***!
+  \***************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var isSymbol = __webpack_require__(/*! ./isSymbol */ "./node_modules/lodash/isSymbol.js");
+/** Used as references for various `Number` constants. */
+
+
+var INFINITY = 1 / 0;
+/**
+ * Converts `value` to a string key if it's not a string or symbol.
+ *
+ * @private
+ * @param {*} value The value to inspect.
+ * @returns {string|symbol} Returns the key.
+ */
+
+function toKey(value) {
+  if (typeof value == 'string' || isSymbol(value)) {
+    return value;
+  }
+
+  var result = value + '';
+  return result == '0' && 1 / value == -INFINITY ? '-0' : result;
+}
+
+module.exports = toKey;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_toSource.js":
+/*!******************************************!*\
+  !*** ./node_modules/lodash/_toSource.js ***!
+  \******************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/** Used for built-in method references. */
+var funcProto = Function.prototype;
+/** Used to resolve the decompiled source of functions. */
+
+var funcToString = funcProto.toString;
+/**
+ * Converts `func` to its source code.
+ *
+ * @private
+ * @param {Function} func The function to convert.
+ * @returns {string} Returns the source code.
+ */
+
+function toSource(func) {
+  if (func != null) {
+    try {
+      return funcToString.call(func);
+    } catch (e) {}
+
+    try {
+      return func + '';
+    } catch (e) {}
+  }
+
+  return '';
+}
+
+module.exports = toSource;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_unicodeSize.js":
+/*!*********************************************!*\
+  !*** ./node_modules/lodash/_unicodeSize.js ***!
+  \*********************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/** Used to compose unicode character classes. */
+var rsAstralRange = '\\ud800-\\udfff',
+    rsComboMarksRange = '\\u0300-\\u036f',
+    reComboHalfMarksRange = '\\ufe20-\\ufe2f',
+    rsComboSymbolsRange = '\\u20d0-\\u20ff',
+    rsComboRange = rsComboMarksRange + reComboHalfMarksRange + rsComboSymbolsRange,
+    rsVarRange = '\\ufe0e\\ufe0f';
+/** Used to compose unicode capture groups. */
+
+var rsAstral = '[' + rsAstralRange + ']',
+    rsCombo = '[' + rsComboRange + ']',
+    rsFitz = '\\ud83c[\\udffb-\\udfff]',
+    rsModifier = '(?:' + rsCombo + '|' + rsFitz + ')',
+    rsNonAstral = '[^' + rsAstralRange + ']',
+    rsRegional = '(?:\\ud83c[\\udde6-\\uddff]){2}',
+    rsSurrPair = '[\\ud800-\\udbff][\\udc00-\\udfff]',
+    rsZWJ = '\\u200d';
+/** Used to compose unicode regexes. */
+
+var reOptMod = rsModifier + '?',
+    rsOptVar = '[' + rsVarRange + ']?',
+    rsOptJoin = '(?:' + rsZWJ + '(?:' + [rsNonAstral, rsRegional, rsSurrPair].join('|') + ')' + rsOptVar + reOptMod + ')*',
+    rsSeq = rsOptVar + reOptMod + rsOptJoin,
+    rsSymbol = '(?:' + [rsNonAstral + rsCombo + '?', rsCombo, rsRegional, rsSurrPair, rsAstral].join('|') + ')';
+/** Used to match [string symbols](https://mathiasbynens.be/notes/javascript-unicode). */
+
+var reUnicode = RegExp(rsFitz + '(?=' + rsFitz + ')|' + rsSymbol + rsSeq, 'g');
+/**
+ * Gets the size of a Unicode `string`.
+ *
+ * @private
+ * @param {string} string The string inspect.
+ * @returns {number} Returns the string size.
+ */
+
+function unicodeSize(string) {
+  var result = reUnicode.lastIndex = 0;
+
+  while (reUnicode.test(string)) {
+    ++result;
+  }
+
+  return result;
+}
+
+module.exports = unicodeSize;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_unicodeToArray.js":
+/*!************************************************!*\
+  !*** ./node_modules/lodash/_unicodeToArray.js ***!
+  \************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/** Used to compose unicode character classes. */
+var rsAstralRange = '\\ud800-\\udfff',
+    rsComboMarksRange = '\\u0300-\\u036f',
+    reComboHalfMarksRange = '\\ufe20-\\ufe2f',
+    rsComboSymbolsRange = '\\u20d0-\\u20ff',
+    rsComboRange = rsComboMarksRange + reComboHalfMarksRange + rsComboSymbolsRange,
+    rsVarRange = '\\ufe0e\\ufe0f';
+/** Used to compose unicode capture groups. */
+
+var rsAstral = '[' + rsAstralRange + ']',
+    rsCombo = '[' + rsComboRange + ']',
+    rsFitz = '\\ud83c[\\udffb-\\udfff]',
+    rsModifier = '(?:' + rsCombo + '|' + rsFitz + ')',
+    rsNonAstral = '[^' + rsAstralRange + ']',
+    rsRegional = '(?:\\ud83c[\\udde6-\\uddff]){2}',
+    rsSurrPair = '[\\ud800-\\udbff][\\udc00-\\udfff]',
+    rsZWJ = '\\u200d';
+/** Used to compose unicode regexes. */
+
+var reOptMod = rsModifier + '?',
+    rsOptVar = '[' + rsVarRange + ']?',
+    rsOptJoin = '(?:' + rsZWJ + '(?:' + [rsNonAstral, rsRegional, rsSurrPair].join('|') + ')' + rsOptVar + reOptMod + ')*',
+    rsSeq = rsOptVar + reOptMod + rsOptJoin,
+    rsSymbol = '(?:' + [rsNonAstral + rsCombo + '?', rsCombo, rsRegional, rsSurrPair, rsAstral].join('|') + ')';
+/** Used to match [string symbols](https://mathiasbynens.be/notes/javascript-unicode). */
+
+var reUnicode = RegExp(rsFitz + '(?=' + rsFitz + ')|' + rsSymbol + rsSeq, 'g');
+/**
+ * Converts a Unicode `string` to an array.
+ *
+ * @private
+ * @param {string} string The string to convert.
+ * @returns {Array} Returns the converted array.
+ */
+
+function unicodeToArray(string) {
+  return string.match(reUnicode) || [];
+}
+
+module.exports = unicodeToArray;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/cloneDeep.js":
+/*!******************************************!*\
+  !*** ./node_modules/lodash/cloneDeep.js ***!
+  \******************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var baseClone = __webpack_require__(/*! ./_baseClone */ "./node_modules/lodash/_baseClone.js");
+/** Used to compose bitmasks for cloning. */
+
+
+var CLONE_DEEP_FLAG = 1,
+    CLONE_SYMBOLS_FLAG = 4;
+/**
+ * This method is like `_.clone` except that it recursively clones `value`.
+ *
+ * @static
+ * @memberOf _
+ * @since 1.0.0
+ * @category Lang
+ * @param {*} value The value to recursively clone.
+ * @returns {*} Returns the deep cloned value.
+ * @see _.clone
+ * @example
+ *
+ * var objects = [{ 'a': 1 }, { 'b': 2 }];
+ *
+ * var deep = _.cloneDeep(objects);
+ * console.log(deep[0] === objects[0]);
+ * // => false
+ */
+
+function cloneDeep(value) {
+  return baseClone(value, CLONE_DEEP_FLAG | CLONE_SYMBOLS_FLAG);
+}
+
+module.exports = cloneDeep;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/eq.js":
+/*!***********************************!*\
+  !*** ./node_modules/lodash/eq.js ***!
+  \***********************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/**
+ * Performs a
+ * [`SameValueZero`](http://ecma-international.org/ecma-262/7.0/#sec-samevaluezero)
+ * comparison between two values to determine if they are equivalent.
+ *
+ * @static
+ * @memberOf _
+ * @since 4.0.0
+ * @category Lang
+ * @param {*} value The value to compare.
+ * @param {*} other The other value to compare.
+ * @returns {boolean} Returns `true` if the values are equivalent, else `false`.
+ * @example
+ *
+ * var object = { 'a': 1 };
+ * var other = { 'a': 1 };
+ *
+ * _.eq(object, object);
+ * // => true
+ *
+ * _.eq(object, other);
+ * // => false
+ *
+ * _.eq('a', 'a');
+ * // => true
+ *
+ * _.eq('a', Object('a'));
+ * // => false
+ *
+ * _.eq(NaN, NaN);
+ * // => true
+ */
+function eq(value, other) {
+  return value === other || value !== value && other !== other;
+}
+
+module.exports = eq;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/flatten.js":
+/*!****************************************!*\
+  !*** ./node_modules/lodash/flatten.js ***!
+  \****************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var baseFlatten = __webpack_require__(/*! ./_baseFlatten */ "./node_modules/lodash/_baseFlatten.js");
+/**
+ * Flattens `array` a single level deep.
+ *
+ * @static
+ * @memberOf _
+ * @since 0.1.0
+ * @category Array
+ * @param {Array} array The array to flatten.
+ * @returns {Array} Returns the new flattened array.
+ * @example
+ *
+ * _.flatten([1, [2, [3, [4]], 5]]);
+ * // => [1, 2, [3, [4]], 5]
+ */
+
+
+function flatten(array) {
+  var length = array == null ? 0 : array.length;
+  return length ? baseFlatten(array, 1) : [];
+}
+
+module.exports = flatten;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/get.js":
+/*!************************************!*\
+  !*** ./node_modules/lodash/get.js ***!
+  \************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var baseGet = __webpack_require__(/*! ./_baseGet */ "./node_modules/lodash/_baseGet.js");
+/**
+ * Gets the value at `path` of `object`. If the resolved value is
+ * `undefined`, the `defaultValue` is returned in its place.
+ *
+ * @static
+ * @memberOf _
+ * @since 3.7.0
+ * @category Object
+ * @param {Object} object The object to query.
+ * @param {Array|string} path The path of the property to get.
+ * @param {*} [defaultValue] The value returned for `undefined` resolved values.
+ * @returns {*} Returns the resolved value.
+ * @example
+ *
+ * var object = { 'a': [{ 'b': { 'c': 3 } }] };
+ *
+ * _.get(object, 'a[0].b.c');
+ * // => 3
+ *
+ * _.get(object, ['a', '0', 'b', 'c']);
+ * // => 3
+ *
+ * _.get(object, 'a.b.c', 'default');
+ * // => 'default'
+ */
+
+
+function get(object, path, defaultValue) {
+  var result = object == null ? undefined : baseGet(object, path);
+  return result === undefined ? defaultValue : result;
+}
+
+module.exports = get;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/hasIn.js":
+/*!**************************************!*\
+  !*** ./node_modules/lodash/hasIn.js ***!
+  \**************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var baseHasIn = __webpack_require__(/*! ./_baseHasIn */ "./node_modules/lodash/_baseHasIn.js"),
+    hasPath = __webpack_require__(/*! ./_hasPath */ "./node_modules/lodash/_hasPath.js");
+/**
+ * Checks if `path` is a direct or inherited property of `object`.
+ *
+ * @static
+ * @memberOf _
+ * @since 4.0.0
+ * @category Object
+ * @param {Object} object The object to query.
+ * @param {Array|string} path The path to check.
+ * @returns {boolean} Returns `true` if `path` exists, else `false`.
+ * @example
+ *
+ * var object = _.create({ 'a': _.create({ 'b': 2 }) });
+ *
+ * _.hasIn(object, 'a');
+ * // => true
+ *
+ * _.hasIn(object, 'a.b');
+ * // => true
+ *
+ * _.hasIn(object, ['a', 'b']);
+ * // => true
+ *
+ * _.hasIn(object, 'b');
+ * // => false
+ */
+
+
+function hasIn(object, path) {
+  return object != null && hasPath(object, path, baseHasIn);
+}
+
+module.exports = hasIn;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/identity.js":
+/*!*****************************************!*\
+  !*** ./node_modules/lodash/identity.js ***!
+  \*****************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/**
+ * This method returns the first argument it receives.
+ *
+ * @static
+ * @since 0.1.0
+ * @memberOf _
+ * @category Util
+ * @param {*} value Any value.
+ * @returns {*} Returns `value`.
+ * @example
+ *
+ * var object = { 'a': 1 };
+ *
+ * console.log(_.identity(object) === object);
+ * // => true
+ */
+function identity(value) {
+  return value;
+}
+
+module.exports = identity;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/isArguments.js":
+/*!********************************************!*\
+  !*** ./node_modules/lodash/isArguments.js ***!
+  \********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var baseIsArguments = __webpack_require__(/*! ./_baseIsArguments */ "./node_modules/lodash/_baseIsArguments.js"),
+    isObjectLike = __webpack_require__(/*! ./isObjectLike */ "./node_modules/lodash/isObjectLike.js");
+/** Used for built-in method references. */
+
+
+var objectProto = Object.prototype;
+/** Used to check objects for own properties. */
+
+var hasOwnProperty = objectProto.hasOwnProperty;
+/** Built-in value references. */
+
+var propertyIsEnumerable = objectProto.propertyIsEnumerable;
+/**
+ * Checks if `value` is likely an `arguments` object.
+ *
+ * @static
+ * @memberOf _
+ * @since 0.1.0
+ * @category Lang
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is an `arguments` object,
+ *  else `false`.
+ * @example
+ *
+ * _.isArguments(function() { return arguments; }());
+ * // => true
+ *
+ * _.isArguments([1, 2, 3]);
+ * // => false
+ */
+
+var isArguments = baseIsArguments(function () {
+  return arguments;
+}()) ? baseIsArguments : function (value) {
+  return isObjectLike(value) && hasOwnProperty.call(value, 'callee') && !propertyIsEnumerable.call(value, 'callee');
+};
+module.exports = isArguments;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/isArray.js":
+/*!****************************************!*\
+  !*** ./node_modules/lodash/isArray.js ***!
+  \****************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/**
+ * Checks if `value` is classified as an `Array` object.
+ *
+ * @static
+ * @memberOf _
+ * @since 0.1.0
+ * @category Lang
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is an array, else `false`.
+ * @example
+ *
+ * _.isArray([1, 2, 3]);
+ * // => true
+ *
+ * _.isArray(document.body.children);
+ * // => false
+ *
+ * _.isArray('abc');
+ * // => false
+ *
+ * _.isArray(_.noop);
+ * // => false
+ */
+var isArray = Array.isArray;
+module.exports = isArray;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/isArrayLike.js":
+/*!********************************************!*\
+  !*** ./node_modules/lodash/isArrayLike.js ***!
+  \********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var isFunction = __webpack_require__(/*! ./isFunction */ "./node_modules/lodash/isFunction.js"),
+    isLength = __webpack_require__(/*! ./isLength */ "./node_modules/lodash/isLength.js");
+/**
+ * Checks if `value` is array-like. A value is considered array-like if it's
+ * not a function and has a `value.length` that's an integer greater than or
+ * equal to `0` and less than or equal to `Number.MAX_SAFE_INTEGER`.
+ *
+ * @static
+ * @memberOf _
+ * @since 4.0.0
+ * @category Lang
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is array-like, else `false`.
+ * @example
+ *
+ * _.isArrayLike([1, 2, 3]);
+ * // => true
+ *
+ * _.isArrayLike(document.body.children);
+ * // => true
+ *
+ * _.isArrayLike('abc');
+ * // => true
+ *
+ * _.isArrayLike(_.noop);
+ * // => false
+ */
+
+
+function isArrayLike(value) {
+  return value != null && isLength(value.length) && !isFunction(value);
+}
+
+module.exports = isArrayLike;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/isBoolean.js":
+/*!******************************************!*\
+  !*** ./node_modules/lodash/isBoolean.js ***!
+  \******************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var baseGetTag = __webpack_require__(/*! ./_baseGetTag */ "./node_modules/lodash/_baseGetTag.js"),
+    isObjectLike = __webpack_require__(/*! ./isObjectLike */ "./node_modules/lodash/isObjectLike.js");
+/** `Object#toString` result references. */
+
+
+var boolTag = '[object Boolean]';
+/**
+ * Checks if `value` is classified as a boolean primitive or object.
+ *
+ * @static
+ * @memberOf _
+ * @since 0.1.0
+ * @category Lang
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is a boolean, else `false`.
+ * @example
+ *
+ * _.isBoolean(false);
+ * // => true
+ *
+ * _.isBoolean(null);
+ * // => false
+ */
+
+function isBoolean(value) {
+  return value === true || value === false || isObjectLike(value) && baseGetTag(value) == boolTag;
+}
+
+module.exports = isBoolean;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/isBuffer.js":
+/*!*****************************************!*\
+  !*** ./node_modules/lodash/isBuffer.js ***!
+  \*****************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function(module) {var root = __webpack_require__(/*! ./_root */ "./node_modules/lodash/_root.js"),
+    stubFalse = __webpack_require__(/*! ./stubFalse */ "./node_modules/lodash/stubFalse.js");
+/** Detect free variable `exports`. */
+
+
+var freeExports =  true && exports && !exports.nodeType && exports;
+/** Detect free variable `module`. */
+
+var freeModule = freeExports && typeof module == 'object' && module && !module.nodeType && module;
+/** Detect the popular CommonJS extension `module.exports`. */
+
+var moduleExports = freeModule && freeModule.exports === freeExports;
+/** Built-in value references. */
+
+var Buffer = moduleExports ? root.Buffer : undefined;
+/* Built-in method references for those with the same name as other `lodash` methods. */
+
+var nativeIsBuffer = Buffer ? Buffer.isBuffer : undefined;
+/**
+ * Checks if `value` is a buffer.
+ *
+ * @static
+ * @memberOf _
+ * @since 4.3.0
+ * @category Lang
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is a buffer, else `false`.
+ * @example
+ *
+ * _.isBuffer(new Buffer(2));
+ * // => true
+ *
+ * _.isBuffer(new Uint8Array(2));
+ * // => false
+ */
+
+var isBuffer = nativeIsBuffer || stubFalse;
+module.exports = isBuffer;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../webpack/buildin/module.js */ "./node_modules/webpack/buildin/module.js")(module)))
+
+/***/ }),
+
+/***/ "./node_modules/lodash/isFunction.js":
+/*!*******************************************!*\
+  !*** ./node_modules/lodash/isFunction.js ***!
+  \*******************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var baseGetTag = __webpack_require__(/*! ./_baseGetTag */ "./node_modules/lodash/_baseGetTag.js"),
+    isObject = __webpack_require__(/*! ./isObject */ "./node_modules/lodash/isObject.js");
+/** `Object#toString` result references. */
+
+
+var asyncTag = '[object AsyncFunction]',
+    funcTag = '[object Function]',
+    genTag = '[object GeneratorFunction]',
+    proxyTag = '[object Proxy]';
+/**
+ * Checks if `value` is classified as a `Function` object.
+ *
+ * @static
+ * @memberOf _
+ * @since 0.1.0
+ * @category Lang
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is a function, else `false`.
+ * @example
+ *
+ * _.isFunction(_);
+ * // => true
+ *
+ * _.isFunction(/abc/);
+ * // => false
+ */
+
+function isFunction(value) {
+  if (!isObject(value)) {
+    return false;
+  } // The use of `Object#toString` avoids issues with the `typeof` operator
+  // in Safari 9 which returns 'object' for typed arrays and other constructors.
+
+
+  var tag = baseGetTag(value);
+  return tag == funcTag || tag == genTag || tag == asyncTag || tag == proxyTag;
+}
+
+module.exports = isFunction;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/isLength.js":
+/*!*****************************************!*\
+  !*** ./node_modules/lodash/isLength.js ***!
+  \*****************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/** Used as references for various `Number` constants. */
+var MAX_SAFE_INTEGER = 9007199254740991;
+/**
+ * Checks if `value` is a valid array-like length.
+ *
+ * **Note:** This method is loosely based on
+ * [`ToLength`](http://ecma-international.org/ecma-262/7.0/#sec-tolength).
+ *
+ * @static
+ * @memberOf _
+ * @since 4.0.0
+ * @category Lang
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is a valid length, else `false`.
+ * @example
+ *
+ * _.isLength(3);
+ * // => true
+ *
+ * _.isLength(Number.MIN_VALUE);
+ * // => false
+ *
+ * _.isLength(Infinity);
+ * // => false
+ *
+ * _.isLength('3');
+ * // => false
+ */
+
+function isLength(value) {
+  return typeof value == 'number' && value > -1 && value % 1 == 0 && value <= MAX_SAFE_INTEGER;
+}
+
+module.exports = isLength;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/isMap.js":
+/*!**************************************!*\
+  !*** ./node_modules/lodash/isMap.js ***!
+  \**************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var baseIsMap = __webpack_require__(/*! ./_baseIsMap */ "./node_modules/lodash/_baseIsMap.js"),
+    baseUnary = __webpack_require__(/*! ./_baseUnary */ "./node_modules/lodash/_baseUnary.js"),
+    nodeUtil = __webpack_require__(/*! ./_nodeUtil */ "./node_modules/lodash/_nodeUtil.js");
+/* Node.js helper references. */
+
+
+var nodeIsMap = nodeUtil && nodeUtil.isMap;
+/**
+ * Checks if `value` is classified as a `Map` object.
+ *
+ * @static
+ * @memberOf _
+ * @since 4.3.0
+ * @category Lang
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is a map, else `false`.
+ * @example
+ *
+ * _.isMap(new Map);
+ * // => true
+ *
+ * _.isMap(new WeakMap);
+ * // => false
+ */
+
+var isMap = nodeIsMap ? baseUnary(nodeIsMap) : baseIsMap;
+module.exports = isMap;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/isNumber.js":
+/*!*****************************************!*\
+  !*** ./node_modules/lodash/isNumber.js ***!
+  \*****************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var baseGetTag = __webpack_require__(/*! ./_baseGetTag */ "./node_modules/lodash/_baseGetTag.js"),
+    isObjectLike = __webpack_require__(/*! ./isObjectLike */ "./node_modules/lodash/isObjectLike.js");
+/** `Object#toString` result references. */
+
+
+var numberTag = '[object Number]';
+/**
+ * Checks if `value` is classified as a `Number` primitive or object.
+ *
+ * **Note:** To exclude `Infinity`, `-Infinity`, and `NaN`, which are
+ * classified as numbers, use the `_.isFinite` method.
+ *
+ * @static
+ * @memberOf _
+ * @since 0.1.0
+ * @category Lang
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is a number, else `false`.
+ * @example
+ *
+ * _.isNumber(3);
+ * // => true
+ *
+ * _.isNumber(Number.MIN_VALUE);
+ * // => true
+ *
+ * _.isNumber(Infinity);
+ * // => true
+ *
+ * _.isNumber('3');
+ * // => false
+ */
+
+function isNumber(value) {
+  return typeof value == 'number' || isObjectLike(value) && baseGetTag(value) == numberTag;
+}
+
+module.exports = isNumber;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/isObject.js":
+/*!*****************************************!*\
+  !*** ./node_modules/lodash/isObject.js ***!
+  \*****************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/**
+ * Checks if `value` is the
+ * [language type](http://www.ecma-international.org/ecma-262/7.0/#sec-ecmascript-language-types)
+ * of `Object`. (e.g. arrays, functions, objects, regexes, `new Number(0)`, and `new String('')`)
+ *
+ * @static
+ * @memberOf _
+ * @since 0.1.0
+ * @category Lang
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is an object, else `false`.
+ * @example
+ *
+ * _.isObject({});
+ * // => true
+ *
+ * _.isObject([1, 2, 3]);
+ * // => true
+ *
+ * _.isObject(_.noop);
+ * // => true
+ *
+ * _.isObject(null);
+ * // => false
+ */
+function isObject(value) {
+  var type = typeof value;
+  return value != null && (type == 'object' || type == 'function');
+}
+
+module.exports = isObject;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/isObjectLike.js":
+/*!*********************************************!*\
+  !*** ./node_modules/lodash/isObjectLike.js ***!
+  \*********************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/**
+ * Checks if `value` is object-like. A value is object-like if it's not `null`
+ * and has a `typeof` result of "object".
+ *
+ * @static
+ * @memberOf _
+ * @since 4.0.0
+ * @category Lang
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is object-like, else `false`.
+ * @example
+ *
+ * _.isObjectLike({});
+ * // => true
+ *
+ * _.isObjectLike([1, 2, 3]);
+ * // => true
+ *
+ * _.isObjectLike(_.noop);
+ * // => false
+ *
+ * _.isObjectLike(null);
+ * // => false
+ */
+function isObjectLike(value) {
+  return value != null && typeof value == 'object';
+}
+
+module.exports = isObjectLike;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/isRegExp.js":
+/*!*****************************************!*\
+  !*** ./node_modules/lodash/isRegExp.js ***!
+  \*****************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var baseIsRegExp = __webpack_require__(/*! ./_baseIsRegExp */ "./node_modules/lodash/_baseIsRegExp.js"),
+    baseUnary = __webpack_require__(/*! ./_baseUnary */ "./node_modules/lodash/_baseUnary.js"),
+    nodeUtil = __webpack_require__(/*! ./_nodeUtil */ "./node_modules/lodash/_nodeUtil.js");
+/* Node.js helper references. */
+
+
+var nodeIsRegExp = nodeUtil && nodeUtil.isRegExp;
+/**
+ * Checks if `value` is classified as a `RegExp` object.
+ *
+ * @static
+ * @memberOf _
+ * @since 0.1.0
+ * @category Lang
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is a regexp, else `false`.
+ * @example
+ *
+ * _.isRegExp(/abc/);
+ * // => true
+ *
+ * _.isRegExp('/abc/');
+ * // => false
+ */
+
+var isRegExp = nodeIsRegExp ? baseUnary(nodeIsRegExp) : baseIsRegExp;
+module.exports = isRegExp;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/isSet.js":
+/*!**************************************!*\
+  !*** ./node_modules/lodash/isSet.js ***!
+  \**************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var baseIsSet = __webpack_require__(/*! ./_baseIsSet */ "./node_modules/lodash/_baseIsSet.js"),
+    baseUnary = __webpack_require__(/*! ./_baseUnary */ "./node_modules/lodash/_baseUnary.js"),
+    nodeUtil = __webpack_require__(/*! ./_nodeUtil */ "./node_modules/lodash/_nodeUtil.js");
+/* Node.js helper references. */
+
+
+var nodeIsSet = nodeUtil && nodeUtil.isSet;
+/**
+ * Checks if `value` is classified as a `Set` object.
+ *
+ * @static
+ * @memberOf _
+ * @since 4.3.0
+ * @category Lang
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is a set, else `false`.
+ * @example
+ *
+ * _.isSet(new Set);
+ * // => true
+ *
+ * _.isSet(new WeakSet);
+ * // => false
+ */
+
+var isSet = nodeIsSet ? baseUnary(nodeIsSet) : baseIsSet;
+module.exports = isSet;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/isString.js":
+/*!*****************************************!*\
+  !*** ./node_modules/lodash/isString.js ***!
+  \*****************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var baseGetTag = __webpack_require__(/*! ./_baseGetTag */ "./node_modules/lodash/_baseGetTag.js"),
+    isArray = __webpack_require__(/*! ./isArray */ "./node_modules/lodash/isArray.js"),
+    isObjectLike = __webpack_require__(/*! ./isObjectLike */ "./node_modules/lodash/isObjectLike.js");
+/** `Object#toString` result references. */
+
+
+var stringTag = '[object String]';
+/**
+ * Checks if `value` is classified as a `String` primitive or object.
+ *
+ * @static
+ * @since 0.1.0
+ * @memberOf _
+ * @category Lang
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is a string, else `false`.
+ * @example
+ *
+ * _.isString('abc');
+ * // => true
+ *
+ * _.isString(1);
+ * // => false
+ */
+
+function isString(value) {
+  return typeof value == 'string' || !isArray(value) && isObjectLike(value) && baseGetTag(value) == stringTag;
+}
+
+module.exports = isString;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/isSymbol.js":
+/*!*****************************************!*\
+  !*** ./node_modules/lodash/isSymbol.js ***!
+  \*****************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var baseGetTag = __webpack_require__(/*! ./_baseGetTag */ "./node_modules/lodash/_baseGetTag.js"),
+    isObjectLike = __webpack_require__(/*! ./isObjectLike */ "./node_modules/lodash/isObjectLike.js");
+/** `Object#toString` result references. */
+
+
+var symbolTag = '[object Symbol]';
+/**
+ * Checks if `value` is classified as a `Symbol` primitive or object.
+ *
+ * @static
+ * @memberOf _
+ * @since 4.0.0
+ * @category Lang
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is a symbol, else `false`.
+ * @example
+ *
+ * _.isSymbol(Symbol.iterator);
+ * // => true
+ *
+ * _.isSymbol('abc');
+ * // => false
+ */
+
+function isSymbol(value) {
+  return typeof value == 'symbol' || isObjectLike(value) && baseGetTag(value) == symbolTag;
+}
+
+module.exports = isSymbol;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/isTypedArray.js":
+/*!*********************************************!*\
+  !*** ./node_modules/lodash/isTypedArray.js ***!
+  \*********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var baseIsTypedArray = __webpack_require__(/*! ./_baseIsTypedArray */ "./node_modules/lodash/_baseIsTypedArray.js"),
+    baseUnary = __webpack_require__(/*! ./_baseUnary */ "./node_modules/lodash/_baseUnary.js"),
+    nodeUtil = __webpack_require__(/*! ./_nodeUtil */ "./node_modules/lodash/_nodeUtil.js");
+/* Node.js helper references. */
+
+
+var nodeIsTypedArray = nodeUtil && nodeUtil.isTypedArray;
+/**
+ * Checks if `value` is classified as a typed array.
+ *
+ * @static
+ * @memberOf _
+ * @since 3.0.0
+ * @category Lang
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is a typed array, else `false`.
+ * @example
+ *
+ * _.isTypedArray(new Uint8Array);
+ * // => true
+ *
+ * _.isTypedArray([]);
+ * // => false
+ */
+
+var isTypedArray = nodeIsTypedArray ? baseUnary(nodeIsTypedArray) : baseIsTypedArray;
+module.exports = isTypedArray;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/isUndefined.js":
+/*!********************************************!*\
+  !*** ./node_modules/lodash/isUndefined.js ***!
+  \********************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/**
+ * Checks if `value` is `undefined`.
+ *
+ * @static
+ * @since 0.1.0
+ * @memberOf _
+ * @category Lang
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is `undefined`, else `false`.
+ * @example
+ *
+ * _.isUndefined(void 0);
+ * // => true
+ *
+ * _.isUndefined(null);
+ * // => false
+ */
+function isUndefined(value) {
+  return value === undefined;
+}
+
+module.exports = isUndefined;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/keys.js":
+/*!*************************************!*\
+  !*** ./node_modules/lodash/keys.js ***!
+  \*************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var arrayLikeKeys = __webpack_require__(/*! ./_arrayLikeKeys */ "./node_modules/lodash/_arrayLikeKeys.js"),
+    baseKeys = __webpack_require__(/*! ./_baseKeys */ "./node_modules/lodash/_baseKeys.js"),
+    isArrayLike = __webpack_require__(/*! ./isArrayLike */ "./node_modules/lodash/isArrayLike.js");
+/**
+ * Creates an array of the own enumerable property names of `object`.
+ *
+ * **Note:** Non-object values are coerced to objects. See the
+ * [ES spec](http://ecma-international.org/ecma-262/7.0/#sec-object.keys)
+ * for more details.
+ *
+ * @static
+ * @since 0.1.0
+ * @memberOf _
+ * @category Object
+ * @param {Object} object The object to query.
+ * @returns {Array} Returns the array of property names.
+ * @example
+ *
+ * function Foo() {
+ *   this.a = 1;
+ *   this.b = 2;
+ * }
+ *
+ * Foo.prototype.c = 3;
+ *
+ * _.keys(new Foo);
+ * // => ['a', 'b'] (iteration order is not guaranteed)
+ *
+ * _.keys('hi');
+ * // => ['0', '1']
+ */
+
+
+function keys(object) {
+  return isArrayLike(object) ? arrayLikeKeys(object) : baseKeys(object);
+}
+
+module.exports = keys;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/keysIn.js":
+/*!***************************************!*\
+  !*** ./node_modules/lodash/keysIn.js ***!
+  \***************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var arrayLikeKeys = __webpack_require__(/*! ./_arrayLikeKeys */ "./node_modules/lodash/_arrayLikeKeys.js"),
+    baseKeysIn = __webpack_require__(/*! ./_baseKeysIn */ "./node_modules/lodash/_baseKeysIn.js"),
+    isArrayLike = __webpack_require__(/*! ./isArrayLike */ "./node_modules/lodash/isArrayLike.js");
+/**
+ * Creates an array of the own and inherited enumerable property names of `object`.
+ *
+ * **Note:** Non-object values are coerced to objects.
+ *
+ * @static
+ * @memberOf _
+ * @since 3.0.0
+ * @category Object
+ * @param {Object} object The object to query.
+ * @returns {Array} Returns the array of property names.
+ * @example
+ *
+ * function Foo() {
+ *   this.a = 1;
+ *   this.b = 2;
+ * }
+ *
+ * Foo.prototype.c = 3;
+ *
+ * _.keysIn(new Foo);
+ * // => ['a', 'b', 'c'] (iteration order is not guaranteed)
+ */
+
+
+function keysIn(object) {
+  return isArrayLike(object) ? arrayLikeKeys(object, true) : baseKeysIn(object);
+}
+
+module.exports = keysIn;
 
 /***/ }),
 
@@ -27122,6 +33169,804 @@ root._=_;// Define as an anonymous module so, through path mapping, it can be
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));}// Check for `exports` after `define` in case a build optimizer adds it.
 else {}}).call(this);
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../webpack/buildin/module.js */ "./node_modules/webpack/buildin/module.js")(module)))
+
+/***/ }),
+
+/***/ "./node_modules/lodash/mapValues.js":
+/*!******************************************!*\
+  !*** ./node_modules/lodash/mapValues.js ***!
+  \******************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var baseAssignValue = __webpack_require__(/*! ./_baseAssignValue */ "./node_modules/lodash/_baseAssignValue.js"),
+    baseForOwn = __webpack_require__(/*! ./_baseForOwn */ "./node_modules/lodash/_baseForOwn.js"),
+    baseIteratee = __webpack_require__(/*! ./_baseIteratee */ "./node_modules/lodash/_baseIteratee.js");
+/**
+ * Creates an object with the same keys as `object` and values generated
+ * by running each own enumerable string keyed property of `object` thru
+ * `iteratee`. The iteratee is invoked with three arguments:
+ * (value, key, object).
+ *
+ * @static
+ * @memberOf _
+ * @since 2.4.0
+ * @category Object
+ * @param {Object} object The object to iterate over.
+ * @param {Function} [iteratee=_.identity] The function invoked per iteration.
+ * @returns {Object} Returns the new mapped object.
+ * @see _.mapKeys
+ * @example
+ *
+ * var users = {
+ *   'fred':    { 'user': 'fred',    'age': 40 },
+ *   'pebbles': { 'user': 'pebbles', 'age': 1 }
+ * };
+ *
+ * _.mapValues(users, function(o) { return o.age; });
+ * // => { 'fred': 40, 'pebbles': 1 } (iteration order is not guaranteed)
+ *
+ * // The `_.property` iteratee shorthand.
+ * _.mapValues(users, 'age');
+ * // => { 'fred': 40, 'pebbles': 1 } (iteration order is not guaranteed)
+ */
+
+
+function mapValues(object, iteratee) {
+  var result = {};
+  iteratee = baseIteratee(iteratee, 3);
+  baseForOwn(object, function (value, key, object) {
+    baseAssignValue(result, key, iteratee(value, key, object));
+  });
+  return result;
+}
+
+module.exports = mapValues;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/max.js":
+/*!************************************!*\
+  !*** ./node_modules/lodash/max.js ***!
+  \************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var baseExtremum = __webpack_require__(/*! ./_baseExtremum */ "./node_modules/lodash/_baseExtremum.js"),
+    baseGt = __webpack_require__(/*! ./_baseGt */ "./node_modules/lodash/_baseGt.js"),
+    identity = __webpack_require__(/*! ./identity */ "./node_modules/lodash/identity.js");
+/**
+ * Computes the maximum value of `array`. If `array` is empty or falsey,
+ * `undefined` is returned.
+ *
+ * @static
+ * @since 0.1.0
+ * @memberOf _
+ * @category Math
+ * @param {Array} array The array to iterate over.
+ * @returns {*} Returns the maximum value.
+ * @example
+ *
+ * _.max([4, 2, 8, 6]);
+ * // => 8
+ *
+ * _.max([]);
+ * // => undefined
+ */
+
+
+function max(array) {
+  return array && array.length ? baseExtremum(array, identity, baseGt) : undefined;
+}
+
+module.exports = max;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/memoize.js":
+/*!****************************************!*\
+  !*** ./node_modules/lodash/memoize.js ***!
+  \****************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var MapCache = __webpack_require__(/*! ./_MapCache */ "./node_modules/lodash/_MapCache.js");
+/** Error message constants. */
+
+
+var FUNC_ERROR_TEXT = 'Expected a function';
+/**
+ * Creates a function that memoizes the result of `func`. If `resolver` is
+ * provided, it determines the cache key for storing the result based on the
+ * arguments provided to the memoized function. By default, the first argument
+ * provided to the memoized function is used as the map cache key. The `func`
+ * is invoked with the `this` binding of the memoized function.
+ *
+ * **Note:** The cache is exposed as the `cache` property on the memoized
+ * function. Its creation may be customized by replacing the `_.memoize.Cache`
+ * constructor with one whose instances implement the
+ * [`Map`](http://ecma-international.org/ecma-262/7.0/#sec-properties-of-the-map-prototype-object)
+ * method interface of `clear`, `delete`, `get`, `has`, and `set`.
+ *
+ * @static
+ * @memberOf _
+ * @since 0.1.0
+ * @category Function
+ * @param {Function} func The function to have its output memoized.
+ * @param {Function} [resolver] The function to resolve the cache key.
+ * @returns {Function} Returns the new memoized function.
+ * @example
+ *
+ * var object = { 'a': 1, 'b': 2 };
+ * var other = { 'c': 3, 'd': 4 };
+ *
+ * var values = _.memoize(_.values);
+ * values(object);
+ * // => [1, 2]
+ *
+ * values(other);
+ * // => [3, 4]
+ *
+ * object.a = 2;
+ * values(object);
+ * // => [1, 2]
+ *
+ * // Modify the result cache.
+ * values.cache.set(object, ['a', 'b']);
+ * values(object);
+ * // => ['a', 'b']
+ *
+ * // Replace `_.memoize.Cache`.
+ * _.memoize.Cache = WeakMap;
+ */
+
+function memoize(func, resolver) {
+  if (typeof func != 'function' || resolver != null && typeof resolver != 'function') {
+    throw new TypeError(FUNC_ERROR_TEXT);
+  }
+
+  var memoized = function () {
+    var args = arguments,
+        key = resolver ? resolver.apply(this, args) : args[0],
+        cache = memoized.cache;
+
+    if (cache.has(key)) {
+      return cache.get(key);
+    }
+
+    var result = func.apply(this, args);
+    memoized.cache = cache.set(key, result) || cache;
+    return result;
+  };
+
+  memoized.cache = new (memoize.Cache || MapCache)();
+  return memoized;
+} // Expose `MapCache`.
+
+
+memoize.Cache = MapCache;
+module.exports = memoize;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/property.js":
+/*!*****************************************!*\
+  !*** ./node_modules/lodash/property.js ***!
+  \*****************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var baseProperty = __webpack_require__(/*! ./_baseProperty */ "./node_modules/lodash/_baseProperty.js"),
+    basePropertyDeep = __webpack_require__(/*! ./_basePropertyDeep */ "./node_modules/lodash/_basePropertyDeep.js"),
+    isKey = __webpack_require__(/*! ./_isKey */ "./node_modules/lodash/_isKey.js"),
+    toKey = __webpack_require__(/*! ./_toKey */ "./node_modules/lodash/_toKey.js");
+/**
+ * Creates a function that returns the value at `path` of a given object.
+ *
+ * @static
+ * @memberOf _
+ * @since 2.4.0
+ * @category Util
+ * @param {Array|string} path The path of the property to get.
+ * @returns {Function} Returns the new accessor function.
+ * @example
+ *
+ * var objects = [
+ *   { 'a': { 'b': 2 } },
+ *   { 'a': { 'b': 1 } }
+ * ];
+ *
+ * _.map(objects, _.property('a.b'));
+ * // => [2, 1]
+ *
+ * _.map(_.sortBy(objects, _.property(['a', 'b'])), 'a.b');
+ * // => [1, 2]
+ */
+
+
+function property(path) {
+  return isKey(path) ? baseProperty(toKey(path)) : basePropertyDeep(path);
+}
+
+module.exports = property;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/stubArray.js":
+/*!******************************************!*\
+  !*** ./node_modules/lodash/stubArray.js ***!
+  \******************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/**
+ * This method returns a new empty array.
+ *
+ * @static
+ * @memberOf _
+ * @since 4.13.0
+ * @category Util
+ * @returns {Array} Returns the new empty array.
+ * @example
+ *
+ * var arrays = _.times(2, _.stubArray);
+ *
+ * console.log(arrays);
+ * // => [[], []]
+ *
+ * console.log(arrays[0] === arrays[1]);
+ * // => false
+ */
+function stubArray() {
+  return [];
+}
+
+module.exports = stubArray;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/stubFalse.js":
+/*!******************************************!*\
+  !*** ./node_modules/lodash/stubFalse.js ***!
+  \******************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/**
+ * This method returns `false`.
+ *
+ * @static
+ * @memberOf _
+ * @since 4.13.0
+ * @category Util
+ * @returns {boolean} Returns `false`.
+ * @example
+ *
+ * _.times(2, _.stubFalse);
+ * // => [false, false]
+ */
+function stubFalse() {
+  return false;
+}
+
+module.exports = stubFalse;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/times.js":
+/*!**************************************!*\
+  !*** ./node_modules/lodash/times.js ***!
+  \**************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var baseTimes = __webpack_require__(/*! ./_baseTimes */ "./node_modules/lodash/_baseTimes.js"),
+    castFunction = __webpack_require__(/*! ./_castFunction */ "./node_modules/lodash/_castFunction.js"),
+    toInteger = __webpack_require__(/*! ./toInteger */ "./node_modules/lodash/toInteger.js");
+/** Used as references for various `Number` constants. */
+
+
+var MAX_SAFE_INTEGER = 9007199254740991;
+/** Used as references for the maximum length and index of an array. */
+
+var MAX_ARRAY_LENGTH = 4294967295;
+/* Built-in method references for those with the same name as other `lodash` methods. */
+
+var nativeMin = Math.min;
+/**
+ * Invokes the iteratee `n` times, returning an array of the results of
+ * each invocation. The iteratee is invoked with one argument; (index).
+ *
+ * @static
+ * @since 0.1.0
+ * @memberOf _
+ * @category Util
+ * @param {number} n The number of times to invoke `iteratee`.
+ * @param {Function} [iteratee=_.identity] The function invoked per iteration.
+ * @returns {Array} Returns the array of results.
+ * @example
+ *
+ * _.times(3, String);
+ * // => ['0', '1', '2']
+ *
+ *  _.times(4, _.constant(0));
+ * // => [0, 0, 0, 0]
+ */
+
+function times(n, iteratee) {
+  n = toInteger(n);
+
+  if (n < 1 || n > MAX_SAFE_INTEGER) {
+    return [];
+  }
+
+  var index = MAX_ARRAY_LENGTH,
+      length = nativeMin(n, MAX_ARRAY_LENGTH);
+  iteratee = castFunction(iteratee);
+  n -= MAX_ARRAY_LENGTH;
+  var result = baseTimes(length, iteratee);
+
+  while (++index < n) {
+    iteratee(index);
+  }
+
+  return result;
+}
+
+module.exports = times;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/toFinite.js":
+/*!*****************************************!*\
+  !*** ./node_modules/lodash/toFinite.js ***!
+  \*****************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var toNumber = __webpack_require__(/*! ./toNumber */ "./node_modules/lodash/toNumber.js");
+/** Used as references for various `Number` constants. */
+
+
+var INFINITY = 1 / 0,
+    MAX_INTEGER = 1.7976931348623157e+308;
+/**
+ * Converts `value` to a finite number.
+ *
+ * @static
+ * @memberOf _
+ * @since 4.12.0
+ * @category Lang
+ * @param {*} value The value to convert.
+ * @returns {number} Returns the converted number.
+ * @example
+ *
+ * _.toFinite(3.2);
+ * // => 3.2
+ *
+ * _.toFinite(Number.MIN_VALUE);
+ * // => 5e-324
+ *
+ * _.toFinite(Infinity);
+ * // => 1.7976931348623157e+308
+ *
+ * _.toFinite('3.2');
+ * // => 3.2
+ */
+
+function toFinite(value) {
+  if (!value) {
+    return value === 0 ? value : 0;
+  }
+
+  value = toNumber(value);
+
+  if (value === INFINITY || value === -INFINITY) {
+    var sign = value < 0 ? -1 : 1;
+    return sign * MAX_INTEGER;
+  }
+
+  return value === value ? value : 0;
+}
+
+module.exports = toFinite;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/toInteger.js":
+/*!******************************************!*\
+  !*** ./node_modules/lodash/toInteger.js ***!
+  \******************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var toFinite = __webpack_require__(/*! ./toFinite */ "./node_modules/lodash/toFinite.js");
+/**
+ * Converts `value` to an integer.
+ *
+ * **Note:** This method is loosely based on
+ * [`ToInteger`](http://www.ecma-international.org/ecma-262/7.0/#sec-tointeger).
+ *
+ * @static
+ * @memberOf _
+ * @since 4.0.0
+ * @category Lang
+ * @param {*} value The value to convert.
+ * @returns {number} Returns the converted integer.
+ * @example
+ *
+ * _.toInteger(3.2);
+ * // => 3
+ *
+ * _.toInteger(Number.MIN_VALUE);
+ * // => 0
+ *
+ * _.toInteger(Infinity);
+ * // => 1.7976931348623157e+308
+ *
+ * _.toInteger('3.2');
+ * // => 3
+ */
+
+
+function toInteger(value) {
+  var result = toFinite(value),
+      remainder = result % 1;
+  return result === result ? remainder ? result - remainder : result : 0;
+}
+
+module.exports = toInteger;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/toNumber.js":
+/*!*****************************************!*\
+  !*** ./node_modules/lodash/toNumber.js ***!
+  \*****************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var isObject = __webpack_require__(/*! ./isObject */ "./node_modules/lodash/isObject.js"),
+    isSymbol = __webpack_require__(/*! ./isSymbol */ "./node_modules/lodash/isSymbol.js");
+/** Used as references for various `Number` constants. */
+
+
+var NAN = 0 / 0;
+/** Used to match leading and trailing whitespace. */
+
+var reTrim = /^\s+|\s+$/g;
+/** Used to detect bad signed hexadecimal string values. */
+
+var reIsBadHex = /^[-+]0x[0-9a-f]+$/i;
+/** Used to detect binary string values. */
+
+var reIsBinary = /^0b[01]+$/i;
+/** Used to detect octal string values. */
+
+var reIsOctal = /^0o[0-7]+$/i;
+/** Built-in method references without a dependency on `root`. */
+
+var freeParseInt = parseInt;
+/**
+ * Converts `value` to a number.
+ *
+ * @static
+ * @memberOf _
+ * @since 4.0.0
+ * @category Lang
+ * @param {*} value The value to process.
+ * @returns {number} Returns the number.
+ * @example
+ *
+ * _.toNumber(3.2);
+ * // => 3.2
+ *
+ * _.toNumber(Number.MIN_VALUE);
+ * // => 5e-324
+ *
+ * _.toNumber(Infinity);
+ * // => Infinity
+ *
+ * _.toNumber('3.2');
+ * // => 3.2
+ */
+
+function toNumber(value) {
+  if (typeof value == 'number') {
+    return value;
+  }
+
+  if (isSymbol(value)) {
+    return NAN;
+  }
+
+  if (isObject(value)) {
+    var other = typeof value.valueOf == 'function' ? value.valueOf() : value;
+    value = isObject(other) ? other + '' : other;
+  }
+
+  if (typeof value != 'string') {
+    return value === 0 ? value : +value;
+  }
+
+  value = value.replace(reTrim, '');
+  var isBinary = reIsBinary.test(value);
+  return isBinary || reIsOctal.test(value) ? freeParseInt(value.slice(2), isBinary ? 2 : 8) : reIsBadHex.test(value) ? NAN : +value;
+}
+
+module.exports = toNumber;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/toString.js":
+/*!*****************************************!*\
+  !*** ./node_modules/lodash/toString.js ***!
+  \*****************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var baseToString = __webpack_require__(/*! ./_baseToString */ "./node_modules/lodash/_baseToString.js");
+/**
+ * Converts `value` to a string. An empty string is returned for `null`
+ * and `undefined` values. The sign of `-0` is preserved.
+ *
+ * @static
+ * @memberOf _
+ * @since 4.0.0
+ * @category Lang
+ * @param {*} value The value to convert.
+ * @returns {string} Returns the converted string.
+ * @example
+ *
+ * _.toString(null);
+ * // => ''
+ *
+ * _.toString(-0);
+ * // => '-0'
+ *
+ * _.toString([1, 2, 3]);
+ * // => '1,2,3'
+ */
+
+
+function toString(value) {
+  return value == null ? '' : baseToString(value);
+}
+
+module.exports = toString;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/trimEnd.js":
+/*!****************************************!*\
+  !*** ./node_modules/lodash/trimEnd.js ***!
+  \****************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var baseToString = __webpack_require__(/*! ./_baseToString */ "./node_modules/lodash/_baseToString.js"),
+    castSlice = __webpack_require__(/*! ./_castSlice */ "./node_modules/lodash/_castSlice.js"),
+    charsEndIndex = __webpack_require__(/*! ./_charsEndIndex */ "./node_modules/lodash/_charsEndIndex.js"),
+    stringToArray = __webpack_require__(/*! ./_stringToArray */ "./node_modules/lodash/_stringToArray.js"),
+    toString = __webpack_require__(/*! ./toString */ "./node_modules/lodash/toString.js");
+/** Used to match leading and trailing whitespace. */
+
+
+var reTrimEnd = /\s+$/;
+/**
+ * Removes trailing whitespace or specified characters from `string`.
+ *
+ * @static
+ * @memberOf _
+ * @since 4.0.0
+ * @category String
+ * @param {string} [string=''] The string to trim.
+ * @param {string} [chars=whitespace] The characters to trim.
+ * @param- {Object} [guard] Enables use as an iteratee for methods like `_.map`.
+ * @returns {string} Returns the trimmed string.
+ * @example
+ *
+ * _.trimEnd('  abc  ');
+ * // => '  abc'
+ *
+ * _.trimEnd('-_-abc-_-', '_-');
+ * // => '-_-abc'
+ */
+
+function trimEnd(string, chars, guard) {
+  string = toString(string);
+
+  if (string && (guard || chars === undefined)) {
+    return string.replace(reTrimEnd, '');
+  }
+
+  if (!string || !(chars = baseToString(chars))) {
+    return string;
+  }
+
+  var strSymbols = stringToArray(string),
+      end = charsEndIndex(strSymbols, stringToArray(chars)) + 1;
+  return castSlice(strSymbols, 0, end).join('');
+}
+
+module.exports = trimEnd;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/truncate.js":
+/*!*****************************************!*\
+  !*** ./node_modules/lodash/truncate.js ***!
+  \*****************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var baseToString = __webpack_require__(/*! ./_baseToString */ "./node_modules/lodash/_baseToString.js"),
+    castSlice = __webpack_require__(/*! ./_castSlice */ "./node_modules/lodash/_castSlice.js"),
+    hasUnicode = __webpack_require__(/*! ./_hasUnicode */ "./node_modules/lodash/_hasUnicode.js"),
+    isObject = __webpack_require__(/*! ./isObject */ "./node_modules/lodash/isObject.js"),
+    isRegExp = __webpack_require__(/*! ./isRegExp */ "./node_modules/lodash/isRegExp.js"),
+    stringSize = __webpack_require__(/*! ./_stringSize */ "./node_modules/lodash/_stringSize.js"),
+    stringToArray = __webpack_require__(/*! ./_stringToArray */ "./node_modules/lodash/_stringToArray.js"),
+    toInteger = __webpack_require__(/*! ./toInteger */ "./node_modules/lodash/toInteger.js"),
+    toString = __webpack_require__(/*! ./toString */ "./node_modules/lodash/toString.js");
+/** Used as default options for `_.truncate`. */
+
+
+var DEFAULT_TRUNC_LENGTH = 30,
+    DEFAULT_TRUNC_OMISSION = '...';
+/** Used to match `RegExp` flags from their coerced string values. */
+
+var reFlags = /\w*$/;
+/**
+ * Truncates `string` if it's longer than the given maximum string length.
+ * The last characters of the truncated string are replaced with the omission
+ * string which defaults to "...".
+ *
+ * @static
+ * @memberOf _
+ * @since 4.0.0
+ * @category String
+ * @param {string} [string=''] The string to truncate.
+ * @param {Object} [options={}] The options object.
+ * @param {number} [options.length=30] The maximum string length.
+ * @param {string} [options.omission='...'] The string to indicate text is omitted.
+ * @param {RegExp|string} [options.separator] The separator pattern to truncate to.
+ * @returns {string} Returns the truncated string.
+ * @example
+ *
+ * _.truncate('hi-diddly-ho there, neighborino');
+ * // => 'hi-diddly-ho there, neighbo...'
+ *
+ * _.truncate('hi-diddly-ho there, neighborino', {
+ *   'length': 24,
+ *   'separator': ' '
+ * });
+ * // => 'hi-diddly-ho there,...'
+ *
+ * _.truncate('hi-diddly-ho there, neighborino', {
+ *   'length': 24,
+ *   'separator': /,? +/
+ * });
+ * // => 'hi-diddly-ho there...'
+ *
+ * _.truncate('hi-diddly-ho there, neighborino', {
+ *   'omission': ' [...]'
+ * });
+ * // => 'hi-diddly-ho there, neig [...]'
+ */
+
+function truncate(string, options) {
+  var length = DEFAULT_TRUNC_LENGTH,
+      omission = DEFAULT_TRUNC_OMISSION;
+
+  if (isObject(options)) {
+    var separator = 'separator' in options ? options.separator : separator;
+    length = 'length' in options ? toInteger(options.length) : length;
+    omission = 'omission' in options ? baseToString(options.omission) : omission;
+  }
+
+  string = toString(string);
+  var strLength = string.length;
+
+  if (hasUnicode(string)) {
+    var strSymbols = stringToArray(string);
+    strLength = strSymbols.length;
+  }
+
+  if (length >= strLength) {
+    return string;
+  }
+
+  var end = length - stringSize(omission);
+
+  if (end < 1) {
+    return omission;
+  }
+
+  var result = strSymbols ? castSlice(strSymbols, 0, end).join('') : string.slice(0, end);
+
+  if (separator === undefined) {
+    return result + omission;
+  }
+
+  if (strSymbols) {
+    end += result.length - end;
+  }
+
+  if (isRegExp(separator)) {
+    if (string.slice(end).search(separator)) {
+      var match,
+          substring = result;
+
+      if (!separator.global) {
+        separator = RegExp(separator.source, toString(reFlags.exec(separator)) + 'g');
+      }
+
+      separator.lastIndex = 0;
+
+      while (match = separator.exec(substring)) {
+        var newEnd = match.index;
+      }
+
+      result = result.slice(0, newEnd === undefined ? end : newEnd);
+    }
+  } else if (string.indexOf(baseToString(separator), end) != end) {
+    var index = result.lastIndexOf(separator);
+
+    if (index > -1) {
+      result = result.slice(0, index);
+    }
+  }
+
+  return result + omission;
+}
+
+module.exports = truncate;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/values.js":
+/*!***************************************!*\
+  !*** ./node_modules/lodash/values.js ***!
+  \***************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var baseValues = __webpack_require__(/*! ./_baseValues */ "./node_modules/lodash/_baseValues.js"),
+    keys = __webpack_require__(/*! ./keys */ "./node_modules/lodash/keys.js");
+/**
+ * Creates an array of the own enumerable string keyed property values of `object`.
+ *
+ * **Note:** Non-object values are coerced to objects.
+ *
+ * @static
+ * @since 0.1.0
+ * @memberOf _
+ * @category Object
+ * @param {Object} object The object to query.
+ * @returns {Array} Returns the array of property values.
+ * @example
+ *
+ * function Foo() {
+ *   this.a = 1;
+ *   this.b = 2;
+ * }
+ *
+ * Foo.prototype.c = 3;
+ *
+ * _.values(new Foo);
+ * // => [1, 2] (iteration order is not guaranteed)
+ *
+ * _.values('hi');
+ * // => ['h', 'i']
+ */
+
+
+function values(object) {
+  return object == null ? [] : baseValues(object, keys(object));
+}
+
+module.exports = values;
 
 /***/ }),
 
@@ -45722,3293 +52567,6 @@ module.exports = (str, begin, end) => {
 
 /***/ }),
 
-/***/ "./node_modules/source-map/lib/array-set.js":
-/*!**************************************************!*\
-  !*** ./node_modules/source-map/lib/array-set.js ***!
-  \**************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-/* -*- Mode: js; js-indent-level: 2; -*- */
-
-/*
- * Copyright 2011 Mozilla Foundation and contributors
- * Licensed under the New BSD license. See LICENSE or:
- * http://opensource.org/licenses/BSD-3-Clause
- */
-var util = __webpack_require__(/*! ./util */ "./node_modules/source-map/lib/util.js");
-
-var has = Object.prototype.hasOwnProperty;
-var hasNativeMap = typeof Map !== "undefined";
-/**
- * A data structure which is a combination of an array and a set. Adding a new
- * member is O(1), testing for membership is O(1), and finding the index of an
- * element is O(1). Removing elements from the set is not supported. Only
- * strings are supported for membership.
- */
-
-function ArraySet() {
-  this._array = [];
-  this._set = hasNativeMap ? new Map() : Object.create(null);
-}
-/**
- * Static method for creating ArraySet instances from an existing array.
- */
-
-
-ArraySet.fromArray = function ArraySet_fromArray(aArray, aAllowDuplicates) {
-  var set = new ArraySet();
-
-  for (var i = 0, len = aArray.length; i < len; i++) {
-    set.add(aArray[i], aAllowDuplicates);
-  }
-
-  return set;
-};
-/**
- * Return how many unique items are in this ArraySet. If duplicates have been
- * added, than those do not count towards the size.
- *
- * @returns Number
- */
-
-
-ArraySet.prototype.size = function ArraySet_size() {
-  return hasNativeMap ? this._set.size : Object.getOwnPropertyNames(this._set).length;
-};
-/**
- * Add the given string to this set.
- *
- * @param String aStr
- */
-
-
-ArraySet.prototype.add = function ArraySet_add(aStr, aAllowDuplicates) {
-  var sStr = hasNativeMap ? aStr : util.toSetString(aStr);
-  var isDuplicate = hasNativeMap ? this.has(aStr) : has.call(this._set, sStr);
-  var idx = this._array.length;
-
-  if (!isDuplicate || aAllowDuplicates) {
-    this._array.push(aStr);
-  }
-
-  if (!isDuplicate) {
-    if (hasNativeMap) {
-      this._set.set(aStr, idx);
-    } else {
-      this._set[sStr] = idx;
-    }
-  }
-};
-/**
- * Is the given string a member of this set?
- *
- * @param String aStr
- */
-
-
-ArraySet.prototype.has = function ArraySet_has(aStr) {
-  if (hasNativeMap) {
-    return this._set.has(aStr);
-  } else {
-    var sStr = util.toSetString(aStr);
-    return has.call(this._set, sStr);
-  }
-};
-/**
- * What is the index of the given string in the array?
- *
- * @param String aStr
- */
-
-
-ArraySet.prototype.indexOf = function ArraySet_indexOf(aStr) {
-  if (hasNativeMap) {
-    var idx = this._set.get(aStr);
-
-    if (idx >= 0) {
-      return idx;
-    }
-  } else {
-    var sStr = util.toSetString(aStr);
-
-    if (has.call(this._set, sStr)) {
-      return this._set[sStr];
-    }
-  }
-
-  throw new Error('"' + aStr + '" is not in the set.');
-};
-/**
- * What is the element at the given index?
- *
- * @param Number aIdx
- */
-
-
-ArraySet.prototype.at = function ArraySet_at(aIdx) {
-  if (aIdx >= 0 && aIdx < this._array.length) {
-    return this._array[aIdx];
-  }
-
-  throw new Error('No element indexed by ' + aIdx);
-};
-/**
- * Returns the array representation of this set (which has the proper indices
- * indicated by indexOf). Note that this is a copy of the internal array used
- * for storing the members so that no one can mess with internal state.
- */
-
-
-ArraySet.prototype.toArray = function ArraySet_toArray() {
-  return this._array.slice();
-};
-
-exports.ArraySet = ArraySet;
-
-/***/ }),
-
-/***/ "./node_modules/source-map/lib/base64-vlq.js":
-/*!***************************************************!*\
-  !*** ./node_modules/source-map/lib/base64-vlq.js ***!
-  \***************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-/* -*- Mode: js; js-indent-level: 2; -*- */
-
-/*
- * Copyright 2011 Mozilla Foundation and contributors
- * Licensed under the New BSD license. See LICENSE or:
- * http://opensource.org/licenses/BSD-3-Clause
- *
- * Based on the Base 64 VLQ implementation in Closure Compiler:
- * https://code.google.com/p/closure-compiler/source/browse/trunk/src/com/google/debugging/sourcemap/Base64VLQ.java
- *
- * Copyright 2011 The Closure Compiler Authors. All rights reserved.
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are
- * met:
- *
- *  * Redistributions of source code must retain the above copyright
- *    notice, this list of conditions and the following disclaimer.
- *  * Redistributions in binary form must reproduce the above
- *    copyright notice, this list of conditions and the following
- *    disclaimer in the documentation and/or other materials provided
- *    with the distribution.
- *  * Neither the name of Google Inc. nor the names of its
- *    contributors may be used to endorse or promote products derived
- *    from this software without specific prior written permission.
- *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
- * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
- * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
- * A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
- * OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
- * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
- * LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
- * DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
- * THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
- * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
- * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- */
-var base64 = __webpack_require__(/*! ./base64 */ "./node_modules/source-map/lib/base64.js"); // A single base 64 digit can contain 6 bits of data. For the base 64 variable
-// length quantities we use in the source map spec, the first bit is the sign,
-// the next four bits are the actual value, and the 6th bit is the
-// continuation bit. The continuation bit tells us whether there are more
-// digits in this value following this digit.
-//
-//   Continuation
-//   |    Sign
-//   |    |
-//   V    V
-//   101011
-
-
-var VLQ_BASE_SHIFT = 5; // binary: 100000
-
-var VLQ_BASE = 1 << VLQ_BASE_SHIFT; // binary: 011111
-
-var VLQ_BASE_MASK = VLQ_BASE - 1; // binary: 100000
-
-var VLQ_CONTINUATION_BIT = VLQ_BASE;
-/**
- * Converts from a two-complement value to a value where the sign bit is
- * placed in the least significant bit.  For example, as decimals:
- *   1 becomes 2 (10 binary), -1 becomes 3 (11 binary)
- *   2 becomes 4 (100 binary), -2 becomes 5 (101 binary)
- */
-
-function toVLQSigned(aValue) {
-  return aValue < 0 ? (-aValue << 1) + 1 : (aValue << 1) + 0;
-}
-/**
- * Converts to a two-complement value from a value where the sign bit is
- * placed in the least significant bit.  For example, as decimals:
- *   2 (10 binary) becomes 1, 3 (11 binary) becomes -1
- *   4 (100 binary) becomes 2, 5 (101 binary) becomes -2
- */
-
-
-function fromVLQSigned(aValue) {
-  var isNegative = (aValue & 1) === 1;
-  var shifted = aValue >> 1;
-  return isNegative ? -shifted : shifted;
-}
-/**
- * Returns the base 64 VLQ encoded value.
- */
-
-
-exports.encode = function base64VLQ_encode(aValue) {
-  var encoded = "";
-  var digit;
-  var vlq = toVLQSigned(aValue);
-
-  do {
-    digit = vlq & VLQ_BASE_MASK;
-    vlq >>>= VLQ_BASE_SHIFT;
-
-    if (vlq > 0) {
-      // There are still more digits in this value, so we must make sure the
-      // continuation bit is marked.
-      digit |= VLQ_CONTINUATION_BIT;
-    }
-
-    encoded += base64.encode(digit);
-  } while (vlq > 0);
-
-  return encoded;
-};
-/**
- * Decodes the next base 64 VLQ value from the given string and returns the
- * value and the rest of the string via the out parameter.
- */
-
-
-exports.decode = function base64VLQ_decode(aStr, aIndex, aOutParam) {
-  var strLen = aStr.length;
-  var result = 0;
-  var shift = 0;
-  var continuation, digit;
-
-  do {
-    if (aIndex >= strLen) {
-      throw new Error("Expected more digits in base 64 VLQ value.");
-    }
-
-    digit = base64.decode(aStr.charCodeAt(aIndex++));
-
-    if (digit === -1) {
-      throw new Error("Invalid base64 digit: " + aStr.charAt(aIndex - 1));
-    }
-
-    continuation = !!(digit & VLQ_CONTINUATION_BIT);
-    digit &= VLQ_BASE_MASK;
-    result = result + (digit << shift);
-    shift += VLQ_BASE_SHIFT;
-  } while (continuation);
-
-  aOutParam.value = fromVLQSigned(result);
-  aOutParam.rest = aIndex;
-};
-
-/***/ }),
-
-/***/ "./node_modules/source-map/lib/base64.js":
-/*!***********************************************!*\
-  !*** ./node_modules/source-map/lib/base64.js ***!
-  \***********************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-/* -*- Mode: js; js-indent-level: 2; -*- */
-
-/*
- * Copyright 2011 Mozilla Foundation and contributors
- * Licensed under the New BSD license. See LICENSE or:
- * http://opensource.org/licenses/BSD-3-Clause
- */
-var intToCharMap = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/'.split('');
-/**
- * Encode an integer in the range of 0 to 63 to a single base 64 digit.
- */
-
-exports.encode = function (number) {
-  if (0 <= number && number < intToCharMap.length) {
-    return intToCharMap[number];
-  }
-
-  throw new TypeError("Must be between 0 and 63: " + number);
-};
-/**
- * Decode a single base 64 character code digit to an integer. Returns -1 on
- * failure.
- */
-
-
-exports.decode = function (charCode) {
-  var bigA = 65; // 'A'
-
-  var bigZ = 90; // 'Z'
-
-  var littleA = 97; // 'a'
-
-  var littleZ = 122; // 'z'
-
-  var zero = 48; // '0'
-
-  var nine = 57; // '9'
-
-  var plus = 43; // '+'
-
-  var slash = 47; // '/'
-
-  var littleOffset = 26;
-  var numberOffset = 52; // 0 - 25: ABCDEFGHIJKLMNOPQRSTUVWXYZ
-
-  if (bigA <= charCode && charCode <= bigZ) {
-    return charCode - bigA;
-  } // 26 - 51: abcdefghijklmnopqrstuvwxyz
-
-
-  if (littleA <= charCode && charCode <= littleZ) {
-    return charCode - littleA + littleOffset;
-  } // 52 - 61: 0123456789
-
-
-  if (zero <= charCode && charCode <= nine) {
-    return charCode - zero + numberOffset;
-  } // 62: +
-
-
-  if (charCode == plus) {
-    return 62;
-  } // 63: /
-
-
-  if (charCode == slash) {
-    return 63;
-  } // Invalid base64 digit.
-
-
-  return -1;
-};
-
-/***/ }),
-
-/***/ "./node_modules/source-map/lib/binary-search.js":
-/*!******************************************************!*\
-  !*** ./node_modules/source-map/lib/binary-search.js ***!
-  \******************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-/* -*- Mode: js; js-indent-level: 2; -*- */
-
-/*
- * Copyright 2011 Mozilla Foundation and contributors
- * Licensed under the New BSD license. See LICENSE or:
- * http://opensource.org/licenses/BSD-3-Clause
- */
-exports.GREATEST_LOWER_BOUND = 1;
-exports.LEAST_UPPER_BOUND = 2;
-/**
- * Recursive implementation of binary search.
- *
- * @param aLow Indices here and lower do not contain the needle.
- * @param aHigh Indices here and higher do not contain the needle.
- * @param aNeedle The element being searched for.
- * @param aHaystack The non-empty array being searched.
- * @param aCompare Function which takes two elements and returns -1, 0, or 1.
- * @param aBias Either 'binarySearch.GREATEST_LOWER_BOUND' or
- *     'binarySearch.LEAST_UPPER_BOUND'. Specifies whether to return the
- *     closest element that is smaller than or greater than the one we are
- *     searching for, respectively, if the exact element cannot be found.
- */
-
-function recursiveSearch(aLow, aHigh, aNeedle, aHaystack, aCompare, aBias) {
-  // This function terminates when one of the following is true:
-  //
-  //   1. We find the exact element we are looking for.
-  //
-  //   2. We did not find the exact element, but we can return the index of
-  //      the next-closest element.
-  //
-  //   3. We did not find the exact element, and there is no next-closest
-  //      element than the one we are searching for, so we return -1.
-  var mid = Math.floor((aHigh - aLow) / 2) + aLow;
-  var cmp = aCompare(aNeedle, aHaystack[mid], true);
-
-  if (cmp === 0) {
-    // Found the element we are looking for.
-    return mid;
-  } else if (cmp > 0) {
-    // Our needle is greater than aHaystack[mid].
-    if (aHigh - mid > 1) {
-      // The element is in the upper half.
-      return recursiveSearch(mid, aHigh, aNeedle, aHaystack, aCompare, aBias);
-    } // The exact needle element was not found in this haystack. Determine if
-    // we are in termination case (3) or (2) and return the appropriate thing.
-
-
-    if (aBias == exports.LEAST_UPPER_BOUND) {
-      return aHigh < aHaystack.length ? aHigh : -1;
-    } else {
-      return mid;
-    }
-  } else {
-    // Our needle is less than aHaystack[mid].
-    if (mid - aLow > 1) {
-      // The element is in the lower half.
-      return recursiveSearch(aLow, mid, aNeedle, aHaystack, aCompare, aBias);
-    } // we are in termination case (3) or (2) and return the appropriate thing.
-
-
-    if (aBias == exports.LEAST_UPPER_BOUND) {
-      return mid;
-    } else {
-      return aLow < 0 ? -1 : aLow;
-    }
-  }
-}
-/**
- * This is an implementation of binary search which will always try and return
- * the index of the closest element if there is no exact hit. This is because
- * mappings between original and generated line/col pairs are single points,
- * and there is an implicit region between each of them, so a miss just means
- * that you aren't on the very start of a region.
- *
- * @param aNeedle The element you are looking for.
- * @param aHaystack The array that is being searched.
- * @param aCompare A function which takes the needle and an element in the
- *     array and returns -1, 0, or 1 depending on whether the needle is less
- *     than, equal to, or greater than the element, respectively.
- * @param aBias Either 'binarySearch.GREATEST_LOWER_BOUND' or
- *     'binarySearch.LEAST_UPPER_BOUND'. Specifies whether to return the
- *     closest element that is smaller than or greater than the one we are
- *     searching for, respectively, if the exact element cannot be found.
- *     Defaults to 'binarySearch.GREATEST_LOWER_BOUND'.
- */
-
-
-exports.search = function search(aNeedle, aHaystack, aCompare, aBias) {
-  if (aHaystack.length === 0) {
-    return -1;
-  }
-
-  var index = recursiveSearch(-1, aHaystack.length, aNeedle, aHaystack, aCompare, aBias || exports.GREATEST_LOWER_BOUND);
-
-  if (index < 0) {
-    return -1;
-  } // We have found either the exact element, or the next-closest element than
-  // the one we are searching for. However, there may be more than one such
-  // element. Make sure we always return the smallest of these.
-
-
-  while (index - 1 >= 0) {
-    if (aCompare(aHaystack[index], aHaystack[index - 1], true) !== 0) {
-      break;
-    }
-
-    --index;
-  }
-
-  return index;
-};
-
-/***/ }),
-
-/***/ "./node_modules/source-map/lib/mapping-list.js":
-/*!*****************************************************!*\
-  !*** ./node_modules/source-map/lib/mapping-list.js ***!
-  \*****************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-/* -*- Mode: js; js-indent-level: 2; -*- */
-
-/*
- * Copyright 2014 Mozilla Foundation and contributors
- * Licensed under the New BSD license. See LICENSE or:
- * http://opensource.org/licenses/BSD-3-Clause
- */
-var util = __webpack_require__(/*! ./util */ "./node_modules/source-map/lib/util.js");
-/**
- * Determine whether mappingB is after mappingA with respect to generated
- * position.
- */
-
-
-function generatedPositionAfter(mappingA, mappingB) {
-  // Optimized for most common case
-  var lineA = mappingA.generatedLine;
-  var lineB = mappingB.generatedLine;
-  var columnA = mappingA.generatedColumn;
-  var columnB = mappingB.generatedColumn;
-  return lineB > lineA || lineB == lineA && columnB >= columnA || util.compareByGeneratedPositionsInflated(mappingA, mappingB) <= 0;
-}
-/**
- * A data structure to provide a sorted view of accumulated mappings in a
- * performance conscious manner. It trades a neglibable overhead in general
- * case for a large speedup in case of mappings being added in order.
- */
-
-
-function MappingList() {
-  this._array = [];
-  this._sorted = true; // Serves as infimum
-
-  this._last = {
-    generatedLine: -1,
-    generatedColumn: 0
-  };
-}
-/**
- * Iterate through internal items. This method takes the same arguments that
- * `Array.prototype.forEach` takes.
- *
- * NOTE: The order of the mappings is NOT guaranteed.
- */
-
-
-MappingList.prototype.unsortedForEach = function MappingList_forEach(aCallback, aThisArg) {
-  this._array.forEach(aCallback, aThisArg);
-};
-/**
- * Add the given source mapping.
- *
- * @param Object aMapping
- */
-
-
-MappingList.prototype.add = function MappingList_add(aMapping) {
-  if (generatedPositionAfter(this._last, aMapping)) {
-    this._last = aMapping;
-
-    this._array.push(aMapping);
-  } else {
-    this._sorted = false;
-
-    this._array.push(aMapping);
-  }
-};
-/**
- * Returns the flat, sorted array of mappings. The mappings are sorted by
- * generated position.
- *
- * WARNING: This method returns internal data without copying, for
- * performance. The return value must NOT be mutated, and should be treated as
- * an immutable borrow. If you want to take ownership, you must make your own
- * copy.
- */
-
-
-MappingList.prototype.toArray = function MappingList_toArray() {
-  if (!this._sorted) {
-    this._array.sort(util.compareByGeneratedPositionsInflated);
-
-    this._sorted = true;
-  }
-
-  return this._array;
-};
-
-exports.MappingList = MappingList;
-
-/***/ }),
-
-/***/ "./node_modules/source-map/lib/quick-sort.js":
-/*!***************************************************!*\
-  !*** ./node_modules/source-map/lib/quick-sort.js ***!
-  \***************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-/* -*- Mode: js; js-indent-level: 2; -*- */
-
-/*
- * Copyright 2011 Mozilla Foundation and contributors
- * Licensed under the New BSD license. See LICENSE or:
- * http://opensource.org/licenses/BSD-3-Clause
- */
-// It turns out that some (most?) JavaScript engines don't self-host
-// `Array.prototype.sort`. This makes sense because C++ will likely remain
-// faster than JS when doing raw CPU-intensive sorting. However, when using a
-// custom comparator function, calling back and forth between the VM's C++ and
-// JIT'd JS is rather slow *and* loses JIT type information, resulting in
-// worse generated code for the comparator function than would be optimal. In
-// fact, when sorting with a comparator, these costs outweigh the benefits of
-// sorting in C++. By using our own JS-implemented Quick Sort (below), we get
-// a ~3500ms mean speed-up in `bench/bench.html`.
-
-/**
- * Swap the elements indexed by `x` and `y` in the array `ary`.
- *
- * @param {Array} ary
- *        The array.
- * @param {Number} x
- *        The index of the first item.
- * @param {Number} y
- *        The index of the second item.
- */
-function swap(ary, x, y) {
-  var temp = ary[x];
-  ary[x] = ary[y];
-  ary[y] = temp;
-}
-/**
- * Returns a random integer within the range `low .. high` inclusive.
- *
- * @param {Number} low
- *        The lower bound on the range.
- * @param {Number} high
- *        The upper bound on the range.
- */
-
-
-function randomIntInRange(low, high) {
-  return Math.round(low + Math.random() * (high - low));
-}
-/**
- * The Quick Sort algorithm.
- *
- * @param {Array} ary
- *        An array to sort.
- * @param {function} comparator
- *        Function to use to compare two items.
- * @param {Number} p
- *        Start index of the array
- * @param {Number} r
- *        End index of the array
- */
-
-
-function doQuickSort(ary, comparator, p, r) {
-  // If our lower bound is less than our upper bound, we (1) partition the
-  // array into two pieces and (2) recurse on each half. If it is not, this is
-  // the empty array and our base case.
-  if (p < r) {
-    // (1) Partitioning.
-    //
-    // The partitioning chooses a pivot between `p` and `r` and moves all
-    // elements that are less than or equal to the pivot to the before it, and
-    // all the elements that are greater than it after it. The effect is that
-    // once partition is done, the pivot is in the exact place it will be when
-    // the array is put in sorted order, and it will not need to be moved
-    // again. This runs in O(n) time.
-    // Always choose a random pivot so that an input array which is reverse
-    // sorted does not cause O(n^2) running time.
-    var pivotIndex = randomIntInRange(p, r);
-    var i = p - 1;
-    swap(ary, pivotIndex, r);
-    var pivot = ary[r]; // Immediately after `j` is incremented in this loop, the following hold
-    // true:
-    //
-    //   * Every element in `ary[p .. i]` is less than or equal to the pivot.
-    //
-    //   * Every element in `ary[i+1 .. j-1]` is greater than the pivot.
-
-    for (var j = p; j < r; j++) {
-      if (comparator(ary[j], pivot) <= 0) {
-        i += 1;
-        swap(ary, i, j);
-      }
-    }
-
-    swap(ary, i + 1, j);
-    var q = i + 1; // (2) Recurse on each half.
-
-    doQuickSort(ary, comparator, p, q - 1);
-    doQuickSort(ary, comparator, q + 1, r);
-  }
-}
-/**
- * Sort the given array in-place with the given comparator function.
- *
- * @param {Array} ary
- *        An array to sort.
- * @param {function} comparator
- *        Function to use to compare two items.
- */
-
-
-exports.quickSort = function (ary, comparator) {
-  doQuickSort(ary, comparator, 0, ary.length - 1);
-};
-
-/***/ }),
-
-/***/ "./node_modules/source-map/lib/source-map-consumer.js":
-/*!************************************************************!*\
-  !*** ./node_modules/source-map/lib/source-map-consumer.js ***!
-  \************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-/* -*- Mode: js; js-indent-level: 2; -*- */
-
-/*
- * Copyright 2011 Mozilla Foundation and contributors
- * Licensed under the New BSD license. See LICENSE or:
- * http://opensource.org/licenses/BSD-3-Clause
- */
-var util = __webpack_require__(/*! ./util */ "./node_modules/source-map/lib/util.js");
-
-var binarySearch = __webpack_require__(/*! ./binary-search */ "./node_modules/source-map/lib/binary-search.js");
-
-var ArraySet = __webpack_require__(/*! ./array-set */ "./node_modules/source-map/lib/array-set.js").ArraySet;
-
-var base64VLQ = __webpack_require__(/*! ./base64-vlq */ "./node_modules/source-map/lib/base64-vlq.js");
-
-var quickSort = __webpack_require__(/*! ./quick-sort */ "./node_modules/source-map/lib/quick-sort.js").quickSort;
-
-function SourceMapConsumer(aSourceMap, aSourceMapURL) {
-  var sourceMap = aSourceMap;
-
-  if (typeof aSourceMap === 'string') {
-    sourceMap = util.parseSourceMapInput(aSourceMap);
-  }
-
-  return sourceMap.sections != null ? new IndexedSourceMapConsumer(sourceMap, aSourceMapURL) : new BasicSourceMapConsumer(sourceMap, aSourceMapURL);
-}
-
-SourceMapConsumer.fromSourceMap = function (aSourceMap, aSourceMapURL) {
-  return BasicSourceMapConsumer.fromSourceMap(aSourceMap, aSourceMapURL);
-};
-/**
- * The version of the source mapping spec that we are consuming.
- */
-
-
-SourceMapConsumer.prototype._version = 3; // `__generatedMappings` and `__originalMappings` are arrays that hold the
-// parsed mapping coordinates from the source map's "mappings" attribute. They
-// are lazily instantiated, accessed via the `_generatedMappings` and
-// `_originalMappings` getters respectively, and we only parse the mappings
-// and create these arrays once queried for a source location. We jump through
-// these hoops because there can be many thousands of mappings, and parsing
-// them is expensive, so we only want to do it if we must.
-//
-// Each object in the arrays is of the form:
-//
-//     {
-//       generatedLine: The line number in the generated code,
-//       generatedColumn: The column number in the generated code,
-//       source: The path to the original source file that generated this
-//               chunk of code,
-//       originalLine: The line number in the original source that
-//                     corresponds to this chunk of generated code,
-//       originalColumn: The column number in the original source that
-//                       corresponds to this chunk of generated code,
-//       name: The name of the original symbol which generated this chunk of
-//             code.
-//     }
-//
-// All properties except for `generatedLine` and `generatedColumn` can be
-// `null`.
-//
-// `_generatedMappings` is ordered by the generated positions.
-//
-// `_originalMappings` is ordered by the original positions.
-
-SourceMapConsumer.prototype.__generatedMappings = null;
-Object.defineProperty(SourceMapConsumer.prototype, '_generatedMappings', {
-  configurable: true,
-  enumerable: true,
-  get: function () {
-    if (!this.__generatedMappings) {
-      this._parseMappings(this._mappings, this.sourceRoot);
-    }
-
-    return this.__generatedMappings;
-  }
-});
-SourceMapConsumer.prototype.__originalMappings = null;
-Object.defineProperty(SourceMapConsumer.prototype, '_originalMappings', {
-  configurable: true,
-  enumerable: true,
-  get: function () {
-    if (!this.__originalMappings) {
-      this._parseMappings(this._mappings, this.sourceRoot);
-    }
-
-    return this.__originalMappings;
-  }
-});
-
-SourceMapConsumer.prototype._charIsMappingSeparator = function SourceMapConsumer_charIsMappingSeparator(aStr, index) {
-  var c = aStr.charAt(index);
-  return c === ";" || c === ",";
-};
-/**
- * Parse the mappings in a string in to a data structure which we can easily
- * query (the ordered arrays in the `this.__generatedMappings` and
- * `this.__originalMappings` properties).
- */
-
-
-SourceMapConsumer.prototype._parseMappings = function SourceMapConsumer_parseMappings(aStr, aSourceRoot) {
-  throw new Error("Subclasses must implement _parseMappings");
-};
-
-SourceMapConsumer.GENERATED_ORDER = 1;
-SourceMapConsumer.ORIGINAL_ORDER = 2;
-SourceMapConsumer.GREATEST_LOWER_BOUND = 1;
-SourceMapConsumer.LEAST_UPPER_BOUND = 2;
-/**
- * Iterate over each mapping between an original source/line/column and a
- * generated line/column in this source map.
- *
- * @param Function aCallback
- *        The function that is called with each mapping.
- * @param Object aContext
- *        Optional. If specified, this object will be the value of `this` every
- *        time that `aCallback` is called.
- * @param aOrder
- *        Either `SourceMapConsumer.GENERATED_ORDER` or
- *        `SourceMapConsumer.ORIGINAL_ORDER`. Specifies whether you want to
- *        iterate over the mappings sorted by the generated file's line/column
- *        order or the original's source/line/column order, respectively. Defaults to
- *        `SourceMapConsumer.GENERATED_ORDER`.
- */
-
-SourceMapConsumer.prototype.eachMapping = function SourceMapConsumer_eachMapping(aCallback, aContext, aOrder) {
-  var context = aContext || null;
-  var order = aOrder || SourceMapConsumer.GENERATED_ORDER;
-  var mappings;
-
-  switch (order) {
-    case SourceMapConsumer.GENERATED_ORDER:
-      mappings = this._generatedMappings;
-      break;
-
-    case SourceMapConsumer.ORIGINAL_ORDER:
-      mappings = this._originalMappings;
-      break;
-
-    default:
-      throw new Error("Unknown order of iteration.");
-  }
-
-  var sourceRoot = this.sourceRoot;
-  mappings.map(function (mapping) {
-    var source = mapping.source === null ? null : this._sources.at(mapping.source);
-    source = util.computeSourceURL(sourceRoot, source, this._sourceMapURL);
-    return {
-      source: source,
-      generatedLine: mapping.generatedLine,
-      generatedColumn: mapping.generatedColumn,
-      originalLine: mapping.originalLine,
-      originalColumn: mapping.originalColumn,
-      name: mapping.name === null ? null : this._names.at(mapping.name)
-    };
-  }, this).forEach(aCallback, context);
-};
-/**
- * Returns all generated line and column information for the original source,
- * line, and column provided. If no column is provided, returns all mappings
- * corresponding to a either the line we are searching for or the next
- * closest line that has any mappings. Otherwise, returns all mappings
- * corresponding to the given line and either the column we are searching for
- * or the next closest column that has any offsets.
- *
- * The only argument is an object with the following properties:
- *
- *   - source: The filename of the original source.
- *   - line: The line number in the original source.  The line number is 1-based.
- *   - column: Optional. the column number in the original source.
- *    The column number is 0-based.
- *
- * and an array of objects is returned, each with the following properties:
- *
- *   - line: The line number in the generated source, or null.  The
- *    line number is 1-based.
- *   - column: The column number in the generated source, or null.
- *    The column number is 0-based.
- */
-
-
-SourceMapConsumer.prototype.allGeneratedPositionsFor = function SourceMapConsumer_allGeneratedPositionsFor(aArgs) {
-  var line = util.getArg(aArgs, 'line'); // When there is no exact match, BasicSourceMapConsumer.prototype._findMapping
-  // returns the index of the closest mapping less than the needle. By
-  // setting needle.originalColumn to 0, we thus find the last mapping for
-  // the given line, provided such a mapping exists.
-
-  var needle = {
-    source: util.getArg(aArgs, 'source'),
-    originalLine: line,
-    originalColumn: util.getArg(aArgs, 'column', 0)
-  };
-  needle.source = this._findSourceIndex(needle.source);
-
-  if (needle.source < 0) {
-    return [];
-  }
-
-  var mappings = [];
-
-  var index = this._findMapping(needle, this._originalMappings, "originalLine", "originalColumn", util.compareByOriginalPositions, binarySearch.LEAST_UPPER_BOUND);
-
-  if (index >= 0) {
-    var mapping = this._originalMappings[index];
-
-    if (aArgs.column === undefined) {
-      var originalLine = mapping.originalLine; // Iterate until either we run out of mappings, or we run into
-      // a mapping for a different line than the one we found. Since
-      // mappings are sorted, this is guaranteed to find all mappings for
-      // the line we found.
-
-      while (mapping && mapping.originalLine === originalLine) {
-        mappings.push({
-          line: util.getArg(mapping, 'generatedLine', null),
-          column: util.getArg(mapping, 'generatedColumn', null),
-          lastColumn: util.getArg(mapping, 'lastGeneratedColumn', null)
-        });
-        mapping = this._originalMappings[++index];
-      }
-    } else {
-      var originalColumn = mapping.originalColumn; // Iterate until either we run out of mappings, or we run into
-      // a mapping for a different line than the one we were searching for.
-      // Since mappings are sorted, this is guaranteed to find all mappings for
-      // the line we are searching for.
-
-      while (mapping && mapping.originalLine === line && mapping.originalColumn == originalColumn) {
-        mappings.push({
-          line: util.getArg(mapping, 'generatedLine', null),
-          column: util.getArg(mapping, 'generatedColumn', null),
-          lastColumn: util.getArg(mapping, 'lastGeneratedColumn', null)
-        });
-        mapping = this._originalMappings[++index];
-      }
-    }
-  }
-
-  return mappings;
-};
-
-exports.SourceMapConsumer = SourceMapConsumer;
-/**
- * A BasicSourceMapConsumer instance represents a parsed source map which we can
- * query for information about the original file positions by giving it a file
- * position in the generated source.
- *
- * The first parameter is the raw source map (either as a JSON string, or
- * already parsed to an object). According to the spec, source maps have the
- * following attributes:
- *
- *   - version: Which version of the source map spec this map is following.
- *   - sources: An array of URLs to the original source files.
- *   - names: An array of identifiers which can be referrenced by individual mappings.
- *   - sourceRoot: Optional. The URL root from which all sources are relative.
- *   - sourcesContent: Optional. An array of contents of the original source files.
- *   - mappings: A string of base64 VLQs which contain the actual mappings.
- *   - file: Optional. The generated file this source map is associated with.
- *
- * Here is an example source map, taken from the source map spec[0]:
- *
- *     {
- *       version : 3,
- *       file: "out.js",
- *       sourceRoot : "",
- *       sources: ["foo.js", "bar.js"],
- *       names: ["src", "maps", "are", "fun"],
- *       mappings: "AA,AB;;ABCDE;"
- *     }
- *
- * The second parameter, if given, is a string whose value is the URL
- * at which the source map was found.  This URL is used to compute the
- * sources array.
- *
- * [0]: https://docs.google.com/document/d/1U1RGAehQwRypUTovF1KRlpiOFze0b-_2gc6fAH0KY0k/edit?pli=1#
- */
-
-function BasicSourceMapConsumer(aSourceMap, aSourceMapURL) {
-  var sourceMap = aSourceMap;
-
-  if (typeof aSourceMap === 'string') {
-    sourceMap = util.parseSourceMapInput(aSourceMap);
-  }
-
-  var version = util.getArg(sourceMap, 'version');
-  var sources = util.getArg(sourceMap, 'sources'); // Sass 3.3 leaves out the 'names' array, so we deviate from the spec (which
-  // requires the array) to play nice here.
-
-  var names = util.getArg(sourceMap, 'names', []);
-  var sourceRoot = util.getArg(sourceMap, 'sourceRoot', null);
-  var sourcesContent = util.getArg(sourceMap, 'sourcesContent', null);
-  var mappings = util.getArg(sourceMap, 'mappings');
-  var file = util.getArg(sourceMap, 'file', null); // Once again, Sass deviates from the spec and supplies the version as a
-  // string rather than a number, so we use loose equality checking here.
-
-  if (version != this._version) {
-    throw new Error('Unsupported version: ' + version);
-  }
-
-  if (sourceRoot) {
-    sourceRoot = util.normalize(sourceRoot);
-  }
-
-  sources = sources.map(String) // Some source maps produce relative source paths like "./foo.js" instead of
-  // "foo.js".  Normalize these first so that future comparisons will succeed.
-  // See bugzil.la/1090768.
-  .map(util.normalize) // Always ensure that absolute sources are internally stored relative to
-  // the source root, if the source root is absolute. Not doing this would
-  // be particularly problematic when the source root is a prefix of the
-  // source (valid, but why??). See github issue #199 and bugzil.la/1188982.
-  .map(function (source) {
-    return sourceRoot && util.isAbsolute(sourceRoot) && util.isAbsolute(source) ? util.relative(sourceRoot, source) : source;
-  }); // Pass `true` below to allow duplicate names and sources. While source maps
-  // are intended to be compressed and deduplicated, the TypeScript compiler
-  // sometimes generates source maps with duplicates in them. See Github issue
-  // #72 and bugzil.la/889492.
-
-  this._names = ArraySet.fromArray(names.map(String), true);
-  this._sources = ArraySet.fromArray(sources, true);
-  this._absoluteSources = this._sources.toArray().map(function (s) {
-    return util.computeSourceURL(sourceRoot, s, aSourceMapURL);
-  });
-  this.sourceRoot = sourceRoot;
-  this.sourcesContent = sourcesContent;
-  this._mappings = mappings;
-  this._sourceMapURL = aSourceMapURL;
-  this.file = file;
-}
-
-BasicSourceMapConsumer.prototype = Object.create(SourceMapConsumer.prototype);
-BasicSourceMapConsumer.prototype.consumer = SourceMapConsumer;
-/**
- * Utility function to find the index of a source.  Returns -1 if not
- * found.
- */
-
-BasicSourceMapConsumer.prototype._findSourceIndex = function (aSource) {
-  var relativeSource = aSource;
-
-  if (this.sourceRoot != null) {
-    relativeSource = util.relative(this.sourceRoot, relativeSource);
-  }
-
-  if (this._sources.has(relativeSource)) {
-    return this._sources.indexOf(relativeSource);
-  } // Maybe aSource is an absolute URL as returned by |sources|.  In
-  // this case we can't simply undo the transform.
-
-
-  var i;
-
-  for (i = 0; i < this._absoluteSources.length; ++i) {
-    if (this._absoluteSources[i] == aSource) {
-      return i;
-    }
-  }
-
-  return -1;
-};
-/**
- * Create a BasicSourceMapConsumer from a SourceMapGenerator.
- *
- * @param SourceMapGenerator aSourceMap
- *        The source map that will be consumed.
- * @param String aSourceMapURL
- *        The URL at which the source map can be found (optional)
- * @returns BasicSourceMapConsumer
- */
-
-
-BasicSourceMapConsumer.fromSourceMap = function SourceMapConsumer_fromSourceMap(aSourceMap, aSourceMapURL) {
-  var smc = Object.create(BasicSourceMapConsumer.prototype);
-  var names = smc._names = ArraySet.fromArray(aSourceMap._names.toArray(), true);
-  var sources = smc._sources = ArraySet.fromArray(aSourceMap._sources.toArray(), true);
-  smc.sourceRoot = aSourceMap._sourceRoot;
-  smc.sourcesContent = aSourceMap._generateSourcesContent(smc._sources.toArray(), smc.sourceRoot);
-  smc.file = aSourceMap._file;
-  smc._sourceMapURL = aSourceMapURL;
-  smc._absoluteSources = smc._sources.toArray().map(function (s) {
-    return util.computeSourceURL(smc.sourceRoot, s, aSourceMapURL);
-  }); // Because we are modifying the entries (by converting string sources and
-  // names to indices into the sources and names ArraySets), we have to make
-  // a copy of the entry or else bad things happen. Shared mutable state
-  // strikes again! See github issue #191.
-
-  var generatedMappings = aSourceMap._mappings.toArray().slice();
-
-  var destGeneratedMappings = smc.__generatedMappings = [];
-  var destOriginalMappings = smc.__originalMappings = [];
-
-  for (var i = 0, length = generatedMappings.length; i < length; i++) {
-    var srcMapping = generatedMappings[i];
-    var destMapping = new Mapping();
-    destMapping.generatedLine = srcMapping.generatedLine;
-    destMapping.generatedColumn = srcMapping.generatedColumn;
-
-    if (srcMapping.source) {
-      destMapping.source = sources.indexOf(srcMapping.source);
-      destMapping.originalLine = srcMapping.originalLine;
-      destMapping.originalColumn = srcMapping.originalColumn;
-
-      if (srcMapping.name) {
-        destMapping.name = names.indexOf(srcMapping.name);
-      }
-
-      destOriginalMappings.push(destMapping);
-    }
-
-    destGeneratedMappings.push(destMapping);
-  }
-
-  quickSort(smc.__originalMappings, util.compareByOriginalPositions);
-  return smc;
-};
-/**
- * The version of the source mapping spec that we are consuming.
- */
-
-
-BasicSourceMapConsumer.prototype._version = 3;
-/**
- * The list of original sources.
- */
-
-Object.defineProperty(BasicSourceMapConsumer.prototype, 'sources', {
-  get: function () {
-    return this._absoluteSources.slice();
-  }
-});
-/**
- * Provide the JIT with a nice shape / hidden class.
- */
-
-function Mapping() {
-  this.generatedLine = 0;
-  this.generatedColumn = 0;
-  this.source = null;
-  this.originalLine = null;
-  this.originalColumn = null;
-  this.name = null;
-}
-/**
- * Parse the mappings in a string in to a data structure which we can easily
- * query (the ordered arrays in the `this.__generatedMappings` and
- * `this.__originalMappings` properties).
- */
-
-
-BasicSourceMapConsumer.prototype._parseMappings = function SourceMapConsumer_parseMappings(aStr, aSourceRoot) {
-  var generatedLine = 1;
-  var previousGeneratedColumn = 0;
-  var previousOriginalLine = 0;
-  var previousOriginalColumn = 0;
-  var previousSource = 0;
-  var previousName = 0;
-  var length = aStr.length;
-  var index = 0;
-  var cachedSegments = {};
-  var temp = {};
-  var originalMappings = [];
-  var generatedMappings = [];
-  var mapping, str, segment, end, value;
-
-  while (index < length) {
-    if (aStr.charAt(index) === ';') {
-      generatedLine++;
-      index++;
-      previousGeneratedColumn = 0;
-    } else if (aStr.charAt(index) === ',') {
-      index++;
-    } else {
-      mapping = new Mapping();
-      mapping.generatedLine = generatedLine; // Because each offset is encoded relative to the previous one,
-      // many segments often have the same encoding. We can exploit this
-      // fact by caching the parsed variable length fields of each segment,
-      // allowing us to avoid a second parse if we encounter the same
-      // segment again.
-
-      for (end = index; end < length; end++) {
-        if (this._charIsMappingSeparator(aStr, end)) {
-          break;
-        }
-      }
-
-      str = aStr.slice(index, end);
-      segment = cachedSegments[str];
-
-      if (segment) {
-        index += str.length;
-      } else {
-        segment = [];
-
-        while (index < end) {
-          base64VLQ.decode(aStr, index, temp);
-          value = temp.value;
-          index = temp.rest;
-          segment.push(value);
-        }
-
-        if (segment.length === 2) {
-          throw new Error('Found a source, but no line and column');
-        }
-
-        if (segment.length === 3) {
-          throw new Error('Found a source and line, but no column');
-        }
-
-        cachedSegments[str] = segment;
-      } // Generated column.
-
-
-      mapping.generatedColumn = previousGeneratedColumn + segment[0];
-      previousGeneratedColumn = mapping.generatedColumn;
-
-      if (segment.length > 1) {
-        // Original source.
-        mapping.source = previousSource + segment[1];
-        previousSource += segment[1]; // Original line.
-
-        mapping.originalLine = previousOriginalLine + segment[2];
-        previousOriginalLine = mapping.originalLine; // Lines are stored 0-based
-
-        mapping.originalLine += 1; // Original column.
-
-        mapping.originalColumn = previousOriginalColumn + segment[3];
-        previousOriginalColumn = mapping.originalColumn;
-
-        if (segment.length > 4) {
-          // Original name.
-          mapping.name = previousName + segment[4];
-          previousName += segment[4];
-        }
-      }
-
-      generatedMappings.push(mapping);
-
-      if (typeof mapping.originalLine === 'number') {
-        originalMappings.push(mapping);
-      }
-    }
-  }
-
-  quickSort(generatedMappings, util.compareByGeneratedPositionsDeflated);
-  this.__generatedMappings = generatedMappings;
-  quickSort(originalMappings, util.compareByOriginalPositions);
-  this.__originalMappings = originalMappings;
-};
-/**
- * Find the mapping that best matches the hypothetical "needle" mapping that
- * we are searching for in the given "haystack" of mappings.
- */
-
-
-BasicSourceMapConsumer.prototype._findMapping = function SourceMapConsumer_findMapping(aNeedle, aMappings, aLineName, aColumnName, aComparator, aBias) {
-  // To return the position we are searching for, we must first find the
-  // mapping for the given position and then return the opposite position it
-  // points to. Because the mappings are sorted, we can use binary search to
-  // find the best mapping.
-  if (aNeedle[aLineName] <= 0) {
-    throw new TypeError('Line must be greater than or equal to 1, got ' + aNeedle[aLineName]);
-  }
-
-  if (aNeedle[aColumnName] < 0) {
-    throw new TypeError('Column must be greater than or equal to 0, got ' + aNeedle[aColumnName]);
-  }
-
-  return binarySearch.search(aNeedle, aMappings, aComparator, aBias);
-};
-/**
- * Compute the last column for each generated mapping. The last column is
- * inclusive.
- */
-
-
-BasicSourceMapConsumer.prototype.computeColumnSpans = function SourceMapConsumer_computeColumnSpans() {
-  for (var index = 0; index < this._generatedMappings.length; ++index) {
-    var mapping = this._generatedMappings[index]; // Mappings do not contain a field for the last generated columnt. We
-    // can come up with an optimistic estimate, however, by assuming that
-    // mappings are contiguous (i.e. given two consecutive mappings, the
-    // first mapping ends where the second one starts).
-
-    if (index + 1 < this._generatedMappings.length) {
-      var nextMapping = this._generatedMappings[index + 1];
-
-      if (mapping.generatedLine === nextMapping.generatedLine) {
-        mapping.lastGeneratedColumn = nextMapping.generatedColumn - 1;
-        continue;
-      }
-    } // The last mapping for each line spans the entire line.
-
-
-    mapping.lastGeneratedColumn = Infinity;
-  }
-};
-/**
- * Returns the original source, line, and column information for the generated
- * source's line and column positions provided. The only argument is an object
- * with the following properties:
- *
- *   - line: The line number in the generated source.  The line number
- *     is 1-based.
- *   - column: The column number in the generated source.  The column
- *     number is 0-based.
- *   - bias: Either 'SourceMapConsumer.GREATEST_LOWER_BOUND' or
- *     'SourceMapConsumer.LEAST_UPPER_BOUND'. Specifies whether to return the
- *     closest element that is smaller than or greater than the one we are
- *     searching for, respectively, if the exact element cannot be found.
- *     Defaults to 'SourceMapConsumer.GREATEST_LOWER_BOUND'.
- *
- * and an object is returned with the following properties:
- *
- *   - source: The original source file, or null.
- *   - line: The line number in the original source, or null.  The
- *     line number is 1-based.
- *   - column: The column number in the original source, or null.  The
- *     column number is 0-based.
- *   - name: The original identifier, or null.
- */
-
-
-BasicSourceMapConsumer.prototype.originalPositionFor = function SourceMapConsumer_originalPositionFor(aArgs) {
-  var needle = {
-    generatedLine: util.getArg(aArgs, 'line'),
-    generatedColumn: util.getArg(aArgs, 'column')
-  };
-
-  var index = this._findMapping(needle, this._generatedMappings, "generatedLine", "generatedColumn", util.compareByGeneratedPositionsDeflated, util.getArg(aArgs, 'bias', SourceMapConsumer.GREATEST_LOWER_BOUND));
-
-  if (index >= 0) {
-    var mapping = this._generatedMappings[index];
-
-    if (mapping.generatedLine === needle.generatedLine) {
-      var source = util.getArg(mapping, 'source', null);
-
-      if (source !== null) {
-        source = this._sources.at(source);
-        source = util.computeSourceURL(this.sourceRoot, source, this._sourceMapURL);
-      }
-
-      var name = util.getArg(mapping, 'name', null);
-
-      if (name !== null) {
-        name = this._names.at(name);
-      }
-
-      return {
-        source: source,
-        line: util.getArg(mapping, 'originalLine', null),
-        column: util.getArg(mapping, 'originalColumn', null),
-        name: name
-      };
-    }
-  }
-
-  return {
-    source: null,
-    line: null,
-    column: null,
-    name: null
-  };
-};
-/**
- * Return true if we have the source content for every source in the source
- * map, false otherwise.
- */
-
-
-BasicSourceMapConsumer.prototype.hasContentsOfAllSources = function BasicSourceMapConsumer_hasContentsOfAllSources() {
-  if (!this.sourcesContent) {
-    return false;
-  }
-
-  return this.sourcesContent.length >= this._sources.size() && !this.sourcesContent.some(function (sc) {
-    return sc == null;
-  });
-};
-/**
- * Returns the original source content. The only argument is the url of the
- * original source file. Returns null if no original source content is
- * available.
- */
-
-
-BasicSourceMapConsumer.prototype.sourceContentFor = function SourceMapConsumer_sourceContentFor(aSource, nullOnMissing) {
-  if (!this.sourcesContent) {
-    return null;
-  }
-
-  var index = this._findSourceIndex(aSource);
-
-  if (index >= 0) {
-    return this.sourcesContent[index];
-  }
-
-  var relativeSource = aSource;
-
-  if (this.sourceRoot != null) {
-    relativeSource = util.relative(this.sourceRoot, relativeSource);
-  }
-
-  var url;
-
-  if (this.sourceRoot != null && (url = util.urlParse(this.sourceRoot))) {
-    // XXX: file:// URIs and absolute paths lead to unexpected behavior for
-    // many users. We can help them out when they expect file:// URIs to
-    // behave like it would if they were running a local HTTP server. See
-    // https://bugzilla.mozilla.org/show_bug.cgi?id=885597.
-    var fileUriAbsPath = relativeSource.replace(/^file:\/\//, "");
-
-    if (url.scheme == "file" && this._sources.has(fileUriAbsPath)) {
-      return this.sourcesContent[this._sources.indexOf(fileUriAbsPath)];
-    }
-
-    if ((!url.path || url.path == "/") && this._sources.has("/" + relativeSource)) {
-      return this.sourcesContent[this._sources.indexOf("/" + relativeSource)];
-    }
-  } // This function is used recursively from
-  // IndexedSourceMapConsumer.prototype.sourceContentFor. In that case, we
-  // don't want to throw if we can't find the source - we just want to
-  // return null, so we provide a flag to exit gracefully.
-
-
-  if (nullOnMissing) {
-    return null;
-  } else {
-    throw new Error('"' + relativeSource + '" is not in the SourceMap.');
-  }
-};
-/**
- * Returns the generated line and column information for the original source,
- * line, and column positions provided. The only argument is an object with
- * the following properties:
- *
- *   - source: The filename of the original source.
- *   - line: The line number in the original source.  The line number
- *     is 1-based.
- *   - column: The column number in the original source.  The column
- *     number is 0-based.
- *   - bias: Either 'SourceMapConsumer.GREATEST_LOWER_BOUND' or
- *     'SourceMapConsumer.LEAST_UPPER_BOUND'. Specifies whether to return the
- *     closest element that is smaller than or greater than the one we are
- *     searching for, respectively, if the exact element cannot be found.
- *     Defaults to 'SourceMapConsumer.GREATEST_LOWER_BOUND'.
- *
- * and an object is returned with the following properties:
- *
- *   - line: The line number in the generated source, or null.  The
- *     line number is 1-based.
- *   - column: The column number in the generated source, or null.
- *     The column number is 0-based.
- */
-
-
-BasicSourceMapConsumer.prototype.generatedPositionFor = function SourceMapConsumer_generatedPositionFor(aArgs) {
-  var source = util.getArg(aArgs, 'source');
-  source = this._findSourceIndex(source);
-
-  if (source < 0) {
-    return {
-      line: null,
-      column: null,
-      lastColumn: null
-    };
-  }
-
-  var needle = {
-    source: source,
-    originalLine: util.getArg(aArgs, 'line'),
-    originalColumn: util.getArg(aArgs, 'column')
-  };
-
-  var index = this._findMapping(needle, this._originalMappings, "originalLine", "originalColumn", util.compareByOriginalPositions, util.getArg(aArgs, 'bias', SourceMapConsumer.GREATEST_LOWER_BOUND));
-
-  if (index >= 0) {
-    var mapping = this._originalMappings[index];
-
-    if (mapping.source === needle.source) {
-      return {
-        line: util.getArg(mapping, 'generatedLine', null),
-        column: util.getArg(mapping, 'generatedColumn', null),
-        lastColumn: util.getArg(mapping, 'lastGeneratedColumn', null)
-      };
-    }
-  }
-
-  return {
-    line: null,
-    column: null,
-    lastColumn: null
-  };
-};
-
-exports.BasicSourceMapConsumer = BasicSourceMapConsumer;
-/**
- * An IndexedSourceMapConsumer instance represents a parsed source map which
- * we can query for information. It differs from BasicSourceMapConsumer in
- * that it takes "indexed" source maps (i.e. ones with a "sections" field) as
- * input.
- *
- * The first parameter is a raw source map (either as a JSON string, or already
- * parsed to an object). According to the spec for indexed source maps, they
- * have the following attributes:
- *
- *   - version: Which version of the source map spec this map is following.
- *   - file: Optional. The generated file this source map is associated with.
- *   - sections: A list of section definitions.
- *
- * Each value under the "sections" field has two fields:
- *   - offset: The offset into the original specified at which this section
- *       begins to apply, defined as an object with a "line" and "column"
- *       field.
- *   - map: A source map definition. This source map could also be indexed,
- *       but doesn't have to be.
- *
- * Instead of the "map" field, it's also possible to have a "url" field
- * specifying a URL to retrieve a source map from, but that's currently
- * unsupported.
- *
- * Here's an example source map, taken from the source map spec[0], but
- * modified to omit a section which uses the "url" field.
- *
- *  {
- *    version : 3,
- *    file: "app.js",
- *    sections: [{
- *      offset: {line:100, column:10},
- *      map: {
- *        version : 3,
- *        file: "section.js",
- *        sources: ["foo.js", "bar.js"],
- *        names: ["src", "maps", "are", "fun"],
- *        mappings: "AAAA,E;;ABCDE;"
- *      }
- *    }],
- *  }
- *
- * The second parameter, if given, is a string whose value is the URL
- * at which the source map was found.  This URL is used to compute the
- * sources array.
- *
- * [0]: https://docs.google.com/document/d/1U1RGAehQwRypUTovF1KRlpiOFze0b-_2gc6fAH0KY0k/edit#heading=h.535es3xeprgt
- */
-
-function IndexedSourceMapConsumer(aSourceMap, aSourceMapURL) {
-  var sourceMap = aSourceMap;
-
-  if (typeof aSourceMap === 'string') {
-    sourceMap = util.parseSourceMapInput(aSourceMap);
-  }
-
-  var version = util.getArg(sourceMap, 'version');
-  var sections = util.getArg(sourceMap, 'sections');
-
-  if (version != this._version) {
-    throw new Error('Unsupported version: ' + version);
-  }
-
-  this._sources = new ArraySet();
-  this._names = new ArraySet();
-  var lastOffset = {
-    line: -1,
-    column: 0
-  };
-  this._sections = sections.map(function (s) {
-    if (s.url) {
-      // The url field will require support for asynchronicity.
-      // See https://github.com/mozilla/source-map/issues/16
-      throw new Error('Support for url field in sections not implemented.');
-    }
-
-    var offset = util.getArg(s, 'offset');
-    var offsetLine = util.getArg(offset, 'line');
-    var offsetColumn = util.getArg(offset, 'column');
-
-    if (offsetLine < lastOffset.line || offsetLine === lastOffset.line && offsetColumn < lastOffset.column) {
-      throw new Error('Section offsets must be ordered and non-overlapping.');
-    }
-
-    lastOffset = offset;
-    return {
-      generatedOffset: {
-        // The offset fields are 0-based, but we use 1-based indices when
-        // encoding/decoding from VLQ.
-        generatedLine: offsetLine + 1,
-        generatedColumn: offsetColumn + 1
-      },
-      consumer: new SourceMapConsumer(util.getArg(s, 'map'), aSourceMapURL)
-    };
-  });
-}
-
-IndexedSourceMapConsumer.prototype = Object.create(SourceMapConsumer.prototype);
-IndexedSourceMapConsumer.prototype.constructor = SourceMapConsumer;
-/**
- * The version of the source mapping spec that we are consuming.
- */
-
-IndexedSourceMapConsumer.prototype._version = 3;
-/**
- * The list of original sources.
- */
-
-Object.defineProperty(IndexedSourceMapConsumer.prototype, 'sources', {
-  get: function () {
-    var sources = [];
-
-    for (var i = 0; i < this._sections.length; i++) {
-      for (var j = 0; j < this._sections[i].consumer.sources.length; j++) {
-        sources.push(this._sections[i].consumer.sources[j]);
-      }
-    }
-
-    return sources;
-  }
-});
-/**
- * Returns the original source, line, and column information for the generated
- * source's line and column positions provided. The only argument is an object
- * with the following properties:
- *
- *   - line: The line number in the generated source.  The line number
- *     is 1-based.
- *   - column: The column number in the generated source.  The column
- *     number is 0-based.
- *
- * and an object is returned with the following properties:
- *
- *   - source: The original source file, or null.
- *   - line: The line number in the original source, or null.  The
- *     line number is 1-based.
- *   - column: The column number in the original source, or null.  The
- *     column number is 0-based.
- *   - name: The original identifier, or null.
- */
-
-IndexedSourceMapConsumer.prototype.originalPositionFor = function IndexedSourceMapConsumer_originalPositionFor(aArgs) {
-  var needle = {
-    generatedLine: util.getArg(aArgs, 'line'),
-    generatedColumn: util.getArg(aArgs, 'column')
-  }; // Find the section containing the generated position we're trying to map
-  // to an original position.
-
-  var sectionIndex = binarySearch.search(needle, this._sections, function (needle, section) {
-    var cmp = needle.generatedLine - section.generatedOffset.generatedLine;
-
-    if (cmp) {
-      return cmp;
-    }
-
-    return needle.generatedColumn - section.generatedOffset.generatedColumn;
-  });
-  var section = this._sections[sectionIndex];
-
-  if (!section) {
-    return {
-      source: null,
-      line: null,
-      column: null,
-      name: null
-    };
-  }
-
-  return section.consumer.originalPositionFor({
-    line: needle.generatedLine - (section.generatedOffset.generatedLine - 1),
-    column: needle.generatedColumn - (section.generatedOffset.generatedLine === needle.generatedLine ? section.generatedOffset.generatedColumn - 1 : 0),
-    bias: aArgs.bias
-  });
-};
-/**
- * Return true if we have the source content for every source in the source
- * map, false otherwise.
- */
-
-
-IndexedSourceMapConsumer.prototype.hasContentsOfAllSources = function IndexedSourceMapConsumer_hasContentsOfAllSources() {
-  return this._sections.every(function (s) {
-    return s.consumer.hasContentsOfAllSources();
-  });
-};
-/**
- * Returns the original source content. The only argument is the url of the
- * original source file. Returns null if no original source content is
- * available.
- */
-
-
-IndexedSourceMapConsumer.prototype.sourceContentFor = function IndexedSourceMapConsumer_sourceContentFor(aSource, nullOnMissing) {
-  for (var i = 0; i < this._sections.length; i++) {
-    var section = this._sections[i];
-    var content = section.consumer.sourceContentFor(aSource, true);
-
-    if (content) {
-      return content;
-    }
-  }
-
-  if (nullOnMissing) {
-    return null;
-  } else {
-    throw new Error('"' + aSource + '" is not in the SourceMap.');
-  }
-};
-/**
- * Returns the generated line and column information for the original source,
- * line, and column positions provided. The only argument is an object with
- * the following properties:
- *
- *   - source: The filename of the original source.
- *   - line: The line number in the original source.  The line number
- *     is 1-based.
- *   - column: The column number in the original source.  The column
- *     number is 0-based.
- *
- * and an object is returned with the following properties:
- *
- *   - line: The line number in the generated source, or null.  The
- *     line number is 1-based. 
- *   - column: The column number in the generated source, or null.
- *     The column number is 0-based.
- */
-
-
-IndexedSourceMapConsumer.prototype.generatedPositionFor = function IndexedSourceMapConsumer_generatedPositionFor(aArgs) {
-  for (var i = 0; i < this._sections.length; i++) {
-    var section = this._sections[i]; // Only consider this section if the requested source is in the list of
-    // sources of the consumer.
-
-    if (section.consumer._findSourceIndex(util.getArg(aArgs, 'source')) === -1) {
-      continue;
-    }
-
-    var generatedPosition = section.consumer.generatedPositionFor(aArgs);
-
-    if (generatedPosition) {
-      var ret = {
-        line: generatedPosition.line + (section.generatedOffset.generatedLine - 1),
-        column: generatedPosition.column + (section.generatedOffset.generatedLine === generatedPosition.line ? section.generatedOffset.generatedColumn - 1 : 0)
-      };
-      return ret;
-    }
-  }
-
-  return {
-    line: null,
-    column: null
-  };
-};
-/**
- * Parse the mappings in a string in to a data structure which we can easily
- * query (the ordered arrays in the `this.__generatedMappings` and
- * `this.__originalMappings` properties).
- */
-
-
-IndexedSourceMapConsumer.prototype._parseMappings = function IndexedSourceMapConsumer_parseMappings(aStr, aSourceRoot) {
-  this.__generatedMappings = [];
-  this.__originalMappings = [];
-
-  for (var i = 0; i < this._sections.length; i++) {
-    var section = this._sections[i];
-    var sectionMappings = section.consumer._generatedMappings;
-
-    for (var j = 0; j < sectionMappings.length; j++) {
-      var mapping = sectionMappings[j];
-
-      var source = section.consumer._sources.at(mapping.source);
-
-      source = util.computeSourceURL(section.consumer.sourceRoot, source, this._sourceMapURL);
-
-      this._sources.add(source);
-
-      source = this._sources.indexOf(source);
-      var name = null;
-
-      if (mapping.name) {
-        name = section.consumer._names.at(mapping.name);
-
-        this._names.add(name);
-
-        name = this._names.indexOf(name);
-      } // The mappings coming from the consumer for the section have
-      // generated positions relative to the start of the section, so we
-      // need to offset them to be relative to the start of the concatenated
-      // generated file.
-
-
-      var adjustedMapping = {
-        source: source,
-        generatedLine: mapping.generatedLine + (section.generatedOffset.generatedLine - 1),
-        generatedColumn: mapping.generatedColumn + (section.generatedOffset.generatedLine === mapping.generatedLine ? section.generatedOffset.generatedColumn - 1 : 0),
-        originalLine: mapping.originalLine,
-        originalColumn: mapping.originalColumn,
-        name: name
-      };
-
-      this.__generatedMappings.push(adjustedMapping);
-
-      if (typeof adjustedMapping.originalLine === 'number') {
-        this.__originalMappings.push(adjustedMapping);
-      }
-    }
-  }
-
-  quickSort(this.__generatedMappings, util.compareByGeneratedPositionsDeflated);
-  quickSort(this.__originalMappings, util.compareByOriginalPositions);
-};
-
-exports.IndexedSourceMapConsumer = IndexedSourceMapConsumer;
-
-/***/ }),
-
-/***/ "./node_modules/source-map/lib/source-map-generator.js":
-/*!*************************************************************!*\
-  !*** ./node_modules/source-map/lib/source-map-generator.js ***!
-  \*************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-/* -*- Mode: js; js-indent-level: 2; -*- */
-
-/*
- * Copyright 2011 Mozilla Foundation and contributors
- * Licensed under the New BSD license. See LICENSE or:
- * http://opensource.org/licenses/BSD-3-Clause
- */
-var base64VLQ = __webpack_require__(/*! ./base64-vlq */ "./node_modules/source-map/lib/base64-vlq.js");
-
-var util = __webpack_require__(/*! ./util */ "./node_modules/source-map/lib/util.js");
-
-var ArraySet = __webpack_require__(/*! ./array-set */ "./node_modules/source-map/lib/array-set.js").ArraySet;
-
-var MappingList = __webpack_require__(/*! ./mapping-list */ "./node_modules/source-map/lib/mapping-list.js").MappingList;
-/**
- * An instance of the SourceMapGenerator represents a source map which is
- * being built incrementally. You may pass an object with the following
- * properties:
- *
- *   - file: The filename of the generated source.
- *   - sourceRoot: A root for all relative URLs in this source map.
- */
-
-
-function SourceMapGenerator(aArgs) {
-  if (!aArgs) {
-    aArgs = {};
-  }
-
-  this._file = util.getArg(aArgs, 'file', null);
-  this._sourceRoot = util.getArg(aArgs, 'sourceRoot', null);
-  this._skipValidation = util.getArg(aArgs, 'skipValidation', false);
-  this._sources = new ArraySet();
-  this._names = new ArraySet();
-  this._mappings = new MappingList();
-  this._sourcesContents = null;
-}
-
-SourceMapGenerator.prototype._version = 3;
-/**
- * Creates a new SourceMapGenerator based on a SourceMapConsumer
- *
- * @param aSourceMapConsumer The SourceMap.
- */
-
-SourceMapGenerator.fromSourceMap = function SourceMapGenerator_fromSourceMap(aSourceMapConsumer) {
-  var sourceRoot = aSourceMapConsumer.sourceRoot;
-  var generator = new SourceMapGenerator({
-    file: aSourceMapConsumer.file,
-    sourceRoot: sourceRoot
-  });
-  aSourceMapConsumer.eachMapping(function (mapping) {
-    var newMapping = {
-      generated: {
-        line: mapping.generatedLine,
-        column: mapping.generatedColumn
-      }
-    };
-
-    if (mapping.source != null) {
-      newMapping.source = mapping.source;
-
-      if (sourceRoot != null) {
-        newMapping.source = util.relative(sourceRoot, newMapping.source);
-      }
-
-      newMapping.original = {
-        line: mapping.originalLine,
-        column: mapping.originalColumn
-      };
-
-      if (mapping.name != null) {
-        newMapping.name = mapping.name;
-      }
-    }
-
-    generator.addMapping(newMapping);
-  });
-  aSourceMapConsumer.sources.forEach(function (sourceFile) {
-    var sourceRelative = sourceFile;
-
-    if (sourceRoot !== null) {
-      sourceRelative = util.relative(sourceRoot, sourceFile);
-    }
-
-    if (!generator._sources.has(sourceRelative)) {
-      generator._sources.add(sourceRelative);
-    }
-
-    var content = aSourceMapConsumer.sourceContentFor(sourceFile);
-
-    if (content != null) {
-      generator.setSourceContent(sourceFile, content);
-    }
-  });
-  return generator;
-};
-/**
- * Add a single mapping from original source line and column to the generated
- * source's line and column for this source map being created. The mapping
- * object should have the following properties:
- *
- *   - generated: An object with the generated line and column positions.
- *   - original: An object with the original line and column positions.
- *   - source: The original source file (relative to the sourceRoot).
- *   - name: An optional original token name for this mapping.
- */
-
-
-SourceMapGenerator.prototype.addMapping = function SourceMapGenerator_addMapping(aArgs) {
-  var generated = util.getArg(aArgs, 'generated');
-  var original = util.getArg(aArgs, 'original', null);
-  var source = util.getArg(aArgs, 'source', null);
-  var name = util.getArg(aArgs, 'name', null);
-
-  if (!this._skipValidation) {
-    this._validateMapping(generated, original, source, name);
-  }
-
-  if (source != null) {
-    source = String(source);
-
-    if (!this._sources.has(source)) {
-      this._sources.add(source);
-    }
-  }
-
-  if (name != null) {
-    name = String(name);
-
-    if (!this._names.has(name)) {
-      this._names.add(name);
-    }
-  }
-
-  this._mappings.add({
-    generatedLine: generated.line,
-    generatedColumn: generated.column,
-    originalLine: original != null && original.line,
-    originalColumn: original != null && original.column,
-    source: source,
-    name: name
-  });
-};
-/**
- * Set the source content for a source file.
- */
-
-
-SourceMapGenerator.prototype.setSourceContent = function SourceMapGenerator_setSourceContent(aSourceFile, aSourceContent) {
-  var source = aSourceFile;
-
-  if (this._sourceRoot != null) {
-    source = util.relative(this._sourceRoot, source);
-  }
-
-  if (aSourceContent != null) {
-    // Add the source content to the _sourcesContents map.
-    // Create a new _sourcesContents map if the property is null.
-    if (!this._sourcesContents) {
-      this._sourcesContents = Object.create(null);
-    }
-
-    this._sourcesContents[util.toSetString(source)] = aSourceContent;
-  } else if (this._sourcesContents) {
-    // Remove the source file from the _sourcesContents map.
-    // If the _sourcesContents map is empty, set the property to null.
-    delete this._sourcesContents[util.toSetString(source)];
-
-    if (Object.keys(this._sourcesContents).length === 0) {
-      this._sourcesContents = null;
-    }
-  }
-};
-/**
- * Applies the mappings of a sub-source-map for a specific source file to the
- * source map being generated. Each mapping to the supplied source file is
- * rewritten using the supplied source map. Note: The resolution for the
- * resulting mappings is the minimium of this map and the supplied map.
- *
- * @param aSourceMapConsumer The source map to be applied.
- * @param aSourceFile Optional. The filename of the source file.
- *        If omitted, SourceMapConsumer's file property will be used.
- * @param aSourceMapPath Optional. The dirname of the path to the source map
- *        to be applied. If relative, it is relative to the SourceMapConsumer.
- *        This parameter is needed when the two source maps aren't in the same
- *        directory, and the source map to be applied contains relative source
- *        paths. If so, those relative source paths need to be rewritten
- *        relative to the SourceMapGenerator.
- */
-
-
-SourceMapGenerator.prototype.applySourceMap = function SourceMapGenerator_applySourceMap(aSourceMapConsumer, aSourceFile, aSourceMapPath) {
-  var sourceFile = aSourceFile; // If aSourceFile is omitted, we will use the file property of the SourceMap
-
-  if (aSourceFile == null) {
-    if (aSourceMapConsumer.file == null) {
-      throw new Error('SourceMapGenerator.prototype.applySourceMap requires either an explicit source file, ' + 'or the source map\'s "file" property. Both were omitted.');
-    }
-
-    sourceFile = aSourceMapConsumer.file;
-  }
-
-  var sourceRoot = this._sourceRoot; // Make "sourceFile" relative if an absolute Url is passed.
-
-  if (sourceRoot != null) {
-    sourceFile = util.relative(sourceRoot, sourceFile);
-  } // Applying the SourceMap can add and remove items from the sources and
-  // the names array.
-
-
-  var newSources = new ArraySet();
-  var newNames = new ArraySet(); // Find mappings for the "sourceFile"
-
-  this._mappings.unsortedForEach(function (mapping) {
-    if (mapping.source === sourceFile && mapping.originalLine != null) {
-      // Check if it can be mapped by the source map, then update the mapping.
-      var original = aSourceMapConsumer.originalPositionFor({
-        line: mapping.originalLine,
-        column: mapping.originalColumn
-      });
-
-      if (original.source != null) {
-        // Copy mapping
-        mapping.source = original.source;
-
-        if (aSourceMapPath != null) {
-          mapping.source = util.join(aSourceMapPath, mapping.source);
-        }
-
-        if (sourceRoot != null) {
-          mapping.source = util.relative(sourceRoot, mapping.source);
-        }
-
-        mapping.originalLine = original.line;
-        mapping.originalColumn = original.column;
-
-        if (original.name != null) {
-          mapping.name = original.name;
-        }
-      }
-    }
-
-    var source = mapping.source;
-
-    if (source != null && !newSources.has(source)) {
-      newSources.add(source);
-    }
-
-    var name = mapping.name;
-
-    if (name != null && !newNames.has(name)) {
-      newNames.add(name);
-    }
-  }, this);
-
-  this._sources = newSources;
-  this._names = newNames; // Copy sourcesContents of applied map.
-
-  aSourceMapConsumer.sources.forEach(function (sourceFile) {
-    var content = aSourceMapConsumer.sourceContentFor(sourceFile);
-
-    if (content != null) {
-      if (aSourceMapPath != null) {
-        sourceFile = util.join(aSourceMapPath, sourceFile);
-      }
-
-      if (sourceRoot != null) {
-        sourceFile = util.relative(sourceRoot, sourceFile);
-      }
-
-      this.setSourceContent(sourceFile, content);
-    }
-  }, this);
-};
-/**
- * A mapping can have one of the three levels of data:
- *
- *   1. Just the generated position.
- *   2. The Generated position, original position, and original source.
- *   3. Generated and original position, original source, as well as a name
- *      token.
- *
- * To maintain consistency, we validate that any new mapping being added falls
- * in to one of these categories.
- */
-
-
-SourceMapGenerator.prototype._validateMapping = function SourceMapGenerator_validateMapping(aGenerated, aOriginal, aSource, aName) {
-  // When aOriginal is truthy but has empty values for .line and .column,
-  // it is most likely a programmer error. In this case we throw a very
-  // specific error message to try to guide them the right way.
-  // For example: https://github.com/Polymer/polymer-bundler/pull/519
-  if (aOriginal && typeof aOriginal.line !== 'number' && typeof aOriginal.column !== 'number') {
-    throw new Error('original.line and original.column are not numbers -- you probably meant to omit ' + 'the original mapping entirely and only map the generated position. If so, pass ' + 'null for the original mapping instead of an object with empty or null values.');
-  }
-
-  if (aGenerated && 'line' in aGenerated && 'column' in aGenerated && aGenerated.line > 0 && aGenerated.column >= 0 && !aOriginal && !aSource && !aName) {
-    // Case 1.
-    return;
-  } else if (aGenerated && 'line' in aGenerated && 'column' in aGenerated && aOriginal && 'line' in aOriginal && 'column' in aOriginal && aGenerated.line > 0 && aGenerated.column >= 0 && aOriginal.line > 0 && aOriginal.column >= 0 && aSource) {
-    // Cases 2 and 3.
-    return;
-  } else {
-    throw new Error('Invalid mapping: ' + JSON.stringify({
-      generated: aGenerated,
-      source: aSource,
-      original: aOriginal,
-      name: aName
-    }));
-  }
-};
-/**
- * Serialize the accumulated mappings in to the stream of base 64 VLQs
- * specified by the source map format.
- */
-
-
-SourceMapGenerator.prototype._serializeMappings = function SourceMapGenerator_serializeMappings() {
-  var previousGeneratedColumn = 0;
-  var previousGeneratedLine = 1;
-  var previousOriginalColumn = 0;
-  var previousOriginalLine = 0;
-  var previousName = 0;
-  var previousSource = 0;
-  var result = '';
-  var next;
-  var mapping;
-  var nameIdx;
-  var sourceIdx;
-
-  var mappings = this._mappings.toArray();
-
-  for (var i = 0, len = mappings.length; i < len; i++) {
-    mapping = mappings[i];
-    next = '';
-
-    if (mapping.generatedLine !== previousGeneratedLine) {
-      previousGeneratedColumn = 0;
-
-      while (mapping.generatedLine !== previousGeneratedLine) {
-        next += ';';
-        previousGeneratedLine++;
-      }
-    } else {
-      if (i > 0) {
-        if (!util.compareByGeneratedPositionsInflated(mapping, mappings[i - 1])) {
-          continue;
-        }
-
-        next += ',';
-      }
-    }
-
-    next += base64VLQ.encode(mapping.generatedColumn - previousGeneratedColumn);
-    previousGeneratedColumn = mapping.generatedColumn;
-
-    if (mapping.source != null) {
-      sourceIdx = this._sources.indexOf(mapping.source);
-      next += base64VLQ.encode(sourceIdx - previousSource);
-      previousSource = sourceIdx; // lines are stored 0-based in SourceMap spec version 3
-
-      next += base64VLQ.encode(mapping.originalLine - 1 - previousOriginalLine);
-      previousOriginalLine = mapping.originalLine - 1;
-      next += base64VLQ.encode(mapping.originalColumn - previousOriginalColumn);
-      previousOriginalColumn = mapping.originalColumn;
-
-      if (mapping.name != null) {
-        nameIdx = this._names.indexOf(mapping.name);
-        next += base64VLQ.encode(nameIdx - previousName);
-        previousName = nameIdx;
-      }
-    }
-
-    result += next;
-  }
-
-  return result;
-};
-
-SourceMapGenerator.prototype._generateSourcesContent = function SourceMapGenerator_generateSourcesContent(aSources, aSourceRoot) {
-  return aSources.map(function (source) {
-    if (!this._sourcesContents) {
-      return null;
-    }
-
-    if (aSourceRoot != null) {
-      source = util.relative(aSourceRoot, source);
-    }
-
-    var key = util.toSetString(source);
-    return Object.prototype.hasOwnProperty.call(this._sourcesContents, key) ? this._sourcesContents[key] : null;
-  }, this);
-};
-/**
- * Externalize the source map.
- */
-
-
-SourceMapGenerator.prototype.toJSON = function SourceMapGenerator_toJSON() {
-  var map = {
-    version: this._version,
-    sources: this._sources.toArray(),
-    names: this._names.toArray(),
-    mappings: this._serializeMappings()
-  };
-
-  if (this._file != null) {
-    map.file = this._file;
-  }
-
-  if (this._sourceRoot != null) {
-    map.sourceRoot = this._sourceRoot;
-  }
-
-  if (this._sourcesContents) {
-    map.sourcesContent = this._generateSourcesContent(map.sources, map.sourceRoot);
-  }
-
-  return map;
-};
-/**
- * Render the source map being generated to a string.
- */
-
-
-SourceMapGenerator.prototype.toString = function SourceMapGenerator_toString() {
-  return JSON.stringify(this.toJSON());
-};
-
-exports.SourceMapGenerator = SourceMapGenerator;
-
-/***/ }),
-
-/***/ "./node_modules/source-map/lib/source-node.js":
-/*!****************************************************!*\
-  !*** ./node_modules/source-map/lib/source-node.js ***!
-  \****************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-/* -*- Mode: js; js-indent-level: 2; -*- */
-
-/*
- * Copyright 2011 Mozilla Foundation and contributors
- * Licensed under the New BSD license. See LICENSE or:
- * http://opensource.org/licenses/BSD-3-Clause
- */
-var SourceMapGenerator = __webpack_require__(/*! ./source-map-generator */ "./node_modules/source-map/lib/source-map-generator.js").SourceMapGenerator;
-
-var util = __webpack_require__(/*! ./util */ "./node_modules/source-map/lib/util.js"); // Matches a Windows-style `\r\n` newline or a `\n` newline used by all other
-// operating systems these days (capturing the result).
-
-
-var REGEX_NEWLINE = /(\r?\n)/; // Newline character code for charCodeAt() comparisons
-
-var NEWLINE_CODE = 10; // Private symbol for identifying `SourceNode`s when multiple versions of
-// the source-map library are loaded. This MUST NOT CHANGE across
-// versions!
-
-var isSourceNode = "$$$isSourceNode$$$";
-/**
- * SourceNodes provide a way to abstract over interpolating/concatenating
- * snippets of generated JavaScript source code while maintaining the line and
- * column information associated with the original source code.
- *
- * @param aLine The original line number.
- * @param aColumn The original column number.
- * @param aSource The original source's filename.
- * @param aChunks Optional. An array of strings which are snippets of
- *        generated JS, or other SourceNodes.
- * @param aName The original identifier.
- */
-
-function SourceNode(aLine, aColumn, aSource, aChunks, aName) {
-  this.children = [];
-  this.sourceContents = {};
-  this.line = aLine == null ? null : aLine;
-  this.column = aColumn == null ? null : aColumn;
-  this.source = aSource == null ? null : aSource;
-  this.name = aName == null ? null : aName;
-  this[isSourceNode] = true;
-  if (aChunks != null) this.add(aChunks);
-}
-/**
- * Creates a SourceNode from generated code and a SourceMapConsumer.
- *
- * @param aGeneratedCode The generated code
- * @param aSourceMapConsumer The SourceMap for the generated code
- * @param aRelativePath Optional. The path that relative sources in the
- *        SourceMapConsumer should be relative to.
- */
-
-
-SourceNode.fromStringWithSourceMap = function SourceNode_fromStringWithSourceMap(aGeneratedCode, aSourceMapConsumer, aRelativePath) {
-  // The SourceNode we want to fill with the generated code
-  // and the SourceMap
-  var node = new SourceNode(); // All even indices of this array are one line of the generated code,
-  // while all odd indices are the newlines between two adjacent lines
-  // (since `REGEX_NEWLINE` captures its match).
-  // Processed fragments are accessed by calling `shiftNextLine`.
-
-  var remainingLines = aGeneratedCode.split(REGEX_NEWLINE);
-  var remainingLinesIndex = 0;
-
-  var shiftNextLine = function () {
-    var lineContents = getNextLine(); // The last line of a file might not have a newline.
-
-    var newLine = getNextLine() || "";
-    return lineContents + newLine;
-
-    function getNextLine() {
-      return remainingLinesIndex < remainingLines.length ? remainingLines[remainingLinesIndex++] : undefined;
-    }
-  }; // We need to remember the position of "remainingLines"
-
-
-  var lastGeneratedLine = 1,
-      lastGeneratedColumn = 0; // The generate SourceNodes we need a code range.
-  // To extract it current and last mapping is used.
-  // Here we store the last mapping.
-
-  var lastMapping = null;
-  aSourceMapConsumer.eachMapping(function (mapping) {
-    if (lastMapping !== null) {
-      // We add the code from "lastMapping" to "mapping":
-      // First check if there is a new line in between.
-      if (lastGeneratedLine < mapping.generatedLine) {
-        // Associate first line with "lastMapping"
-        addMappingWithCode(lastMapping, shiftNextLine());
-        lastGeneratedLine++;
-        lastGeneratedColumn = 0; // The remaining code is added without mapping
-      } else {
-        // There is no new line in between.
-        // Associate the code between "lastGeneratedColumn" and
-        // "mapping.generatedColumn" with "lastMapping"
-        var nextLine = remainingLines[remainingLinesIndex] || '';
-        var code = nextLine.substr(0, mapping.generatedColumn - lastGeneratedColumn);
-        remainingLines[remainingLinesIndex] = nextLine.substr(mapping.generatedColumn - lastGeneratedColumn);
-        lastGeneratedColumn = mapping.generatedColumn;
-        addMappingWithCode(lastMapping, code); // No more remaining code, continue
-
-        lastMapping = mapping;
-        return;
-      }
-    } // We add the generated code until the first mapping
-    // to the SourceNode without any mapping.
-    // Each line is added as separate string.
-
-
-    while (lastGeneratedLine < mapping.generatedLine) {
-      node.add(shiftNextLine());
-      lastGeneratedLine++;
-    }
-
-    if (lastGeneratedColumn < mapping.generatedColumn) {
-      var nextLine = remainingLines[remainingLinesIndex] || '';
-      node.add(nextLine.substr(0, mapping.generatedColumn));
-      remainingLines[remainingLinesIndex] = nextLine.substr(mapping.generatedColumn);
-      lastGeneratedColumn = mapping.generatedColumn;
-    }
-
-    lastMapping = mapping;
-  }, this); // We have processed all mappings.
-
-  if (remainingLinesIndex < remainingLines.length) {
-    if (lastMapping) {
-      // Associate the remaining code in the current line with "lastMapping"
-      addMappingWithCode(lastMapping, shiftNextLine());
-    } // and add the remaining lines without any mapping
-
-
-    node.add(remainingLines.splice(remainingLinesIndex).join(""));
-  } // Copy sourcesContent into SourceNode
-
-
-  aSourceMapConsumer.sources.forEach(function (sourceFile) {
-    var content = aSourceMapConsumer.sourceContentFor(sourceFile);
-
-    if (content != null) {
-      if (aRelativePath != null) {
-        sourceFile = util.join(aRelativePath, sourceFile);
-      }
-
-      node.setSourceContent(sourceFile, content);
-    }
-  });
-  return node;
-
-  function addMappingWithCode(mapping, code) {
-    if (mapping === null || mapping.source === undefined) {
-      node.add(code);
-    } else {
-      var source = aRelativePath ? util.join(aRelativePath, mapping.source) : mapping.source;
-      node.add(new SourceNode(mapping.originalLine, mapping.originalColumn, source, code, mapping.name));
-    }
-  }
-};
-/**
- * Add a chunk of generated JS to this source node.
- *
- * @param aChunk A string snippet of generated JS code, another instance of
- *        SourceNode, or an array where each member is one of those things.
- */
-
-
-SourceNode.prototype.add = function SourceNode_add(aChunk) {
-  if (Array.isArray(aChunk)) {
-    aChunk.forEach(function (chunk) {
-      this.add(chunk);
-    }, this);
-  } else if (aChunk[isSourceNode] || typeof aChunk === "string") {
-    if (aChunk) {
-      this.children.push(aChunk);
-    }
-  } else {
-    throw new TypeError("Expected a SourceNode, string, or an array of SourceNodes and strings. Got " + aChunk);
-  }
-
-  return this;
-};
-/**
- * Add a chunk of generated JS to the beginning of this source node.
- *
- * @param aChunk A string snippet of generated JS code, another instance of
- *        SourceNode, or an array where each member is one of those things.
- */
-
-
-SourceNode.prototype.prepend = function SourceNode_prepend(aChunk) {
-  if (Array.isArray(aChunk)) {
-    for (var i = aChunk.length - 1; i >= 0; i--) {
-      this.prepend(aChunk[i]);
-    }
-  } else if (aChunk[isSourceNode] || typeof aChunk === "string") {
-    this.children.unshift(aChunk);
-  } else {
-    throw new TypeError("Expected a SourceNode, string, or an array of SourceNodes and strings. Got " + aChunk);
-  }
-
-  return this;
-};
-/**
- * Walk over the tree of JS snippets in this node and its children. The
- * walking function is called once for each snippet of JS and is passed that
- * snippet and the its original associated source's line/column location.
- *
- * @param aFn The traversal function.
- */
-
-
-SourceNode.prototype.walk = function SourceNode_walk(aFn) {
-  var chunk;
-
-  for (var i = 0, len = this.children.length; i < len; i++) {
-    chunk = this.children[i];
-
-    if (chunk[isSourceNode]) {
-      chunk.walk(aFn);
-    } else {
-      if (chunk !== '') {
-        aFn(chunk, {
-          source: this.source,
-          line: this.line,
-          column: this.column,
-          name: this.name
-        });
-      }
-    }
-  }
-};
-/**
- * Like `String.prototype.join` except for SourceNodes. Inserts `aStr` between
- * each of `this.children`.
- *
- * @param aSep The separator.
- */
-
-
-SourceNode.prototype.join = function SourceNode_join(aSep) {
-  var newChildren;
-  var i;
-  var len = this.children.length;
-
-  if (len > 0) {
-    newChildren = [];
-
-    for (i = 0; i < len - 1; i++) {
-      newChildren.push(this.children[i]);
-      newChildren.push(aSep);
-    }
-
-    newChildren.push(this.children[i]);
-    this.children = newChildren;
-  }
-
-  return this;
-};
-/**
- * Call String.prototype.replace on the very right-most source snippet. Useful
- * for trimming whitespace from the end of a source node, etc.
- *
- * @param aPattern The pattern to replace.
- * @param aReplacement The thing to replace the pattern with.
- */
-
-
-SourceNode.prototype.replaceRight = function SourceNode_replaceRight(aPattern, aReplacement) {
-  var lastChild = this.children[this.children.length - 1];
-
-  if (lastChild[isSourceNode]) {
-    lastChild.replaceRight(aPattern, aReplacement);
-  } else if (typeof lastChild === 'string') {
-    this.children[this.children.length - 1] = lastChild.replace(aPattern, aReplacement);
-  } else {
-    this.children.push(''.replace(aPattern, aReplacement));
-  }
-
-  return this;
-};
-/**
- * Set the source content for a source file. This will be added to the SourceMapGenerator
- * in the sourcesContent field.
- *
- * @param aSourceFile The filename of the source file
- * @param aSourceContent The content of the source file
- */
-
-
-SourceNode.prototype.setSourceContent = function SourceNode_setSourceContent(aSourceFile, aSourceContent) {
-  this.sourceContents[util.toSetString(aSourceFile)] = aSourceContent;
-};
-/**
- * Walk over the tree of SourceNodes. The walking function is called for each
- * source file content and is passed the filename and source content.
- *
- * @param aFn The traversal function.
- */
-
-
-SourceNode.prototype.walkSourceContents = function SourceNode_walkSourceContents(aFn) {
-  for (var i = 0, len = this.children.length; i < len; i++) {
-    if (this.children[i][isSourceNode]) {
-      this.children[i].walkSourceContents(aFn);
-    }
-  }
-
-  var sources = Object.keys(this.sourceContents);
-
-  for (var i = 0, len = sources.length; i < len; i++) {
-    aFn(util.fromSetString(sources[i]), this.sourceContents[sources[i]]);
-  }
-};
-/**
- * Return the string representation of this source node. Walks over the tree
- * and concatenates all the various snippets together to one string.
- */
-
-
-SourceNode.prototype.toString = function SourceNode_toString() {
-  var str = "";
-  this.walk(function (chunk) {
-    str += chunk;
-  });
-  return str;
-};
-/**
- * Returns the string representation of this source node along with a source
- * map.
- */
-
-
-SourceNode.prototype.toStringWithSourceMap = function SourceNode_toStringWithSourceMap(aArgs) {
-  var generated = {
-    code: "",
-    line: 1,
-    column: 0
-  };
-  var map = new SourceMapGenerator(aArgs);
-  var sourceMappingActive = false;
-  var lastOriginalSource = null;
-  var lastOriginalLine = null;
-  var lastOriginalColumn = null;
-  var lastOriginalName = null;
-  this.walk(function (chunk, original) {
-    generated.code += chunk;
-
-    if (original.source !== null && original.line !== null && original.column !== null) {
-      if (lastOriginalSource !== original.source || lastOriginalLine !== original.line || lastOriginalColumn !== original.column || lastOriginalName !== original.name) {
-        map.addMapping({
-          source: original.source,
-          original: {
-            line: original.line,
-            column: original.column
-          },
-          generated: {
-            line: generated.line,
-            column: generated.column
-          },
-          name: original.name
-        });
-      }
-
-      lastOriginalSource = original.source;
-      lastOriginalLine = original.line;
-      lastOriginalColumn = original.column;
-      lastOriginalName = original.name;
-      sourceMappingActive = true;
-    } else if (sourceMappingActive) {
-      map.addMapping({
-        generated: {
-          line: generated.line,
-          column: generated.column
-        }
-      });
-      lastOriginalSource = null;
-      sourceMappingActive = false;
-    }
-
-    for (var idx = 0, length = chunk.length; idx < length; idx++) {
-      if (chunk.charCodeAt(idx) === NEWLINE_CODE) {
-        generated.line++;
-        generated.column = 0; // Mappings end at eol
-
-        if (idx + 1 === length) {
-          lastOriginalSource = null;
-          sourceMappingActive = false;
-        } else if (sourceMappingActive) {
-          map.addMapping({
-            source: original.source,
-            original: {
-              line: original.line,
-              column: original.column
-            },
-            generated: {
-              line: generated.line,
-              column: generated.column
-            },
-            name: original.name
-          });
-        }
-      } else {
-        generated.column++;
-      }
-    }
-  });
-  this.walkSourceContents(function (sourceFile, sourceContent) {
-    map.setSourceContent(sourceFile, sourceContent);
-  });
-  return {
-    code: generated.code,
-    map: map
-  };
-};
-
-exports.SourceNode = SourceNode;
-
-/***/ }),
-
-/***/ "./node_modules/source-map/lib/util.js":
-/*!*********************************************!*\
-  !*** ./node_modules/source-map/lib/util.js ***!
-  \*********************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-/* -*- Mode: js; js-indent-level: 2; -*- */
-
-/*
- * Copyright 2011 Mozilla Foundation and contributors
- * Licensed under the New BSD license. See LICENSE or:
- * http://opensource.org/licenses/BSD-3-Clause
- */
-
-/**
- * This is a helper function for getting values from parameter/options
- * objects.
- *
- * @param args The object we are extracting values from
- * @param name The name of the property we are getting.
- * @param defaultValue An optional value to return if the property is missing
- * from the object. If this is not specified and the property is missing, an
- * error will be thrown.
- */
-function getArg(aArgs, aName, aDefaultValue) {
-  if (aName in aArgs) {
-    return aArgs[aName];
-  } else if (arguments.length === 3) {
-    return aDefaultValue;
-  } else {
-    throw new Error('"' + aName + '" is a required argument.');
-  }
-}
-
-exports.getArg = getArg;
-var urlRegexp = /^(?:([\w+\-.]+):)?\/\/(?:(\w+:\w+)@)?([\w.-]*)(?::(\d+))?(.*)$/;
-var dataUrlRegexp = /^data:.+\,.+$/;
-
-function urlParse(aUrl) {
-  var match = aUrl.match(urlRegexp);
-
-  if (!match) {
-    return null;
-  }
-
-  return {
-    scheme: match[1],
-    auth: match[2],
-    host: match[3],
-    port: match[4],
-    path: match[5]
-  };
-}
-
-exports.urlParse = urlParse;
-
-function urlGenerate(aParsedUrl) {
-  var url = '';
-
-  if (aParsedUrl.scheme) {
-    url += aParsedUrl.scheme + ':';
-  }
-
-  url += '//';
-
-  if (aParsedUrl.auth) {
-    url += aParsedUrl.auth + '@';
-  }
-
-  if (aParsedUrl.host) {
-    url += aParsedUrl.host;
-  }
-
-  if (aParsedUrl.port) {
-    url += ":" + aParsedUrl.port;
-  }
-
-  if (aParsedUrl.path) {
-    url += aParsedUrl.path;
-  }
-
-  return url;
-}
-
-exports.urlGenerate = urlGenerate;
-/**
- * Normalizes a path, or the path portion of a URL:
- *
- * - Replaces consecutive slashes with one slash.
- * - Removes unnecessary '.' parts.
- * - Removes unnecessary '<dir>/..' parts.
- *
- * Based on code in the Node.js 'path' core module.
- *
- * @param aPath The path or url to normalize.
- */
-
-function normalize(aPath) {
-  var path = aPath;
-  var url = urlParse(aPath);
-
-  if (url) {
-    if (!url.path) {
-      return aPath;
-    }
-
-    path = url.path;
-  }
-
-  var isAbsolute = exports.isAbsolute(path);
-  var parts = path.split(/\/+/);
-
-  for (var part, up = 0, i = parts.length - 1; i >= 0; i--) {
-    part = parts[i];
-
-    if (part === '.') {
-      parts.splice(i, 1);
-    } else if (part === '..') {
-      up++;
-    } else if (up > 0) {
-      if (part === '') {
-        // The first part is blank if the path is absolute. Trying to go
-        // above the root is a no-op. Therefore we can remove all '..' parts
-        // directly after the root.
-        parts.splice(i + 1, up);
-        up = 0;
-      } else {
-        parts.splice(i, 2);
-        up--;
-      }
-    }
-  }
-
-  path = parts.join('/');
-
-  if (path === '') {
-    path = isAbsolute ? '/' : '.';
-  }
-
-  if (url) {
-    url.path = path;
-    return urlGenerate(url);
-  }
-
-  return path;
-}
-
-exports.normalize = normalize;
-/**
- * Joins two paths/URLs.
- *
- * @param aRoot The root path or URL.
- * @param aPath The path or URL to be joined with the root.
- *
- * - If aPath is a URL or a data URI, aPath is returned, unless aPath is a
- *   scheme-relative URL: Then the scheme of aRoot, if any, is prepended
- *   first.
- * - Otherwise aPath is a path. If aRoot is a URL, then its path portion
- *   is updated with the result and aRoot is returned. Otherwise the result
- *   is returned.
- *   - If aPath is absolute, the result is aPath.
- *   - Otherwise the two paths are joined with a slash.
- * - Joining for example 'http://' and 'www.example.com' is also supported.
- */
-
-function join(aRoot, aPath) {
-  if (aRoot === "") {
-    aRoot = ".";
-  }
-
-  if (aPath === "") {
-    aPath = ".";
-  }
-
-  var aPathUrl = urlParse(aPath);
-  var aRootUrl = urlParse(aRoot);
-
-  if (aRootUrl) {
-    aRoot = aRootUrl.path || '/';
-  } // `join(foo, '//www.example.org')`
-
-
-  if (aPathUrl && !aPathUrl.scheme) {
-    if (aRootUrl) {
-      aPathUrl.scheme = aRootUrl.scheme;
-    }
-
-    return urlGenerate(aPathUrl);
-  }
-
-  if (aPathUrl || aPath.match(dataUrlRegexp)) {
-    return aPath;
-  } // `join('http://', 'www.example.com')`
-
-
-  if (aRootUrl && !aRootUrl.host && !aRootUrl.path) {
-    aRootUrl.host = aPath;
-    return urlGenerate(aRootUrl);
-  }
-
-  var joined = aPath.charAt(0) === '/' ? aPath : normalize(aRoot.replace(/\/+$/, '') + '/' + aPath);
-
-  if (aRootUrl) {
-    aRootUrl.path = joined;
-    return urlGenerate(aRootUrl);
-  }
-
-  return joined;
-}
-
-exports.join = join;
-
-exports.isAbsolute = function (aPath) {
-  return aPath.charAt(0) === '/' || urlRegexp.test(aPath);
-};
-/**
- * Make a path relative to a URL or another path.
- *
- * @param aRoot The root path or URL.
- * @param aPath The path or URL to be made relative to aRoot.
- */
-
-
-function relative(aRoot, aPath) {
-  if (aRoot === "") {
-    aRoot = ".";
-  }
-
-  aRoot = aRoot.replace(/\/$/, ''); // It is possible for the path to be above the root. In this case, simply
-  // checking whether the root is a prefix of the path won't work. Instead, we
-  // need to remove components from the root one by one, until either we find
-  // a prefix that fits, or we run out of components to remove.
-
-  var level = 0;
-
-  while (aPath.indexOf(aRoot + '/') !== 0) {
-    var index = aRoot.lastIndexOf("/");
-
-    if (index < 0) {
-      return aPath;
-    } // If the only part of the root that is left is the scheme (i.e. http://,
-    // file:///, etc.), one or more slashes (/), or simply nothing at all, we
-    // have exhausted all components, so the path is not relative to the root.
-
-
-    aRoot = aRoot.slice(0, index);
-
-    if (aRoot.match(/^([^\/]+:\/)?\/*$/)) {
-      return aPath;
-    }
-
-    ++level;
-  } // Make sure we add a "../" for each component we removed from the root.
-
-
-  return Array(level + 1).join("../") + aPath.substr(aRoot.length + 1);
-}
-
-exports.relative = relative;
-
-var supportsNullProto = function () {
-  var obj = Object.create(null);
-  return !('__proto__' in obj);
-}();
-
-function identity(s) {
-  return s;
-}
-/**
- * Because behavior goes wacky when you set `__proto__` on objects, we
- * have to prefix all the strings in our set with an arbitrary character.
- *
- * See https://github.com/mozilla/source-map/pull/31 and
- * https://github.com/mozilla/source-map/issues/30
- *
- * @param String aStr
- */
-
-
-function toSetString(aStr) {
-  if (isProtoString(aStr)) {
-    return '$' + aStr;
-  }
-
-  return aStr;
-}
-
-exports.toSetString = supportsNullProto ? identity : toSetString;
-
-function fromSetString(aStr) {
-  if (isProtoString(aStr)) {
-    return aStr.slice(1);
-  }
-
-  return aStr;
-}
-
-exports.fromSetString = supportsNullProto ? identity : fromSetString;
-
-function isProtoString(s) {
-  if (!s) {
-    return false;
-  }
-
-  var length = s.length;
-
-  if (length < 9
-  /* "__proto__".length */
-  ) {
-      return false;
-    }
-
-  if (s.charCodeAt(length - 1) !== 95
-  /* '_' */
-  || s.charCodeAt(length - 2) !== 95
-  /* '_' */
-  || s.charCodeAt(length - 3) !== 111
-  /* 'o' */
-  || s.charCodeAt(length - 4) !== 116
-  /* 't' */
-  || s.charCodeAt(length - 5) !== 111
-  /* 'o' */
-  || s.charCodeAt(length - 6) !== 114
-  /* 'r' */
-  || s.charCodeAt(length - 7) !== 112
-  /* 'p' */
-  || s.charCodeAt(length - 8) !== 95
-  /* '_' */
-  || s.charCodeAt(length - 9) !== 95
-  /* '_' */
-  ) {
-      return false;
-    }
-
-  for (var i = length - 10; i >= 0; i--) {
-    if (s.charCodeAt(i) !== 36
-    /* '$' */
-    ) {
-        return false;
-      }
-  }
-
-  return true;
-}
-/**
- * Comparator between two mappings where the original positions are compared.
- *
- * Optionally pass in `true` as `onlyCompareGenerated` to consider two
- * mappings with the same original source/line/column, but different generated
- * line and column the same. Useful when searching for a mapping with a
- * stubbed out mapping.
- */
-
-
-function compareByOriginalPositions(mappingA, mappingB, onlyCompareOriginal) {
-  var cmp = strcmp(mappingA.source, mappingB.source);
-
-  if (cmp !== 0) {
-    return cmp;
-  }
-
-  cmp = mappingA.originalLine - mappingB.originalLine;
-
-  if (cmp !== 0) {
-    return cmp;
-  }
-
-  cmp = mappingA.originalColumn - mappingB.originalColumn;
-
-  if (cmp !== 0 || onlyCompareOriginal) {
-    return cmp;
-  }
-
-  cmp = mappingA.generatedColumn - mappingB.generatedColumn;
-
-  if (cmp !== 0) {
-    return cmp;
-  }
-
-  cmp = mappingA.generatedLine - mappingB.generatedLine;
-
-  if (cmp !== 0) {
-    return cmp;
-  }
-
-  return strcmp(mappingA.name, mappingB.name);
-}
-
-exports.compareByOriginalPositions = compareByOriginalPositions;
-/**
- * Comparator between two mappings with deflated source and name indices where
- * the generated positions are compared.
- *
- * Optionally pass in `true` as `onlyCompareGenerated` to consider two
- * mappings with the same generated line and column, but different
- * source/name/original line and column the same. Useful when searching for a
- * mapping with a stubbed out mapping.
- */
-
-function compareByGeneratedPositionsDeflated(mappingA, mappingB, onlyCompareGenerated) {
-  var cmp = mappingA.generatedLine - mappingB.generatedLine;
-
-  if (cmp !== 0) {
-    return cmp;
-  }
-
-  cmp = mappingA.generatedColumn - mappingB.generatedColumn;
-
-  if (cmp !== 0 || onlyCompareGenerated) {
-    return cmp;
-  }
-
-  cmp = strcmp(mappingA.source, mappingB.source);
-
-  if (cmp !== 0) {
-    return cmp;
-  }
-
-  cmp = mappingA.originalLine - mappingB.originalLine;
-
-  if (cmp !== 0) {
-    return cmp;
-  }
-
-  cmp = mappingA.originalColumn - mappingB.originalColumn;
-
-  if (cmp !== 0) {
-    return cmp;
-  }
-
-  return strcmp(mappingA.name, mappingB.name);
-}
-
-exports.compareByGeneratedPositionsDeflated = compareByGeneratedPositionsDeflated;
-
-function strcmp(aStr1, aStr2) {
-  if (aStr1 === aStr2) {
-    return 0;
-  }
-
-  if (aStr1 === null) {
-    return 1; // aStr2 !== null
-  }
-
-  if (aStr2 === null) {
-    return -1; // aStr1 !== null
-  }
-
-  if (aStr1 > aStr2) {
-    return 1;
-  }
-
-  return -1;
-}
-/**
- * Comparator between two mappings with inflated source and name strings where
- * the generated positions are compared.
- */
-
-
-function compareByGeneratedPositionsInflated(mappingA, mappingB) {
-  var cmp = mappingA.generatedLine - mappingB.generatedLine;
-
-  if (cmp !== 0) {
-    return cmp;
-  }
-
-  cmp = mappingA.generatedColumn - mappingB.generatedColumn;
-
-  if (cmp !== 0) {
-    return cmp;
-  }
-
-  cmp = strcmp(mappingA.source, mappingB.source);
-
-  if (cmp !== 0) {
-    return cmp;
-  }
-
-  cmp = mappingA.originalLine - mappingB.originalLine;
-
-  if (cmp !== 0) {
-    return cmp;
-  }
-
-  cmp = mappingA.originalColumn - mappingB.originalColumn;
-
-  if (cmp !== 0) {
-    return cmp;
-  }
-
-  return strcmp(mappingA.name, mappingB.name);
-}
-
-exports.compareByGeneratedPositionsInflated = compareByGeneratedPositionsInflated;
-/**
- * Strip any JSON XSSI avoidance prefix from the string (as documented
- * in the source maps specification), and then parse the string as
- * JSON.
- */
-
-function parseSourceMapInput(str) {
-  return JSON.parse(str.replace(/^\)]}'[^\n]*\n/, ''));
-}
-
-exports.parseSourceMapInput = parseSourceMapInput;
-/**
- * Compute the URL of a source given the the source root, the source's
- * URL, and the source map's URL.
- */
-
-function computeSourceURL(sourceRoot, sourceURL, sourceMapURL) {
-  sourceURL = sourceURL || '';
-
-  if (sourceRoot) {
-    // This follows what Chrome does.
-    if (sourceRoot[sourceRoot.length - 1] !== '/' && sourceURL[0] !== '/') {
-      sourceRoot += '/';
-    } // The spec says:
-    //   Line 4: An optional source root, useful for relocating source
-    //   files on a server or removing repeated values in the
-    //   “sources” entry.  This value is prepended to the individual
-    //   entries in the “source” field.
-
-
-    sourceURL = sourceRoot + sourceURL;
-  } // Historically, SourceMapConsumer did not take the sourceMapURL as
-  // a parameter.  This mode is still somewhat supported, which is why
-  // this code block is conditional.  However, it's preferable to pass
-  // the source map URL to SourceMapConsumer, so that this function
-  // can implement the source URL resolution algorithm as outlined in
-  // the spec.  This block is basically the equivalent of:
-  //    new URL(sourceURL, sourceMapURL).toString()
-  // ... except it avoids using URL, which wasn't available in the
-  // older releases of node still supported by this library.
-  //
-  // The spec says:
-  //   If the sources are not absolute URLs after prepending of the
-  //   “sourceRoot”, the sources are resolved relative to the
-  //   SourceMap (like resolving script src in a html document).
-
-
-  if (sourceMapURL) {
-    var parsed = urlParse(sourceMapURL);
-
-    if (!parsed) {
-      throw new Error("sourceMapURL could not be parsed");
-    }
-
-    if (parsed.path) {
-      // Strip the last path component, but keep the "/".
-      var index = parsed.path.lastIndexOf('/');
-
-      if (index >= 0) {
-        parsed.path = parsed.path.substring(0, index + 1);
-      }
-    }
-
-    sourceURL = join(urlGenerate(parsed), sourceURL);
-  }
-
-  return normalize(sourceURL);
-}
-
-exports.computeSourceURL = computeSourceURL;
-
-/***/ }),
-
-/***/ "./node_modules/source-map/source-map.js":
-/*!***********************************************!*\
-  !*** ./node_modules/source-map/source-map.js ***!
-  \***********************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-/*
- * Copyright 2009-2011 Mozilla Foundation and contributors
- * Licensed under the New BSD license. See LICENSE.txt or:
- * http://opensource.org/licenses/BSD-3-Clause
- */
-exports.SourceMapGenerator = __webpack_require__(/*! ./lib/source-map-generator */ "./node_modules/source-map/lib/source-map-generator.js").SourceMapGenerator;
-exports.SourceMapConsumer = __webpack_require__(/*! ./lib/source-map-consumer */ "./node_modules/source-map/lib/source-map-consumer.js").SourceMapConsumer;
-exports.SourceNode = __webpack_require__(/*! ./lib/source-node */ "./node_modules/source-map/lib/source-node.js").SourceNode;
-
-/***/ }),
-
 /***/ "./node_modules/sprintf-js/src/sprintf.js":
 /*!************************************************!*\
   !*** ./node_modules/sprintf-js/src/sprintf.js ***!
@@ -49287,744 +52845,6 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/* global window, exports, define */
 
 /***/ }),
 
-/***/ "./node_modules/stack-generator/stack-generator.js":
-/*!*********************************************************!*\
-  !*** ./node_modules/stack-generator/stack-generator.js ***!
-  \*********************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;(function (root, factory) {
-  'use strict'; // Universal Module Definition (UMD) to support AMD, CommonJS/Node.js, Rhino, and browsers.
-
-  /* istanbul ignore next */
-
-  if (true) {
-    !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! stackframe */ "./node_modules/stackframe/stackframe.js")], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
-				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
-				(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),
-				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
-  } else {}
-})(this, function (StackFrame) {
-  return {
-    backtrace: function StackGenerator$$backtrace(opts) {
-      var stack = [];
-      var maxStackSize = 10;
-
-      if (typeof opts === 'object' && typeof opts.maxStackSize === 'number') {
-        maxStackSize = opts.maxStackSize;
-      }
-
-      var curr = arguments.callee;
-
-      while (curr && stack.length < maxStackSize) {
-        // Allow V8 optimizations
-        var args = new Array(curr['arguments'].length);
-
-        for (var i = 0; i < args.length; ++i) {
-          args[i] = curr['arguments'][i];
-        }
-
-        if (/function(?:\s+([\w$]+))+\s*\(/.test(curr.toString())) {
-          stack.push(new StackFrame({
-            functionName: RegExp.$1 || undefined,
-            args: args
-          }));
-        } else {
-          stack.push(new StackFrame({
-            args: args
-          }));
-        }
-
-        try {
-          curr = curr.caller;
-        } catch (e) {
-          break;
-        }
-      }
-
-      return stack;
-    }
-  };
-});
-
-/***/ }),
-
-/***/ "./node_modules/stackframe/stackframe.js":
-/*!***********************************************!*\
-  !*** ./node_modules/stackframe/stackframe.js ***!
-  \***********************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;(function (root, factory) {
-  'use strict'; // Universal Module Definition (UMD) to support AMD, CommonJS/Node.js, Rhino, and browsers.
-
-  /* istanbul ignore next */
-
-  if (true) {
-    !(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
-				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
-				(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),
-				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
-  } else {}
-})(this, function () {
-  'use strict';
-
-  function _isNumber(n) {
-    return !isNaN(parseFloat(n)) && isFinite(n);
-  }
-
-  function StackFrame(functionName, args, fileName, lineNumber, columnNumber, source) {
-    if (functionName !== undefined) {
-      this.setFunctionName(functionName);
-    }
-
-    if (args !== undefined) {
-      this.setArgs(args);
-    }
-
-    if (fileName !== undefined) {
-      this.setFileName(fileName);
-    }
-
-    if (lineNumber !== undefined) {
-      this.setLineNumber(lineNumber);
-    }
-
-    if (columnNumber !== undefined) {
-      this.setColumnNumber(columnNumber);
-    }
-
-    if (source !== undefined) {
-      this.setSource(source);
-    }
-  }
-
-  StackFrame.prototype = {
-    getFunctionName: function () {
-      return this.functionName;
-    },
-    setFunctionName: function (v) {
-      this.functionName = String(v);
-    },
-    getArgs: function () {
-      return this.args;
-    },
-    setArgs: function (v) {
-      if (Object.prototype.toString.call(v) !== '[object Array]') {
-        throw new TypeError('Args must be an Array');
-      }
-
-      this.args = v;
-    },
-    // NOTE: Property name may be misleading as it includes the path,
-    // but it somewhat mirrors V8's JavaScriptStackTraceApi
-    // https://code.google.com/p/v8/wiki/JavaScriptStackTraceApi and Gecko's
-    // http://mxr.mozilla.org/mozilla-central/source/xpcom/base/nsIException.idl#14
-    getFileName: function () {
-      return this.fileName;
-    },
-    setFileName: function (v) {
-      this.fileName = String(v);
-    },
-    getLineNumber: function () {
-      return this.lineNumber;
-    },
-    setLineNumber: function (v) {
-      if (!_isNumber(v)) {
-        throw new TypeError('Line Number must be a Number');
-      }
-
-      this.lineNumber = Number(v);
-    },
-    getColumnNumber: function () {
-      return this.columnNumber;
-    },
-    setColumnNumber: function (v) {
-      if (!_isNumber(v)) {
-        throw new TypeError('Column Number must be a Number');
-      }
-
-      this.columnNumber = Number(v);
-    },
-    getSource: function () {
-      return this.source;
-    },
-    setSource: function (v) {
-      this.source = String(v);
-    },
-    toString: function () {
-      var functionName = this.getFunctionName() || '{anonymous}';
-      var args = '(' + (this.getArgs() || []).join(',') + ')';
-      var fileName = this.getFileName() ? '@' + this.getFileName() : '';
-      var lineNumber = _isNumber(this.getLineNumber()) ? ':' + this.getLineNumber() : '';
-      var columnNumber = _isNumber(this.getColumnNumber()) ? ':' + this.getColumnNumber() : '';
-      return functionName + args + fileName + lineNumber + columnNumber;
-    }
-  };
-  return StackFrame;
-});
-
-/***/ }),
-
-/***/ "./node_modules/stacktrace-gps/stacktrace-gps.js":
-/*!*******************************************************!*\
-  !*** ./node_modules/stacktrace-gps/stacktrace-gps.js ***!
-  \*******************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;(function (root, factory) {
-  'use strict'; // Universal Module Definition (UMD) to support AMD, CommonJS/Node.js, Rhino, and browsers.
-
-  /* istanbul ignore next */
-
-  if (true) {
-    !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! source-map */ "./node_modules/source-map/source-map.js"), __webpack_require__(/*! stackframe */ "./node_modules/stackframe/stackframe.js")], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
-				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
-				(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),
-				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
-  } else {}
-})(this, function (SourceMap, StackFrame) {
-  'use strict';
-  /**
-   * Make a X-Domain request to url and callback.
-   *
-   * @param {String} url
-   * @returns {Promise} with response text if fulfilled
-   */
-
-  function _xdr(url) {
-    return new Promise(function (resolve, reject) {
-      var req = new XMLHttpRequest();
-      req.open('get', url);
-      req.onerror = reject;
-
-      req.onreadystatechange = function onreadystatechange() {
-        if (req.readyState === 4) {
-          if (req.status >= 200 && req.status < 300) {
-            resolve(req.responseText);
-          } else {
-            reject(new Error('HTTP status: ' + req.status + ' retrieving ' + url));
-          }
-        }
-      };
-
-      req.send();
-    });
-  }
-  /**
-   * Convert a Base64-encoded string into its original representation.
-   * Used for inline sourcemaps.
-   *
-   * @param {String} b64str Base-64 encoded string
-   * @returns {String} original representation of the base64-encoded string.
-   */
-
-
-  function _atob(b64str) {
-    if (typeof window !== 'undefined' && window.atob) {
-      return window.atob(b64str);
-    } else {
-      throw new Error('You must supply a polyfill for window.atob in this environment');
-    }
-  }
-
-  function _parseJson(string) {
-    if (typeof JSON !== 'undefined' && JSON.parse) {
-      return JSON.parse(string);
-    } else {
-      throw new Error('You must supply a polyfill for JSON.parse in this environment');
-    }
-  }
-
-  function _findFunctionName(source, lineNumber
-  /*, columnNumber*/
-  ) {
-    // function {name}({args}) m[1]=name m[2]=args
-    var reFunctionDeclaration = /function\s+([^(]*?)\s*\(([^)]*)\)/; // {name} = function ({args}) TODO args capture
-
-    var reFunctionExpression = /['"]?([$_A-Za-z][$_A-Za-z0-9]*)['"]?\s*[:=]\s*function\b/; // {name} = eval()
-
-    var reFunctionEvaluation = /['"]?([$_A-Za-z][$_A-Za-z0-9]*)['"]?\s*[:=]\s*(?:eval|new Function)\b/;
-    var lines = source.split('\n'); // Walk backwards in the source lines until we find the line which matches one of the patterns above
-
-    var code = '';
-    var maxLines = Math.min(lineNumber, 20);
-    var m;
-
-    for (var i = 0; i < maxLines; ++i) {
-      // lineNo is 1-based, source[] is 0-based
-      var line = lines[lineNumber - i - 1];
-      var commentPos = line.indexOf('//');
-
-      if (commentPos >= 0) {
-        line = line.substr(0, commentPos);
-      }
-
-      if (line) {
-        code = line + code;
-        m = reFunctionExpression.exec(code);
-
-        if (m && m[1]) {
-          return m[1];
-        }
-
-        m = reFunctionDeclaration.exec(code);
-
-        if (m && m[1]) {
-          return m[1];
-        }
-
-        m = reFunctionEvaluation.exec(code);
-
-        if (m && m[1]) {
-          return m[1];
-        }
-      }
-    }
-
-    return undefined;
-  }
-
-  function _ensureSupportedEnvironment() {
-    if (typeof Object.defineProperty !== 'function' || typeof Object.create !== 'function') {
-      throw new Error('Unable to consume source maps in older browsers');
-    }
-  }
-
-  function _ensureStackFrameIsLegit(stackframe) {
-    if (typeof stackframe !== 'object') {
-      throw new TypeError('Given StackFrame is not an object');
-    } else if (typeof stackframe.fileName !== 'string') {
-      throw new TypeError('Given file name is not a String');
-    } else if (typeof stackframe.lineNumber !== 'number' || stackframe.lineNumber % 1 !== 0 || stackframe.lineNumber < 1) {
-      throw new TypeError('Given line number must be a positive integer');
-    } else if (typeof stackframe.columnNumber !== 'number' || stackframe.columnNumber % 1 !== 0 || stackframe.columnNumber < 0) {
-      throw new TypeError('Given column number must be a non-negative integer');
-    }
-
-    return true;
-  }
-
-  function _findSourceMappingURL(source) {
-    var m = /\/\/[#@] ?sourceMappingURL=([^\s'"]+)\s*$/.exec(source);
-
-    if (m && m[1]) {
-      return m[1];
-    } else {
-      throw new Error('sourceMappingURL not found');
-    }
-  }
-
-  function _extractLocationInfoFromSourceMap(stackframe, rawSourceMap, sourceCache) {
-    return new Promise(function (resolve, reject) {
-      var mapConsumer = new SourceMap.SourceMapConsumer(rawSourceMap);
-      var loc = mapConsumer.originalPositionFor({
-        line: stackframe.lineNumber,
-        column: stackframe.columnNumber
-      });
-
-      if (loc.source) {
-        var mappedSource = mapConsumer.sourceContentFor(loc.source);
-
-        if (mappedSource) {
-          sourceCache[loc.source] = mappedSource;
-        }
-
-        resolve(new StackFrame(loc.name || stackframe.functionName, stackframe.args, loc.source, loc.line, loc.column));
-      } else {
-        reject(new Error('Could not get original source for given stackframe and source map'));
-      }
-    });
-  }
-  /**
-   * @constructor
-   * @param {Object} opts
-   *      opts.sourceCache = {url: "Source String"} => preload source cache
-   *      opts.offline = True to prevent network requests.
-   *              Best effort without sources or source maps.
-   *      opts.ajax = Promise returning function to make X-Domain requests
-   */
-
-
-  return function StackTraceGPS(opts) {
-    if (!(this instanceof StackTraceGPS)) {
-      return new StackTraceGPS(opts);
-    }
-
-    opts = opts || {};
-    this.sourceCache = opts.sourceCache || {};
-    this.ajax = opts.ajax || _xdr;
-    this._atob = opts.atob || _atob;
-
-    this._get = function _get(location) {
-      return new Promise(function (resolve, reject) {
-        var isDataUrl = location.substr(0, 5) === 'data:';
-
-        if (this.sourceCache[location]) {
-          resolve(this.sourceCache[location]);
-        } else if (opts.offline && !isDataUrl) {
-          reject(new Error('Cannot make network requests in offline mode'));
-        } else {
-          if (isDataUrl) {
-            // data URLs can have parameters.
-            // see http://tools.ietf.org/html/rfc2397
-            var supportedEncodingRegexp = /^data:application\/json;([\w=:"-]+;)*base64,/;
-            var match = location.match(supportedEncodingRegexp);
-
-            if (match) {
-              var sourceMapStart = match[0].length;
-              var encodedSource = location.substr(sourceMapStart);
-
-              var source = this._atob(encodedSource);
-
-              this.sourceCache[location] = source;
-              resolve(source);
-            } else {
-              reject(new Error('The encoding of the inline sourcemap is not supported'));
-            }
-          } else {
-            var xhrPromise = this.ajax(location, {
-              method: 'get'
-            }); // Cache the Promise to prevent duplicate in-flight requests
-
-            this.sourceCache[location] = xhrPromise;
-            xhrPromise.then(resolve, reject);
-          }
-        }
-      }.bind(this));
-    };
-    /**
-     * Given a StackFrame, enhance function name and use source maps for a
-     * better StackFrame.
-     *
-     * @param {StackFrame} stackframe object
-     * @returns {Promise} that resolves with with source-mapped StackFrame
-     */
-
-
-    this.pinpoint = function StackTraceGPS$$pinpoint(stackframe) {
-      return new Promise(function (resolve, reject) {
-        this.getMappedLocation(stackframe).then(function (mappedStackFrame) {
-          function resolveMappedStackFrame() {
-            resolve(mappedStackFrame);
-          }
-
-          this.findFunctionName(mappedStackFrame).then(resolve, resolveMappedStackFrame)['catch'](resolveMappedStackFrame);
-        }.bind(this), reject);
-      }.bind(this));
-    };
-    /**
-     * Given a StackFrame, guess function name from location information.
-     *
-     * @param {StackFrame} stackframe
-     * @returns {Promise} that resolves with enhanced StackFrame.
-     */
-
-
-    this.findFunctionName = function StackTraceGPS$$findFunctionName(stackframe) {
-      return new Promise(function (resolve, reject) {
-        _ensureStackFrameIsLegit(stackframe);
-
-        this._get(stackframe.fileName).then(function getSourceCallback(source) {
-          var lineNumber = stackframe.lineNumber;
-          var columnNumber = stackframe.columnNumber;
-
-          var guessedFunctionName = _findFunctionName(source, lineNumber, columnNumber); // Only replace functionName if we found something
-
-
-          if (guessedFunctionName) {
-            resolve(new StackFrame(guessedFunctionName, stackframe.args, stackframe.fileName, lineNumber, columnNumber));
-          } else {
-            resolve(stackframe);
-          }
-        }, reject)['catch'](reject);
-      }.bind(this));
-    };
-    /**
-     * Given a StackFrame, seek source-mapped location and return new enhanced StackFrame.
-     *
-     * @param {StackFrame} stackframe
-     * @returns {Promise} that resolves with enhanced StackFrame.
-     */
-
-
-    this.getMappedLocation = function StackTraceGPS$$getMappedLocation(stackframe) {
-      return new Promise(function (resolve, reject) {
-        _ensureSupportedEnvironment();
-
-        _ensureStackFrameIsLegit(stackframe);
-
-        var sourceCache = this.sourceCache;
-        var fileName = stackframe.fileName;
-
-        this._get(fileName).then(function (source) {
-          var sourceMappingURL = _findSourceMappingURL(source);
-
-          var isDataUrl = sourceMappingURL.substr(0, 5) === 'data:';
-          var base = fileName.substring(0, fileName.lastIndexOf('/') + 1);
-
-          if (sourceMappingURL[0] !== '/' && !isDataUrl && !/^https?:\/\/|^\/\//i.test(sourceMappingURL)) {
-            sourceMappingURL = base + sourceMappingURL;
-          }
-
-          this._get(sourceMappingURL).then(function (sourceMap) {
-            if (typeof sourceMap === 'string') {
-              sourceMap = _parseJson(sourceMap.replace(/^\)\]\}'/, ''));
-            }
-
-            if (typeof sourceMap.sourceRoot === 'undefined') {
-              sourceMap.sourceRoot = base;
-            }
-
-            _extractLocationInfoFromSourceMap(stackframe, sourceMap, sourceCache).then(resolve)['catch'](function () {
-              resolve(stackframe);
-            });
-          }, reject)['catch'](reject);
-        }.bind(this), reject)['catch'](reject);
-      }.bind(this));
-    };
-  };
-});
-
-/***/ }),
-
-/***/ "./node_modules/stacktrace-js/stacktrace.js":
-/*!**************************************************!*\
-  !*** ./node_modules/stacktrace-js/stacktrace.js ***!
-  \**************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;(function (root, factory) {
-  'use strict'; // Universal Module Definition (UMD) to support AMD, CommonJS/Node.js, Rhino, and browsers.
-
-  /* istanbul ignore next */
-
-  if (true) {
-    !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! error-stack-parser */ "./node_modules/error-stack-parser/error-stack-parser.js"), __webpack_require__(/*! stack-generator */ "./node_modules/stack-generator/stack-generator.js"), __webpack_require__(/*! stacktrace-gps */ "./node_modules/stacktrace-gps/stacktrace-gps.js")], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
-				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
-				(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),
-				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
-  } else {}
-})(this, function StackTrace(ErrorStackParser, StackGenerator, StackTraceGPS) {
-  var _options = {
-    filter: function (stackframe) {
-      // Filter out stackframes for this library by default
-      return (stackframe.functionName || '').indexOf('StackTrace$$') === -1 && (stackframe.functionName || '').indexOf('ErrorStackParser$$') === -1 && (stackframe.functionName || '').indexOf('StackTraceGPS$$') === -1 && (stackframe.functionName || '').indexOf('StackGenerator$$') === -1;
-    },
-    sourceCache: {}
-  };
-
-  var _generateError = function StackTrace$$GenerateError() {
-    try {
-      // Error must be thrown to get stack in IE
-      throw new Error();
-    } catch (err) {
-      return err;
-    }
-  };
-  /**
-   * Merge 2 given Objects. If a conflict occurs the second object wins.
-   * Does not do deep merges.
-   *
-   * @param {Object} first base object
-   * @param {Object} second overrides
-   * @returns {Object} merged first and second
-   * @private
-   */
-
-
-  function _merge(first, second) {
-    var target = {};
-    [first, second].forEach(function (obj) {
-      for (var prop in obj) {
-        if (obj.hasOwnProperty(prop)) {
-          target[prop] = obj[prop];
-        }
-      }
-
-      return target;
-    });
-    return target;
-  }
-
-  function _isShapedLikeParsableError(err) {
-    return err.stack || err['opera#sourceloc'];
-  }
-
-  function _filtered(stackframes, filter) {
-    if (typeof filter === 'function') {
-      return stackframes.filter(filter);
-    }
-
-    return stackframes;
-  }
-
-  return {
-    /**
-     * Get a backtrace from invocation point.
-     *
-     * @param {Object} opts
-     * @returns {Array} of StackFrame
-     */
-    get: function StackTrace$$get(opts) {
-      var err = _generateError();
-
-      return _isShapedLikeParsableError(err) ? this.fromError(err, opts) : this.generateArtificially(opts);
-    },
-
-    /**
-     * Get a backtrace from invocation point.
-     * IMPORTANT: Does not handle source maps or guess function names!
-     *
-     * @param {Object} opts
-     * @returns {Array} of StackFrame
-     */
-    getSync: function StackTrace$$getSync(opts) {
-      opts = _merge(_options, opts);
-
-      var err = _generateError();
-
-      var stack = _isShapedLikeParsableError(err) ? ErrorStackParser.parse(err) : StackGenerator.backtrace(opts);
-      return _filtered(stack, opts.filter);
-    },
-
-    /**
-     * Given an error object, parse it.
-     *
-     * @param {Error} error object
-     * @param {Object} opts
-     * @returns {Promise} for Array[StackFrame}
-     */
-    fromError: function StackTrace$$fromError(error, opts) {
-      opts = _merge(_options, opts);
-      var gps = new StackTraceGPS(opts);
-      return new Promise(function (resolve) {
-        var stackframes = _filtered(ErrorStackParser.parse(error), opts.filter);
-
-        resolve(Promise.all(stackframes.map(function (sf) {
-          return new Promise(function (resolve) {
-            function resolveOriginal() {
-              resolve(sf);
-            }
-
-            gps.pinpoint(sf).then(resolve, resolveOriginal)['catch'](resolveOriginal);
-          });
-        })));
-      }.bind(this));
-    },
-
-    /**
-     * Use StackGenerator to generate a backtrace.
-     *
-     * @param {Object} opts
-     * @returns {Promise} of Array[StackFrame]
-     */
-    generateArtificially: function StackTrace$$generateArtificially(opts) {
-      opts = _merge(_options, opts);
-      var stackFrames = StackGenerator.backtrace(opts);
-
-      if (typeof opts.filter === 'function') {
-        stackFrames = stackFrames.filter(opts.filter);
-      }
-
-      return Promise.resolve(stackFrames);
-    },
-
-    /**
-     * Given a function, wrap it such that invocations trigger a callback that
-     * is called with a stack trace.
-     *
-     * @param {Function} fn to be instrumented
-     * @param {Function} callback function to call with a stack trace on invocation
-     * @param {Function} errback optional function to call with error if unable to get stack trace.
-     * @param {Object} thisArg optional context object (e.g. window)
-     */
-    instrument: function StackTrace$$instrument(fn, callback, errback, thisArg) {
-      if (typeof fn !== 'function') {
-        throw new Error('Cannot instrument non-function object');
-      } else if (typeof fn.__stacktraceOriginalFn === 'function') {
-        // Already instrumented, return given Function
-        return fn;
-      }
-
-      var instrumented = function StackTrace$$instrumented() {
-        try {
-          this.get().then(callback, errback)['catch'](errback);
-          return fn.apply(thisArg || this, arguments);
-        } catch (e) {
-          if (_isShapedLikeParsableError(e)) {
-            this.fromError(e).then(callback, errback)['catch'](errback);
-          }
-
-          throw e;
-        }
-      }.bind(this);
-
-      instrumented.__stacktraceOriginalFn = fn;
-      return instrumented;
-    },
-
-    /**
-     * Given a function that has been instrumented,
-     * revert the function to it's original (non-instrumented) state.
-     *
-     * @param {Function} fn to de-instrument
-     */
-    deinstrument: function StackTrace$$deinstrument(fn) {
-      if (typeof fn !== 'function') {
-        throw new Error('Cannot de-instrument non-function object');
-      } else if (typeof fn.__stacktraceOriginalFn === 'function') {
-        return fn.__stacktraceOriginalFn;
-      } else {
-        // Function not instrumented, return original
-        return fn;
-      }
-    },
-
-    /**
-     * Given an error message and Array of StackFrames, serialize and POST to given URL.
-     *
-     * @param {Array} stackframes
-     * @param {String} url
-     * @param {String} errorMsg
-     */
-    report: function StackTrace$$report(stackframes, url, errorMsg) {
-      return new Promise(function (resolve, reject) {
-        var req = new XMLHttpRequest();
-        req.onerror = reject;
-
-        req.onreadystatechange = function onreadystatechange() {
-          if (req.readyState === 4) {
-            if (req.status >= 200 && req.status < 400) {
-              resolve(req.responseText);
-            } else {
-              reject(new Error('POST to ' + url + ' failed with status: ' + req.status));
-            }
-          }
-        };
-
-        req.open('post', url);
-        req.setRequestHeader('Content-Type', 'application/json');
-        var reportPayload = {
-          stack: stackframes
-        };
-
-        if (errorMsg !== undefined) {
-          reportPayload.message = errorMsg;
-        }
-
-        req.send(JSON.stringify(reportPayload));
-      });
-    }
-  };
-});
-
-/***/ }),
-
 /***/ "./node_modules/string-width/index.js":
 /*!********************************************!*\
   !*** ./node_modules/string-width/index.js ***!
@@ -50039,20 +52859,16 @@ const stripAnsi = __webpack_require__(/*! strip-ansi */ "./node_modules/strip-an
 
 const isFullwidthCodePoint = __webpack_require__(/*! is-fullwidth-code-point */ "./node_modules/is-fullwidth-code-point/index.js");
 
-const emojiRegex = __webpack_require__(/*! emoji-regex */ "./node_modules/emoji-regex/index.js")();
-
-module.exports = input => {
-  input = input.replace(emojiRegex, '  ');
-
-  if (typeof input !== 'string' || input.length === 0) {
+module.exports = str => {
+  if (typeof str !== 'string' || str.length === 0) {
     return 0;
   }
 
-  input = stripAnsi(input);
+  str = stripAnsi(str);
   let width = 0;
 
-  for (let i = 0; i < input.length; i++) {
-    const code = input.codePointAt(i); // Ignore control characters
+  for (let i = 0; i < str.length; i++) {
+    const code = str.codePointAt(i); // Ignore control characters
 
     if (code <= 0x1F || code >= 0x7F && code <= 0x9F) {
       continue;
@@ -50086,11 +52902,12 @@ module.exports = input => {
 "use strict";
 
 
-var ansiRegex = __webpack_require__(/*! ansi-regex */ "./node_modules/ansi-regex/index.js")();
+const ansiRegex = __webpack_require__(/*! ansi-regex */ "./node_modules/ansi-regex/index.js");
 
-module.exports = function (str) {
-  return typeof str === 'string' ? str.replace(ansiRegex, '') : str;
-};
+const stripAnsi = string => typeof string === 'string' ? string.replace(ansiRegex(), '') : string;
+
+module.exports = stripAnsi;
+module.exports.default = stripAnsi;
 
 /***/ }),
 
@@ -50468,7 +53285,9 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
-var _lodash = _interopRequireDefault(__webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js"));
+var _isNumber2 = _interopRequireDefault(__webpack_require__(/*! lodash/isNumber */ "./node_modules/lodash/isNumber.js"));
+
+var _isString2 = _interopRequireDefault(__webpack_require__(/*! lodash/isString */ "./node_modules/lodash/isString.js"));
 
 var _stringWidth = _interopRequireDefault(__webpack_require__(/*! string-width */ "./node_modules/string-width/index.js"));
 
@@ -50528,11 +53347,11 @@ const alignCenter = (subject, width) => {
 
 
 const alignString = (subject, containerWidth, alignment) => {
-  if (!_lodash.default.isString(subject)) {
+  if (!(0, _isString2.default)(subject)) {
     throw new TypeError('Subject parameter value must be a string.');
   }
 
-  if (!_lodash.default.isNumber(containerWidth)) {
+  if (!(0, _isNumber2.default)(containerWidth)) {
     throw new TypeError('Container width parameter value must be a number.');
   }
 
@@ -50543,7 +53362,7 @@ const alignString = (subject, containerWidth, alignment) => {
     throw new Error('Subject parameter value width cannot be greater than the container width.');
   }
 
-  if (!_lodash.default.isString(alignment)) {
+  if (!(0, _isString2.default)(alignment)) {
     throw new TypeError('Alignment parameter value must be a string.');
   }
 
@@ -50638,7 +53457,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
-var _lodash = _interopRequireDefault(__webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js"));
+var _isString2 = _interopRequireDefault(__webpack_require__(/*! lodash/isString */ "./node_modules/lodash/isString.js"));
 
 var _wrapCell = _interopRequireDefault(__webpack_require__(/*! ./wrapCell */ "./node_modules/table/dist/wrapCell.js"));
 
@@ -50656,7 +53475,7 @@ function _interopRequireDefault(obj) {
 
 
 const calculateCellHeight = (value, columnWidth, useWrapWord = false) => {
-  if (!_lodash.default.isString(value)) {
+  if (!(0, _isString2.default)(value)) {
     throw new TypeError('Value must be a string.');
   }
 
@@ -50786,7 +53605,11 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
-var _lodash = _interopRequireDefault(__webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js"));
+var _max2 = _interopRequireDefault(__webpack_require__(/*! lodash/max */ "./node_modules/lodash/max.js"));
+
+var _isBoolean2 = _interopRequireDefault(__webpack_require__(/*! lodash/isBoolean */ "./node_modules/lodash/isBoolean.js"));
+
+var _isNumber2 = _interopRequireDefault(__webpack_require__(/*! lodash/isNumber */ "./node_modules/lodash/isNumber.js"));
 
 var _calculateCellHeight = _interopRequireDefault(__webpack_require__(/*! ./calculateCellHeight */ "./node_modules/table/dist/calculateCellHeight.js"));
 
@@ -50810,17 +53633,17 @@ const calculateRowHeightIndex = (rows, config) => {
   rows.forEach(cells => {
     const cellHeightIndex = new Array(tableWidth).fill(1);
     cells.forEach((value, index1) => {
-      if (!_lodash.default.isNumber(config.columns[index1].width)) {
+      if (!(0, _isNumber2.default)(config.columns[index1].width)) {
         throw new TypeError('column[index].width must be a number.');
       }
 
-      if (!_lodash.default.isBoolean(config.columns[index1].wrapWord)) {
+      if (!(0, _isBoolean2.default)(config.columns[index1].wrapWord)) {
         throw new TypeError('column[index].wrapWord must be a boolean.');
       }
 
       cellHeightIndex[index1] = (0, _calculateCellHeight.default)(value, config.columns[index1].width, config.columns[index1].wrapWord);
     });
-    rowSpanIndex.push(_lodash.default.max(cellHeightIndex));
+    rowSpanIndex.push((0, _max2.default)(cellHeightIndex));
   });
   return rowSpanIndex;
 };
@@ -50845,7 +53668,11 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
-var _lodash = _interopRequireDefault(__webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js"));
+var _mapValues2 = _interopRequireDefault(__webpack_require__(/*! lodash/mapValues */ "./node_modules/lodash/mapValues.js"));
+
+var _values2 = _interopRequireDefault(__webpack_require__(/*! lodash/values */ "./node_modules/lodash/values.js"));
+
+var _trimEnd2 = _interopRequireDefault(__webpack_require__(/*! lodash/trimEnd */ "./node_modules/lodash/trimEnd.js"));
 
 var _makeStreamConfig = _interopRequireDefault(__webpack_require__(/*! ./makeStreamConfig */ "./node_modules/table/dist/makeStreamConfig.js"));
 
@@ -50905,7 +53732,7 @@ const create = (row, columnWidthIndex, config) => {
   output += (0, _drawBorder.drawBorderTop)(columnWidthIndex, config.border);
   output += body;
   output += (0, _drawBorder.drawBorderBottom)(columnWidthIndex, config.border);
-  output = _lodash.default.trimEnd(output);
+  output = (0, _trimEnd2.default)(output);
   process.stdout.write(output);
 };
 /**
@@ -50926,7 +53753,7 @@ const append = (row, columnWidthIndex, config) => {
   output += (0, _drawBorder.drawBorderJoin)(columnWidthIndex, config.border);
   output += body;
   output += (0, _drawBorder.drawBorderBottom)(columnWidthIndex, config.border);
-  output = _lodash.default.trimEnd(output);
+  output = (0, _trimEnd2.default)(output);
   process.stdout.write(output);
 };
 /**
@@ -50938,10 +53765,9 @@ const append = (row, columnWidthIndex, config) => {
 const createStream = (userConfig = {}) => {
   const config = (0, _makeStreamConfig.default)(userConfig); // @todo Use 'Object.values' when Node.js v6 support is dropped.
 
-  const columnWidthIndex = _lodash.default.values(_lodash.default.mapValues(config.columns, column => {
+  const columnWidthIndex = (0, _values2.default)((0, _mapValues2.default)(config.columns, column => {
     return column.width + column.paddingLeft + column.paddingRight;
   }));
-
   let empty;
   empty = true;
   return {
@@ -51383,7 +54209,11 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
-var _lodash = _interopRequireDefault(__webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js"));
+var _cloneDeep2 = _interopRequireDefault(__webpack_require__(/*! lodash/cloneDeep */ "./node_modules/lodash/cloneDeep.js"));
+
+var _isUndefined2 = _interopRequireDefault(__webpack_require__(/*! lodash/isUndefined */ "./node_modules/lodash/isUndefined.js"));
+
+var _times2 = _interopRequireDefault(__webpack_require__(/*! lodash/times */ "./node_modules/lodash/times.js"));
 
 var _getBorderCharacters = _interopRequireDefault(__webpack_require__(/*! ./getBorderCharacters */ "./node_modules/table/dist/getBorderCharacters.js"));
 
@@ -51420,9 +54250,8 @@ const makeBorder = (border = {}) => {
 
 const makeColumns = (rows, columns = {}, columnDefault = {}) => {
   const maximumColumnWidthIndex = (0, _calculateMaximumColumnWidthIndex.default)(rows);
-
-  _lodash.default.times(rows[0].length, index => {
-    if (_lodash.default.isUndefined(columns[index])) {
+  (0, _times2.default)(rows[0].length, index => {
+    if ((0, _isUndefined2.default)(columns[index])) {
       columns[index] = {};
     }
 
@@ -51435,7 +54264,6 @@ const makeColumns = (rows, columns = {}, columnDefault = {}) => {
       wrapWord: false
     }, columnDefault, columns[index]);
   });
-
   return columns;
 };
 /**
@@ -51450,9 +54278,7 @@ const makeColumns = (rows, columns = {}, columnDefault = {}) => {
 
 const makeConfig = (rows, userConfig = {}) => {
   (0, _validateConfig.default)('config.json', userConfig);
-
-  const config = _lodash.default.cloneDeep(userConfig);
-
+  const config = (0, _cloneDeep2.default)(userConfig);
   config.border = makeBorder(config.border);
   config.columns = makeColumns(rows, config.columns, config.columnDefault);
 
@@ -51492,7 +54318,11 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
-var _lodash = _interopRequireDefault(__webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js"));
+var _cloneDeep2 = _interopRequireDefault(__webpack_require__(/*! lodash/cloneDeep */ "./node_modules/lodash/cloneDeep.js"));
+
+var _isUndefined2 = _interopRequireDefault(__webpack_require__(/*! lodash/isUndefined */ "./node_modules/lodash/isUndefined.js"));
+
+var _times2 = _interopRequireDefault(__webpack_require__(/*! lodash/times */ "./node_modules/lodash/times.js"));
 
 var _getBorderCharacters = _interopRequireDefault(__webpack_require__(/*! ./getBorderCharacters */ "./node_modules/table/dist/getBorderCharacters.js"));
 
@@ -51526,8 +54356,8 @@ const makeBorder = (border = {}) => {
 
 
 const makeColumns = (columnCount, columns = {}, columnDefault = {}) => {
-  _lodash.default.times(columnCount, index => {
-    if (_lodash.default.isUndefined(columns[index])) {
+  (0, _times2.default)(columnCount, index => {
+    if ((0, _isUndefined2.default)(columns[index])) {
       columns[index] = {};
     }
 
@@ -51539,7 +54369,6 @@ const makeColumns = (columnCount, columns = {}, columnDefault = {}) => {
       wrapWord: false
     }, columnDefault, columns[index]);
   });
-
   return columns;
 };
 /**
@@ -51570,8 +54399,7 @@ const makeColumns = (columnCount, columns = {}, columnDefault = {}) => {
 
 const makeStreamConfig = (userConfig = {}) => {
   (0, _validateConfig.default)('streamConfig.json', userConfig);
-
-  const config = _lodash.default.cloneDeep(userConfig);
+  const config = (0, _cloneDeep2.default)(userConfig);
 
   if (!config.columnDefault || !config.columnDefault.width) {
     throw new Error('Must provide config.columnDefault.width when creating a stream.');
@@ -51606,7 +54434,9 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
-var _lodash = _interopRequireDefault(__webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js"));
+var _flatten2 = _interopRequireDefault(__webpack_require__(/*! lodash/flatten */ "./node_modules/lodash/flatten.js"));
+
+var _times2 = _interopRequireDefault(__webpack_require__(/*! lodash/times */ "./node_modules/lodash/times.js"));
 
 var _wrapCell = _interopRequireDefault(__webpack_require__(/*! ./wrapCell */ "./node_modules/table/dist/wrapCell.js"));
 
@@ -51626,12 +54456,11 @@ function _interopRequireDefault(obj) {
 const mapDataUsingRowHeightIndex = (unmappedRows, rowHeightIndex, config) => {
   const tableWidth = unmappedRows[0].length;
   const mappedRows = unmappedRows.map((cells, index0) => {
-    const rowHeight = _lodash.default.times(rowHeightIndex[index0], () => {
+    const rowHeight = (0, _times2.default)(rowHeightIndex[index0], () => {
       return new Array(tableWidth).fill('');
     }); // rowHeight
     //     [{row index within rowSaw; index2}]
     //     [{cell index within a virtual row; index1}]
-
 
     cells.forEach((value, index1) => {
       const cellLines = (0, _wrapCell.default)(value, config.columns[index1].width, config.columns[index1].wrapWord);
@@ -51641,7 +54470,7 @@ const mapDataUsingRowHeightIndex = (unmappedRows, rowHeightIndex, config) => {
     });
     return rowHeight;
   });
-  return _lodash.default.flatten(mappedRows);
+  return (0, _flatten2.default)(mappedRows);
 };
 
 var _default = mapDataUsingRowHeightIndex;
@@ -51855,7 +54684,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
-var _lodash = _interopRequireDefault(__webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js"));
+var _truncate2 = _interopRequireDefault(__webpack_require__(/*! lodash/truncate */ "./node_modules/lodash/truncate.js"));
 
 function _interopRequireDefault(obj) {
   return obj && obj.__esModule ? obj : {
@@ -51873,7 +54702,7 @@ function _interopRequireDefault(obj) {
 const truncateTableData = (rows, config) => {
   return rows.map(cells => {
     return cells.map((content, index) => {
-      return _lodash.default.truncate(content, {
+      return (0, _truncate2.default)(content, {
         length: config.columns[index].truncate
       });
     });
@@ -53012,4730 +55841,6 @@ const wrapWord = (input, size) => {
 
 var _default = wrapWord;
 exports.default = _default;
-
-/***/ }),
-
-/***/ "./node_modules/typescript-logging/dist/commonjs/control/CategoryServiceControl.js":
-/*!*****************************************************************************************!*\
-  !*** ./node_modules/typescript-logging/dist/commonjs/control/CategoryServiceControl.js ***!
-  \*****************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var DataStructures_1 = __webpack_require__(/*! ../utils/DataStructures */ "./node_modules/typescript-logging/dist/commonjs/utils/DataStructures.js");
-
-var CategoryService_1 = __webpack_require__(/*! ../log/category/CategoryService */ "./node_modules/typescript-logging/dist/commonjs/log/category/CategoryService.js");
-
-var LoggerOptions_1 = __webpack_require__(/*! ../log/LoggerOptions */ "./node_modules/typescript-logging/dist/commonjs/log/LoggerOptions.js");
-/**
- * Implementation class for CategoryServiceControl.
- */
-
-
-var CategoryServiceControlImpl = function () {
-  function CategoryServiceControlImpl() {}
-
-  CategoryServiceControlImpl.prototype.help = function () {
-    /* tslint:disable:no-console */
-    console.log(CategoryServiceControlImpl._help);
-    /* tslint:enable:no-console */
-  };
-
-  CategoryServiceControlImpl.prototype.example = function () {
-    /* tslint:disable:no-console */
-    console.log(CategoryServiceControlImpl._example);
-    /* tslint:enable:no-console */
-  };
-
-  CategoryServiceControlImpl.prototype.showSettings = function (id) {
-    if (id === void 0) {
-      id = "all";
-    }
-
-    var result = new DataStructures_1.StringBuilder();
-
-    var service = CategoryServiceControlImpl._getCategoryService();
-
-    var categories = CategoryServiceControlImpl._getCategories(id);
-
-    categories.forEach(function (category) {
-      CategoryServiceControlImpl._processCategory(service, category, result, 0);
-    });
-    /* tslint:disable:no-console */
-
-    console.log(result.toString());
-    /* tslint:enable:no-console */
-  };
-
-  CategoryServiceControlImpl.prototype.change = function (settings) {
-    var service = CategoryServiceControlImpl._getCategoryService();
-
-    var categories = CategoryServiceControlImpl._getCategories(settings.category);
-
-    var logLevel = null;
-    var formatEnum = null;
-    var showCategoryName = null;
-    var showTimestamp = null;
-    var result = null;
-
-    var addResult = function (value) {
-      if (result !== null) {
-        result += ", ";
-      }
-
-      if (result === null) {
-        result = value;
-      } else {
-        result += value;
-      }
-    };
-
-    addResult("recursive=" + settings.recursive);
-
-    if (typeof settings.logLevel === "string") {
-      logLevel = LoggerOptions_1.LogLevel.fromString(settings.logLevel);
-      addResult("logLevel=" + settings.logLevel);
-    }
-
-    if (typeof settings.logFormat === "string") {
-      formatEnum = LoggerOptions_1.DateFormatEnum.fromString(settings.logFormat);
-      addResult("logFormat=" + settings.logFormat);
-    }
-
-    if (typeof settings.showCategoryName === "boolean") {
-      showCategoryName = settings.showCategoryName;
-      addResult("showCategoryName=" + settings.showCategoryName);
-    }
-
-    if (typeof settings.showTimestamp === "boolean") {
-      showTimestamp = settings.showTimestamp;
-      addResult("showTimestamp=" + settings.showTimestamp);
-    }
-
-    var applyChanges = function (cat) {
-      var categorySettings = service.getCategorySettings(cat); // Should not happen but make tslint happy
-
-      if (categorySettings !== null) {
-        if (logLevel !== null) {
-          categorySettings.logLevel = logLevel;
-        }
-
-        if (formatEnum !== null) {
-          categorySettings.logFormat.dateFormat.formatEnum = formatEnum;
-        }
-
-        if (showTimestamp !== null) {
-          categorySettings.logFormat.showTimeStamp = showTimestamp;
-        }
-
-        if (showCategoryName !== null) {
-          categorySettings.logFormat.showCategoryName = showCategoryName;
-        }
-      }
-    };
-
-    categories.forEach(function (cat) {
-      return CategoryServiceControlImpl._applyToCategory(cat, settings.recursive, applyChanges);
-    });
-    /* tslint:disable:no-console */
-
-    console.log("Applied changes: " + result + " to categories '" + settings.category + "'.");
-    /* tslint:enable:no-console */
-  };
-
-  CategoryServiceControlImpl.prototype.reset = function (id) {
-    if (id === void 0) {
-      id = "all";
-    }
-
-    var service = CategoryServiceControlImpl._getCategoryService();
-
-    var categories = CategoryServiceControlImpl._getCategories(id);
-
-    var applyChanges = function (cat) {
-      var categorySettings = service.getCategorySettings(cat);
-      var original = service.getOriginalCategorySettings(cat); // Should not happen but make tslint happy
-
-      if (categorySettings !== null && original !== null) {
-        categorySettings.logLevel = original.logLevel;
-        categorySettings.logFormat.dateFormat.formatEnum = original.logFormat.dateFormat.formatEnum;
-        categorySettings.logFormat.showTimeStamp = original.logFormat.showTimeStamp;
-        categorySettings.logFormat.showCategoryName = original.logFormat.showCategoryName;
-      }
-    };
-
-    categories.forEach(function (cat) {
-      return CategoryServiceControlImpl._applyToCategory(cat, true, applyChanges);
-    });
-    /* tslint:disable:no-console */
-
-    console.log("Applied reset to category: " + id + ".");
-    /* tslint:enable:no-console */
-  };
-
-  CategoryServiceControlImpl._processCategory = function (service, category, result, indent) {
-    var settings = service.getCategorySettings(category);
-
-    if (settings !== null) {
-      result.append("  " + category.id + ": ");
-
-      if (indent > 0) {
-        for (var i = 0; i < indent; i++) {
-          result.append("  ");
-        }
-      }
-
-      result.append(category.name + " (" + LoggerOptions_1.LogLevel[settings.logLevel].toString() + "@" + LoggerOptions_1.LoggerType[settings.loggerType].toString() + ")\n");
-
-      if (category.children.length > 0) {
-        category.children.forEach(function (child) {
-          CategoryServiceControlImpl._processCategory(service, child, result, indent + 1);
-        });
-      }
-    }
-  };
-
-  CategoryServiceControlImpl._applyToCategory = function (category, recursive, apply) {
-    apply(category);
-
-    if (recursive) {
-      category.children.forEach(function (child) {
-        CategoryServiceControlImpl._applyToCategory(child, recursive, apply);
-      });
-    }
-  };
-
-  CategoryServiceControlImpl._getCategoryService = function () {
-    return CategoryService_1.CategoryServiceFactory.getRuntimeSettings();
-  };
-
-  CategoryServiceControlImpl._getCategories = function (idCategory) {
-    var service = CategoryServiceControlImpl._getCategoryService();
-
-    var categories = [];
-
-    if (idCategory === "all") {
-      categories = service.getRootCategories();
-    } else {
-      var category = service.getCategoryById(idCategory);
-
-      if (category === null) {
-        throw new Error("Failed to find category with id " + idCategory);
-      }
-
-      categories.push(category);
-    }
-
-    return categories;
-  };
-
-  return CategoryServiceControlImpl;
-}();
-
-CategoryServiceControlImpl._help = "\n  help(): void\n    ** Shows this help.\n    \n  example(): void\n    ** Shows an example on how to use this.\n    \n  showSettings(id: number | \"all\" = \"all\"): void\n    ** Shows settings for a specific category, or for all. The id of categories can be found by calling this method without parameter.\n    \n  change(settings: CategoryServiceControlSettings): void\n    ** Changes the current settings for one or all categories. \n    ** \n       CategoryServiceControlSettings, properties of object:\n         category: number | \"all\"\n           ** Apply to specific category, or \"all\".\n           ** Required        \n        \n         recursive: boolean\n           ** Apply to child categories (true) or not.\n           ** Required\n           \n         logLevel: \"Fatal\" | \"Error\" | \"Warn\" | \"Info\" | \"Debug\" | \"Trace\" | undefined\n           ** Set log level, undefined will not change the setting.\n           ** Optional\n         \n         logFormat: \"Default\" | \"YearMonthDayTime\" | \"YearDayMonthWithFullTime\" | \"YearDayMonthTime\" | undefined\n           ** Set the log format, undefined will not change the setting.\n           ** Optional\n         \n         showTimestamp: boolean | undefined  \n           ** Whether to show timestamp, undefined will not change the setting.\n           ** Optional\n         \n         showCategoryName: boolean | undefined\n           ** Whether to show the category name, undefined will not change the setting.\n           ** Optional\n           \n   reset(id: number | \"all\"): void\n     ** Resets everything to original values, for one specific or for all categories.\n";
-CategoryServiceControlImpl._example = "\n  Examples:\n    change({category: \"all\", recursive:true, logLevel: \"Info\"}) \n      ** Change loglevel to Info for all categories, apply to child categories as well.\n     \n    change({category: 1, recursive:false, logLevel: \"Warn\"})\n      ** Change logLevel for category 1, do not recurse.\n      \n    change({category: \"all\", recursive:true, logLevel: \"Debug\", logFormat: \"YearDayMonthTime\", showTimestamp:false, showCategoryName:false})    \n      ** Change loglevel to Debug for all categories, apply format, do not show timestamp and category names - recursively to child categories.    \n      \n";
-exports.CategoryServiceControlImpl = CategoryServiceControlImpl;
-
-/***/ }),
-
-/***/ "./node_modules/typescript-logging/dist/commonjs/control/LogGroupControl.js":
-/*!**********************************************************************************!*\
-  !*** ./node_modules/typescript-logging/dist/commonjs/control/LogGroupControl.js ***!
-  \**********************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var LoggerOptions_1 = __webpack_require__(/*! ../log/LoggerOptions */ "./node_modules/typescript-logging/dist/commonjs/log/LoggerOptions.js");
-
-var LoggerFactoryService_1 = __webpack_require__(/*! ../log/standard/LoggerFactoryService */ "./node_modules/typescript-logging/dist/commonjs/log/standard/LoggerFactoryService.js");
-
-var DataStructures_1 = __webpack_require__(/*! ../utils/DataStructures */ "./node_modules/typescript-logging/dist/commonjs/utils/DataStructures.js");
-
-var LoggerControlImpl = function () {
-  function LoggerControlImpl() {}
-
-  LoggerControlImpl.prototype.help = function () {
-    /* tslint:disable:no-console */
-    console.log(LoggerControlImpl._help);
-    /* tslint:enable:no-console */
-  };
-
-  LoggerControlImpl.prototype.listFactories = function () {
-    var rtSettingsFactories = LoggerControlImpl._getRuntimeSettingsLoggerFactories();
-
-    var result = new DataStructures_1.StringBuilder();
-    result.appendLine("Registered LoggerFactories (index / name)");
-
-    for (var i = 0; i < rtSettingsFactories.length; i++) {
-      var rtSettingsFactory = rtSettingsFactories[i];
-      result.append("  " + i).append(": " + rtSettingsFactory.getName() + "\n");
-    }
-    /* tslint:disable:no-console */
-
-
-    console.log(result.toString());
-    /* tslint:enable:no-console */
-  };
-
-  LoggerControlImpl.prototype.showSettings = function (id) {
-    if (id === void 0) {
-      id = "all";
-    }
-
-    var result = [];
-
-    if (id === "all") {
-      var idx_1 = 0;
-
-      LoggerControlImpl._getRuntimeSettingsLoggerFactories().forEach(function (item) {
-        result.push(new DataStructures_1.TuplePair(idx_1++, item));
-      });
-    } else {
-      var settings = LoggerControlImpl._getRuntimeSettingsLoggerFactories();
-
-      if (id >= 0 && id < settings.length) {
-        result.push(new DataStructures_1.TuplePair(id, settings[id]));
-      } else {
-        throw new Error("Requested number: " + id + " was not found.");
-      }
-    }
-
-    for (var _i = 0, result_1 = result; _i < result_1.length; _i++) {
-      var setting = result_1[_i];
-      /* tslint:disable:no-console */
-
-      console.log("  LoggerFactory: " + setting.y.getName() + " (id=" + setting.x + ")");
-      var logGroupRuntimeSettings = setting.y.getLogGroupRuntimeSettings();
-
-      for (var g = 0; g < logGroupRuntimeSettings.length; g++) {
-        var groupSetting = logGroupRuntimeSettings[g];
-        console.log("     LogGroup: (id=" + g + ")");
-        console.log("       RegExp: " + groupSetting.logGroupRule.regExp.source);
-        console.log("       Level: " + LoggerOptions_1.LogLevel[groupSetting.level].toString());
-        console.log("       LoggerType: " + LoggerOptions_1.LoggerType[groupSetting.loggerType].toString());
-      }
-    }
-  };
-
-  LoggerControlImpl.prototype.reset = function (idFactory) {
-    if (idFactory === void 0) {
-      idFactory = "all";
-    }
-
-    var loggerFactoriesSettings = LoggerControlImpl._getRuntimeSettingsLoggerFactories();
-
-    var result = [];
-
-    if (idFactory === "all") {
-      result = loggerFactoriesSettings;
-    } else {
-      if (idFactory >= 0 && idFactory < loggerFactoriesSettings.length) {
-        result.push(loggerFactoriesSettings[idFactory]);
-      }
-    }
-
-    result.forEach(function (setting) {
-      /* tslint:disable:no-console */
-      console.log("Reset all settings for factory " + idFactory);
-      /* tslint:enable:no-console */
-
-      var control = new LoggerFactoryControlImpl(setting);
-      control.reset();
-    });
-  };
-
-  LoggerControlImpl.prototype.getLoggerFactoryControl = function (idFactory) {
-    var loggerFactoriesSettings = LoggerControlImpl._getRuntimeSettingsLoggerFactories();
-
-    if (idFactory >= 0 && idFactory < loggerFactoriesSettings.length) {
-      return new LoggerFactoryControlImpl(loggerFactoriesSettings[idFactory]);
-    }
-
-    throw new Error("idFactory is invalid (less than 0) or non existing id.");
-  };
-
-  LoggerControlImpl._getRuntimeSettingsLoggerFactories = function () {
-    return LoggerControlImpl._getSettings().getRuntimeSettingsForLoggerFactories();
-  };
-
-  LoggerControlImpl._getSettings = function () {
-    return LoggerFactoryService_1.LFService.getRuntimeSettings();
-  };
-
-  return LoggerControlImpl;
-}();
-
-LoggerControlImpl._help = "\n  help(): void\n    ** Shows this help.\n    \n  listFactories(): void\n    ** List all registered LoggerFactories with associated log groups with respective ids (ids can be used to target a factory and/or group).\n    \n  showSettings(idFactory: number | \"all\"): void\n    ** Show log group settings for idFactory (use listFactories to find id for a LoggerFactory). If idFactory is \"all\" shows all factories. \n  \n  getLoggerFactoryControl(idFactory: number): LoggerFactoryControl\n    ** Return LoggerFactoryControl when found for given idFactory or throws Error if invalid or null, get the id by using listFactories()\n    \n  reset(idFactory: number | \"all\"): void\n    ** Resets given factory or all factories back to original values. \n";
-exports.LoggerControlImpl = LoggerControlImpl;
-
-var LoggerFactoryControlImpl = function () {
-  function LoggerFactoryControlImpl(settings) {
-    this._settings = settings;
-  }
-
-  LoggerFactoryControlImpl.prototype.help = function () {
-    /* tslint:disable:no-console */
-    console.log(LoggerFactoryControlImpl._help);
-    /* tslint:enable:no-console */
-  };
-
-  LoggerFactoryControlImpl.prototype.example = function () {
-    /* tslint:disable:no-console */
-    console.log(LoggerFactoryControlImpl._example);
-    /* tslint:enable:no-console */
-  };
-
-  LoggerFactoryControlImpl.prototype.showSettings = function (id) {
-    if (id === void 0) {
-      id = "all";
-    }
-
-    var result = new DataStructures_1.StringBuilder();
-
-    var logGroupRuntimeSettings = this._settings.getLogGroupRuntimeSettings();
-
-    result.appendLine("Registered LogGroups (index / expression)");
-
-    for (var i = 0; i < logGroupRuntimeSettings.length; i++) {
-      var logGroupRuntimeSetting = logGroupRuntimeSettings[i];
-      result.appendLine("  " + i + ": " + logGroupRuntimeSetting.logGroupRule.regExp.source + ", logLevel=" + LoggerOptions_1.LogLevel[logGroupRuntimeSetting.level].toString() + ", showTimestamp=" + logGroupRuntimeSetting.logFormat.showTimeStamp + ", showLoggerName=" + logGroupRuntimeSetting.logFormat.showLoggerName + ", format=" + LoggerOptions_1.DateFormatEnum[logGroupRuntimeSetting.logFormat.dateFormat.formatEnum].toString());
-    }
-    /* tslint:disable:no-console */
-
-
-    console.log(result.toString());
-    /* tslint:enable:no-console */
-  };
-
-  LoggerFactoryControlImpl.prototype.change = function (settings) {
-    var logGroupRuntimeSettings = this._getLogGroupRunTimeSettingsFor(settings.group);
-
-    var logLevel = null;
-    var formatEnum = null;
-    var showLoggerName = null;
-    var showTimestamp = null;
-    var result = null;
-
-    var addResult = function (value) {
-      if (result !== null) {
-        result += ", ";
-      }
-
-      if (result === null) {
-        result = value;
-      } else {
-        result += value;
-      }
-    };
-
-    if (typeof settings.logLevel === "string") {
-      logLevel = LoggerOptions_1.LogLevel.fromString(settings.logLevel);
-      addResult("logLevel=" + settings.logLevel);
-    }
-
-    if (typeof settings.logFormat === "string") {
-      formatEnum = LoggerOptions_1.DateFormatEnum.fromString(settings.logFormat);
-      addResult("logFormat=" + settings.logFormat);
-    }
-
-    if (typeof settings.showLoggerName === "boolean") {
-      showLoggerName = settings.showLoggerName;
-      addResult("showLoggerName=" + settings.showLoggerName);
-    }
-
-    if (typeof settings.showTimestamp === "boolean") {
-      showTimestamp = settings.showTimestamp;
-      addResult("showTimestamp=" + settings.showTimestamp);
-    }
-
-    logGroupRuntimeSettings.forEach(function (s) {
-      if (logLevel !== null) {
-        s.level = logLevel;
-      }
-
-      if (formatEnum !== null) {
-        s.logFormat.dateFormat.formatEnum = formatEnum;
-      }
-
-      if (showTimestamp !== null) {
-        s.logFormat.showTimeStamp = showTimestamp;
-      }
-
-      if (showLoggerName !== null) {
-        s.logFormat.showLoggerName = showLoggerName;
-      }
-    });
-    /* tslint:disable:no-console */
-
-    console.log("Applied changes: " + result + " to log groups '" + settings.group + "'.");
-    /* tslint:enable:no-console */
-  };
-
-  LoggerFactoryControlImpl.prototype.reset = function (idGroup) {
-    if (idGroup === void 0) {
-      idGroup = "all";
-    }
-
-    var settings = this._getLogGroupRunTimeSettingsFor(idGroup);
-
-    for (var _i = 0, settings_1 = settings; _i < settings_1.length; _i++) {
-      var setting = settings_1[_i];
-      setting.level = setting.logGroupRule.level;
-      setting.logFormat.showTimeStamp = setting.logGroupRule.logFormat.showTimeStamp;
-      setting.logFormat.showLoggerName = setting.logGroupRule.logFormat.showLoggerName;
-      setting.logFormat.dateFormat.formatEnum = setting.logGroupRule.logFormat.dateFormat.formatEnum;
-    }
-    /* tslint:disable:no-console */
-
-
-    console.log("Reset all settings for group " + idGroup);
-    /* tslint:enable:no-console */
-  };
-
-  LoggerFactoryControlImpl.prototype._getLogGroupRunTimeSettingsFor = function (idGroup) {
-    var settings = [];
-
-    if (idGroup === "all") {
-      settings = this._settings.getLogGroupRuntimeSettings();
-    } else {
-      this._checkIndex(idGroup);
-
-      settings.push(this._settings.getLogGroupRuntimeSettings()[idGroup]);
-    }
-
-    return settings;
-  };
-
-  LoggerFactoryControlImpl.prototype._checkIndex = function (index) {
-    if (index < 0 || index >= this._settings.getLogGroupRuntimeSettings().length) {
-      throw new Error("Invalid index, use listLogGroups to find out a valid one.");
-    }
-  };
-
-  return LoggerFactoryControlImpl;
-}();
-
-LoggerFactoryControlImpl._help = "\n  help(): void\n    ** Shows this help.\n    \n  example(): void\n    ** Shows an example of usage.\n\n  showSettings(id: number | \"all\"): void\n    ** Prints settings for given group id, \"all\" for all group.\n\n  change(settings: LogGroupControlSettings): void\n    ** Changes the current settings for one or all log groups. \n    ** \n       LogGroupControlSettings, properties of object:\n         group: number | \"all\"\n           ** Apply to specific group, or \"all\".\n           ** Required        \n           \n         logLevel: \"Fatal\" | \"Error\" | \"Warn\" | \"Info\" | \"Debug\" | \"Trace\" | undefined\n           ** Set log level, undefined will not change the setting.\n           ** Optional\n         \n         logFormat: \"Default\" | \"YearMonthDayTime\" | \"YearDayMonthWithFullTime\" | \"YearDayMonthTime\" | undefined\n           ** Set the log format, undefined will not change the setting.\n           ** Optional\n         \n         showTimestamp: boolean | undefined  \n           ** Whether to show timestamp, undefined will not change the setting.\n           ** Optional\n         \n         showLoggerName: boolean | undefined\n           ** Whether to show the logger name, undefined will not change the setting.\n           ** Optional  \n           \n  reset(id: number | \"all\"): void\n    ** Resets everything to original values, for one specific or for all groups.\n    \n  help():\n    ** Shows this help.\n";
-LoggerFactoryControlImpl._example = "\n  Examples:\n    change({group: \"all\", logLevel: \"Info\"}) \n      ** Change loglevel to Info for all groups.\n     \n    change({group: 1, recursive:false, logLevel: \"Warn\"})\n      ** Change logLevel for group 1 to Warn.\n      \n    change({group: \"all\", logLevel: \"Debug\", logFormat: \"YearDayMonthTime\", showTimestamp:false, showLoggerName:false})    \n      ** Change loglevel to Debug for all groups, apply format, do not show timestamp and logger names.      \n";
-
-/***/ }),
-
-/***/ "./node_modules/typescript-logging/dist/commonjs/extension/ExtensionHelper.js":
-/*!************************************************************************************!*\
-  !*** ./node_modules/typescript-logging/dist/commonjs/extension/ExtensionHelper.js ***!
-  \************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var CategoryService_1 = __webpack_require__(/*! ../log/category/CategoryService */ "./node_modules/typescript-logging/dist/commonjs/log/category/CategoryService.js");
-
-var LoggerOptions_1 = __webpack_require__(/*! ../log/LoggerOptions */ "./node_modules/typescript-logging/dist/commonjs/log/LoggerOptions.js");
-
-var MessageUtils_1 = __webpack_require__(/*! ../utils/MessageUtils */ "./node_modules/typescript-logging/dist/commonjs/utils/MessageUtils.js");
-
-var ExtensionHelper = function () {
-  function ExtensionHelper() {} // Private constructor
-
-  /**
-   * Enables the window event listener to listen to messages (from extensions).
-   * Can be registered/enabled only once.
-   */
-
-
-  ExtensionHelper.register = function () {
-    if (!ExtensionHelper.registered) {
-      ExtensionHelper.registered = true;
-
-      var listener = function (evt) {
-        var msg = evt.data;
-
-        if (msg !== null) {
-          ExtensionHelper.processMessageFromExtension(msg);
-        }
-      };
-
-      if (typeof window !== "undefined") {
-        window.removeEventListener("message", listener);
-        window.addEventListener("message", listener);
-      }
-    }
-  };
-
-  ExtensionHelper.processMessageFromExtension = function (msg) {
-    if (!ExtensionHelper.registered) {
-      return;
-    }
-    /* tslint:disable:no-console */
-
-
-    if (msg.from === "tsl-extension") {
-      var data = msg.data;
-
-      switch (data.type) {
-        case "register":
-          ExtensionHelper.enableExtensionIntegration();
-          break;
-
-        case "request-change-loglevel":
-          var valueRequest = data.value;
-          var catsApplied = ExtensionHelper.applyLogLevel(valueRequest.categoryId, valueRequest.logLevel, valueRequest.recursive);
-
-          if (catsApplied.length > 0) {
-            // Send changes back
-            ExtensionHelper.sendCategoriesRuntimeUpdateMessage(catsApplied);
-          }
-
-          break;
-
-        default:
-          console.log("Unknown command to process message from extension, command was: " + data.type);
-          break;
-      }
-    }
-    /* tslint:enable:no-console */
-
-  };
-
-  ExtensionHelper.sendCategoryLogMessage = function (msg) {
-    if (!ExtensionHelper.registered) {
-      return;
-    }
-
-    var categoryIds = msg.getCategories().map(function (cat) {
-      return cat.id;
-    });
-    var content = {
-      type: "log-message",
-      value: {
-        categories: categoryIds,
-        errorAsStack: msg.getErrorAsStack(),
-        formattedMessage: MessageUtils_1.MessageFormatUtils.renderDefaultMessage(msg, false),
-        logLevel: LoggerOptions_1.LogLevel[msg.getLevel()].toString(),
-        message: msg.getMessage(),
-        resolvedErrorMessage: msg.isResolvedErrorMessage()
-      }
-    };
-    var message = {
-      data: content,
-      from: "tsl-logging"
-    };
-    ExtensionHelper.sendMessage(message);
-  };
-
-  ExtensionHelper.sendCategoriesRuntimeUpdateMessage = function (categories) {
-    if (!ExtensionHelper.registered) {
-      return;
-    }
-
-    var service = CategoryService_1.CategoryServiceImpl.getInstance();
-    var catLevels = {
-      categories: Array()
-    };
-    categories.forEach(function (cat) {
-      var catSettings = service.getCategorySettings(cat);
-
-      if (catSettings != null) {
-        catLevels.categories.push({
-          id: cat.id,
-          logLevel: LoggerOptions_1.LogLevel[catSettings.logLevel].toString()
-        });
-      }
-    });
-    var content = {
-      type: "categories-rt-update",
-      value: catLevels
-    };
-    var message = {
-      data: content,
-      from: "tsl-logging"
-    };
-    ExtensionHelper.sendMessage(message);
-  };
-
-  ExtensionHelper.sendRootCategoriesToExtension = function () {
-    if (!ExtensionHelper.registered) {
-      return;
-    }
-
-    var categories = CategoryService_1.CategoryServiceImpl.getInstance().getRootCategories().map(function (cat) {
-      return ExtensionHelper.getCategoryAsJSON(cat);
-    });
-    var content = {
-      type: "root-categories-tree",
-      value: categories
-    };
-    var message = {
-      data: content,
-      from: "tsl-logging"
-    };
-    ExtensionHelper.sendMessage(message);
-  };
-  /**
-   * If extension integration is enabled, will send the root categories over to the extension.
-   * Otherwise does nothing.
-   */
-
-
-  ExtensionHelper.getCategoryAsJSON = function (cat) {
-    var childCategories = cat.children.map(function (child) {
-      return ExtensionHelper.getCategoryAsJSON(child);
-    });
-    return {
-      children: childCategories,
-      id: cat.id,
-      logLevel: LoggerOptions_1.LogLevel[cat.logLevel].toString(),
-      name: cat.name,
-      parentId: cat.parent != null ? cat.parent.id : null
-    };
-  };
-
-  ExtensionHelper.applyLogLevel = function (categoryId, logLevel, recursive) {
-    var cats = [];
-    var category = CategoryService_1.CategoryServiceImpl.getInstance().getCategoryById(categoryId);
-
-    if (category != null) {
-      ExtensionHelper._applyLogLevelRecursive(category, LoggerOptions_1.LogLevel.fromString(logLevel), recursive, cats);
-    } else {
-      /* tslint:disable:no-console */
-      console.log("Could not change log level, failed to find category with id: " + categoryId);
-    }
-
-    return cats;
-  };
-
-  ExtensionHelper._applyLogLevelRecursive = function (category, logLevel, recursive, cats) {
-    var categorySettings = CategoryService_1.CategoryServiceImpl.getInstance().getCategorySettings(category);
-
-    if (categorySettings != null) {
-      categorySettings.logLevel = logLevel;
-      cats.push(category);
-
-      if (recursive) {
-        category.children.forEach(function (child) {
-          ExtensionHelper._applyLogLevelRecursive(child, logLevel, recursive, cats);
-        });
-      }
-    }
-  };
-
-  ExtensionHelper.getAllCategories = function () {
-    var cats = [];
-
-    var addCats = function (cat, allCats) {
-      allCats.push(cat);
-      cat.children.forEach(function (catChild) {
-        addCats(catChild, allCats);
-      });
-    };
-
-    CategoryService_1.CategoryServiceImpl.getInstance().getRootCategories().forEach(function (cat) {
-      addCats(cat, cats);
-    });
-    return cats;
-  };
-
-  ExtensionHelper.sendMessage = function (msg) {
-    if (!ExtensionHelper.registered) {
-      return;
-    }
-
-    if (typeof window !== "undefined") {
-      window.postMessage(msg, "*");
-    }
-  };
-  /**
-   *  Extension framework will call this to enable the integration between two,
-   *  after this call the framework will respond with postMessage() messages.
-   */
-
-
-  ExtensionHelper.enableExtensionIntegration = function () {
-    if (!ExtensionHelper.registered) {
-      return;
-    }
-
-    var instance = CategoryService_1.CategoryServiceImpl.getInstance();
-    instance.enableExtensionIntegration(); // Send over all categories
-
-    ExtensionHelper.sendRootCategoriesToExtension(); // Send over the current runtime levels
-
-    var cats = ExtensionHelper.getAllCategories();
-    ExtensionHelper.sendCategoriesRuntimeUpdateMessage(cats);
-  };
-
-  return ExtensionHelper;
-}();
-
-ExtensionHelper.registered = false;
-exports.ExtensionHelper = ExtensionHelper;
-
-/***/ }),
-
-/***/ "./node_modules/typescript-logging/dist/commonjs/log/LoggerOptions.js":
-/*!****************************************************************************!*\
-  !*** ./node_modules/typescript-logging/dist/commonjs/log/LoggerOptions.js ***!
-  \****************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-/**
- * Log level for a logger.
- */
-
-var LogLevel;
-
-(function (LogLevel) {
-  LogLevel[LogLevel["Trace"] = 0] = "Trace";
-  LogLevel[LogLevel["Debug"] = 1] = "Debug";
-  LogLevel[LogLevel["Info"] = 2] = "Info";
-  LogLevel[LogLevel["Warn"] = 3] = "Warn";
-  LogLevel[LogLevel["Error"] = 4] = "Error";
-  LogLevel[LogLevel["Fatal"] = 5] = "Fatal";
-})(LogLevel = exports.LogLevel || (exports.LogLevel = {}));
-/* tslint:disable:no-namespace */
-
-
-(function (LogLevel) {
-  /**
-   * Returns LogLevel based on string representation
-   * @param val Value
-   * @returns {LogLevel}, Error is thrown if invalid.
-   */
-  function fromString(val) {
-    if (val == null) {
-      throw new Error("Argument must be set");
-    }
-
-    switch (val.toLowerCase()) {
-      case "trace":
-        return LogLevel.Trace;
-
-      case "debug":
-        return LogLevel.Debug;
-
-      case "info":
-        return LogLevel.Info;
-
-      case "warn":
-        return LogLevel.Warn;
-
-      case "error":
-        return LogLevel.Error;
-
-      case "fatal":
-        return LogLevel.Fatal;
-
-      default:
-        throw new Error("Unsupported value for conversion: " + val);
-    }
-  }
-
-  LogLevel.fromString = fromString;
-})(LogLevel = exports.LogLevel || (exports.LogLevel = {}));
-/* tslint:disable:enable-namespace */
-
-/**
- * Where to log to? Pick one of the constants. Custom requires a callback to be present, see LFService.createLoggerFactory(...)
- * where this comes into play.
- */
-
-
-var LoggerType;
-
-(function (LoggerType) {
-  LoggerType[LoggerType["Console"] = 0] = "Console";
-  LoggerType[LoggerType["MessageBuffer"] = 1] = "MessageBuffer";
-  LoggerType[LoggerType["Custom"] = 2] = "Custom";
-})(LoggerType = exports.LoggerType || (exports.LoggerType = {}));
-/**
- * Defines several date enums used for formatting a date.
- */
-
-
-var DateFormatEnum;
-
-(function (DateFormatEnum) {
-  /**
-   * Displays as: year-month-day hour:minute:second,millis -> 1999-02-12 23:59:59,123
-   * Note the date separator can be set separately.
-   */
-  DateFormatEnum[DateFormatEnum["Default"] = 0] = "Default";
-  /**
-   * Displays as: year-month-day hour:minute:second -> 1999-02-12 23:59:59
-   * Note the date separator can be set separately.
-   */
-
-  DateFormatEnum[DateFormatEnum["YearMonthDayTime"] = 1] = "YearMonthDayTime";
-  /**
-   * Displays as: year-day-month hour:minute:second,millis -> 1999-12-02 23:59:59,123
-   * Note the date separator can be set separately.
-   */
-
-  DateFormatEnum[DateFormatEnum["YearDayMonthWithFullTime"] = 2] = "YearDayMonthWithFullTime";
-  /**
-   * Displays as: year-day-month hour:minute:second -> 1999-12-02 23:59:59
-   * Note the date separator can be set separately.
-   */
-
-  DateFormatEnum[DateFormatEnum["YearDayMonthTime"] = 3] = "YearDayMonthTime";
-})(DateFormatEnum = exports.DateFormatEnum || (exports.DateFormatEnum = {}));
-/* tslint:disable:no-namespace */
-
-
-(function (DateFormatEnum) {
-  /**
-   * Returns LogLevel based on string representation
-   * @param val Value
-   * @returns {LogLevel}, Error is thrown if invalid.
-   */
-  function fromString(val) {
-    if (val == null) {
-      throw new Error("Argument must be set");
-    }
-
-    switch (val.toLowerCase()) {
-      case "default":
-        return DateFormatEnum.Default;
-
-      case "yearmonthdayTime":
-        return DateFormatEnum.YearMonthDayTime;
-
-      case "yeardaymonthwithfulltime":
-        return DateFormatEnum.YearDayMonthWithFullTime;
-
-      case "yeardaymonthtime":
-        return DateFormatEnum.YearDayMonthTime;
-
-      default:
-        throw new Error("Unsupported value for conversion: " + val);
-    }
-  }
-
-  DateFormatEnum.fromString = fromString;
-})(DateFormatEnum = exports.DateFormatEnum || (exports.DateFormatEnum = {}));
-/* tslint:disable:enable-namespace */
-
-/**
- * DateFormat class, stores data on how to format a date.
- */
-
-
-var DateFormat = function () {
-  /**
-   * Constructor to define the dateformat used for logging, can be called empty as it uses defaults.
-   * @param formatEnum DateFormatEnum, use one of the constants from the enum. Defaults to DateFormatEnum.Default
-   * @param dateSeparator Separator used between dates, defaults to -
-   */
-  function DateFormat(formatEnum, dateSeparator) {
-    if (formatEnum === void 0) {
-      formatEnum = DateFormatEnum.Default;
-    }
-
-    if (dateSeparator === void 0) {
-      dateSeparator = "-";
-    }
-
-    this._formatEnum = formatEnum;
-    this._dateSeparator = dateSeparator;
-  }
-
-  Object.defineProperty(DateFormat.prototype, "formatEnum", {
-    get: function () {
-      return this._formatEnum;
-    },
-    set: function (value) {
-      this._formatEnum = value;
-    },
-    enumerable: true,
-    configurable: true
-  });
-  Object.defineProperty(DateFormat.prototype, "dateSeparator", {
-    get: function () {
-      return this._dateSeparator;
-    },
-    set: function (value) {
-      this._dateSeparator = value;
-    },
-    enumerable: true,
-    configurable: true
-  });
-
-  DateFormat.prototype.copy = function () {
-    return new DateFormat(this._formatEnum, this._dateSeparator);
-  };
-
-  return DateFormat;
-}();
-
-exports.DateFormat = DateFormat;
-/**
- * Information about the log format, what will a log line look like?
- */
-
-var LogFormat = function () {
-  /**
-   * Constructor to create a LogFormat. Can be created without parameters where it will use sane defaults.
-   * @param dateFormat DateFormat (what needs the date look like in the log line)
-   * @param showTimeStamp Show date timestamp at all?
-   * @param showLoggerName Show the logger name?
-   */
-  function LogFormat(dateFormat, showTimeStamp, showLoggerName) {
-    if (dateFormat === void 0) {
-      dateFormat = new DateFormat();
-    }
-
-    if (showTimeStamp === void 0) {
-      showTimeStamp = true;
-    }
-
-    if (showLoggerName === void 0) {
-      showLoggerName = true;
-    }
-
-    this._showTimeStamp = true;
-    this._showLoggerName = true;
-    this._dateFormat = dateFormat;
-    this._showTimeStamp = showTimeStamp;
-    this._showLoggerName = showLoggerName;
-  }
-
-  Object.defineProperty(LogFormat.prototype, "dateFormat", {
-    get: function () {
-      return this._dateFormat;
-    },
-    enumerable: true,
-    configurable: true
-  });
-  Object.defineProperty(LogFormat.prototype, "showTimeStamp", {
-    get: function () {
-      return this._showTimeStamp;
-    },
-    set: function (value) {
-      this._showTimeStamp = value;
-    },
-    enumerable: true,
-    configurable: true
-  });
-  Object.defineProperty(LogFormat.prototype, "showLoggerName", {
-    get: function () {
-      return this._showLoggerName;
-    },
-    set: function (value) {
-      this._showLoggerName = value;
-    },
-    enumerable: true,
-    configurable: true
-  });
-  return LogFormat;
-}();
-
-exports.LogFormat = LogFormat;
-/**
- * Information about the log format, what will a log line look like?
- */
-
-var CategoryLogFormat = function () {
-  /**
-   * Create an instance defining the category log format used.
-   * @param dateFormat Date format (uses default), for details see DateFormat class.
-   * @param showTimeStamp True to show timestamp in the logging, defaults to true.
-   * @param showCategoryName True to show category name in the logging, defaults to true.
-   */
-  function CategoryLogFormat(dateFormat, showTimeStamp, showCategoryName) {
-    if (dateFormat === void 0) {
-      dateFormat = new DateFormat();
-    }
-
-    if (showTimeStamp === void 0) {
-      showTimeStamp = true;
-    }
-
-    if (showCategoryName === void 0) {
-      showCategoryName = true;
-    }
-
-    this._dateFormat = dateFormat;
-    this._showTimeStamp = showTimeStamp;
-    this._showCategoryName = showCategoryName;
-  }
-
-  Object.defineProperty(CategoryLogFormat.prototype, "dateFormat", {
-    get: function () {
-      return this._dateFormat;
-    },
-    set: function (value) {
-      this._dateFormat = value;
-    },
-    enumerable: true,
-    configurable: true
-  });
-  Object.defineProperty(CategoryLogFormat.prototype, "showTimeStamp", {
-    get: function () {
-      return this._showTimeStamp;
-    },
-    set: function (value) {
-      this._showTimeStamp = value;
-    },
-    enumerable: true,
-    configurable: true
-  });
-  Object.defineProperty(CategoryLogFormat.prototype, "showCategoryName", {
-    get: function () {
-      return this._showCategoryName;
-    },
-    set: function (value) {
-      this._showCategoryName = value;
-    },
-    enumerable: true,
-    configurable: true
-  });
-
-  CategoryLogFormat.prototype.copy = function () {
-    return new CategoryLogFormat(this._dateFormat.copy(), this._showTimeStamp, this._showCategoryName);
-  };
-
-  return CategoryLogFormat;
-}();
-
-exports.CategoryLogFormat = CategoryLogFormat;
-
-/***/ }),
-
-/***/ "./node_modules/typescript-logging/dist/commonjs/log/category/AbstractCategoryLogger.js":
-/*!**********************************************************************************************!*\
-  !*** ./node_modules/typescript-logging/dist/commonjs/log/category/AbstractCategoryLogger.js ***!
-  \**********************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var DataStructures_1 = __webpack_require__(/*! ../../utils/DataStructures */ "./node_modules/typescript-logging/dist/commonjs/utils/DataStructures.js");
-
-var MessageUtils_1 = __webpack_require__(/*! ../../utils/MessageUtils */ "./node_modules/typescript-logging/dist/commonjs/utils/MessageUtils.js");
-
-var LoggerOptions_1 = __webpack_require__(/*! ../LoggerOptions */ "./node_modules/typescript-logging/dist/commonjs/log/LoggerOptions.js");
-
-var CategoryLogMessageImpl = function () {
-  function CategoryLogMessageImpl(message, error, categories, date, level, logFormat, ready) {
-    this._resolvedErrorMessage = false;
-    this._errorAsStack = null;
-    this._message = message;
-    this._error = error;
-    this._categories = categories;
-    this._date = date;
-    this._level = level;
-    this._logFormat = logFormat;
-    this._ready = ready;
-  }
-
-  CategoryLogMessageImpl.prototype.getMessage = function () {
-    return this._message;
-  };
-
-  CategoryLogMessageImpl.prototype.getErrorAsStack = function () {
-    return this._errorAsStack;
-  };
-
-  CategoryLogMessageImpl.prototype.setErrorAsStack = function (stack) {
-    this._errorAsStack = stack;
-  };
-
-  CategoryLogMessageImpl.prototype.getError = function () {
-    return this._error;
-  };
-
-  CategoryLogMessageImpl.prototype.getCategories = function () {
-    return this._categories;
-  };
-
-  CategoryLogMessageImpl.prototype.getDate = function () {
-    return this._date;
-  };
-
-  CategoryLogMessageImpl.prototype.getLevel = function () {
-    return this._level;
-  };
-
-  CategoryLogMessageImpl.prototype.getLogFormat = function () {
-    return this._logFormat;
-  };
-
-  CategoryLogMessageImpl.prototype.isReady = function () {
-    return this._ready;
-  };
-
-  CategoryLogMessageImpl.prototype.setReady = function (value) {
-    this._ready = value;
-  };
-
-  Object.defineProperty(CategoryLogMessageImpl.prototype, "resolvedErrorMessage", {
-    get: function () {
-      return this._resolvedErrorMessage;
-    },
-    set: function (value) {
-      this._resolvedErrorMessage = value;
-    },
-    enumerable: true,
-    configurable: true
-  });
-
-  CategoryLogMessageImpl.prototype.isResolvedErrorMessage = function () {
-    return this._resolvedErrorMessage;
-  };
-
-  return CategoryLogMessageImpl;
-}();
-/**
- * Abstract category logger, use as your base class for new type of loggers (it
- * saves you a lot of work) and override doLog(CategoryLogMessage). The message argument
- * provides full access to anything related to the logging event.
- * If you just want the standard line of logging, call: this.createDefaultLogMessage(msg) on
- * this class which will return you the formatted log message as string (e.g. the
- * default loggers all use this).
- */
-
-
-var AbstractCategoryLogger = function () {
-  function AbstractCategoryLogger(rootCategory, runtimeSettings) {
-    this.allMessages = new DataStructures_1.LinkedList();
-    this.rootCategory = rootCategory;
-    this.runtimeSettings = runtimeSettings;
-  }
-
-  AbstractCategoryLogger.prototype.trace = function (msg) {
-    var categories = [];
-
-    for (var _i = 1; _i < arguments.length; _i++) {
-      categories[_i - 1] = arguments[_i];
-    }
-
-    this._log.apply(this, [LoggerOptions_1.LogLevel.Trace, msg, null, false].concat(categories));
-  };
-
-  AbstractCategoryLogger.prototype.debug = function (msg) {
-    var categories = [];
-
-    for (var _i = 1; _i < arguments.length; _i++) {
-      categories[_i - 1] = arguments[_i];
-    }
-
-    this._log.apply(this, [LoggerOptions_1.LogLevel.Debug, msg, null, false].concat(categories));
-  };
-
-  AbstractCategoryLogger.prototype.info = function (msg) {
-    var categories = [];
-
-    for (var _i = 1; _i < arguments.length; _i++) {
-      categories[_i - 1] = arguments[_i];
-    }
-
-    this._log.apply(this, [LoggerOptions_1.LogLevel.Info, msg, null, false].concat(categories));
-  };
-
-  AbstractCategoryLogger.prototype.warn = function (msg) {
-    var categories = [];
-
-    for (var _i = 1; _i < arguments.length; _i++) {
-      categories[_i - 1] = arguments[_i];
-    }
-
-    this._log.apply(this, [LoggerOptions_1.LogLevel.Warn, msg, null, false].concat(categories));
-  };
-
-  AbstractCategoryLogger.prototype.error = function (msg, error) {
-    var categories = [];
-
-    for (var _i = 2; _i < arguments.length; _i++) {
-      categories[_i - 2] = arguments[_i];
-    }
-
-    this._log.apply(this, [LoggerOptions_1.LogLevel.Error, msg, error, false].concat(categories));
-  };
-
-  AbstractCategoryLogger.prototype.fatal = function (msg, error) {
-    var categories = [];
-
-    for (var _i = 2; _i < arguments.length; _i++) {
-      categories[_i - 2] = arguments[_i];
-    }
-
-    this._log.apply(this, [LoggerOptions_1.LogLevel.Fatal, msg, error, false].concat(categories));
-  };
-
-  AbstractCategoryLogger.prototype.resolved = function (msg, error) {
-    var categories = [];
-
-    for (var _i = 2; _i < arguments.length; _i++) {
-      categories[_i - 2] = arguments[_i];
-    }
-
-    this._log.apply(this, [LoggerOptions_1.LogLevel.Error, msg, error, true].concat(categories));
-  };
-
-  AbstractCategoryLogger.prototype.log = function (level, msg, error) {
-    var categories = [];
-
-    for (var _i = 3; _i < arguments.length; _i++) {
-      categories[_i - 3] = arguments[_i];
-    }
-
-    this._log.apply(this, [level, msg, error, false].concat(categories));
-  };
-
-  AbstractCategoryLogger.prototype.tracec = function (msg) {
-    var categories = [];
-
-    for (var _i = 1; _i < arguments.length; _i++) {
-      categories[_i - 1] = arguments[_i];
-    }
-
-    this._logc.apply(this, [LoggerOptions_1.LogLevel.Trace, msg, function () {
-      return null;
-    }, false].concat(categories));
-  };
-
-  AbstractCategoryLogger.prototype.debugc = function (msg) {
-    var categories = [];
-
-    for (var _i = 1; _i < arguments.length; _i++) {
-      categories[_i - 1] = arguments[_i];
-    }
-
-    this._logc.apply(this, [LoggerOptions_1.LogLevel.Debug, msg, function () {
-      return null;
-    }, false].concat(categories));
-  };
-
-  AbstractCategoryLogger.prototype.infoc = function (msg) {
-    var categories = [];
-
-    for (var _i = 1; _i < arguments.length; _i++) {
-      categories[_i - 1] = arguments[_i];
-    }
-
-    this._logc.apply(this, [LoggerOptions_1.LogLevel.Info, msg, function () {
-      return null;
-    }, false].concat(categories));
-  };
-
-  AbstractCategoryLogger.prototype.warnc = function (msg) {
-    var categories = [];
-
-    for (var _i = 1; _i < arguments.length; _i++) {
-      categories[_i - 1] = arguments[_i];
-    }
-
-    this._logc.apply(this, [LoggerOptions_1.LogLevel.Warn, msg, function () {
-      return null;
-    }, false].concat(categories));
-  };
-
-  AbstractCategoryLogger.prototype.errorc = function (msg, error) {
-    var categories = [];
-
-    for (var _i = 2; _i < arguments.length; _i++) {
-      categories[_i - 2] = arguments[_i];
-    }
-
-    this._logc.apply(this, [LoggerOptions_1.LogLevel.Error, msg, error, false].concat(categories));
-  };
-
-  AbstractCategoryLogger.prototype.fatalc = function (msg, error) {
-    var categories = [];
-
-    for (var _i = 2; _i < arguments.length; _i++) {
-      categories[_i - 2] = arguments[_i];
-    }
-
-    this._logc.apply(this, [LoggerOptions_1.LogLevel.Fatal, msg, error, false].concat(categories));
-  };
-
-  AbstractCategoryLogger.prototype.resolvedc = function (msg, error) {
-    var categories = [];
-
-    for (var _i = 2; _i < arguments.length; _i++) {
-      categories[_i - 2] = arguments[_i];
-    }
-
-    this._logc.apply(this, [LoggerOptions_1.LogLevel.Error, msg, error, true].concat(categories));
-  };
-
-  AbstractCategoryLogger.prototype.logc = function (level, msg, error) {
-    var categories = [];
-
-    for (var _i = 3; _i < arguments.length; _i++) {
-      categories[_i - 3] = arguments[_i];
-    }
-
-    this._logc.apply(this, [level, msg, error, false].concat(categories));
-  };
-
-  AbstractCategoryLogger.prototype.getRootCategory = function () {
-    return this.rootCategory;
-  };
-
-  AbstractCategoryLogger.prototype.createDefaultLogMessage = function (msg) {
-    return MessageUtils_1.MessageFormatUtils.renderDefaultMessage(msg, true);
-  };
-
-  AbstractCategoryLogger.prototype._log = function (level, msg, error, resolved) {
-    if (error === void 0) {
-      error = null;
-    }
-
-    if (resolved === void 0) {
-      resolved = false;
-    }
-
-    var categories = [];
-
-    for (var _i = 4; _i < arguments.length; _i++) {
-      categories[_i - 4] = arguments[_i];
-    }
-
-    this._logInternal.apply(this, [level, function () {
-      return msg;
-    }, function () {
-      return error;
-    }, resolved].concat(categories));
-  };
-
-  AbstractCategoryLogger.prototype._logc = function (level, msg, error, resolved) {
-    if (resolved === void 0) {
-      resolved = false;
-    }
-
-    var categories = [];
-
-    for (var _i = 4; _i < arguments.length; _i++) {
-      categories[_i - 4] = arguments[_i];
-    }
-
-    this._logInternal.apply(this, [level, msg, error, resolved].concat(categories));
-  };
-
-  AbstractCategoryLogger.prototype._logInternal = function (level, msg, error, resolved) {
-    var _this = this;
-
-    var categories = [];
-
-    for (var _i = 4; _i < arguments.length; _i++) {
-      categories[_i - 4] = arguments[_i];
-    }
-
-    var logCategories; // Log root category by default if none present
-
-    if (categories !== undefined && categories.length > 0) {
-      logCategories = categories;
-    } else {
-      logCategories = [];
-      logCategories.push(this.rootCategory);
-    }
-
-    var _loop_1 = function (i) {
-      var category = logCategories[i];
-
-      if (category == null) {
-        throw new Error("Cannot have a null element within categories, at index=" + i);
-      }
-
-      var settings = this_1.runtimeSettings.getCategorySettings(category);
-
-      if (settings == null) {
-        throw new Error("Category with path: " + category.getCategoryPath() + " is not registered with this logger, maybe " + "you registered it with a different root logger?");
-      }
-
-      if (settings.logLevel <= level) {
-        var actualError = error != null ? error() : null;
-
-        if (actualError == null) {
-          var logMessage = new CategoryLogMessageImpl(msg(), actualError, logCategories, new Date(), level, settings.logFormat, true);
-          logMessage.resolvedErrorMessage = resolved;
-          this_1.allMessages.addTail(logMessage);
-          this_1.processMessages();
-        } else {
-          var logMessage_1 = new CategoryLogMessageImpl(msg(), actualError, logCategories, new Date(), level, settings.logFormat, false);
-          logMessage_1.resolvedErrorMessage = resolved;
-          this_1.allMessages.addTail(logMessage_1);
-          MessageUtils_1.MessageFormatUtils.renderError(actualError).then(function (stack) {
-            logMessage_1.setErrorAsStack(stack);
-            logMessage_1.setReady(true);
-
-            _this.processMessages();
-          });
-        }
-
-        return "break";
-      }
-    };
-
-    var this_1 = this; // Get the runtime levels for given categories. If their level is lower than given level, we log.
-    // In addition we pass along which category/categories we log this statement for.
-
-    for (var i = 0; i < logCategories.length; i++) {
-      var state_1 = _loop_1(i);
-
-      if (state_1 === "break") break;
-    }
-  };
-
-  AbstractCategoryLogger.prototype.processMessages = function () {
-    // Basically we wait until errors are resolved (those messages
-    // may not be ready).
-    var msgs = this.allMessages;
-
-    if (msgs.getSize() > 0) {
-      do {
-        var msg = msgs.getHead();
-
-        if (msg != null) {
-          if (!msg.isReady()) {
-            break;
-          }
-
-          msgs.removeHead();
-          this.doLog(msg);
-        }
-      } while (msgs.getSize() > 0);
-    }
-  };
-
-  return AbstractCategoryLogger;
-}();
-
-exports.AbstractCategoryLogger = AbstractCategoryLogger;
-
-/***/ }),
-
-/***/ "./node_modules/typescript-logging/dist/commonjs/log/category/CategoryConsoleLoggerImpl.js":
-/*!*************************************************************************************************!*\
-  !*** ./node_modules/typescript-logging/dist/commonjs/log/category/CategoryConsoleLoggerImpl.js ***!
-  \*************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var __extends = this && this.__extends || function (d, b) {
-  for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-
-  function __() {
-    this.constructor = d;
-  }
-
-  d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-};
-
-var LoggerOptions_1 = __webpack_require__(/*! ../LoggerOptions */ "./node_modules/typescript-logging/dist/commonjs/log/LoggerOptions.js");
-
-var AbstractCategoryLogger_1 = __webpack_require__(/*! ./AbstractCategoryLogger */ "./node_modules/typescript-logging/dist/commonjs/log/category/AbstractCategoryLogger.js");
-/**
- * Simple logger, that logs to the console. If the console is unavailable will throw an exception.
- */
-
-
-var CategoryConsoleLoggerImpl = function (_super) {
-  __extends(CategoryConsoleLoggerImpl, _super);
-
-  function CategoryConsoleLoggerImpl(rootCategory, runtimeSettings) {
-    return _super.call(this, rootCategory, runtimeSettings) || this;
-  }
-
-  CategoryConsoleLoggerImpl.prototype.doLog = function (msg) {
-    var fullMsg = this.createDefaultLogMessage(msg);
-
-    if (console !== undefined) {
-      var logged = false;
-      /* tslint:disable:no-console */
-
-      switch (msg.getLevel()) {
-        case LoggerOptions_1.LogLevel.Trace:
-          // Don't try trace we don't want stacks
-          break;
-
-        case LoggerOptions_1.LogLevel.Debug:
-          if (console.debug) {
-            console.debug(fullMsg);
-            logged = true;
-          }
-
-          break;
-
-        case LoggerOptions_1.LogLevel.Info:
-          if (console.info) {
-            console.info(fullMsg);
-            logged = true;
-          }
-
-          break;
-
-        case LoggerOptions_1.LogLevel.Warn:
-          if (console.warn) {
-            console.warn(fullMsg);
-            logged = true;
-          }
-
-          break;
-
-        case LoggerOptions_1.LogLevel.Error:
-        case LoggerOptions_1.LogLevel.Fatal:
-          if (console.error) {
-            console.error(fullMsg);
-            logged = true;
-          }
-
-          break;
-
-        default:
-          throw new Error("Unsupported level: " + msg.getLevel());
-      }
-
-      if (!logged) {
-        console.log(fullMsg);
-      }
-    } else {
-      throw new Error("Console is not defined, cannot log msg: " + fullMsg);
-    }
-  };
-
-  return CategoryConsoleLoggerImpl;
-}(AbstractCategoryLogger_1.AbstractCategoryLogger);
-
-exports.CategoryConsoleLoggerImpl = CategoryConsoleLoggerImpl;
-
-/***/ }),
-
-/***/ "./node_modules/typescript-logging/dist/commonjs/log/category/CategoryDelegateLoggerImpl.js":
-/*!**************************************************************************************************!*\
-  !*** ./node_modules/typescript-logging/dist/commonjs/log/category/CategoryDelegateLoggerImpl.js ***!
-  \**************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-/**
- * Delegate logger, delegates logging to given logger (constructor).
- */
-
-var CategoryDelegateLoggerImpl = function () {
-  function CategoryDelegateLoggerImpl(delegate) {
-    this._delegate = delegate;
-  }
-
-  Object.defineProperty(CategoryDelegateLoggerImpl.prototype, "delegate", {
-    get: function () {
-      return this._delegate;
-    },
-    set: function (value) {
-      this._delegate = value;
-    },
-    enumerable: true,
-    configurable: true
-  });
-
-  CategoryDelegateLoggerImpl.prototype.trace = function (msg) {
-    var categories = [];
-
-    for (var _i = 1; _i < arguments.length; _i++) {
-      categories[_i - 1] = arguments[_i];
-    }
-
-    (_a = this._delegate).trace.apply(_a, [msg].concat(categories));
-
-    var _a;
-  };
-
-  CategoryDelegateLoggerImpl.prototype.debug = function (msg) {
-    var categories = [];
-
-    for (var _i = 1; _i < arguments.length; _i++) {
-      categories[_i - 1] = arguments[_i];
-    }
-
-    (_a = this._delegate).debug.apply(_a, [msg].concat(categories));
-
-    var _a;
-  };
-
-  CategoryDelegateLoggerImpl.prototype.info = function (msg) {
-    var categories = [];
-
-    for (var _i = 1; _i < arguments.length; _i++) {
-      categories[_i - 1] = arguments[_i];
-    }
-
-    (_a = this._delegate).info.apply(_a, [msg].concat(categories));
-
-    var _a;
-  };
-
-  CategoryDelegateLoggerImpl.prototype.warn = function (msg) {
-    var categories = [];
-
-    for (var _i = 1; _i < arguments.length; _i++) {
-      categories[_i - 1] = arguments[_i];
-    }
-
-    (_a = this._delegate).warn.apply(_a, [msg].concat(categories));
-
-    var _a;
-  };
-
-  CategoryDelegateLoggerImpl.prototype.error = function (msg, error) {
-    var categories = [];
-
-    for (var _i = 2; _i < arguments.length; _i++) {
-      categories[_i - 2] = arguments[_i];
-    }
-
-    (_a = this._delegate).error.apply(_a, [msg, error].concat(categories));
-
-    var _a;
-  };
-
-  CategoryDelegateLoggerImpl.prototype.fatal = function (msg, error) {
-    var categories = [];
-
-    for (var _i = 2; _i < arguments.length; _i++) {
-      categories[_i - 2] = arguments[_i];
-    }
-
-    (_a = this._delegate).fatal.apply(_a, [msg, error].concat(categories));
-
-    var _a;
-  };
-
-  CategoryDelegateLoggerImpl.prototype.resolved = function (msg, error) {
-    var categories = [];
-
-    for (var _i = 2; _i < arguments.length; _i++) {
-      categories[_i - 2] = arguments[_i];
-    }
-
-    (_a = this._delegate).resolved.apply(_a, [msg, error].concat(categories));
-
-    var _a;
-  };
-
-  CategoryDelegateLoggerImpl.prototype.log = function (level, msg, error) {
-    var categories = [];
-
-    for (var _i = 3; _i < arguments.length; _i++) {
-      categories[_i - 3] = arguments[_i];
-    }
-
-    (_a = this._delegate).log.apply(_a, [level, msg, error].concat(categories));
-
-    var _a;
-  };
-
-  CategoryDelegateLoggerImpl.prototype.tracec = function (msg) {
-    var categories = [];
-
-    for (var _i = 1; _i < arguments.length; _i++) {
-      categories[_i - 1] = arguments[_i];
-    }
-
-    (_a = this._delegate).tracec.apply(_a, [msg].concat(categories));
-
-    var _a;
-  };
-
-  CategoryDelegateLoggerImpl.prototype.debugc = function (msg) {
-    var categories = [];
-
-    for (var _i = 1; _i < arguments.length; _i++) {
-      categories[_i - 1] = arguments[_i];
-    }
-
-    (_a = this._delegate).debugc.apply(_a, [msg].concat(categories));
-
-    var _a;
-  };
-
-  CategoryDelegateLoggerImpl.prototype.infoc = function (msg) {
-    var categories = [];
-
-    for (var _i = 1; _i < arguments.length; _i++) {
-      categories[_i - 1] = arguments[_i];
-    }
-
-    (_a = this._delegate).infoc.apply(_a, [msg].concat(categories));
-
-    var _a;
-  };
-
-  CategoryDelegateLoggerImpl.prototype.warnc = function (msg) {
-    var categories = [];
-
-    for (var _i = 1; _i < arguments.length; _i++) {
-      categories[_i - 1] = arguments[_i];
-    }
-
-    (_a = this._delegate).warnc.apply(_a, [msg].concat(categories));
-
-    var _a;
-  };
-
-  CategoryDelegateLoggerImpl.prototype.errorc = function (msg, error) {
-    var categories = [];
-
-    for (var _i = 2; _i < arguments.length; _i++) {
-      categories[_i - 2] = arguments[_i];
-    }
-
-    (_a = this._delegate).errorc.apply(_a, [msg, error].concat(categories));
-
-    var _a;
-  };
-
-  CategoryDelegateLoggerImpl.prototype.fatalc = function (msg, error) {
-    var categories = [];
-
-    for (var _i = 2; _i < arguments.length; _i++) {
-      categories[_i - 2] = arguments[_i];
-    }
-
-    (_a = this._delegate).fatalc.apply(_a, [msg, error].concat(categories));
-
-    var _a;
-  };
-
-  CategoryDelegateLoggerImpl.prototype.resolvedc = function (msg, error) {
-    var categories = [];
-
-    for (var _i = 2; _i < arguments.length; _i++) {
-      categories[_i - 2] = arguments[_i];
-    }
-
-    (_a = this._delegate).resolvedc.apply(_a, [msg, error].concat(categories));
-
-    var _a;
-  };
-
-  CategoryDelegateLoggerImpl.prototype.logc = function (level, msg, error) {
-    var categories = [];
-
-    for (var _i = 3; _i < arguments.length; _i++) {
-      categories[_i - 3] = arguments[_i];
-    }
-
-    (_a = this._delegate).logc.apply(_a, [level, msg, error].concat(categories));
-
-    var _a;
-  };
-
-  return CategoryDelegateLoggerImpl;
-}();
-
-exports.CategoryDelegateLoggerImpl = CategoryDelegateLoggerImpl;
-
-/***/ }),
-
-/***/ "./node_modules/typescript-logging/dist/commonjs/log/category/CategoryExtensionLoggerImpl.js":
-/*!***************************************************************************************************!*\
-  !*** ./node_modules/typescript-logging/dist/commonjs/log/category/CategoryExtensionLoggerImpl.js ***!
-  \***************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var __extends = this && this.__extends || function (d, b) {
-  for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-
-  function __() {
-    this.constructor = d;
-  }
-
-  d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-};
-
-var ExtensionHelper_1 = __webpack_require__(/*! ../../extension/ExtensionHelper */ "./node_modules/typescript-logging/dist/commonjs/extension/ExtensionHelper.js");
-
-var AbstractCategoryLogger_1 = __webpack_require__(/*! ./AbstractCategoryLogger */ "./node_modules/typescript-logging/dist/commonjs/log/category/AbstractCategoryLogger.js");
-/**
- * This class should not be used directly, it is used for communication with the extension only.
- */
-
-
-var CategoryExtensionLoggerImpl = function (_super) {
-  __extends(CategoryExtensionLoggerImpl, _super);
-
-  function CategoryExtensionLoggerImpl(rootCategory, runtimeSettings) {
-    return _super.call(this, rootCategory, runtimeSettings) || this;
-  }
-
-  CategoryExtensionLoggerImpl.prototype.doLog = function (msg) {
-    if (typeof window !== "undefined") {
-      ExtensionHelper_1.ExtensionHelper.sendCategoryLogMessage(msg);
-    } else {
-      /* tslint:disable:no-console */
-      console.log("window is not available, you must be running in a browser for this. Dropped message.");
-    }
-  };
-
-  return CategoryExtensionLoggerImpl;
-}(AbstractCategoryLogger_1.AbstractCategoryLogger);
-
-exports.CategoryExtensionLoggerImpl = CategoryExtensionLoggerImpl;
-
-/***/ }),
-
-/***/ "./node_modules/typescript-logging/dist/commonjs/log/category/CategoryLogger.js":
-/*!**************************************************************************************!*\
-  !*** ./node_modules/typescript-logging/dist/commonjs/log/category/CategoryLogger.js ***!
-  \**************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var LoggerOptions_1 = __webpack_require__(/*! ../LoggerOptions */ "./node_modules/typescript-logging/dist/commonjs/log/LoggerOptions.js");
-
-var CategoryService_1 = __webpack_require__(/*! ./CategoryService */ "./node_modules/typescript-logging/dist/commonjs/log/category/CategoryService.js");
-/**
- * Category for use with categorized logging.
- * At minimum you need one category, which will serve as the root category.
- * You can create child categories (like a tree). You can have multiple root
- * categories.
- */
-
-
-var Category = function () {
-  function Category(name, parent) {
-    if (parent === void 0) {
-      parent = null;
-    }
-
-    this._children = [];
-    this._logLevel = LoggerOptions_1.LogLevel.Error;
-
-    if (name.indexOf("#") !== -1) {
-      throw new Error("Cannot use # in a name of a Category");
-    }
-
-    this._id = Category.nextId();
-    this._name = name;
-    this._parent = parent;
-
-    if (this._parent != null) {
-      this._parent._children.push(this);
-    }
-
-    CategoryService_1.CategoryServiceImpl.getInstance().registerCategory(this);
-  }
-
-  Object.defineProperty(Category.prototype, "name", {
-    get: function () {
-      return this._name;
-    },
-    enumerable: true,
-    configurable: true
-  });
-  Object.defineProperty(Category.prototype, "parent", {
-    get: function () {
-      return this._parent;
-    },
-    enumerable: true,
-    configurable: true
-  });
-  Object.defineProperty(Category.prototype, "children", {
-    get: function () {
-      return this._children;
-    },
-    enumerable: true,
-    configurable: true
-  });
-  Object.defineProperty(Category.prototype, "logLevel", {
-    get: function () {
-      return this._logLevel;
-    },
-    enumerable: true,
-    configurable: true
-  });
-
-  Category.prototype.getCategoryPath = function () {
-    var result = this.name;
-    var cat = this.parent;
-
-    while (cat != null) {
-      result = cat.name + "#" + result;
-      cat = cat.parent;
-    }
-
-    return result;
-  };
-
-  Object.defineProperty(Category.prototype, "id", {
-    /**
-     * Returns the id for this category (this
-     * is for internal purposes only).
-     * @returns {number} Id
-     */
-    get: function () {
-      return this._id;
-    },
-    enumerable: true,
-    configurable: true
-  });
-
-  Category.nextId = function () {
-    return Category.currentId++;
-  };
-
-  return Category;
-}();
-
-Category.currentId = 1;
-exports.Category = Category;
-
-/***/ }),
-
-/***/ "./node_modules/typescript-logging/dist/commonjs/log/category/CategoryMessageBufferImpl.js":
-/*!*************************************************************************************************!*\
-  !*** ./node_modules/typescript-logging/dist/commonjs/log/category/CategoryMessageBufferImpl.js ***!
-  \*************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var __extends = this && this.__extends || function (d, b) {
-  for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-
-  function __() {
-    this.constructor = d;
-  }
-
-  d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-};
-
-var AbstractCategoryLogger_1 = __webpack_require__(/*! ./AbstractCategoryLogger */ "./node_modules/typescript-logging/dist/commonjs/log/category/AbstractCategoryLogger.js");
-/**
- * Logger which buffers all messages, use with care due to possible high memory footprint.
- * Can be convenient in some cases. Call toString() for full output, or cast to this class
- * and call getMessages() to do something with it yourself.
- */
-
-
-var CategoryMessageBufferLoggerImpl = function (_super) {
-  __extends(CategoryMessageBufferLoggerImpl, _super);
-
-  function CategoryMessageBufferLoggerImpl() {
-    var _this = _super !== null && _super.apply(this, arguments) || this;
-
-    _this.messages = [];
-    return _this;
-  }
-
-  CategoryMessageBufferLoggerImpl.prototype.getMessages = function () {
-    return this.messages;
-  };
-
-  CategoryMessageBufferLoggerImpl.prototype.toString = function () {
-    return this.messages.map(function (msg) {
-      return msg;
-    }).join("\n");
-  };
-
-  CategoryMessageBufferLoggerImpl.prototype.doLog = function (msg) {
-    var fullMsg = this.createDefaultLogMessage(msg);
-    this.messages.push(fullMsg);
-  };
-
-  return CategoryMessageBufferLoggerImpl;
-}(AbstractCategoryLogger_1.AbstractCategoryLogger);
-
-exports.CategoryMessageBufferLoggerImpl = CategoryMessageBufferLoggerImpl;
-
-/***/ }),
-
-/***/ "./node_modules/typescript-logging/dist/commonjs/log/category/CategoryService.js":
-/*!***************************************************************************************!*\
-  !*** ./node_modules/typescript-logging/dist/commonjs/log/category/CategoryService.js ***!
-  \***************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var DataStructures_1 = __webpack_require__(/*! ../../utils/DataStructures */ "./node_modules/typescript-logging/dist/commonjs/utils/DataStructures.js");
-
-var LoggerOptions_1 = __webpack_require__(/*! ../LoggerOptions */ "./node_modules/typescript-logging/dist/commonjs/log/LoggerOptions.js");
-
-var CategoryConsoleLoggerImpl_1 = __webpack_require__(/*! ./CategoryConsoleLoggerImpl */ "./node_modules/typescript-logging/dist/commonjs/log/category/CategoryConsoleLoggerImpl.js");
-
-var CategoryDelegateLoggerImpl_1 = __webpack_require__(/*! ./CategoryDelegateLoggerImpl */ "./node_modules/typescript-logging/dist/commonjs/log/category/CategoryDelegateLoggerImpl.js");
-
-var CategoryExtensionLoggerImpl_1 = __webpack_require__(/*! ./CategoryExtensionLoggerImpl */ "./node_modules/typescript-logging/dist/commonjs/log/category/CategoryExtensionLoggerImpl.js");
-
-var CategoryMessageBufferImpl_1 = __webpack_require__(/*! ./CategoryMessageBufferImpl */ "./node_modules/typescript-logging/dist/commonjs/log/category/CategoryMessageBufferImpl.js");
-
-var ExtensionHelper_1 = __webpack_require__(/*! ../../extension/ExtensionHelper */ "./node_modules/typescript-logging/dist/commonjs/extension/ExtensionHelper.js");
-/**
- * RuntimeSettings for a category, at runtime these are associated to a category.
- */
-
-
-var CategoryRuntimeSettings = function () {
-  function CategoryRuntimeSettings(category, logLevel, loggerType, logFormat, callBackLogger) {
-    if (logLevel === void 0) {
-      logLevel = LoggerOptions_1.LogLevel.Error;
-    }
-
-    if (loggerType === void 0) {
-      loggerType = LoggerOptions_1.LoggerType.Console;
-    }
-
-    if (logFormat === void 0) {
-      logFormat = new LoggerOptions_1.CategoryLogFormat();
-    }
-
-    if (callBackLogger === void 0) {
-      callBackLogger = null;
-    }
-
-    this._category = category;
-    this._logLevel = logLevel;
-    this._loggerType = loggerType;
-    this._logFormat = logFormat;
-    this._callBackLogger = callBackLogger;
-  }
-
-  Object.defineProperty(CategoryRuntimeSettings.prototype, "category", {
-    get: function () {
-      return this._category;
-    },
-    enumerable: true,
-    configurable: true
-  });
-  Object.defineProperty(CategoryRuntimeSettings.prototype, "logLevel", {
-    get: function () {
-      return this._logLevel;
-    },
-    set: function (value) {
-      this._logLevel = value;
-    },
-    enumerable: true,
-    configurable: true
-  });
-  Object.defineProperty(CategoryRuntimeSettings.prototype, "loggerType", {
-    get: function () {
-      return this._loggerType;
-    },
-    set: function (value) {
-      this._loggerType = value;
-    },
-    enumerable: true,
-    configurable: true
-  });
-  Object.defineProperty(CategoryRuntimeSettings.prototype, "logFormat", {
-    get: function () {
-      return this._logFormat;
-    },
-    set: function (value) {
-      this._logFormat = value;
-    },
-    enumerable: true,
-    configurable: true
-  });
-  Object.defineProperty(CategoryRuntimeSettings.prototype, "callBackLogger", {
-    get: function () {
-      return this._callBackLogger;
-    },
-    set: function (value) {
-      this._callBackLogger = value;
-    },
-    enumerable: true,
-    configurable: true
-  });
-  return CategoryRuntimeSettings;
-}();
-
-exports.CategoryRuntimeSettings = CategoryRuntimeSettings;
-/**
- * Default configuration, can be used to initially set a different default configuration
- * on the CategoryServiceFactory. This will be applied to all categories already registered (or
- * registered in the future). Can also be applied to one Category (and childs).
- */
-
-var CategoryDefaultConfiguration = function () {
-  /**
-   * Create a new instance
-   * @param logLevel Log level for all loggers, default is LogLevel.Error
-   * @param loggerType Where to log, default is LoggerType.Console
-   * @param logFormat What logging format to use, use default instance, for default values see CategoryLogFormat.
-   * @param callBackLogger Optional callback, if LoggerType.Custom is used as loggerType. In that case must return a new Logger instance.
-   *            It is recommended to extend AbstractCategoryLogger to make your custom logger.
-   */
-  function CategoryDefaultConfiguration(logLevel, loggerType, logFormat, callBackLogger) {
-    if (logLevel === void 0) {
-      logLevel = LoggerOptions_1.LogLevel.Error;
-    }
-
-    if (loggerType === void 0) {
-      loggerType = LoggerOptions_1.LoggerType.Console;
-    }
-
-    if (logFormat === void 0) {
-      logFormat = new LoggerOptions_1.CategoryLogFormat();
-    }
-
-    if (callBackLogger === void 0) {
-      callBackLogger = null;
-    }
-
-    this._logLevel = logLevel;
-    this._loggerType = loggerType;
-    this._logFormat = logFormat;
-    this._callBackLogger = callBackLogger;
-
-    if (this._loggerType === LoggerOptions_1.LoggerType.Custom && this.callBackLogger === null) {
-      throw new Error("If you specify loggerType to be Custom, you must provide the callBackLogger argument");
-    }
-  }
-
-  Object.defineProperty(CategoryDefaultConfiguration.prototype, "logLevel", {
-    get: function () {
-      return this._logLevel;
-    },
-    enumerable: true,
-    configurable: true
-  });
-  Object.defineProperty(CategoryDefaultConfiguration.prototype, "loggerType", {
-    get: function () {
-      return this._loggerType;
-    },
-    enumerable: true,
-    configurable: true
-  });
-  Object.defineProperty(CategoryDefaultConfiguration.prototype, "logFormat", {
-    get: function () {
-      return this._logFormat;
-    },
-    enumerable: true,
-    configurable: true
-  });
-  Object.defineProperty(CategoryDefaultConfiguration.prototype, "callBackLogger", {
-    get: function () {
-      return this._callBackLogger;
-    },
-    enumerable: true,
-    configurable: true
-  });
-
-  CategoryDefaultConfiguration.prototype.copy = function () {
-    return new CategoryDefaultConfiguration(this.logLevel, this.loggerType, this.logFormat.copy(), this.callBackLogger);
-  };
-
-  return CategoryDefaultConfiguration;
-}();
-
-exports.CategoryDefaultConfiguration = CategoryDefaultConfiguration;
-/**
- * The service (only available as singleton) for all category related stuff as
- * retrieving, registering a logger. You should normally NOT use this,
- * instead use CategoryLoggerFactory which is meant for end users.
- */
-
-var CategoryServiceImpl = function () {
-  function CategoryServiceImpl() {
-    this._defaultConfig = new CategoryDefaultConfiguration(); // All registered root categories
-
-    this._rootCategories = []; // Key of map is path of category
-
-    this._categoryRuntimeSettings = new DataStructures_1.SimpleMap(); // Same, but these are never changed and are used to restore the previous state by the CategoryLoggerControl.
-
-    this._categoryOriginalRuntimeSettings = new DataStructures_1.SimpleMap(); // Key is name of root logger.
-
-    this._rootLoggers = new DataStructures_1.SimpleMap(); // Private constructor
-
-    ExtensionHelper_1.ExtensionHelper.register();
-  }
-
-  CategoryServiceImpl.getInstance = function () {
-    // Load on-demand, to assure webpack ordering of module usage doesn't screw things over
-    // for us when we accidentally change the order.
-    if (CategoryServiceImpl._INSTANCE === null) {
-      CategoryServiceImpl._INSTANCE = new CategoryServiceImpl();
-    }
-
-    return CategoryServiceImpl._INSTANCE;
-  };
-
-  CategoryServiceImpl.prototype.getLogger = function (root) {
-    if (!this.rootCategoryExists(root)) {
-      throw new Error("Given category " + root.name + " is not registered as a root category. You must use the root category to retrieve a logger.");
-    }
-
-    var pair = this._rootLoggers.get(root.name);
-
-    if (pair != null) {
-      return pair.y;
-    }
-
-    var logger = new CategoryDelegateLoggerImpl_1.CategoryDelegateLoggerImpl(this.createRootLogger(root));
-
-    this._rootLoggers.put(root.name, new DataStructures_1.TuplePair(root, logger));
-
-    return logger;
-  };
-  /**
-   * Clears everything, including a default configuration you may have set.
-   * After this you need to re-register your categories etc.
-   */
-
-
-  CategoryServiceImpl.prototype.clear = function () {
-    this._rootCategories = [];
-
-    this._categoryRuntimeSettings.clear();
-
-    this._categoryOriginalRuntimeSettings.clear();
-
-    this._rootLoggers.clear();
-
-    this.setDefaultConfiguration(new CategoryDefaultConfiguration());
-  };
-
-  CategoryServiceImpl.prototype.getCategorySettings = function (category) {
-    return this._categoryRuntimeSettings.get(category.getCategoryPath());
-  };
-
-  CategoryServiceImpl.prototype.getOriginalCategorySettings = function (category) {
-    return this._categoryOriginalRuntimeSettings.get(category.getCategoryPath());
-  };
-  /**
-   * Set the default configuration. New root loggers created get this
-   * applied. If you want to reset all current loggers to have this
-   * applied as well, pass in reset=true (the default is false). All
-   * categories will be reset then as well.
-   * @param config New config
-   * @param reset Defaults to false. Set to true to reset all loggers and current runtimesettings.
-   */
-
-
-  CategoryServiceImpl.prototype.setDefaultConfiguration = function (config, reset) {
-    var _this = this;
-
-    if (reset === void 0) {
-      reset = false;
-    }
-
-    this._defaultConfig = config;
-
-    if (reset) {
-      // Reset all runtimesettings (this will reset it for roots & children all at once).
-      var newRuntimeSettings_1 = new DataStructures_1.SimpleMap();
-      var newOriginalRuntimeSettings_1 = new DataStructures_1.SimpleMap();
-
-      this._categoryRuntimeSettings.keys().forEach(function (key) {
-        var setting = _this._categoryRuntimeSettings.get(key);
-
-        if (setting !== null) {
-          var defSettings = _this._defaultConfig.copy();
-
-          var settings = new CategoryRuntimeSettings(setting.category, defSettings.logLevel, defSettings.loggerType, defSettings.logFormat, defSettings.callBackLogger);
-
-          var defSettingsOriginal = _this._defaultConfig.copy();
-
-          var settingsOriginal = new CategoryRuntimeSettings(setting.category, defSettingsOriginal.logLevel, defSettingsOriginal.loggerType, defSettingsOriginal.logFormat, defSettingsOriginal.callBackLogger);
-          newRuntimeSettings_1.put(key, settings);
-          newOriginalRuntimeSettings_1.put(key, settingsOriginal);
-        } else {
-          throw new Error("No setting associated with key=" + key);
-        }
-      });
-
-      this._categoryRuntimeSettings.clear();
-
-      this._categoryOriginalRuntimeSettings.clear();
-
-      this._categoryRuntimeSettings = newRuntimeSettings_1;
-      this._categoryOriginalRuntimeSettings = newOriginalRuntimeSettings_1; // Now initialize a new logger and put it on the delegate. Loggers we give out
-      // are guaranteed to be wrapped inside the delegate logger.
-
-      this._rootLoggers.values().forEach(function (pair) {
-        // Set the new logger type
-        pair.y.delegate = _this.createRootLogger(pair.x);
-      });
-    }
-  };
-  /**
-   * Set new configuration settings for a category (and possibly its child categories)
-   * @param config Config
-   * @param category Category
-   * @param applyChildren True to apply to child categories, defaults to false.
-   * @param resetRootLogger Defaults to false. If set to true and if category is a root category it will reset the root logger.
-   */
-
-
-  CategoryServiceImpl.prototype.setConfigurationCategory = function (config, category, applyChildren, resetRootLogger) {
-    var _this = this;
-
-    if (applyChildren === void 0) {
-      applyChildren = false;
-    }
-
-    if (resetRootLogger === void 0) {
-      resetRootLogger = false;
-    }
-
-    var categorySettings = this.getCategorySettings(category);
-
-    if (categorySettings === null) {
-      throw new Error("Given category is not registered: " + category.name);
-    }
-
-    categorySettings.logLevel = config.logLevel;
-    categorySettings.loggerType = config.loggerType;
-    categorySettings.logFormat = config.logFormat;
-    categorySettings.callBackLogger = config.callBackLogger; // Apply the settings to children recursive if requested
-
-    if (applyChildren) {
-      category.children.forEach(function (child) {
-        _this.setConfigurationCategory(config, child, applyChildren, resetRootLogger);
-      });
-    }
-
-    if (resetRootLogger && this.rootCategoryExists(category)) {
-      var tupleLogger = this._rootLoggers.get(category.name);
-
-      if (tupleLogger !== null) {
-        tupleLogger.y.delegate = this.createRootLogger(tupleLogger.x);
-      }
-    }
-  };
-
-  CategoryServiceImpl.prototype.registerCategory = function (category) {
-    if (category == null || category === undefined) {
-      throw new Error("Category CANNOT be null");
-    }
-
-    var parent = category.parent;
-
-    if (parent == null) {
-      // Register the root category
-      for (var _i = 0, _a = this._rootCategories; _i < _a.length; _i++) {
-        var rootCategory = _a[_i];
-
-        if (rootCategory.name === category.name) {
-          throw new Error("Cannot add this rootCategory with name: " + category.name + ", another root category is already registered with that name.");
-        }
-      }
-
-      this._rootCategories.push(category);
-    }
-
-    this.initializeRuntimeSettingsForCategory(category);
-  };
-  /**
-   * Used to enable integration with chrome extension. Do not use manually, the
-   * extension and the logger framework deal with this.
-   */
-
-
-  CategoryServiceImpl.prototype.enableExtensionIntegration = function () {
-    var _this = this;
-
-    this._rootLoggers.values().forEach(function (pair) {
-      // Set the new logger type if needed.
-      var delegateLogger = pair.y;
-
-      if (!(delegateLogger instanceof CategoryExtensionLoggerImpl_1.CategoryExtensionLoggerImpl)) {
-        /* tslint:disable:no-console */
-        console.log("Reconfiguring root logger for root category: " + pair.x.name);
-        /* tslint:enable:no-console */
-
-        pair.y.delegate = new CategoryExtensionLoggerImpl_1.CategoryExtensionLoggerImpl(pair.x, _this);
-      }
-    });
-  };
-  /**
-   * Return all root categories currently registered.
-   */
-
-
-  CategoryServiceImpl.prototype.getRootCategories = function () {
-    return this._rootCategories.slice(0);
-  };
-  /**
-   * Return Category by id
-   * @param id The id of the category to find
-   * @returns {Category} or null if not found
-   */
-
-
-  CategoryServiceImpl.prototype.getCategoryById = function (id) {
-    var result = this._categoryRuntimeSettings.values().filter(function (cat) {
-      return cat.category.id === id;
-    }).map(function (cat) {
-      return cat.category;
-    });
-
-    if (result.length === 1) {
-      return result[0];
-    }
-
-    return null;
-  };
-
-  CategoryServiceImpl.prototype.initializeRuntimeSettingsForCategory = function (category) {
-    var settings = this._categoryRuntimeSettings.get(category.getCategoryPath());
-
-    if (settings !== null) {
-      throw new Error("Category with path: " + category.getCategoryPath() + " is already registered?");
-    } // Passing the callback is not really needed for child categories, but don't really care.
-
-
-    var defSettings = this._defaultConfig.copy();
-
-    settings = new CategoryRuntimeSettings(category, defSettings.logLevel, defSettings.loggerType, defSettings.logFormat, defSettings.callBackLogger);
-
-    var defSettingsOriginal = this._defaultConfig.copy();
-
-    var settingsOriginal = new CategoryRuntimeSettings(category, defSettingsOriginal.logLevel, defSettingsOriginal.loggerType, defSettingsOriginal.logFormat, defSettingsOriginal.callBackLogger);
-
-    this._categoryRuntimeSettings.put(category.getCategoryPath(), settings);
-
-    this._categoryOriginalRuntimeSettings.put(category.getCategoryPath(), settingsOriginal);
-  };
-
-  CategoryServiceImpl.prototype.rootCategoryExists = function (rootCategory) {
-    if (rootCategory == null || rootCategory === undefined) {
-      throw new Error("Root category CANNOT be null");
-    }
-
-    var parent = rootCategory.parent;
-
-    if (parent != null) {
-      throw new Error("Parent must be null for a root category");
-    }
-
-    return this._rootCategories.indexOf(rootCategory) !== -1;
-  };
-
-  CategoryServiceImpl.prototype.createRootLogger = function (category) {
-    // Default is always a console logger
-    switch (this._defaultConfig.loggerType) {
-      case LoggerOptions_1.LoggerType.Console:
-        return new CategoryConsoleLoggerImpl_1.CategoryConsoleLoggerImpl(category, this);
-
-      case LoggerOptions_1.LoggerType.MessageBuffer:
-        return new CategoryMessageBufferImpl_1.CategoryMessageBufferLoggerImpl(category, this);
-
-      case LoggerOptions_1.LoggerType.Custom:
-        if (this._defaultConfig.callBackLogger == null) {
-          throw new Error("Cannot create custom logger, custom callback is null");
-        } else {
-          return this._defaultConfig.callBackLogger(category, this);
-        }
-
-      default:
-        throw new Error("Cannot create a Logger for LoggerType: " + this._defaultConfig.loggerType);
-    }
-  };
-
-  return CategoryServiceImpl;
-}(); // Singleton category service, used by CategoryServiceFactory as well as Categories.
-// Loaded on demand. Do NOT change as webpack may pack things in wrong order otherwise.
-
-
-CategoryServiceImpl._INSTANCE = null;
-exports.CategoryServiceImpl = CategoryServiceImpl;
-/**
- * Categorized service for logging, where logging is bound to categories which
- * can log horizontally through specific application logic (services, group(s) of components etc).
- * For the standard way of logging like most frameworks do these days, use LFService instead.
- * If you want fine grained control to divide sections of your application in
- * logical units to enable/disable logging for, this is the service you want to use instead.
- * Also for this type a browser plugin will be available.
- */
-
-var CategoryServiceFactory = function () {
-  function CategoryServiceFactory() {} // Private constructor.
-
-  /**
-   * Return a CategoryLogger for given ROOT category (thus has no parent).
-   * You can only retrieve loggers for their root, when logging
-   * you specify to log for what (child)categories.
-   * @param root Category root (has no parent)
-   * @returns {CategoryLogger}
-   */
-
-
-  CategoryServiceFactory.getLogger = function (root) {
-    return CategoryServiceImpl.getInstance().getLogger(root);
-  };
-  /**
-   * Clears everything, any registered (root)categories and loggers
-   * are discarded. Resets to default configuration.
-   */
-
-
-  CategoryServiceFactory.clear = function () {
-    return CategoryServiceImpl.getInstance().clear();
-  };
-  /**
-   * Set the default configuration. New root loggers created get this
-   * applied. If you want to reset all current loggers to have this
-   * applied as well, pass in reset=true (the default is false). All
-   * categories runtimesettings will be reset then as well.
-   * @param config The new default configuration
-   * @param reset If true, will reset *all* runtimesettings for all loggers/categories to these.
-   */
-
-
-  CategoryServiceFactory.setDefaultConfiguration = function (config, reset) {
-    if (reset === void 0) {
-      reset = false;
-    }
-
-    CategoryServiceImpl.getInstance().setDefaultConfiguration(config, reset);
-  };
-  /**
-   * Set new configuration settings for a category (and possibly its child categories)
-   * @param config Config
-   * @param category Category
-   * @param applyChildren True to apply to child categories, defaults to false.
-   * @param resetRootLogger Defaults to false. If set to true and if category is a root category it will reset the root logger.
-   */
-
-
-  CategoryServiceFactory.setConfigurationCategory = function (config, category, applyChildren, resetRootLogger) {
-    if (applyChildren === void 0) {
-      applyChildren = false;
-    }
-
-    if (resetRootLogger === void 0) {
-      resetRootLogger = false;
-    }
-
-    CategoryServiceImpl.getInstance().setConfigurationCategory(config, category, applyChildren, resetRootLogger);
-  };
-  /**
-   * Return RuntimeSettings to retrieve information about
-   * RuntimeSettings for categories.
-   * @returns {RuntimeSettings}
-   */
-
-
-  CategoryServiceFactory.getRuntimeSettings = function () {
-    return CategoryServiceImpl.getInstance();
-  };
-
-  return CategoryServiceFactory;
-}();
-
-exports.CategoryServiceFactory = CategoryServiceFactory;
-
-/***/ }),
-
-/***/ "./node_modules/typescript-logging/dist/commonjs/log/standard/AbstractLogger.js":
-/*!**************************************************************************************!*\
-  !*** ./node_modules/typescript-logging/dist/commonjs/log/standard/AbstractLogger.js ***!
-  \**************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var LoggerOptions_1 = __webpack_require__(/*! ../LoggerOptions */ "./node_modules/typescript-logging/dist/commonjs/log/LoggerOptions.js");
-
-var DataStructures_1 = __webpack_require__(/*! ../../utils/DataStructures */ "./node_modules/typescript-logging/dist/commonjs/utils/DataStructures.js");
-
-var MessageUtils_1 = __webpack_require__(/*! ../../utils/MessageUtils */ "./node_modules/typescript-logging/dist/commonjs/utils/MessageUtils.js");
-
-var LogMessageInternalImpl = function () {
-  function LogMessageInternalImpl(loggerName, message, errorAsStack, error, logGroupRule, date, level, ready) {
-    this._errorAsStack = null;
-    this._error = null;
-    this._loggerName = loggerName;
-    this._message = message;
-    this._errorAsStack = errorAsStack;
-    this._error = error;
-    this._logGroupRule = logGroupRule;
-    this._date = date;
-    this._level = level;
-    this._ready = ready;
-  }
-
-  Object.defineProperty(LogMessageInternalImpl.prototype, "loggerName", {
-    get: function () {
-      return this._loggerName;
-    },
-    enumerable: true,
-    configurable: true
-  });
-  Object.defineProperty(LogMessageInternalImpl.prototype, "message", {
-    get: function () {
-      return this._message;
-    },
-    set: function (value) {
-      this._message = value;
-    },
-    enumerable: true,
-    configurable: true
-  });
-  Object.defineProperty(LogMessageInternalImpl.prototype, "errorAsStack", {
-    get: function () {
-      return this._errorAsStack;
-    },
-    set: function (value) {
-      this._errorAsStack = value;
-    },
-    enumerable: true,
-    configurable: true
-  });
-  Object.defineProperty(LogMessageInternalImpl.prototype, "error", {
-    get: function () {
-      return this._error;
-    },
-    set: function (value) {
-      this._error = value;
-    },
-    enumerable: true,
-    configurable: true
-  });
-  Object.defineProperty(LogMessageInternalImpl.prototype, "logGroupRule", {
-    get: function () {
-      return this._logGroupRule;
-    },
-    set: function (value) {
-      this._logGroupRule = value;
-    },
-    enumerable: true,
-    configurable: true
-  });
-  Object.defineProperty(LogMessageInternalImpl.prototype, "date", {
-    get: function () {
-      return this._date;
-    },
-    set: function (value) {
-      this._date = value;
-    },
-    enumerable: true,
-    configurable: true
-  });
-  Object.defineProperty(LogMessageInternalImpl.prototype, "level", {
-    get: function () {
-      return this._level;
-    },
-    set: function (value) {
-      this._level = value;
-    },
-    enumerable: true,
-    configurable: true
-  });
-  Object.defineProperty(LogMessageInternalImpl.prototype, "ready", {
-    get: function () {
-      return this._ready;
-    },
-    set: function (value) {
-      this._ready = value;
-    },
-    enumerable: true,
-    configurable: true
-  });
-  return LogMessageInternalImpl;
-}();
-/**
- * Abstract base logger, extend to easily implement a custom logger that
- * logs wherever you want. You only need to implement doLog(msg: LogMessage) and
- * log that somewhere (it will contain format and everything else).
- */
-
-
-var AbstractLogger = function () {
-  function AbstractLogger(name, logGroupRuntimeSettings) {
-    this._allMessages = new DataStructures_1.LinkedList();
-    this._open = true;
-    this._name = name;
-    this._logGroupRuntimeSettings = logGroupRuntimeSettings;
-  }
-
-  Object.defineProperty(AbstractLogger.prototype, "name", {
-    get: function () {
-      return this._name;
-    },
-    enumerable: true,
-    configurable: true
-  });
-
-  AbstractLogger.prototype.trace = function (msg, error) {
-    if (error === void 0) {
-      error = null;
-    }
-
-    this._log(LoggerOptions_1.LogLevel.Trace, msg, error);
-  };
-
-  AbstractLogger.prototype.debug = function (msg, error) {
-    if (error === void 0) {
-      error = null;
-    }
-
-    this._log(LoggerOptions_1.LogLevel.Debug, msg, error);
-  };
-
-  AbstractLogger.prototype.info = function (msg, error) {
-    if (error === void 0) {
-      error = null;
-    }
-
-    this._log(LoggerOptions_1.LogLevel.Info, msg, error);
-  };
-
-  AbstractLogger.prototype.warn = function (msg, error) {
-    if (error === void 0) {
-      error = null;
-    }
-
-    this._log(LoggerOptions_1.LogLevel.Warn, msg, error);
-  };
-
-  AbstractLogger.prototype.error = function (msg, error) {
-    if (error === void 0) {
-      error = null;
-    }
-
-    this._log(LoggerOptions_1.LogLevel.Error, msg, error);
-  };
-
-  AbstractLogger.prototype.fatal = function (msg, error) {
-    if (error === void 0) {
-      error = null;
-    }
-
-    this._log(LoggerOptions_1.LogLevel.Fatal, msg, error);
-  };
-
-  AbstractLogger.prototype.tracec = function (msg, error) {
-    this._logc(LoggerOptions_1.LogLevel.Trace, msg, error);
-  };
-
-  AbstractLogger.prototype.debugc = function (msg, error) {
-    this._logc(LoggerOptions_1.LogLevel.Debug, msg, error);
-  };
-
-  AbstractLogger.prototype.infoc = function (msg, error) {
-    this._logc(LoggerOptions_1.LogLevel.Info, msg, error);
-  };
-
-  AbstractLogger.prototype.warnc = function (msg, error) {
-    this._logc(LoggerOptions_1.LogLevel.Warn, msg, error);
-  };
-
-  AbstractLogger.prototype.errorc = function (msg, error) {
-    this._logc(LoggerOptions_1.LogLevel.Error, msg, error);
-  };
-
-  AbstractLogger.prototype.fatalc = function (msg, error) {
-    this._logc(LoggerOptions_1.LogLevel.Fatal, msg, error);
-  };
-
-  AbstractLogger.prototype.isTraceEnabled = function () {
-    return this._logGroupRuntimeSettings.level === LoggerOptions_1.LogLevel.Trace;
-  };
-
-  AbstractLogger.prototype.isDebugEnabled = function () {
-    return this._logGroupRuntimeSettings.level <= LoggerOptions_1.LogLevel.Debug;
-  };
-
-  AbstractLogger.prototype.isInfoEnabled = function () {
-    return this._logGroupRuntimeSettings.level <= LoggerOptions_1.LogLevel.Info;
-  };
-
-  AbstractLogger.prototype.isWarnEnabled = function () {
-    return this._logGroupRuntimeSettings.level <= LoggerOptions_1.LogLevel.Warn;
-  };
-
-  AbstractLogger.prototype.isErrorEnabled = function () {
-    return this._logGroupRuntimeSettings.level <= LoggerOptions_1.LogLevel.Error;
-  };
-
-  AbstractLogger.prototype.isFatalEnabled = function () {
-    return this._logGroupRuntimeSettings.level <= LoggerOptions_1.LogLevel.Fatal;
-  };
-
-  AbstractLogger.prototype.getLogLevel = function () {
-    return this._logGroupRuntimeSettings.level;
-  };
-
-  AbstractLogger.prototype.isOpen = function () {
-    return this._open;
-  };
-
-  AbstractLogger.prototype.close = function () {
-    this._open = false;
-
-    this._allMessages.clear();
-  };
-
-  AbstractLogger.prototype.createDefaultLogMessage = function (msg) {
-    return MessageUtils_1.MessageFormatUtils.renderDefaultLog4jMessage(msg, true);
-  };
-
-  AbstractLogger.prototype._log = function (level, msg, error) {
-    if (error === void 0) {
-      error = null;
-    }
-
-    if (this._open && this._logGroupRuntimeSettings.level <= level) {
-      this._allMessages.addTail(this.createMessage(level, msg, new Date(), error));
-
-      this.processMessages();
-    }
-  };
-
-  AbstractLogger.prototype._logc = function (level, msg, error) {
-    if (this._open && this._logGroupRuntimeSettings.level <= level) {
-      this._allMessages.addTail(this.createMessage(level, msg(), new Date(), error !== undefined && error !== null ? error() : null));
-
-      this.processMessages();
-    }
-  };
-
-  AbstractLogger.prototype.createMessage = function (level, msg, date, error) {
-    var _this = this;
-
-    if (error === void 0) {
-      error = null;
-    }
-
-    if (error !== null) {
-      var message_1 = new LogMessageInternalImpl(this._name, msg, null, error, this._logGroupRuntimeSettings.logGroupRule, date, level, false);
-      MessageUtils_1.MessageFormatUtils.renderError(error).then(function (stack) {
-        message_1.errorAsStack = stack;
-        message_1.ready = true;
-
-        _this.processMessages();
-      });
-      return message_1;
-    }
-
-    return new LogMessageInternalImpl(this._name, msg, null, error, this._logGroupRuntimeSettings.logGroupRule, date, level, true);
-  };
-
-  AbstractLogger.prototype.processMessages = function () {
-    // Basically we wait until errors are resolved (those messages
-    // may not be ready).
-    var msgs = this._allMessages;
-
-    if (msgs.getSize() > 0) {
-      do {
-        var msg = msgs.getHead();
-
-        if (msg != null) {
-          if (!msg.ready) {
-            break;
-          }
-
-          msgs.removeHead(); // This can never be null normally, but strict null checking ...
-
-          if (msg.message !== null) {
-            this.doLog(msg);
-          }
-        }
-      } while (msgs.getSize() > 0);
-    }
-  };
-
-  return AbstractLogger;
-}();
-
-exports.AbstractLogger = AbstractLogger;
-
-/***/ }),
-
-/***/ "./node_modules/typescript-logging/dist/commonjs/log/standard/ConsoleLoggerImpl.js":
-/*!*****************************************************************************************!*\
-  !*** ./node_modules/typescript-logging/dist/commonjs/log/standard/ConsoleLoggerImpl.js ***!
-  \*****************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var __extends = this && this.__extends || function (d, b) {
-  for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-
-  function __() {
-    this.constructor = d;
-  }
-
-  d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-};
-
-var AbstractLogger_1 = __webpack_require__(/*! ./AbstractLogger */ "./node_modules/typescript-logging/dist/commonjs/log/standard/AbstractLogger.js");
-
-var LoggerOptions_1 = __webpack_require__(/*! ../LoggerOptions */ "./node_modules/typescript-logging/dist/commonjs/log/LoggerOptions.js");
-/**
- * Simple logger, that logs to the console. If the console is unavailable will throw exception.
- */
-
-
-var ConsoleLoggerImpl = function (_super) {
-  __extends(ConsoleLoggerImpl, _super);
-
-  function ConsoleLoggerImpl(name, logGroupRuntimeSettings) {
-    return _super.call(this, name, logGroupRuntimeSettings) || this;
-  }
-
-  ConsoleLoggerImpl.prototype.doLog = function (message) {
-    if (console !== undefined) {
-      var logged = false;
-      var logLevel = message.level;
-      var msg = this.createDefaultLogMessage(message);
-      /* tslint:disable:no-console */
-
-      switch (logLevel) {
-        case LoggerOptions_1.LogLevel.Trace:
-          // Do not try trace we don't want a stack
-          break;
-
-        case LoggerOptions_1.LogLevel.Debug:
-          if (console.debug) {
-            console.debug(msg);
-            logged = true;
-          }
-
-          break;
-
-        case LoggerOptions_1.LogLevel.Info:
-          if (console.info) {
-            console.info(msg);
-            logged = true;
-          }
-
-          break;
-
-        case LoggerOptions_1.LogLevel.Warn:
-          if (console.warn) {
-            console.warn(msg);
-            logged = true;
-          }
-
-          break;
-
-        case LoggerOptions_1.LogLevel.Error:
-        case LoggerOptions_1.LogLevel.Fatal:
-          if (console.error) {
-            console.error(msg);
-            logged = true;
-          }
-
-          break;
-
-        default:
-          throw new Error("Log level not supported: " + logLevel);
-      }
-
-      if (!logged) {
-        console.log(msg);
-      }
-    } else {
-      throw new Error("Console is not defined, cannot log msg: " + message.message);
-    }
-  };
-
-  return ConsoleLoggerImpl;
-}(AbstractLogger_1.AbstractLogger);
-
-exports.ConsoleLoggerImpl = ConsoleLoggerImpl;
-
-/***/ }),
-
-/***/ "./node_modules/typescript-logging/dist/commonjs/log/standard/LoggerFactoryImpl.js":
-/*!*****************************************************************************************!*\
-  !*** ./node_modules/typescript-logging/dist/commonjs/log/standard/LoggerFactoryImpl.js ***!
-  \*****************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var DataStructures_1 = __webpack_require__(/*! ../../utils/DataStructures */ "./node_modules/typescript-logging/dist/commonjs/utils/DataStructures.js");
-
-var LoggerOptions_1 = __webpack_require__(/*! ../LoggerOptions */ "./node_modules/typescript-logging/dist/commonjs/log/LoggerOptions.js");
-
-var LoggerFactoryService_1 = __webpack_require__(/*! ./LoggerFactoryService */ "./node_modules/typescript-logging/dist/commonjs/log/standard/LoggerFactoryService.js");
-
-var ConsoleLoggerImpl_1 = __webpack_require__(/*! ./ConsoleLoggerImpl */ "./node_modules/typescript-logging/dist/commonjs/log/standard/ConsoleLoggerImpl.js");
-
-var MessageBufferLoggerImpl_1 = __webpack_require__(/*! ./MessageBufferLoggerImpl */ "./node_modules/typescript-logging/dist/commonjs/log/standard/MessageBufferLoggerImpl.js");
-
-var AbstractLogger_1 = __webpack_require__(/*! ./AbstractLogger */ "./node_modules/typescript-logging/dist/commonjs/log/standard/AbstractLogger.js");
-
-var LoggerFactoryImpl = function () {
-  function LoggerFactoryImpl(name, options) {
-    this._loggers = new DataStructures_1.SimpleMap();
-    this._logGroupRuntimeSettingsIndexed = [];
-    this._loggerToLogGroupSettings = new DataStructures_1.SimpleMap();
-    this._name = name;
-    this.configure(options);
-  }
-
-  LoggerFactoryImpl.prototype.configure = function (options) {
-    this._options = options; // Close any current open loggers.
-
-    this.closeLoggers();
-
-    this._loggerToLogGroupSettings.clear();
-
-    this._logGroupRuntimeSettingsIndexed = [];
-    var logGroupRules = this._options.logGroupRules;
-    /* tslint:disable:prefer-for-of */
-
-    for (var i = 0; i < logGroupRules.length; i++) {
-      this._logGroupRuntimeSettingsIndexed.push(new LoggerFactoryService_1.LogGroupRuntimeSettings(logGroupRules[i]));
-    }
-    /* tslint:enable:prefer-for-of */
-
-  };
-
-  LoggerFactoryImpl.prototype.getLogger = function (named) {
-    if (!this._options.enabled) {
-      throw new Error("LoggerFactory is not enabled, please check your options passed in");
-    }
-
-    var logger = this._loggers.get(named);
-
-    if (logger !== null) {
-      return logger;
-    } // Initialize logger with appropriate level
-
-
-    logger = this.loadLogger(named);
-
-    this._loggers.put(named, logger);
-
-    return logger;
-  };
-
-  LoggerFactoryImpl.prototype.isEnabled = function () {
-    return this._options.enabled;
-  };
-
-  LoggerFactoryImpl.prototype.closeLoggers = function () {
-    this._loggers.forEach(function (logger) {
-      // We can only close if AbstractLogger is used (our loggers, but user loggers may not extend it, even though unlikely).
-      if (logger != null && logger instanceof AbstractLogger_1.AbstractLogger) {
-        logger.close();
-      }
-    });
-
-    this._loggers.clear();
-  };
-
-  LoggerFactoryImpl.prototype.getName = function () {
-    return this._name;
-  };
-
-  LoggerFactoryImpl.prototype.getLogGroupRuntimeSettingsByIndex = function (idx) {
-    if (idx >= 0 && idx < this._logGroupRuntimeSettingsIndexed.length) {
-      return this._logGroupRuntimeSettingsIndexed[idx];
-    }
-
-    return null;
-  };
-
-  LoggerFactoryImpl.prototype.getLogGroupRuntimeSettingsByLoggerName = function (nameLogger) {
-    return this._loggerToLogGroupSettings.get(nameLogger);
-  };
-
-  LoggerFactoryImpl.prototype.getLogGroupRuntimeSettings = function () {
-    return this._logGroupRuntimeSettingsIndexed.slice(0);
-  };
-
-  LoggerFactoryImpl.prototype.loadLogger = function (named) {
-    var logGroupRules = this._options.logGroupRules;
-
-    for (var i = 0; i < logGroupRules.length; i++) {
-      var logGroupRule = logGroupRules[i];
-
-      if (logGroupRule.regExp.test(named)) {
-        var logGroupRuntimeSettings = this._logGroupRuntimeSettingsIndexed[i];
-        var logger = void 0;
-
-        switch (logGroupRule.loggerType) {
-          case LoggerOptions_1.LoggerType.Console:
-            logger = new ConsoleLoggerImpl_1.ConsoleLoggerImpl(named, logGroupRuntimeSettings);
-            break;
-
-          case LoggerOptions_1.LoggerType.MessageBuffer:
-            logger = new MessageBufferLoggerImpl_1.MessageBufferLoggerImpl(named, logGroupRuntimeSettings);
-            break;
-
-          case LoggerOptions_1.LoggerType.Custom:
-            if (logGroupRule.callBackLogger != null) {
-              logger = logGroupRule.callBackLogger(named, logGroupRuntimeSettings);
-            } else {
-              throw new Error("Cannot create a custom logger, custom callback is null");
-            }
-
-            break;
-
-          default:
-            throw new Error("Cannot create a Logger for LoggerType: " + logGroupRule.loggerType);
-        } // For a new logger map it by its name
-
-
-        this._loggerToLogGroupSettings.put(named, logGroupRuntimeSettings);
-
-        return logger;
-      }
-    }
-
-    throw new Error("Failed to find a match to create a Logger for: " + named);
-  };
-
-  return LoggerFactoryImpl;
-}();
-
-exports.LoggerFactoryImpl = LoggerFactoryImpl;
-
-/***/ }),
-
-/***/ "./node_modules/typescript-logging/dist/commonjs/log/standard/LoggerFactoryService.js":
-/*!********************************************************************************************!*\
-  !*** ./node_modules/typescript-logging/dist/commonjs/log/standard/LoggerFactoryService.js ***!
-  \********************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var DataStructures_1 = __webpack_require__(/*! ../../utils/DataStructures */ "./node_modules/typescript-logging/dist/commonjs/utils/DataStructures.js");
-
-var LoggerOptions_1 = __webpack_require__(/*! ../LoggerOptions */ "./node_modules/typescript-logging/dist/commonjs/log/LoggerOptions.js");
-
-var LoggerFactoryImpl_1 = __webpack_require__(/*! ./LoggerFactoryImpl */ "./node_modules/typescript-logging/dist/commonjs/log/standard/LoggerFactoryImpl.js");
-
-var ExtensionHelper_1 = __webpack_require__(/*! ../../extension/ExtensionHelper */ "./node_modules/typescript-logging/dist/commonjs/extension/ExtensionHelper.js");
-/**
- * Defines a LogGroupRule, this allows you to either have everything configured the same way
- * or for example loggers that start with name model. It allows you to group loggers together
- * to have a certain loglevel and other settings. You can configure this when creating the
- * LoggerFactory (which accepts multiple LogGroupRules).
- */
-
-
-var LogGroupRule = function () {
-  /**
-   * Create a LogGroupRule. Basically you define what logger name(s) match for this group, what level should be used what logger type (where to log)
-   * and what format to write in. If the loggerType is custom, then the callBackLogger must be supplied as callback function to return a custom logger.
-   * @param regExp Regular expression, what matches for your logger names for this group
-   * @param level LogLevel
-   * @param logFormat LogFormat
-   * @param loggerType Type of logger, if Custom, make sure to implement callBackLogger and pass in, this will be called so you can return your own logger.
-   * @param callBackLogger Callback function to return a new clean custom logger (yours!)
-   */
-  function LogGroupRule(regExp, level, logFormat, loggerType, callBackLogger) {
-    if (logFormat === void 0) {
-      logFormat = new LoggerOptions_1.LogFormat();
-    }
-
-    if (loggerType === void 0) {
-      loggerType = LoggerOptions_1.LoggerType.Console;
-    }
-
-    if (callBackLogger === void 0) {
-      callBackLogger = null;
-    }
-
-    this._regExp = regExp;
-    this._level = level;
-    this._logFormat = logFormat;
-    this._loggerType = loggerType;
-    this._callBackLogger = callBackLogger;
-  }
-
-  Object.defineProperty(LogGroupRule.prototype, "regExp", {
-    get: function () {
-      return this._regExp;
-    },
-    enumerable: true,
-    configurable: true
-  });
-  Object.defineProperty(LogGroupRule.prototype, "level", {
-    get: function () {
-      return this._level;
-    },
-    enumerable: true,
-    configurable: true
-  });
-  Object.defineProperty(LogGroupRule.prototype, "loggerType", {
-    get: function () {
-      return this._loggerType;
-    },
-    enumerable: true,
-    configurable: true
-  });
-  Object.defineProperty(LogGroupRule.prototype, "logFormat", {
-    get: function () {
-      return this._logFormat;
-    },
-    enumerable: true,
-    configurable: true
-  });
-  Object.defineProperty(LogGroupRule.prototype, "callBackLogger", {
-    get: function () {
-      return this._callBackLogger;
-    },
-    enumerable: true,
-    configurable: true
-  });
-  return LogGroupRule;
-}();
-
-exports.LogGroupRule = LogGroupRule;
-/**
- * Options object you can use to configure the LoggerFactory you create at LFService.
- */
-
-var LoggerFactoryOptions = function () {
-  function LoggerFactoryOptions() {
-    this._logGroupRules = [];
-    this._enabled = true;
-  }
-  /**
-   * Add LogGroupRule, see {LogGroupRule) for details
-   * @param rule Rule to add
-   * @returns {LoggerFactoryOptions} returns itself
-   */
-
-
-  LoggerFactoryOptions.prototype.addLogGroupRule = function (rule) {
-    this._logGroupRules.push(rule);
-
-    return this;
-  };
-  /**
-   * Enable or disable logging completely for the LoggerFactory.
-   * @param enabled True for enabled (default)
-   * @returns {LoggerFactoryOptions} returns itself
-   */
-
-
-  LoggerFactoryOptions.prototype.setEnabled = function (enabled) {
-    this._enabled = enabled;
-    return this;
-  };
-
-  Object.defineProperty(LoggerFactoryOptions.prototype, "logGroupRules", {
-    get: function () {
-      return this._logGroupRules;
-    },
-    enumerable: true,
-    configurable: true
-  });
-  Object.defineProperty(LoggerFactoryOptions.prototype, "enabled", {
-    get: function () {
-      return this._enabled;
-    },
-    enumerable: true,
-    configurable: true
-  });
-  return LoggerFactoryOptions;
-}();
-
-exports.LoggerFactoryOptions = LoggerFactoryOptions;
-/**
- * Represents the runtime settings for a LogGroup (LogGroupRule).
- */
-
-var LogGroupRuntimeSettings = function () {
-  function LogGroupRuntimeSettings(logGroupRule) {
-    this._logGroupRule = logGroupRule;
-    this._level = logGroupRule.level;
-    this._loggerType = logGroupRule.loggerType;
-    this._logFormat = new LoggerOptions_1.LogFormat(new LoggerOptions_1.DateFormat(logGroupRule.logFormat.dateFormat.formatEnum, logGroupRule.logFormat.dateFormat.dateSeparator), logGroupRule.logFormat.showTimeStamp, logGroupRule.logFormat.showLoggerName);
-    this._callBackLogger = logGroupRule.callBackLogger;
-  }
-
-  Object.defineProperty(LogGroupRuntimeSettings.prototype, "logGroupRule", {
-    /**
-     * Returns original LogGroupRule (so not runtime settings!)
-     * @return {LogGroupRule}
-     */
-    get: function () {
-      return this._logGroupRule;
-    },
-    enumerable: true,
-    configurable: true
-  });
-  Object.defineProperty(LogGroupRuntimeSettings.prototype, "level", {
-    get: function () {
-      return this._level;
-    },
-    set: function (value) {
-      this._level = value;
-    },
-    enumerable: true,
-    configurable: true
-  });
-  Object.defineProperty(LogGroupRuntimeSettings.prototype, "loggerType", {
-    get: function () {
-      return this._loggerType;
-    },
-    set: function (value) {
-      this._loggerType = value;
-    },
-    enumerable: true,
-    configurable: true
-  });
-  Object.defineProperty(LogGroupRuntimeSettings.prototype, "logFormat", {
-    get: function () {
-      return this._logFormat;
-    },
-    set: function (value) {
-      this._logFormat = value;
-    },
-    enumerable: true,
-    configurable: true
-  });
-  Object.defineProperty(LogGroupRuntimeSettings.prototype, "callBackLogger", {
-    get: function () {
-      return this._callBackLogger;
-    },
-    set: function (value) {
-      this._callBackLogger = value;
-    },
-    enumerable: true,
-    configurable: true
-  });
-  return LogGroupRuntimeSettings;
-}();
-
-exports.LogGroupRuntimeSettings = LogGroupRuntimeSettings;
-
-var LFServiceImpl = function () {
-  function LFServiceImpl() {
-    this._nameCounter = 1;
-    this._mapFactories = new DataStructures_1.SimpleMap(); // Private constructor.
-
-    ExtensionHelper_1.ExtensionHelper.register();
-  }
-
-  LFServiceImpl.getInstance = function () {
-    // Loaded on demand. Do NOT change as webpack may pack things in wrong order otherwise.
-    if (LFServiceImpl._INSTANCE === null) {
-      LFServiceImpl._INSTANCE = new LFServiceImpl();
-    }
-
-    return LFServiceImpl._INSTANCE;
-  };
-  /**
-   * Create a new LoggerFactory with given options (if any). If no options
-   * are specified, the LoggerFactory, will accept any named logger and will
-   * log on info level by default for, to the console.
-   * @param options Options, optional.
-   * @returns {LoggerFactory}
-   */
-
-
-  LFServiceImpl.prototype.createLoggerFactory = function (options) {
-    if (options === void 0) {
-      options = null;
-    }
-
-    var name = "LoggerFactory" + this._nameCounter++;
-    return this.createNamedLoggerFactory(name, options);
-  };
-  /**
-   * Create a new LoggerFactory using given name (used for console api/extension).
-   * @param name Name Pick something short but distinguishable.
-   * @param options Options, optional
-   * @return {LoggerFactory}
-   */
-
-
-  LFServiceImpl.prototype.createNamedLoggerFactory = function (name, options) {
-    if (options === void 0) {
-      options = null;
-    }
-
-    if (this._mapFactories.exists(name)) {
-      throw new Error("LoggerFactory with name " + name + " already exists.");
-    }
-
-    var factory;
-
-    if (options !== null) {
-      factory = new LoggerFactoryImpl_1.LoggerFactoryImpl(name, options);
-    } else {
-      factory = new LoggerFactoryImpl_1.LoggerFactoryImpl(name, LFServiceImpl.createDefaultOptions());
-    }
-
-    this._mapFactories.put(name, factory);
-
-    return factory;
-  };
-  /**
-   * Closes all Loggers for LoggerFactories that were created.
-   * After this call, all previously fetched Loggers (from their
-   * factories) are unusable. The factories remain as they were.
-   */
-
-
-  LFServiceImpl.prototype.closeLoggers = function () {
-    this._mapFactories.values().forEach(function (factory) {
-      factory.closeLoggers();
-    });
-
-    this._mapFactories.clear();
-
-    this._nameCounter = 1;
-  };
-
-  LFServiceImpl.prototype.getRuntimeSettingsForLoggerFactories = function () {
-    var result = [];
-
-    this._mapFactories.forEach(function (factory) {
-      // Won't be null, but hey tslint ...
-      if (factory != null) {
-        result.push(factory);
-      }
-    });
-
-    return result;
-  };
-
-  LFServiceImpl.prototype.getLogGroupSettings = function (nameLoggerFactory, idLogGroupRule) {
-    var factory = this._mapFactories.get(nameLoggerFactory);
-
-    if (factory === null) {
-      return null;
-    }
-
-    return factory.getLogGroupRuntimeSettingsByIndex(idLogGroupRule);
-  };
-
-  LFServiceImpl.prototype.getLoggerFactoryRuntimeSettingsByName = function (nameLoggerFactory) {
-    return this._mapFactories.get(nameLoggerFactory);
-  };
-
-  LFServiceImpl.createDefaultOptions = function () {
-    return new LoggerFactoryOptions().addLogGroupRule(new LogGroupRule(new RegExp(".+"), LoggerOptions_1.LogLevel.Info));
-  };
-
-  return LFServiceImpl;
-}(); // Loaded on demand. Do NOT change as webpack may pack things in wrong order otherwise.
-
-
-LFServiceImpl._INSTANCE = null;
-/**
- * Create and configure your LoggerFactory from here.
- */
-
-var LFService = function () {
-  function LFService() {}
-  /**
-   * Create a new LoggerFactory with given options (if any). If no options
-   * are specified, the LoggerFactory, will accept any named logger and will
-   * log on info level by default for, to the console.
-   * @param options Options, optional.
-   * @returns {LoggerFactory}
-   */
-
-
-  LFService.createLoggerFactory = function (options) {
-    if (options === void 0) {
-      options = null;
-    }
-
-    return LFService.INSTANCE_SERVICE.createLoggerFactory(options);
-  };
-  /**
-   * Create a new LoggerFactory using given name (used for console api/extension).
-   * @param name Name Pick something short but distinguishable.
-   * @param options Options, optional
-   * @return {LoggerFactory}
-   */
-
-
-  LFService.createNamedLoggerFactory = function (name, options) {
-    if (options === void 0) {
-      options = null;
-    }
-
-    return LFService.INSTANCE_SERVICE.createNamedLoggerFactory(name, options);
-  };
-  /**
-   * Closes all Loggers for LoggerFactories that were created.
-   * After this call, all previously fetched Loggers (from their
-   * factories) are unusable. The factories remain as they were.
-   */
-
-
-  LFService.closeLoggers = function () {
-    return LFService.INSTANCE_SERVICE.closeLoggers();
-  };
-  /**
-   * Return LFServiceRuntimeSettings to retrieve information loggerfactories
-   * and their runtime settings.
-   * @returns {LFServiceRuntimeSettings}
-   */
-
-
-  LFService.getRuntimeSettings = function () {
-    return LFService.INSTANCE_SERVICE;
-  };
-
-  return LFService;
-}();
-
-LFService.INSTANCE_SERVICE = LFServiceImpl.getInstance();
-exports.LFService = LFService;
-
-/***/ }),
-
-/***/ "./node_modules/typescript-logging/dist/commonjs/log/standard/MessageBufferLoggerImpl.js":
-/*!***********************************************************************************************!*\
-  !*** ./node_modules/typescript-logging/dist/commonjs/log/standard/MessageBufferLoggerImpl.js ***!
-  \***********************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var __extends = this && this.__extends || function (d, b) {
-  for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-
-  function __() {
-    this.constructor = d;
-  }
-
-  d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-};
-
-var AbstractLogger_1 = __webpack_require__(/*! ./AbstractLogger */ "./node_modules/typescript-logging/dist/commonjs/log/standard/AbstractLogger.js");
-/**
- * Logger which buffers all messages, use with care due to possible high memory footprint.
- * Can be convenient in some cases. Call toString() for full output, or cast to this class
- * and call getMessages() to do something with it yourself.
- */
-
-
-var MessageBufferLoggerImpl = function (_super) {
-  __extends(MessageBufferLoggerImpl, _super);
-
-  function MessageBufferLoggerImpl(name, logGroupRuntimeSettings) {
-    var _this = _super.call(this, name, logGroupRuntimeSettings) || this;
-
-    _this.messages = [];
-    return _this;
-  }
-
-  MessageBufferLoggerImpl.prototype.close = function () {
-    this.messages = [];
-
-    _super.prototype.close.call(this);
-  };
-
-  MessageBufferLoggerImpl.prototype.getMessages = function () {
-    return this.messages;
-  };
-
-  MessageBufferLoggerImpl.prototype.toString = function () {
-    return this.messages.map(function (msg) {
-      return msg;
-    }).join("\n");
-  };
-
-  MessageBufferLoggerImpl.prototype.doLog = function (message) {
-    this.messages.push(this.createDefaultLogMessage(message));
-  };
-
-  return MessageBufferLoggerImpl;
-}(AbstractLogger_1.AbstractLogger);
-
-exports.MessageBufferLoggerImpl = MessageBufferLoggerImpl;
-
-/***/ }),
-
-/***/ "./node_modules/typescript-logging/dist/commonjs/typescript-logging.js":
-/*!*****************************************************************************!*\
-  !*** ./node_modules/typescript-logging/dist/commonjs/typescript-logging.js ***!
-  \*****************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-function __export(m) {
-  for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
-}
-
-var LogGroupControl_1 = __webpack_require__(/*! ./control/LogGroupControl */ "./node_modules/typescript-logging/dist/commonjs/control/LogGroupControl.js");
-
-var CategoryServiceControl_1 = __webpack_require__(/*! ./control/CategoryServiceControl */ "./node_modules/typescript-logging/dist/commonjs/control/CategoryServiceControl.js");
-
-var ExtensionHelper_1 = __webpack_require__(/*! ./extension/ExtensionHelper */ "./node_modules/typescript-logging/dist/commonjs/extension/ExtensionHelper.js");
-
-exports.ExtensionHelper = ExtensionHelper_1.ExtensionHelper; // Category related
-
-var AbstractCategoryLogger_1 = __webpack_require__(/*! ./log/category/AbstractCategoryLogger */ "./node_modules/typescript-logging/dist/commonjs/log/category/AbstractCategoryLogger.js");
-
-exports.AbstractCategoryLogger = AbstractCategoryLogger_1.AbstractCategoryLogger;
-
-var CategoryConsoleLoggerImpl_1 = __webpack_require__(/*! ./log/category/CategoryConsoleLoggerImpl */ "./node_modules/typescript-logging/dist/commonjs/log/category/CategoryConsoleLoggerImpl.js");
-
-exports.CategoryConsoleLoggerImpl = CategoryConsoleLoggerImpl_1.CategoryConsoleLoggerImpl;
-
-var CategoryDelegateLoggerImpl_1 = __webpack_require__(/*! ./log/category/CategoryDelegateLoggerImpl */ "./node_modules/typescript-logging/dist/commonjs/log/category/CategoryDelegateLoggerImpl.js");
-
-exports.CategoryDelegateLoggerImpl = CategoryDelegateLoggerImpl_1.CategoryDelegateLoggerImpl;
-
-var CategoryLogger_1 = __webpack_require__(/*! ./log/category/CategoryLogger */ "./node_modules/typescript-logging/dist/commonjs/log/category/CategoryLogger.js");
-
-exports.Category = CategoryLogger_1.Category;
-
-var CategoryMessageBufferImpl_1 = __webpack_require__(/*! ./log/category/CategoryMessageBufferImpl */ "./node_modules/typescript-logging/dist/commonjs/log/category/CategoryMessageBufferImpl.js");
-
-exports.CategoryMessageBufferLoggerImpl = CategoryMessageBufferImpl_1.CategoryMessageBufferLoggerImpl;
-
-var CategoryService_1 = __webpack_require__(/*! ./log/category/CategoryService */ "./node_modules/typescript-logging/dist/commonjs/log/category/CategoryService.js");
-
-exports.CategoryDefaultConfiguration = CategoryService_1.CategoryDefaultConfiguration;
-exports.CategoryRuntimeSettings = CategoryService_1.CategoryRuntimeSettings;
-exports.CategoryServiceFactory = CategoryService_1.CategoryServiceFactory;
-
-var LoggerFactoryService_1 = __webpack_require__(/*! ./log/standard/LoggerFactoryService */ "./node_modules/typescript-logging/dist/commonjs/log/standard/LoggerFactoryService.js");
-
-exports.LoggerFactoryOptions = LoggerFactoryService_1.LoggerFactoryOptions;
-exports.LFService = LoggerFactoryService_1.LFService;
-exports.LogGroupRule = LoggerFactoryService_1.LogGroupRule;
-
-var AbstractLogger_1 = __webpack_require__(/*! ./log/standard/AbstractLogger */ "./node_modules/typescript-logging/dist/commonjs/log/standard/AbstractLogger.js");
-
-exports.AbstractLogger = AbstractLogger_1.AbstractLogger;
-
-var ConsoleLoggerImpl_1 = __webpack_require__(/*! ./log/standard/ConsoleLoggerImpl */ "./node_modules/typescript-logging/dist/commonjs/log/standard/ConsoleLoggerImpl.js");
-
-exports.ConsoleLoggerImpl = ConsoleLoggerImpl_1.ConsoleLoggerImpl;
-
-var MessageBufferLoggerImpl_1 = __webpack_require__(/*! ./log/standard/MessageBufferLoggerImpl */ "./node_modules/typescript-logging/dist/commonjs/log/standard/MessageBufferLoggerImpl.js");
-
-exports.MessageBufferLoggerImpl = MessageBufferLoggerImpl_1.MessageBufferLoggerImpl;
-
-var LoggerOptions_1 = __webpack_require__(/*! ./log/LoggerOptions */ "./node_modules/typescript-logging/dist/commonjs/log/LoggerOptions.js");
-
-exports.CategoryLogFormat = LoggerOptions_1.CategoryLogFormat;
-exports.DateFormat = LoggerOptions_1.DateFormat;
-exports.DateFormatEnum = LoggerOptions_1.DateFormatEnum;
-exports.LogFormat = LoggerOptions_1.LogFormat;
-exports.LoggerType = LoggerOptions_1.LoggerType;
-exports.LogLevel = LoggerOptions_1.LogLevel; // Utilities
-
-var DataStructures_1 = __webpack_require__(/*! ./utils/DataStructures */ "./node_modules/typescript-logging/dist/commonjs/utils/DataStructures.js");
-
-exports.SimpleMap = DataStructures_1.SimpleMap;
-exports.LinkedList = DataStructures_1.LinkedList;
-
-__export(__webpack_require__(/*! ./utils/JSONHelper */ "./node_modules/typescript-logging/dist/commonjs/utils/JSONHelper.js"));
-
-var MessageUtils_1 = __webpack_require__(/*! ./utils/MessageUtils */ "./node_modules/typescript-logging/dist/commonjs/utils/MessageUtils.js");
-
-exports.MessageFormatUtils = MessageUtils_1.MessageFormatUtils;
-/*
- Functions to export on TSL libarary var.
-*/
-// Export help function
-
-function help() {
-  /* tslint:disable:no-console */
-  console.log("help()\n   ** Shows this help\n   \n getLogControl(): LoggerControl\n   ** Returns LoggerControl Object, use to dynamically change loglevels for log4j logging.\n   ** Call .help() on LoggerControl object for available options.\n   \n getCategoryControl(): CategoryServiceControl\n   ** Returns CategoryServiceControl Object, use to dynamically change loglevels for category logging.\n   ** Call .help() on CategoryServiceControl object for available options.   \n");
-  /* tslint:enable:no-console */
-}
-
-exports.help = help; // Export LogControl function (log4j)
-
-function getLogControl() {
-  return new LogGroupControl_1.LoggerControlImpl();
-}
-
-exports.getLogControl = getLogControl; // Export CategoryControl function
-
-function getCategoryControl() {
-  return new CategoryServiceControl_1.CategoryServiceControlImpl();
-}
-
-exports.getCategoryControl = getCategoryControl;
-
-/***/ }),
-
-/***/ "./node_modules/typescript-logging/dist/commonjs/utils/DataStructures.js":
-/*!*******************************************************************************!*\
-  !*** ./node_modules/typescript-logging/dist/commonjs/utils/DataStructures.js ***!
-  \*******************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var LinkedNode = function () {
-  function LinkedNode(value) {
-    this._previous = null;
-    this._next = null;
-    this._value = value;
-  }
-
-  Object.defineProperty(LinkedNode.prototype, "previous", {
-    get: function () {
-      return this._previous;
-    },
-    set: function (value) {
-      this._previous = value;
-    },
-    enumerable: true,
-    configurable: true
-  });
-  Object.defineProperty(LinkedNode.prototype, "next", {
-    get: function () {
-      return this._next;
-    },
-    set: function (value) {
-      this._next = value;
-    },
-    enumerable: true,
-    configurable: true
-  });
-  Object.defineProperty(LinkedNode.prototype, "value", {
-    get: function () {
-      return this._value;
-    },
-    enumerable: true,
-    configurable: true
-  });
-  return LinkedNode;
-}();
-/**
- * Double linkedlist implementation.
- */
-
-
-var LinkedList = function () {
-  function LinkedList() {
-    this.head = null;
-    this.size = 0;
-  }
-
-  LinkedList.prototype.addHead = function (value) {
-    if (!this.createHeadIfNeeded(value)) {
-      if (this.head != null) {
-        var nextNode = this.head.next;
-        var newHeadNode = new LinkedNode(value);
-
-        if (nextNode != null) {
-          nextNode.previous = newHeadNode;
-          newHeadNode.next = nextNode;
-        }
-
-        this.head = newHeadNode;
-      } else {
-        throw new Error("This should never happen, list implementation broken");
-      }
-    }
-
-    this.size++;
-  };
-
-  LinkedList.prototype.addTail = function (value) {
-    if (!this.createHeadIfNeeded(value)) {
-      var oldTailNode = this.getTailNode();
-
-      if (oldTailNode != null) {
-        var newTailNode = new LinkedNode(value);
-        oldTailNode.next = newTailNode;
-        newTailNode.previous = oldTailNode;
-      } else {
-        throw new Error("List implementation broken");
-      }
-    }
-
-    this.size++;
-  };
-
-  LinkedList.prototype.clear = function () {
-    this.head = null;
-    this.size = 0;
-  };
-
-  LinkedList.prototype.getHead = function () {
-    if (this.head != null) {
-      return this.head.value;
-    }
-
-    return null;
-  };
-
-  LinkedList.prototype.removeHead = function () {
-    if (this.head != null) {
-      var oldHead = this.head;
-      var value = oldHead.value;
-      this.head = oldHead.next;
-      this.size--;
-      return value;
-    }
-
-    return null;
-  };
-
-  LinkedList.prototype.getTail = function () {
-    var node = this.getTailNode();
-
-    if (node != null) {
-      return node.value;
-    }
-
-    return null;
-  };
-
-  LinkedList.prototype.removeTail = function () {
-    var node = this.getTailNode();
-
-    if (node != null) {
-      if (node === this.head) {
-        this.head = null;
-      } else {
-        var previousNode = node.previous;
-
-        if (previousNode != null) {
-          previousNode.next = null;
-        } else {
-          throw new Error("List implementation is broken");
-        }
-      }
-
-      this.size--;
-      return node.value;
-    }
-
-    return null;
-  };
-
-  LinkedList.prototype.getSize = function () {
-    return this.size;
-  };
-
-  LinkedList.prototype.filter = function (f) {
-    var recurse = function (fn, node, values) {
-      if (fn(node.value)) {
-        values.push(node.value);
-      }
-
-      var nextNode = node.next;
-
-      if (nextNode != null) {
-        recurse(fn, nextNode, values);
-      }
-    };
-
-    var result = [];
-    var node = this.head;
-
-    if (node != null) {
-      recurse(f, node, result);
-    }
-
-    return result;
-  };
-
-  LinkedList.prototype.createHeadIfNeeded = function (value) {
-    if (this.head == null) {
-      this.head = new LinkedNode(value);
-      return true;
-    }
-
-    return false;
-  };
-
-  LinkedList.prototype.getTailNode = function () {
-    if (this.head == null) {
-      return null;
-    }
-
-    var node = this.head;
-
-    while (node.next != null) {
-      node = node.next;
-    }
-
-    return node;
-  };
-
-  return LinkedList;
-}();
-
-exports.LinkedList = LinkedList;
-/**
- * Map implementation keyed by string (always). Note that the get/remove return either value or null.
- * This map does not support undefined in any fasion (on purpose).
- */
-
-var SimpleMap = function () {
-  function SimpleMap() {
-    this.array = {};
-  }
-
-  SimpleMap.prototype.put = function (key, value) {
-    if (value === undefined) {
-      throw new Error("Undefined value is not allowed, null is.");
-    }
-
-    this.array[key] = value;
-  };
-
-  SimpleMap.prototype.get = function (key) {
-    var result = this.array[key];
-
-    if (result !== undefined) {
-      return result;
-    }
-
-    return null;
-  };
-
-  SimpleMap.prototype.exists = function (key) {
-    var value = this.array[key];
-    return value !== undefined;
-  };
-
-  SimpleMap.prototype.remove = function (key) {
-    var value = this.array[key];
-
-    if (value !== undefined) {
-      delete this.array[key];
-    }
-
-    return value;
-  };
-
-  SimpleMap.prototype.keys = function () {
-    var keys = [];
-
-    for (var key in this.array) {
-      // To prevent random stuff to appear
-      if (this.array.hasOwnProperty(key)) {
-        keys.push(key);
-      }
-    }
-
-    return keys;
-  };
-
-  SimpleMap.prototype.values = function () {
-    var values = [];
-
-    for (var key in this.array) {
-      // To prevent random stuff to appear
-      if (this.array.hasOwnProperty(key)) {
-        values.push(this.get(key));
-      }
-    }
-
-    return values;
-  };
-
-  SimpleMap.prototype.size = function () {
-    return this.keys().length;
-  };
-
-  SimpleMap.prototype.isEmpty = function () {
-    return this.size() === 0;
-  };
-
-  SimpleMap.prototype.clear = function () {
-    this.array = {};
-  };
-
-  SimpleMap.prototype.forEach = function (cbFunction) {
-    for (var key in this.array) {
-      // To prevent random stuff to appear
-      if (this.array.hasOwnProperty(key)) {
-        var value = this.array[key];
-        cbFunction(value, key, this);
-      }
-    }
-  };
-
-  return SimpleMap;
-}();
-
-exports.SimpleMap = SimpleMap;
-/**
- * Tuple to hold two values.
- */
-
-var TuplePair = function () {
-  function TuplePair(x, y) {
-    this._x = x;
-    this._y = y;
-  }
-
-  Object.defineProperty(TuplePair.prototype, "x", {
-    get: function () {
-      return this._x;
-    },
-    set: function (value) {
-      this._x = value;
-    },
-    enumerable: true,
-    configurable: true
-  });
-  Object.defineProperty(TuplePair.prototype, "y", {
-    get: function () {
-      return this._y;
-    },
-    set: function (value) {
-      this._y = value;
-    },
-    enumerable: true,
-    configurable: true
-  });
-  return TuplePair;
-}();
-
-exports.TuplePair = TuplePair;
-/**
- * Utility class to build up a string.
- */
-
-var StringBuilder = function () {
-  function StringBuilder() {
-    this.data = [];
-  }
-
-  StringBuilder.prototype.append = function (line) {
-    if (line === undefined || line == null) {
-      throw new Error("String must be set, cannot append null or undefined");
-    }
-
-    this.data.push(line);
-    return this;
-  };
-
-  StringBuilder.prototype.appendLine = function (line) {
-    this.data.push(line + "\n");
-    return this;
-  };
-
-  StringBuilder.prototype.isEmpty = function () {
-    return this.data.length === 0;
-  };
-
-  StringBuilder.prototype.clear = function () {
-    this.data = [];
-  };
-
-  StringBuilder.prototype.toString = function (separator) {
-    if (separator === void 0) {
-      separator = "";
-    }
-
-    return this.data.join(separator);
-  };
-
-  return StringBuilder;
-}();
-
-exports.StringBuilder = StringBuilder;
-
-/***/ }),
-
-/***/ "./node_modules/typescript-logging/dist/commonjs/utils/JSONHelper.js":
-/*!***************************************************************************!*\
-  !*** ./node_modules/typescript-logging/dist/commonjs/utils/JSONHelper.js ***!
-  \***************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var __extends = this && this.__extends || function (d, b) {
-  for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-
-  function __() {
-    this.constructor = d;
-  }
-
-  d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-};
-
-var LoggerOptions_1 = __webpack_require__(/*! ../log/LoggerOptions */ "./node_modules/typescript-logging/dist/commonjs/log/LoggerOptions.js");
-
-var DataStructures_1 = __webpack_require__(/*! ./DataStructures */ "./node_modules/typescript-logging/dist/commonjs/utils/DataStructures.js");
-
-var JSONTypeImpl = function () {
-  function JSONTypeImpl(value) {
-    this._value = value;
-  }
-
-  JSONTypeImpl.prototype.getValue = function () {
-    return this._value;
-  };
-
-  JSONTypeImpl.prototype.toString = function () {
-    var value = this.getValue();
-
-    if (value != null) {
-      return value.toString();
-    }
-
-    return "null";
-  };
-
-  return JSONTypeImpl;
-}();
-
-var JSONBooleanType = function (_super) {
-  __extends(JSONBooleanType, _super);
-
-  function JSONBooleanType(value) {
-    return _super.call(this, value) || this;
-  }
-
-  return JSONBooleanType;
-}(JSONTypeImpl);
-
-var JSONNumberType = function (_super) {
-  __extends(JSONNumberType, _super);
-
-  function JSONNumberType(value) {
-    return _super.call(this, value) || this;
-  }
-
-  return JSONNumberType;
-}(JSONTypeImpl);
-
-var JSONStringType = function (_super) {
-  __extends(JSONStringType, _super);
-
-  function JSONStringType(value) {
-    return _super.call(this, value) || this;
-  }
-
-  JSONStringType.prototype.toString = function () {
-    var value = this.getValue();
-
-    if (value != null) {
-      return JSON.stringify(value.toString());
-    }
-
-    return "null";
-  };
-
-  return JSONStringType;
-}(JSONTypeImpl);
-
-var JSONObjectType = function (_super) {
-  __extends(JSONObjectType, _super);
-
-  function JSONObjectType(value) {
-    return _super.call(this, value) || this;
-  }
-
-  return JSONObjectType;
-}(JSONTypeImpl);
-
-var JSONArrayType = function (_super) {
-  __extends(JSONArrayType, _super);
-
-  function JSONArrayType(value) {
-    return _super.call(this, value) || this;
-  }
-
-  JSONArrayType.prototype.toString = function () {
-    var value = this.getValue();
-
-    if (value != null) {
-      return value.toString();
-    }
-
-    return "null";
-  };
-
-  return JSONArrayType;
-}(JSONTypeImpl);
-
-var JSONNullType = function (_super) {
-  __extends(JSONNullType, _super);
-
-  function JSONNullType() {
-    return _super.call(this, null) || this;
-  }
-
-  JSONNullType.prototype.toString = function () {
-    return "null";
-  };
-
-  return JSONNullType;
-}(JSONTypeImpl);
-
-var JSONTypeConverter = function () {
-  function JSONTypeConverter() {}
-
-  JSONTypeConverter.toJSONType = function (value) {
-    if (value === null) {
-      return new JSONNullType();
-    }
-
-    if (typeof value === "string") {
-      return new JSONStringType(value);
-    }
-
-    if (typeof value === "number") {
-      return new JSONNumberType(value);
-    }
-
-    if (typeof value === "boolean") {
-      return new JSONBooleanType(value);
-    }
-
-    if (value instanceof JSONObject) {
-      return new JSONObjectType(value);
-    }
-
-    throw new Error("Type not supported for value: " + value);
-  };
-
-  return JSONTypeConverter;
-}();
-
-var JSONObject = function () {
-  function JSONObject() {
-    this.values = new DataStructures_1.SimpleMap();
-  }
-
-  JSONObject.prototype.addBoolean = function (name, value) {
-    this.checkName(name);
-    JSONObject.checkValue(value);
-    this.values.put(name, new JSONBooleanType(value));
-    return this;
-  };
-
-  JSONObject.prototype.addNumber = function (name, value) {
-    this.checkName(name);
-    JSONObject.checkValue(value);
-    this.values.put(name, new JSONNumberType(value));
-    return this;
-  };
-
-  JSONObject.prototype.addString = function (name, value) {
-    this.checkName(name);
-    JSONObject.checkValue(value);
-    this.values.put(name, new JSONStringType(value));
-    return this;
-  };
-
-  JSONObject.prototype.addNull = function (name) {
-    this.checkName(name);
-    this.values.put(name, new JSONNullType());
-    return this;
-  };
-
-  JSONObject.prototype.addArray = function (name, array) {
-    this.checkName(name);
-    JSONObject.checkValue(array);
-
-    if (array == null) {
-      throw new Error("Cannot add array as null");
-    }
-
-    this.values.put(name, new JSONArrayType(array));
-    return this;
-  };
-
-  JSONObject.prototype.addObject = function (name, object) {
-    this.checkName(name);
-    JSONObject.checkValue(object);
-
-    if (object == null) {
-      throw new Error("Cannot add object as null");
-    }
-
-    this.values.put(name, new JSONObjectType(object));
-    return this;
-  };
-
-  JSONObject.prototype.toString = function (pretty) {
-    var _this = this;
-
-    if (pretty === void 0) {
-      pretty = false;
-    }
-
-    var comma = false;
-    var buffer = new DataStructures_1.StringBuilder();
-    buffer.append("{");
-    this.values.keys().forEach(function (key) {
-      var value = _this.values.get(key);
-
-      if (value != null) {
-        if (comma) {
-          buffer.append(",");
-        }
-
-        buffer.append('"').append(key).append('":').append(value.toString());
-        comma = true;
-      }
-    });
-    buffer.append("}");
-    return buffer.toString();
-  };
-
-  JSONObject.prototype.checkName = function (name) {
-    if (name == null || name === undefined) {
-      throw new Error("Name is null or undefined");
-    }
-
-    if (this.values.exists(name)) {
-      throw new Error("Name " + name + " is already present for this object");
-    }
-  };
-
-  JSONObject.checkValue = function (value) {
-    if (value === undefined) {
-      throw new Error("Value is undefined");
-    }
-  };
-
-  return JSONObject;
-}();
-
-exports.JSONObject = JSONObject;
-
-var JSONArray = function () {
-  function JSONArray() {
-    this.objects = [];
-  }
-
-  JSONArray.prototype.add = function (object) {
-    if (object === undefined) {
-      throw new Error("Object is not allowed to be undefined");
-    }
-
-    this.objects.push(JSONTypeConverter.toJSONType(object));
-    return this;
-  };
-
-  JSONArray.prototype.toString = function (pretty) {
-    if (pretty === void 0) {
-      pretty = false;
-    }
-
-    var buffer = new DataStructures_1.StringBuilder();
-    buffer.append("[");
-    this.objects.forEach(function (value, index) {
-      if (index > 0) {
-        buffer.append(",");
-      }
-
-      buffer.append(value.toString());
-    });
-    buffer.append("]");
-    return buffer.toString();
-  };
-
-  return JSONArray;
-}();
-
-exports.JSONArray = JSONArray;
-/**
- * Utility class that helps us convert things to and from json (not for normal usage).
- */
-
-var JSONHelper = function () {
-  function JSONHelper() {}
-
-  JSONHelper.categoryToJSON = function (cat, recursive) {
-    /*
-     {
-     "categories":
-     [
-     { id=1,
-     name: "x",
-     parent: null,
-     logLevel: "Error"
-     },
-     { id=2,
-     name: "y",
-     parent: 1,
-     logLevel: "Error"
-     }
-     ]
-     }
-     */
-    var arr = new JSONArray();
-
-    JSONHelper._categoryToJSON(cat, arr, recursive);
-
-    var object = new JSONObject();
-    object.addArray("categories", arr);
-    return object;
-  };
-
-  JSONHelper._categoryToJSON = function (cat, arr, recursive) {
-    var object = new JSONObject();
-    object.addNumber("id", cat.id);
-    object.addString("name", cat.name);
-    object.addString("logLevel", LoggerOptions_1.LogLevel[cat.logLevel].toString());
-
-    if (cat.parent != null) {
-      object.addNumber("parent", cat.parent.id);
-    } else {
-      object.addNull("parent");
-    }
-
-    arr.add(object);
-
-    if (recursive) {
-      cat.children.forEach(function (child) {
-        JSONHelper._categoryToJSON(child, arr, recursive);
-      });
-    }
-  };
-
-  return JSONHelper;
-}();
-
-exports.JSONHelper = JSONHelper;
-
-/***/ }),
-
-/***/ "./node_modules/typescript-logging/dist/commonjs/utils/MessageUtils.js":
-/*!*****************************************************************************!*\
-  !*** ./node_modules/typescript-logging/dist/commonjs/utils/MessageUtils.js ***!
-  \*****************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var ST = __webpack_require__(/*! stacktrace-js */ "./node_modules/stacktrace-js/stacktrace.js");
-
-var LoggerOptions_1 = __webpack_require__(/*! ../log/LoggerOptions */ "./node_modules/typescript-logging/dist/commonjs/log/LoggerOptions.js");
-/**
- * Some utilities to format messages.
- */
-
-
-var MessageFormatUtils = function () {
-  function MessageFormatUtils() {}
-  /**
-   * Render given date in given DateFormat and return as String.
-   * @param date Date
-   * @param dateFormat Format
-   * @returns {string} Formatted date
-   */
-
-
-  MessageFormatUtils.renderDate = function (date, dateFormat) {
-    var lpad = function (value, chars, padWith) {
-      var howMany = chars - value.length;
-
-      if (howMany > 0) {
-        var res = "";
-
-        for (var i = 0; i < howMany; i++) {
-          res += padWith;
-        }
-
-        res += value;
-        return res;
-      }
-
-      return value;
-    };
-
-    var fullYear = function (d) {
-      return lpad(d.getFullYear().toString(), 4, "0");
-    };
-
-    var month = function (d) {
-      return lpad((d.getMonth() + 1).toString(), 2, "0");
-    };
-
-    var day = function (d) {
-      return lpad(d.getDate().toString(), 2, "0");
-    };
-
-    var hours = function (d) {
-      return lpad(d.getHours().toString(), 2, "0");
-    };
-
-    var minutes = function (d) {
-      return lpad(d.getMinutes().toString(), 2, "0");
-    };
-
-    var seconds = function (d) {
-      return lpad(d.getSeconds().toString(), 2, "0");
-    };
-
-    var millis = function (d) {
-      return lpad(d.getMilliseconds().toString(), 3, "0");
-    };
-
-    var dateSeparator = dateFormat.dateSeparator;
-    var ds = "";
-
-    switch (dateFormat.formatEnum) {
-      case LoggerOptions_1.DateFormatEnum.Default:
-        // yyyy-mm-dd hh:mm:ss,m
-        ds = fullYear(date) + dateSeparator + month(date) + dateSeparator + day(date) + " " + hours(date) + ":" + minutes(date) + ":" + seconds(date) + "," + millis(date);
-        break;
-
-      case LoggerOptions_1.DateFormatEnum.YearMonthDayTime:
-        ds = fullYear(date) + dateSeparator + month(date) + dateSeparator + day(date) + " " + hours(date) + ":" + minutes(date) + ":" + seconds(date);
-        break;
-
-      case LoggerOptions_1.DateFormatEnum.YearDayMonthWithFullTime:
-        ds = fullYear(date) + dateSeparator + day(date) + dateSeparator + month(date) + " " + hours(date) + ":" + minutes(date) + ":" + seconds(date) + "," + millis(date);
-        break;
-
-      case LoggerOptions_1.DateFormatEnum.YearDayMonthTime:
-        ds = fullYear(date) + dateSeparator + day(date) + dateSeparator + month(date) + " " + hours(date) + ":" + minutes(date) + ":" + seconds(date);
-        break;
-
-      default:
-        throw new Error("Unsupported date format enum: " + dateFormat.formatEnum);
-    }
-
-    return ds;
-  };
-  /**
-   * Renders given category log message in default format.
-   * @param msg Message to format
-   * @param addStack If true adds the stack to the output, otherwise skips it
-   * @returns {string} Formatted message
-   */
-
-
-  MessageFormatUtils.renderDefaultMessage = function (msg, addStack) {
-    var result = "";
-    var logFormat = msg.getLogFormat();
-
-    if (logFormat.showTimeStamp) {
-      result += MessageFormatUtils.renderDate(msg.getDate(), logFormat.dateFormat) + " ";
-    }
-
-    result += LoggerOptions_1.LogLevel[msg.getLevel()].toUpperCase();
-
-    if (msg.isResolvedErrorMessage()) {
-      result += " (resolved)";
-    }
-
-    result += " ";
-
-    if (logFormat.showCategoryName) {
-      result += "[";
-      msg.getCategories().forEach(function (value, idx) {
-        if (idx > 0) {
-          result += ", ";
-        }
-
-        result += value.name;
-      });
-      result += "]";
-    }
-
-    result += " " + msg.getMessage();
-
-    if (addStack && msg.getErrorAsStack() !== null) {
-      result += "\n" + msg.getErrorAsStack();
-    }
-
-    return result;
-  };
-  /**
-   * Renders given log4j log message in default format.
-   * @param msg Message to format
-   * @param addStack If true adds the stack to the output, otherwise skips it
-   * @returns {string} Formatted message
-   */
-
-
-  MessageFormatUtils.renderDefaultLog4jMessage = function (msg, addStack) {
-    var format = msg.logGroupRule.logFormat;
-    var result = "";
-
-    if (format.showTimeStamp) {
-      result += MessageFormatUtils.renderDate(msg.date, format.dateFormat) + " ";
-    }
-
-    result += LoggerOptions_1.LogLevel[msg.level].toUpperCase() + " ";
-
-    if (format.showLoggerName) {
-      result += "[" + msg.loggerName + "]";
-    }
-
-    result += " " + msg.message;
-
-    if (addStack && msg.errorAsStack !== null) {
-      result += "\n" + msg.errorAsStack;
-    }
-
-    return result;
-  };
-  /**
-   * Render error as stack
-   * @param error Return error as Promise
-   * @returns {Promise<string>|Promise} Promise for stack
-   */
-
-
-  MessageFormatUtils.renderError = function (error) {
-    var result = error.name + ": " + error.message + "\n@";
-    return new Promise(function (resolve) {
-      // This one has a promise too
-      ST.fromError(error, {
-        offline: true
-      }).then(function (frames) {
-        var stackStr = frames.map(function (frame) {
-          return frame.toString();
-        }).join("\n  ");
-        result += "\n" + stackStr; // This resolves our returned promise
-
-        resolve(result);
-      });
-    });
-  };
-
-  return MessageFormatUtils;
-}();
-
-exports.MessageFormatUtils = MessageFormatUtils;
 
 /***/ }),
 
@@ -64718,10 +62823,6 @@ var _GrafanaHTTP = __webpack_require__(/*! ./rest/GrafanaHTTP */ "./src/rest/Gra
 
 var _Client = __webpack_require__(/*! ./Client */ "./src/Client.ts");
 
-var _typescriptLogging = __webpack_require__(/*! ../node_modules/typescript-logging/dist/commonjs/typescript-logging */ "./node_modules/typescript-logging/dist/commonjs/typescript-logging.js");
-
-var _Log = __webpack_require__(/*! ./api/Log */ "./src/api/Log.ts");
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /* tslint:disable:object-literal-sort-keys */
@@ -64748,9 +62849,7 @@ var API = (0, _freeze.default)({
   ServerMetadata: _ServerMetadata.ServerMetadata,
   ServerType: _ServerType.ServerType,
   ServerTypes: _ServerType.ServerTypes,
-  TicketerConfig: _TicketerConfig.TicketerConfig,
-  LogLevel: _typescriptLogging.LogLevel,
-  setLogLevel: _Log.setLogLevel
+  TicketerConfig: _TicketerConfig.TicketerConfig
 });
 /** @hidden */
 
@@ -64859,8 +62958,6 @@ var _API = __webpack_require__(/*! ./API */ "./src/API.ts");
 
 var _Log = __webpack_require__(/*! ./api/Log */ "./src/api/Log.ts");
 
-var _typescriptLogging = __webpack_require__(/*! ../node_modules/typescript-logging/dist/commonjs/typescript-logging */ "./node_modules/typescript-logging/dist/commonjs/typescript-logging.js");
-
 var _chalk = _interopRequireDefault(__webpack_require__(/*! ../node_modules/chalk */ "./node_modules/chalk/index.js"));
 
 var _lodash = __webpack_require__(/*! ../node_modules/lodash/lodash */ "./node_modules/lodash/lodash.js");
@@ -64879,8 +62976,7 @@ function _arrayWithoutHoles(arr) { if ((0, _isArray.default)(arr)) { for (var i 
 
 /** @hidden */
 var CLI = function CLI() {
-  var version = "2.0.0-SNAPSHOT" || false || false;
-  var catCLI = new _typescriptLogging.Category('cli', _Log.catRoot); // tslint:disable
+  var version = "2.0.0-SNAPSHOT" || false || false; // tslint:disable
 
   var fs = __webpack_require__(/*! fs */ "fs");
 
@@ -64933,9 +63029,9 @@ var CLI = function CLI() {
     }
 
     if (program.debug) {
-      _Log.log.error(realError.message, realError, catCLI);
+      _Log.log.error(realError.message, realError);
     } else {
-      _Log.log.error(realError.message, null, catCLI);
+      _Log.log.error(realError.message);
     }
 
     process.exit(1);
@@ -64945,14 +63041,16 @@ var CLI = function CLI() {
 
 
   program.option('-d, --debug', 'Enable debug output', function () {
-    (0, _Log.setLogLevel)(_typescriptLogging.LogLevel.Debug);
+    _Log.log.setDebug();
   }).option('-c, --config <file>', 'Specify a configuration file (default: ~/.opennms-cli.config.json)').option('-v, --version', 'Print the OpenNMS.js version and exit', function () {
-    console.log(version);
+    _Log.log.log(version);
+
     process.exit(0);
   }); // connect (validate server and save config)
 
   program.command('connect [url]').description('Connect to an OpenNMS Horizon or Meridian server').option('-u, --username <username>', 'The username to authenticate as (default: admin)').option('-p, --password <password>', 'The password to authenticate with (default: admin)').action(function (url, options) {
-    console.log(_chalk.default.red('WARNING: This command saves your login' + ' information to ~/.opennms-cli.config.json in clear text.'));
+    _Log.log.warn(_chalk.default.red('WARNING: This command saves your login' + ' information to ~/.opennms-cli.config.json in clear text.'));
+
     var config = readConfig();
 
     if (url) {
@@ -64974,11 +63072,11 @@ var CLI = function CLI() {
     var server = new _API.API.OnmsServer('OpenNMS', config.url, auth);
     var http = new _API.Rest.AxiosHTTP(server);
     return _API.Client.checkServer(server, http).then(function () {
-      console.log(_chalk.default.green('Connection succeeded.'));
+      _Log.log.info(_chalk.default.green('Connection succeeded.'));
 
       if (!program.config) {
         // don't write the config if a config was passed in
-        _Log.log.debug('Saving configuration to ' + defaultConfigFile, catCLI);
+        _Log.log.debug('Saving configuration to ' + defaultConfigFile);
 
         fs.writeFileSync(defaultConfigFile, (0, _stringify.default)(config, undefined, 2), {
           mode: 384
@@ -65000,13 +63098,15 @@ var CLI = function CLI() {
       var c = _chalk.default.green;
 
       if (res.type === _API.API.ServerTypes.MERIDIAN) {
-        console.log(_chalk.default.blue('OpenNMS Meridian ' + res.version.displayVersion + ' Capabilities:'));
+        _Log.log.log(_chalk.default.blue('OpenNMS Meridian ' + res.version.displayVersion + ' Capabilities:'));
+
         c = _chalk.default.blue;
       } else {
-        console.log(_chalk.default.green('OpenNMS Horizon ' + res.version.displayVersion + ' Capabilities:'));
+        _Log.log.log(_chalk.default.green('OpenNMS Horizon ' + res.version.displayVersion + ' Capabilities:'));
       }
 
-      console.log('');
+      _Log.log.log('');
+
       var data = [];
       var caps = res.capabilities();
 
@@ -65018,8 +63118,10 @@ var CLI = function CLI() {
         data.push([_chalk.default.bold((0, _lodash.startCase)(cap) + ':'), caps[cap]]);
       }
 
-      console.log((0, _dist.table)(data, tableConfig));
-      console.log('');
+      _Log.log.log((0, _dist.table)(data, tableConfig));
+
+      _Log.log.log('');
+
       return res;
     }).catch(function (err) {
       return handleError('Capabilities check failed', err);
@@ -65098,14 +63200,14 @@ var CLI = function CLI() {
         for (var _iterator = (0, _getIterator2.default)(filters), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
           var f = _step.value;
 
-          _Log.log.debug('filter=' + f, catCLI);
+          _Log.log.debug('filter=' + f);
 
           var parsed = _API.API.Restriction.fromString(f);
 
           if (parsed) {
             filter.withOrRestriction(parsed);
           } else {
-            _Log.log.warn('Unable to parse filter "' + f + '"', catCLI);
+            _Log.log.warn('Unable to parse filter "' + f + '"');
           }
         }
       } catch (err) {
@@ -65125,8 +63227,10 @@ var CLI = function CLI() {
 
       return dao.find(filter).then(function (alarms) {
         if (!alarms || alarms.length === 0) {
-          console.log('No alarms found.');
-          console.log('');
+          _Log.log.log('No alarms found.');
+
+          _Log.log.log('');
+
           return;
         }
 
@@ -65185,8 +63289,9 @@ var CLI = function CLI() {
           }
         }
 
-        console.log((0, _dist.table)(data, alarmTableConfig));
-        console.log('');
+        _Log.log.log((0, _dist.table)(data, alarmTableConfig));
+
+        _Log.log.log('');
       });
     }).catch(function (err) {
       return handleError('Alarm list failed', err);
@@ -65212,7 +63317,8 @@ var CLI = function CLI() {
       return new _API.Client().connect('OpenNMS', config.url, config.username, config.password).then(function (client) {
         var dao = client.alarms();
         return dao[name](id).then(function () {
-          console.log('Success!');
+          _Log.log.log(_chalk.default.green('Success!'));
+
           return true;
         });
       }).catch(function (err) {
@@ -65227,7 +63333,8 @@ var CLI = function CLI() {
     var config = readConfig();
     return new _API.Client().connect('OpenNMS', config.url, config.username, config.password).then(function (client) {
       return client.alarms().acknowledge(id, options.user).then(function () {
-        console.log('Success!');
+        _Log.log.log(_chalk.default.green('Success!'));
+
         return true;
       });
     }).catch(function (err) {
@@ -65240,7 +63347,8 @@ var CLI = function CLI() {
     var config = readConfig();
     return new _API.Client().connect('OpenNMS', config.url, config.username, config.password).then(function (client) {
       return client.alarms().saveStickyMemo(id, options.body, options.user).then(function () {
-        console.log('Success!');
+        _Log.log.log(_chalk.default.green('Success!'));
+
         return true;
       });
     }).catch(function (err) {
@@ -65253,7 +63361,8 @@ var CLI = function CLI() {
     var config = readConfig();
     return new _API.Client().connect('OpenNMS', config.url, config.username, config.password).then(function (client) {
       return client.alarms().saveJournalMemo(id, options.body, options.user).then(function () {
-        console.log('Success!');
+        _Log.log.log(_chalk.default.green('Success!'));
+
         return true;
       });
     }).catch(function (err) {
@@ -65277,7 +63386,7 @@ var CLI = function CLI() {
 };
 
 process.on('unhandledRejection', function (reason, p) {
-  console.log('Unhandled Rejection at: Promise', p, 'reason:', reason);
+  _Log.log.warn('Unhandled Rejection at: Promise', p, 'reason:', reason);
 });
 CLI();
 
@@ -65299,7 +63408,7 @@ _Object$defineProperty2(exports, "__esModule", {
   value: true
 });
 
-exports.Client = exports.cat = void 0;
+exports.Client = void 0;
 
 var _promise = _interopRequireDefault(__webpack_require__(/*! ../node_modules/@babel/runtime-corejs2/core-js/promise */ "./node_modules/@babel/runtime-corejs2/core-js/promise.js"));
 
@@ -65312,8 +63421,6 @@ var _regenerator = _interopRequireDefault(__webpack_require__(/*! ../node_module
 __webpack_require__(/*! ../node_modules/regenerator-runtime/runtime */ "./node_modules/regenerator-runtime/runtime.js");
 
 var _Log = __webpack_require__(/*! ./api/Log */ "./src/api/Log.ts");
-
-var _typescriptLogging = __webpack_require__(/*! ../node_modules/typescript-logging/dist/commonjs/typescript-logging */ "./node_modules/typescript-logging/dist/commonjs/typescript-logging.js");
 
 var _OnmsHTTPOptions = __webpack_require__(/*! ./api/OnmsHTTPOptions */ "./src/api/OnmsHTTPOptions.ts");
 
@@ -65355,15 +63462,10 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 function _defineProperty(obj, key, value) { if (key in obj) { (0, _defineProperty2.default)(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-/** @hidden */
-var cat = new _typescriptLogging.Category('client', _Log.catRoot);
 /**
  * The OpenNMS client.  This is the primary interface to OpenNMS servers.
  * @module Client
  */
-
-exports.cat = cat;
-
 var Client =
 /*#__PURE__*/
 function () {
@@ -65407,7 +63509,7 @@ function () {
                 opts.headers.accept = 'text/plain';
                 infoUrl = server.resolveURL('rest/alarms/count');
 
-                _Log.log.debug('checkServer: checking URL: ' + infoUrl, cat);
+                _Log.log.debug('checkServer: checking URL: ' + infoUrl);
 
                 _context.next = 10;
                 return httpImpl.get(infoUrl, opts);
@@ -65474,7 +63576,7 @@ function () {
 
                 infoUrl = server.resolveURL('rest/info');
 
-                _Log.log.debug('getMetadata: checking URL: ' + infoUrl, cat);
+                _Log.log.debug('getMetadata: checking URL: ' + infoUrl);
 
                 _context2.next = 11;
                 return httpImpl.get(infoUrl, opts);
@@ -66039,106 +64141,193 @@ exports.Filter = Filter;
 "use strict";
 
 
-var _Object$defineProperty = __webpack_require__(/*! @babel/runtime-corejs2/core-js/object/define-property */ "./node_modules/@babel/runtime-corejs2/core-js/object/define-property.js");
+var _Object$defineProperty2 = __webpack_require__(/*! @babel/runtime-corejs2/core-js/object/define-property */ "./node_modules/@babel/runtime-corejs2/core-js/object/define-property.js");
 
-_Object$defineProperty(exports, "__esModule", {
+_Object$defineProperty2(exports, "__esModule", {
   value: true
 });
 
-exports.setLogLevel = exports.log = exports.catUtil = exports.catRest = exports.catModel = exports.catDao = exports.catAPI = exports.catRoot = void 0;
+exports.log = exports.Logger = void 0;
 
-var _getIterator2 = _interopRequireDefault(__webpack_require__(/*! ../../node_modules/@babel/runtime-corejs2/core-js/get-iterator */ "./node_modules/@babel/runtime-corejs2/core-js/get-iterator.js"));
-
-var _typescriptLogging = __webpack_require__(/*! ../../node_modules/typescript-logging/dist/commonjs/typescript-logging */ "./node_modules/typescript-logging/dist/commonjs/typescript-logging.js");
+var _defineProperty2 = _interopRequireDefault(__webpack_require__(/*! ../../node_modules/@babel/runtime-corejs2/core-js/object/define-property */ "./node_modules/@babel/runtime-corejs2/core-js/object/define-property.js"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-// Optionally change default settings, in this example set default logging to Info.
-// Without changing configuration, categories will log to Error.
-_typescriptLogging.CategoryServiceFactory.setDefaultConfiguration(new _typescriptLogging.CategoryDefaultConfiguration(_typescriptLogging.LogLevel.Info)); // Create categories, they will autoregister themselves.
-// This creates one root logger, with 1 child sub category.
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-/** @hidden */
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; (0, _defineProperty2.default)(target, descriptor.key, descriptor); } }
 
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
-var catRoot = new _typescriptLogging.Category('opennms');
-/** @hidden */
+function _defineProperty(obj, key, value) { if (key in obj) { (0, _defineProperty2.default)(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-exports.catRoot = catRoot;
-var catAPI = new _typescriptLogging.Category('api', catRoot);
-/** @hidden */
+// tslint:disable:no-empty no-console variable-name
 
-exports.catAPI = catAPI;
-var catDao = new _typescriptLogging.Category('dao', catRoot);
-/** @hidden */
-
-exports.catDao = catDao;
-var catModel = new _typescriptLogging.Category('model', catRoot);
-/** @hidden */
-
-exports.catModel = catModel;
-var catRest = new _typescriptLogging.Category('rest', catRoot);
-/** @hidden */
-
-exports.catRest = catRest;
-var catUtil = new _typescriptLogging.Category('util', catRoot);
 /**
- * Get a logger, this can be retrieved for root categories only (in the example above, the 'service' category).
- * @hidden
+ * Simple logger used for both CLI and browser use.
+ * @module Logger
  */
+var Logger =
+/*#__PURE__*/
+function () {
+  function Logger() {
+    _classCallCheck(this, Logger);
 
-exports.catUtil = catUtil;
+    _defineProperty(this, "impl", console);
 
-var log = _typescriptLogging.CategoryServiceFactory.getLogger(catRoot);
-/** @hidden */
+    _defineProperty(this, "_debug", void 0);
 
+    _defineProperty(this, "_quiet", void 0);
 
+    _defineProperty(this, "_silent", void 0);
+  }
+
+  _createClass(Logger, [{
+    key: "clear",
+
+    /**
+     * Clear the console.
+     */
+    value: function clear() {
+      this.impl.clear();
+    }
+    /**
+     * Standard console logging.
+     * @param parms logging parameters
+     */
+
+  }, {
+    key: "log",
+    value: function log() {
+      if (!this._silent) {
+        for (var _len = arguments.length, parms = new Array(_len), _key = 0; _key < _len; _key++) {
+          parms[_key] = arguments[_key];
+        }
+
+        this.impl.log(parms);
+      }
+    }
+    /**
+     * Chatty debug logging.  Enabled only if debug is enabled.
+     * @param parms logging parameters
+     */
+
+  }, {
+    key: "trace",
+    value: function trace() {
+      if (this._debug) {
+        for (var _len2 = arguments.length, parms = new Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
+          parms[_key2] = arguments[_key2];
+        }
+
+        this.impl.trace(parms);
+      }
+    }
+    /**
+     * Normal debug logging.  Enabled only if debug is enabled.
+     * @param parms logging parameters
+     */
+
+  }, {
+    key: "debug",
+    value: function debug() {
+      if (this._debug) {
+        for (var _len3 = arguments.length, parms = new Array(_len3), _key3 = 0; _key3 < _len3; _key3++) {
+          parms[_key3] = arguments[_key3];
+        }
+
+        this.impl.debug(parms);
+      }
+    }
+    /**
+     * Info logging.  Enabled by default.
+     * @param parms logging parameters
+     */
+
+  }, {
+    key: "info",
+    value: function info() {
+      if (!this._quiet && !this._silent) {
+        for (var _len4 = arguments.length, parms = new Array(_len4), _key4 = 0; _key4 < _len4; _key4++) {
+          parms[_key4] = arguments[_key4];
+        }
+
+        this.impl.info(parms);
+      }
+    }
+    /**
+     * Warning logging. Enabled by default.
+     * @param parms logging parameters
+     */
+
+  }, {
+    key: "warn",
+    value: function warn() {
+      if (!this._quiet && !this._silent) {
+        for (var _len5 = arguments.length, parms = new Array(_len5), _key5 = 0; _key5 < _len5; _key5++) {
+          parms[_key5] = arguments[_key5];
+        }
+
+        this.impl.warn(parms);
+      }
+    }
+    /**
+     * Error logging. Enabled unless in silent mode.
+     * @param parms logging parameters
+     */
+
+  }, {
+    key: "error",
+    value: function error() {
+      if (!this._silent) {
+        for (var _len6 = arguments.length, parms = new Array(_len6), _key6 = 0; _key6 < _len6; _key6++) {
+          parms[_key6] = arguments[_key6];
+        }
+
+        this.impl.error(parms);
+      }
+    }
+    /**
+     * Turn on all logging.
+     */
+
+  }, {
+    key: "setDebug",
+    value: function setDebug() {
+      this._debug = true;
+      this._quiet = false;
+      this._silent = false;
+    }
+    /**
+     * Turn off all logging other than error.
+     */
+
+  }, {
+    key: "setQuiet",
+    value: function setQuiet() {
+      this._debug = false;
+      this._quiet = true;
+      this._silent = false;
+    }
+    /**
+     * Turn off all logging.
+     */
+
+  }, {
+    key: "setSilent",
+    value: function setSilent() {
+      this._debug = false;
+      this._quiet = true;
+      this._silent = true;
+    }
+  }]);
+
+  return Logger;
+}();
+
+exports.Logger = Logger;
+var log = new Logger();
 exports.log = log;
-
-var setLogLevel = function setLogLevel(level, cat) {
-  if (cat === undefined) {
-    cat = catRoot;
-  } // console.log('setting category ' + cat.name + ' to ' + level.toString());
-
-
-  var runtimeSettings = _typescriptLogging.CategoryServiceFactory.getRuntimeSettings();
-
-  if (!runtimeSettings) {
-    return;
-  }
-
-  var catSettings = runtimeSettings.getCategorySettings(cat);
-
-  if (catSettings) {
-    catSettings.logLevel = level;
-  }
-
-  var _iteratorNormalCompletion = true;
-  var _didIteratorError = false;
-  var _iteratorError = undefined;
-
-  try {
-    for (var _iterator = (0, _getIterator2.default)(cat.children), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-      var subCat = _step.value;
-      setLogLevel(level, subCat);
-    }
-  } catch (err) {
-    _didIteratorError = true;
-    _iteratorError = err;
-  } finally {
-    try {
-      if (!_iteratorNormalCompletion && _iterator.return != null) {
-        _iterator.return();
-      }
-    } finally {
-      if (_didIteratorError) {
-        throw _iteratorError;
-      }
-    }
-  }
-};
-
-exports.setLogLevel = setLogLevel;
 
 /***/ }),
 
@@ -67322,9 +65511,9 @@ function () {
           return new Restriction(match[1], comp, match[3]);
         }
 
-        _Log.log.warn('Restriction.fromString matched "' + filter + '", but was unable to match "' + match[2] + '" to a comparator.', _Log.catAPI);
+        _Log.log.warn('Restriction.fromString matched "' + filter + '", but was unable to match "' + match[2] + '" to a comparator.');
       } else {
-        _Log.log.debug('Restriction.fromString failed to match "' + filter + '".', _Log.catAPI);
+        _Log.log.debug('Restriction.fromString failed to match "' + filter + '".');
       }
 
       return null;
@@ -68393,7 +66582,7 @@ function (_BaseDAO) {
   }, {
     key: "onSetServer",
     value: function onSetServer(server) {
-      _Log.log.debug('Server has changed, invalidating DAO cache:' + (0, _stringify.default)(server), _Log.catDao);
+      _Log.log.debug('Server has changed, invalidating DAO cache:' + (0, _stringify.default)(server));
 
       this.propertiesCache = undefined;
     }
@@ -68461,7 +66650,7 @@ function (_BaseDAO) {
           self.visitClause(c, visitor);
         });
       } else {
-        _Log.log.warn('Restriction is of an unknown type: ' + (0, _stringify.default)(restriction), _Log.catDao);
+        _Log.log.warn('Restriction is of an unknown type: ' + (0, _stringify.default)(restriction));
       }
     }
     /**
@@ -68656,8 +66845,6 @@ var _OnmsMemo = __webpack_require__(/*! ../model/OnmsMemo */ "./src/model/OnmsMe
 
 var _Log = __webpack_require__(/*! ../api/Log */ "./src/api/Log.ts");
 
-var _typescriptLogging = __webpack_require__(/*! ../../node_modules/typescript-logging/dist/commonjs/typescript-logging */ "./node_modules/typescript-logging/dist/commonjs/typescript-logging.js");
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _typeof(obj) { if (typeof _symbol.default === "function" && typeof _iterator2.default === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof _symbol.default === "function" && obj.constructor === _symbol.default && obj !== _symbol.default.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
@@ -68688,13 +66875,10 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = _setPrototypeOf2.default || f
 
 function _defineProperty(obj, key, value) { if (key in obj) { (0, _defineProperty2.default)(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-/** @hidden */
-var cat = new _typescriptLogging.Category('alarms', _Log.catDao);
 /**
  * Data access for [[OnmsAlarm]] objects.
  * @module AlarmDAO
  */
-
 var AlarmDAO =
 /*#__PURE__*/
 function (_AbstractDAO) {
@@ -69103,7 +67287,7 @@ function (_AbstractDAO) {
                 options = new _OnmsHTTPOptions.OnmsHTTPOptions();
                 options.headers.accept = 'text/plain';
                 return _context9.abrupt("return", this.http.post(this.pathToAlarmsEndpoint() + '/' + alarmId + '/ticket/create', options).then(function () {
-                  _Log.log.debug('Ticket creation pending.', cat);
+                  _Log.log.debug('Ticket creation pending.');
                 }).catch(this.handleError));
 
               case 6:
@@ -69150,7 +67334,7 @@ function (_AbstractDAO) {
                 options = new _OnmsHTTPOptions.OnmsHTTPOptions();
                 options.headers.accept = 'text/plain';
                 return _context10.abrupt("return", this.http.post(this.pathToAlarmsEndpoint() + '/' + alarmId + '/ticket/update', options).then(function () {
-                  _Log.log.debug('Ticket update pending.', cat);
+                  _Log.log.debug('Ticket update pending.');
                 }).catch(this.handleError));
 
               case 6:
@@ -69197,7 +67381,7 @@ function (_AbstractDAO) {
                 options = new _OnmsHTTPOptions.OnmsHTTPOptions();
                 options.headers.accept = 'text/plain';
                 return _context11.abrupt("return", this.http.post(this.pathToAlarmsEndpoint() + '/' + alarmId + '/ticket/close', options).then(function () {
-                  _Log.log.debug('Ticket close pending.', cat);
+                  _Log.log.debug('Ticket close pending.');
                 }).catch(this.handleError));
 
               case 6:
@@ -69939,7 +68123,7 @@ function () {
       } else if (data.totalCount !== undefined) {
         count = (0, _parseInt2.default)(data.totalCount, 10);
       } else {
-        _Log.log.debug('data is missing count and totalCount properties', _Log.catDao);
+        _Log.log.debug('data is missing count and totalCount properties');
       }
 
       return count;
@@ -70061,10 +68245,6 @@ var _OnmsServiceType = __webpack_require__(/*! ../model/OnmsServiceType */ "./sr
 
 var _OnmsSeverity = __webpack_require__(/*! ../model/OnmsSeverity */ "./src/model/OnmsSeverity.ts");
 
-var _Log = __webpack_require__(/*! ../api/Log */ "./src/api/Log.ts");
-
-var _typescriptLogging = __webpack_require__(/*! ../../node_modules/typescript-logging/dist/commonjs/typescript-logging */ "./node_modules/typescript-logging/dist/commonjs/typescript-logging.js");
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _typeof(obj) { if (typeof _symbol.default === "function" && typeof _iterator2.default === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof _symbol.default === "function" && obj.constructor === _symbol.default && obj !== _symbol.default.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
@@ -70089,13 +68269,10 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = _setPrototypeOf2.default || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
-/** @hidden */
-var cat = new _typescriptLogging.Category('events', _Log.catDao);
 /**
  * Data access for [[OnmsEvent]] objects.
  * @module EventDAO
  */
-
 var EventDAO =
 /*#__PURE__*/
 function (_AbstractDAO) {
@@ -70387,14 +68564,12 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = _setPrototypeOf2.default || f
 /** @hidden */
 // tslint:disable-next-line
 var moment = __webpack_require__(/*! ../../node_modules/moment/moment */ "./node_modules/moment/moment.js");
-/** @hidden */
-// tslint:disable-next-line
-
-
 /**
  * DAO for accessing flow (Netflow/IPFIX/sFlow) data.
  * @module FlowDAO
  */
+
+
 var FlowDAO =
 /*#__PURE__*/
 function (_BaseDAO) {
@@ -71445,10 +69620,6 @@ var _OnmsSnmpStatusType = __webpack_require__(/*! ../model/OnmsSnmpStatusType */
 
 var _PhysAddr = __webpack_require__(/*! ../model/PhysAddr */ "./src/model/PhysAddr.ts");
 
-var _Log = __webpack_require__(/*! ../api/Log */ "./src/api/Log.ts");
-
-var _typescriptLogging = __webpack_require__(/*! ../../node_modules/typescript-logging/dist/commonjs/typescript-logging */ "./node_modules/typescript-logging/dist/commonjs/typescript-logging.js");
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _typeof(obj) { if (typeof _symbol.default === "function" && typeof _iterator.default === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof _symbol.default === "function" && obj.constructor === _symbol.default && obj !== _symbol.default.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
@@ -71473,13 +69644,10 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = _setPrototypeOf2.default || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
-/** @hidden */
-var cat = new _typescriptLogging.Category('nodes', _Log.catDao);
 /**
  * Data access for [[OnmsNode]] objects.
  * @module NodeDAO
  */
-
 var NodeDAO =
 /*#__PURE__*/
 function (_AbstractDAO) {
@@ -73451,8 +71619,6 @@ __webpack_require__(/*! ../../node_modules/core-js/modules/es6.function.name */ 
 
 var _Log = __webpack_require__(/*! ../api/Log */ "./src/api/Log.ts");
 
-var _typescriptLogging = __webpack_require__(/*! ../../node_modules/typescript-logging/dist/commonjs/typescript-logging */ "./node_modules/typescript-logging/dist/commonjs/typescript-logging.js");
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -73464,9 +71630,6 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 function _defineProperty(obj, key, value) { if (key in obj) { (0, _defineProperty2.default)(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 /** @hidden */
-var cat = new _typescriptLogging.Category('category', _Log.catModel);
-/** @hidden */
-
 var Categories = {};
 /**
  * Represents an OpenNMS category.
@@ -73487,7 +71650,7 @@ function () {
         if (Categories[id].name === name) {
           return Categories[id];
         } else {
-          _Log.log.warn('Category ID ' + id + ' is already cached, but names do not match!' + ' (' + Categories[id].name + ' != ' + name + ')', cat);
+          _Log.log.warn('Category ID ' + id + ' is already cached, but names do not match!' + ' (' + Categories[id].name + ' != ' + name + ')');
         }
       }
 
@@ -75189,8 +73352,6 @@ __webpack_require__(/*! ../../node_modules/core-js/modules/es6.function.name */ 
 
 var _Log = __webpack_require__(/*! ../api/Log */ "./src/api/Log.ts");
 
-var _typescriptLogging = __webpack_require__(/*! ../../node_modules/typescript-logging/dist/commonjs/typescript-logging */ "./node_modules/typescript-logging/dist/commonjs/typescript-logging.js");
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -75202,9 +73363,6 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 function _defineProperty(obj, key, value) { if (key in obj) { (0, _defineProperty2.default)(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 /** @hidden */
-var catServiceType = new _typescriptLogging.Category('service-type', _Log.catModel);
-/** @hidden */
-
 var ServiceTypes = {};
 /**
  * Represents an OpenNMS service.
@@ -75225,7 +73383,7 @@ function () {
         if (ServiceTypes[id].name === name) {
           return ServiceTypes[id];
         } else {
-          _Log.log.warn('Service type ID ' + id + ' is already cached, but names do not match!' + ' (' + ServiceTypes[id].name + ' != ' + name + ')', catServiceType);
+          _Log.log.warn('Service type ID ' + id + ' is already cached, but names do not match!' + ' (' + ServiceTypes[id].name + ' != ' + name + ')');
         }
       }
 
@@ -76091,21 +74249,6 @@ function () {
       this[OPTIONS_PROP] = o;
     }
     /**
-     * The default amount of time to wait before giving up on a request.
-     * @deprecated Set `timeout` on the [[OnmsHTTPOptions]] object instead.  This will go away in OpenNMS.js 2.0.
-     */
-
-  }, {
-    key: "timeout",
-    get: function get() {
-      return this.options.timeout;
-    },
-    set: function set(t) {
-      /* tslint:disable:no-console */
-      console.warn('The "timeout" property on OnmsHTTP implementations is deprecated ' + 'and will be removed in OpenNMS.js 2.  Use "options.timeout" instead.');
-      this.options.timeout = t;
-    }
-    /**
      * The server metadata we'll use for constructing ReST calls.
      * @hidden
      */
@@ -76394,8 +74537,6 @@ var _defineProperty2 = _interopRequireDefault(__webpack_require__(/*! ../../node
 
 var _assign = _interopRequireDefault(__webpack_require__(/*! ../../node_modules/@babel/runtime-corejs2/core-js/object/assign */ "./node_modules/@babel/runtime-corejs2/core-js/object/assign.js"));
 
-var _stringify = _interopRequireDefault(__webpack_require__(/*! ../../node_modules/@babel/runtime-corejs2/core-js/json/stringify */ "./node_modules/@babel/runtime-corejs2/core-js/json/stringify.js"));
-
 __webpack_require__(/*! ../../node_modules/core-js/modules/es6.regexp.to-string */ "./node_modules/core-js/modules/es6.regexp.to-string.js");
 
 __webpack_require__(/*! ../../node_modules/core-js/modules/es6.object.to-string */ "./node_modules/core-js/modules/es6.object.to-string.js");
@@ -76413,8 +74554,6 @@ var _OnmsError = __webpack_require__(/*! ../api/OnmsError */ "./src/api/OnmsErro
 var _OnmsResult = __webpack_require__(/*! ../api/OnmsResult */ "./src/api/OnmsResult.ts");
 
 var _Log = __webpack_require__(/*! ../api/Log */ "./src/api/Log.ts");
-
-var _typescriptLogging = __webpack_require__(/*! ../../node_modules/typescript-logging/dist/commonjs/typescript-logging */ "./node_modules/typescript-logging/dist/commonjs/typescript-logging.js");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -76446,14 +74585,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { (0, _definePropert
 // tslint:disable-next-line
 var URI = __webpack_require__(/*! ../../node_modules/urijs/src/URI */ "./node_modules/urijs/src/URI.js");
 
-/** @hidden */
-var catAxios = new _typescriptLogging.Category('axios', _Log.catRest);
 /**
  * Implementation of the [[IOnmsHTTP]] interface using Axios: https://github.com/mzabriskie/axios
  * @module AxiosHTTP
  * @implements IOnmsHTTP
  */
-
 var AxiosHTTP =
 /*#__PURE__*/
 function (_AbstractHTTP) {
@@ -76508,13 +74644,10 @@ function (_AbstractHTTP) {
       var urlObj = new URI(realUrl);
       urlObj.search(opts.params);
 
-      _Log.log.debug('GET ' + urlObj.toString(), catAxios);
+      _Log.log.debug('GET ' + urlObj.toString());
 
       opts.method = 'get';
       opts.url = realUrl;
-
-      _Log.log.debug((0, _stringify.default)(opts, undefined, 2), catAxios);
-
       return this.getImpl(options).request(opts).then(function (response) {
         var type;
 
@@ -76541,7 +74674,7 @@ function (_AbstractHTTP) {
       var urlObj = new URI(realUrl);
       urlObj.search(opts.params);
 
-      _Log.log.debug('HEAD ' + urlObj.toString(), catAxios);
+      _Log.log.debug('HEAD ' + urlObj.toString());
 
       opts.method = 'head';
       opts.url = realUrl;
@@ -76571,7 +74704,7 @@ function (_AbstractHTTP) {
       var urlObj = new URI(realUrl);
       urlObj.search(opts.params);
 
-      _Log.log.debug('PUT ' + urlObj.toString(), catAxios);
+      _Log.log.debug('PUT ' + urlObj.toString());
 
       opts.data = (0, _assign.default)({}, opts.params);
       opts.method = 'put';
@@ -76602,7 +74735,7 @@ function (_AbstractHTTP) {
       var urlObj = new URI(realUrl);
       urlObj.search(opts.params);
 
-      _Log.log.debug('POST ' + urlObj.toString(), catAxios);
+      _Log.log.debug('POST ' + urlObj.toString());
 
       opts.method = 'post';
       opts.url = realUrl;
@@ -76632,7 +74765,7 @@ function (_AbstractHTTP) {
       var urlObj = new URI(realUrl);
       urlObj.search(opts.params);
 
-      _Log.log.debug('DELETE ' + urlObj.toString(), catAxios);
+      _Log.log.debug('DELETE ' + urlObj.toString());
 
       opts.method = 'delete';
       opts.url = realUrl;
@@ -76895,8 +75028,6 @@ var _OnmsResult = __webpack_require__(/*! ../api/OnmsResult */ "./src/api/OnmsRe
 
 var _Log = __webpack_require__(/*! ../api/Log */ "./src/api/Log.ts");
 
-var _typescriptLogging = __webpack_require__(/*! ../../node_modules/typescript-logging/dist/commonjs/typescript-logging */ "./node_modules/typescript-logging/dist/commonjs/typescript-logging.js");
-
 var _lodash = __webpack_require__(/*! ../../node_modules/lodash/lodash */ "./node_modules/lodash/lodash.js");
 
 var _GrafanaError = __webpack_require__(/*! ./GrafanaError */ "./src/rest/GrafanaError.ts");
@@ -76925,14 +75056,11 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = _setPrototypeOf2.default || f
 
 function _defineProperty(obj, key, value) { if (key in obj) { (0, _defineProperty2.default)(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-/** @hidden */
-var catGrafana = new _typescriptLogging.Category('grafana', _Log.catRest);
 /**
  * Implementation of the [[IOnmsHTTP]] interface for Grafana.
  * @module GrafanaHTTP
  * @implements IOnmsHTTP
  */
-
 var GrafanaHTTP =
 /*#__PURE__*/
 function (_AbstractHTTP) {
