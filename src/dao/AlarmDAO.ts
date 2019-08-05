@@ -82,10 +82,10 @@ export class AlarmDAO extends AbstractDAO<number, OnmsAlarm> {
      * @param result the HTTP Request result.
      * @returns An array of [[OnmsAlarm]] objects.
      */
-  public getData(result: any): OnmsAlarm[] {
+  public getData(result: OnmsResult<any>): OnmsAlarm[] {
       let data = result.data;
 
-      if (data !== null && this.getCount(data) > 0 && data.alarm) {
+      if (data !== null && this.getCount(data, result.code) > 0 && data.alarm) {
         data = data.alarm;
       } else {
         data = [];

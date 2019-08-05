@@ -135,7 +135,7 @@ export abstract class BaseDAO {
    * A convenience method to make it easy for implementers to extract the count
    * (or totalCount) values from response data.
    */
-  protected getCount(data: any): number {
+  protected getCount(data: any, status?: number): number {
     let count = 0;
     if (typeof(data) === 'number') {
       count = data;
@@ -144,7 +144,11 @@ export abstract class BaseDAO {
     } else if (data.totalCount !== undefined) {
       count = parseInt(data.totalCount, 10);
     } else {
-      log.debug('data is missing count and totalCount properties');
+      if (status === 204) {
+        log.debug('data is missing count and totalCount properties');
+      } else {
+        log.warn('data is missing count and totalCount properties, but HTTP status was not 204');
+      }
     }
     return count;
   }

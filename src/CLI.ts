@@ -246,9 +246,14 @@ const CLI = () => {
           ];
           const existingWidths = colWidths.reduce((acc, val) => acc + val);
           const spacers = (colWidths.length + 1) * 2;
-          const remainder = (process.stdout.columns || 200) - existingWidths - spacers;
+          const remainder = (process.stdout.columns || 80) - existingWidths - spacers;
+
           /* log */
-          colWidths.push(remainder);
+          if (remainder < 0) {
+            colWidths.push(20);
+          } else {
+            colWidths.push(remainder);
+          }
 
           colWidths.forEach((width, index) => {
             alarmTableConfig.columns[index] = {
