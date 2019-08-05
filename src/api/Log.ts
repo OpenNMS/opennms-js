@@ -1,5 +1,7 @@
 // tslint:disable:no-empty no-console variable-name
 
+import chalk from 'chalk';
+
 /**
  * Simple logger used for both CLI and browser use.
  * @module Logger
@@ -39,7 +41,7 @@ export class Logger {
    */
   public log(...parms: any[]) {
     if (!this._silent) {
-      this.impl.log(parms);
+      this.impl.log(...parms);
     }
   }
 
@@ -49,7 +51,7 @@ export class Logger {
    */
   public trace(...parms: any[]) {
     if (this._debug) {
-      this.impl.trace(parms);
+      this.impl.trace(chalk.gray(...parms));
     }
   }
 
@@ -59,7 +61,7 @@ export class Logger {
    */
   public debug(...parms: any[]) {
     if (this._debug) {
-      this.impl.debug(parms);
+      this.impl.debug(chalk.gray(...parms));
     }
   }
 
@@ -69,7 +71,7 @@ export class Logger {
    */
   public info(...parms: any[]) {
     if (!this._quiet && !this._silent) {
-      this.impl.info(parms);
+      this.impl.info(...parms);
     }
   }
 
@@ -79,7 +81,7 @@ export class Logger {
    */
   public warn(...parms: any[]) {
     if (!this._quiet && !this._silent) {
-      this.impl.warn(parms);
+      this.impl.warn(chalk.yellow(...parms));
     }
   }
 
@@ -89,7 +91,17 @@ export class Logger {
    */
   public error(...parms: any[]) {
     if (!this._silent) {
-      this.impl.error(parms);
+      this.impl.error(chalk.red(...parms));
+    }
+  }
+
+  /**
+   * "Fatal" logging. Enabled unless in silent mode.
+   * @param parms logging parameters
+   */
+  public fatal(...parms: any[]) {
+    if (!this._silent) {
+      this.impl.error(chalk.bold.red(...parms));
     }
   }
 
@@ -98,6 +110,15 @@ export class Logger {
    */
   public setDebug() {
     this._debug = true;
+    this._quiet = false;
+    this._silent = false;
+  }
+
+  /**
+   * Reset logging to info.
+   */
+  public setInfo() {
+    this._debug = false;
     this._quiet = false;
     this._silent = false;
   }
