@@ -63255,10 +63255,15 @@ var CLI = function CLI() {
           return acc + val;
         });
         var spacers = (colWidths.length + 1) * 2;
-        var remainder = (process.stdout.columns || 200) - existingWidths - spacers;
+        var remainder = (process.stdout.columns || 80) - existingWidths - spacers;
         /* log */
 
-        colWidths.push(remainder);
+        if (remainder < 0) {
+          colWidths.push(20);
+        } else {
+          colWidths.push(remainder);
+        }
+
         colWidths.forEach(function (width, index) {
           alarmTableConfig.columns[index] = {
             width: width
@@ -64151,6 +64156,10 @@ exports.log = exports.Logger = void 0;
 
 var _defineProperty2 = _interopRequireDefault(__webpack_require__(/*! ../../node_modules/@babel/runtime-corejs2/core-js/object/define-property */ "./node_modules/@babel/runtime-corejs2/core-js/object/define-property.js"));
 
+__webpack_require__(/*! ../../node_modules/core-js/modules/es6.string.bold */ "./node_modules/core-js/modules/es6.string.bold.js");
+
+var _chalk = _interopRequireDefault(__webpack_require__(/*! ../../node_modules/chalk */ "./node_modules/chalk/index.js"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -64160,8 +64169,6 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { (0, _defineProperty2.default)(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-// tslint:disable:no-empty no-console variable-name
 
 /**
  * Simple logger used for both CLI and browser use.
@@ -64200,11 +64207,9 @@ function () {
     key: "log",
     value: function log() {
       if (!this._silent) {
-        for (var _len = arguments.length, parms = new Array(_len), _key = 0; _key < _len; _key++) {
-          parms[_key] = arguments[_key];
-        }
+        var _this$impl;
 
-        this.impl.log(parms);
+        (_this$impl = this.impl).log.apply(_this$impl, arguments);
       }
     }
     /**
@@ -64216,11 +64221,7 @@ function () {
     key: "trace",
     value: function trace() {
       if (this._debug) {
-        for (var _len2 = arguments.length, parms = new Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
-          parms[_key2] = arguments[_key2];
-        }
-
-        this.impl.trace(parms);
+        this.impl.trace(_chalk.default.gray.apply(_chalk.default, arguments));
       }
     }
     /**
@@ -64232,11 +64233,7 @@ function () {
     key: "debug",
     value: function debug() {
       if (this._debug) {
-        for (var _len3 = arguments.length, parms = new Array(_len3), _key3 = 0; _key3 < _len3; _key3++) {
-          parms[_key3] = arguments[_key3];
-        }
-
-        this.impl.debug(parms);
+        this.impl.debug(_chalk.default.gray.apply(_chalk.default, arguments));
       }
     }
     /**
@@ -64248,11 +64245,9 @@ function () {
     key: "info",
     value: function info() {
       if (!this._quiet && !this._silent) {
-        for (var _len4 = arguments.length, parms = new Array(_len4), _key4 = 0; _key4 < _len4; _key4++) {
-          parms[_key4] = arguments[_key4];
-        }
+        var _this$impl2;
 
-        this.impl.info(parms);
+        (_this$impl2 = this.impl).info.apply(_this$impl2, arguments);
       }
     }
     /**
@@ -64264,11 +64259,7 @@ function () {
     key: "warn",
     value: function warn() {
       if (!this._quiet && !this._silent) {
-        for (var _len5 = arguments.length, parms = new Array(_len5), _key5 = 0; _key5 < _len5; _key5++) {
-          parms[_key5] = arguments[_key5];
-        }
-
-        this.impl.warn(parms);
+        this.impl.warn(_chalk.default.yellow.apply(_chalk.default, arguments));
       }
     }
     /**
@@ -64280,11 +64271,21 @@ function () {
     key: "error",
     value: function error() {
       if (!this._silent) {
-        for (var _len6 = arguments.length, parms = new Array(_len6), _key6 = 0; _key6 < _len6; _key6++) {
-          parms[_key6] = arguments[_key6];
-        }
+        this.impl.error(_chalk.default.red.apply(_chalk.default, arguments));
+      }
+    }
+    /**
+     * "Fatal" logging. Enabled unless in silent mode.
+     * @param parms logging parameters
+     */
 
-        this.impl.error(parms);
+  }, {
+    key: "fatal",
+    value: function fatal() {
+      if (!this._silent) {
+        var _chalk$bold;
+
+        this.impl.error((_chalk$bold = _chalk.default.bold).red.apply(_chalk$bold, arguments));
       }
     }
     /**
@@ -64295,6 +64296,17 @@ function () {
     key: "setDebug",
     value: function setDebug() {
       this._debug = true;
+      this._quiet = false;
+      this._silent = false;
+    }
+    /**
+     * Reset logging to info.
+     */
+
+  }, {
+    key: "setInfo",
+    value: function setInfo() {
+      this._debug = false;
       this._quiet = false;
       this._silent = false;
     }
@@ -67005,7 +67017,7 @@ function (_AbstractDAO) {
     value: function getData(result) {
       var data = result.data;
 
-      if (data !== null && this.getCount(data) > 0 && data.alarm) {
+      if (data !== null && this.getCount(data, result.code) > 0 && data.alarm) {
         data = data.alarm;
       } else {
         data = [];
@@ -68113,7 +68125,7 @@ function () {
 
   }, {
     key: "getCount",
-    value: function getCount(data) {
+    value: function getCount(data, status) {
       var count = 0;
 
       if (typeof data === 'number') {
@@ -68123,7 +68135,11 @@ function () {
       } else if (data.totalCount !== undefined) {
         count = (0, _parseInt2.default)(data.totalCount, 10);
       } else {
-        _Log.log.debug('data is missing count and totalCount properties');
+        if (status === 204) {
+          _Log.log.debug('data is missing count and totalCount properties');
+        } else {
+          _Log.log.warn('data is missing count and totalCount properties, but HTTP status was not 204');
+        }
       }
 
       return count;
@@ -68336,7 +68352,7 @@ function (_AbstractDAO) {
                   return _this2.http.get(_this2.pathToEventsEndpoint(), opts).then(function (result) {
                     var data = result.data;
 
-                    if (data !== null && _this2.getCount(data) > 0 && data.event) {
+                    if (data !== null && _this2.getCount(data, result.code) > 0 && data.event) {
                       data = data.event;
                     } else {
                       data = [];
@@ -69725,7 +69741,7 @@ function (_AbstractDAO) {
                   return _this2.http.get(_this2.pathToNodesEndpoint(), opts).then(function (result) {
                     var data = result.data;
 
-                    if (data !== null && _this2.getCount(data) > 0 && data.node) {
+                    if (data !== null && _this2.getCount(data, result.code) > 0 && data.node) {
                       data = data.node;
                     } else {
                       data = [];
@@ -69836,7 +69852,7 @@ function (_AbstractDAO) {
                   return _this4.http.get(_this4.pathToNodesEndpoint() + '/' + node + '/ipinterfaces', opts).then(function (result) {
                     var data = result.data;
 
-                    if (_this4.getCount(data) > 0 && data.ipInterface) {
+                    if (_this4.getCount(data, result.code) > 0 && data.ipInterface) {
                       data = data.ipInterface;
                     } else {
                       data = [];
@@ -69890,7 +69906,7 @@ function (_AbstractDAO) {
                   return _this5.http.get(_this5.pathToNodesEndpoint() + '/' + node + '/snmpinterfaces', opts).then(function (result) {
                     var data = result.data;
 
-                    if (_this5.getCount(data) > 0 && data.snmpInterface) {
+                    if (_this5.getCount(data, result.code) > 0 && data.snmpInterface) {
                       data = data.snmpInterface;
                     } else {
                       data = [];
@@ -69949,7 +69965,7 @@ function (_AbstractDAO) {
                   return _this6.http.get(url, opts).then(function (result) {
                     var data = result.data;
 
-                    if (_this6.getCount(data) > 0 && data.service) {
+                    if (_this6.getCount(data, result.code) > 0 && data.service) {
                       data = data.service;
                     } else {
                       data = [];

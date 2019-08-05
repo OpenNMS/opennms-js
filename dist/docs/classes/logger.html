@@ -97,9 +97,11 @@
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="logger.html#clear" class="tsd-kind-icon">clear</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="logger.html#debug" class="tsd-kind-icon">debug</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="logger.html#error" class="tsd-kind-icon">error</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="logger.html#fatal" class="tsd-kind-icon">fatal</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="logger.html#info" class="tsd-kind-icon">info</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="logger.html#log" class="tsd-kind-icon">log</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="logger.html#setdebug" class="tsd-kind-icon">set<wbr>Debug</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="logger.html#setinfo" class="tsd-kind-icon">set<wbr>Info</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="logger.html#setquiet" class="tsd-kind-icon">set<wbr>Quiet</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="logger.html#setsilent" class="tsd-kind-icon">set<wbr>Silent</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="logger.html#trace" class="tsd-kind-icon">trace</a></li>
@@ -117,7 +119,7 @@
 					<div class="tsd-signature tsd-kind-icon">impl<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Console</span><span class="tsd-signature-symbol"> =&nbsp;console</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/6b04092/src/api/Log.ts#L9">api/Log.ts:9</a></li>
+							<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/7d2038e/src/api/Log.ts#L11">api/Log.ts:11</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -139,7 +141,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/6b04092/src/api/Log.ts#L32">api/Log.ts:32</a></li>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/7d2038e/src/api/Log.ts#L34">api/Log.ts:34</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -161,7 +163,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/6b04092/src/api/Log.ts#L60">api/Log.ts:60</a></li>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/7d2038e/src/api/Log.ts#L62">api/Log.ts:62</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -192,12 +194,43 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/6b04092/src/api/Log.ts#L90">api/Log.ts:90</a></li>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/7d2038e/src/api/Log.ts#L92">api/Log.ts:92</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
 									<p>Error logging. Enabled unless in silent mode.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5><span class="tsd-flag ts-flagRest">Rest</span> <span class="tsd-signature-symbol">...</span>parms: <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">[]</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>logging parameters</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="fatal" class="tsd-anchor"></a>
+					<h3>fatal</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">fatal<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">...</span>parms<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/7d2038e/src/api/Log.ts#L102">api/Log.ts:102</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>&quot;Fatal&quot; logging. Enabled unless in silent mode.</p>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -223,7 +256,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/6b04092/src/api/Log.ts#L70">api/Log.ts:70</a></li>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/7d2038e/src/api/Log.ts#L72">api/Log.ts:72</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -254,7 +287,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/6b04092/src/api/Log.ts#L40">api/Log.ts:40</a></li>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/7d2038e/src/api/Log.ts#L42">api/Log.ts:42</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -285,12 +318,34 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/6b04092/src/api/Log.ts#L99">api/Log.ts:99</a></li>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/7d2038e/src/api/Log.ts#L111">api/Log.ts:111</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
 									<p>Turn on all logging.</p>
+								</div>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="setinfo" class="tsd-anchor"></a>
+					<h3>set<wbr>Info</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">set<wbr>Info<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/7d2038e/src/api/Log.ts#L120">api/Log.ts:120</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Reset logging to info.</p>
 								</div>
 							</div>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -307,7 +362,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/6b04092/src/api/Log.ts#L108">api/Log.ts:108</a></li>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/7d2038e/src/api/Log.ts#L129">api/Log.ts:129</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -329,7 +384,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/6b04092/src/api/Log.ts#L117">api/Log.ts:117</a></li>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/7d2038e/src/api/Log.ts#L138">api/Log.ts:138</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -351,7 +406,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/6b04092/src/api/Log.ts#L50">api/Log.ts:50</a></li>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/7d2038e/src/api/Log.ts#L52">api/Log.ts:52</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -382,7 +437,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/6b04092/src/api/Log.ts#L80">api/Log.ts:80</a></li>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/7d2038e/src/api/Log.ts#L82">api/Log.ts:82</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -433,6 +488,9 @@
 								<a href="logger.html#error" class="tsd-kind-icon">error</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="logger.html#fatal" class="tsd-kind-icon">fatal</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="logger.html#info" class="tsd-kind-icon">info</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
@@ -440,6 +498,9 @@
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="logger.html#setdebug" class="tsd-kind-icon">set<wbr>Debug</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="logger.html#setinfo" class="tsd-kind-icon">set<wbr>Info</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="logger.html#setquiet" class="tsd-kind-icon">set<wbr>Quiet</a>
