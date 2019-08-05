@@ -1,19 +1,12 @@
 import {BaseDAO} from './BaseDAO';
 
 import {IHasHTTP} from '../api/IHasHTTP';
-import {IHash} from '../internal/IHash';
 import {IOnmsHTTP} from '../api/IOnmsHTTP';
 import {OnmsError} from '../api/OnmsError';
 import {OnmsHTTPOptions} from '../api/OnmsHTTPOptions';
 
 import {OnmsSituationFeedback} from '../model/OnmsSituationFeedback';
-import {FeedbackTypes, OnmsSituationFeedbackType} from '../model/OnmsSituationFeedbackType';
-
-import {OnmsParm} from '../model/OnmsParm';
-import {OnmsServiceType} from '../model/OnmsServiceType';
-
-import {log, catDao} from '../api/Log';
-import {Category} from 'typescript-logging';
+import {OnmsSituationFeedbackType} from '../model/OnmsSituationFeedbackType';
 
 /**
  * Data access for [[OnmsSituationFeedback]] objects.

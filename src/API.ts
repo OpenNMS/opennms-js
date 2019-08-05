@@ -53,9 +53,6 @@ import {GrafanaHTTP} from './rest/GrafanaHTTP';
 
 import {Client} from './Client';
 
-import {LogLevel} from 'typescript-logging';
-import {setLogLevel} from './api/Log';
-
 /* tslint:disable:object-literal-sort-keys */
 
 /** @hidden */
@@ -81,8 +78,6 @@ const API = Object.freeze({
   ServerType,
   ServerTypes,
   TicketerConfig,
-  LogLevel,
-  setLogLevel,
 });
 
 /** @hidden */

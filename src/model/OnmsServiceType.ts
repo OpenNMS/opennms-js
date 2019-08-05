@@ -1,10 +1,6 @@
 import {IHasUrlValue} from '../api/IHasUrlValue';
 
-import {log, catModel} from '../api/Log';
-import {Category} from 'typescript-logging';
-
-/** @hidden */
-const catServiceType = new Category('service-type', catModel);
+import {log} from '../api/Log';
 
 /** @hidden */
 export const ServiceTypes = {
@@ -22,7 +18,7 @@ export class OnmsServiceType implements IHasUrlValue {
         return ServiceTypes[id];
       } else {
         log.warn('Service type ID ' + id + ' is already cached, but names do not match!'
-          + ' (' + ServiceTypes[id].name + ' != ' + name + ')', catServiceType);
+          + ' (' + ServiceTypes[id].name + ' != ' + name + ')');
       }
     }
     ServiceTypes[id] = new OnmsServiceType(id, name);

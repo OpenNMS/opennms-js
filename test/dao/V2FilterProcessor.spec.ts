@@ -7,7 +7,6 @@ import {SearchProperty} from '../../src/api/SearchProperty';
 import {SearchPropertyTypes} from '../../src/api/SearchPropertyType';
 import {NestedRestriction} from '../../src/api/NestedRestriction';
 
-import {OnmsAlarm} from '../../src/model/OnmsAlarm';
 import {Severities} from '../../src/model/OnmsSeverity';
 
 import {V2FilterProcessor} from '../../src/dao/V2FilterProcessor';
