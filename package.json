@@ -96,7 +96,6 @@
     "moment": "^2.19.3",
     "qs": "^6.5.0",
     "table": "^5.4.4",
-    "typescript-logging": "^0.3.1",
     "version_compare": "^0.0.3",
     "x2js": "^3.3.1",
     "xmldom": "^0.1.27"

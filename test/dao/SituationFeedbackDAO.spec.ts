@@ -1,19 +1,10 @@
 // tslint:disable-next-line:one-variable-per-declaration
 declare const await, describe, beforeEach, it, xit, expect, jest;
 
-import { log, catRoot, setLogLevel } from '../../src/api/Log';
-import { LogLevel } from 'typescript-logging';
-
 import { Client } from '../../src/Client';
 
 import { OnmsAuthConfig } from '../../src/api/OnmsAuthConfig';
 import { OnmsServer } from '../../src/api/OnmsServer';
-import { OnmsResult } from '../../src/api/OnmsResult';
-
-import { Comparators } from '../../src/api/Comparator';
-import { Filter } from '../../src/api/Filter';
-import { Restriction } from '../../src/api/Restriction';
-import { SearchPropertyTypes } from '../../src/api/SearchPropertyType';
 
 import { SituationFeedbackDAO } from '../../src/dao/SituationFeedbackDAO';
 

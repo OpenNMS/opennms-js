@@ -1,11 +1,7 @@
 declare const await, describe, beforeEach, it, expect, jest;
 
-import {log,catRoot,setLogLevel} from '../src/api/Log';
-import {LogLevel} from 'typescript-logging';
-
 import {Client} from '../src/Client';
 import {OnmsAuthConfig} from '../src/api/OnmsAuthConfig';
-import {OnmsResult} from '../src/api/OnmsResult';
 import {OnmsServer} from '../src/api/OnmsServer';
 import {ServerMetadata} from '../src/api/ServerMetadata';
 
