@@ -1,4 +1,4 @@
-# Bug Pull Request
+# Pull Request Check Sheet
 
 * [ ] Have you read and followed our [Contribution Guidelines](https://github.com/OpenNMS/opennms/blob/develop/CONTRIBUTING.md)?
 * [ ] Have you [made an issue in the OpenNMS issue tracker](https://issues.opennms.org)?<br>If so, you should:
@@ -7,6 +7,8 @@
   3. prefix your commit messages with the issue number, if possible
 * [ ] Have you made a comment in that issue which points back to this PR?
 * [ ] Have you updated the JIRA link at the bottom of this comment to link to your issue?
+* [ ] If this is a new feature, is there documentation?
+* [ ] If this is a new feature or substantial change, are there tests that cover it?
 
 # Pull Request Process
 
