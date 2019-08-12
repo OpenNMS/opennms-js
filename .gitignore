@@ -40,4 +40,3 @@ grafana
 
 dist/cli.*
 dist/opennms.*
-dist/docs
