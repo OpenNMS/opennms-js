@@ -157,28 +157,18 @@ export class GrafanaHTTP extends AbstractHTTP {
    * @hidden
    */
   private getConfig(options?: OnmsHTTPOptions) {
-    const ret = {} as any;
+    const ret = cloneDeep(this.getOptions(options)) as any;
+
     ret.transformResponse = []; // we do this so we can post-process only on success
 
-    const allOptions = this.getOptions(options);
-
-    if (allOptions.headers) {
-      ret.headers = cloneDeep(allOptions.headers);
-    } else {
-      ret.headers = {};
-    }
-
-    if (allOptions && allOptions.auth && allOptions.auth.username) {
-      ret.headers.Authorization = 'Basic ' + btoa(allOptions.auth.username + ':' + allOptions.auth.password);
+    if (ret.auth && ret.auth.username) {
+      ret.headers.Authorization = 'Basic ' + btoa(ret.auth.username + ':' + ret.auth.password);
       ret.withCredentials = true;
     }
 
-    if (allOptions.parameters) {
-      ret.params = cloneDeep(allOptions.parameters);
-    }
-
-    if (allOptions.data) {
-      ret.data = cloneDeep(allOptions.data);
+    if (ret.parameters) {
+      ret.params = ret.parameters;
+      delete ret.parameters;
     }
 
     return ret;
