@@ -11,6 +11,7 @@
 * **rest:** assign != apply :D ([1112c7b](https://github.com/OpenNMS/opennms-js/commit/1112c7b))
 * **rest:** caught errors in GrafanaHTTP should be re-thrown ([fc35b12](https://github.com/OpenNMS/opennms-js/commit/fc35b12))
 * **rest:** fix auth initialization broken during refactor (JS-39) ([85200fd](https://github.com/OpenNMS/opennms-js/commit/85200fd))
+* **rest:** simplify grafana HTTP config creation ([3f3089b](https://github.com/OpenNMS/opennms-js/commit/3f3089b))
 
 
 ### Code Refactoring

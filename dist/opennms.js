@@ -63405,28 +63405,17 @@ function (_AbstractHTTP) {
   }, {
     key: "getConfig",
     value: function getConfig(options) {
-      var ret = {};
+      var ret = (0, _lodash.cloneDeep)(this.getOptions(options));
       ret.transformResponse = []; // we do this so we can post-process only on success
 
-      var allOptions = this.getOptions(options);
-
-      if (allOptions.headers) {
-        ret.headers = (0, _lodash.cloneDeep)(allOptions.headers);
-      } else {
-        ret.headers = {};
-      }
-
-      if (allOptions && allOptions.auth && allOptions.auth.username) {
-        ret.headers.Authorization = 'Basic ' + (0, _btoa.default)(allOptions.auth.username + ':' + allOptions.auth.password);
+      if (ret.auth && ret.auth.username) {
+        ret.headers.Authorization = 'Basic ' + (0, _btoa.default)(ret.auth.username + ':' + ret.auth.password);
         ret.withCredentials = true;
       }
 
-      if (allOptions.parameters) {
-        ret.params = (0, _lodash.cloneDeep)(allOptions.parameters);
-      }
-
-      if (allOptions.data) {
-        ret.data = (0, _lodash.cloneDeep)(allOptions.data);
+      if (ret.parameters) {
+        ret.params = ret.parameters;
+        delete ret.parameters;
       }
 
       return ret;
