@@ -125,7 +125,7 @@ export abstract class BaseDAO {
    * Whether or not to use JSON when making ReST requests.
    */
   protected useJson(): boolean {
-    if (!this.server || this.server.metadata === undefined) {
+    if (!this.server || this.server.metadata === null) {
       throw new OnmsError('Server meta-data must be populated prior to making DAO calls.');
     }
     return this.server.metadata.useJson();

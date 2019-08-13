@@ -4,24 +4,25 @@
  */
 export class OnmsAuthConfig {
   /** The password to authenticate with. */
-  public password?: string;
+  public readonly password: string | null;
 
   /** The username to connect as. */
-  public username?: string;
+  public readonly username: string | null;
 
   /**
    * Construct an auth configuration object.
    * @constructor
    */
-  constructor(username?: string, password?: string) {
-    this.username = username;
-    this.password = password;
+  constructor(username?: string | null, password?: string | null) {
+    this.username = username || null;
+    this.password = password || null;
+    Object.freeze(this);
   }
 
   /**
    * Whether this auth object is the same as another.
    */
-  public equals(that?: OnmsAuthConfig) {
+  public equals(that?: OnmsAuthConfig | null) {
     return that
       && this.username === that.username
       && this.password === that.password;

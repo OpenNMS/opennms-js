@@ -34,6 +34,11 @@ export class MockHTTP24 extends AbstractHTTP {
         result.type = 'application/json';
         return Promise.resolve(result);
       }
+      case 'rest/situation-feedback/tags?prefix=ba': {
+        const result = OnmsResult.ok(require('./24.0.0/get/rest/situation-feedback/tags.json'));
+        result.type = 'application/json';
+        return Promise.resolve(result);
+      }
     }
     throw new Error('Not yet implemented: GET ' + urlObj.toString());
   }

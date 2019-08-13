@@ -7,17 +7,17 @@ export class OnmsError extends Error {
    * The response status code, if any.
    * @hidden
    */
-  private statusCode?: number;
+  private readonly statusCode?: number;
 
   /**
    * The data (payload) associated with a response.
    */
-  private data: any;
+  private readonly data: any;
 
   /**
    * The options provided as part of the request that resulted in this erro.
    */
-  private options: any;
+  private readonly options: any;
 
   /** The error code associated with this error. */
   public get code() {

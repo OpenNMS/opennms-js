@@ -42,11 +42,11 @@ export class GrafanaHTTP extends AbstractHTTP {
     query.url = realUrl;
     return this.backendSrv.datasourceRequest(query).then((response: any) => {
       let type = 'application/xml';
-      if (query && query.headers && query.headers.accept) {
-        type = query.headers.accept;
+      if (query && query.headers && query.headers.Accept) {
+        type = query.headers.Accept;
       }
-      if (response.headers && response.headers['content-type']) {
-        type = response.headers['content-type'];
+      if (response.headers && response.headers['Content-Type']) {
+        type = response.headers['Content-Type'];
       }
       return OnmsResult.ok(this.getData(response), undefined, response.status, type);
     }).catch((e: any) => {
@@ -63,11 +63,11 @@ export class GrafanaHTTP extends AbstractHTTP {
     query.url = realUrl;
     return this.backendSrv.datasourceRequest(query).then((response: any) => {
       let type = 'application/xml';
-      if (query && query.headers && query.headers.accept) {
-        type = query.headers.accept;
+      if (query && query.headers && query.headers.Accept) {
+        type = query.headers.Accept;
       }
-      if (response.headers && response.headers['content-type']) {
-        type = response.headers['content-type'];
+      if (response.headers && response.headers['Content-Type']) {
+        type = response.headers['Content-Type'];
       }
       return OnmsResult.ok(this.getData(response), undefined, response.status, type);
     }).catch((e: any) => {
@@ -85,11 +85,11 @@ export class GrafanaHTTP extends AbstractHTTP {
     query.data = Object.assign({}, query.parameters);
     return this.backendSrv.datasourceRequest(query).then((response: any) => {
       let type = 'application/xml';
-      if (query && query.headers && query.headers.accept) {
-        type = query.headers.accept;
+      if (query && query.headers && query.headers.Accept) {
+        type = query.headers.Accept;
       }
-      if (response.headers && response.headers['content-type']) {
-        type = response.headers['content-type'];
+      if (response.headers && response.headers['Content-Type']) {
+        type = response.headers['Content-Type'];
       }
       return OnmsResult.ok(this.getData(response), undefined, response.status, type);
     }).catch((e: any) => {
@@ -106,11 +106,11 @@ export class GrafanaHTTP extends AbstractHTTP {
     query.url = realUrl;
     return this.backendSrv.datasourceRequest(query).then((response: any) => {
       let type = 'application/xml';
-      if (query && query.headers && query.headers.accept) {
-        type = query.headers.accept;
+      if (query && query.headers && query.headers.Accept) {
+        type = query.headers.Accept;
       }
-      if (response.headers && response.headers['content-type']) {
-        type = response.headers['content-type'];
+      if (response.headers && response.headers['Content-Type']) {
+        type = response.headers['Content-Type'];
       }
       return OnmsResult.ok(this.getData(response), undefined, response.status, type);
     }).catch((e: any) => {
@@ -127,11 +127,11 @@ export class GrafanaHTTP extends AbstractHTTP {
     query.url = realUrl;
     return this.backendSrv.datasourceRequest(query).then((response: any) => {
       let type = 'application/xml';
-      if (query && query.headers && query.headers.accept) {
-        type = query.headers.accept;
+      if (query && query.headers && query.headers.Accept) {
+        type = query.headers.Accept;
       }
-      if (response.headers && response.headers['content-type']) {
-        type = response.headers['content-type'];
+      if (response.headers && response.headers['Content-Type']) {
+        type = response.headers['Content-Type'];
       }
       return OnmsResult.ok(this.getData(response), undefined, response.status, type);
     }).catch((e: any) => {

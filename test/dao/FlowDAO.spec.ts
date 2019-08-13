@@ -1,4 +1,4 @@
-declare const await, describe, beforeEach, it, xit, expect, jest, require;
+declare const describe, beforeEach, it, expect, require;
 
 import {Client} from '../../src/Client';
 
@@ -17,12 +17,12 @@ import {MockHTTP22} from '../rest/MockHTTP22';
 // tslint:disable-next-line
 const moment = require('moment');
 
-const SERVER_NAME='Demo';
-const SERVER_URL='http://demo.opennms.org/opennms/';
-const SERVER_USER='demo';
-const SERVER_PASSWORD='demo';
+const SERVER_NAME = 'Demo';
+const SERVER_URL = 'http://demo.opennms.org/opennms/';
+const SERVER_USER = 'demo';
+const SERVER_PASSWORD = 'demo';
 
-let opennms : Client, server, auth, mockHTTP, dao : FlowDAO;
+let opennms: Client, server, auth, mockHTTP, dao: FlowDAO;
 
 describe('FlowDAO', () => {
     beforeEach((done) => {

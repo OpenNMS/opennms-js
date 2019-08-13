@@ -1,4 +1,4 @@
-declare const await, describe, beforeEach, it, xit, expect, jest;
+declare const describe, beforeEach, it, expect;
 
 import {Client} from '../../src/Client';
 
@@ -22,12 +22,12 @@ import {MockHTTP19} from '../rest/MockHTTP19';
 import {MockHTTP21} from '../rest/MockHTTP21';
 import {MockHTTP23} from '../rest/MockHTTP23';
 
-const SERVER_NAME='Demo';
-const SERVER_URL='http://demo.opennms.org/opennms/';
-const SERVER_USER='demo';
-const SERVER_PASSWORD='demo';
+const SERVER_NAME = 'Demo';
+const SERVER_URL = 'http://demo.opennms.org/opennms/';
+const SERVER_USER = 'demo';
+const SERVER_PASSWORD = 'demo';
 
-let opennms : Client, server, auth, mockHTTP, dao : AlarmDAO;
+let opennms: Client, server, auth, mockHTTP, dao: AlarmDAO;
 
 describe('AlarmDAO with v1 API', () => {
   beforeEach((done) => {
@@ -141,7 +141,7 @@ describe('AlarmDAO with v1 API', () => {
     });
     it('AlarmDAO.' + method + '(OnmsAlarm(404725))', () => {
       const alarm = new OnmsAlarm();
-      alarm.id=404725;
+      alarm.id = 404725;
       return dao[method](alarm);
     });
   }
@@ -157,7 +157,7 @@ describe('AlarmDAO with v1 API', () => {
   });
   it('AlarmDAO.setTTicketId(alarm=OnmsAlarm(404725), ticketId=abcde)', () => {
     const alarm = new OnmsAlarm();
-    alarm.id=404725;
+    alarm.id = 404725;
     return dao.setTTicketId(alarm, 'abcde');
   });
   it('AlarmDAO.setTTicketState(alarmId=404725, ticketState=RESOLVED)', () => {
@@ -165,7 +165,7 @@ describe('AlarmDAO with v1 API', () => {
   });
   it('AlarmDAO.setTTicketState(alarm=OnmsAlarm(404725), ticketState=RESOLVED)', () => {
     const alarm = new OnmsAlarm();
-    alarm.id=404725;
+    alarm.id = 404725;
     return dao.setTTicketState(alarm, TroubleTicketStates.RESOLVED);
   });
 
@@ -357,7 +357,7 @@ describe('AlarmDAO with v2 API', () => {
     });
     it('AlarmDAO.' + method + '(OnmsAlarm(404725))', () => {
       const alarm = new OnmsAlarm();
-      alarm.id=404725;
+      alarm.id = 404725;
       return dao[method](alarm);
     });
   }
@@ -373,7 +373,7 @@ describe('AlarmDAO with v2 API', () => {
   });
   it('AlarmDAO.setTTicketId(alarm=OnmsAlarm(404725), ticketId=abcde)', () => {
     const alarm = new OnmsAlarm();
-    alarm.id=404725;
+    alarm.id = 404725;
     return dao.setTTicketId(alarm, 'abcde');
   });
   it('AlarmDAO.setTTicketState(alarmId=404725, ticketState=RESOLVED)', () => {
@@ -381,7 +381,7 @@ describe('AlarmDAO with v2 API', () => {
   });
   it('AlarmDAO.setTTicketState(alarm=OnmsAlarm(404725), ticketState=RESOLVED)', () => {
     const alarm = new OnmsAlarm();
-    alarm.id=404725;
+    alarm.id = 404725;
     return dao.setTTicketState(alarm, TroubleTicketStates.RESOLVED);
   });
 

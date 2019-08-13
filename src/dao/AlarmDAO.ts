@@ -202,8 +202,7 @@ export class AlarmDAO extends AbstractDAO<number, OnmsAlarm> {
     }
 
     const alarmId = (typeof(alarm) === 'number' ? alarm : alarm.id);
-    const options = new OnmsHTTPOptions();
-    options.headers.accept = 'text/plain';
+    const options = new OnmsHTTPOptions().withHeader('Accept', 'text/plain');
     return this.http.post(this.pathToAlarmsEndpoint() + '/' + alarmId + '/ticket/create', options).then(() => {
       log.debug('Ticket creation pending.');
     }).catch(this.handleError);
@@ -222,8 +221,7 @@ export class AlarmDAO extends AbstractDAO<number, OnmsAlarm> {
     }
 
     const alarmId = (typeof(alarm) === 'number' ? alarm : alarm.id);
-    const options = new OnmsHTTPOptions();
-    options.headers.accept = 'text/plain';
+    const options = new OnmsHTTPOptions().withHeader('Accept', 'text/plain');
     return this.http.post(this.pathToAlarmsEndpoint() + '/' + alarmId + '/ticket/update', options).then(() => {
       log.debug('Ticket update pending.');
     }).catch(this.handleError);
@@ -242,8 +240,7 @@ export class AlarmDAO extends AbstractDAO<number, OnmsAlarm> {
     }
 
     const alarmId = (typeof(alarm) === 'number' ? alarm : alarm.id);
-    const options = new OnmsHTTPOptions();
-    options.headers.accept = 'text/plain';
+    const options = new OnmsHTTPOptions().withHeader('Accept', 'text/plain');
     return this.http.post(this.pathToAlarmsEndpoint() + '/' + alarmId + '/ticket/close', options).then(() => {
       log.debug('Ticket close pending.');
     }).catch(this.handleError);
@@ -433,7 +430,7 @@ export class AlarmDAO extends AbstractDAO<number, OnmsAlarm> {
     return super.getOptions(filter).then((options) => {
         // always use application/json for v2 calls
         if (this.getApiVersion() === 2) {
-            options.headers.accept = 'application/json';
+          return options.withHeader('Accept', 'application/json');
         }
         return options;
     });
@@ -444,16 +441,16 @@ export class AlarmDAO extends AbstractDAO<number, OnmsAlarm> {
    * @hidden
    */
   private async put(url: string, parameters = {} as IHash<string>): Promise<void> {
-    return this.getOptions().then((opts) => {
-        opts.headers['content-type'] = 'application/x-www-form-urlencoded';
-        delete opts.headers.accept;
-        opts.parameters = parameters;
-        return this.http.put(url, opts).then((result) => {
-            if (!result.isSuccess) {
-                throw result;
-            }
-            return;
-        });
+    const opts = (await this.getOptions())
+      .withHeader('Content-Type', 'application/x-www-form-urlencoded')
+      .withHeader('Accept', undefined)
+      .withParameters(parameters);
+
+    return this.http.put(url, opts).then((result) => {
+        if (!result.isSuccess) {
+            throw result;
+        }
+        return;
     });
   }
 
@@ -462,17 +459,16 @@ export class AlarmDAO extends AbstractDAO<number, OnmsAlarm> {
    * @hidden
    */
   private async httpDelete(url: string, parameters = {} as IHash<string>): Promise<void> {
-      return this.getOptions().then((opts) => {
-          opts.headers['content-type'] = 'application/x-www-form-urlencoded';
-          delete opts.headers.accept;
-          opts.parameters = parameters;
-          return this.http.httpDelete(url, opts).then((result) => {
-              if (!result.isSuccess) {
-                  throw result;
-              }
-              return;
-          });
-      });
+    const opts = (await this.getOptions())
+      .withHeader('Content-Type', 'application/x-www-form-urlencoded')
+      .withHeader('Accept', undefined)
+      .withParameters(parameters);
+    return this.http.httpDelete(url, opts).then((result) => {
+        if (!result.isSuccess) {
+            throw result;
+        }
+        return;
+    });
   }
 
   /**

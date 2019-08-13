@@ -88,8 +88,7 @@ export abstract class AbstractDAO<K, T> extends BaseDAO implements IValueProvide
       }
 
       if  (!this.propertiesCache) {
-        const opts = await this.getOptions();
-        opts.headers.accept = 'application/json';
+        const opts = (await this.getOptions()).withHeader('Accept', 'application/json');
         const result = await this.http.get(this.searchPropertyPath(), opts);
         this.propertiesCache = this.parseResultList(result, 'searchProperty',
           this.searchPropertyPath(), (prop: any) => this.toSearchProperty(prop));
@@ -106,15 +105,12 @@ export abstract class AbstractDAO<K, T> extends BaseDAO implements IValueProvide
    * @returns {Promise<any>} A promise containing the values.
    */
   public async findValues(propertyId: string, options?: any): Promise<any> {
-    const [property, opts] = await Promise.all([this.searchProperty(propertyId), this.getOptions()]);
+    const [property, defaultOptions] = await Promise.all([this.searchProperty(propertyId), this.getOptions(options)]);
     if (!property || !property.id) {
       throw new OnmsError('Unable to determine property for ID ' + propertyId);
     }
     const path = this.searchPropertyPath() + '/' + property.id;
-    opts.headers.accept = 'application/json';
-    if (options) {
-        Object.assign(opts, options);
-    }
+    const opts = defaultOptions.withHeader('Accept', 'application/json');
     const result = await this.http.get(path, opts);
     return this.parseResultList(result, 'value', path, (value: any) => value);
   }
@@ -195,17 +191,17 @@ export abstract class AbstractDAO<K, T> extends BaseDAO implements IValueProvide
    * @param filter - the filter to use
    */
   protected async getOptions(filter?: Filter): Promise<OnmsHTTPOptions> {
-    const options = new OnmsHTTPOptions();
+    let options = new OnmsHTTPOptions();
     if (this.useJson()) {
-      options.headers.accept = 'application/json';
+      options = options.withHeader('Accept', 'application/json');
     } else {
       // always use application/xml in DAO calls when we're not sure how
       // usable JSON output will be.
-      options.headers.accept = 'application/xml';
+      options = options.withHeader('Accept', 'application/xml');
     }
     if (filter) {
       const processor = await this.getFilterProcessor();
-      options.parameters = processor.getParameters(filter);
+      options = options.withParameters(processor.getParameters(filter));
     }
     return options;
   }
@@ -232,7 +228,7 @@ export abstract class AbstractDAO<K, T> extends BaseDAO implements IValueProvide
    * Retrieve the API version from the currently configured server.
    */
   protected getApiVersion(): number {
-    if (!this.server || this.server.metadata === undefined) {
+    if (!this.server || this.server.metadata === null) {
       throw new OnmsError('Server meta-data must be populated prior to making DAO calls.');
     }
     return this.server.metadata.apiVersion();
