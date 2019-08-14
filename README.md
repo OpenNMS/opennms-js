@@ -54,9 +54,13 @@ OpenNMS.js 2.0 adds a few new APIs, contains a ton of refactoring and build syst
 #### Breaking Changes:
 
 * The `api/Log` module now only exports a single, simplified `log` object; `typescript-logging` was overly complicated and not really adding much in the way of value.  Use `.setDebug()`, `.setQuiet()`, and `.setSilent()` to change the logging level instead.
-* To remain compatible with loose JS requirements for object creation (and later hydration), a number of the TypeScript APIs have been clarified to be explicitly nullable (and/or `undefined`-able).
+* A number of the TypeScript APIs have been clarified to be explicitly nullable (and/or `undefined`-able) to make strict null- and type-checking validation pass.
 * `PropertiesCache` and its associated interface, `ISearchPropertyAccessor` are gone.  This only affects you if you have implemented custom DAOs, which is very unlikely.  :)
 * The previously deprecated `timeout` property in `AbstractHTTP` (and sub-classes) has been removed.  Access the `AbstractHTTP.options.timeout` property directly.
+* The `Client` no longer keeps a separate copy of the server object.  Instead you should access the `http.server` sub-property directly.
+* A number of API objects are now immutable/read-only to reduce side-effects: `OnmsAuthConfig`, `OnmsEnum`, `OnmsError`, `OnmsHTTPOptions`, `OnmsResult`, `OnmsServer`, `Operator`, `SearchPropertyType`, `ServerMetadata`, `TicketerConfig`.  For objects you are likely to modify, builder-style methods starting with `with` have been provided to make it easy to create new objects based on existing.
+* The `id` property on `OnmsServer` is no longer generated, it is computed based on the contents of the server object and should be repeatably equal if the contents are equal.
+* The `OnmsServer` object now expects an optional `auth` and and optional `metadata` field as the 3rd and 4th arguments.  The overloaded form where you could pass a string `username` and `password` is no longer supported.
 
 ### 1.5
 
