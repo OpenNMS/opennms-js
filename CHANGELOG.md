@@ -1,40 +1,4 @@
-# [2.0.0-SNAPSHOT](https://github.com/OpenNMS/opennms-js/compare/v1.5.0...v2.0.0-SNAPSHOT) (2019-08-12)
-
-
-### Bug Fixes
-
-* **cli:** bounds-check remaining column width for table render ([54c8919](https://github.com/OpenNMS/opennms-js/commit/54c8919))
-* **cli:** CLI errors should exit immediately non-0 ([943710e](https://github.com/OpenNMS/opennms-js/commit/943710e))
-* **cli:** fix typo in space-cleaning regex ([de5f5cc](https://github.com/OpenNMS/opennms-js/commit/de5f5cc))
-* **dao:** fix DAO property caching (JS-38) ([178a31d](https://github.com/OpenNMS/opennms-js/commit/178a31d))
-* **log:** fix formatting of log output ([42e89f3](https://github.com/OpenNMS/opennms-js/commit/42e89f3))
-* **rest:** assign != apply :D ([1112c7b](https://github.com/OpenNMS/opennms-js/commit/1112c7b))
-* **rest:** caught errors in GrafanaHTTP should be re-thrown ([fc35b12](https://github.com/OpenNMS/opennms-js/commit/fc35b12))
-* **rest:** fix auth initialization broken during refactor (JS-39) ([85200fd](https://github.com/OpenNMS/opennms-js/commit/85200fd))
-* **rest:** simplify grafana HTTP config creation ([3f3089b](https://github.com/OpenNMS/opennms-js/commit/3f3089b))
-
-
-### Code Refactoring
-
-* **rest:** pull up authentication into the abstract impl ([6f565bd](https://github.com/OpenNMS/opennms-js/commit/6f565bd))
-
-
-### Features
-
-* add .equals() to various metadata objects ([cf3ff5f](https://github.com/OpenNMS/opennms-js/commit/cf3ff5f))
-* **build:** add dependabot auto-updater config ([b0eb941](https://github.com/OpenNMS/opennms-js/commit/b0eb941))
-* **client:** cache DAOs accessed through the Client API (JS-38) ([76c9205](https://github.com/OpenNMS/opennms-js/commit/76c9205))
-* **rest:** add HTTP HEAD ([bea34a5](https://github.com/OpenNMS/opennms-js/commit/bea34a5))
-
-
-### BREAKING CHANGES
-
-* **rest:** AbstractHTTP.getServer now throws an error if a
-server cannot be returned when it is called.
-
-
-
-# [2.0.0-SNAPSHOT](https://github.com/OpenNMS/opennms-js/compare/v1.5.0...v2.0.0-SNAPSHOT) (2019-08-12)
+# [2.0.0-SNAPSHOT](https://github.com/OpenNMS/opennms-js/compare/v1.5.0...v2.0.0-SNAPSHOT) (2019-08-15)
 
 
 ### Bug Fixes
