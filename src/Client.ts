@@ -3,8 +3,8 @@ import {log} from './api/Log';
 import {IHasHTTP} from './api/IHasHTTP';
 import {IOnmsHTTP} from './api/IOnmsHTTP';
 
-import {OnmsHTTPOptions} from './api/OnmsHTTPOptions';
 import {OnmsError} from './api/OnmsError';
+import {OnmsHTTPOptions} from './api/OnmsHTTPOptions';
 import {OnmsVersion} from './api/OnmsVersion';
 import {ServerTypes} from './api/ServerType';
 import {TicketerConfig} from './api/TicketerConfig';
@@ -35,18 +35,18 @@ export class Client implements IHasHTTP {
    * @param timeout - how long to wait before giving up when making ReST calls
    */
   public static async checkServer(server: OnmsServer, httpImpl?: IOnmsHTTP, timeout?: number): Promise<boolean> {
-    let opts = new OnmsHTTPOptions(timeout, server);
     if (!httpImpl) {
       if (!Client.defaultHttp) {
         throw new OnmsError('No HTTP implementation is configured!');
       }
-      httpImpl = Client.defaultHttp;
+      httpImpl = new Client.defaultHttp();
     }
-    opts = opts.withHeader('Accept', 'text/plain');
+
+    const builder = OnmsHTTPOptions.newBuilder().timeout(timeout).server(server).header('Accept', 'text/plain');
 
     const infoUrl = server.resolveURL('rest/alarms/count');
     log.debug('checkServer: checking URL: ' + infoUrl);
-    await httpImpl.get(infoUrl, opts);
+    await httpImpl.get(infoUrl, builder.build());
     return true;
   }
 
@@ -58,23 +58,23 @@ export class Client implements IHasHTTP {
    * @param httpImpl - the [[IOnmsHTTP]] implementation to use
    * @param timeout - how long to wait before giving up when making ReST calls
    */
-  public static async getMetadata(server: OnmsServer, httpImpl?: IOnmsHTTP, timeout?: number):
-    Promise<ServerMetadata> {
-    let opts = new OnmsHTTPOptions(timeout, server).withHeader('Accept', 'application/json');
+  public static async getMetadata(server: OnmsServer, httpImpl?: IOnmsHTTP, timeout?: number): Promise<ServerMetadata> {
     if (!httpImpl) {
       if (!Client.defaultHttp) {
-        throw new OnmsError('No default HTTP implementation is configured!');
+        throw new OnmsError('No HTTP implementation is configured!');
       }
-      httpImpl = Client.defaultHttp;
+      httpImpl = new Client.defaultHttp();
     }
+
+    const builder = OnmsHTTPOptions.newBuilder().header('Accept', 'application/json');
     if (!timeout && httpImpl && httpImpl.options && httpImpl.options.timeout) {
-      opts = opts.withTimeout(httpImpl.options.timeout);
+      builder.timeout(httpImpl.options.timeout);
     }
 
     const infoUrl = server.resolveURL('rest/info');
     log.debug('getMetadata: checking URL: ' + infoUrl);
 
-    const response = await httpImpl.get(infoUrl, opts);
+    const response = await httpImpl.get(infoUrl, builder.build());
     const version = new OnmsVersion(response.data.version, response.data.displayVersion);
     let type = ServerTypes.HORIZON;
     if (response.data.packageName) {
@@ -92,7 +92,7 @@ export class Client implements IHasHTTP {
   }
 
   /** The default OnmsHTTP implementation to be used when making requests */
-  private static defaultHttp: IOnmsHTTP = new AxiosHTTP();
+  private static defaultHttp = AxiosHTTP;
 
   /** the OnmsHTTP implementation that will be used when making requests */
   public http: IOnmsHTTP;
@@ -105,13 +105,15 @@ export class Client implements IHasHTTP {
 
   /**
    * Construct a new OpenNMS client.
+   *
+   * If no `httpImpl` parameter is provided, the class in `Client.defaultHttp` will be used by default.
+   * Unless overridden, this defaults to [[AxiosHTTP]].
+   *
    * @constructor
-   * @param httpImpl - The OnmsHTTP implementation to use. Normally
-   *        this will automatically choose the best implementation
-   *        based on the environment.
+   * @param httpImpl - The IOnmsHTTP implementation to use.
    */
   constructor(httpImpl?: IOnmsHTTP) {
-    this.http = httpImpl || Client.defaultHttp;
+    this.http = httpImpl || new Client.defaultHttp();
   }
 
   /**
@@ -123,21 +125,21 @@ export class Client implements IHasHTTP {
    * with this client (or the default impl, if one has not yet been provided).
    */
   public async connect(name: string, url: string, username: string, password: string, timeout?: number) {
-    const self = this;
-    let server = new OnmsServer(name, url, new OnmsAuthConfig(username, password));
+    const builder = OnmsServer.newBuilder()
+      .name(name)
+      .url(url)
+      .authConfig(new OnmsAuthConfig(username, password));
+    const testServer = builder.build();
 
-    await Client.checkServer(server, this.http, timeout);
-    const metadata = await Client.getMetadata(server, this.http, timeout);
-    server = server.withMetadata(metadata);
+    // first check the server; throws if it can't connect
+    await Client.checkServer(testServer, this.http, timeout);
 
-    if (!self.http) {
-      self.http = Client.defaultHttp;
-    }
-    if (!self.http.server) {
-      self.http.server = server;
-    }
+    // then retrieve the server metadata and update to the hydrated version of the server
+    const metadata = await Client.getMetadata(testServer, this.http, timeout);
+    builder.metadata(metadata);
+    this.http.server = builder.build();
 
-    return self;
+    return this;
   }
 
   /** Get an alarm DAO for querying alarms. */

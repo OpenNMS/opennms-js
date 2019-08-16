@@ -1,6 +1,9 @@
+// tslint:disable:max-classes-per-file
+
 import {OnmsAuthConfig} from './OnmsAuthConfig';
 import {OnmsServer} from './OnmsServer';
 import {IHash} from '../internal/IHash';
+import {Util} from '../internal/Util';
 
 import {cloneDeep} from 'lodash';
 
@@ -9,11 +12,249 @@ export const DEFAULT_TIMEOUT = 10000;
 export const TIMEOUT_PROP = Symbol.for('timeout');
 export const AUTH_PROP = Symbol.for('auth');
 
+/** @hidden */
+const isString = (v?: any) => {
+  return v && (typeof v === 'string' || v instanceof String);
+};
+
+/**
+ * A builder for [[OnmsHTTPOptions]].  Create a new one with `OnmsHTTPOptions.newBuilder()`.
+ */
+// tslint:disable:completed-docs variable-name whitespace
+export class OnmsHTTPOptionsBuilder {
+  private _timeout?: number;
+  private _server?: OnmsServer;
+  private _auth?: OnmsAuthConfig;
+  private _headers = {} as IHash<string>;
+  private _parameters = {} as IHash<string | string[]>;
+  private _data?: any;
+
+  /**
+   * Construct a new builder from an existing options object, if provided.
+   *
+   * NOTE: server, auth, headers, and parameters are cloned, but data is left alone
+   * and assumed to be mutable autside of the builder or elsewhere.
+   */
+  public constructor(options?: OnmsHTTPOptions) {
+    if (options) {
+      this._timeout = options.timeout;
+      this._server = options.server ? options.server.clone() : undefined;
+      this._auth = options.auth ? options.auth.clone() : undefined;
+      this._headers = options.headers ? cloneDeep(options.headers) : {};
+      this._parameters = options.parameters ? cloneDeep(options.parameters) : {};
+      this._data = options.data;
+    }
+  }
+
+  /** Build the [[OnmsHTTPOptions]] object. */
+  public build(): OnmsHTTPOptions {
+    return new OnmsHTTPOptions(
+      this._timeout,
+      this._server,
+      this._auth,
+      cloneDeep(this._headers),
+      cloneDeep(this._parameters),
+      this._data,
+    );
+  }
+
+  /**
+   * Merge the contents of the provided [[OnmsHTTPOptions]] object, additively.
+   * Timeout, server, auth, and data will be replaced only if set, and headers and parameters
+   * will be overlayed on top of existing.
+   * @param options the options to merge with this builder's current values
+   */
+  public merge(options?: OnmsHTTPOptions) {
+    if (options) {
+      if (options.timeout) {
+        this.timeout(options.timeout);
+      }
+      if (options.server) {
+        this.server(options.server);
+      }
+      if (options.auth) {
+        this.authConfig(options.auth);
+      }
+      if (options.headers) {
+        for (const header of Object.keys(options.headers)) {
+          this.header(header, options.headers[header]);
+        }
+      }
+      if (options.parameters) {
+        for (const parameter of Object.keys(options.parameters)) {
+          this.parameter(parameter, options.parameters[parameter]);
+        }
+      }
+      if (options.data) {
+        this.data(options.data);
+      }
+    }
+    return this;
+  }
+
+  /**
+   * The connection timeout for the request.
+   *
+   * If `undefined` is passed, the default timeout will be used.
+   * @param timeout the new timeout
+   */
+  public timeout(timeout?: number) {
+    this._timeout = timeout;
+    return this;
+  }
+
+  /**
+   * The [[OnmsServer]] to connect to.
+   *
+   * If `undefined` is passed, the default server will be used.
+   * @param server the new server
+   */
+  public server(server?: OnmsServer) {
+    this._server = server;
+    return this;
+  }
+
+  /**
+   * The authentication config to use when connecting.
+   *
+   * If `undefined` is passed, the default authentication settings will be used.
+   * @param auth the authentication config
+   */
+  public authConfig(auth?: OnmsAuthConfig) {
+    this._auth = auth;
+    return this;
+  }
+
+  /**
+   * The headers to set in the request.
+   *
+   * If `undefined` is passed, all headers in the builder will be reset and the default headers will be used.
+   * @param headers the headers to use (or `undefined`)
+   */
+  public headers(headers?: IHash<string>) {
+    this._headers = headers || {};
+    return this;
+  }
+
+  /**
+   * A header to set in the request.
+   *
+   * If `undefined` is passed, that header will be reset to defaults.
+   * @param header the header name
+   * @param value the value of the header
+   */
+  public header(header: string, value?: string | number | boolean) {
+    const v = value ? String(value) : undefined;
+    const actualKey = Util.insensitiveKey(header, this._headers);
+    delete this._headers[header];
+
+    if (actualKey) {
+      delete this._headers[actualKey];
+    }
+
+    if (v !== undefined) {
+      this._headers[header] = v;
+    }
+    return this;
+  }
+
+  /**
+   * A header to set in the request only if it is not already set.
+   * @param header the header name
+   * @param value the value of the header
+   */
+  public defaultHeader(header: string, value: string | number | boolean) {
+    const actualKey = Util.insensitiveKey(header, this._headers);
+    if (!actualKey) {
+      this._headers[header] = String(value);
+    }
+    return this;
+  }
+
+  /**
+   * The parameters to pass to the request.
+   *
+   * If `undefined` is passed, all parameters in the builder will be reset.
+   * @param parameters the parameters to use (or `undefined`)
+   */
+  public parameters(parameters?: IHash<string|string[]>) {
+    if (!parameters) {
+      this._parameters = {};
+    } else {
+      this._parameters = parameters;
+    }
+    return this;
+  }
+
+  /**
+   * A parameter to add or append to the request.
+   *
+   * If `undefined` is passed, that parameter will be reset to defaults.
+   * If the value is a string array, the existing value in the builder will be replaced.
+   * Otherwise, if the parameter already exists in the builder, the parameter will be converted to an array
+   * if necessary and this parameter will be added to it.
+   * @param parameter the parameter name
+   * @param value the value of the parameter to add (or `undefined`)
+   */
+  public parameter(parameter: string, value?: string | string[] | number | boolean) {
+    const v = (value && !isString(value)) ? String(value) : value;
+
+    // Since parameters can be repeated an arbitrary number of times we will store them in an array in the map
+    // as soon as the occurrence of a given key is > 1
+    if (this._parameters[parameter]) {
+      if (v === undefined) {
+        delete this._parameters[parameter];
+      } else if (Array.isArray(v)) {
+        this._parameters[parameter] = v.map((obj) => String(obj));
+      } else {
+        const currentValue = this._parameters[parameter];
+        if (Array.isArray(currentValue)) {
+          currentValue.push(String(v));
+        } else {
+          const newArrayValue = [];
+          newArrayValue.push(currentValue);
+          newArrayValue.push(String(v));
+          this._parameters[parameter] = newArrayValue;
+        }
+      }
+    } else {
+      if (v) {
+        if (Array.isArray(v)) {
+          this._parameters[parameter] = v.map((obj) => String(obj));
+        } else {
+          this._parameters[parameter] = String(v);
+        }
+      }
+    }
+    return this;
+  }
+
+  /**
+   * The data to use in the request.
+   *
+   * If `undefined` is passed, the data will be cleared.
+   * @param data the data
+   */
+  public data(data?: any) {
+    this._data = data;
+    return this;
+  }
+}
+// tslint:enable:completed-docs variable-name whitespace
+
 /**
  * Options to be used when making HTTP ReST calls.
  * @module OnmsHTTPOptions
  */
 export class OnmsHTTPOptions {
+  /**
+   * Create a new builder for an [[OnmsHTTPOptions]] object.
+   * @param options if an existing options object is passed, the builder will be pre-populated
+   */
+  public static newBuilder(options?: OnmsHTTPOptions) {
+    return new OnmsHTTPOptionsBuilder(options);
+  }
+
   /** How long to wait for ReST calls to time out. */
   public get timeout(): number | undefined {
     return this[TIMEOUT_PROP] || undefined;
@@ -80,109 +321,6 @@ export class OnmsHTTPOptions {
     this.headers = headers || {} as IHash<string>;
     this.parameters = parameters || {} as IHash<string | string[]>;
     this.data = data;
-  }
-
-  /**
-   * Create a copy of these options with the given timeout set.
-   * If no timeout is provided, the default timeout will be (re)set.
-   * @param timeout the new timeout
-   */
-  public withTimeout(timeout?: number) {
-    // tslint:disable-next-line:max-line-length
-    return new OnmsHTTPOptions(timeout, this.server || undefined, this.auth, this.headers, this.parameters, this.data);
-  }
-
-  /**
-   * Create a copy of these options, overriding the server with the provided option.
-   * If no server is provided, the default server will be (re)set.
-   * @param server the new server
-   */
-  public withServer(server?: OnmsServer) {
-    return new OnmsHTTPOptions(this.timeout || undefined, server, this.auth, this.headers, this.parameters, this.data);
-  }
-
-  /**
-   * Set a header
-   * @param header the header name
-   * @param value the header's value
-   */
-  public withHeader(header: string, value?: any): OnmsHTTPOptions {
-    const newHeaders = cloneDeep(this.headers);
-    if (newHeaders) {
-      delete newHeaders[header];
-      delete newHeaders[header.toLowerCase()];
-      if (value !== undefined) {
-        newHeaders[header] = value;
-      }
-    }
-    Object.freeze(newHeaders);
-    // tslint:disable-next-line:max-line-length
-    return new OnmsHTTPOptions(this.timeout || undefined, this.server || undefined, this.auth, newHeaders, this.parameters, this.data);
-  }
-
-  /**
-   * Set a header
-   * @param header the header name
-   * @param value the header's value
-   */
-  public withHeaders(headers?: IHash<string>): OnmsHTTPOptions {
-    const newHeaders = cloneDeep(headers);
-    Object.freeze(newHeaders);
-    // tslint:disable-next-line:max-line-length
-    return new OnmsHTTPOptions(this.timeout || undefined, this.server || undefined, this.auth, newHeaders, this.parameters, this.data);
-  }
-
-  /**
-   * Add a URL parameter.
-   * @param key - the parameter's key
-   * @param value - the parameter's value
-   */
-  public withParameter(key: string, value?: any): OnmsHTTPOptions {
-    const newParms = cloneDeep(this.parameters || {});
-
-    // Since parameters can be repeated an arbitrary number of times we will store them in an array in the map
-    // as soon as the occurrence of a given key is > 1
-    if (newParms[key]) {
-      if (value === undefined) {
-        delete newParms[key];
-      } else {
-        const currentValue = newParms[key];
-        if (Array.isArray(currentValue)) {
-          currentValue.push('' + value);
-        } else {
-          const newArrayValue = [];
-          newArrayValue.push(currentValue);
-          newArrayValue.push(value);
-          newParms[key] = newArrayValue;
-        }
-      }
-    } else {
-      if (value) {
-        newParms[key] = '' + value;
-      }
-    }
-    Object.freeze(newParms);
-    // tslint:disable-next-line:max-line-length
-    return new OnmsHTTPOptions(this.timeout || undefined, this.server || undefined, this.auth, this.headers, newParms, this.data);
-  }
-
-  /**
-   * Replace the URL parameters in this set of options.
-   * @param params the replacement parameters
-   */
-  public withParameters(params?: IHash<string | string[]>) {
-    const newParams = cloneDeep(params);
-    Object.freeze(newParams);
-    // tslint:disable-next-line:max-line-length
-    return new OnmsHTTPOptions(this.timeout || undefined, this.server || undefined, this.auth, this.headers, newParams, this.data);
-  }
-
-  /**
-   * Set the data on these options.
-   */
-  public withData(data?: any) {
-    // tslint:disable-next-line:max-line-length
-    return new OnmsHTTPOptions(this.timeout || undefined, this.server || undefined, this.auth, this.headers, this.parameters, data);
   }
 
   /**

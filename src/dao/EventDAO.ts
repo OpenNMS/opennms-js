@@ -23,8 +23,8 @@ export class EventDAO extends AbstractDAO<number, OnmsEvent> {
 
   /** Get an event, given the event's ID. */
   public async get(id: number): Promise<OnmsEvent> {
-    return this.getOptions().then((opts) => {
-        return this.http.get(this.pathToEventsEndpoint() + '/' + id, opts).then((result) => {
+    return this.getOptions().then((builder) => {
+        return this.http.get(this.pathToEventsEndpoint() + '/' + id, builder.build()).then((result) => {
             return this.fromData(result.data);
         });
     });
@@ -32,8 +32,8 @@ export class EventDAO extends AbstractDAO<number, OnmsEvent> {
 
   /** Get an event, given a filter. */
   public async find(filter?: Filter): Promise<OnmsEvent[]> {
-    return this.getOptions(filter).then((opts) => {
-        return this.http.get(this.pathToEventsEndpoint(), opts).then((result) => {
+    return this.getOptions(filter).then((builder) => {
+        return this.http.get(this.pathToEventsEndpoint(), builder.build()).then((result) => {
             let data = result.data;
 
             if (data !== null && this.getCount(data, result.code) > 0 && data.event) {

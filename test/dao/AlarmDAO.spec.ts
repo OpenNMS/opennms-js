@@ -43,13 +43,14 @@ describe('AlarmDAO with v1 API', () => {
   });
   it('AlarmDAO.getOptions()', (done) => {
     (dao as any).getOptions().then((opts) => {
-      expect(opts).toMatchObject({});
+      expect(opts.build()).toMatchObject({});
       done();
     });
   });
   it('AlarmDAO.getOptions(isAcknowledged=true)', (done) => {
     const filter = new Filter().withOrRestriction(new Restriction('isAcknowledged', Comparators.EQ, 'true'));
-    (dao as any).getOptions(filter).then((opts) => {
+    (dao as any).getOptions(filter).then((o) => {
+      const opts = o.build();
       expect(opts.parameters).toBeDefined();
       expect(opts.parameters.alarmAckTime).toEqual('notnull');
       done();
@@ -57,7 +58,8 @@ describe('AlarmDAO with v1 API', () => {
   });
   it('AlarmDAO.getOptions(isAcknowledged=false)', (done) => {
     const filter = new Filter().withOrRestriction(new Restriction('isAcknowledged', Comparators.EQ, 'false'));
-    (dao as any).getOptions(filter).then((opts) => {
+    (dao as any).getOptions(filter).then((o) => {
+      const opts = o.build();
       expect(opts.parameters).toBeDefined();
       expect(opts.parameters.alarmAckTime).toEqual('null');
       done();
@@ -65,7 +67,8 @@ describe('AlarmDAO with v1 API', () => {
   });
   it('AlarmDAO.getOptions(isAcknowledged!=true)', (done) => {
     const filter = new Filter().withOrRestriction(new Restriction('isAcknowledged', Comparators.NE, 'true'));
-    (dao as any).getOptions(filter).then((opts) => {
+    (dao as any).getOptions(filter).then((o) => {
+      const opts = o.build();
       expect(opts.parameters).toBeDefined();
       expect(opts.parameters.alarmAckTime).toEqual('null');
       done();
@@ -73,7 +76,8 @@ describe('AlarmDAO with v1 API', () => {
   });
   it('AlarmDAO.getOptions(isAcknowledged!=false)', (done) => {
     const filter = new Filter().withOrRestriction(new Restriction('isAcknowledged', Comparators.NE, 'false'));
-    (dao as any).getOptions(filter).then((opts) => {
+    (dao as any).getOptions(filter).then((o) => {
+      const opts = o.build();
       expect(opts.parameters).toBeDefined();
       expect(opts.parameters.alarmAckTime).toEqual('notnull');
       done();
@@ -237,13 +241,14 @@ describe('AlarmDAO with v2 API', () => {
   });
   it('AlarmDAO.getOptions()', (done) => {
     (dao as any).getOptions().then((opts) => {
-      expect(opts).toMatchObject({});
+      expect(opts.build()).toMatchObject({});
       done();
     });
   });
   it('AlarmDAO.getOptions(isAcknowledged=true)', (done) => {
     const filter = new Filter().withOrRestriction(new Restriction('isAcknowledged', Comparators.EQ, 'true'));
-    (dao as any).getOptions(filter).then((opts) => {
+    (dao as any).getOptions(filter).then((o) => {
+      const opts = o.build();
       expect(opts.parameters).toBeDefined();
       expect(opts.parameters._s).toEqual('alarmAckTime!=\u0000');
       done();
@@ -251,7 +256,8 @@ describe('AlarmDAO with v2 API', () => {
   });
   it('AlarmDAO.getOptions(isAcknowledged=false)', (done) => {
     const filter = new Filter().withOrRestriction(new Restriction('isAcknowledged', Comparators.EQ, 'false'));
-    (dao as any).getOptions(filter).then((opts) => {
+    (dao as any).getOptions(filter).then((o) => {
+      const opts = o.build();
       expect(opts.parameters).toBeDefined();
       expect(opts.parameters._s).toEqual('alarmAckTime==\u0000');
       done();
@@ -259,7 +265,8 @@ describe('AlarmDAO with v2 API', () => {
   });
   it('AlarmDAO.getOptions(isAcknowledged!=true)', (done) => {
     const filter = new Filter().withOrRestriction(new Restriction('isAcknowledged', Comparators.NE, 'true'));
-    (dao as any).getOptions(filter).then((opts) => {
+    (dao as any).getOptions(filter).then((o) => {
+      const opts = o.build();
       expect(opts.parameters).toBeDefined();
       expect(opts.parameters._s).toEqual('alarmAckTime==\u0000');
       done();
@@ -267,7 +274,8 @@ describe('AlarmDAO with v2 API', () => {
   });
   it('AlarmDAO.getOptions(isAcknowledged!=false)', (done) => {
     const filter = new Filter().withOrRestriction(new Restriction('isAcknowledged', Comparators.NE, 'false'));
-    (dao as any).getOptions(filter).then((opts) => {
+    (dao as any).getOptions(filter).then((o) => {
+      const opts = o.build();
       expect(opts.parameters).toBeDefined();
       expect(opts.parameters._s).toEqual('alarmAckTime!=\u0000');
       done();

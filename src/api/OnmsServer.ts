@@ -1,3 +1,5 @@
+// tslint:disable:max-classes-per-file
+
 /** @hidden */
 // tslint:disable-next-line
 const URI = require('urijs');
@@ -9,10 +11,99 @@ import {ServerTypes} from './ServerType';
 import {MD5} from 'object-hash';
 
 /**
+ * A builder for [[OnmsServer]].  Create a new one with `OnmsServer.newBuilder()`.
+ */
+// tslint:disable:completed-docs variable-name whitespace
+export class OnmsServerBuilder {
+  private _name?: string;
+  private _url?: string;
+  private _auth?: OnmsAuthConfig;
+  private _metadata?: ServerMetadata;
+
+  /**
+   * Construct a new builder from an existing options object, if provided.
+   */
+  public constructor(server?: OnmsServer) {
+    if (server) {
+      this._name = server.name;
+      this._url = server.url;
+      this._auth = server.auth ? server.auth.clone() : undefined;
+      this._metadata = server.metadata ? server.metadata.clone() : undefined;
+    }
+  }
+
+  /** Build the [[OnmsServer]] object. */
+  public build(): OnmsServer {
+    if (!this._url) {
+      throw new TypeError('URL is a required field!');
+    }
+    return new OnmsServer(
+      this._name,
+      this._url,
+      this._auth ? this._auth.clone() : undefined,
+      this._metadata ? this._metadata.clone() : undefined,
+    );
+  }
+
+  /**
+   * The display name of the server.
+   *
+   * If `undefined` is passed, the name will be unset.
+   * @param name the server name
+   */
+  public name(name?: string) {
+    this._name = name;
+    return this;
+  }
+
+  /**
+   * The URL of the server.
+   *
+   * If `undefined` is passed, the URL will be unset.
+   * @param url the server's URL
+   */
+  public url(url?: string) {
+    this._url = url;
+    return this;
+  }
+
+  /**
+   * The authentication config to use when connecting.
+   *
+   * If `undefined` is passed, the default authentication settings will be used.
+   * @param auth the authentication config
+   */
+  public authConfig(auth?: OnmsAuthConfig) {
+    this._auth = auth;
+    return this;
+  }
+
+  /**
+   * The server metadata to associate with the server.
+   *
+   * If `undefined` is passed, no metadata will be used.
+   * @param metadata the metadata
+   */
+  public metadata(metadata?: ServerMetadata) {
+    this._metadata = metadata;
+    return this;
+  }
+}
+// tslint:enable:completed-docs variable-name whitespace
+
+/**
  * Represents a remote OpenNMS server.
  * @module OnmsServer
  */
 export class OnmsServer {
+  /**
+   * Create a new builder for an [[OnmsServer]] object.
+   * @param server if an existing server object is passed, the builder will be pre-populated
+   */
+  public static newBuilder(server?: OnmsServer) {
+    return new OnmsServerBuilder(server);
+  }
+
   /** A unique identifier for this server. */
   public readonly id: string;
 
@@ -90,23 +181,6 @@ export class OnmsServer {
   public clone() {
     const auth = this.auth ? this.auth.clone() : undefined;
     const metadata = this.metadata ? this.metadata.clone() : undefined;
-    return new OnmsServer(this.name, this.url, auth, metadata);
-  }
-
-  /**
-   * Create a new server object from this existing one, with the provided authentication settings.
-   * @param auth The authentication config
-   */
-  public withAuth(auth: OnmsAuthConfig) {
-    const metadata = this.metadata ? this.metadata.clone() : undefined;
-    return new OnmsServer(this.name, this.url, auth, metadata);
-  }
-
-  /**
-   * Create a new server object from this existing one, with the provided server metadata.
-   */
-  public withMetadata(metadata: ServerMetadata) {
-    const auth = this.auth ? this.auth.clone() : undefined;
     return new OnmsServer(this.name, this.url, auth, metadata);
   }
 

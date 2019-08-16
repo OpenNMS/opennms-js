@@ -6,7 +6,7 @@ import {IFilterProcessor} from '../api/IFilterProcessor';
 import {IFilterVisitor} from '../api/IFilterVisitor';
 import {IValueProvider} from './IValueProvider';
 import {NestedRestriction} from '../api/NestedRestriction';
-import {OnmsHTTPOptions} from '../api/OnmsHTTPOptions';
+import {OnmsHTTPOptions, OnmsHTTPOptionsBuilder} from '../api/OnmsHTTPOptions';
 import {OnmsServer} from '../api/OnmsServer';
 import {Restriction} from '../api/Restriction';
 import {SearchProperty} from '../api/SearchProperty';
@@ -88,8 +88,8 @@ export abstract class AbstractDAO<K, T> extends BaseDAO implements IValueProvide
       }
 
       if  (!this.propertiesCache) {
-        const opts = (await this.getOptions()).withHeader('Accept', 'application/json');
-        const result = await this.http.get(this.searchPropertyPath(), opts);
+        const opts = (await this.getOptions()).header('Accept', 'application/json');
+        const result = await this.http.get(this.searchPropertyPath(), opts.build());
         this.propertiesCache = this.parseResultList(result, 'searchProperty',
           this.searchPropertyPath(), (prop: any) => this.toSearchProperty(prop));
       }
@@ -110,8 +110,8 @@ export abstract class AbstractDAO<K, T> extends BaseDAO implements IValueProvide
       throw new OnmsError('Unable to determine property for ID ' + propertyId);
     }
     const path = this.searchPropertyPath() + '/' + property.id;
-    const opts = defaultOptions.withHeader('Accept', 'application/json');
-    const result = await this.http.get(path, opts);
+    const opts = defaultOptions.header('Accept', 'application/json');
+    const result = await this.http.get(path, opts.build());
     return this.parseResultList(result, 'value', path, (value: any) => value);
   }
 
@@ -194,20 +194,22 @@ export abstract class AbstractDAO<K, T> extends BaseDAO implements IValueProvide
    * Create an [[OnmsHTTPOptions]] object for DAO calls given an optional filter.
    * @param filter - the filter to use
    */
-  protected async getOptions(filter?: Filter): Promise<OnmsHTTPOptions> {
-    let options = new OnmsHTTPOptions();
+  protected async getOptions(filter?: Filter): Promise<OnmsHTTPOptionsBuilder> {
+    const builder = OnmsHTTPOptions.newBuilder();
+
     if (this.useJson()) {
-      options = options.withHeader('Accept', 'application/json');
+      builder.header('Accept', 'application/json');
     } else {
       // always use application/xml in DAO calls when we're not sure how
       // usable JSON output will be.
-      options = options.withHeader('Accept', 'application/xml');
+      builder.header('Accept', 'application/xml');
     }
     if (filter) {
       const processor = await this.getFilterProcessor();
-      options = options.withParameters(processor.getParameters(filter));
+      builder.parameters(processor.getParameters(filter));
     }
-    return options;
+
+    return builder;
   }
 
   /**

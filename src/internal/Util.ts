@@ -69,4 +69,34 @@ export class Util {
       return undefined;
     }
   }
+
+  /**
+   * Retrieve the matching key (regardless of case) in the given search object.
+   * @param key the key to search for
+   * @param search the object to search
+   */
+  public static insensitiveKey(key: string, search: { [key: string]: any }) {
+    if (!key || !search) {
+      return;
+    }
+    for (const k in search) {
+      if (k && k.toLowerCase() === key.toLowerCase()) {
+        return k;
+      }
+    }
+  }
+
+  /**
+   * Retrieve the value for the matching key (regardless of case) in the given search.
+   * @param key the key to search for
+   * @param search the object to search
+   */
+  public static insensitiveValue(key: string, search: { [key: string]: any }) {
+    if (!key || !search) {
+      return;
+    }
+    const k = Util.insensitiveKey(key, search);
+    return k ? search[k] : undefined;
+  }
+
 }
