@@ -42,10 +42,10 @@ export class Client implements IHasHTTP {
       httpImpl = new Client.defaultHttp();
     }
 
-    const builder = OnmsHTTPOptions.newBuilder().timeout(timeout).server(server).header('Accept', 'text/plain');
-
     const infoUrl = server.resolveURL('rest/alarms/count');
     log.debug('checkServer: checking URL: ' + infoUrl);
+
+    const builder = OnmsHTTPOptions.newBuilder().timeout(timeout).server(server).header('Accept', 'text/plain');
     await httpImpl.get(infoUrl, builder.build());
     return true;
   }
@@ -66,13 +66,13 @@ export class Client implements IHasHTTP {
       httpImpl = new Client.defaultHttp();
     }
 
+    const infoUrl = server.resolveURL('rest/info');
+    log.debug('getMetadata: checking URL: ' + infoUrl);
+
     const builder = OnmsHTTPOptions.newBuilder().header('Accept', 'application/json');
     if (!timeout && httpImpl && httpImpl.options && httpImpl.options.timeout) {
       builder.timeout(httpImpl.options.timeout);
     }
-
-    const infoUrl = server.resolveURL('rest/info');
-    log.debug('getMetadata: checking URL: ' + infoUrl);
 
     const response = await httpImpl.get(infoUrl, builder.build());
     const version = new OnmsVersion(response.data.version, response.data.displayVersion);
