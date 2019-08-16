@@ -43,7 +43,6 @@ export class Client implements IHasHTTP {
     }
 
     const infoUrl = server.resolveURL('rest/alarms/count');
-    log.debug('checkServer: checking URL: ' + infoUrl);
 
     const builder = OnmsHTTPOptions.newBuilder().timeout(timeout).server(server).header('Accept', 'text/plain');
     await httpImpl.get(infoUrl, builder.build());
@@ -67,9 +66,8 @@ export class Client implements IHasHTTP {
     }
 
     const infoUrl = server.resolveURL('rest/info');
-    log.debug('getMetadata: checking URL: ' + infoUrl);
 
-    const builder = OnmsHTTPOptions.newBuilder().header('Accept', 'application/json');
+    const builder = OnmsHTTPOptions.newBuilder().server(server).timeout(timeout).header('Accept', 'application/json');
     if (!timeout && httpImpl && httpImpl.options && httpImpl.options.timeout) {
       builder.timeout(httpImpl.options.timeout);
     }
@@ -136,8 +134,7 @@ export class Client implements IHasHTTP {
 
     // then retrieve the server metadata and update to the hydrated version of the server
     const metadata = await Client.getMetadata(testServer, this.http, timeout);
-    builder.metadata(metadata);
-    this.http.server = builder.build();
+    this.http.server = builder.metadata(metadata).build();
 
     return this;
   }
