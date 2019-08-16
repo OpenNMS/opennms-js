@@ -35,6 +35,10 @@ export class V1FilterProcessor implements IFilterProcessor {
       ret.limit = '' + filter.limit;
     }
 
+    if (!filter.clauses) {
+      return ret;
+    }
+
     for (const clause of filter.clauses) {
       if (clause.operator !== Operators.OR) {
         throw new OnmsError('V1 only supports OR operators!');

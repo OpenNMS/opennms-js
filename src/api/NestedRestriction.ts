@@ -19,7 +19,7 @@ export class NestedRestriction {
     }
 
     /** The clauses containing the nested restrictions and their logical operators. */
-    public clauses = [] as Clause[];
+    public clauses?: Clause[];
 
     constructor(...clauses: Clause[]) {
         this.clauses = clauses;
@@ -37,8 +37,10 @@ export class NestedRestriction {
 
     /** Adds an additional clause. */
     private withClause(clause: Clause) {
+        if (!this.clauses) {
+            this.clauses = [] as Clause[];
+        }
         this.clauses.push(clause);
         return this;
     }
-
 }

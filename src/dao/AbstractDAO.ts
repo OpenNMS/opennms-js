@@ -165,9 +165,11 @@ export abstract class AbstractDAO<K, T> extends BaseDAO implements IValueProvide
       if (visitor.onRestriction) { visitor.onRestriction(restriction); }
     } else if (restriction instanceof NestedRestriction) {
       if (visitor.onNestedRestriction) { visitor.onNestedRestriction(restriction); }
-      restriction.clauses.forEach((c) => {
-        self.visitClause(c, visitor);
-      });
+      if (restriction.clauses) {
+        restriction.clauses.forEach((c) => {
+          self.visitClause(c, visitor);
+        });
+      }
     } else {
       log.warn('Restriction is of an unknown type: ' + JSON.stringify(restriction));
     }
@@ -181,9 +183,11 @@ export abstract class AbstractDAO<K, T> extends BaseDAO implements IValueProvide
   protected visitFilter(filter: Filter, visitor: IFilterVisitor) {
     const self = this;
     if (visitor.onFilter) { visitor.onFilter(filter); }
-    filter.clauses.forEach((clause) => {
-      self.visitClause(clause, visitor);
-    });
+    if (filter.clauses) {
+      filter.clauses.forEach((clause) => {
+        self.visitClause(clause, visitor);
+      });
+    }
   }
 
   /**
