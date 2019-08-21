@@ -25,12 +25,14 @@ let opennms: Client, server, auth, mockHTTP, dao: SituationFeedbackDAO;
 describe('SituationfeedbackDAO via 23', () => {
     beforeEach((done) => {
         auth = new OnmsAuthConfig(SERVER_USER, SERVER_PASSWORD);
-        server = new OnmsServer(SERVER_NAME, SERVER_URL, auth);
+        const builder = OnmsServer.newBuilder(SERVER_URL).setName(SERVER_NAME).setAuth(auth);
+        server = builder.build();
         mockHTTP = new MockHTTP23(server);
         opennms = new Client(mockHTTP);
         dao = new SituationFeedbackDAO(mockHTTP);
         Client.getMetadata(server, mockHTTP).then((metadata) => {
-            server.metadata = metadata;
+            server = builder.setMetadata(metadata).build();
+            mockHTTP.server = server;
             done();
         });
     });
@@ -64,12 +66,14 @@ describe('SituationfeedbackDAO via 23', () => {
 describe('SituationfeedbackDAO via 24', () => {
     beforeEach((done) => {
         auth = new OnmsAuthConfig(SERVER_USER, SERVER_PASSWORD);
-        server = new OnmsServer(SERVER_NAME, SERVER_URL, auth);
+        const builder = OnmsServer.newBuilder(SERVER_URL).setName(SERVER_NAME).setAuth(auth);
+        server = builder.build();
         mockHTTP = new MockHTTP24(server);
         opennms = new Client(mockHTTP);
         dao = new SituationFeedbackDAO(mockHTTP);
         Client.getMetadata(server, mockHTTP).then((metadata) => {
-            server.metadata = metadata;
+            server = builder.setMetadata(metadata).build();
+            mockHTTP = server;
             done();
         });
     });

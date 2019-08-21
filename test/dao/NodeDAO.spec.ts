@@ -32,12 +32,14 @@ let opennms: Client, server, auth, mockHTTP, dao: NodeDAO;
 describe('NodeDAO with v1 API', () => {
   beforeEach((done) => {
     auth = new OnmsAuthConfig(SERVER_USER, SERVER_PASSWORD);
-    server = new OnmsServer(SERVER_NAME, SERVER_URL, auth);
+    const builder = OnmsServer.newBuilder(SERVER_URL).setName(SERVER_NAME).setAuth(auth);
+    server = builder.build();
     mockHTTP = new MockHTTP19(server);
     opennms = new Client(mockHTTP);
     dao = new NodeDAO(mockHTTP);
     Client.getMetadata(server, mockHTTP).then((metadata) => {
-      server.metadata = metadata;
+      server = builder.setMetadata(metadata).build();
+      mockHTTP.server = server;
       done();
     });
   });
@@ -96,12 +98,14 @@ describe('NodeDAO with v1 API', () => {
 describe('NodeDAO with v2 API', () => {
   beforeEach((done) => {
     auth = new OnmsAuthConfig(SERVER_USER, SERVER_PASSWORD);
-    server = new OnmsServer(SERVER_NAME, SERVER_URL, auth);
+    const builder = OnmsServer.newBuilder(SERVER_URL).setName(SERVER_NAME).setAuth(auth);
+    server = builder.build();
     mockHTTP = new MockHTTP21(server);
     opennms = new Client(mockHTTP);
     dao = new NodeDAO(mockHTTP);
     Client.getMetadata(server, mockHTTP).then((metadata) => {
-      server.metadata = metadata;
+      server = builder.setMetadata(metadata).build();
+      mockHTTP.server = server;
       done();
     });
   });

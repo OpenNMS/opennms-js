@@ -32,12 +32,14 @@ let opennms: Client, server, auth, mockHTTP, dao: AlarmDAO;
 describe('AlarmDAO with v1 API', () => {
   beforeEach((done) => {
     auth = new OnmsAuthConfig(SERVER_USER, SERVER_PASSWORD);
-    server = new OnmsServer(SERVER_NAME, SERVER_URL, auth);
+    const builder = OnmsServer.newBuilder(SERVER_URL).setName(SERVER_NAME).setAuth(auth);
+    server = builder.build();
     mockHTTP = new MockHTTP19(server);
     opennms = new Client(mockHTTP);
     dao = new AlarmDAO(mockHTTP);
     Client.getMetadata(server, mockHTTP).then((metadata) => {
-      server.metadata = metadata;
+      server = builder.setMetadata(metadata).build();
+      mockHTTP.server = server;
       done();
     });
   });
@@ -230,12 +232,14 @@ describe('AlarmDAO with v1 API', () => {
 describe('AlarmDAO with v2 API', () => {
   beforeEach((done) => {
     auth = new OnmsAuthConfig(SERVER_USER, SERVER_PASSWORD);
-    server = new OnmsServer(SERVER_NAME, SERVER_URL, auth);
+    const builder = OnmsServer.newBuilder(SERVER_URL).setName(SERVER_NAME).setAuth(auth);
+    server = builder.build();
     mockHTTP = new MockHTTP21(server);
     opennms = new Client(mockHTTP);
     dao = new AlarmDAO(mockHTTP);
     Client.getMetadata(server, mockHTTP).then((metadata) => {
-      server.metadata = metadata;
+      server = builder.setMetadata(metadata).build();
+      mockHTTP.server = server;
       done();
     });
   });
@@ -434,12 +438,14 @@ describe('AlarmDAO with v2 API', () => {
 describe('AlarmDAO with AlarmSummaryDTO', () => {
   beforeEach((done) => {
     auth = new OnmsAuthConfig(SERVER_USER, SERVER_PASSWORD);
-    server = new OnmsServer(SERVER_NAME, SERVER_URL, auth);
+    const builder = OnmsServer.newBuilder(SERVER_URL).setName(SERVER_NAME).setAuth(auth);
+    server = builder.build();
     mockHTTP = new MockHTTP23(server);
     opennms = new Client(mockHTTP);
     dao = new AlarmDAO(mockHTTP);
     Client.getMetadata(server, mockHTTP).then((metadata) => {
-      server.metadata = metadata;
+      server = builder.setMetadata(metadata).build();
+      mockHTTP.server = server;
       done();
     });
   });
@@ -464,12 +470,14 @@ describe('AlarmDAO with AlarmSummaryDTO', () => {
 describe('Server and property caching', () => {
   beforeEach((done) => {
     auth = new OnmsAuthConfig(SERVER_USER, SERVER_PASSWORD);
-    server = new OnmsServer(SERVER_NAME, SERVER_URL, auth);
+    const builder = OnmsServer.newBuilder(SERVER_URL).setName(SERVER_NAME).setAuth(auth);
+    server = builder.build();
     mockHTTP = new MockHTTP23(server);
     opennms = new Client(mockHTTP);
     dao = new AlarmDAO(mockHTTP);
     Client.getMetadata(server, mockHTTP).then((metadata) => {
-      server.metadata = metadata;
+      server = builder.setMetadata(metadata).build();
+      mockHTTP.server = server;
       done();
     });
   });
@@ -479,17 +487,23 @@ describe('Server and property caching', () => {
     expect(props.length).toEqual(3);
 
     // update the server on the HTTP impl
-    server = new OnmsServer(SERVER_NAME, 'http://demo1.opennms.org/opennms/', auth);
+    const builder = OnmsServer.newBuilder('http://demo1.opennms.org/opennms/').setName(SERVER_NAME).setAuth(auth);
+    server = builder.build();
     mockHTTP.server = server;
-    server.metadata = await Client.getMetadata(server, mockHTTP);
+    let metadata = await Client.getMetadata(server, mockHTTP);
+    server = builder.setMetadata(metadata).build();
+    mockHTTP.server = server;
     props = await dao.searchProperties();
     expect(props).toBeDefined();
     expect(props.length).toEqual(1);
 
     // update the server on the DAO
-    server = new OnmsServer(SERVER_NAME, 'http://demo2.opennms.org/opennms/', auth);
-    dao.server = server;
-    server.metadata = await Client.getMetadata(server, mockHTTP);
+    builder.setUrl('http://demo2.opennms.org/opennms/');
+    server = builder.build();
+    mockHTTP.server = server;
+    metadata = await Client.getMetadata(server, mockHTTP);
+    server = builder.setMetadata(metadata).build();
+    mockHTTP.server = server;
     props = await dao.searchProperties();
     expect(props).toBeDefined();
     expect(props.length).toEqual(2);
@@ -499,12 +513,14 @@ describe('Server and property caching', () => {
 describe('Extended Situation tests', () => {
   beforeEach((done) => {
     auth = new OnmsAuthConfig(SERVER_USER, SERVER_PASSWORD);
-    server = new OnmsServer(SERVER_NAME, SERVER_URL, auth);
+    const builder = OnmsServer.newBuilder(SERVER_URL).setName(SERVER_NAME).setAuth(auth);
+    server = builder.build();
     mockHTTP = new MockHTTP23(server);
     opennms = new Client(mockHTTP);
     dao = new AlarmDAO(mockHTTP);
     Client.getMetadata(server, mockHTTP).then((metadata) => {
-      server.metadata = metadata;
+      server = builder.setMetadata(metadata).build();
+      mockHTTP.server = server;
       done();
     });
   });

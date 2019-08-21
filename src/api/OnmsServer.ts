@@ -23,26 +23,13 @@ export class OnmsServerBuilder {
   /**
    * Construct a new builder from an existing options object, if provided.
    */
-  public constructor(server?: OnmsServer) {
-    if (server) {
-      this._name = server.name;
-      this._url = server.url;
-      this._auth = server.auth ? server.auth.clone() : undefined;
-      this._metadata = server.metadata ? server.metadata.clone() : undefined;
-    }
+  public constructor(url?: string) {
+    this._url = url;
   }
 
   /** Build the [[OnmsServer]] object. */
   public build(): OnmsServer {
-    if (!this._url) {
-      throw new TypeError('URL is a required field!');
-    }
-    return new OnmsServer(
-      this._name,
-      this._url,
-      this._auth ? this._auth.clone() : undefined,
-      this._metadata ? this._metadata.clone() : undefined,
-    );
+    return new OnmsServer(this);
   }
 
   /**
@@ -51,7 +38,7 @@ export class OnmsServerBuilder {
    * If `undefined` is passed, the name will be unset.
    * @param name the server name
    */
-  public name(name?: string) {
+  public setName(name?: string) {
     this._name = name;
     return this;
   }
@@ -62,7 +49,7 @@ export class OnmsServerBuilder {
    * If `undefined` is passed, the URL will be unset.
    * @param url the server's URL
    */
-  public url(url?: string) {
+  public setUrl(url?: string) {
     this._url = url;
     return this;
   }
@@ -73,7 +60,7 @@ export class OnmsServerBuilder {
    * If `undefined` is passed, the default authentication settings will be used.
    * @param auth the authentication config
    */
-  public authConfig(auth?: OnmsAuthConfig) {
+  public setAuth(auth?: OnmsAuthConfig) {
     this._auth = auth;
     return this;
   }
@@ -84,9 +71,25 @@ export class OnmsServerBuilder {
    * If `undefined` is passed, no metadata will be used.
    * @param metadata the metadata
    */
-  public metadata(metadata?: ServerMetadata) {
+  public setMetadata(metadata?: ServerMetadata) {
     this._metadata = metadata;
     return this;
+  }
+
+  public get name() {
+    return this._name;
+  }
+
+  public get url() {
+    return this._url;
+  }
+
+  public get auth() {
+    return this._auth;
+  }
+
+  public get metadata() {
+    return this._metadata;
   }
 }
 // tslint:enable:completed-docs variable-name whitespace
@@ -100,8 +103,8 @@ export class OnmsServer {
    * Create a new builder for an [[OnmsServer]] object.
    * @param server if an existing server object is passed, the builder will be pre-populated
    */
-  public static newBuilder(server?: OnmsServer) {
-    return new OnmsServerBuilder(server);
+  public static newBuilder(url?: string) {
+    return new OnmsServerBuilder(url);
   }
 
   /** A unique identifier for this server. */
@@ -134,11 +137,14 @@ export class OnmsServer {
    * @param password - The password to authorize with if a username was
    *                   supplied to the `auth` parameter.
    */
-  public constructor(name: string | undefined, url: string, auth?: OnmsAuthConfig, metadata?: ServerMetadata) {
-    this.name = name;
-    this.url = url;
-    this.auth = auth || null;
-    this.metadata = metadata || null;
+  public constructor(serverBuilder: OnmsServerBuilder) {
+    if (!serverBuilder.url) {
+      throw new TypeError('URL is a required field!');
+    }
+    this.name = serverBuilder.name;
+    this.url = serverBuilder.url;
+    this.auth = serverBuilder.auth || null;
+    this.metadata = serverBuilder.metadata || null;
     this.id = MD5([this.name, this.url, this.auth, this.metadata]);
   }
 
@@ -181,7 +187,11 @@ export class OnmsServer {
   public clone() {
     const auth = this.auth ? this.auth.clone() : undefined;
     const metadata = this.metadata ? this.metadata.clone() : undefined;
-    return new OnmsServer(this.name, this.url, auth, metadata);
+    return new OnmsServerBuilder(this.url)
+      .setName(this.name)
+      .setAuth(this.auth || undefined)
+      .setMetadata(this.metadata || undefined)
+      .build();
   }
 
   /**

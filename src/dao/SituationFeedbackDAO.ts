@@ -26,7 +26,7 @@ export class SituationFeedbackDAO extends BaseDAO {
    * @return An array of [[OnmsSituationFeedback]] objects.
    */
   public async getFeedback(situationId: number): Promise<OnmsSituationFeedback[]> {
-    const builder = OnmsHTTPOptions.newBuilder().header('Accept', 'application/json');
+    const builder = OnmsHTTPOptions.newBuilder().setHeader('Accept', 'application/json');
     return this.http.get(this.pathToEndpoint() + '/' + situationId, builder.build()).then((result) => {
       const data = this.getData(result);
       if (!Array.isArray(data)) {
@@ -46,7 +46,7 @@ export class SituationFeedbackDAO extends BaseDAO {
    * @param prefix the prefix associated with the tags
    */
   public async getTags(prefix: string): Promise<string[]> {
-    const builder = OnmsHTTPOptions.newBuilder().header('Accept', 'application/json');
+    const builder = OnmsHTTPOptions.newBuilder().setHeader('Accept', 'application/json');
     return this.http.get(this.pathToEndpoint() + '/tags?prefix=' + prefix, builder.build()).then((result) => {
       const data = result.data;
       if (!Array.isArray(data)) {
@@ -129,9 +129,9 @@ export class SituationFeedbackDAO extends BaseDAO {
    */
   private async post(url: string, data: any): Promise<void> {
     const builder = OnmsHTTPOptions.newBuilder()
-      .header('Content-Type', 'application/json')
-      .header('Accept', 'application/json')
-      .data(data);
+      .setHeader('Content-Type', 'application/json')
+      .setHeader('Accept', 'application/json')
+      .setData(data);
     return this.http.post(url, builder.build()).then((result) => {
       if (!result.isSuccess) {
         throw result;

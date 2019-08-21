@@ -44,7 +44,10 @@ export class Client implements IHasHTTP {
 
     const infoUrl = server.resolveURL('rest/alarms/count');
 
-    const builder = OnmsHTTPOptions.newBuilder().timeout(timeout).server(server).header('Accept', 'text/plain');
+    const builder = OnmsHTTPOptions.newBuilder()
+      .setTimeout(timeout)
+      .setServer(server)
+      .setHeader('Accept', 'text/plain');
     await httpImpl.get(infoUrl, builder.build());
     return true;
   }
@@ -67,9 +70,12 @@ export class Client implements IHasHTTP {
 
     const infoUrl = server.resolveURL('rest/info');
 
-    const builder = OnmsHTTPOptions.newBuilder().server(server).timeout(timeout).header('Accept', 'application/json');
+    const builder = OnmsHTTPOptions.newBuilder()
+      .setServer(server)
+      .setTimeout(timeout)
+      .setHeader('Accept', 'application/json');
     if (!timeout && httpImpl && httpImpl.options && httpImpl.options.timeout) {
-      builder.timeout(httpImpl.options.timeout);
+      builder.setTimeout(httpImpl.options.timeout);
     }
 
     const response = await httpImpl.get(infoUrl, builder.build());
@@ -124,9 +130,9 @@ export class Client implements IHasHTTP {
    */
   public async connect(name: string, url: string, username: string, password: string, timeout?: number) {
     const builder = OnmsServer.newBuilder()
-      .name(name)
-      .url(url)
-      .authConfig(new OnmsAuthConfig(username, password));
+      .setName(name)
+      .setUrl(url)
+      .setAuth(new OnmsAuthConfig(username, password));
     const testServer = builder.build();
 
     // first check the server; throws if it can't connect
@@ -134,7 +140,7 @@ export class Client implements IHasHTTP {
 
     // then retrieve the server metadata and update to the hydrated version of the server
     const metadata = await Client.getMetadata(testServer, this.http, timeout);
-    this.http.server = builder.metadata(metadata).build();
+    this.http.server = builder.setMetadata(metadata).build();
 
     return this;
   }

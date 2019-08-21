@@ -67,26 +67,26 @@ export class OnmsHTTPOptionsBuilder {
   public merge(options?: OnmsHTTPOptions) {
     if (options) {
       if (options.timeout) {
-        this.timeout(options.timeout);
+        this.setTimeout(options.timeout);
       }
       if (options.server) {
-        this.server(options.server);
+        this.setServer(options.server);
       }
       if (options.auth) {
-        this.authConfig(options.auth);
+        this.setAuth(options.auth);
       }
       if (options.headers) {
         for (const header of Object.keys(options.headers)) {
-          this.header(header, options.headers[header]);
+          this.setHeader(header, options.headers[header]);
         }
       }
       if (options.parameters) {
         for (const parameter of Object.keys(options.parameters)) {
-          this.parameter(parameter, options.parameters[parameter]);
+          this.addParameter(parameter, options.parameters[parameter]);
         }
       }
       if (options.data) {
-        this.data(options.data);
+        this.setData(options.data);
       }
     }
     return this;
@@ -98,7 +98,7 @@ export class OnmsHTTPOptionsBuilder {
    * If `undefined` is passed, the default timeout will be used.
    * @param timeout the new timeout
    */
-  public timeout(timeout?: number) {
+  public setTimeout(timeout?: number) {
     this._timeout = timeout;
     return this;
   }
@@ -109,7 +109,7 @@ export class OnmsHTTPOptionsBuilder {
    * If `undefined` is passed, the default server will be used.
    * @param server the new server
    */
-  public server(server?: OnmsServer) {
+  public setServer(server?: OnmsServer) {
     this._server = server;
     return this;
   }
@@ -120,7 +120,7 @@ export class OnmsHTTPOptionsBuilder {
    * If `undefined` is passed, the default authentication settings will be used.
    * @param auth the authentication config
    */
-  public authConfig(auth?: OnmsAuthConfig) {
+  public setAuth(auth?: OnmsAuthConfig) {
     this._auth = auth;
     return this;
   }
@@ -131,7 +131,7 @@ export class OnmsHTTPOptionsBuilder {
    * If `undefined` is passed, all headers in the builder will be reset and the default headers will be used.
    * @param headers the headers to use (or `undefined`)
    */
-  public headers(headers?: IHash<string>) {
+  public setHeaders(headers?: IHash<string>) {
     this._headers = headers || {};
     return this;
   }
@@ -143,7 +143,7 @@ export class OnmsHTTPOptionsBuilder {
    * @param header the header name
    * @param value the value of the header
    */
-  public header(header: string, value?: string | number | boolean) {
+  public setHeader(header: string, value?: string | number | boolean) {
     const v = value ? String(value) : undefined;
     const actualKey = Util.insensitiveKey(header, this._headers);
     delete this._headers[header];
@@ -163,7 +163,7 @@ export class OnmsHTTPOptionsBuilder {
    * @param header the header name
    * @param value the value of the header
    */
-  public defaultHeader(header: string, value: string | number | boolean) {
+  public setDefaultHeader(header: string, value: string | number | boolean) {
     const actualKey = Util.insensitiveKey(header, this._headers);
     if (!actualKey) {
       this._headers[header] = String(value);
@@ -177,7 +177,7 @@ export class OnmsHTTPOptionsBuilder {
    * If `undefined` is passed, all parameters in the builder will be reset.
    * @param parameters the parameters to use (or `undefined`)
    */
-  public parameters(parameters?: IHash<string|string[]>) {
+  public setParameters(parameters?: IHash<string|string[]>) {
     if (!parameters) {
       this._parameters = {};
     } else {
@@ -196,7 +196,7 @@ export class OnmsHTTPOptionsBuilder {
    * @param parameter the parameter name
    * @param value the value of the parameter to add (or `undefined`)
    */
-  public parameter(parameter: string, value?: string | string[] | number | boolean) {
+  public addParameter(parameter: string, value?: string | string[] | number | boolean) {
     const v = (value && !isString(value)) ? String(value) : value;
 
     // Since parameters can be repeated an arbitrary number of times we will store them in an array in the map
@@ -235,7 +235,7 @@ export class OnmsHTTPOptionsBuilder {
    * If `undefined` is passed, the data will be cleared.
    * @param data the data
    */
-  public data(data?: any) {
+  public setData(data?: any) {
     this._data = data;
     return this;
   }

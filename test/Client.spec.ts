@@ -21,7 +21,7 @@ describe('Given an instance of OpenNMS...', () => {
     mockHTTP = new MockHTTP19();
     opennms = new Client(mockHTTP);
     auth = new OnmsAuthConfig(SERVER_USER, SERVER_PASSWORD);
-    server = new OnmsServer(SERVER_NAME, SERVER_URL, auth);
+    server = OnmsServer.newBuilder(SERVER_URL).setName(SERVER_NAME).setAuth(auth).build();
   });
   describe('when I have a default OpenNMS object', () => {
     it('it should have no server', () => {

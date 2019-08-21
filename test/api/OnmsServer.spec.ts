@@ -13,7 +13,7 @@ let server, auth;
 describe('api.OnmsServer', () => {
   beforeEach(() => {
     auth = new OnmsAuthConfig(SERVER_USER, SERVER_PASSWORD);
-    server = new OnmsServer(SERVER_NAME, SERVER_URL, auth);
+    server = OnmsServer.newBuilder(SERVER_URL).setName(SERVER_NAME).setAuth(auth).build();
   });
 
   describe('When I have a properly-configured server object...', () => {

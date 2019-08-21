@@ -88,7 +88,7 @@ export abstract class AbstractDAO<K, T> extends BaseDAO implements IValueProvide
       }
 
       if  (!this.propertiesCache) {
-        const opts = (await this.getOptions()).header('Accept', 'application/json');
+        const opts = (await this.getOptions()).setHeader('Accept', 'application/json');
         const result = await this.http.get(this.searchPropertyPath(), opts.build());
         this.propertiesCache = this.parseResultList(result, 'searchProperty',
           this.searchPropertyPath(), (prop: any) => this.toSearchProperty(prop));
@@ -110,7 +110,7 @@ export abstract class AbstractDAO<K, T> extends BaseDAO implements IValueProvide
       throw new OnmsError('Unable to determine property for ID ' + propertyId);
     }
     const path = this.searchPropertyPath() + '/' + property.id;
-    const opts = defaultOptions.header('Accept', 'application/json');
+    const opts = defaultOptions.setHeader('Accept', 'application/json');
     const result = await this.http.get(path, opts.build());
     return this.parseResultList(result, 'value', path, (value: any) => value);
   }
@@ -198,15 +198,15 @@ export abstract class AbstractDAO<K, T> extends BaseDAO implements IValueProvide
     const builder = OnmsHTTPOptions.newBuilder();
 
     if (this.useJson()) {
-      builder.header('Accept', 'application/json');
+      builder.setHeader('Accept', 'application/json');
     } else {
       // always use application/xml in DAO calls when we're not sure how
       // usable JSON output will be.
-      builder.header('Accept', 'application/xml');
+      builder.setHeader('Accept', 'application/xml');
     }
     if (filter) {
       const processor = await this.getFilterProcessor();
-      builder.parameters(processor.getParameters(filter));
+      builder.setParameters(processor.getParameters(filter));
     }
 
     return builder;

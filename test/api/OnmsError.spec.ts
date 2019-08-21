@@ -23,4 +23,3 @@ describe('Given an OnmsError with a code...', () => {
     expect(err.toString()).toBe('Error 404: blah');
   });
 });
-

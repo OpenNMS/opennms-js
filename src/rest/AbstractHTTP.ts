@@ -72,7 +72,7 @@ export abstract class AbstractHTTP implements IOnmsHTTP {
       this.server = server;
     }
     if (timeout) {
-      this.options = OnmsHTTPOptions.newBuilder(this.options).timeout(timeout).build();
+      this.options = OnmsHTTPOptions.newBuilder(this.options).setTimeout(timeout).build();
     }
   }
 
@@ -161,12 +161,12 @@ export abstract class AbstractHTTP implements IOnmsHTTP {
    * precedence is passed options -> server options -> default options.
    */
   protected getOptions(options?: OnmsHTTPOptions): OnmsHTTPOptions {
-    return OnmsHTTPOptions.newBuilder().server(this.serverObj || undefined)
+    return OnmsHTTPOptions.newBuilder().setServer(this.serverObj || undefined)
       .merge(this.options)
       .merge(options)
-      .defaultHeader('X-Requested-With', 'XMLHttpRequest')
-      .defaultHeader('Accept', 'application/json')
-      .defaultHeader('Content-Type', 'application/json;charset=utf-8')
+      .setDefaultHeader('X-Requested-With', 'XMLHttpRequest')
+      .setDefaultHeader('Accept', 'application/json')
+      .setDefaultHeader('Content-Type', 'application/json;charset=utf-8')
       .build();
   }
 

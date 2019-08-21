@@ -100,7 +100,7 @@ const CLI = () => {
         config.password = options.password;
       }
       const auth = new API.OnmsAuthConfig(config.username, config.password);
-      const server = new API.OnmsServer('OpenNMS', config.url, auth);
+      const server = API.OnmsServer.newBuilder(config.url).setName('OpenNMS').setAuth(auth).build();
       const http = new Rest.AxiosHTTP(server);
       return Client.checkServer(server, http).then(() => {
         log.info(chalk.green('Connection succeeded.'));
@@ -121,8 +121,8 @@ const CLI = () => {
     .action(() => {
       const config = readConfig();
       const auth = new API.OnmsAuthConfig(config.username, config.password);
-      const server = new API.OnmsServer('OpenNMS', config.url, auth);
-      const http = new Rest.AxiosHTTP(server);
+      const server = API.OnmsServer.newBuilder(config.url).setName('OpenNMS').setAuth(auth).build();
+      const http = new Rest.AxiosHTTP();
       return Client.getMetadata(server, http).then((res) => {
         let c = chalk.green;
         if (res.type === API.ServerTypes.MERIDIAN) {
