@@ -1,55 +1,288 @@
+// tslint:disable:max-classes-per-file
+
 import {OnmsAuthConfig} from './OnmsAuthConfig';
 import {OnmsServer} from './OnmsServer';
 import {IHash} from '../internal/IHash';
+import {Util} from '../internal/Util';
+
+import {cloneDeep} from 'lodash';
 
 export const DEFAULT_TIMEOUT = 10000;
 
 export const TIMEOUT_PROP = Symbol.for('timeout');
 export const AUTH_PROP = Symbol.for('auth');
 
+/** @hidden */
+const isString = (v?: any) => {
+  return v && (typeof v === 'string' || v instanceof String);
+};
+
+/**
+ * A builder for [[OnmsHTTPOptions]].  Create a new one with `OnmsHTTPOptions.newBuilder()`.
+ */
+// tslint:disable:completed-docs variable-name whitespace
+export class OnmsHTTPOptionsBuilder {
+  private _timeout?: number;
+  private _server?: OnmsServer;
+  private _auth?: OnmsAuthConfig;
+  private _headers = {} as IHash<string>;
+  private _parameters = {} as IHash<string | string[]>;
+  private _data?: any;
+
+  /**
+   * Construct a new builder from an existing options object, if provided.
+   *
+   * NOTE: server, auth, headers, and parameters are cloned, but data is left alone
+   * and assumed to be mutable autside of the builder or elsewhere.
+   */
+  public constructor(options?: OnmsHTTPOptions) {
+    if (options) {
+      this._timeout = options.timeout;
+      this._server = options.server ? options.server.clone() : undefined;
+      this._auth = options.auth ? options.auth.clone() : undefined;
+      this._headers = options.headers ? cloneDeep(options.headers) : {};
+      this._parameters = options.parameters ? cloneDeep(options.parameters) : {};
+      this._data = options.data;
+    }
+  }
+
+  /** Build the [[OnmsHTTPOptions]] object. */
+  public build(): OnmsHTTPOptions {
+    return new OnmsHTTPOptions(
+      this._timeout,
+      this._server,
+      this._auth,
+      cloneDeep(this._headers),
+      cloneDeep(this._parameters),
+      this._data,
+    );
+  }
+
+  /**
+   * Merge the contents of the provided [[OnmsHTTPOptions]] object, additively.
+   * Timeout, server, auth, and data will be replaced only if set, and headers and parameters
+   * will be overlayed on top of existing.
+   * @param options the options to merge with this builder's current values
+   */
+  public merge(options?: OnmsHTTPOptions) {
+    if (options) {
+      if (options.timeout) {
+        this.setTimeout(options.timeout);
+      }
+      if (options.server) {
+        this.setServer(options.server);
+      }
+      if (options.auth) {
+        this.setAuth(options.auth);
+      }
+      if (options.headers) {
+        for (const header of Object.keys(options.headers)) {
+          this.setHeader(header, options.headers[header]);
+        }
+      }
+      if (options.parameters) {
+        for (const parameter of Object.keys(options.parameters)) {
+          this.addParameter(parameter, options.parameters[parameter]);
+        }
+      }
+      if (options.data) {
+        this.setData(options.data);
+      }
+    }
+    return this;
+  }
+
+  /**
+   * The connection timeout for the request.
+   *
+   * If `undefined` is passed, the default timeout will be used.
+   * @param timeout the new timeout
+   */
+  public setTimeout(timeout?: number) {
+    this._timeout = timeout;
+    return this;
+  }
+
+  /**
+   * The [[OnmsServer]] to connect to.
+   *
+   * If `undefined` is passed, the default server will be used.
+   * @param server the new server
+   */
+  public setServer(server?: OnmsServer) {
+    this._server = server;
+    return this;
+  }
+
+  /**
+   * The authentication config to use when connecting.
+   *
+   * If `undefined` is passed, the default authentication settings will be used.
+   * @param auth the authentication config
+   */
+  public setAuth(auth?: OnmsAuthConfig) {
+    this._auth = auth;
+    return this;
+  }
+
+  /**
+   * The headers to set in the request.
+   *
+   * If `undefined` is passed, all headers in the builder will be reset and the default headers will be used.
+   * @param headers the headers to use (or `undefined`)
+   */
+  public setHeaders(headers?: IHash<string>) {
+    this._headers = headers || {};
+    return this;
+  }
+
+  /**
+   * A header to set in the request.
+   *
+   * If `undefined` is passed, that header will be reset to defaults.
+   * @param header the header name
+   * @param value the value of the header
+   */
+  public setHeader(header: string, value?: string | number | boolean) {
+    const v = value ? String(value) : undefined;
+    const actualKey = Util.insensitiveKey(header, this._headers);
+    delete this._headers[header];
+
+    if (actualKey) {
+      delete this._headers[actualKey];
+    }
+
+    if (v !== undefined) {
+      this._headers[header] = v;
+    }
+    return this;
+  }
+
+  /**
+   * A header to set in the request only if it is not already set.
+   * @param header the header name
+   * @param value the value of the header
+   */
+  public setDefaultHeader(header: string, value: string | number | boolean) {
+    const actualKey = Util.insensitiveKey(header, this._headers);
+    if (!actualKey) {
+      this._headers[header] = String(value);
+    }
+    return this;
+  }
+
+  /**
+   * The parameters to pass to the request.
+   *
+   * If `undefined` is passed, all parameters in the builder will be reset.
+   * @param parameters the parameters to use (or `undefined`)
+   */
+  public setParameters(parameters?: IHash<string|string[]>) {
+    if (!parameters) {
+      this._parameters = {};
+    } else {
+      this._parameters = parameters;
+    }
+    return this;
+  }
+
+  /**
+   * A parameter to add or append to the request.
+   *
+   * If `undefined` is passed, that parameter will be reset to defaults.
+   * If the value is a string array, the existing value in the builder will be replaced.
+   * Otherwise, if the parameter already exists in the builder, the parameter will be converted to an array
+   * if necessary and this parameter will be added to it.
+   * @param parameter the parameter name
+   * @param value the value of the parameter to add (or `undefined`)
+   */
+  public addParameter(parameter: string, value?: string | string[] | number | boolean) {
+    const v = (value && !isString(value)) ? String(value) : value;
+
+    // Since parameters can be repeated an arbitrary number of times we will store them in an array in the map
+    // as soon as the occurrence of a given key is > 1
+    if (this._parameters[parameter]) {
+      if (v === undefined) {
+        delete this._parameters[parameter];
+      } else if (Array.isArray(v)) {
+        this._parameters[parameter] = v.map((obj) => String(obj));
+      } else {
+        const currentValue = this._parameters[parameter];
+        if (Array.isArray(currentValue)) {
+          currentValue.push(String(v));
+        } else {
+          const newArrayValue = [];
+          newArrayValue.push(currentValue);
+          newArrayValue.push(String(v));
+          this._parameters[parameter] = newArrayValue;
+        }
+      }
+    } else {
+      if (v) {
+        if (Array.isArray(v)) {
+          this._parameters[parameter] = v.map((obj) => String(obj));
+        } else {
+          this._parameters[parameter] = String(v);
+        }
+      }
+    }
+    return this;
+  }
+
+  /**
+   * The data to use in the request.
+   *
+   * If `undefined` is passed, the data will be cleared.
+   * @param data the data
+   */
+  public setData(data?: any) {
+    this._data = data;
+    return this;
+  }
+}
+// tslint:enable:completed-docs variable-name whitespace
+
 /**
  * Options to be used when making HTTP ReST calls.
  * @module OnmsHTTPOptions
  */
 export class OnmsHTTPOptions {
-  /** How long to wait for ReST calls to time out. */
-  public get timeout(): number {
-    if (this[TIMEOUT_PROP]) {
-      return this[TIMEOUT_PROP];
-    }
-    return DEFAULT_TIMEOUT;
+  /**
+   * Create a new builder for an [[OnmsHTTPOptions]] object.
+   * @param options if an existing options object is passed, the builder will be pre-populated
+   */
+  public static newBuilder(options?: OnmsHTTPOptions) {
+    return new OnmsHTTPOptionsBuilder(options);
   }
 
-  public set timeout(t: number) {
-    this[TIMEOUT_PROP] = t;
+  /** How long to wait for ReST calls to time out. */
+  public get timeout(): number | undefined {
+    return this[TIMEOUT_PROP] || undefined;
   }
 
   /** The authentication config that should be used. */
-  public get auth(): OnmsAuthConfig {
-    if (this[AUTH_PROP]) {
-      return this[AUTH_PROP];
+  public get auth(): OnmsAuthConfig | undefined {
+    const auth = this[AUTH_PROP];
+    if (auth !== null && auth !== undefined) {
+      return auth;
     }
     if (this.server && this.server.auth) {
       return this.server.auth;
     }
-    return {} as OnmsAuthConfig;
+    return undefined;
   }
 
-  public set auth(a: OnmsAuthConfig) {
-    this[AUTH_PROP] = a;
-  }
-
-  /** The server to use if no server is set on the HTTP implementation. */
-  public server?: OnmsServer | null;
+  /** The server to use instead of that provided by the HTTP implementation. */
+  public readonly server: OnmsServer | null;
 
   /** HTTP headers to be passed to the request. */
-  public headers = {} as IHash<string>;
+  public readonly headers = {} as IHash<string>;
 
   /** HTTP parameters to be passed on the URL. */
-  public parameters = {} as IHash<string | string[]>;
+  public readonly parameters = {} as IHash<string | string[]>;
 
   /** HTTP data to be passed when POSTing */
-  public data: any;
+  public readonly data: any;
 
   /**
    * The default timeout associated with these options.
@@ -57,7 +290,7 @@ export class OnmsHTTPOptions {
    * This is a trick for making sure serialization to JSON happens properly
    * without exposing internals.
    */
-  private [TIMEOUT_PROP]: number;
+  private readonly [TIMEOUT_PROP]: number | null;
 
   /**
    * The default authentication credentials associated with these options.
@@ -65,54 +298,41 @@ export class OnmsHTTPOptions {
    * This is a trick for making sure serialization to JSON happens properly
    * without exposing internals.
    */
-  private [AUTH_PROP]: OnmsAuthConfig;
+  private readonly [AUTH_PROP]: OnmsAuthConfig | null;
 
   /**
    * Construct a new OnmsHTTPOptions object.
    * @constructor
    */
-  constructor(timeout?: number, auth?: OnmsAuthConfig, server?: OnmsServer) {
-    this.timeout = timeout || DEFAULT_TIMEOUT;
-    this.auth = auth || new OnmsAuthConfig();
+  constructor(
+    timeout?: number,
+    server?: OnmsServer,
+    auth?: OnmsAuthConfig,
+    headers?: IHash<string>,
+    parameters?: IHash<string | string[]>,
+    data?: any,
+  ) {
+    this[TIMEOUT_PROP] = timeout || DEFAULT_TIMEOUT;
     this.server = server || null;
-  }
-
-  /**
-   * Add a URL parameter. Returns the OnmsHTTPOptions object so it can be chained.
-   * @param key - the parameter's key
-   * @param value - the parameter's value
-   */
-  public withParameter(key: string, value?: any): OnmsHTTPOptions {
-    if (value !== undefined) {
-      // Since parameters can be repeated an arbitrary number of times we will store them in an array in the map
-      // as soon as the occurrence of a given key is > 1
-      if (this.parameters[key]) {
-        const currentValue = this.parameters[key];
-        if (Array.isArray(currentValue)) {
-          currentValue.push('' + value);
-        } else {
-          const newArrayValue = [];
-          newArrayValue.push(currentValue);
-          newArrayValue.push(value);
-          this.parameters[key] = newArrayValue;
-        }
-      } else {
-        this.parameters[key] = '' + value;
-      }
+    this[AUTH_PROP] = null;
+    if (server && auth && auth !== server.auth) {
+      this[AUTH_PROP] = auth;
     }
-    return this;
+    this.headers = headers || {} as IHash<string>;
+    this.parameters = parameters || {} as IHash<string | string[]>;
+    this.data = data;
   }
 
   /**
    * Convert the options to a plain JSON object.
    */
   public toJSON(): object {
-    const ret = Object.assign({}, this);
+    const ret = Object.assign({} as any, this);
     if (this[TIMEOUT_PROP]) {
-      ret.timeout = this.timeout;
+      ret.timeout = this[TIMEOUT_PROP];
     }
     if (this[AUTH_PROP]) {
-      ret.auth = this.auth;
+      ret.auth = this[AUTH_PROP];
     }
     return ret;
   }

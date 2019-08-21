@@ -22,22 +22,24 @@ import {MockHTTP21} from '../rest/MockHTTP21';
 // tslint:disable-next-line
 const moment = require('moment');
 
-const SERVER_NAME='Demo';
-const SERVER_URL='http://demo.opennms.org/opennms/';
-const SERVER_USER='demo';
-const SERVER_PASSWORD='demo';
+const SERVER_NAME = 'Demo';
+const SERVER_URL = 'http://demo.opennms.org/opennms/';
+const SERVER_USER = 'demo';
+const SERVER_PASSWORD = 'demo';
 
-let opennms : Client, server, auth, mockHTTP, dao : NodeDAO;
+let opennms: Client, server, auth, mockHTTP, dao: NodeDAO;
 
 describe('NodeDAO with v1 API', () => {
   beforeEach((done) => {
     auth = new OnmsAuthConfig(SERVER_USER, SERVER_PASSWORD);
-    server = new OnmsServer(SERVER_NAME, SERVER_URL, auth);
+    const builder = OnmsServer.newBuilder(SERVER_URL).setName(SERVER_NAME).setAuth(auth);
+    server = builder.build();
     mockHTTP = new MockHTTP19(server);
     opennms = new Client(mockHTTP);
     dao = new NodeDAO(mockHTTP);
     Client.getMetadata(server, mockHTTP).then((metadata) => {
-      server.metadata = metadata;
+      server = builder.setMetadata(metadata).build();
+      mockHTTP.server = server;
       done();
     });
   });
@@ -96,12 +98,14 @@ describe('NodeDAO with v1 API', () => {
 describe('NodeDAO with v2 API', () => {
   beforeEach((done) => {
     auth = new OnmsAuthConfig(SERVER_USER, SERVER_PASSWORD);
-    server = new OnmsServer(SERVER_NAME, SERVER_URL, auth);
+    const builder = OnmsServer.newBuilder(SERVER_URL).setName(SERVER_NAME).setAuth(auth);
+    server = builder.build();
     mockHTTP = new MockHTTP21(server);
     opennms = new Client(mockHTTP);
     dao = new NodeDAO(mockHTTP);
     Client.getMetadata(server, mockHTTP).then((metadata) => {
-      server.metadata = metadata;
+      server = builder.setMetadata(metadata).build();
+      mockHTTP.server = server;
       done();
     });
   });
@@ -143,7 +147,7 @@ describe('NodeDAO with v2 API', () => {
       expect(ip.snmpInterface).toBeUndefined();
     });
   });
-  /** find is currently broken in v2
+  /* find is currently broken in v2
   it('NodeDAO.find(id=81)', () => {
     const filter = new Filter();
     filter.withOrRestriction(new Restriction('id', Comparators.EQ, 81));

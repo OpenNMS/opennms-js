@@ -61,8 +61,8 @@ export class AxiosHTTP extends AbstractHTTP {
 
     return this.getImpl(options).request(opts).then((response) => {
       let type;
-      if (response.headers && response.headers['content-type']) {
-        type = response.headers['content-type'];
+      if (response.headers && response.headers['Content-Type']) {
+        type = response.headers['Content-Type'];
       }
       return OnmsResult.ok(this.getData(response), undefined, response.status, type);
     }).catch((err) => {
@@ -86,8 +86,8 @@ export class AxiosHTTP extends AbstractHTTP {
 
     return this.getImpl(options).request(opts).then((response) => {
       let type;
-      if (response.headers && response.headers['content-type']) {
-        type = response.headers['content-type'];
+      if (response.headers && response.headers['Content-Type']) {
+        type = response.headers['Content-Type'];
       }
       return OnmsResult.ok(this.getData(response), undefined, response.status, type);
     }).catch((err) => {
@@ -112,8 +112,8 @@ export class AxiosHTTP extends AbstractHTTP {
 
     return this.getImpl(options).request(opts).then((response) => {
       let type;
-      if (response.headers && response.headers['content-type']) {
-        type = response.headers['content-type'];
+      if (response.headers && response.headers['Content-Type']) {
+        type = response.headers['Content-Type'];
       }
       return OnmsResult.ok(this.getData(response), undefined, response.status, type);
     }).catch((err) => {
@@ -137,8 +137,8 @@ export class AxiosHTTP extends AbstractHTTP {
 
     return this.getImpl(options).request(opts).then((response) => {
       let type;
-      if (response.headers && response.headers['content-type']) {
-        type = response.headers['content-type'];
+      if (response.headers && response.headers['Content-Type']) {
+        type = response.headers['Content-Type'];
       }
       return OnmsResult.ok(this.getData(response), undefined, response.status, type);
     }).catch((err) => {
@@ -162,8 +162,8 @@ export class AxiosHTTP extends AbstractHTTP {
 
     return this.getImpl(options).request(opts).then((response) => {
         let type;
-        if (response.headers && response.headers['content-type']) {
-            type = response.headers['content-type'];
+        if (response.headers && response.headers['Content-Type']) {
+            type = response.headers['Content-Type'];
         }
         return OnmsResult.ok(this.getData(response), undefined, response.status, type);
     }).catch((err) => {
@@ -209,14 +209,14 @@ export class AxiosHTTP extends AbstractHTTP {
       ret.headers = {};
     }
 
-    if (!ret.headers.accept) {
-      ret.headers.accept = 'application/json';
+    if (!ret.headers.Accept) {
+      ret.headers.Accept = 'application/json';
     }
-    if (!ret.headers['content-type']) {
-      ret.headers['content-type'] = 'application/json;charset=utf-8';
+    if (!ret.headers['Content-Type']) {
+      ret.headers['Content-Type'] = 'application/json;charset=utf-8';
     }
 
-    const type = ret.headers.accept;
+    const type = ret.headers.Accept;
     ret.transformResponse = [];
     if (type === 'application/json') {
       ret.responseType = 'json';

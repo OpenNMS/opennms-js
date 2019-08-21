@@ -7,10 +7,11 @@ import {OnmsError} from '../api/OnmsError';
 import {OnmsHTTPOptions} from '../api/OnmsHTTPOptions';
 import {OnmsResult} from '../api/OnmsResult';
 import {OnmsServer} from '../api/OnmsServer';
+
+import {Util} from '../internal/Util';
+
 import {XmlTransformer} from './XmlTransformer';
 import {JsonTransformer} from './JsonTransformer';
-
-import {cloneDeep} from 'lodash';
 
 /** @hidden */
 const xmlTransformer = new XmlTransformer();
@@ -71,7 +72,7 @@ export abstract class AbstractHTTP implements IOnmsHTTP {
       this.server = server;
     }
     if (timeout) {
-      this.options.timeout = timeout;
+      this.options = OnmsHTTPOptions.newBuilder(this.options).setTimeout(timeout).build();
     }
   }
 
@@ -123,17 +124,17 @@ export abstract class AbstractHTTP implements IOnmsHTTP {
    * @hidden
    */
   protected getType(response: any) {
-    if (response.headers['content-type'] === 'application/json') {
+    if (Util.insensitiveValue('Content-Type', response.headers) === 'application/json') {
       return 'json';
     } else if (response.config.responseType === 'json') {
       return 'json';
-    } else if (response.config.headers.accept === 'application/json') {
+    } else if (Util.insensitiveValue('Accept', response.config.headers) === 'application/json') {
       return 'json';
     } else if (response.responseType === 'json') {
       return 'json';
-    } else if (response.config.headers.accept === 'application/xml') {
+    } else if (Util.insensitiveValue('Accept', response.headers) === 'application/xml') {
       return 'xml';
-    } else if (response.headers['content-type'] === 'application/xml') {
+    } else if (Util.insensitiveValue('Content-Type', response.config.headers) === 'application/xml') {
       return 'xml';
     }
     return 'text';
@@ -160,32 +161,13 @@ export abstract class AbstractHTTP implements IOnmsHTTP {
    * precedence is passed options -> server options -> default options.
    */
   protected getOptions(options?: OnmsHTTPOptions): OnmsHTTPOptions {
-    const ret = new OnmsHTTPOptions();
-    Object.assign(ret, cloneDeep(this.options));
-    Object.assign(ret, cloneDeep(options));
-
-    const server = this.getServer(ret);
-    ret.server = server;
-    if (server && server.auth) {
-      Object.assign(ret.auth, cloneDeep(server.auth));
-    }
-
-    if (!ret.headers) {
-      ret.headers = {};
-    }
-
-    if (!ret.headers.hasOwnProperty('X-Requested-With')) {
-      ret.headers['X-Requested-With'] = 'XMLHttpRequest';
-    }
-
-    if (!ret.headers.accept && !ret.headers.Accept) {
-      ret.headers.accept = 'application/json';
-    }
-    if (!ret.headers['content-type'] && !ret.headers['Content-Type']) {
-      ret.headers['content-type'] = 'application/json;charset=utf-8';
-    }
-
-    return ret;
+    return OnmsHTTPOptions.newBuilder().setServer(this.serverObj || undefined)
+      .merge(this.options)
+      .merge(options)
+      .setDefaultHeader('X-Requested-With', 'XMLHttpRequest')
+      .setDefaultHeader('Accept', 'application/json')
+      .setDefaultHeader('Content-Type', 'application/json;charset=utf-8')
+      .build();
   }
 
   /**
@@ -258,5 +240,4 @@ export abstract class AbstractHTTP implements IOnmsHTTP {
     }
     return undefined;
   }
-
 }

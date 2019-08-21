@@ -6,7 +6,7 @@ import {IFilterProcessor} from '../api/IFilterProcessor';
 import {IFilterVisitor} from '../api/IFilterVisitor';
 import {IValueProvider} from './IValueProvider';
 import {NestedRestriction} from '../api/NestedRestriction';
-import {OnmsHTTPOptions} from '../api/OnmsHTTPOptions';
+import {OnmsHTTPOptions, OnmsHTTPOptionsBuilder} from '../api/OnmsHTTPOptions';
 import {OnmsServer} from '../api/OnmsServer';
 import {Restriction} from '../api/Restriction';
 import {SearchProperty} from '../api/SearchProperty';
@@ -88,9 +88,8 @@ export abstract class AbstractDAO<K, T> extends BaseDAO implements IValueProvide
       }
 
       if  (!this.propertiesCache) {
-        const opts = await this.getOptions();
-        opts.headers.accept = 'application/json';
-        const result = await this.http.get(this.searchPropertyPath(), opts);
+        const opts = (await this.getOptions()).setHeader('Accept', 'application/json');
+        const result = await this.http.get(this.searchPropertyPath(), opts.build());
         this.propertiesCache = this.parseResultList(result, 'searchProperty',
           this.searchPropertyPath(), (prop: any) => this.toSearchProperty(prop));
       }
@@ -106,16 +105,13 @@ export abstract class AbstractDAO<K, T> extends BaseDAO implements IValueProvide
    * @returns {Promise<any>} A promise containing the values.
    */
   public async findValues(propertyId: string, options?: any): Promise<any> {
-    const [property, opts] = await Promise.all([this.searchProperty(propertyId), this.getOptions()]);
+    const [property, defaultOptions] = await Promise.all([this.searchProperty(propertyId), this.getOptions(options)]);
     if (!property || !property.id) {
       throw new OnmsError('Unable to determine property for ID ' + propertyId);
     }
     const path = this.searchPropertyPath() + '/' + property.id;
-    opts.headers.accept = 'application/json';
-    if (options) {
-        Object.assign(opts, options);
-    }
-    const result = await this.http.get(path, opts);
+    const opts = defaultOptions.setHeader('Accept', 'application/json');
+    const result = await this.http.get(path, opts.build());
     return this.parseResultList(result, 'value', path, (value: any) => value);
   }
 
@@ -169,9 +165,11 @@ export abstract class AbstractDAO<K, T> extends BaseDAO implements IValueProvide
       if (visitor.onRestriction) { visitor.onRestriction(restriction); }
     } else if (restriction instanceof NestedRestriction) {
       if (visitor.onNestedRestriction) { visitor.onNestedRestriction(restriction); }
-      restriction.clauses.forEach((c) => {
-        self.visitClause(c, visitor);
-      });
+      if (restriction.clauses) {
+        restriction.clauses.forEach((c) => {
+          self.visitClause(c, visitor);
+        });
+      }
     } else {
       log.warn('Restriction is of an unknown type: ' + JSON.stringify(restriction));
     }
@@ -185,29 +183,33 @@ export abstract class AbstractDAO<K, T> extends BaseDAO implements IValueProvide
   protected visitFilter(filter: Filter, visitor: IFilterVisitor) {
     const self = this;
     if (visitor.onFilter) { visitor.onFilter(filter); }
-    filter.clauses.forEach((clause) => {
-      self.visitClause(clause, visitor);
-    });
+    if (filter.clauses) {
+      filter.clauses.forEach((clause) => {
+        self.visitClause(clause, visitor);
+      });
+    }
   }
 
   /**
    * Create an [[OnmsHTTPOptions]] object for DAO calls given an optional filter.
    * @param filter - the filter to use
    */
-  protected async getOptions(filter?: Filter): Promise<OnmsHTTPOptions> {
-    const options = new OnmsHTTPOptions();
+  protected async getOptions(filter?: Filter): Promise<OnmsHTTPOptionsBuilder> {
+    const builder = OnmsHTTPOptions.newBuilder();
+
     if (this.useJson()) {
-      options.headers.accept = 'application/json';
+      builder.setHeader('Accept', 'application/json');
     } else {
       // always use application/xml in DAO calls when we're not sure how
       // usable JSON output will be.
-      options.headers.accept = 'application/xml';
+      builder.setHeader('Accept', 'application/xml');
     }
     if (filter) {
       const processor = await this.getFilterProcessor();
-      options.parameters = processor.getParameters(filter);
+      builder.setParameters(processor.getParameters(filter));
     }
-    return options;
+
+    return builder;
   }
 
   /**
@@ -232,7 +234,7 @@ export abstract class AbstractDAO<K, T> extends BaseDAO implements IValueProvide
    * Retrieve the API version from the currently configured server.
    */
   protected getApiVersion(): number {
-    if (!this.server || this.server.metadata === undefined) {
+    if (!this.server || this.server.metadata === null) {
       throw new OnmsError('Server meta-data must be populated prior to making DAO calls.');
     }
     return this.server.metadata.apiVersion();

@@ -15,16 +15,16 @@ export class OnmsResult<T> {
   }
 
   /** The data, if any. */
-  public data: T;
+  public readonly data: T;
 
   /** The request type, if any. */
-  public type?: string;
+  public readonly type?: string;
 
   /** The status message associated with this result. */
-  public message?: string;
+  public readonly message?: string;
 
   /** The response code associated with this result. */
-  public code?: number;
+  public readonly code?: number;
 
   /**
    * Construct a new result.

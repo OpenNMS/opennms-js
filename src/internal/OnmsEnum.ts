@@ -5,10 +5,10 @@
  */
 export class OnmsEnum<T> {
   /** the internal index/id */
-  private i: T;
+  private readonly i: T;
 
   /** the type/label */
-  private l: string;
+  private readonly l: string;
 
   /** get the index/id of this enum entry */
   get id() {

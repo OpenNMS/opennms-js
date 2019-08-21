@@ -1,4 +1,4 @@
-declare const await, describe, beforeEach, it, xit, expect, jest;
+declare const describe, beforeEach, it, expect;
 
 import {Client} from '../../src/Client';
 
@@ -22,34 +22,37 @@ import {MockHTTP19} from '../rest/MockHTTP19';
 import {MockHTTP21} from '../rest/MockHTTP21';
 import {MockHTTP23} from '../rest/MockHTTP23';
 
-const SERVER_NAME='Demo';
-const SERVER_URL='http://demo.opennms.org/opennms/';
-const SERVER_USER='demo';
-const SERVER_PASSWORD='demo';
+const SERVER_NAME = 'Demo';
+const SERVER_URL = 'http://demo.opennms.org/opennms/';
+const SERVER_USER = 'demo';
+const SERVER_PASSWORD = 'demo';
 
-let opennms : Client, server, auth, mockHTTP, dao : AlarmDAO;
+let opennms: Client, server, auth, mockHTTP, dao: AlarmDAO;
 
 describe('AlarmDAO with v1 API', () => {
   beforeEach((done) => {
     auth = new OnmsAuthConfig(SERVER_USER, SERVER_PASSWORD);
-    server = new OnmsServer(SERVER_NAME, SERVER_URL, auth);
+    const builder = OnmsServer.newBuilder(SERVER_URL).setName(SERVER_NAME).setAuth(auth);
+    server = builder.build();
     mockHTTP = new MockHTTP19(server);
     opennms = new Client(mockHTTP);
     dao = new AlarmDAO(mockHTTP);
     Client.getMetadata(server, mockHTTP).then((metadata) => {
-      server.metadata = metadata;
+      server = builder.setMetadata(metadata).build();
+      mockHTTP.server = server;
       done();
     });
   });
   it('AlarmDAO.getOptions()', (done) => {
     (dao as any).getOptions().then((opts) => {
-      expect(opts).toMatchObject({});
+      expect(opts.build()).toMatchObject({});
       done();
     });
   });
   it('AlarmDAO.getOptions(isAcknowledged=true)', (done) => {
     const filter = new Filter().withOrRestriction(new Restriction('isAcknowledged', Comparators.EQ, 'true'));
-    (dao as any).getOptions(filter).then((opts) => {
+    (dao as any).getOptions(filter).then((o) => {
+      const opts = o.build();
       expect(opts.parameters).toBeDefined();
       expect(opts.parameters.alarmAckTime).toEqual('notnull');
       done();
@@ -57,7 +60,8 @@ describe('AlarmDAO with v1 API', () => {
   });
   it('AlarmDAO.getOptions(isAcknowledged=false)', (done) => {
     const filter = new Filter().withOrRestriction(new Restriction('isAcknowledged', Comparators.EQ, 'false'));
-    (dao as any).getOptions(filter).then((opts) => {
+    (dao as any).getOptions(filter).then((o) => {
+      const opts = o.build();
       expect(opts.parameters).toBeDefined();
       expect(opts.parameters.alarmAckTime).toEqual('null');
       done();
@@ -65,7 +69,8 @@ describe('AlarmDAO with v1 API', () => {
   });
   it('AlarmDAO.getOptions(isAcknowledged!=true)', (done) => {
     const filter = new Filter().withOrRestriction(new Restriction('isAcknowledged', Comparators.NE, 'true'));
-    (dao as any).getOptions(filter).then((opts) => {
+    (dao as any).getOptions(filter).then((o) => {
+      const opts = o.build();
       expect(opts.parameters).toBeDefined();
       expect(opts.parameters.alarmAckTime).toEqual('null');
       done();
@@ -73,7 +78,8 @@ describe('AlarmDAO with v1 API', () => {
   });
   it('AlarmDAO.getOptions(isAcknowledged!=false)', (done) => {
     const filter = new Filter().withOrRestriction(new Restriction('isAcknowledged', Comparators.NE, 'false'));
-    (dao as any).getOptions(filter).then((opts) => {
+    (dao as any).getOptions(filter).then((o) => {
+      const opts = o.build();
       expect(opts.parameters).toBeDefined();
       expect(opts.parameters.alarmAckTime).toEqual('notnull');
       done();
@@ -141,7 +147,7 @@ describe('AlarmDAO with v1 API', () => {
     });
     it('AlarmDAO.' + method + '(OnmsAlarm(404725))', () => {
       const alarm = new OnmsAlarm();
-      alarm.id=404725;
+      alarm.id = 404725;
       return dao[method](alarm);
     });
   }
@@ -157,7 +163,7 @@ describe('AlarmDAO with v1 API', () => {
   });
   it('AlarmDAO.setTTicketId(alarm=OnmsAlarm(404725), ticketId=abcde)', () => {
     const alarm = new OnmsAlarm();
-    alarm.id=404725;
+    alarm.id = 404725;
     return dao.setTTicketId(alarm, 'abcde');
   });
   it('AlarmDAO.setTTicketState(alarmId=404725, ticketState=RESOLVED)', () => {
@@ -165,7 +171,7 @@ describe('AlarmDAO with v1 API', () => {
   });
   it('AlarmDAO.setTTicketState(alarm=OnmsAlarm(404725), ticketState=RESOLVED)', () => {
     const alarm = new OnmsAlarm();
-    alarm.id=404725;
+    alarm.id = 404725;
     return dao.setTTicketState(alarm, TroubleTicketStates.RESOLVED);
   });
 
@@ -226,24 +232,27 @@ describe('AlarmDAO with v1 API', () => {
 describe('AlarmDAO with v2 API', () => {
   beforeEach((done) => {
     auth = new OnmsAuthConfig(SERVER_USER, SERVER_PASSWORD);
-    server = new OnmsServer(SERVER_NAME, SERVER_URL, auth);
+    const builder = OnmsServer.newBuilder(SERVER_URL).setName(SERVER_NAME).setAuth(auth);
+    server = builder.build();
     mockHTTP = new MockHTTP21(server);
     opennms = new Client(mockHTTP);
     dao = new AlarmDAO(mockHTTP);
     Client.getMetadata(server, mockHTTP).then((metadata) => {
-      server.metadata = metadata;
+      server = builder.setMetadata(metadata).build();
+      mockHTTP.server = server;
       done();
     });
   });
   it('AlarmDAO.getOptions()', (done) => {
     (dao as any).getOptions().then((opts) => {
-      expect(opts).toMatchObject({});
+      expect(opts.build()).toMatchObject({});
       done();
     });
   });
   it('AlarmDAO.getOptions(isAcknowledged=true)', (done) => {
     const filter = new Filter().withOrRestriction(new Restriction('isAcknowledged', Comparators.EQ, 'true'));
-    (dao as any).getOptions(filter).then((opts) => {
+    (dao as any).getOptions(filter).then((o) => {
+      const opts = o.build();
       expect(opts.parameters).toBeDefined();
       expect(opts.parameters._s).toEqual('alarmAckTime!=\u0000');
       done();
@@ -251,7 +260,8 @@ describe('AlarmDAO with v2 API', () => {
   });
   it('AlarmDAO.getOptions(isAcknowledged=false)', (done) => {
     const filter = new Filter().withOrRestriction(new Restriction('isAcknowledged', Comparators.EQ, 'false'));
-    (dao as any).getOptions(filter).then((opts) => {
+    (dao as any).getOptions(filter).then((o) => {
+      const opts = o.build();
       expect(opts.parameters).toBeDefined();
       expect(opts.parameters._s).toEqual('alarmAckTime==\u0000');
       done();
@@ -259,7 +269,8 @@ describe('AlarmDAO with v2 API', () => {
   });
   it('AlarmDAO.getOptions(isAcknowledged!=true)', (done) => {
     const filter = new Filter().withOrRestriction(new Restriction('isAcknowledged', Comparators.NE, 'true'));
-    (dao as any).getOptions(filter).then((opts) => {
+    (dao as any).getOptions(filter).then((o) => {
+      const opts = o.build();
       expect(opts.parameters).toBeDefined();
       expect(opts.parameters._s).toEqual('alarmAckTime==\u0000');
       done();
@@ -267,7 +278,8 @@ describe('AlarmDAO with v2 API', () => {
   });
   it('AlarmDAO.getOptions(isAcknowledged!=false)', (done) => {
     const filter = new Filter().withOrRestriction(new Restriction('isAcknowledged', Comparators.NE, 'false'));
-    (dao as any).getOptions(filter).then((opts) => {
+    (dao as any).getOptions(filter).then((o) => {
+      const opts = o.build();
       expect(opts.parameters).toBeDefined();
       expect(opts.parameters._s).toEqual('alarmAckTime!=\u0000');
       done();
@@ -357,7 +369,7 @@ describe('AlarmDAO with v2 API', () => {
     });
     it('AlarmDAO.' + method + '(OnmsAlarm(404725))', () => {
       const alarm = new OnmsAlarm();
-      alarm.id=404725;
+      alarm.id = 404725;
       return dao[method](alarm);
     });
   }
@@ -373,7 +385,7 @@ describe('AlarmDAO with v2 API', () => {
   });
   it('AlarmDAO.setTTicketId(alarm=OnmsAlarm(404725), ticketId=abcde)', () => {
     const alarm = new OnmsAlarm();
-    alarm.id=404725;
+    alarm.id = 404725;
     return dao.setTTicketId(alarm, 'abcde');
   });
   it('AlarmDAO.setTTicketState(alarmId=404725, ticketState=RESOLVED)', () => {
@@ -381,7 +393,7 @@ describe('AlarmDAO with v2 API', () => {
   });
   it('AlarmDAO.setTTicketState(alarm=OnmsAlarm(404725), ticketState=RESOLVED)', () => {
     const alarm = new OnmsAlarm();
-    alarm.id=404725;
+    alarm.id = 404725;
     return dao.setTTicketState(alarm, TroubleTicketStates.RESOLVED);
   });
 
@@ -426,12 +438,14 @@ describe('AlarmDAO with v2 API', () => {
 describe('AlarmDAO with AlarmSummaryDTO', () => {
   beforeEach((done) => {
     auth = new OnmsAuthConfig(SERVER_USER, SERVER_PASSWORD);
-    server = new OnmsServer(SERVER_NAME, SERVER_URL, auth);
+    const builder = OnmsServer.newBuilder(SERVER_URL).setName(SERVER_NAME).setAuth(auth);
+    server = builder.build();
     mockHTTP = new MockHTTP23(server);
     opennms = new Client(mockHTTP);
     dao = new AlarmDAO(mockHTTP);
     Client.getMetadata(server, mockHTTP).then((metadata) => {
-      server.metadata = metadata;
+      server = builder.setMetadata(metadata).build();
+      mockHTTP.server = server;
       done();
     });
   });
@@ -456,12 +470,14 @@ describe('AlarmDAO with AlarmSummaryDTO', () => {
 describe('Server and property caching', () => {
   beforeEach((done) => {
     auth = new OnmsAuthConfig(SERVER_USER, SERVER_PASSWORD);
-    server = new OnmsServer(SERVER_NAME, SERVER_URL, auth);
+    const builder = OnmsServer.newBuilder(SERVER_URL).setName(SERVER_NAME).setAuth(auth);
+    server = builder.build();
     mockHTTP = new MockHTTP23(server);
     opennms = new Client(mockHTTP);
     dao = new AlarmDAO(mockHTTP);
     Client.getMetadata(server, mockHTTP).then((metadata) => {
-      server.metadata = metadata;
+      server = builder.setMetadata(metadata).build();
+      mockHTTP.server = server;
       done();
     });
   });
@@ -471,17 +487,23 @@ describe('Server and property caching', () => {
     expect(props.length).toEqual(3);
 
     // update the server on the HTTP impl
-    server = new OnmsServer(SERVER_NAME, 'http://demo1.opennms.org/opennms/', auth);
+    const builder = OnmsServer.newBuilder('http://demo1.opennms.org/opennms/').setName(SERVER_NAME).setAuth(auth);
+    server = builder.build();
     mockHTTP.server = server;
-    server.metadata = await Client.getMetadata(server, mockHTTP);
+    let metadata = await Client.getMetadata(server, mockHTTP);
+    server = builder.setMetadata(metadata).build();
+    mockHTTP.server = server;
     props = await dao.searchProperties();
     expect(props).toBeDefined();
     expect(props.length).toEqual(1);
 
     // update the server on the DAO
-    server = new OnmsServer(SERVER_NAME, 'http://demo2.opennms.org/opennms/', auth);
-    dao.server = server;
-    server.metadata = await Client.getMetadata(server, mockHTTP);
+    builder.setUrl('http://demo2.opennms.org/opennms/');
+    server = builder.build();
+    mockHTTP.server = server;
+    metadata = await Client.getMetadata(server, mockHTTP);
+    server = builder.setMetadata(metadata).build();
+    mockHTTP.server = server;
     props = await dao.searchProperties();
     expect(props).toBeDefined();
     expect(props.length).toEqual(2);
@@ -491,12 +513,14 @@ describe('Server and property caching', () => {
 describe('Extended Situation tests', () => {
   beforeEach((done) => {
     auth = new OnmsAuthConfig(SERVER_USER, SERVER_PASSWORD);
-    server = new OnmsServer(SERVER_NAME, SERVER_URL, auth);
+    const builder = OnmsServer.newBuilder(SERVER_URL).setName(SERVER_NAME).setAuth(auth);
+    server = builder.build();
     mockHTTP = new MockHTTP23(server);
     opennms = new Client(mockHTTP);
     dao = new AlarmDAO(mockHTTP);
     Client.getMetadata(server, mockHTTP).then((metadata) => {
-      server.metadata = metadata;
+      server = builder.setMetadata(metadata).build();
+      mockHTTP.server = server;
       done();
     });
   });

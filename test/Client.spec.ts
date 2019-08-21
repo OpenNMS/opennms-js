@@ -9,26 +9,26 @@ import {MockHTTP19} from './rest/MockHTTP19';
 
 import {ServerType, ServerTypes} from '../src/api/ServerType';
 
-const SERVER_NAME='Demo';
-const SERVER_URL='http://demo.opennms.org/opennms/';
-const SERVER_USER='demo';
-const SERVER_PASSWORD='demo';
+const SERVER_NAME = 'Demo';
+const SERVER_URL = 'http://demo.opennms.org/opennms/';
+const SERVER_USER = 'demo';
+const SERVER_PASSWORD = 'demo';
 
-let opennms : Client, server, auth, mockHTTP;
+let opennms: Client, server, auth, mockHTTP;
 
 describe('Given an instance of OpenNMS...', () => {
   beforeEach(() => {
     mockHTTP = new MockHTTP19();
     opennms = new Client(mockHTTP);
     auth = new OnmsAuthConfig(SERVER_USER, SERVER_PASSWORD);
-    server = new OnmsServer(SERVER_NAME, SERVER_URL, auth);
+    server = OnmsServer.newBuilder(SERVER_URL).setName(SERVER_NAME).setAuth(auth).build();
   });
   describe('when I have a default OpenNMS object', () => {
     it('it should have no server', () => {
-      expect((<any>opennms).server).toBeUndefined();
+      expect((opennms as any).server).toBeUndefined();
     });
     it('it should pass when checkServer is called on a valid server', () => {
-      let ret = Client.checkServer(server, mockHTTP);
+      const ret = Client.checkServer(server, mockHTTP);
       expect(ret).toBeDefined();
       return ret.then((result) => {
         expect(result).toBeDefined();
@@ -36,7 +36,7 @@ describe('Given an instance of OpenNMS...', () => {
       });
     });
     it('it should return a metadata object when getMetadata is called on a valid server', () => {
-      let ret = Client.getMetadata(server, mockHTTP);
+      const ret = Client.getMetadata(server, mockHTTP);
       expect(ret).toBeDefined();
       return ret.then((result) => {
         expect(result).toBeDefined();
@@ -51,8 +51,9 @@ describe('Given an instance of OpenNMS...', () => {
       return ret.then((result) => {
         expect(result).toBeDefined();
         expect(result).toBeInstanceOf(Client);
-        expect(result.server).toBeInstanceOf(OnmsServer);
-        expect(result.server.metadata).toBeInstanceOf(ServerMetadata);
+        expect(result.http).toBeDefined();
+        expect(result.http.server).toBeInstanceOf(OnmsServer);
+        expect(result.http.server.metadata).toBeInstanceOf(ServerMetadata);
       });
     });
   });

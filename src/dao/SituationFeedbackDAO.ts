@@ -26,9 +26,8 @@ export class SituationFeedbackDAO extends BaseDAO {
    * @return An array of [[OnmsSituationFeedback]] objects.
    */
   public async getFeedback(situationId: number): Promise<OnmsSituationFeedback[]> {
-    const options = new OnmsHTTPOptions();
-    options.headers.accept = 'application/json';
-    return this.http.get(this.pathToEndpoint() + '/' + situationId, options).then((result) => {
+    const builder = OnmsHTTPOptions.newBuilder().setHeader('Accept', 'application/json');
+    return this.http.get(this.pathToEndpoint() + '/' + situationId, builder.build()).then((result) => {
       const data = this.getData(result);
       if (!Array.isArray(data)) {
         if (!data) {
@@ -47,9 +46,8 @@ export class SituationFeedbackDAO extends BaseDAO {
    * @param prefix the prefix associated with the tags
    */
   public async getTags(prefix: string): Promise<string[]> {
-    const options = new OnmsHTTPOptions();
-    options.headers.accept = 'application/json';
-    return this.http.get(this.pathToEndpoint() + '/tags?prefix=' + prefix, options).then((result) => {
+    const builder = OnmsHTTPOptions.newBuilder().setHeader('Accept', 'application/json');
+    return this.http.get(this.pathToEndpoint() + '/tags?prefix=' + prefix, builder.build()).then((result) => {
       const data = result.data;
       if (!Array.isArray(data)) {
         if (!data) {
@@ -130,11 +128,11 @@ export class SituationFeedbackDAO extends BaseDAO {
    * @hidden
    */
   private async post(url: string, data: any): Promise<void> {
-    const options = new OnmsHTTPOptions();
-    options.headers['content-type'] = 'application/json';
-    options.headers.accept = 'application/json';
-    options.data = data;
-    return this.http.post(url, options).then((result) => {
+    const builder = OnmsHTTPOptions.newBuilder()
+      .setHeader('Content-Type', 'application/json')
+      .setHeader('Accept', 'application/json')
+      .setData(data);
+    return this.http.post(url, builder.build()).then((result) => {
       if (!result.isSuccess) {
         throw result;
       }

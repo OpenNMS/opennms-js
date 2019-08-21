@@ -17,7 +17,7 @@ export class SearchPropertyType extends OnmsEnum<string> {
   }
 
   /** supported comparators. */
-  private comparators: Comparator[];
+  private readonly  comparators: Comparator[];
 
   constructor(id: string, label: string, someComparators: Comparator[]) {
     super(id, label);

@@ -3,8 +3,8 @@ import {log} from './api/Log';
 import {IHasHTTP} from './api/IHasHTTP';
 import {IOnmsHTTP} from './api/IOnmsHTTP';
 
-import {OnmsHTTPOptions} from './api/OnmsHTTPOptions';
 import {OnmsError} from './api/OnmsError';
+import {OnmsHTTPOptions} from './api/OnmsHTTPOptions';
 import {OnmsVersion} from './api/OnmsVersion';
 import {ServerTypes} from './api/ServerType';
 import {TicketerConfig} from './api/TicketerConfig';
@@ -20,6 +20,7 @@ import {NodeDAO} from './dao/NodeDAO';
 import {SituationFeedbackDAO} from './dao/SituationFeedbackDAO';
 
 import {AxiosHTTP} from './rest/AxiosHTTP';
+import { OnmsAuthConfig } from './api/OnmsAuthConfig';
 
 /**
  * The OpenNMS client.  This is the primary interface to OpenNMS servers.
@@ -34,18 +35,20 @@ export class Client implements IHasHTTP {
    * @param timeout - how long to wait before giving up when making ReST calls
    */
   public static async checkServer(server: OnmsServer, httpImpl?: IOnmsHTTP, timeout?: number): Promise<boolean> {
-    const opts = new OnmsHTTPOptions(timeout, server.auth, server);
     if (!httpImpl) {
       if (!Client.defaultHttp) {
         throw new OnmsError('No HTTP implementation is configured!');
       }
-      httpImpl = Client.defaultHttp;
+      httpImpl = new Client.defaultHttp();
     }
-    opts.headers.accept = 'text/plain';
 
     const infoUrl = server.resolveURL('rest/alarms/count');
-    log.debug('checkServer: checking URL: ' + infoUrl);
-    await httpImpl.get(infoUrl, opts);
+
+    const builder = OnmsHTTPOptions.newBuilder()
+      .setTimeout(timeout)
+      .setServer(server)
+      .setHeader('Accept', 'text/plain');
+    await httpImpl.get(infoUrl, builder.build());
     return true;
   }
 
@@ -57,50 +60,46 @@ export class Client implements IHasHTTP {
    * @param httpImpl - the [[IOnmsHTTP]] implementation to use
    * @param timeout - how long to wait before giving up when making ReST calls
    */
-  public static async getMetadata(server: OnmsServer, httpImpl?: IOnmsHTTP, timeout?: number):
-    Promise<ServerMetadata> {
-    const opts = new OnmsHTTPOptions(timeout, server.auth, server);
-    opts.headers.accept = 'application/json';
+  public static async getMetadata(server: OnmsServer, httpImpl?: IOnmsHTTP, timeout?: number): Promise<ServerMetadata> {
     if (!httpImpl) {
       if (!Client.defaultHttp) {
-        throw new OnmsError('No default HTTP implementation is configured!');
+        throw new OnmsError('No HTTP implementation is configured!');
       }
-      httpImpl = Client.defaultHttp;
-    }
-    if (!timeout && httpImpl && httpImpl.options && httpImpl.options.timeout) {
-      opts.timeout = httpImpl.options.timeout;
+      httpImpl = new Client.defaultHttp();
     }
 
     const infoUrl = server.resolveURL('rest/info');
-    log.debug('getMetadata: checking URL: ' + infoUrl);
 
-    const response = await httpImpl.get(infoUrl, opts);
+    const builder = OnmsHTTPOptions.newBuilder()
+      .setServer(server)
+      .setTimeout(timeout)
+      .setHeader('Accept', 'application/json');
+    if (!timeout && httpImpl && httpImpl.options && httpImpl.options.timeout) {
+      builder.setTimeout(httpImpl.options.timeout);
+    }
+
+    const response = await httpImpl.get(infoUrl, builder.build());
     const version = new OnmsVersion(response.data.version, response.data.displayVersion);
-    const metadata = new ServerMetadata(version);
+    let type = ServerTypes.HORIZON;
     if (response.data.packageName) {
       if (response.data.packageName.toLowerCase() === 'meridian') {
-        metadata.type = ServerTypes.MERIDIAN;
+        type = ServerTypes.MERIDIAN;
       }
     }
-    if (metadata.ticketer()) {
-      metadata.ticketerConfig = new TicketerConfig();
-      metadata.ticketerConfig.enabled = false;
-      if (response.data.ticketerConfig) {
-          metadata.ticketerConfig.plugin = response.data.ticketerConfig.plugin;
-          metadata.ticketerConfig.enabled = response.data.ticketerConfig.enabled === true;
-      }
+
+    if (response.data.ticketerConfig) {
+      const config = response.data.ticketerConfig;
+      return new ServerMetadata(version, type, new TicketerConfig(config.plugin, config.enabled));
     }
-    return metadata;
+
+    return new ServerMetadata(version, type);
   }
 
   /** The default OnmsHTTP implementation to be used when making requests */
-  private static defaultHttp: IOnmsHTTP;
+  private static readonly defaultHttp = AxiosHTTP;
 
   /** the OnmsHTTP implementation that will be used when making requests */
   public http: IOnmsHTTP;
-
-  /** The remote server to connect to */
-  public server?: OnmsServer;
 
   /**
    * A cache of initialized DAOs, kept until server configuration changes
@@ -110,40 +109,40 @@ export class Client implements IHasHTTP {
 
   /**
    * Construct a new OpenNMS client.
+   *
+   * If no `httpImpl` parameter is provided, the class in `Client.defaultHttp` will be used by default.
+   * Unless overridden, this defaults to [[AxiosHTTP]].
+   *
    * @constructor
-   * @param httpImpl - The OnmsHTTP implementation to use. Normally
-   *        this will automatically choose the best implementation
-   *        based on the environment.
+   * @param httpImpl - The IOnmsHTTP implementation to use.
    */
   constructor(httpImpl?: IOnmsHTTP) {
-    if (httpImpl) {
-      Client.defaultHttp = httpImpl;
-    } else {
-      Client.defaultHttp = new AxiosHTTP();
-    }
-    this.http = Client.defaultHttp;
+    this.http = httpImpl || new Client.defaultHttp();
   }
 
   /**
-   * Connect to an OpenNMS server, check what capabilities it has, and return an [[OnmsServer]]
-   * for that connection.
+   * Connect to an OpenNMS server.
+   *
+   * NOTE: This method will connect to the server using the provided
+   * information, get the server metadata, and then _assign_ that
+   * server to the _existing_ [[IOnmsHTTP]] implementation associated
+   * with this client (or the default impl, if one has not yet been provided).
    */
   public async connect(name: string, url: string, username: string, password: string, timeout?: number) {
-    const self = this;
-    const server = new OnmsServer(name, url, username, password);
+    const builder = OnmsServer.newBuilder()
+      .setName(name)
+      .setUrl(url)
+      .setAuth(new OnmsAuthConfig(username, password));
+    const testServer = builder.build();
 
-    await Client.checkServer(server, undefined, timeout);
-    server.metadata = await Client.getMetadata(server, undefined, timeout);
+    // first check the server; throws if it can't connect
+    await Client.checkServer(testServer, this.http, timeout);
 
-    if (!self.http) {
-      self.http = Client.defaultHttp;
-    }
-    if (!self.http.server) {
-      self.http.server = server;
-    }
-    self.server = server;
+    // then retrieve the server metadata and update to the hydrated version of the server
+    const metadata = await Client.getMetadata(testServer, this.http, timeout);
+    this.http.server = builder.setMetadata(metadata).build();
 
-    return self;
+    return this;
   }
 
   /** Get an alarm DAO for querying alarms. */
@@ -183,7 +182,7 @@ export class Client implements IHasHTTP {
   ) {
     const existing = this.daos.get(key);
     if (existing) {
-      if (existing.server && existing.server.equals(this.server)) {
+      if (existing.server && existing.server.equals(this.http.server)) {
         return existing;
       }
     }

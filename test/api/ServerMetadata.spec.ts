@@ -1,14 +1,11 @@
 declare const describe, beforeEach, it, expect;
 
-import {ServerType, ServerTypes} from '../../src/api/ServerType';
-import {OnmsVersion} from '../../src/api/OnmsVersion';
+import {ServerTypes} from '../../src/api/ServerType';
 import {ServerMetadata} from '../../src/api/ServerMetadata';
-
-let metadata;
 
 const expectedResults = {
   '0.0.0': {
-    newObject: ['0.0.0', undefined],
+    newObject: { version: '0.0.0', type: undefined },
     tests: {
       capabilities: {
         ackAlarms: false,
@@ -21,7 +18,7 @@ const expectedResults = {
     },
   },
   '14.0.3': {
-    newObject: ['14.0.3', undefined],
+    newObject: { version: '14.0.3', type: undefined },
     tests: {
       capabilities: {
         ackAlarms: true,
@@ -34,7 +31,7 @@ const expectedResults = {
     },
   },
   '15.0.0': {
-    newObject: ['15.0.0', undefined],
+    newObject: { version: '15.0.0', type: undefined },
     tests: {
       capabilities: {
         ackAlarms: true,
@@ -47,7 +44,7 @@ const expectedResults = {
     },
   },
   '15.0.2': {
-    newObject: ['15.0.2', undefined],
+    newObject: { version: '15.0.2', type: undefined },
     tests: {
       capabilities: {
         ackAlarms: true,
@@ -60,7 +57,7 @@ const expectedResults = {
     },
   },
   '16.0.0': {
-    newObject: ['16.0.0', undefined],
+    newObject: { version: '16.0.0', type: undefined },
     tests: {
       capabilities: {
         ackAlarms: true,
@@ -73,7 +70,7 @@ const expectedResults = {
     },
   },
   '2015.1.0': {
-    newObject: ['2015.1.0', ServerTypes.MERIDIAN],
+    newObject: { version: '2015.1.0', type: ServerTypes.MERIDIAN },
     tests: {
       capabilities: {
         ackAlarms: true,
@@ -86,7 +83,7 @@ const expectedResults = {
     },
   },
   '2016.1.5': {
-    newObject: ['2016.1.5', ServerTypes.MERIDIAN],
+    newObject: { version: '2016.1.5', type: ServerTypes.MERIDIAN },
     tests: {
       capabilities: {
         ackAlarms: true,
@@ -99,7 +96,7 @@ const expectedResults = {
     },
   },
   '21.0.0': {
-    newObject: ['21.0.0', undefined],
+    newObject: { version: '21.0.0', type: undefined },
     tests: {
       capabilities: {
         ackAlarms: true,
@@ -113,15 +110,15 @@ const expectedResults = {
   },
 };
 
-for (let ver in expectedResults) {
-  let suite = expectedResults[ver];
+for (const [ver, suite] of Object.entries(expectedResults)) {
+  const typeString = (suite.newObject.type === undefined ? 'undefined' : suite.newObject.type.toString());
+  const expectedTypeString = (suite.tests.serverType === undefined ? 'undefined' : suite.tests.serverType.toString());
 
-  let typeString = (suite.newObject[1] === undefined? 'undefined' : suite.newObject[1].toString());
-  let expectedTypeString = (suite.tests.serverType === undefined? 'undefined' : suite.tests.serverType.toString());
+  let metadata;
 
-  describe('new ServerMetadata("' + suite.newObject[0] + '", ' + typeString + ')', () => {
+  describe('new ServerMetadata("' + suite.newObject.version + '", ' + typeString + ')', () => {
     beforeEach(() => {
-      metadata = new ServerMetadata(suite.newObject[0], suite.newObject[1]);
+      metadata = new ServerMetadata(suite.newObject.version, suite.newObject.type);
     });
 
     it('it should have a version of "' + ver + '"', () => {
@@ -131,9 +128,8 @@ for (let ver in expectedResults) {
       expect(metadata.type).toEqual(suite.tests.serverType);
     });
     describe('capabilities', () => {
-      for (let cap in suite.tests.capabilities) {
-        let match = suite.tests.capabilities[cap];
-        it((match? 'has':'no') + ' ' + cap, () => expect(metadata[cap]()).toBe(match));
+      for (const [cap, match] of Object.entries(suite.tests.capabilities)) {
+        it((match ? 'has' : 'no') + ' ' + cap, () => expect(metadata[cap]()).toBe(match));
       }
     });
   });
