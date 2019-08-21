@@ -104,15 +104,15 @@
 						<section class="tsd-index-section ">
 							<h3>Accessors</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-accessor tsd-parent-kind-class"><a href="onmshttpoptions.html#auth" class="tsd-kind-icon">auth</a></li>
-								<li class="tsd-kind-accessor tsd-parent-kind-class"><a href="onmshttpoptions.html#timeout" class="tsd-kind-icon">timeout</a></li>
+								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="onmshttpoptions.html#auth" class="tsd-kind-icon">auth</a></li>
+								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="onmshttpoptions.html#timeout" class="tsd-kind-icon">timeout</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
 							<h3>Methods</h3>
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="onmshttpoptions.html#tojson" class="tsd-kind-icon">toJSON</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class"><a href="onmshttpoptions.html#withparameter" class="tsd-kind-icon">with<wbr>Parameter</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="onmshttpoptions.html#newbuilder" class="tsd-kind-icon">new<wbr>Builder</a></li>
 							</ul>
 						</section>
 					</div>
@@ -124,13 +124,13 @@
 					<a name="constructor" class="tsd-anchor"></a>
 					<h3>constructor</h3>
 					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">new <wbr>OnmsHTTPOptions<span class="tsd-signature-symbol">(</span>timeout<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span>, auth<span class="tsd-signature-symbol">?: </span><a href="onmsauthconfig.html" class="tsd-signature-type">OnmsAuthConfig</a>, server<span class="tsd-signature-symbol">?: </span><a href="onmsserver.html" class="tsd-signature-type">OnmsServer</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="onmshttpoptions.html" class="tsd-signature-type">OnmsHTTPOptions</a></li>
+						<li class="tsd-signature tsd-kind-icon">new <wbr>OnmsHTTPOptions<span class="tsd-signature-symbol">(</span>timeout<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span>, server<span class="tsd-signature-symbol">?: </span><a href="onmsserver.html" class="tsd-signature-type">OnmsServer</a>, auth<span class="tsd-signature-symbol">?: </span><a href="onmsauthconfig.html" class="tsd-signature-type">OnmsAuthConfig</a>, headers<span class="tsd-signature-symbol">?: </span><a href="../interfaces/ihash.html" class="tsd-signature-type">IHash</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span>, parameters<span class="tsd-signature-symbol">?: </span><a href="../interfaces/ihash.html" class="tsd-signature-type">IHash</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span>, data<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="onmshttpoptions.html" class="tsd-signature-type">OnmsHTTPOptions</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/5280fae/src/api/OnmsHTTPOptions.ts#L68">api/OnmsHTTPOptions.ts:68</a></li>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/0b276f3/src/api/OnmsHTTPOptions.ts#L301">api/OnmsHTTPOptions.ts:301</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -148,10 +148,19 @@
 									<h5><span class="tsd-flag ts-flagOptional">Optional</span> timeout: <span class="tsd-signature-type">number</span></h5>
 								</li>
 								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> server: <a href="onmsserver.html" class="tsd-signature-type">OnmsServer</a></h5>
+								</li>
+								<li>
 									<h5><span class="tsd-flag ts-flagOptional">Optional</span> auth: <a href="onmsauthconfig.html" class="tsd-signature-type">OnmsAuthConfig</a></h5>
 								</li>
 								<li>
-									<h5><span class="tsd-flag ts-flagOptional">Optional</span> server: <a href="onmsserver.html" class="tsd-signature-type">OnmsServer</a></h5>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> headers: <a href="../interfaces/ihash.html" class="tsd-signature-type">IHash</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></h5>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> parameters: <a href="../interfaces/ihash.html" class="tsd-signature-type">IHash</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></h5>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> data: <span class="tsd-signature-type">any</span></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="onmshttpoptions.html" class="tsd-signature-type">OnmsHTTPOptions</a></h4>
@@ -164,11 +173,11 @@
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
 					<a name="__computed" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagPrivate">Private</span> __computed</h3>
-					<div class="tsd-signature tsd-kind-icon">__computed<span class="tsd-signature-symbol">:</span> <a href="onmsauthconfig.html" class="tsd-signature-type">OnmsAuthConfig</a></div>
+					<div class="tsd-signature tsd-kind-icon">__computed<span class="tsd-signature-symbol">:</span> <a href="onmsauthconfig.html" class="tsd-signature-type">OnmsAuthConfig</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/5280fae/src/api/OnmsHTTPOptions.ts#L60">api/OnmsHTTPOptions.ts:60</a></li>
-							<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/5280fae/src/api/OnmsHTTPOptions.ts#L68">api/OnmsHTTPOptions.ts:68</a></li>
+							<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/0b276f3/src/api/OnmsHTTPOptions.ts#L293">api/OnmsHTTPOptions.ts:293</a></li>
+							<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/0b276f3/src/api/OnmsHTTPOptions.ts#L301">api/OnmsHTTPOptions.ts:301</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -188,7 +197,7 @@
 					<div class="tsd-signature tsd-kind-icon">data<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/5280fae/src/api/OnmsHTTPOptions.ts#L52">api/OnmsHTTPOptions.ts:52</a></li>
+							<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/0b276f3/src/api/OnmsHTTPOptions.ts#L285">api/OnmsHTTPOptions.ts:285</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -203,7 +212,7 @@
 					<div class="tsd-signature tsd-kind-icon">headers<span class="tsd-signature-symbol">:</span> <a href="../interfaces/ihash.html" class="tsd-signature-type">IHash</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> =&nbsp;{} as IHash&lt;string&gt;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/5280fae/src/api/OnmsHTTPOptions.ts#L46">api/OnmsHTTPOptions.ts:46</a></li>
+							<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/0b276f3/src/api/OnmsHTTPOptions.ts#L279">api/OnmsHTTPOptions.ts:279</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -218,7 +227,7 @@
 					<div class="tsd-signature tsd-kind-icon">parameters<span class="tsd-signature-symbol">:</span> <a href="../interfaces/ihash.html" class="tsd-signature-type">IHash</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> =&nbsp;{} as IHash&lt;string | string[]&gt;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/5280fae/src/api/OnmsHTTPOptions.ts#L49">api/OnmsHTTPOptions.ts:49</a></li>
+							<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/0b276f3/src/api/OnmsHTTPOptions.ts#L282">api/OnmsHTTPOptions.ts:282</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -229,34 +238,33 @@
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
 					<a name="server" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> server</h3>
+					<h3>server</h3>
 					<div class="tsd-signature tsd-kind-icon">server<span class="tsd-signature-symbol">:</span> <a href="onmsserver.html" class="tsd-signature-type">OnmsServer</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/5280fae/src/api/OnmsHTTPOptions.ts#L43">api/OnmsHTTPOptions.ts:43</a></li>
+							<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/0b276f3/src/api/OnmsHTTPOptions.ts#L276">api/OnmsHTTPOptions.ts:276</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>The server to use if no server is set on the HTTP implementation.</p>
+							<p>The server to use instead of that provided by the HTTP implementation.</p>
 						</div>
 					</div>
 				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Accessors</h2>
-				<section class="tsd-panel tsd-member tsd-kind-accessor tsd-parent-kind-class">
+				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class">
 					<a name="auth" class="tsd-anchor"></a>
 					<h3>auth</h3>
-					<ul class="tsd-signatures tsd-kind-accessor tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> auth<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="onmsauthconfig.html" class="tsd-signature-type">OnmsAuthConfig</a></li>
-						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">set</span> auth<span class="tsd-signature-symbol">(</span>a<span class="tsd-signature-symbol">: </span><a href="onmsauthconfig.html" class="tsd-signature-type">OnmsAuthConfig</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> auth<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="onmsauthconfig.html" class="tsd-signature-type">OnmsAuthConfig</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/5280fae/src/api/OnmsHTTPOptions.ts#L28">api/OnmsHTTPOptions.ts:28</a></li>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/0b276f3/src/api/OnmsHTTPOptions.ts#L264">api/OnmsHTTPOptions.ts:264</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -264,41 +272,24 @@
 									<p>The authentication config that should be used.</p>
 								</div>
 							</div>
-							<h4 class="tsd-returns-title">Returns <a href="onmsauthconfig.html" class="tsd-signature-type">OnmsAuthConfig</a></h4>
-						</li>
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/5280fae/src/api/OnmsHTTPOptions.ts#L38">api/OnmsHTTPOptions.ts:38</a></li>
-								</ul>
-							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>The authentication config that should be used.</p>
-								</div>
-							</div>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>a: <a href="onmsauthconfig.html" class="tsd-signature-type">OnmsAuthConfig</a></h5>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+							<h4 class="tsd-returns-title">Returns <a href="onmsauthconfig.html" class="tsd-signature-type">OnmsAuthConfig</a>
+								<span class="tsd-signature-symbol"> | </span>
+								<span class="tsd-signature-type">undefined</span>
+							</h4>
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-accessor tsd-parent-kind-class">
+				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class">
 					<a name="timeout" class="tsd-anchor"></a>
 					<h3>timeout</h3>
-					<ul class="tsd-signatures tsd-kind-accessor tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> timeout<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span></li>
-						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">set</span> timeout<span class="tsd-signature-symbol">(</span>t<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> timeout<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/5280fae/src/api/OnmsHTTPOptions.ts#L16">api/OnmsHTTPOptions.ts:16</a></li>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/0b276f3/src/api/OnmsHTTPOptions.ts#L259">api/OnmsHTTPOptions.ts:259</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -306,26 +297,10 @@
 									<p>How long to wait for ReST calls to time out.</p>
 								</div>
 							</div>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
-						</li>
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/5280fae/src/api/OnmsHTTPOptions.ts#L23">api/OnmsHTTPOptions.ts:23</a></li>
-								</ul>
-							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>How long to wait for ReST calls to time out.</p>
-								</div>
-							</div>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>t: <span class="tsd-signature-type">number</span></h5>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span>
+								<span class="tsd-signature-symbol"> | </span>
+								<span class="tsd-signature-type">undefined</span>
+							</h4>
 						</li>
 					</ul>
 				</section>
@@ -342,7 +317,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/5280fae/src/api/OnmsHTTPOptions.ts#L109">api/OnmsHTTPOptions.ts:109</a></li>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/0b276f3/src/api/OnmsHTTPOptions.ts#L329">api/OnmsHTTPOptions.ts:329</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -354,40 +329,34 @@
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
-					<a name="withparameter" class="tsd-anchor"></a>
-					<h3>with<wbr>Parameter</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">with<wbr>Parameter<span class="tsd-signature-symbol">(</span>key<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, value<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="onmshttpoptions.html" class="tsd-signature-type">OnmsHTTPOptions</a></li>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-static">
+					<a name="newbuilder" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> new<wbr>Builder</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-static">
+						<li class="tsd-signature tsd-kind-icon">new<wbr>Builder<span class="tsd-signature-symbol">(</span>options<span class="tsd-signature-symbol">?: </span><a href="onmshttpoptions.html" class="tsd-signature-type">OnmsHTTPOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="onmshttpoptionsbuilder.html" class="tsd-signature-type">OnmsHTTPOptionsBuilder</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/5280fae/src/api/OnmsHTTPOptions.ts#L85">api/OnmsHTTPOptions.ts:85</a></li>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/0b276f3/src/api/OnmsHTTPOptions.ts#L254">api/OnmsHTTPOptions.ts:254</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Add a URL parameter. Returns the OnmsHTTPOptions object so it can be chained.</p>
+									<p>Create a new builder for an <a href="onmshttpoptions.html">OnmsHTTPOptions</a> object.</p>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>key: <span class="tsd-signature-type">string</span></h5>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> options: <a href="onmshttpoptions.html" class="tsd-signature-type">OnmsHTTPOptions</a></h5>
 									<div class="tsd-comment tsd-typography">
-										<p>the parameter&#39;s key</p>
-									</div>
-								</li>
-								<li>
-									<h5><span class="tsd-flag ts-flagOptional">Optional</span> value: <span class="tsd-signature-type">any</span></h5>
-									<div class="tsd-comment tsd-typography">
-										<p>the parameter&#39;s value</p>
+										<p>if an existing options object is passed, the builder will be pre-populated</p>
 									</div>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <a href="onmshttpoptions.html" class="tsd-signature-type">OnmsHTTPOptions</a></h4>
+							<h4 class="tsd-returns-title">Returns <a href="onmshttpoptionsbuilder.html" class="tsd-signature-type">OnmsHTTPOptionsBuilder</a></h4>
 						</li>
 					</ul>
 				</section>
@@ -426,17 +395,17 @@
 							<li class=" tsd-kind-property tsd-parent-kind-class">
 								<a href="onmshttpoptions.html#server" class="tsd-kind-icon">server</a>
 							</li>
-							<li class=" tsd-kind-accessor tsd-parent-kind-class">
+							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
 								<a href="onmshttpoptions.html#auth" class="tsd-kind-icon">auth</a>
 							</li>
-							<li class=" tsd-kind-accessor tsd-parent-kind-class">
+							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
 								<a href="onmshttpoptions.html#timeout" class="tsd-kind-icon">timeout</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="onmshttpoptions.html#tojson" class="tsd-kind-icon">toJSON</a>
 							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="onmshttpoptions.html#withparameter" class="tsd-kind-icon">with<wbr>Parameter</a>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static">
+								<a href="onmshttpoptions.html#newbuilder" class="tsd-kind-icon">new<wbr>Builder</a>
 							</li>
 						</ul>
 					</li>

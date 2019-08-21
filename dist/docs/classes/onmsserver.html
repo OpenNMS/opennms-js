@@ -114,6 +114,7 @@
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="onmsserver.html#equals" class="tsd-kind-icon">equals</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="onmsserver.html#resolveurl" class="tsd-kind-icon">resolveURL</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="onmsserver.html#tostring" class="tsd-kind-icon">to<wbr>String</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="onmsserver.html#newbuilder" class="tsd-kind-icon">new<wbr>Builder</a></li>
 							</ul>
 						</section>
 					</div>
@@ -125,13 +126,13 @@
 					<a name="constructor" class="tsd-anchor"></a>
 					<h3>constructor</h3>
 					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">new <wbr>Onms<wbr>Server<span class="tsd-signature-symbol">(</span>name<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span>, url<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span>, auth<span class="tsd-signature-symbol">?: </span><a href="onmsauthconfig.html" class="tsd-signature-type">OnmsAuthConfig</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span>, password<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="onmsserver.html" class="tsd-signature-type">OnmsServer</a></li>
+						<li class="tsd-signature tsd-kind-icon">new <wbr>Onms<wbr>Server<span class="tsd-signature-symbol">(</span>serverBuilder<span class="tsd-signature-symbol">: </span><a href="onmsserverbuilder.html" class="tsd-signature-type">OnmsServerBuilder</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="onmsserver.html" class="tsd-signature-type">OnmsServer</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/5280fae/src/api/OnmsServer.ts#L28">api/OnmsServer.ts:28</a></li>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/0b276f3/src/api/OnmsServer.ts#L123">api/OnmsServer.ts:123</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -143,12 +144,8 @@
 									<dd><caption>provide a pre-existing <a href="onmsauthconfig.html">OnmsAuthConfig</a> for auth</caption>
 										```javascript
 										const server = new OnmsServer('Test', 'https://myserver/opennms/', auth);
-									```</dd>
-									<dt>example</dt>
-									<dd><caption>provide a username and password for auth</caption>
-										```javascript
-										const server = new OnmsServer('Test', 'https://myserver/opennms/', 'admin', 'admin');
-									```</dd>
+										```
+									</dd>
 									<dt>constructor</dt>
 									<dd></dd>
 								</dl>
@@ -156,37 +153,7 @@
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5><span class="tsd-flag ts-flagOptional">Optional</span> name: <span class="tsd-signature-type">string</span></h5>
-									<div class="tsd-comment tsd-typography">
-										<div class="lead">
-											<p>A name for the server suitable for display.</p>
-										</div>
-									</div>
-								</li>
-								<li>
-									<h5><span class="tsd-flag ts-flagOptional">Optional</span> url: <span class="tsd-signature-type">string</span></h5>
-									<div class="tsd-comment tsd-typography">
-										<div class="lead">
-											<p>The URL to the server.</p>
-										</div>
-									</div>
-								</li>
-								<li>
-									<h5><span class="tsd-flag ts-flagOptional">Optional</span> auth: <a href="onmsauthconfig.html" class="tsd-signature-type">OnmsAuthConfig</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span></h5>
-									<div class="tsd-comment tsd-typography">
-										<div class="lead">
-											<p>An <a href="onmsauthconfig.html">OnmsAuthConfig</a>, or the username to authorize as.</p>
-										</div>
-									</div>
-								</li>
-								<li>
-									<h5><span class="tsd-flag ts-flagOptional">Optional</span> password: <span class="tsd-signature-type">string</span></h5>
-									<div class="tsd-comment tsd-typography">
-										<div class="lead">
-											<p>The password to authorize with if a username was
-											supplied to the <code>auth</code> parameter.</p>
-										</div>
-									</div>
+									<h5>serverBuilder: <a href="onmsserverbuilder.html" class="tsd-signature-type">OnmsServerBuilder</a></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="onmsserver.html" class="tsd-signature-type">OnmsServer</a></h4>
@@ -198,11 +165,11 @@
 				<h2>Properties</h2>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
 					<a name="auth" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> auth</h3>
-					<div class="tsd-signature tsd-kind-icon">auth<span class="tsd-signature-symbol">:</span> <a href="onmsauthconfig.html" class="tsd-signature-type">OnmsAuthConfig</a></div>
+					<h3>auth</h3>
+					<div class="tsd-signature tsd-kind-icon">auth<span class="tsd-signature-symbol">:</span> <a href="onmsauthconfig.html" class="tsd-signature-type">OnmsAuthConfig</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/5280fae/src/api/OnmsServer.ts#L25">api/OnmsServer.ts:25</a></li>
+							<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/0b276f3/src/api/OnmsServer.ts#L120">api/OnmsServer.ts:120</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -217,7 +184,7 @@
 					<div class="tsd-signature tsd-kind-icon">id<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/5280fae/src/api/OnmsServer.ts#L16">api/OnmsServer.ts:16</a></li>
+							<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/0b276f3/src/api/OnmsServer.ts#L111">api/OnmsServer.ts:111</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -228,11 +195,11 @@
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
 					<a name="metadata" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> metadata</h3>
-					<div class="tsd-signature tsd-kind-icon">metadata<span class="tsd-signature-symbol">:</span> <a href="servermetadata.html" class="tsd-signature-type">ServerMetadata</a></div>
+					<h3>metadata</h3>
+					<div class="tsd-signature tsd-kind-icon">metadata<span class="tsd-signature-symbol">:</span> <a href="servermetadata.html" class="tsd-signature-type">ServerMetadata</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/5280fae/src/api/OnmsServer.ts#L28">api/OnmsServer.ts:28</a></li>
+							<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/0b276f3/src/api/OnmsServer.ts#L123">api/OnmsServer.ts:123</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -247,7 +214,7 @@
 					<div class="tsd-signature tsd-kind-icon">name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/5280fae/src/api/OnmsServer.ts#L19">api/OnmsServer.ts:19</a></li>
+							<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/0b276f3/src/api/OnmsServer.ts#L114">api/OnmsServer.ts:114</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -258,11 +225,11 @@
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
 					<a name="url" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> url</h3>
+					<h3>url</h3>
 					<div class="tsd-signature tsd-kind-icon">url<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/5280fae/src/api/OnmsServer.ts#L22">api/OnmsServer.ts:22</a></li>
+							<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/0b276f3/src/api/OnmsServer.ts#L117">api/OnmsServer.ts:117</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -284,7 +251,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/5280fae/src/api/OnmsServer.ts#L110">api/OnmsServer.ts:110</a></li>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/0b276f3/src/api/OnmsServer.ts#L200">api/OnmsServer.ts:200</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -309,12 +276,12 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/5280fae/src/api/OnmsServer.ts#L100">api/OnmsServer.ts:100</a></li>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/0b276f3/src/api/OnmsServer.ts#L187">api/OnmsServer.ts:187</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Create a new server object from this existing one.</p>
+									<p>Create a new server object from this existing one, with the same ID.</p>
 								</div>
 							</div>
 							<h4 class="tsd-returns-title">Returns <a href="onmsserver.html" class="tsd-signature-type">OnmsServer</a></h4>
@@ -325,24 +292,24 @@
 					<a name="equals" class="tsd-anchor"></a>
 					<h3>equals</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">equals<span class="tsd-signature-symbol">(</span>that<span class="tsd-signature-symbol">?: </span><a href="onmsserver.html" class="tsd-signature-type">OnmsServer</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
+						<li class="tsd-signature tsd-kind-icon">equals<span class="tsd-signature-symbol">(</span>that<span class="tsd-signature-symbol">?: </span><a href="onmsserver.html" class="tsd-signature-type">OnmsServer</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/5280fae/src/api/OnmsServer.ts#L88">api/OnmsServer.ts:88</a></li>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/0b276f3/src/api/OnmsServer.ts#L179">api/OnmsServer.ts:179</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Deep-checks equality including auth and metadata.</p>
+									<p>Check whether the provided server has the same settings as this one.</p>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5><span class="tsd-flag ts-flagOptional">Optional</span> that: <a href="onmsserver.html" class="tsd-signature-type">OnmsServer</a></h5>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> that: <a href="onmsserver.html" class="tsd-signature-type">OnmsServer</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
@@ -359,7 +326,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/5280fae/src/api/OnmsServer.ts#L66">api/OnmsServer.ts:66</a></li>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/0b276f3/src/api/OnmsServer.ts#L157">api/OnmsServer.ts:157</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -399,7 +366,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/5280fae/src/api/OnmsServer.ts#L118">api/OnmsServer.ts:118</a></li>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/0b276f3/src/api/OnmsServer.ts#L208">api/OnmsServer.ts:208</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -408,6 +375,34 @@
 								</div>
 							</div>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-static">
+					<a name="newbuilder" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> new<wbr>Builder</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-static">
+						<li class="tsd-signature tsd-kind-icon">new<wbr>Builder<span class="tsd-signature-symbol">(</span>url<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="onmsserverbuilder.html" class="tsd-signature-type">OnmsServerBuilder</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/0b276f3/src/api/OnmsServer.ts#L106">api/OnmsServer.ts:106</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Create a new builder for an <a href="onmsserver.html">OnmsServer</a> object.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> url: <span class="tsd-signature-type">string</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="onmsserverbuilder.html" class="tsd-signature-type">OnmsServerBuilder</a></h4>
 						</li>
 					</ul>
 				</section>
@@ -460,6 +455,9 @@
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="onmsserver.html#tostring" class="tsd-kind-icon">to<wbr>String</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static">
+								<a href="onmsserver.html#newbuilder" class="tsd-kind-icon">new<wbr>Builder</a>
 							</li>
 						</ul>
 					</li>

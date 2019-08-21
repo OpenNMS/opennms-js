@@ -42933,6 +42933,516 @@ function plural(ms, msAbs, n, name) {
 
 /***/ }),
 
+/***/ "./node_modules/object-hash/index.js":
+/*!*******************************************!*\
+  !*** ./node_modules/object-hash/index.js ***!
+  \*******************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var crypto = __webpack_require__(/*! crypto */ "crypto");
+/**
+ * Exported function
+ *
+ * Options:
+ *
+ *  - `algorithm` hash algo to be used by this instance: *'sha1', 'md5'
+ *  - `excludeValues` {true|*false} hash object keys, values ignored
+ *  - `encoding` hash encoding, supports 'buffer', '*hex', 'binary', 'base64'
+ *  - `ignoreUnknown` {true|*false} ignore unknown object types
+ *  - `replacer` optional function that replaces values before hashing
+ *  - `respectFunctionProperties` {*true|false} consider function properties when hashing
+ *  - `respectFunctionNames` {*true|false} consider 'name' property of functions for hashing
+ *  - `respectType` {*true|false} Respect special properties (prototype, constructor)
+ *    when hashing to distinguish between types
+ *  - `unorderedArrays` {true|*false} Sort all arrays before hashing
+ *  - `unorderedSets` {*true|false} Sort `Set` and `Map` instances before hashing
+ *  * = default
+ *
+ * @param {object} object value to hash
+ * @param {object} options hashing options
+ * @return {string} hash value
+ * @api public
+ */
+
+
+exports = module.exports = objectHash;
+
+function objectHash(object, options) {
+  options = applyDefaults(object, options);
+  return hash(object, options);
+}
+/**
+ * Exported sugar methods
+ *
+ * @param {object} object value to hash
+ * @return {string} hash value
+ * @api public
+ */
+
+
+exports.sha1 = function (object) {
+  return objectHash(object);
+};
+
+exports.keys = function (object) {
+  return objectHash(object, {
+    excludeValues: true,
+    algorithm: 'sha1',
+    encoding: 'hex'
+  });
+};
+
+exports.MD5 = function (object) {
+  return objectHash(object, {
+    algorithm: 'md5',
+    encoding: 'hex'
+  });
+};
+
+exports.keysMD5 = function (object) {
+  return objectHash(object, {
+    algorithm: 'md5',
+    encoding: 'hex',
+    excludeValues: true
+  });
+}; // Internals
+
+
+var hashes = crypto.getHashes ? crypto.getHashes().slice() : ['sha1', 'md5'];
+hashes.push('passthrough');
+var encodings = ['buffer', 'hex', 'binary', 'base64'];
+
+function applyDefaults(object, options) {
+  options = options || {};
+  options.algorithm = options.algorithm || 'sha1';
+  options.encoding = options.encoding || 'hex';
+  options.excludeValues = options.excludeValues ? true : false;
+  options.algorithm = options.algorithm.toLowerCase();
+  options.encoding = options.encoding.toLowerCase();
+  options.ignoreUnknown = options.ignoreUnknown !== true ? false : true; // default to false
+
+  options.respectType = options.respectType === false ? false : true; // default to true
+
+  options.respectFunctionNames = options.respectFunctionNames === false ? false : true;
+  options.respectFunctionProperties = options.respectFunctionProperties === false ? false : true;
+  options.unorderedArrays = options.unorderedArrays !== true ? false : true; // default to false
+
+  options.unorderedSets = options.unorderedSets === false ? false : true; // default to false
+
+  options.unorderedObjects = options.unorderedObjects === false ? false : true; // default to true
+
+  options.replacer = options.replacer || undefined;
+  options.excludeKeys = options.excludeKeys || undefined;
+
+  if (typeof object === 'undefined') {
+    throw new Error('Object argument required.');
+  } // if there is a case-insensitive match in the hashes list, accept it
+  // (i.e. SHA256 for sha256)
+
+
+  for (var i = 0; i < hashes.length; ++i) {
+    if (hashes[i].toLowerCase() === options.algorithm.toLowerCase()) {
+      options.algorithm = hashes[i];
+    }
+  }
+
+  if (hashes.indexOf(options.algorithm) === -1) {
+    throw new Error('Algorithm "' + options.algorithm + '"  not supported. ' + 'supported values: ' + hashes.join(', '));
+  }
+
+  if (encodings.indexOf(options.encoding) === -1 && options.algorithm !== 'passthrough') {
+    throw new Error('Encoding "' + options.encoding + '"  not supported. ' + 'supported values: ' + encodings.join(', '));
+  }
+
+  return options;
+}
+/** Check if the given function is a native function */
+
+
+function isNativeFunction(f) {
+  if (typeof f !== 'function') {
+    return false;
+  }
+
+  var exp = /^function\s+\w*\s*\(\s*\)\s*{\s+\[native code\]\s+}$/i;
+  return exp.exec(Function.prototype.toString.call(f)) != null;
+}
+
+function hash(object, options) {
+  var hashingStream;
+
+  if (options.algorithm !== 'passthrough') {
+    hashingStream = crypto.createHash(options.algorithm);
+  } else {
+    hashingStream = new PassThrough();
+  }
+
+  if (typeof hashingStream.write === 'undefined') {
+    hashingStream.write = hashingStream.update;
+    hashingStream.end = hashingStream.update;
+  }
+
+  var hasher = typeHasher(options, hashingStream);
+  hasher.dispatch(object);
+  if (!hashingStream.update) hashingStream.end('');
+
+  if (hashingStream.digest) {
+    return hashingStream.digest(options.encoding === 'buffer' ? undefined : options.encoding);
+  }
+
+  var buf = hashingStream.read();
+
+  if (options.encoding === 'buffer') {
+    return buf;
+  }
+
+  return buf.toString(options.encoding);
+}
+/**
+ * Expose streaming API
+ *
+ * @param {object} object  Value to serialize
+ * @param {object} options  Options, as for hash()
+ * @param {object} stream  A stream to write the serializiation to
+ * @api public
+ */
+
+
+exports.writeToStream = function (object, options, stream) {
+  if (typeof stream === 'undefined') {
+    stream = options;
+    options = {};
+  }
+
+  options = applyDefaults(object, options);
+  return typeHasher(options, stream).dispatch(object);
+};
+
+function typeHasher(options, writeTo, context) {
+  context = context || [];
+
+  var write = function (str) {
+    if (writeTo.update) return writeTo.update(str, 'utf8');else return writeTo.write(str, 'utf8');
+  };
+
+  return {
+    dispatch: function (value) {
+      if (options.replacer) {
+        value = options.replacer(value);
+      }
+
+      var type = typeof value;
+
+      if (value === null) {
+        type = 'null';
+      } //console.log("[DEBUG] Dispatch: ", value, "->", type, " -> ", "_" + type);
+
+
+      return this['_' + type](value);
+    },
+    _object: function (object) {
+      var pattern = /\[object (.*)\]/i;
+      var objString = Object.prototype.toString.call(object);
+      var objType = pattern.exec(objString);
+
+      if (!objType) {
+        // object type did not match [object ...]
+        objType = 'unknown:[' + objString + ']';
+      } else {
+        objType = objType[1]; // take only the class name
+      }
+
+      objType = objType.toLowerCase();
+      var objectNumber = null;
+
+      if ((objectNumber = context.indexOf(object)) >= 0) {
+        return this.dispatch('[CIRCULAR:' + objectNumber + ']');
+      } else {
+        context.push(object);
+      }
+
+      if (typeof Buffer !== 'undefined' && Buffer.isBuffer && Buffer.isBuffer(object)) {
+        write('buffer:');
+        return write(object);
+      }
+
+      if (objType !== 'object' && objType !== 'function') {
+        if (this['_' + objType]) {
+          this['_' + objType](object);
+        } else if (options.ignoreUnknown) {
+          return write('[' + objType + ']');
+        } else {
+          throw new Error('Unknown object type "' + objType + '"');
+        }
+      } else {
+        var keys = Object.keys(object);
+
+        if (options.unorderedObjects) {
+          keys = keys.sort();
+        } // Make sure to incorporate special properties, so
+        // Types with different prototypes will produce
+        // a different hash and objects derived from
+        // different functions (`new Foo`, `new Bar`) will
+        // produce different hashes.
+        // We never do this for native functions since some
+        // seem to break because of that.
+
+
+        if (options.respectType !== false && !isNativeFunction(object)) {
+          keys.splice(0, 0, 'prototype', '__proto__', 'constructor');
+        }
+
+        if (options.excludeKeys) {
+          keys = keys.filter(function (key) {
+            return !options.excludeKeys(key);
+          });
+        }
+
+        write('object:' + keys.length + ':');
+        var self = this;
+        return keys.forEach(function (key) {
+          self.dispatch(key);
+          write(':');
+
+          if (!options.excludeValues) {
+            self.dispatch(object[key]);
+          }
+
+          write(',');
+        });
+      }
+    },
+    _array: function (arr, unordered) {
+      unordered = typeof unordered !== 'undefined' ? unordered : options.unorderedArrays !== false; // default to options.unorderedArrays
+
+      var self = this;
+      write('array:' + arr.length + ':');
+
+      if (!unordered || arr.length <= 1) {
+        return arr.forEach(function (entry) {
+          return self.dispatch(entry);
+        });
+      } // the unordered case is a little more complicated:
+      // since there is no canonical ordering on objects,
+      // i.e. {a:1} < {a:2} and {a:1} > {a:2} are both false,
+      // we first serialize each entry using a PassThrough stream
+      // before sorting.
+      // also: we can’t use the same context array for all entries
+      // since the order of hashing should *not* matter. instead,
+      // we keep track of the additions to a copy of the context array
+      // and add all of them to the global context array when we’re done
+
+
+      var contextAdditions = [];
+      var entries = arr.map(function (entry) {
+        var strm = new PassThrough();
+        var localContext = context.slice(); // make copy
+
+        var hasher = typeHasher(options, strm, localContext);
+        hasher.dispatch(entry); // take only what was added to localContext and append it to contextAdditions
+
+        contextAdditions = contextAdditions.concat(localContext.slice(context.length));
+        return strm.read().toString();
+      });
+      context = context.concat(contextAdditions);
+      entries.sort();
+      return this._array(entries, false);
+    },
+    _date: function (date) {
+      return write('date:' + date.toJSON());
+    },
+    _symbol: function (sym) {
+      return write('symbol:' + sym.toString());
+    },
+    _error: function (err) {
+      return write('error:' + err.toString());
+    },
+    _boolean: function (bool) {
+      return write('bool:' + bool.toString());
+    },
+    _string: function (string) {
+      write('string:' + string.length + ':');
+      write(string.toString());
+    },
+    _function: function (fn) {
+      write('fn:');
+
+      if (isNativeFunction(fn)) {
+        this.dispatch('[native]');
+      } else {
+        this.dispatch(fn.toString());
+      }
+
+      if (options.respectFunctionNames !== false) {
+        // Make sure we can still distinguish native functions
+        // by their name, otherwise String and Function will
+        // have the same hash
+        this.dispatch("function-name:" + String(fn.name));
+      }
+
+      if (options.respectFunctionProperties) {
+        this._object(fn);
+      }
+    },
+    _number: function (number) {
+      return write('number:' + number.toString());
+    },
+    _xml: function (xml) {
+      return write('xml:' + xml.toString());
+    },
+    _null: function () {
+      return write('Null');
+    },
+    _undefined: function () {
+      return write('Undefined');
+    },
+    _regexp: function (regex) {
+      return write('regex:' + regex.toString());
+    },
+    _uint8array: function (arr) {
+      write('uint8array:');
+      return this.dispatch(Array.prototype.slice.call(arr));
+    },
+    _uint8clampedarray: function (arr) {
+      write('uint8clampedarray:');
+      return this.dispatch(Array.prototype.slice.call(arr));
+    },
+    _int8array: function (arr) {
+      write('uint8array:');
+      return this.dispatch(Array.prototype.slice.call(arr));
+    },
+    _uint16array: function (arr) {
+      write('uint16array:');
+      return this.dispatch(Array.prototype.slice.call(arr));
+    },
+    _int16array: function (arr) {
+      write('uint16array:');
+      return this.dispatch(Array.prototype.slice.call(arr));
+    },
+    _uint32array: function (arr) {
+      write('uint32array:');
+      return this.dispatch(Array.prototype.slice.call(arr));
+    },
+    _int32array: function (arr) {
+      write('uint32array:');
+      return this.dispatch(Array.prototype.slice.call(arr));
+    },
+    _float32array: function (arr) {
+      write('float32array:');
+      return this.dispatch(Array.prototype.slice.call(arr));
+    },
+    _float64array: function (arr) {
+      write('float64array:');
+      return this.dispatch(Array.prototype.slice.call(arr));
+    },
+    _arraybuffer: function (arr) {
+      write('arraybuffer:');
+      return this.dispatch(new Uint8Array(arr));
+    },
+    _url: function (url) {
+      return write('url:' + url.toString(), 'utf8');
+    },
+    _map: function (map) {
+      write('map:');
+      var arr = Array.from(map);
+      return this._array(arr, options.unorderedSets !== false);
+    },
+    _set: function (set) {
+      write('set:');
+      var arr = Array.from(set);
+      return this._array(arr, options.unorderedSets !== false);
+    },
+    _blob: function () {
+      if (options.ignoreUnknown) {
+        return write('[blob]');
+      }
+
+      throw Error('Hashing Blob objects is currently not supported\n' + '(see https://github.com/puleos/object-hash/issues/26)\n' + 'Use "options.replacer" or "options.ignoreUnknown"\n');
+    },
+    _domwindow: function () {
+      return write('domwindow');
+    },
+
+    /* Node.js standard native objects */
+    _process: function () {
+      return write('process');
+    },
+    _timer: function () {
+      return write('timer');
+    },
+    _pipe: function () {
+      return write('pipe');
+    },
+    _tcp: function () {
+      return write('tcp');
+    },
+    _udp: function () {
+      return write('udp');
+    },
+    _tty: function () {
+      return write('tty');
+    },
+    _statwatcher: function () {
+      return write('statwatcher');
+    },
+    _securecontext: function () {
+      return write('securecontext');
+    },
+    _connection: function () {
+      return write('connection');
+    },
+    _zlib: function () {
+      return write('zlib');
+    },
+    _context: function () {
+      return write('context');
+    },
+    _nodescript: function () {
+      return write('nodescript');
+    },
+    _httpparser: function () {
+      return write('httpparser');
+    },
+    _dataview: function () {
+      return write('dataview');
+    },
+    _signal: function () {
+      return write('signal');
+    },
+    _fsevent: function () {
+      return write('fsevent');
+    },
+    _tlswrap: function () {
+      return write('tlswrap');
+    }
+  };
+} // Mini-implementation of stream.PassThrough
+// We are far from having need for the full implementation, and we can
+// make assumptions like "many writes, then only one final read"
+// and we can ignore encoding specifics
+
+
+function PassThrough() {
+  return {
+    buf: '',
+    write: function (b) {
+      this.buf += b;
+    },
+    end: function (b) {
+      this.buf += b;
+    },
+    read: function () {
+      return this.buf;
+    }
+  };
+}
+
+/***/ }),
+
 /***/ "./node_modules/regenerator-runtime/runtime.js":
 /*!*****************************************************!*\
   !*** ./node_modules/regenerator-runtime/runtime.js ***!
@@ -51172,11 +51682,9 @@ var _regenerator = _interopRequireDefault(__webpack_require__(/*! ../node_module
 
 __webpack_require__(/*! ../node_modules/regenerator-runtime/runtime */ "./node_modules/regenerator-runtime/runtime.js");
 
-var _Log = __webpack_require__(/*! ./api/Log */ "./src/api/Log.ts");
+var _OnmsError = __webpack_require__(/*! ./api/OnmsError */ "./src/api/OnmsError.ts");
 
 var _OnmsHTTPOptions = __webpack_require__(/*! ./api/OnmsHTTPOptions */ "./src/api/OnmsHTTPOptions.ts");
-
-var _OnmsError = __webpack_require__(/*! ./api/OnmsError */ "./src/api/OnmsError.ts");
 
 var _OnmsVersion = __webpack_require__(/*! ./api/OnmsVersion */ "./src/api/OnmsVersion.ts");
 
@@ -51199,6 +51707,8 @@ var _NodeDAO = __webpack_require__(/*! ./dao/NodeDAO */ "./src/dao/NodeDAO.ts");
 var _SituationFeedbackDAO = __webpack_require__(/*! ./dao/SituationFeedbackDAO */ "./src/dao/SituationFeedbackDAO.ts");
 
 var _AxiosHTTP = __webpack_require__(/*! ./rest/AxiosHTTP */ "./src/rest/AxiosHTTP.ts");
+
+var _OnmsAuthConfig = __webpack_require__(/*! ./api/OnmsAuthConfig */ "./src/api/OnmsAuthConfig.ts");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -51235,41 +51745,36 @@ function () {
       var _checkServer = _asyncToGenerator(
       /*#__PURE__*/
       _regenerator.default.mark(function _callee(server, httpImpl, timeout) {
-        var opts, infoUrl;
+        var infoUrl, builder;
         return _regenerator.default.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                opts = new _OnmsHTTPOptions.OnmsHTTPOptions(timeout, server.auth, server);
-
                 if (httpImpl) {
-                  _context.next = 5;
+                  _context.next = 4;
                   break;
                 }
 
                 if (Client.defaultHttp) {
-                  _context.next = 4;
+                  _context.next = 3;
                   break;
                 }
 
                 throw new _OnmsError.OnmsError('No HTTP implementation is configured!');
 
+              case 3:
+                httpImpl = new Client.defaultHttp();
+
               case 4:
-                httpImpl = Client.defaultHttp;
-
-              case 5:
-                opts.headers.accept = 'text/plain';
                 infoUrl = server.resolveURL('rest/alarms/count');
+                builder = _OnmsHTTPOptions.OnmsHTTPOptions.newBuilder().setTimeout(timeout).setServer(server).setHeader('Accept', 'text/plain');
+                _context.next = 8;
+                return httpImpl.get(infoUrl, builder.build());
 
-                _Log.log.debug('checkServer: checking URL: ' + infoUrl);
-
-                _context.next = 10;
-                return httpImpl.get(infoUrl, opts);
-
-              case 10:
+              case 8:
                 return _context.abrupt("return", true);
 
-              case 11:
+              case 9:
               case "end":
                 return _context.stop();
             }
@@ -51298,63 +51803,58 @@ function () {
       var _getMetadata = _asyncToGenerator(
       /*#__PURE__*/
       _regenerator.default.mark(function _callee2(server, httpImpl, timeout) {
-        var opts, infoUrl, response, version, metadata;
+        var infoUrl, builder, response, version, type, config;
         return _regenerator.default.wrap(function _callee2$(_context2) {
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
-                opts = new _OnmsHTTPOptions.OnmsHTTPOptions(timeout, server.auth, server);
-                opts.headers.accept = 'application/json';
-
                 if (httpImpl) {
-                  _context2.next = 6;
+                  _context2.next = 4;
                   break;
                 }
 
                 if (Client.defaultHttp) {
-                  _context2.next = 5;
+                  _context2.next = 3;
                   break;
                 }
 
-                throw new _OnmsError.OnmsError('No default HTTP implementation is configured!');
+                throw new _OnmsError.OnmsError('No HTTP implementation is configured!');
 
-              case 5:
-                httpImpl = Client.defaultHttp;
+              case 3:
+                httpImpl = new Client.defaultHttp();
 
-              case 6:
+              case 4:
+                infoUrl = server.resolveURL('rest/info');
+                builder = _OnmsHTTPOptions.OnmsHTTPOptions.newBuilder().setServer(server).setTimeout(timeout).setHeader('Accept', 'application/json');
+
                 if (!timeout && httpImpl && httpImpl.options && httpImpl.options.timeout) {
-                  opts.timeout = httpImpl.options.timeout;
+                  builder.setTimeout(httpImpl.options.timeout);
                 }
 
-                infoUrl = server.resolveURL('rest/info');
+                _context2.next = 9;
+                return httpImpl.get(infoUrl, builder.build());
 
-                _Log.log.debug('getMetadata: checking URL: ' + infoUrl);
-
-                _context2.next = 11;
-                return httpImpl.get(infoUrl, opts);
-
-              case 11:
+              case 9:
                 response = _context2.sent;
                 version = new _OnmsVersion.OnmsVersion(response.data.version, response.data.displayVersion);
-                metadata = new _ServerMetadata.ServerMetadata(version);
+                type = _ServerType.ServerTypes.HORIZON;
 
                 if (response.data.packageName) {
                   if (response.data.packageName.toLowerCase() === 'meridian') {
-                    metadata.type = _ServerType.ServerTypes.MERIDIAN;
+                    type = _ServerType.ServerTypes.MERIDIAN;
                   }
                 }
 
-                if (metadata.ticketer()) {
-                  metadata.ticketerConfig = new _TicketerConfig.TicketerConfig();
-                  metadata.ticketerConfig.enabled = false;
-
-                  if (response.data.ticketerConfig) {
-                    metadata.ticketerConfig.plugin = response.data.ticketerConfig.plugin;
-                    metadata.ticketerConfig.enabled = response.data.ticketerConfig.enabled === true;
-                  }
+                if (!response.data.ticketerConfig) {
+                  _context2.next = 16;
+                  break;
                 }
 
-                return _context2.abrupt("return", metadata);
+                config = response.data.ticketerConfig;
+                return _context2.abrupt("return", new _ServerMetadata.ServerMetadata(version, type, new _TicketerConfig.TicketerConfig(config.plugin, config.enabled)));
+
+              case 16:
+                return _context2.abrupt("return", new _ServerMetadata.ServerMetadata(version, type));
 
               case 17:
               case "end":
@@ -51376,31 +51876,29 @@ function () {
 
   /**
    * Construct a new OpenNMS client.
+   *
+   * If no `httpImpl` parameter is provided, the class in `Client.defaultHttp` will be used by default.
+   * Unless overridden, this defaults to [[AxiosHTTP]].
+   *
    * @constructor
-   * @param httpImpl - The OnmsHTTP implementation to use. Normally
-   *        this will automatically choose the best implementation
-   *        based on the environment.
+   * @param httpImpl - The IOnmsHTTP implementation to use.
    */
   function Client(httpImpl) {
     _classCallCheck(this, Client);
 
     _defineProperty(this, "http", void 0);
 
-    _defineProperty(this, "server", void 0);
-
     _defineProperty(this, "daos", new _map.default());
 
-    if (httpImpl) {
-      Client.defaultHttp = httpImpl;
-    } else {
-      Client.defaultHttp = new _AxiosHTTP.AxiosHTTP();
-    }
-
-    this.http = Client.defaultHttp;
+    this.http = httpImpl || new Client.defaultHttp();
   }
   /**
-   * Connect to an OpenNMS server, check what capabilities it has, and return an [[OnmsServer]]
-   * for that connection.
+   * Connect to an OpenNMS server.
+   *
+   * NOTE: This method will connect to the server using the provided
+   * information, get the server metadata, and then _assign_ that
+   * server to the _existing_ [[IOnmsHTTP]] implementation associated
+   * with this client (or the default impl, if one has not yet been provided).
    */
 
 
@@ -51410,35 +51908,27 @@ function () {
       var _connect = _asyncToGenerator(
       /*#__PURE__*/
       _regenerator.default.mark(function _callee3(name, url, username, password, timeout) {
-        var self, server;
+        var builder, testServer, metadata;
         return _regenerator.default.wrap(function _callee3$(_context3) {
           while (1) {
             switch (_context3.prev = _context3.next) {
               case 0:
-                self = this;
-                server = new _OnmsServer.OnmsServer(name, url, username, password);
+                builder = _OnmsServer.OnmsServer.newBuilder().setName(name).setUrl(url).setAuth(new _OnmsAuthConfig.OnmsAuthConfig(username, password));
+                testServer = builder.build(); // first check the server; throws if it can't connect
+
                 _context3.next = 4;
-                return Client.checkServer(server, undefined, timeout);
+                return Client.checkServer(testServer, this.http, timeout);
 
               case 4:
                 _context3.next = 6;
-                return Client.getMetadata(server, undefined, timeout);
+                return Client.getMetadata(testServer, this.http, timeout);
 
               case 6:
-                server.metadata = _context3.sent;
+                metadata = _context3.sent;
+                this.http.server = builder.setMetadata(metadata).build();
+                return _context3.abrupt("return", this);
 
-                if (!self.http) {
-                  self.http = Client.defaultHttp;
-                }
-
-                if (!self.http.server) {
-                  self.http.server = server;
-                }
-
-                self.server = server;
-                return _context3.abrupt("return", self);
-
-              case 11:
+              case 9:
               case "end":
                 return _context3.stop();
             }
@@ -51500,7 +51990,7 @@ function () {
       var existing = this.daos.get(key);
 
       if (existing) {
-        if (existing.server && existing.server.equals(this.server)) {
+        if (existing.server && existing.server.equals(this.http.server)) {
           return existing;
         }
       }
@@ -51517,7 +52007,7 @@ function () {
 
 exports.Client = Client;
 
-_defineProperty(Client, "defaultHttp", void 0);
+_defineProperty(Client, "defaultHttp", _AxiosHTTP.AxiosHTTP);
 
 /***/ }),
 
@@ -52153,7 +52643,7 @@ function () {
   function NestedRestriction() {
     _classCallCheck(this, NestedRestriction);
 
-    _defineProperty(this, "clauses", []);
+    _defineProperty(this, "clauses", void 0);
 
     for (var _len = arguments.length, clauses = new Array(_len), _key = 0; _key < _len; _key++) {
       clauses[_key] = arguments[_key];
@@ -52181,6 +52671,10 @@ function () {
   }, {
     key: "withClause",
     value: function withClause(clause) {
+      if (!this.clauses) {
+        this.clauses = [];
+      }
+
       this.clauses.push(clause);
       return this;
     }
@@ -52212,6 +52706,8 @@ _Object$defineProperty2(exports, "__esModule", {
 exports.OnmsAuthConfig = void 0;
 
 var _defineProperty2 = _interopRequireDefault(__webpack_require__(/*! ../../node_modules/@babel/runtime-corejs2/core-js/object/define-property */ "./node_modules/@babel/runtime-corejs2/core-js/object/define-property.js"));
+
+var _freeze = _interopRequireDefault(__webpack_require__(/*! ../../node_modules/@babel/runtime-corejs2/core-js/object/freeze */ "./node_modules/@babel/runtime-corejs2/core-js/object/freeze.js"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -52245,8 +52741,9 @@ function () {
 
     _defineProperty(this, "username", void 0);
 
-    this.username = username;
-    this.password = password;
+    this.username = username || null;
+    this.password = password || null;
+    (0, _freeze.default)(this);
   }
   /**
    * Whether this auth object is the same as another.
@@ -52451,7 +52948,7 @@ _Object$defineProperty2(exports, "__esModule", {
   value: true
 });
 
-exports.OnmsHTTPOptions = exports.AUTH_PROP = exports.TIMEOUT_PROP = exports.DEFAULT_TIMEOUT = void 0;
+exports.OnmsHTTPOptions = exports.OnmsHTTPOptionsBuilder = exports.AUTH_PROP = exports.TIMEOUT_PROP = exports.DEFAULT_TIMEOUT = void 0;
 
 var _defineProperty2 = _interopRequireDefault(__webpack_require__(/*! ../../node_modules/@babel/runtime-corejs2/core-js/object/define-property */ "./node_modules/@babel/runtime-corejs2/core-js/object/define-property.js"));
 
@@ -52459,9 +52956,13 @@ var _assign = _interopRequireDefault(__webpack_require__(/*! ../../node_modules/
 
 var _isArray = _interopRequireDefault(__webpack_require__(/*! ../../node_modules/@babel/runtime-corejs2/core-js/array/is-array */ "./node_modules/@babel/runtime-corejs2/core-js/array/is-array.js"));
 
+var _keys = _interopRequireDefault(__webpack_require__(/*! ../../node_modules/@babel/runtime-corejs2/core-js/object/keys */ "./node_modules/@babel/runtime-corejs2/core-js/object/keys.js"));
+
 var _for = _interopRequireDefault(__webpack_require__(/*! ../../node_modules/@babel/runtime-corejs2/core-js/symbol/for */ "./node_modules/@babel/runtime-corejs2/core-js/symbol/for.js"));
 
-var _OnmsAuthConfig = __webpack_require__(/*! ./OnmsAuthConfig */ "./src/api/OnmsAuthConfig.ts");
+var _Util = __webpack_require__(/*! ../internal/Util */ "./src/internal/Util.ts");
+
+var _lodash = __webpack_require__(/*! ../../node_modules/lodash/lodash */ "./node_modules/lodash/lodash.js");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -52478,12 +52979,293 @@ exports.DEFAULT_TIMEOUT = DEFAULT_TIMEOUT;
 var TIMEOUT_PROP = (0, _for.default)('timeout');
 exports.TIMEOUT_PROP = TIMEOUT_PROP;
 var AUTH_PROP = (0, _for.default)('auth');
+/** @hidden */
+
+exports.AUTH_PROP = AUTH_PROP;
+
+var isString = function isString(v) {
+  return v && (typeof v === 'string' || v instanceof String);
+};
+/**
+ * A builder for [[OnmsHTTPOptions]].  Create a new one with `OnmsHTTPOptions.newBuilder()`.
+ */
+// tslint:disable:completed-docs variable-name whitespace
+
+
+var OnmsHTTPOptionsBuilder =
+/*#__PURE__*/
+function () {
+  /**
+   * Construct a new builder from an existing options object, if provided.
+   *
+   * NOTE: server, auth, headers, and parameters are cloned, but data is left alone
+   * and assumed to be mutable autside of the builder or elsewhere.
+   */
+  function OnmsHTTPOptionsBuilder(options) {
+    _classCallCheck(this, OnmsHTTPOptionsBuilder);
+
+    _defineProperty(this, "_timeout", void 0);
+
+    _defineProperty(this, "_server", void 0);
+
+    _defineProperty(this, "_auth", void 0);
+
+    _defineProperty(this, "_headers", {});
+
+    _defineProperty(this, "_parameters", {});
+
+    _defineProperty(this, "_data", void 0);
+
+    if (options) {
+      this._timeout = options.timeout;
+      this._server = options.server ? options.server.clone() : undefined;
+      this._auth = options.auth ? options.auth.clone() : undefined;
+      this._headers = options.headers ? (0, _lodash.cloneDeep)(options.headers) : {};
+      this._parameters = options.parameters ? (0, _lodash.cloneDeep)(options.parameters) : {};
+      this._data = options.data;
+    }
+  }
+  /** Build the [[OnmsHTTPOptions]] object. */
+
+
+  _createClass(OnmsHTTPOptionsBuilder, [{
+    key: "build",
+    value: function build() {
+      return new OnmsHTTPOptions(this._timeout, this._server, this._auth, (0, _lodash.cloneDeep)(this._headers), (0, _lodash.cloneDeep)(this._parameters), this._data);
+    }
+    /**
+     * Merge the contents of the provided [[OnmsHTTPOptions]] object, additively.
+     * Timeout, server, auth, and data will be replaced only if set, and headers and parameters
+     * will be overlayed on top of existing.
+     * @param options the options to merge with this builder's current values
+     */
+
+  }, {
+    key: "merge",
+    value: function merge(options) {
+      if (options) {
+        if (options.timeout) {
+          this.setTimeout(options.timeout);
+        }
+
+        if (options.server) {
+          this.setServer(options.server);
+        }
+
+        if (options.auth) {
+          this.setAuth(options.auth);
+        }
+
+        if (options.headers) {
+          for (var _i = 0, _Object$keys = (0, _keys.default)(options.headers); _i < _Object$keys.length; _i++) {
+            var header = _Object$keys[_i];
+            this.setHeader(header, options.headers[header]);
+          }
+        }
+
+        if (options.parameters) {
+          for (var _i2 = 0, _Object$keys3 = (0, _keys.default)(options.parameters); _i2 < _Object$keys3.length; _i2++) {
+            var parameter = _Object$keys3[_i2];
+            this.addParameter(parameter, options.parameters[parameter]);
+          }
+        }
+
+        if (options.data) {
+          this.setData(options.data);
+        }
+      }
+
+      return this;
+    }
+    /**
+     * The connection timeout for the request.
+     *
+     * If `undefined` is passed, the default timeout will be used.
+     * @param timeout the new timeout
+     */
+
+  }, {
+    key: "setTimeout",
+    value: function setTimeout(timeout) {
+      this._timeout = timeout;
+      return this;
+    }
+    /**
+     * The [[OnmsServer]] to connect to.
+     *
+     * If `undefined` is passed, the default server will be used.
+     * @param server the new server
+     */
+
+  }, {
+    key: "setServer",
+    value: function setServer(server) {
+      this._server = server;
+      return this;
+    }
+    /**
+     * The authentication config to use when connecting.
+     *
+     * If `undefined` is passed, the default authentication settings will be used.
+     * @param auth the authentication config
+     */
+
+  }, {
+    key: "setAuth",
+    value: function setAuth(auth) {
+      this._auth = auth;
+      return this;
+    }
+    /**
+     * The headers to set in the request.
+     *
+     * If `undefined` is passed, all headers in the builder will be reset and the default headers will be used.
+     * @param headers the headers to use (or `undefined`)
+     */
+
+  }, {
+    key: "setHeaders",
+    value: function setHeaders(headers) {
+      this._headers = headers || {};
+      return this;
+    }
+    /**
+     * A header to set in the request.
+     *
+     * If `undefined` is passed, that header will be reset to defaults.
+     * @param header the header name
+     * @param value the value of the header
+     */
+
+  }, {
+    key: "setHeader",
+    value: function setHeader(header, value) {
+      var v = value ? String(value) : undefined;
+
+      var actualKey = _Util.Util.insensitiveKey(header, this._headers);
+
+      delete this._headers[header];
+
+      if (actualKey) {
+        delete this._headers[actualKey];
+      }
+
+      if (v !== undefined) {
+        this._headers[header] = v;
+      }
+
+      return this;
+    }
+    /**
+     * A header to set in the request only if it is not already set.
+     * @param header the header name
+     * @param value the value of the header
+     */
+
+  }, {
+    key: "setDefaultHeader",
+    value: function setDefaultHeader(header, value) {
+      var actualKey = _Util.Util.insensitiveKey(header, this._headers);
+
+      if (!actualKey) {
+        this._headers[header] = String(value);
+      }
+
+      return this;
+    }
+    /**
+     * The parameters to pass to the request.
+     *
+     * If `undefined` is passed, all parameters in the builder will be reset.
+     * @param parameters the parameters to use (or `undefined`)
+     */
+
+  }, {
+    key: "setParameters",
+    value: function setParameters(parameters) {
+      if (!parameters) {
+        this._parameters = {};
+      } else {
+        this._parameters = parameters;
+      }
+
+      return this;
+    }
+    /**
+     * A parameter to add or append to the request.
+     *
+     * If `undefined` is passed, that parameter will be reset to defaults.
+     * If the value is a string array, the existing value in the builder will be replaced.
+     * Otherwise, if the parameter already exists in the builder, the parameter will be converted to an array
+     * if necessary and this parameter will be added to it.
+     * @param parameter the parameter name
+     * @param value the value of the parameter to add (or `undefined`)
+     */
+
+  }, {
+    key: "addParameter",
+    value: function addParameter(parameter, value) {
+      var v = value && !isString(value) ? String(value) : value; // Since parameters can be repeated an arbitrary number of times we will store them in an array in the map
+      // as soon as the occurrence of a given key is > 1
+
+      if (this._parameters[parameter]) {
+        if (v === undefined) {
+          delete this._parameters[parameter];
+        } else if ((0, _isArray.default)(v)) {
+          this._parameters[parameter] = v.map(function (obj) {
+            return String(obj);
+          });
+        } else {
+          var currentValue = this._parameters[parameter];
+
+          if ((0, _isArray.default)(currentValue)) {
+            currentValue.push(String(v));
+          } else {
+            var newArrayValue = [];
+            newArrayValue.push(currentValue);
+            newArrayValue.push(String(v));
+            this._parameters[parameter] = newArrayValue;
+          }
+        }
+      } else {
+        if (v) {
+          if ((0, _isArray.default)(v)) {
+            this._parameters[parameter] = v.map(function (obj) {
+              return String(obj);
+            });
+          } else {
+            this._parameters[parameter] = String(v);
+          }
+        }
+      }
+
+      return this;
+    }
+    /**
+     * The data to use in the request.
+     *
+     * If `undefined` is passed, the data will be cleared.
+     * @param data the data
+     */
+
+  }, {
+    key: "setData",
+    value: function setData(data) {
+      this._data = data;
+      return this;
+    }
+  }]);
+
+  return OnmsHTTPOptionsBuilder;
+}(); // tslint:enable:completed-docs variable-name whitespace
+
 /**
  * Options to be used when making HTTP ReST calls.
  * @module OnmsHTTPOptions
  */
 
-exports.AUTH_PROP = AUTH_PROP;
+
+exports.OnmsHTTPOptionsBuilder = OnmsHTTPOptionsBuilder;
 
 var OnmsHTTPOptions =
 /*#__PURE__*/
@@ -52493,42 +53275,44 @@ function () {
 
     /** How long to wait for ReST calls to time out. */
     get: function get() {
-      if (this[TIMEOUT_PROP]) {
-        return this[TIMEOUT_PROP];
-      }
-
-      return DEFAULT_TIMEOUT;
-    },
-    set: function set(t) {
-      this[TIMEOUT_PROP] = t;
+      return this[TIMEOUT_PROP] || undefined;
     }
     /** The authentication config that should be used. */
 
   }, {
     key: "auth",
     get: function get() {
-      if (this[AUTH_PROP]) {
-        return this[AUTH_PROP];
+      var auth = this[AUTH_PROP];
+
+      if (auth !== null && auth !== undefined) {
+        return auth;
       }
 
       if (this.server && this.server.auth) {
         return this.server.auth;
       }
 
-      return {};
-    },
-    set: function set(a) {
-      this[AUTH_PROP] = a;
+      return undefined;
     }
-    /** The server to use if no server is set on the HTTP implementation. */
+    /** The server to use instead of that provided by the HTTP implementation. */
 
+  }], [{
+    key: "newBuilder",
+
+    /**
+     * Create a new builder for an [[OnmsHTTPOptions]] object.
+     * @param options if an existing options object is passed, the builder will be pre-populated
+     */
+    value: function newBuilder(options) {
+      return new OnmsHTTPOptionsBuilder(options);
+    }
   }]);
 
   /**
    * Construct a new OnmsHTTPOptions object.
    * @constructor
    */
-  function OnmsHTTPOptions(timeout, auth, server) {
+  function OnmsHTTPOptions(timeout, server, auth, headers, parameters, data) {
     _classCallCheck(this, OnmsHTTPOptions);
 
     _defineProperty(this, "server", void 0);
@@ -52543,56 +53327,34 @@ function () {
 
     _defineProperty(this, AUTH_PROP, void 0);
 
-    this.timeout = timeout || DEFAULT_TIMEOUT;
-    this.auth = auth || new _OnmsAuthConfig.OnmsAuthConfig();
+    this[TIMEOUT_PROP] = timeout || DEFAULT_TIMEOUT;
     this.server = server || null;
+    this[AUTH_PROP] = null;
+
+    if (server && auth && auth !== server.auth) {
+      this[AUTH_PROP] = auth;
+    }
+
+    this.headers = headers || {};
+    this.parameters = parameters || {};
+    this.data = data;
   }
   /**
-   * Add a URL parameter. Returns the OnmsHTTPOptions object so it can be chained.
-   * @param key - the parameter's key
-   * @param value - the parameter's value
+   * Convert the options to a plain JSON object.
    */
 
 
   _createClass(OnmsHTTPOptions, [{
-    key: "withParameter",
-    value: function withParameter(key, value) {
-      if (value !== undefined) {
-        // Since parameters can be repeated an arbitrary number of times we will store them in an array in the map
-        // as soon as the occurrence of a given key is > 1
-        if (this.parameters[key]) {
-          var currentValue = this.parameters[key];
-
-          if ((0, _isArray.default)(currentValue)) {
-            currentValue.push('' + value);
-          } else {
-            var newArrayValue = [];
-            newArrayValue.push(currentValue);
-            newArrayValue.push(value);
-            this.parameters[key] = newArrayValue;
-          }
-        } else {
-          this.parameters[key] = '' + value;
-        }
-      }
-
-      return this;
-    }
-    /**
-     * Convert the options to a plain JSON object.
-     */
-
-  }, {
     key: "toJSON",
     value: function toJSON() {
       var ret = (0, _assign.default)({}, this);
 
       if (this[TIMEOUT_PROP]) {
-        ret.timeout = this.timeout;
+        ret.timeout = this[TIMEOUT_PROP];
       }
 
       if (this[AUTH_PROP]) {
-        ret.auth = this.auth;
+        ret.auth = this[AUTH_PROP];
       }
 
       return ret;
@@ -52718,7 +53480,7 @@ _Object$defineProperty2(exports, "__esModule", {
   value: true
 });
 
-exports.OnmsServer = void 0;
+exports.OnmsServer = exports.OnmsServerBuilder = void 0;
 
 var _defineProperty2 = _interopRequireDefault(__webpack_require__(/*! ../../node_modules/@babel/runtime-corejs2/core-js/object/define-property */ "./node_modules/@babel/runtime-corejs2/core-js/object/define-property.js"));
 
@@ -52728,11 +53490,9 @@ __webpack_require__(/*! ../../node_modules/core-js/modules/es6.object.to-string 
 
 __webpack_require__(/*! ../../node_modules/core-js/modules/es6.function.name */ "./node_modules/core-js/modules/es6.function.name.js");
 
-var _OnmsAuthConfig = __webpack_require__(/*! ../api/OnmsAuthConfig */ "./src/api/OnmsAuthConfig.ts");
-
 var _ServerType = __webpack_require__(/*! ./ServerType */ "./src/api/ServerType.ts");
 
-var _UUID = __webpack_require__(/*! ../internal/UUID */ "./src/internal/UUID.ts");
+var _objectHash = __webpack_require__(/*! ../../node_modules/object-hash */ "./node_modules/object-hash/index.js");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -52744,26 +53504,144 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 function _defineProperty(obj, key, value) { if (key in obj) { (0, _defineProperty2.default)(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+// tslint:disable:max-classes-per-file
+
 /** @hidden */
 // tslint:disable-next-line
 var URI = __webpack_require__(/*! ../../node_modules/urijs/src/URI */ "./node_modules/urijs/src/URI.js");
 
 /**
+ * A builder for [[OnmsServer]].  Create a new one with `OnmsServer.newBuilder()`.
+ */
+// tslint:disable:completed-docs variable-name whitespace
+var OnmsServerBuilder =
+/*#__PURE__*/
+function () {
+  /**
+   * Construct a new builder from an existing options object, if provided.
+   */
+  function OnmsServerBuilder(url) {
+    _classCallCheck(this, OnmsServerBuilder);
+
+    _defineProperty(this, "_name", void 0);
+
+    _defineProperty(this, "_url", void 0);
+
+    _defineProperty(this, "_auth", void 0);
+
+    _defineProperty(this, "_metadata", void 0);
+
+    this._url = url;
+  }
+  /** Build the [[OnmsServer]] object. */
+
+
+  _createClass(OnmsServerBuilder, [{
+    key: "build",
+    value: function build() {
+      return new OnmsServer(this);
+    }
+    /**
+     * The display name of the server.
+     *
+     * If `undefined` is passed, the name will be unset.
+     * @param name the server name
+     */
+
+  }, {
+    key: "setName",
+    value: function setName(name) {
+      this._name = name;
+      return this;
+    }
+    /**
+     * The URL of the server.
+     *
+     * If `undefined` is passed, the URL will be unset.
+     * @param url the server's URL
+     */
+
+  }, {
+    key: "setUrl",
+    value: function setUrl(url) {
+      this._url = url;
+      return this;
+    }
+    /**
+     * The authentication config to use when connecting.
+     *
+     * If `undefined` is passed, the default authentication settings will be used.
+     * @param auth the authentication config
+     */
+
+  }, {
+    key: "setAuth",
+    value: function setAuth(auth) {
+      this._auth = auth;
+      return this;
+    }
+    /**
+     * The server metadata to associate with the server.
+     *
+     * If `undefined` is passed, no metadata will be used.
+     * @param metadata the metadata
+     */
+
+  }, {
+    key: "setMetadata",
+    value: function setMetadata(metadata) {
+      this._metadata = metadata;
+      return this;
+    }
+  }, {
+    key: "name",
+    get: function get() {
+      return this._name;
+    }
+  }, {
+    key: "url",
+    get: function get() {
+      return this._url;
+    }
+  }, {
+    key: "auth",
+    get: function get() {
+      return this._auth;
+    }
+  }, {
+    key: "metadata",
+    get: function get() {
+      return this._metadata;
+    }
+  }]);
+
+  return OnmsServerBuilder;
+}(); // tslint:enable:completed-docs variable-name whitespace
+
+/**
  * Represents a remote OpenNMS server.
  * @module OnmsServer
  */
+
+
+exports.OnmsServerBuilder = OnmsServerBuilder;
+
 var OnmsServer =
 /*#__PURE__*/
 function () {
-  /** A unique identifier for this server. */
+  _createClass(OnmsServer, null, [{
+    key: "newBuilder",
 
-  /** An optional name associated with this server. */
+    /**
+     * Create a new builder for an [[OnmsServer]] object.
+     * @param server if an existing server object is passed, the builder will be pre-populated
+     */
+    value: function newBuilder(url) {
+      return new OnmsServerBuilder(url);
+    }
+    /** A unique identifier for this server. */
 
-  /** The base URL to the server. */
-
-  /** The authorization configuration associated with the server. */
-
-  /** The capabilities of the server */
+  }]);
 
   /**
    * Construct a new OnmsServer object representing a remote server.
@@ -52772,11 +53650,7 @@ function () {
    * ```javascript
    * const server = new OnmsServer('Test', 'https://myserver/opennms/', auth);
    * ```
-   * @example
-   * <caption>provide a username and password for auth</caption>
-   * ```javascript
-   * const server = new OnmsServer('Test', 'https://myserver/opennms/', 'admin', 'admin');
-   * ```
+   *
    * @constructor
    * @param name - A name for the server suitable for display.
    * @param url - The URL to the server.
@@ -52784,7 +53658,7 @@ function () {
    * @param password - The password to authorize with if a username was
    *                   supplied to the `auth` parameter.
    */
-  function OnmsServer(name, url, auth, password) {
+  function OnmsServer(serverBuilder) {
     _classCallCheck(this, OnmsServer);
 
     _defineProperty(this, "id", void 0);
@@ -52797,15 +53671,15 @@ function () {
 
     _defineProperty(this, "metadata", void 0);
 
-    this.id = _UUID.UUID.generate();
-    this.name = name;
-    this.url = url;
-
-    if (auth instanceof _OnmsAuthConfig.OnmsAuthConfig) {
-      this.auth = auth;
-    } else {
-      this.auth = new _OnmsAuthConfig.OnmsAuthConfig(auth, password);
+    if (!serverBuilder.url) {
+      throw new TypeError('URL is a required field!');
     }
+
+    this.name = serverBuilder.name;
+    this.url = serverBuilder.url;
+    this.auth = serverBuilder.auth || null;
+    this.metadata = serverBuilder.metadata || null;
+    this.id = (0, _objectHash.MD5)([this.name, this.url, this.auth, this.metadata]);
   }
   /**
    * Given a relative URL fragment, construct a URL for that fragment on the server.
@@ -52841,25 +53715,24 @@ function () {
       return uri.toString();
     }
     /**
-     * Deep-checks equality including auth and metadata.
+     * Check whether the provided server has the same settings as this one.
      */
 
   }, {
     key: "equals",
     value: function equals(that) {
-      return that && this.id === that.id && this.name === that.name && this.url === that.url && (this.auth === that.auth || this.auth && this.auth.equals(that.auth)) && (this.metadata === that.metadata || this.metadata && this.metadata.equals(that.metadata));
+      return that && this.id === that.id;
     }
     /**
-     * Create a new server object from this existing one.
+     * Create a new server object from this existing one, with the same ID.
      */
 
   }, {
     key: "clone",
     value: function clone() {
       var auth = this.auth ? this.auth.clone() : undefined;
-      var ret = new OnmsServer(this.name, this.url, auth);
-      ret.metadata = this.metadata ? this.metadata.clone() : undefined;
-      return ret;
+      var metadata = this.metadata ? this.metadata.clone() : undefined;
+      return new OnmsServerBuilder(this.url).setName(this.name).setAuth(this.auth || undefined).setMetadata(this.metadata || undefined).build();
     }
     /**
      * Get the hostname portion of the URL associated with this server.
@@ -52938,47 +53811,39 @@ var OnmsVersion =
 /*#__PURE__*/
 function () {
   _createClass(OnmsVersion, [{
-    key: "version",
-
-    /** The numeric version (ex: `19.0.0`). */
-    get: function get() {
-      return this.rv;
-    },
-    set: function set(ver) {
-      this.rv = ver;
-    }
-    /** The display version (ex: `19.0.0-SNAPSHOT`). */
-
-  }, {
     key: "displayVersion",
+
+    /**
+     * The numeric version (ex: `19.0.0`).
+     */
+
+    /**
+     * The internal display version.
+     * @hidden
+     */
+
+    /** The display version (ex: `19.0.0-SNAPSHOT`). */
     get: function get() {
       return this.dv || this.version;
-    },
-    set: function set(displayVersion) {
-      this.dv = displayVersion;
     }
     /**
-     * The internal raw version.
-     * @hidden
+     * Construct a new version.
+     * @param version - The numeric version.
+     * @param displayVersion - The full display version
+     *                         (including extra designators like `x.x.x-SNAPSHOT`).
      */
 
   }]);
 
-  /**
-   * Construct a new version.
-   * @param version - The numeric version.
-   * @param displayVersion - The full display version
-   *                         (including extra designators like `x.x.x-SNAPSHOT`).
-   */
   function OnmsVersion(version, displayVersion) {
     _classCallCheck(this, OnmsVersion);
 
-    _defineProperty(this, "rv", void 0);
+    _defineProperty(this, "version", void 0);
 
     _defineProperty(this, "dv", void 0);
 
-    this.rv = version || '0.0.0';
-    this.displayVersion = displayVersion;
+    this.version = version || '0.0.0';
+    this.dv = displayVersion;
   }
   /**
    * Returns true if this version is less than the passed version.
@@ -53627,7 +54492,7 @@ function () {
    * @param version the version of the server
    * @param type the type of server (Horizon, Meridian)
    */
-  function ServerMetadata(version, type) {
+  function ServerMetadata(version, type, ticketerConfig) {
     _classCallCheck(this, ServerMetadata);
 
     _defineProperty(this, "version", void 0);
@@ -53643,6 +54508,7 @@ function () {
     }
 
     this.type = type || _ServerType.ServerTypes.HORIZON;
+    this.ticketerConfig = ticketerConfig;
   }
   /** Can you ack alarms through ReST? */
 
@@ -53784,7 +54650,17 @@ function () {
   }, {
     key: "clone",
     value: function clone() {
-      return new ServerMetadata(this.version.clone(), this.type);
+      var ticketerConfig = this.ticketerConfig ? this.ticketerConfig.clone() : undefined;
+      return new ServerMetadata(this.version.clone(), this.type, ticketerConfig);
+    }
+    /**
+     * Create a new metadata object from this existing one, with the given ticketer config.
+     */
+
+  }, {
+    key: "withTicketer",
+    value: function withTicketer(ticketerConfig) {
+      return new ServerMetadata(this.version.clone(), this.type, ticketerConfig);
     }
   }]);
 
@@ -53912,22 +54788,37 @@ function _defineProperty(obj, key, value) { if (key in obj) { (0, _definePropert
 var TicketerConfig =
 /*#__PURE__*/
 function () {
-  function TicketerConfig() {
+  /** The name of the ticketer plugin currently in use. */
+
+  /** Defines if the ticketer integration is enabled. True if enabled, False otherwise. */
+  function TicketerConfig(plugin, enabled) {
     _classCallCheck(this, TicketerConfig);
 
     _defineProperty(this, "plugin", void 0);
 
     _defineProperty(this, "enabled", void 0);
+
+    this.plugin = plugin;
+    this.enabled = enabled || false;
   }
+  /**
+   * Whether this ticketer object is the same as another.
+   */
+
 
   _createClass(TicketerConfig, [{
     key: "equals",
-
-    /**
-     * Whether this ticketer object is the same as another.
-     */
     value: function equals(that) {
       return that && this.plugin === that.plugin && this.enabled === that.enabled;
+    }
+    /**
+     * Create a new ticketer config object from this existing one.
+     */
+
+  }, {
+    key: "clone",
+    value: function clone() {
+      return new TicketerConfig(this.plugin, this.enabled);
     }
   }]);
 
@@ -53975,8 +54866,6 @@ __webpack_require__(/*! ../../node_modules/core-js/modules/es6.function.name */ 
 var _isArray = _interopRequireDefault(__webpack_require__(/*! ../../node_modules/@babel/runtime-corejs2/core-js/array/is-array */ "./node_modules/@babel/runtime-corejs2/core-js/array/is-array.js"));
 
 var _stringify = _interopRequireDefault(__webpack_require__(/*! ../../node_modules/@babel/runtime-corejs2/core-js/json/stringify */ "./node_modules/@babel/runtime-corejs2/core-js/json/stringify.js"));
-
-var _assign = _interopRequireDefault(__webpack_require__(/*! ../../node_modules/@babel/runtime-corejs2/core-js/object/assign */ "./node_modules/@babel/runtime-corejs2/core-js/object/assign.js"));
 
 __webpack_require__(/*! ../../node_modules/core-js/modules/web.dom.iterable */ "./node_modules/core-js/modules/web.dom.iterable.js");
 
@@ -54233,7 +55122,7 @@ function (_BaseDAO) {
 
               case 2:
                 if (this.propertiesCache) {
-                  _context4.next = 11;
+                  _context4.next = 10;
                   break;
                 }
 
@@ -54241,21 +55130,20 @@ function (_BaseDAO) {
                 return this.getOptions();
 
               case 5:
-                opts = _context4.sent;
-                opts.headers.accept = 'application/json';
-                _context4.next = 9;
-                return this.http.get(this.searchPropertyPath(), opts);
+                opts = _context4.sent.setHeader('Accept', 'application/json');
+                _context4.next = 8;
+                return this.http.get(this.searchPropertyPath(), opts.build());
 
-              case 9:
+              case 8:
                 result = _context4.sent;
                 this.propertiesCache = this.parseResultList(result, 'searchProperty', this.searchPropertyPath(), function (prop) {
                   return _this2.toSearchProperty(prop);
                 });
 
-              case 11:
+              case 10:
                 return _context4.abrupt("return", this.propertiesCache);
 
-              case 12:
+              case 11:
               case "end":
                 return _context4.stop();
             }
@@ -54283,20 +55171,20 @@ function (_BaseDAO) {
       var _findValues = _asyncToGenerator(
       /*#__PURE__*/
       _regenerator.default.mark(function _callee5(propertyId, options) {
-        var _ref, _ref2, property, opts, path, result;
+        var _ref, _ref2, property, defaultOptions, path, opts, result;
 
         return _regenerator.default.wrap(function _callee5$(_context5) {
           while (1) {
             switch (_context5.prev = _context5.next) {
               case 0:
                 _context5.next = 2;
-                return _promise.default.all([this.searchProperty(propertyId), this.getOptions()]);
+                return _promise.default.all([this.searchProperty(propertyId), this.getOptions(options)]);
 
               case 2:
                 _ref = _context5.sent;
                 _ref2 = _slicedToArray(_ref, 2);
                 property = _ref2[0];
-                opts = _ref2[1];
+                defaultOptions = _ref2[1];
 
                 if (!(!property || !property.id)) {
                   _context5.next = 8;
@@ -54307,22 +55195,17 @@ function (_BaseDAO) {
 
               case 8:
                 path = this.searchPropertyPath() + '/' + property.id;
-                opts.headers.accept = 'application/json';
+                opts = defaultOptions.setHeader('Accept', 'application/json');
+                _context5.next = 12;
+                return this.http.get(path, opts.build());
 
-                if (options) {
-                  (0, _assign.default)(opts, options);
-                }
-
-                _context5.next = 13;
-                return this.http.get(path, opts);
-
-              case 13:
+              case 12:
                 result = _context5.sent;
                 return _context5.abrupt("return", this.parseResultList(result, 'value', path, function (value) {
                   return value;
                 }));
 
-              case 15:
+              case 14:
               case "end":
                 return _context5.stop();
             }
@@ -54405,9 +55288,11 @@ function (_BaseDAO) {
           visitor.onNestedRestriction(restriction);
         }
 
-        restriction.clauses.forEach(function (c) {
-          self.visitClause(c, visitor);
-        });
+        if (restriction.clauses) {
+          restriction.clauses.forEach(function (c) {
+            self.visitClause(c, visitor);
+          });
+        }
       } else {
         _Log.log.warn('Restriction is of an unknown type: ' + (0, _stringify.default)(restriction));
       }
@@ -54427,9 +55312,11 @@ function (_BaseDAO) {
         visitor.onFilter(filter);
       }
 
-      filter.clauses.forEach(function (clause) {
-        self.visitClause(clause, visitor);
-      });
+      if (filter.clauses) {
+        filter.clauses.forEach(function (clause) {
+          self.visitClause(clause, visitor);
+        });
+      }
     }
     /**
      * Create an [[OnmsHTTPOptions]] object for DAO calls given an optional filter.
@@ -54442,19 +55329,19 @@ function (_BaseDAO) {
       var _getOptions = _asyncToGenerator(
       /*#__PURE__*/
       _regenerator.default.mark(function _callee6(filter) {
-        var options, processor;
+        var builder, processor;
         return _regenerator.default.wrap(function _callee6$(_context6) {
           while (1) {
             switch (_context6.prev = _context6.next) {
               case 0:
-                options = new _OnmsHTTPOptions.OnmsHTTPOptions();
+                builder = _OnmsHTTPOptions.OnmsHTTPOptions.newBuilder();
 
                 if (this.useJson()) {
-                  options.headers.accept = 'application/json';
+                  builder.setHeader('Accept', 'application/json');
                 } else {
                   // always use application/xml in DAO calls when we're not sure how
                   // usable JSON output will be.
-                  options.headers.accept = 'application/xml';
+                  builder.setHeader('Accept', 'application/xml');
                 }
 
                 if (!filter) {
@@ -54467,10 +55354,10 @@ function (_BaseDAO) {
 
               case 5:
                 processor = _context6.sent;
-                options.parameters = processor.getParameters(filter);
+                builder.setParameters(processor.getParameters(filter));
 
               case 7:
-                return _context6.abrupt("return", options);
+                return _context6.abrupt("return", builder);
 
               case 8:
               case "end":
@@ -54513,7 +55400,7 @@ function (_BaseDAO) {
   }, {
     key: "getApiVersion",
     value: function getApiVersion() {
-      if (!this.server || this.server.metadata === undefined) {
+      if (!this.server || this.server.metadata === null) {
         throw new _OnmsError.OnmsError('Server meta-data must be populated prior to making DAO calls.');
       }
 
@@ -54681,7 +55568,7 @@ function (_AbstractDAO) {
             switch (_context.prev = _context.next) {
               case 0:
                 return _context.abrupt("return", this.getOptions().then(function (opts) {
-                  return _this2.http.get(_this2.pathToAlarmsEndpoint() + '/' + id, opts).then(function (result) {
+                  return _this2.http.get(_this2.pathToAlarmsEndpoint() + '/' + id, opts.build()).then(function (result) {
                     return _this2.fromData(result.data);
                   });
                 }));
@@ -54721,7 +55608,7 @@ function (_AbstractDAO) {
             switch (_context2.prev = _context2.next) {
               case 0:
                 return _context2.abrupt("return", this.getOptions(filter).then(function (opts) {
-                  return _this3.http.get(_this3.pathToAlarmsEndpoint(), opts).then(function (result) {
+                  return _this3.http.get(_this3.pathToAlarmsEndpoint(), opts.build()).then(function (result) {
                     var data = _this3.getData(result);
 
                     if (!(0, _isArray.default)(data)) {
@@ -55029,7 +55916,7 @@ function (_AbstractDAO) {
       var _createTicket = _asyncToGenerator(
       /*#__PURE__*/
       _regenerator.default.mark(function _callee9(alarm) {
-        var alarmId, options;
+        var alarmId, builder;
         return _regenerator.default.wrap(function _callee9$(_context9) {
           while (1) {
             switch (_context9.prev = _context9.next) {
@@ -55043,13 +55930,12 @@ function (_AbstractDAO) {
 
               case 2:
                 alarmId = typeof alarm === 'number' ? alarm : alarm.id;
-                options = new _OnmsHTTPOptions.OnmsHTTPOptions();
-                options.headers.accept = 'text/plain';
-                return _context9.abrupt("return", this.http.post(this.pathToAlarmsEndpoint() + '/' + alarmId + '/ticket/create', options).then(function () {
+                builder = _OnmsHTTPOptions.OnmsHTTPOptions.newBuilder().setHeader('Accept', 'text/plain');
+                return _context9.abrupt("return", this.http.post(this.pathToAlarmsEndpoint() + '/' + alarmId + '/ticket/create', builder.build()).then(function () {
                   _Log.log.debug('Ticket creation pending.');
                 }).catch(this.handleError));
 
-              case 6:
+              case 5:
               case "end":
                 return _context9.stop();
             }
@@ -55076,7 +55962,7 @@ function (_AbstractDAO) {
       var _triggerTicketUpdate = _asyncToGenerator(
       /*#__PURE__*/
       _regenerator.default.mark(function _callee10(alarm) {
-        var alarmId, options;
+        var alarmId, builder;
         return _regenerator.default.wrap(function _callee10$(_context10) {
           while (1) {
             switch (_context10.prev = _context10.next) {
@@ -55090,13 +55976,12 @@ function (_AbstractDAO) {
 
               case 2:
                 alarmId = typeof alarm === 'number' ? alarm : alarm.id;
-                options = new _OnmsHTTPOptions.OnmsHTTPOptions();
-                options.headers.accept = 'text/plain';
-                return _context10.abrupt("return", this.http.post(this.pathToAlarmsEndpoint() + '/' + alarmId + '/ticket/update', options).then(function () {
+                builder = _OnmsHTTPOptions.OnmsHTTPOptions.newBuilder().setHeader('Accept', 'text/plain');
+                return _context10.abrupt("return", this.http.post(this.pathToAlarmsEndpoint() + '/' + alarmId + '/ticket/update', builder.build()).then(function () {
                   _Log.log.debug('Ticket update pending.');
                 }).catch(this.handleError));
 
-              case 6:
+              case 5:
               case "end":
                 return _context10.stop();
             }
@@ -55123,7 +56008,7 @@ function (_AbstractDAO) {
       var _closeTicket = _asyncToGenerator(
       /*#__PURE__*/
       _regenerator.default.mark(function _callee11(alarm) {
-        var alarmId, options;
+        var alarmId, builder;
         return _regenerator.default.wrap(function _callee11$(_context11) {
           while (1) {
             switch (_context11.prev = _context11.next) {
@@ -55137,13 +56022,12 @@ function (_AbstractDAO) {
 
               case 2:
                 alarmId = typeof alarm === 'number' ? alarm : alarm.id;
-                options = new _OnmsHTTPOptions.OnmsHTTPOptions();
-                options.headers.accept = 'text/plain';
-                return _context11.abrupt("return", this.http.post(this.pathToAlarmsEndpoint() + '/' + alarmId + '/ticket/close', options).then(function () {
+                builder = _OnmsHTTPOptions.OnmsHTTPOptions.newBuilder().setHeader('Accept', 'text/plain');
+                return _context11.abrupt("return", this.http.post(this.pathToAlarmsEndpoint() + '/' + alarmId + '/ticket/close', builder.build()).then(function () {
                   _Log.log.debug('Ticket close pending.');
                 }).catch(this.handleError));
 
-              case 6:
+              case 5:
               case "end":
                 return _context11.stop();
             }
@@ -55465,7 +56349,7 @@ function (_AbstractDAO) {
                 return _context16.abrupt("return", _get(_getPrototypeOf(AlarmDAO.prototype), "getOptions", this).call(this, filter).then(function (options) {
                   // always use application/json for v2 calls
                   if (_this4.getApiVersion() === 2) {
-                    options.headers.accept = 'application/json';
+                    return options.setHeader('Accept', 'application/json');
                   }
 
                   return options;
@@ -55496,29 +56380,30 @@ function (_AbstractDAO) {
       var _put = _asyncToGenerator(
       /*#__PURE__*/
       _regenerator.default.mark(function _callee17(url) {
-        var _this5 = this;
-
         var parameters,
+            builder,
             _args17 = arguments;
         return _regenerator.default.wrap(function _callee17$(_context17) {
           while (1) {
             switch (_context17.prev = _context17.next) {
               case 0:
                 parameters = _args17.length > 1 && _args17[1] !== undefined ? _args17[1] : {};
-                return _context17.abrupt("return", this.getOptions().then(function (opts) {
-                  opts.headers['content-type'] = 'application/x-www-form-urlencoded';
-                  delete opts.headers.accept;
-                  opts.parameters = parameters;
-                  return _this5.http.put(url, opts).then(function (result) {
-                    if (!result.isSuccess) {
-                      throw result;
-                    }
+                _context17.next = 3;
+                return this.getOptions();
 
-                    return;
-                  });
+              case 3:
+                _context17.t0 = undefined;
+                _context17.t1 = parameters;
+                builder = _context17.sent.setHeader('Content-Type', 'application/x-www-form-urlencoded').setHeader('Accept', _context17.t0).setParameters(_context17.t1);
+                return _context17.abrupt("return", this.http.put(url, builder.build()).then(function (result) {
+                  if (!result.isSuccess) {
+                    throw result;
+                  }
+
+                  return;
                 }));
 
-              case 2:
+              case 7:
               case "end":
                 return _context17.stop();
             }
@@ -55543,29 +56428,30 @@ function (_AbstractDAO) {
       var _httpDelete = _asyncToGenerator(
       /*#__PURE__*/
       _regenerator.default.mark(function _callee18(url) {
-        var _this6 = this;
-
         var parameters,
+            builder,
             _args18 = arguments;
         return _regenerator.default.wrap(function _callee18$(_context18) {
           while (1) {
             switch (_context18.prev = _context18.next) {
               case 0:
                 parameters = _args18.length > 1 && _args18[1] !== undefined ? _args18[1] : {};
-                return _context18.abrupt("return", this.getOptions().then(function (opts) {
-                  opts.headers['content-type'] = 'application/x-www-form-urlencoded';
-                  delete opts.headers.accept;
-                  opts.parameters = parameters;
-                  return _this6.http.httpDelete(url, opts).then(function (result) {
-                    if (!result.isSuccess) {
-                      throw result;
-                    }
+                _context18.next = 3;
+                return this.getOptions();
 
-                    return;
-                  });
+              case 3:
+                _context18.t0 = undefined;
+                _context18.t1 = parameters;
+                builder = _context18.sent.setHeader('Content-Type', 'application/x-www-form-urlencoded').setHeader('Accept', _context18.t0).setParameters(_context18.t1);
+                return _context18.abrupt("return", this.http.httpDelete(url, builder.build()).then(function (result) {
+                  if (!result.isSuccess) {
+                    throw result;
+                  }
+
+                  return;
                 }));
 
-              case 2:
+              case 7:
               case "end":
                 return _context18.stop();
             }
@@ -55859,7 +56745,7 @@ function () {
   }, {
     key: "useJson",
     value: function useJson() {
-      if (!this.server || this.server.metadata === undefined) {
+      if (!this.server || this.server.metadata === null) {
         throw new _OnmsError.OnmsError('Server meta-data must be populated prior to making DAO calls.');
       }
 
@@ -56061,8 +56947,8 @@ function (_AbstractDAO) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                return _context.abrupt("return", this.getOptions().then(function (opts) {
-                  return _this.http.get(_this.pathToEventsEndpoint() + '/' + id, opts).then(function (result) {
+                return _context.abrupt("return", this.getOptions().then(function (builder) {
+                  return _this.http.get(_this.pathToEventsEndpoint() + '/' + id, builder.build()).then(function (result) {
                     return _this.fromData(result.data);
                   });
                 }));
@@ -56095,8 +56981,8 @@ function (_AbstractDAO) {
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
-                return _context2.abrupt("return", this.getOptions(filter).then(function (opts) {
-                  return _this2.http.get(_this2.pathToEventsEndpoint(), opts).then(function (result) {
+                return _context2.abrupt("return", this.getOptions(filter).then(function (builder) {
+                  return _this2.http.get(_this2.pathToEventsEndpoint(), builder.build()).then(function (result) {
                     var data = result.data;
 
                     if (data !== null && _this2.getCount(data, result.code) > 0 && data.event) {
@@ -56254,6 +57140,8 @@ var _iterator2 = _interopRequireDefault(__webpack_require__(/*! ../../node_modul
 
 var _symbol = _interopRequireDefault(__webpack_require__(/*! ../../node_modules/@babel/runtime-corejs2/core-js/symbol */ "./node_modules/@babel/runtime-corejs2/core-js/symbol.js"));
 
+var _promise = _interopRequireDefault(__webpack_require__(/*! ../../node_modules/@babel/runtime-corejs2/core-js/promise */ "./node_modules/@babel/runtime-corejs2/core-js/promise.js"));
+
 var _defineProperty = _interopRequireDefault(__webpack_require__(/*! ../../node_modules/@babel/runtime-corejs2/core-js/object/define-property */ "./node_modules/@babel/runtime-corejs2/core-js/object/define-property.js"));
 
 var _getPrototypeOf2 = _interopRequireDefault(__webpack_require__(/*! ../../node_modules/@babel/runtime-corejs2/core-js/object/get-prototype-of */ "./node_modules/@babel/runtime-corejs2/core-js/object/get-prototype-of.js"));
@@ -56261,8 +57149,6 @@ var _getPrototypeOf2 = _interopRequireDefault(__webpack_require__(/*! ../../node
 var _create = _interopRequireDefault(__webpack_require__(/*! ../../node_modules/@babel/runtime-corejs2/core-js/object/create */ "./node_modules/@babel/runtime-corejs2/core-js/object/create.js"));
 
 var _setPrototypeOf2 = _interopRequireDefault(__webpack_require__(/*! ../../node_modules/@babel/runtime-corejs2/core-js/object/set-prototype-of */ "./node_modules/@babel/runtime-corejs2/core-js/object/set-prototype-of.js"));
-
-var _promise = _interopRequireDefault(__webpack_require__(/*! ../../node_modules/@babel/runtime-corejs2/core-js/promise */ "./node_modules/@babel/runtime-corejs2/core-js/promise.js"));
 
 var _getIterator2 = _interopRequireDefault(__webpack_require__(/*! ../../node_modules/@babel/runtime-corejs2/core-js/get-iterator */ "./node_modules/@babel/runtime-corejs2/core-js/get-iterator.js"));
 
@@ -56360,34 +57246,45 @@ function (_BaseDAO) {
       _regenerator.default.mark(function _callee(limit, start, end) {
         var _this = this;
 
+        var url, builder, result;
         return _regenerator.default.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                return _context.abrupt("return", FlowDAO.getOptions().then(function (opts) {
-                  var url = _this.pathToFlowsEndpoint() + '/exporters';
-                  opts.withParameter('limit', limit).withParameter('start', start).withParameter('end', end);
-                  return _this.http.get(url, opts).then(function (result) {
-                    if (result && result.data) {
-                      if (!(0, _isArray.default)(result.data)) {
-                        throw new _OnmsError.OnmsError('Expected an array of flow exporter summaries but got "' + _typeof(result) + '" instead.');
-                      }
+                url = this.pathToFlowsEndpoint() + '/exporters';
+                builder = this.getOptions().addParameter('limit', limit).addParameter('start', start).addParameter('end', end);
+                _context.next = 4;
+                return this.http.get(url, builder.build());
 
-                      return result.data.map(function (exporter) {
-                        return _this.toFlowExporterSummary(exporter);
-                      });
-                    }
+              case 4:
+                result = _context.sent;
 
-                    throw new _OnmsError.OnmsError('Unexpected response from GET ' + url + ': no result data found.');
-                  });
+                if (!(result && result.data)) {
+                  _context.next = 9;
+                  break;
+                }
+
+                if ((0, _isArray.default)(result.data)) {
+                  _context.next = 8;
+                  break;
+                }
+
+                throw new _OnmsError.OnmsError('Expected an array of flow exporter summaries but got "' + _typeof(result) + '" instead.');
+
+              case 8:
+                return _context.abrupt("return", result.data.map(function (exporter) {
+                  return _this.toFlowExporterSummary(exporter);
                 }));
 
-              case 1:
+              case 9:
+                throw new _OnmsError.OnmsError('Unexpected response from GET ' + url + ': no result data found.');
+
+              case 10:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee);
+        }, _callee, this);
       }));
 
       function getExporters(_x, _x2, _x3) {
@@ -56411,25 +57308,25 @@ function (_BaseDAO) {
       var _getExporter = _asyncToGenerator(
       /*#__PURE__*/
       _regenerator.default.mark(function _callee2(criteria, limit, start, end) {
-        var _this2 = this;
-
+        var builder, result;
         return _regenerator.default.wrap(function _callee2$(_context2) {
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
-                return _context2.abrupt("return", FlowDAO.getOptions().then(function (opts) {
-                  opts.withParameter('limit', limit).withParameter('start', start).withParameter('end', end);
-                  return _this2.http.get(_this2.pathToFlowsEndpoint() + '/exporters/' + criteria, opts).then(function (result) {
-                    return _this2.toFlowExporter(result.data);
-                  });
-                }));
+                builder = this.getOptions().addParameter('limit', limit).addParameter('start', start).addParameter('end', end);
+                _context2.next = 3;
+                return this.http.get(this.pathToFlowsEndpoint() + '/exporters/' + criteria, builder.build());
 
-              case 1:
+              case 3:
+                result = _context2.sent;
+                return _context2.abrupt("return", this.toFlowExporter(result.data));
+
+              case 5:
               case "end":
                 return _context2.stop();
             }
           }
-        }, _callee2);
+        }, _callee2, this);
       }));
 
       function getExporter(_x4, _x5, _x6, _x7) {
@@ -56453,25 +57350,25 @@ function (_BaseDAO) {
       var _getApplications = _asyncToGenerator(
       /*#__PURE__*/
       _regenerator.default.mark(function _callee3(prefix, start, end, exporterNodeCriteria, ifIndex) {
-        var _this3 = this;
-
+        var builder, result;
         return _regenerator.default.wrap(function _callee3$(_context3) {
           while (1) {
             switch (_context3.prev = _context3.next) {
               case 0:
-                return _context3.abrupt("return", FlowDAO.getOptions().then(function (opts) {
-                  opts.withParameter('start', start).withParameter('end', end).withParameter('exporterNode', exporterNodeCriteria).withParameter('ifIndex', ifIndex).withParameter('prefix', prefix);
-                  return _this3.http.get(_this3.pathToFlowsEndpoint() + '/applications/enumerate', opts).then(function (result) {
-                    return result.data;
-                  });
-                }));
+                builder = this.getOptions().addParameter('start', start).addParameter('end', end).addParameter('exporterNode', exporterNodeCriteria).addParameter('ifIndex', ifIndex).addParameter('prefix', prefix);
+                _context3.next = 3;
+                return this.http.get(this.pathToFlowsEndpoint() + '/applications/enumerate', builder.build());
 
-              case 1:
+              case 3:
+                result = _context3.sent;
+                return _context3.abrupt("return", result.data);
+
+              case 5:
               case "end":
                 return _context3.stop();
             }
           }
-        }, _callee3);
+        }, _callee3, this);
       }));
 
       function getApplications(_x8, _x9, _x10, _x11, _x12) {
@@ -56497,25 +57394,25 @@ function (_BaseDAO) {
       var _getSummaryForTopNApplications = _asyncToGenerator(
       /*#__PURE__*/
       _regenerator.default.mark(function _callee4(N, start, end, includeOther, exporterNodeCriteria, ifIndex) {
-        var _this4 = this;
-
+        var builder, result;
         return _regenerator.default.wrap(function _callee4$(_context4) {
           while (1) {
             switch (_context4.prev = _context4.next) {
               case 0:
-                return _context4.abrupt("return", FlowDAO.getOptions().then(function (opts) {
-                  opts.withParameter('N', N).withParameter('start', start).withParameter('end', end).withParameter('exporterNode', exporterNodeCriteria).withParameter('ifIndex', ifIndex).withParameter('includeOther', includeOther);
-                  return _this4.http.get(_this4.pathToFlowsEndpoint() + '/applications', opts).then(function (result) {
-                    return _this4.tableFromData(result.data);
-                  });
-                }));
+                builder = this.getOptions().addParameter('N', N).addParameter('start', start).addParameter('end', end).addParameter('exporterNode', exporterNodeCriteria).addParameter('ifIndex', ifIndex).addParameter('includeOther', includeOther);
+                _context4.next = 3;
+                return this.http.get(this.pathToFlowsEndpoint() + '/applications', builder.build());
 
-              case 1:
+              case 3:
+                result = _context4.sent;
+                return _context4.abrupt("return", this.tableFromData(result.data));
+
+              case 5:
               case "end":
                 return _context4.stop();
             }
           }
-        }, _callee4);
+        }, _callee4, this);
       }));
 
       function getSummaryForTopNApplications(_x13, _x14, _x15, _x16, _x17, _x18) {
@@ -56541,28 +57438,28 @@ function (_BaseDAO) {
       var _getSummaryForApplications = _asyncToGenerator(
       /*#__PURE__*/
       _regenerator.default.mark(function _callee5(applications, start, end, includeOther, exporterNodeCriteria, ifIndex) {
-        var _this5 = this;
-
+        var builder, result;
         return _regenerator.default.wrap(function _callee5$(_context5) {
           while (1) {
             switch (_context5.prev = _context5.next) {
               case 0:
                 this.checkForEnhancedFlows();
-                return _context5.abrupt("return", FlowDAO.getOptions().then(function (opts) {
-                  opts.withParameter('start', start).withParameter('end', end).withParameter('exporterNode', exporterNodeCriteria).withParameter('ifIndex', ifIndex).withParameter('includeOther', includeOther);
+                builder = this.getOptions().addParameter('start', start).addParameter('end', end).addParameter('exporterNode', exporterNodeCriteria).addParameter('ifIndex', ifIndex).addParameter('includeOther', includeOther);
 
-                  if (applications) {
-                    applications.forEach(function (application) {
-                      opts.withParameter('application', application);
-                    });
-                  }
-
-                  return _this5.http.get(_this5.pathToFlowsEndpoint() + '/applications', opts).then(function (result) {
-                    return _this5.tableFromData(result.data);
+                if (applications) {
+                  applications.forEach(function (application) {
+                    builder.addParameter('application', application);
                   });
-                }));
+                }
 
-              case 2:
+                _context5.next = 5;
+                return this.http.get(this.pathToFlowsEndpoint() + '/applications', builder.build());
+
+              case 5:
+                result = _context5.sent;
+                return _context5.abrupt("return", this.tableFromData(result.data));
+
+              case 7:
               case "end":
                 return _context5.stop();
             }
@@ -56594,25 +57491,25 @@ function (_BaseDAO) {
       var _getSeriesForTopNApplications = _asyncToGenerator(
       /*#__PURE__*/
       _regenerator.default.mark(function _callee6(N, start, end, step, includeOther, exporterNodeCriteria, ifIndex) {
-        var _this6 = this;
-
+        var builder, result;
         return _regenerator.default.wrap(function _callee6$(_context6) {
           while (1) {
             switch (_context6.prev = _context6.next) {
               case 0:
-                return _context6.abrupt("return", FlowDAO.getOptions().then(function (opts) {
-                  opts.withParameter('N', N).withParameter('start', start).withParameter('end', end).withParameter('step', step).withParameter('exporterNode', exporterNodeCriteria).withParameter('ifIndex', ifIndex).withParameter('includeOther', includeOther);
-                  return _this6.http.get(_this6.pathToFlowsEndpoint() + '/applications/series', opts).then(function (result) {
-                    return _this6.seriesFromData(result.data);
-                  });
-                }));
+                builder = this.getOptions().addParameter('N', N).addParameter('start', start).addParameter('end', end).addParameter('step', step).addParameter('exporterNode', exporterNodeCriteria).addParameter('ifIndex', ifIndex).addParameter('includeOther', includeOther);
+                _context6.next = 3;
+                return this.http.get(this.pathToFlowsEndpoint() + '/applications/series', builder.build());
 
-              case 1:
+              case 3:
+                result = _context6.sent;
+                return _context6.abrupt("return", this.seriesFromData(result.data));
+
+              case 5:
               case "end":
                 return _context6.stop();
             }
           }
-        }, _callee6);
+        }, _callee6, this);
       }));
 
       function getSeriesForTopNApplications(_x25, _x26, _x27, _x28, _x29, _x30, _x31) {
@@ -56639,28 +57536,28 @@ function (_BaseDAO) {
       var _getSeriesForApplications = _asyncToGenerator(
       /*#__PURE__*/
       _regenerator.default.mark(function _callee7(applications, start, end, step, includeOther, exporterNodeCriteria, ifIndex) {
-        var _this7 = this;
-
+        var builder, result;
         return _regenerator.default.wrap(function _callee7$(_context7) {
           while (1) {
             switch (_context7.prev = _context7.next) {
               case 0:
                 this.checkForEnhancedFlows();
-                return _context7.abrupt("return", FlowDAO.getOptions().then(function (opts) {
-                  opts.withParameter('start', start).withParameter('end', end).withParameter('step', step).withParameter('exporterNode', exporterNodeCriteria).withParameter('ifIndex', ifIndex).withParameter('includeOther', includeOther);
+                builder = this.getOptions().addParameter('start', start).addParameter('end', end).addParameter('step', step).addParameter('exporterNode', exporterNodeCriteria).addParameter('ifIndex', ifIndex).addParameter('includeOther', includeOther);
 
-                  if (applications) {
-                    applications.forEach(function (application) {
-                      opts.withParameter('application', application);
-                    });
-                  }
-
-                  return _this7.http.get(_this7.pathToFlowsEndpoint() + '/applications/series', opts).then(function (result) {
-                    return _this7.seriesFromData(result.data);
+                if (applications) {
+                  applications.forEach(function (application) {
+                    builder.addParameter('application', application);
                   });
-                }));
+                }
 
-              case 2:
+                _context7.next = 5;
+                return this.http.get(this.pathToFlowsEndpoint() + '/applications/series', builder.build());
+
+              case 5:
+                result = _context7.sent;
+                return _context7.abrupt("return", this.seriesFromData(result.data));
+
+              case 7:
               case "end":
                 return _context7.stop();
             }
@@ -56690,33 +57587,36 @@ function (_BaseDAO) {
       var _getSummaryForTopNConversations = _asyncToGenerator(
       /*#__PURE__*/
       _regenerator.default.mark(function _callee8(NOptions, start, end, exporterNodeCriteria, ifIndex) {
-        var _this8 = this;
+        var builder, _i, _Object$keys, key, result;
 
         return _regenerator.default.wrap(function _callee8$(_context8) {
           while (1) {
             switch (_context8.prev = _context8.next) {
               case 0:
-                return _context8.abrupt("return", FlowDAO.getOptions().then(function (opts) {
-                  if (typeof NOptions === 'number') {
-                    opts.withParameter('N', NOptions).withParameter('start', start).withParameter('end', end).withParameter('exporterNode', exporterNodeCriteria).withParameter('ifIndex', ifIndex);
-                  } else if (NOptions) {
-                    for (var _i = 0, _Object$keys = (0, _keys.default)(NOptions); _i < _Object$keys.length; _i++) {
-                      var key = _Object$keys[_i];
-                      opts.withParameter(key, NOptions[key]);
-                    }
+                builder = this.getOptions();
+
+                if (typeof NOptions === 'number') {
+                  builder.addParameter('N', NOptions).addParameter('start', start).addParameter('end', end).addParameter('exporterNode', exporterNodeCriteria).addParameter('ifIndex', ifIndex);
+                } else if (NOptions) {
+                  for (_i = 0, _Object$keys = (0, _keys.default)(NOptions); _i < _Object$keys.length; _i++) {
+                    key = _Object$keys[_i];
+                    builder.addParameter(key, NOptions[key]);
                   }
+                }
 
-                  return _this8.http.get(_this8.pathToFlowsEndpoint() + '/conversations', opts).then(function (result) {
-                    return _this8.tableFromData(result.data);
-                  });
-                }));
+                _context8.next = 4;
+                return this.http.get(this.pathToFlowsEndpoint() + '/conversations', builder.build());
 
-              case 1:
+              case 4:
+                result = _context8.sent;
+                return _context8.abrupt("return", this.tableFromData(result.data));
+
+              case 6:
               case "end":
                 return _context8.stop();
             }
           }
-        }, _callee8);
+        }, _callee8, this);
       }));
 
       function getSummaryForTopNConversations(_x39, _x40, _x41, _x42, _x43) {
@@ -56742,28 +57642,28 @@ function (_BaseDAO) {
       var _getSummaryForConversations = _asyncToGenerator(
       /*#__PURE__*/
       _regenerator.default.mark(function _callee9(conversations, start, end, includeOther, exporterNodeCriteria, ifIndex) {
-        var _this9 = this;
-
+        var builder, result;
         return _regenerator.default.wrap(function _callee9$(_context9) {
           while (1) {
             switch (_context9.prev = _context9.next) {
               case 0:
                 this.checkForEnhancedFlows();
-                return _context9.abrupt("return", FlowDAO.getOptions().then(function (opts) {
-                  opts.withParameter('start', start).withParameter('end', end).withParameter('exporterNode', exporterNodeCriteria).withParameter('ifIndex', ifIndex).withParameter('includeOther', includeOther);
+                builder = this.getOptions().addParameter('start', start).addParameter('end', end).addParameter('exporterNode', exporterNodeCriteria).addParameter('ifIndex', ifIndex).addParameter('includeOther', includeOther);
 
-                  if (conversations) {
-                    conversations.forEach(function (conversation) {
-                      opts.withParameter('conversation', conversation);
-                    });
-                  }
-
-                  return _this9.http.get(_this9.pathToFlowsEndpoint() + '/conversations', opts).then(function (result) {
-                    return _this9.tableFromData(result.data);
+                if (conversations) {
+                  conversations.forEach(function (conversation) {
+                    builder.addParameter('conversation', conversation);
                   });
-                }));
+                }
 
-              case 2:
+                _context9.next = 5;
+                return this.http.get(this.pathToFlowsEndpoint() + '/conversations', builder.build());
+
+              case 5:
+                result = _context9.sent;
+                return _context9.abrupt("return", this.tableFromData(result.data));
+
+              case 7:
               case "end":
                 return _context9.stop();
             }
@@ -56794,33 +57694,36 @@ function (_BaseDAO) {
       var _getSeriesForTopNConversations = _asyncToGenerator(
       /*#__PURE__*/
       _regenerator.default.mark(function _callee10(NOptions, start, end, step, exporterNodeCriteria, ifIndex) {
-        var _this10 = this;
+        var builder, _i2, _Object$keys3, key, result;
 
         return _regenerator.default.wrap(function _callee10$(_context10) {
           while (1) {
             switch (_context10.prev = _context10.next) {
               case 0:
-                return _context10.abrupt("return", FlowDAO.getOptions().then(function (opts) {
-                  if (typeof NOptions === 'number') {
-                    opts.withParameter('N', NOptions).withParameter('start', start).withParameter('end', end).withParameter('step', step).withParameter('exporterNode', exporterNodeCriteria).withParameter('ifIndex', ifIndex);
-                  } else if (NOptions) {
-                    for (var _i2 = 0, _Object$keys3 = (0, _keys.default)(NOptions); _i2 < _Object$keys3.length; _i2++) {
-                      var key = _Object$keys3[_i2];
-                      opts.withParameter(key, NOptions[key]);
-                    }
+                builder = this.getOptions();
+
+                if (typeof NOptions === 'number') {
+                  builder.addParameter('N', NOptions).addParameter('start', start).addParameter('end', end).addParameter('step', step).addParameter('exporterNode', exporterNodeCriteria).addParameter('ifIndex', ifIndex);
+                } else if (NOptions) {
+                  for (_i2 = 0, _Object$keys3 = (0, _keys.default)(NOptions); _i2 < _Object$keys3.length; _i2++) {
+                    key = _Object$keys3[_i2];
+                    builder.addParameter(key, NOptions[key]);
                   }
+                }
 
-                  return _this10.http.get(_this10.pathToFlowsEndpoint() + '/conversations/series', opts).then(function (result) {
-                    return _this10.seriesFromData(result.data);
-                  });
-                }));
+                _context10.next = 4;
+                return this.http.get(this.pathToFlowsEndpoint() + '/conversations/series', builder.build());
 
-              case 1:
+              case 4:
+                result = _context10.sent;
+                return _context10.abrupt("return", this.seriesFromData(result.data));
+
+              case 6:
               case "end":
                 return _context10.stop();
             }
           }
-        }, _callee10);
+        }, _callee10, this);
       }));
 
       function getSeriesForTopNConversations(_x50, _x51, _x52, _x53, _x54, _x55) {
@@ -56847,28 +57750,28 @@ function (_BaseDAO) {
       var _getSeriesForConversations = _asyncToGenerator(
       /*#__PURE__*/
       _regenerator.default.mark(function _callee11(conversations, start, end, step, includeOther, exporterNodeCriteria, ifIndex) {
-        var _this11 = this;
-
+        var builder, result;
         return _regenerator.default.wrap(function _callee11$(_context11) {
           while (1) {
             switch (_context11.prev = _context11.next) {
               case 0:
                 this.checkForEnhancedFlows();
-                return _context11.abrupt("return", FlowDAO.getOptions().then(function (opts) {
-                  opts.withParameter('start', start).withParameter('end', end).withParameter('step', step).withParameter('exporterNode', exporterNodeCriteria).withParameter('ifIndex', ifIndex).withParameter('includeOther', includeOther);
+                builder = this.getOptions().addParameter('start', start).addParameter('end', end).addParameter('step', step).addParameter('exporterNode', exporterNodeCriteria).addParameter('ifIndex', ifIndex).addParameter('includeOther', includeOther);
 
-                  if (conversations) {
-                    conversations.forEach(function (conversation) {
-                      opts.withParameter('conversation', conversation);
-                    });
-                  }
-
-                  return _this11.http.get(_this11.pathToFlowsEndpoint() + '/conversations/series', opts).then(function (result) {
-                    return _this11.seriesFromData(result.data);
+                if (conversations) {
+                  conversations.forEach(function (conversation) {
+                    builder.addParameter('conversation', conversation);
                   });
-                }));
+                }
 
-              case 2:
+                _context11.next = 5;
+                return this.http.get(this.pathToFlowsEndpoint() + '/conversations/series', builder.build());
+
+              case 5:
+                result = _context11.sent;
+                return _context11.abrupt("return", this.seriesFromData(result.data));
+
+              case 7:
               case "end":
                 return _context11.stop();
             }
@@ -56897,25 +57800,25 @@ function (_BaseDAO) {
       var _getHosts = _asyncToGenerator(
       /*#__PURE__*/
       _regenerator.default.mark(function _callee12(pattern, start, end, exporterNodeCriteria, ifIndex) {
-        var _this12 = this;
-
+        var builder, result;
         return _regenerator.default.wrap(function _callee12$(_context12) {
           while (1) {
             switch (_context12.prev = _context12.next) {
               case 0:
-                return _context12.abrupt("return", FlowDAO.getOptions().then(function (opts) {
-                  opts.withParameter('start', start).withParameter('end', end).withParameter('exporterNode', exporterNodeCriteria).withParameter('ifIndex', ifIndex).withParameter('pattern', pattern);
-                  return _this12.http.get(_this12.pathToFlowsEndpoint() + '/hosts/enumerate', opts).then(function (result) {
-                    return result.data;
-                  });
-                }));
+                builder = this.getOptions().addParameter('start', start).addParameter('end', end).addParameter('exporterNode', exporterNodeCriteria).addParameter('ifIndex', ifIndex).addParameter('pattern', pattern);
+                _context12.next = 3;
+                return this.http.get(this.pathToFlowsEndpoint() + '/hosts/enumerate', builder.build());
 
-              case 1:
+              case 3:
+                result = _context12.sent;
+                return _context12.abrupt("return", result.data);
+
+              case 5:
               case "end":
                 return _context12.stop();
             }
           }
-        }, _callee12);
+        }, _callee12, this);
       }));
 
       function getHosts(_x63, _x64, _x65, _x66, _x67) {
@@ -56941,28 +57844,28 @@ function (_BaseDAO) {
       var _getSummaryForHosts = _asyncToGenerator(
       /*#__PURE__*/
       _regenerator.default.mark(function _callee13(hosts, start, end, includeOther, exporterNodeCriteria, ifIndex) {
-        var _this13 = this;
-
+        var builder, result;
         return _regenerator.default.wrap(function _callee13$(_context13) {
           while (1) {
             switch (_context13.prev = _context13.next) {
               case 0:
                 this.checkForEnhancedFlows();
-                return _context13.abrupt("return", FlowDAO.getOptions().then(function (opts) {
-                  opts.withParameter('start', start).withParameter('end', end).withParameter('exporterNode', exporterNodeCriteria).withParameter('ifIndex', ifIndex).withParameter('includeOther', includeOther);
+                builder = this.getOptions().addParameter('start', start).addParameter('end', end).addParameter('exporterNode', exporterNodeCriteria).addParameter('ifIndex', ifIndex).addParameter('includeOther', includeOther);
 
-                  if (hosts) {
-                    hosts.forEach(function (host) {
-                      opts.withParameter('host', host);
-                    });
-                  }
-
-                  return _this13.http.get(_this13.pathToFlowsEndpoint() + '/hosts', opts).then(function (result) {
-                    return _this13.tableFromData(result.data);
+                if (hosts) {
+                  hosts.forEach(function (host) {
+                    builder.addParameter('host', host);
                   });
-                }));
+                }
 
-              case 2:
+                _context13.next = 5;
+                return this.http.get(this.pathToFlowsEndpoint() + '/hosts', builder.build());
+
+              case 5:
+                result = _context13.sent;
+                return _context13.abrupt("return", this.tableFromData(result.data));
+
+              case 7:
               case "end":
                 return _context13.stop();
             }
@@ -56993,21 +57896,21 @@ function (_BaseDAO) {
       var _getSummaryForTopNHosts = _asyncToGenerator(
       /*#__PURE__*/
       _regenerator.default.mark(function _callee14(N, start, end, includeOther, exporterNodeCriteria, ifIndex) {
-        var _this14 = this;
-
+        var builder, result;
         return _regenerator.default.wrap(function _callee14$(_context14) {
           while (1) {
             switch (_context14.prev = _context14.next) {
               case 0:
                 this.checkForEnhancedFlows();
-                return _context14.abrupt("return", FlowDAO.getOptions().then(function (opts) {
-                  opts.withParameter('N', N).withParameter('start', start).withParameter('end', end).withParameter('exporterNode', exporterNodeCriteria).withParameter('ifIndex', ifIndex).withParameter('includeOther', includeOther);
-                  return _this14.http.get(_this14.pathToFlowsEndpoint() + '/hosts', opts).then(function (result) {
-                    return _this14.tableFromData(result.data);
-                  });
-                }));
+                builder = this.getOptions().addParameter('N', N).addParameter('start', start).addParameter('end', end).addParameter('exporterNode', exporterNodeCriteria).addParameter('ifIndex', ifIndex).addParameter('includeOther', includeOther);
+                _context14.next = 4;
+                return this.http.get(this.pathToFlowsEndpoint() + '/hosts', builder.build());
 
-              case 2:
+              case 4:
+                result = _context14.sent;
+                return _context14.abrupt("return", this.tableFromData(result.data));
+
+              case 6:
               case "end":
                 return _context14.stop();
             }
@@ -57039,21 +57942,21 @@ function (_BaseDAO) {
       var _getSeriesForTopNHosts = _asyncToGenerator(
       /*#__PURE__*/
       _regenerator.default.mark(function _callee15(N, start, end, step, includeOther, exporterNodeCriteria, ifIndex) {
-        var _this15 = this;
-
+        var builder, result;
         return _regenerator.default.wrap(function _callee15$(_context15) {
           while (1) {
             switch (_context15.prev = _context15.next) {
               case 0:
                 this.checkForEnhancedFlows();
-                return _context15.abrupt("return", FlowDAO.getOptions().then(function (opts) {
-                  opts.withParameter('N', N).withParameter('start', start).withParameter('end', end).withParameter('step', step).withParameter('exporterNode', exporterNodeCriteria).withParameter('ifIndex', ifIndex).withParameter('includeOther', includeOther);
-                  return _this15.http.get(_this15.pathToFlowsEndpoint() + '/hosts/series', opts).then(function (result) {
-                    return _this15.seriesFromData(result.data);
-                  });
-                }));
+                builder = this.getOptions().addParameter('N', N).addParameter('start', start).addParameter('end', end).addParameter('step', step).addParameter('exporterNode', exporterNodeCriteria).addParameter('ifIndex', ifIndex).addParameter('includeOther', includeOther);
+                _context15.next = 4;
+                return this.http.get(this.pathToFlowsEndpoint() + '/hosts/series', builder.build());
 
-              case 2:
+              case 4:
+                result = _context15.sent;
+                return _context15.abrupt("return", this.seriesFromData(result.data));
+
+              case 6:
               case "end":
                 return _context15.stop();
             }
@@ -57085,28 +57988,28 @@ function (_BaseDAO) {
       var _getSeriesForHosts = _asyncToGenerator(
       /*#__PURE__*/
       _regenerator.default.mark(function _callee16(hosts, start, end, step, includeOther, exporterNodeCriteria, ifIndex) {
-        var _this16 = this;
-
+        var builder, result;
         return _regenerator.default.wrap(function _callee16$(_context16) {
           while (1) {
             switch (_context16.prev = _context16.next) {
               case 0:
                 this.checkForEnhancedFlows();
-                return _context16.abrupt("return", FlowDAO.getOptions().then(function (opts) {
-                  opts.withParameter('start', start).withParameter('end', end).withParameter('step', step).withParameter('exporterNode', exporterNodeCriteria).withParameter('ifIndex', ifIndex).withParameter('includeOther', includeOther);
+                builder = this.getOptions().addParameter('start', start).addParameter('end', end).addParameter('step', step).addParameter('exporterNode', exporterNodeCriteria).addParameter('ifIndex', ifIndex).addParameter('includeOther', includeOther);
 
-                  if (hosts) {
-                    hosts.forEach(function (host) {
-                      opts.withParameter('host', host);
-                    });
-                  }
-
-                  return _this16.http.get(_this16.pathToFlowsEndpoint() + '/hosts/series', opts).then(function (result) {
-                    return _this16.seriesFromData(result.data);
+                if (hosts) {
+                  hosts.forEach(function (host) {
+                    builder.addParameter('host', host);
                   });
-                }));
+                }
 
-              case 2:
+                _context16.next = 5;
+                return this.http.get(this.pathToFlowsEndpoint() + '/hosts/series', builder.build());
+
+              case 5:
+                result = _context16.sent;
+                return _context16.abrupt("return", this.seriesFromData(result.data));
+
+              case 7:
               case "end":
                 return _context16.stop();
             }
@@ -57143,7 +58046,7 @@ function (_BaseDAO) {
   }, {
     key: "toFlowExporter",
     value: function toFlowExporter(data) {
-      var _this17 = this;
+      var _this2 = this;
 
       var exporter = new _OnmsFlowExporter.OnmsFlowExporter();
       exporter.id = data.id;
@@ -57154,7 +58057,7 @@ function (_BaseDAO) {
 
       if (data.interface) {
         exporter.interfaces = data.interface.map(function (iff) {
-          return _this17.toInterface(iff);
+          return _this2.toInterface(iff);
         });
       }
 
@@ -57239,6 +58142,15 @@ function (_BaseDAO) {
       return series;
     }
     /**
+     * Create an [[OnmsHTTPOptions]] object for DAO calls.
+     */
+
+  }, {
+    key: "getOptions",
+    value: function getOptions() {
+      return _OnmsHTTPOptions.OnmsHTTPOptions.newBuilder().setHeader('Accept', 'application/json');
+    }
+    /**
      * Get the path to the flows endpoint for the appropriate API version.
      * @hidden
      */
@@ -57259,39 +58171,6 @@ function (_BaseDAO) {
         throw new _OnmsError.OnmsError('Enhanced flow API is not supported by this version of OpenNMS.');
       }
     }
-  }], [{
-    key: "getOptions",
-
-    /**
-     * Create an [[OnmsHTTPOptions]] object for DAO calls.
-     */
-    value: function () {
-      var _getOptions = _asyncToGenerator(
-      /*#__PURE__*/
-      _regenerator.default.mark(function _callee17() {
-        return _regenerator.default.wrap(function _callee17$(_context17) {
-          while (1) {
-            switch (_context17.prev = _context17.next) {
-              case 0:
-                return _context17.abrupt("return", _promise.default.resolve(new _OnmsHTTPOptions.OnmsHTTPOptions()).then(function (options) {
-                  options.headers.accept = 'application/json';
-                  return options;
-                }));
-
-              case 1:
-              case "end":
-                return _context17.stop();
-            }
-          }
-        }, _callee17);
-      }));
-
-      function getOptions() {
-        return _getOptions.apply(this, arguments);
-      }
-
-      return getOptions;
-    }()
   }]);
 
   return FlowDAO;
@@ -57444,8 +58323,8 @@ function (_AbstractDAO) {
             switch (_context.prev = _context.next) {
               case 0:
                 recurse = _args.length > 1 && _args[1] !== undefined ? _args[1] : false;
-                return _context.abrupt("return", this.getOptions().then(function (opts) {
-                  return _this.http.get(_this.pathToNodesEndpoint() + '/' + id, opts).then(function (result) {
+                return _context.abrupt("return", this.getOptions().then(function (builder) {
+                  return _this.http.get(_this.pathToNodesEndpoint() + '/' + id, builder.build()).then(function (result) {
                     var node = _this.fromData(result.data);
 
                     if (recurse) {
@@ -57484,8 +58363,8 @@ function (_AbstractDAO) {
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
-                return _context2.abrupt("return", this.getOptions(filter).then(function (opts) {
-                  return _this2.http.get(_this2.pathToNodesEndpoint(), opts).then(function (result) {
+                return _context2.abrupt("return", this.getOptions(filter).then(function (builder) {
+                  return _this2.http.get(_this2.pathToNodesEndpoint(), builder.build()).then(function (result) {
                     var data = result.data;
 
                     if (data !== null && _this2.getCount(data, result.code) > 0 && data.node) {
@@ -57595,8 +58474,8 @@ function (_AbstractDAO) {
                   node = String(passedNode);
                 }
 
-                return _context4.abrupt("return", this.getOptions(filter).then(function (opts) {
-                  return _this4.http.get(_this4.pathToNodesEndpoint() + '/' + node + '/ipinterfaces', opts).then(function (result) {
+                return _context4.abrupt("return", this.getOptions(filter).then(function (builder) {
+                  return _this4.http.get(_this4.pathToNodesEndpoint() + '/' + node + '/ipinterfaces', builder.build()).then(function (result) {
                     var data = result.data;
 
                     if (_this4.getCount(data, result.code) > 0 && data.ipInterface) {
@@ -57649,8 +58528,8 @@ function (_AbstractDAO) {
             switch (_context5.prev = _context5.next) {
               case 0:
                 node = String(this.getNodeId(passedNode));
-                return _context5.abrupt("return", this.getOptions(filter).then(function (opts) {
-                  return _this5.http.get(_this5.pathToNodesEndpoint() + '/' + node + '/snmpinterfaces', opts).then(function (result) {
+                return _context5.abrupt("return", this.getOptions(filter).then(function (builder) {
+                  return _this5.http.get(_this5.pathToNodesEndpoint() + '/' + node + '/snmpinterfaces', builder.build()).then(function (result) {
                     var data = result.data;
 
                     if (_this5.getCount(data, result.code) > 0 && data.snmpInterface) {
@@ -57703,13 +58582,13 @@ function (_AbstractDAO) {
             switch (_context6.prev = _context6.next) {
               case 0:
                 node = String(this.getNodeId(passedNode));
-                return _context6.abrupt("return", this.getOptions(filter).then(function (opts) {
+                return _context6.abrupt("return", this.getOptions(filter).then(function (builder) {
                   if (ipInterface instanceof _OnmsIpInterface.OnmsIpInterface && ipInterface.ipAddress) {
                     ipInterface = ipInterface.ipAddress.address;
                   }
 
                   var url = _this6.pathToNodesEndpoint() + '/' + node + '/ipinterfaces/' + ipInterface + '/services';
-                  return _this6.http.get(url, opts).then(function (result) {
+                  return _this6.http.get(url, builder.build()).then(function (result) {
                     var data = result.data;
 
                     if (_this6.getCount(data, result.code) > 0 && data.service) {
@@ -58023,14 +58902,13 @@ function (_BaseDAO) {
       _regenerator.default.mark(function _callee(situationId) {
         var _this = this;
 
-        var options;
+        var builder;
         return _regenerator.default.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                options = new _OnmsHTTPOptions.OnmsHTTPOptions();
-                options.headers.accept = 'application/json';
-                return _context.abrupt("return", this.http.get(this.pathToEndpoint() + '/' + situationId, options).then(function (result) {
+                builder = _OnmsHTTPOptions.OnmsHTTPOptions.newBuilder().setHeader('Accept', 'application/json');
+                return _context.abrupt("return", this.http.get(this.pathToEndpoint() + '/' + situationId, builder.build()).then(function (result) {
                   var data = _this.getData(result);
 
                   if (!(0, _isArray.default)(data)) {
@@ -58046,7 +58924,7 @@ function (_BaseDAO) {
                   });
                 }));
 
-              case 3:
+              case 2:
               case "end":
                 return _context.stop();
             }
@@ -58071,14 +58949,13 @@ function (_BaseDAO) {
       var _getTags = _asyncToGenerator(
       /*#__PURE__*/
       _regenerator.default.mark(function _callee2(prefix) {
-        var options;
+        var builder;
         return _regenerator.default.wrap(function _callee2$(_context2) {
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
-                options = new _OnmsHTTPOptions.OnmsHTTPOptions();
-                options.headers.accept = 'application/json';
-                return _context2.abrupt("return", this.http.get(this.pathToEndpoint() + '/tags?prefix=' + prefix, options).then(function (result) {
+                builder = _OnmsHTTPOptions.OnmsHTTPOptions.newBuilder().setHeader('Accept', 'application/json');
+                return _context2.abrupt("return", this.http.get(this.pathToEndpoint() + '/tags?prefix=' + prefix, builder.build()).then(function (result) {
                   var data = result.data;
 
                   if (!(0, _isArray.default)(data)) {
@@ -58092,7 +58969,7 @@ function (_BaseDAO) {
                   return data;
                 }));
 
-              case 3:
+              case 2:
               case "end":
                 return _context2.stop();
             }
@@ -58215,16 +59092,13 @@ function (_BaseDAO) {
       var _post = _asyncToGenerator(
       /*#__PURE__*/
       _regenerator.default.mark(function _callee4(url, data) {
-        var options;
+        var builder;
         return _regenerator.default.wrap(function _callee4$(_context4) {
           while (1) {
             switch (_context4.prev = _context4.next) {
               case 0:
-                options = new _OnmsHTTPOptions.OnmsHTTPOptions();
-                options.headers['content-type'] = 'application/json';
-                options.headers.accept = 'application/json';
-                options.data = data;
-                return _context4.abrupt("return", this.http.post(url, options).then(function (result) {
+                builder = _OnmsHTTPOptions.OnmsHTTPOptions.newBuilder().setHeader('Content-Type', 'application/json').setHeader('Accept', 'application/json').setData(data);
+                return _context4.abrupt("return", this.http.post(url, builder.build()).then(function (result) {
                   if (!result.isSuccess) {
                     throw result;
                   }
@@ -58232,7 +59106,7 @@ function (_BaseDAO) {
                   return;
                 }));
 
-              case 5:
+              case 2:
               case "end":
                 return _context4.stop();
             }
@@ -58336,6 +59210,10 @@ function () {
 
       if (filter.limit !== undefined) {
         ret.limit = '' + filter.limit;
+      }
+
+      if (!filter.clauses) {
+        return ret;
       }
 
       var _iteratorNormalCompletion = true;
@@ -58608,6 +59486,11 @@ function () {
     key: "toFIQL",
     value: function toFIQL(clauses) {
       var search = '';
+
+      if (!clauses || clauses.length === 0) {
+        return search;
+      }
+
       var _iteratorNormalCompletion = true;
       var _didIteratorError = false;
       var _iteratorError = undefined;
@@ -58829,83 +59712,6 @@ function forLabel(collection, label) {
 
 /***/ }),
 
-/***/ "./src/internal/UUID.ts":
-/*!******************************!*\
-  !*** ./src/internal/UUID.ts ***!
-  \******************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _Object$defineProperty2 = __webpack_require__(/*! @babel/runtime-corejs2/core-js/object/define-property */ "./node_modules/@babel/runtime-corejs2/core-js/object/define-property.js");
-
-_Object$defineProperty2(exports, "__esModule", {
-  value: true
-});
-
-exports.UUID = void 0;
-
-var _defineProperty = _interopRequireDefault(__webpack_require__(/*! ../../node_modules/@babel/runtime-corejs2/core-js/object/define-property */ "./node_modules/@babel/runtime-corejs2/core-js/object/define-property.js"));
-
-__webpack_require__(/*! ../../node_modules/core-js/modules/es6.regexp.to-string */ "./node_modules/core-js/modules/es6.regexp.to-string.js");
-
-__webpack_require__(/*! ../../node_modules/core-js/modules/es6.object.to-string */ "./node_modules/core-js/modules/es6.object.to-string.js");
-
-__webpack_require__(/*! ../../node_modules/core-js/modules/es6.regexp.replace */ "./node_modules/core-js/modules/es6.regexp.replace.js");
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; (0, _defineProperty.default)(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
-// http://stackoverflow.com/a/8809472
-
-/* tslint:disable:no-bitwise */
-
-/**
- * A utility class for generating UUIDs.
- * @module UUID
- */
-var UUID =
-/*#__PURE__*/
-function () {
-  function UUID() {
-    _classCallCheck(this, UUID);
-  }
-
-  _createClass(UUID, null, [{
-    key: "generate",
-
-    /**
-     * Generates a UUID.  Attempts to use the high-precision timer if possible.
-     */
-    value: function generate() {
-      var d = new Date().getTime();
-
-      if (typeof performance !== 'undefined' && typeof performance.now === 'function') {
-        d += performance.now(); // use high-precision timer if available
-      }
-
-      return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
-        var r = (d + Math.random() * 16) % 16 | 0;
-        d = Math.floor(d / 16);
-        return (c === 'x' ? r : r & 0x3 | 0x8).toString(16);
-      });
-    }
-  }]);
-
-  return UUID;
-}();
-
-exports.UUID = UUID;
-
-/***/ }),
-
 /***/ "./src/internal/Util.ts":
 /*!******************************!*\
   !*** ./src/internal/Util.ts ***!
@@ -59025,6 +59831,41 @@ function () {
       } else {
         return undefined;
       }
+    }
+    /**
+     * Retrieve the matching key (regardless of case) in the given search object.
+     * @param key the key to search for
+     * @param search the object to search
+     */
+
+  }, {
+    key: "insensitiveKey",
+    value: function insensitiveKey(key, search) {
+      if (!key || !search) {
+        return;
+      }
+
+      for (var k in search) {
+        if (k && k.toLowerCase() === key.toLowerCase()) {
+          return k;
+        }
+      }
+    }
+    /**
+     * Retrieve the value for the matching key (regardless of case) in the given search.
+     * @param key the key to search for
+     * @param search the object to search
+     */
+
+  }, {
+    key: "insensitiveValue",
+    value: function insensitiveValue(key, search) {
+      if (!key || !search) {
+        return;
+      }
+
+      var k = Util.insensitiveKey(key, search);
+      return k ? search[k] : undefined;
     }
   }]);
 
@@ -61951,19 +62792,17 @@ __webpack_require__(/*! ../../node_modules/core-js/modules/es6.regexp.to-string 
 
 __webpack_require__(/*! ../../node_modules/core-js/modules/es6.object.to-string */ "./node_modules/core-js/modules/es6.object.to-string.js");
 
-var _assign = _interopRequireDefault(__webpack_require__(/*! ../../node_modules/@babel/runtime-corejs2/core-js/object/assign */ "./node_modules/@babel/runtime-corejs2/core-js/object/assign.js"));
-
 var _for = _interopRequireDefault(__webpack_require__(/*! ../../node_modules/@babel/runtime-corejs2/core-js/symbol/for */ "./node_modules/@babel/runtime-corejs2/core-js/symbol/for.js"));
 
 var _OnmsError = __webpack_require__(/*! ../api/OnmsError */ "./src/api/OnmsError.ts");
 
 var _OnmsHTTPOptions = __webpack_require__(/*! ../api/OnmsHTTPOptions */ "./src/api/OnmsHTTPOptions.ts");
 
+var _Util = __webpack_require__(/*! ../internal/Util */ "./src/internal/Util.ts");
+
 var _XmlTransformer = __webpack_require__(/*! ./XmlTransformer */ "./src/rest/XmlTransformer.ts");
 
 var _JsonTransformer = __webpack_require__(/*! ./JsonTransformer */ "./src/rest/JsonTransformer.ts");
-
-var _lodash = __webpack_require__(/*! ../../node_modules/lodash/lodash */ "./node_modules/lodash/lodash.js");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -62048,7 +62887,7 @@ function () {
     }
 
     if (timeout) {
-      this.options.timeout = timeout;
+      this.options = _OnmsHTTPOptions.OnmsHTTPOptions.newBuilder(this.options).setTimeout(timeout).build();
     }
   }
   /** Make an HTTP GET call. This must be implemented by the concrete implementation. */
@@ -62097,17 +62936,17 @@ function () {
   }, {
     key: "getType",
     value: function getType(response) {
-      if (response.headers['content-type'] === 'application/json') {
+      if (_Util.Util.insensitiveValue('Content-Type', response.headers) === 'application/json') {
         return 'json';
       } else if (response.config.responseType === 'json') {
         return 'json';
-      } else if (response.config.headers.accept === 'application/json') {
+      } else if (_Util.Util.insensitiveValue('Accept', response.config.headers) === 'application/json') {
         return 'json';
       } else if (response.responseType === 'json') {
         return 'json';
-      } else if (response.config.headers.accept === 'application/xml') {
+      } else if (_Util.Util.insensitiveValue('Accept', response.headers) === 'application/xml') {
         return 'xml';
-      } else if (response.headers['content-type'] === 'application/xml') {
+      } else if (_Util.Util.insensitiveValue('Content-Type', response.config.headers) === 'application/xml') {
         return 'xml';
       }
 
@@ -62141,33 +62980,7 @@ function () {
   }, {
     key: "getOptions",
     value: function getOptions(options) {
-      var ret = new _OnmsHTTPOptions.OnmsHTTPOptions();
-      (0, _assign.default)(ret, (0, _lodash.cloneDeep)(this.options));
-      (0, _assign.default)(ret, (0, _lodash.cloneDeep)(options));
-      var server = this.getServer(ret);
-      ret.server = server;
-
-      if (server && server.auth) {
-        (0, _assign.default)(ret.auth, (0, _lodash.cloneDeep)(server.auth));
-      }
-
-      if (!ret.headers) {
-        ret.headers = {};
-      }
-
-      if (!ret.headers.hasOwnProperty('X-Requested-With')) {
-        ret.headers['X-Requested-With'] = 'XMLHttpRequest';
-      }
-
-      if (!ret.headers.accept && !ret.headers.Accept) {
-        ret.headers.accept = 'application/json';
-      }
-
-      if (!ret.headers['content-type'] && !ret.headers['Content-Type']) {
-        ret.headers['content-type'] = 'application/json;charset=utf-8';
-      }
-
-      return ret;
+      return _OnmsHTTPOptions.OnmsHTTPOptions.newBuilder().setServer(this.serverObj || undefined).merge(this.options).merge(options).setDefaultHeader('X-Requested-With', 'XMLHttpRequest').setDefaultHeader('Accept', 'application/json').setDefaultHeader('Content-Type', 'application/json;charset=utf-8').build();
     }
     /**
      * Implementers should override this method if they have actions that need to be performed
@@ -62414,8 +63227,8 @@ function (_AbstractHTTP) {
       return this.getImpl(options).request(opts).then(function (response) {
         var type;
 
-        if (response.headers && response.headers['content-type']) {
-          type = response.headers['content-type'];
+        if (response.headers && response.headers['Content-Type']) {
+          type = response.headers['Content-Type'];
         }
 
         return _OnmsResult.OnmsResult.ok(_this2.getData(response), undefined, response.status, type);
@@ -62444,8 +63257,8 @@ function (_AbstractHTTP) {
       return this.getImpl(options).request(opts).then(function (response) {
         var type;
 
-        if (response.headers && response.headers['content-type']) {
-          type = response.headers['content-type'];
+        if (response.headers && response.headers['Content-Type']) {
+          type = response.headers['Content-Type'];
         }
 
         return _OnmsResult.OnmsResult.ok(_this3.getData(response), undefined, response.status, type);
@@ -62475,8 +63288,8 @@ function (_AbstractHTTP) {
       return this.getImpl(options).request(opts).then(function (response) {
         var type;
 
-        if (response.headers && response.headers['content-type']) {
-          type = response.headers['content-type'];
+        if (response.headers && response.headers['Content-Type']) {
+          type = response.headers['Content-Type'];
         }
 
         return _OnmsResult.OnmsResult.ok(_this4.getData(response), undefined, response.status, type);
@@ -62505,8 +63318,8 @@ function (_AbstractHTTP) {
       return this.getImpl(options).request(opts).then(function (response) {
         var type;
 
-        if (response.headers && response.headers['content-type']) {
-          type = response.headers['content-type'];
+        if (response.headers && response.headers['Content-Type']) {
+          type = response.headers['Content-Type'];
         }
 
         return _OnmsResult.OnmsResult.ok(_this5.getData(response), undefined, response.status, type);
@@ -62535,8 +63348,8 @@ function (_AbstractHTTP) {
       return this.getImpl(options).request(opts).then(function (response) {
         var type;
 
-        if (response.headers && response.headers['content-type']) {
-          type = response.headers['content-type'];
+        if (response.headers && response.headers['Content-Type']) {
+          type = response.headers['Content-Type'];
         }
 
         return _OnmsResult.OnmsResult.ok(_this6.getData(response), undefined, response.status, type);
@@ -62588,15 +63401,15 @@ function (_AbstractHTTP) {
         ret.headers = {};
       }
 
-      if (!ret.headers.accept) {
-        ret.headers.accept = 'application/json';
+      if (!ret.headers.Accept) {
+        ret.headers.Accept = 'application/json';
       }
 
-      if (!ret.headers['content-type']) {
-        ret.headers['content-type'] = 'application/json;charset=utf-8';
+      if (!ret.headers['Content-Type']) {
+        ret.headers['Content-Type'] = 'application/json;charset=utf-8';
       }
 
-      var type = ret.headers.accept;
+      var type = ret.headers.Accept;
       ret.transformResponse = [];
 
       if (type === 'application/json') {
@@ -62870,12 +63683,12 @@ function (_AbstractHTTP) {
       return this.backendSrv.datasourceRequest(query).then(function (response) {
         var type = 'application/xml';
 
-        if (query && query.headers && query.headers.accept) {
-          type = query.headers.accept;
+        if (query && query.headers && query.headers.Accept) {
+          type = query.headers.Accept;
         }
 
-        if (response.headers && response.headers['content-type']) {
-          type = response.headers['content-type'];
+        if (response.headers && response.headers['Content-Type']) {
+          type = response.headers['Content-Type'];
         }
 
         return _OnmsResult.OnmsResult.ok(_this2.getData(response), undefined, response.status, type);
@@ -62900,12 +63713,12 @@ function (_AbstractHTTP) {
       return this.backendSrv.datasourceRequest(query).then(function (response) {
         var type = 'application/xml';
 
-        if (query && query.headers && query.headers.accept) {
-          type = query.headers.accept;
+        if (query && query.headers && query.headers.Accept) {
+          type = query.headers.Accept;
         }
 
-        if (response.headers && response.headers['content-type']) {
-          type = response.headers['content-type'];
+        if (response.headers && response.headers['Content-Type']) {
+          type = response.headers['Content-Type'];
         }
 
         return _OnmsResult.OnmsResult.ok(_this3.getData(response), undefined, response.status, type);
@@ -62931,12 +63744,12 @@ function (_AbstractHTTP) {
       return this.backendSrv.datasourceRequest(query).then(function (response) {
         var type = 'application/xml';
 
-        if (query && query.headers && query.headers.accept) {
-          type = query.headers.accept;
+        if (query && query.headers && query.headers.Accept) {
+          type = query.headers.Accept;
         }
 
-        if (response.headers && response.headers['content-type']) {
-          type = response.headers['content-type'];
+        if (response.headers && response.headers['Content-Type']) {
+          type = response.headers['Content-Type'];
         }
 
         return _OnmsResult.OnmsResult.ok(_this4.getData(response), undefined, response.status, type);
@@ -62961,12 +63774,12 @@ function (_AbstractHTTP) {
       return this.backendSrv.datasourceRequest(query).then(function (response) {
         var type = 'application/xml';
 
-        if (query && query.headers && query.headers.accept) {
-          type = query.headers.accept;
+        if (query && query.headers && query.headers.Accept) {
+          type = query.headers.Accept;
         }
 
-        if (response.headers && response.headers['content-type']) {
-          type = response.headers['content-type'];
+        if (response.headers && response.headers['Content-Type']) {
+          type = response.headers['Content-Type'];
         }
 
         return _OnmsResult.OnmsResult.ok(_this5.getData(response), undefined, response.status, type);
@@ -62991,12 +63804,12 @@ function (_AbstractHTTP) {
       return this.backendSrv.datasourceRequest(query).then(function (response) {
         var type = 'application/xml';
 
-        if (query && query.headers && query.headers.accept) {
-          type = query.headers.accept;
+        if (query && query.headers && query.headers.Accept) {
+          type = query.headers.Accept;
         }
 
-        if (response.headers && response.headers['content-type']) {
-          type = response.headers['content-type'];
+        if (response.headers && response.headers['Content-Type']) {
+          type = response.headers['Content-Type'];
         }
 
         return _OnmsResult.OnmsResult.ok(_this6.getData(response), undefined, response.status, type);
@@ -63223,6 +64036,17 @@ exports.XmlTransformer = XmlTransformer;
 /***/ (function(module, exports) {
 
 module.exports = require("assert");
+
+/***/ }),
+
+/***/ "crypto":
+/*!*************************!*\
+  !*** external "crypto" ***!
+  \*************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = require("crypto");
 
 /***/ }),
 

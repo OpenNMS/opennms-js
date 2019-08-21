@@ -3,15 +3,19 @@
 
 ### Bug Fixes
 
+* **api:** remove unneccesary undefinability ([578ed1c](https://github.com/OpenNMS/opennms-js/commit/578ed1c))
 * **cli:** bounds-check remaining column width for table render ([54c8919](https://github.com/OpenNMS/opennms-js/commit/54c8919))
 * **cli:** CLI errors should exit immediately non-0 ([943710e](https://github.com/OpenNMS/opennms-js/commit/943710e))
 * **cli:** fix typo in space-cleaning regex ([de5f5cc](https://github.com/OpenNMS/opennms-js/commit/de5f5cc))
+* **client:** set server when checking metadata ([6437884](https://github.com/OpenNMS/opennms-js/commit/6437884))
 * **dao:** fix DAO property caching (JS-38) ([178a31d](https://github.com/OpenNMS/opennms-js/commit/178a31d))
+* **filters:** make sure clauses is always initialized ([246ce4c](https://github.com/OpenNMS/opennms-js/commit/246ce4c))
 * **log:** fix formatting of log output ([42e89f3](https://github.com/OpenNMS/opennms-js/commit/42e89f3))
 * **rest:** assign != apply :D ([1112c7b](https://github.com/OpenNMS/opennms-js/commit/1112c7b))
 * **rest:** caught errors in GrafanaHTTP should be re-thrown ([fc35b12](https://github.com/OpenNMS/opennms-js/commit/fc35b12))
 * **rest:** fix auth initialization broken during refactor (JS-39) ([85200fd](https://github.com/OpenNMS/opennms-js/commit/85200fd))
 * **rest:** simplify grafana HTTP config creation ([3f3089b](https://github.com/OpenNMS/opennms-js/commit/3f3089b))
+* **test:** fix tslint errors ([1606bff](https://github.com/OpenNMS/opennms-js/commit/1606bff))
 
 
 ### Code Refactoring
@@ -25,6 +29,7 @@
 * **build:** add dependabot auto-updater config ([b0eb941](https://github.com/OpenNMS/opennms-js/commit/b0eb941))
 * **client:** cache DAOs accessed through the Client API (JS-38) ([76c9205](https://github.com/OpenNMS/opennms-js/commit/76c9205))
 * **rest:** add HTTP HEAD ([bea34a5](https://github.com/OpenNMS/opennms-js/commit/bea34a5))
+* make common API objects immutable ([0b8407c](https://github.com/OpenNMS/opennms-js/commit/0b8407c))
 
 
 ### BREAKING CHANGES

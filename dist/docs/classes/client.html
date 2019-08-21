@@ -101,7 +101,6 @@
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="client.html#http" class="tsd-kind-icon">http</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class"><a href="client.html#server" class="tsd-kind-icon">server</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private tsd-is-static"><a href="client.html#defaulthttp" class="tsd-kind-icon">default<wbr>Http</a></li>
 							</ul>
 						</section>
@@ -133,13 +132,15 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/5280fae/src/Client.ts#L109">Client.ts:109</a></li>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/0b276f3/src/Client.ts#L108">Client.ts:108</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
 									<p>Construct a new OpenNMS client.</p>
 								</div>
+								<p>If no <code>httpImpl</code> parameter is provided, the class in <code>Client.defaultHttp</code> will be used by default.
+								Unless overridden, this defaults to <a href="axioshttp.html">AxiosHTTP</a>.</p>
 								<dl class="tsd-comment-tags">
 									<dt>constructor</dt>
 									<dd></dd>
@@ -151,9 +152,7 @@
 									<h5><span class="tsd-flag ts-flagOptional">Optional</span> httpImpl: <a href="../interfaces/ionmshttp.html" class="tsd-signature-type">IOnmsHTTP</a></h5>
 									<div class="tsd-comment tsd-typography">
 										<div class="lead">
-											<p>The OnmsHTTP implementation to use. Normally
-												this will automatically choose the best implementation
-											based on the environment.</p>
+											<p>The IOnmsHTTP implementation to use.</p>
 										</div>
 									</div>
 								</li>
@@ -172,7 +171,7 @@
 					<aside class="tsd-sources">
 						<p>Implementation of <a href="../interfaces/ihashttp.html">IHasHTTP</a>.<a href="../interfaces/ihashttp.html#http">http</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/5280fae/src/Client.ts#L100">Client.ts:100</a></li>
+							<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/0b276f3/src/Client.ts#L102">Client.ts:102</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -181,28 +180,13 @@
 						</div>
 					</div>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
-					<a name="server" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> server</h3>
-					<div class="tsd-signature tsd-kind-icon">server<span class="tsd-signature-symbol">:</span> <a href="onmsserver.html" class="tsd-signature-type">OnmsServer</a></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/5280fae/src/Client.ts#L103">Client.ts:103</a></li>
-						</ul>
-					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>The remote server to connect to</p>
-						</div>
-					</div>
-				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private tsd-is-static">
 					<a name="defaulthttp" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagStatic">Static</span> <span class="tsd-flag ts-flagPrivate">Private</span> default<wbr>Http</h3>
-					<div class="tsd-signature tsd-kind-icon">default<wbr>Http<span class="tsd-signature-symbol">:</span> <a href="../interfaces/ionmshttp.html" class="tsd-signature-type">IOnmsHTTP</a></div>
+					<div class="tsd-signature tsd-kind-icon">default<wbr>Http<span class="tsd-signature-symbol">:</span> <a href="axioshttp.html" class="tsd-signature-type">AxiosHTTP</a><span class="tsd-signature-symbol"> =&nbsp;AxiosHTTP</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/5280fae/src/Client.ts#L97">Client.ts:97</a></li>
+							<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/0b276f3/src/Client.ts#L99">Client.ts:99</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -224,7 +208,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/5280fae/src/Client.ts#L150">Client.ts:150</a></li>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/0b276f3/src/Client.ts#L149">Client.ts:149</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -246,14 +230,17 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/5280fae/src/Client.ts#L131">Client.ts:131</a></li>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/0b276f3/src/Client.ts#L131">Client.ts:131</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Connect to an OpenNMS server, check what capabilities it has, and return an <a href="onmsserver.html">OnmsServer</a>
-									for that connection.</p>
+									<p>Connect to an OpenNMS server.</p>
 								</div>
+								<p>NOTE: This method will connect to the server using the provided
+									information, get the server metadata, and then <em>assign</em> that
+									server to the <em>existing</em> <a href="../interfaces/ionmshttp.html">IOnmsHTTP</a> implementation associated
+								with this client (or the default impl, if one has not yet been provided).</p>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
@@ -287,7 +274,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/5280fae/src/Client.ts#L155">Client.ts:155</a></li>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/0b276f3/src/Client.ts#L154">Client.ts:154</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -309,7 +296,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/5280fae/src/Client.ts#L165">Client.ts:165</a></li>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/0b276f3/src/Client.ts#L164">Client.ts:164</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -331,7 +318,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/5280fae/src/Client.ts#L160">Client.ts:160</a></li>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/0b276f3/src/Client.ts#L159">Client.ts:159</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -353,7 +340,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/5280fae/src/Client.ts#L170">Client.ts:170</a></li>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/0b276f3/src/Client.ts#L169">Client.ts:169</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -375,7 +362,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/5280fae/src/Client.ts#L36">Client.ts:36</a></li>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/0b276f3/src/Client.ts#L37">Client.ts:37</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -418,7 +405,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/5280fae/src/Client.ts#L60">Client.ts:60</a></li>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/0b276f3/src/Client.ts#L63">Client.ts:63</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -474,9 +461,6 @@
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class">
 								<a href="client.html#http" class="tsd-kind-icon">http</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class">
-								<a href="client.html#server" class="tsd-kind-icon">server</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private tsd-is-static">
 								<a href="client.html#defaulthttp" class="tsd-kind-icon">default<wbr>Http</a>

@@ -43407,6 +43407,1341 @@ webpackContext.id = "./node_modules/moment/locale sync recursive ^\\.\\/.*$";
 
 /***/ }),
 
+/***/ "./node_modules/object-hash/dist/object_hash.js":
+/*!******************************************************!*\
+  !*** ./node_modules/object-hash/dist/object_hash.js ***!
+  \******************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var require;var require;!function (e) {
+  if (true) module.exports = e();else { var t; }
+}(function () {
+  return function e(t, n, r) {
+    function o(u, a) {
+      if (!n[u]) {
+        if (!t[u]) {
+          var f = "function" == typeof require && require;
+          if (!a && f) return require(u, !0);
+          if (i) return i(u, !0);
+          throw new Error("Cannot find module '" + u + "'");
+        }
+
+        var s = n[u] = {
+          exports: {}
+        };
+        t[u][0].call(s.exports, function (e) {
+          var n = t[u][1][e];
+          return o(n ? n : e);
+        }, s, s.exports, e, t, n, r);
+      }
+
+      return n[u].exports;
+    }
+
+    for (var i = "function" == typeof require && require, u = 0; u < r.length; u++) o(r[u]);
+
+    return o;
+  }({
+    1: [function (e, t, n) {
+      (function (r, o, i, u, a, f, s, c, l) {
+        "use strict";
+
+        function d(e, t) {
+          return t = h(e, t), g(e, t);
+        }
+
+        function h(e, t) {
+          if (t = t || {}, t.algorithm = t.algorithm || "sha1", t.encoding = t.encoding || "hex", t.excludeValues = !!t.excludeValues, t.algorithm = t.algorithm.toLowerCase(), t.encoding = t.encoding.toLowerCase(), t.ignoreUnknown = t.ignoreUnknown === !0, t.respectType = t.respectType !== !1, t.respectFunctionNames = t.respectFunctionNames !== !1, t.respectFunctionProperties = t.respectFunctionProperties !== !1, t.unorderedArrays = t.unorderedArrays === !0, t.unorderedSets = t.unorderedSets !== !1, t.unorderedObjects = t.unorderedObjects !== !1, t.replacer = t.replacer || void 0, t.excludeKeys = t.excludeKeys || void 0, "undefined" == typeof e) throw new Error("Object argument required.");
+
+          for (var n = 0; n < v.length; ++n) v[n].toLowerCase() === t.algorithm.toLowerCase() && (t.algorithm = v[n]);
+
+          if (v.indexOf(t.algorithm) === -1) throw new Error('Algorithm "' + t.algorithm + '"  not supported. supported values: ' + v.join(", "));
+          if (m.indexOf(t.encoding) === -1 && "passthrough" !== t.algorithm) throw new Error('Encoding "' + t.encoding + '"  not supported. supported values: ' + m.join(", "));
+          return t;
+        }
+
+        function p(e) {
+          if ("function" != typeof e) return !1;
+          var t = /^function\s+\w*\s*\(\s*\)\s*{\s+\[native code\]\s+}$/i;
+          return null != t.exec(Function.prototype.toString.call(e));
+        }
+
+        function g(e, t) {
+          var n;
+          n = "passthrough" !== t.algorithm ? b.createHash(t.algorithm) : new w(), "undefined" == typeof n.write && (n.write = n.update, n.end = n.update);
+          var r = y(t, n);
+          if (r.dispatch(e), n.update || n.end(""), n.digest) return n.digest("buffer" === t.encoding ? void 0 : t.encoding);
+          var o = n.read();
+          return "buffer" === t.encoding ? o : o.toString(t.encoding);
+        }
+
+        function y(e, t, n) {
+          n = n || [];
+
+          var r = function (e) {
+            return t.update ? t.update(e, "utf8") : t.write(e, "utf8");
+          };
+
+          return {
+            dispatch: function (t) {
+              e.replacer && (t = e.replacer(t));
+              var n = typeof t;
+              return null === t && (n = "null"), this["_" + n](t);
+            },
+            _object: function (t) {
+              var o = /\[object (.*)\]/i,
+                  u = Object.prototype.toString.call(t),
+                  a = o.exec(u);
+              a = a ? a[1] : "unknown:[" + u + "]", a = a.toLowerCase();
+              var f = null;
+              if ((f = n.indexOf(t)) >= 0) return this.dispatch("[CIRCULAR:" + f + "]");
+              if (n.push(t), "undefined" != typeof i && i.isBuffer && i.isBuffer(t)) return r("buffer:"), r(t);
+
+              if ("object" === a || "function" === a) {
+                var s = Object.keys(t);
+                e.unorderedObjects && (s = s.sort()), e.respectType === !1 || p(t) || s.splice(0, 0, "prototype", "__proto__", "constructor"), e.excludeKeys && (s = s.filter(function (t) {
+                  return !e.excludeKeys(t);
+                })), r("object:" + s.length + ":");
+                var c = this;
+                return s.forEach(function (n) {
+                  c.dispatch(n), r(":"), e.excludeValues || c.dispatch(t[n]), r(",");
+                });
+              }
+
+              if (!this["_" + a]) {
+                if (e.ignoreUnknown) return r("[" + a + "]");
+                throw new Error('Unknown object type "' + a + '"');
+              }
+
+              this["_" + a](t);
+            },
+            _array: function (t, o) {
+              o = "undefined" != typeof o ? o : e.unorderedArrays !== !1;
+              var i = this;
+              if (r("array:" + t.length + ":"), !o || t.length <= 1) return t.forEach(function (e) {
+                return i.dispatch(e);
+              });
+              var u = [],
+                  a = t.map(function (t) {
+                var r = new w(),
+                    o = n.slice(),
+                    i = y(e, r, o);
+                return i.dispatch(t), u = u.concat(o.slice(n.length)), r.read().toString();
+              });
+              return n = n.concat(u), a.sort(), this._array(a, !1);
+            },
+            _date: function (e) {
+              return r("date:" + e.toJSON());
+            },
+            _symbol: function (e) {
+              return r("symbol:" + e.toString());
+            },
+            _error: function (e) {
+              return r("error:" + e.toString());
+            },
+            _boolean: function (e) {
+              return r("bool:" + e.toString());
+            },
+            _string: function (e) {
+              r("string:" + e.length + ":"), r(e.toString());
+            },
+            _function: function (t) {
+              r("fn:"), p(t) ? this.dispatch("[native]") : this.dispatch(t.toString()), e.respectFunctionNames !== !1 && this.dispatch("function-name:" + String(t.name)), e.respectFunctionProperties && this._object(t);
+            },
+            _number: function (e) {
+              return r("number:" + e.toString());
+            },
+            _xml: function (e) {
+              return r("xml:" + e.toString());
+            },
+            _null: function () {
+              return r("Null");
+            },
+            _undefined: function () {
+              return r("Undefined");
+            },
+            _regexp: function (e) {
+              return r("regex:" + e.toString());
+            },
+            _uint8array: function (e) {
+              return r("uint8array:"), this.dispatch(Array.prototype.slice.call(e));
+            },
+            _uint8clampedarray: function (e) {
+              return r("uint8clampedarray:"), this.dispatch(Array.prototype.slice.call(e));
+            },
+            _int8array: function (e) {
+              return r("uint8array:"), this.dispatch(Array.prototype.slice.call(e));
+            },
+            _uint16array: function (e) {
+              return r("uint16array:"), this.dispatch(Array.prototype.slice.call(e));
+            },
+            _int16array: function (e) {
+              return r("uint16array:"), this.dispatch(Array.prototype.slice.call(e));
+            },
+            _uint32array: function (e) {
+              return r("uint32array:"), this.dispatch(Array.prototype.slice.call(e));
+            },
+            _int32array: function (e) {
+              return r("uint32array:"), this.dispatch(Array.prototype.slice.call(e));
+            },
+            _float32array: function (e) {
+              return r("float32array:"), this.dispatch(Array.prototype.slice.call(e));
+            },
+            _float64array: function (e) {
+              return r("float64array:"), this.dispatch(Array.prototype.slice.call(e));
+            },
+            _arraybuffer: function (e) {
+              return r("arraybuffer:"), this.dispatch(new Uint8Array(e));
+            },
+            _url: function (e) {
+              return r("url:" + e.toString(), "utf8");
+            },
+            _map: function (t) {
+              r("map:");
+              var n = Array.from(t);
+              return this._array(n, e.unorderedSets !== !1);
+            },
+            _set: function (t) {
+              r("set:");
+              var n = Array.from(t);
+              return this._array(n, e.unorderedSets !== !1);
+            },
+            _blob: function () {
+              if (e.ignoreUnknown) return r("[blob]");
+              throw Error('Hashing Blob objects is currently not supported\n(see https://github.com/puleos/object-hash/issues/26)\nUse "options.replacer" or "options.ignoreUnknown"\n');
+            },
+            _domwindow: function () {
+              return r("domwindow");
+            },
+            _process: function () {
+              return r("process");
+            },
+            _timer: function () {
+              return r("timer");
+            },
+            _pipe: function () {
+              return r("pipe");
+            },
+            _tcp: function () {
+              return r("tcp");
+            },
+            _udp: function () {
+              return r("udp");
+            },
+            _tty: function () {
+              return r("tty");
+            },
+            _statwatcher: function () {
+              return r("statwatcher");
+            },
+            _securecontext: function () {
+              return r("securecontext");
+            },
+            _connection: function () {
+              return r("connection");
+            },
+            _zlib: function () {
+              return r("zlib");
+            },
+            _context: function () {
+              return r("context");
+            },
+            _nodescript: function () {
+              return r("nodescript");
+            },
+            _httpparser: function () {
+              return r("httpparser");
+            },
+            _dataview: function () {
+              return r("dataview");
+            },
+            _signal: function () {
+              return r("signal");
+            },
+            _fsevent: function () {
+              return r("fsevent");
+            },
+            _tlswrap: function () {
+              return r("tlswrap");
+            }
+          };
+        }
+
+        function w() {
+          return {
+            buf: "",
+            write: function (e) {
+              this.buf += e;
+            },
+            end: function (e) {
+              this.buf += e;
+            },
+            read: function () {
+              return this.buf;
+            }
+          };
+        }
+
+        var b = e("crypto");
+        n = t.exports = d, n.sha1 = function (e) {
+          return d(e);
+        }, n.keys = function (e) {
+          return d(e, {
+            excludeValues: !0,
+            algorithm: "sha1",
+            encoding: "hex"
+          });
+        }, n.MD5 = function (e) {
+          return d(e, {
+            algorithm: "md5",
+            encoding: "hex"
+          });
+        }, n.keysMD5 = function (e) {
+          return d(e, {
+            algorithm: "md5",
+            encoding: "hex",
+            excludeValues: !0
+          });
+        };
+        var v = b.getHashes ? b.getHashes().slice() : ["sha1", "md5"];
+        v.push("passthrough");
+        var m = ["buffer", "hex", "binary", "base64"];
+
+        n.writeToStream = function (e, t, n) {
+          return "undefined" == typeof n && (n = t, t = {}), t = h(e, t), y(t, n).dispatch(e);
+        };
+      }).call(this, e("lYpoI2"), "undefined" != typeof self ? self : "undefined" != typeof window ? window : {}, e("buffer").Buffer, arguments[3], arguments[4], arguments[5], arguments[6], "/fake_e8180ef5.js", "/");
+    }, {
+      buffer: 3,
+      crypto: 5,
+      lYpoI2: 10
+    }],
+    2: [function (e, t, n) {
+      (function (e, t, r, o, i, u, a, f, s) {
+        var c = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
+        !function (e) {
+          "use strict";
+
+          function t(e) {
+            var t = e.charCodeAt(0);
+            return t === i || t === l ? 62 : t === u || t === d ? 63 : t < a ? -1 : t < a + 10 ? t - a + 26 + 26 : t < s + 26 ? t - s : t < f + 26 ? t - f + 26 : void 0;
+          }
+
+          function n(e) {
+            function n(e) {
+              s[l++] = e;
+            }
+
+            var r, i, u, a, f, s;
+            if (e.length % 4 > 0) throw new Error("Invalid string. Length must be a multiple of 4");
+            var c = e.length;
+            f = "=" === e.charAt(c - 2) ? 2 : "=" === e.charAt(c - 1) ? 1 : 0, s = new o(3 * e.length / 4 - f), u = f > 0 ? e.length - 4 : e.length;
+            var l = 0;
+
+            for (r = 0, i = 0; r < u; r += 4, i += 3) a = t(e.charAt(r)) << 18 | t(e.charAt(r + 1)) << 12 | t(e.charAt(r + 2)) << 6 | t(e.charAt(r + 3)), n((16711680 & a) >> 16), n((65280 & a) >> 8), n(255 & a);
+
+            return 2 === f ? (a = t(e.charAt(r)) << 2 | t(e.charAt(r + 1)) >> 4, n(255 & a)) : 1 === f && (a = t(e.charAt(r)) << 10 | t(e.charAt(r + 1)) << 4 | t(e.charAt(r + 2)) >> 2, n(a >> 8 & 255), n(255 & a)), s;
+          }
+
+          function r(e) {
+            function t(e) {
+              return c.charAt(e);
+            }
+
+            function n(e) {
+              return t(e >> 18 & 63) + t(e >> 12 & 63) + t(e >> 6 & 63) + t(63 & e);
+            }
+
+            var r,
+                o,
+                i,
+                u = e.length % 3,
+                a = "";
+
+            for (r = 0, i = e.length - u; r < i; r += 3) o = (e[r] << 16) + (e[r + 1] << 8) + e[r + 2], a += n(o);
+
+            switch (u) {
+              case 1:
+                o = e[e.length - 1], a += t(o >> 2), a += t(o << 4 & 63), a += "==";
+                break;
+
+              case 2:
+                o = (e[e.length - 2] << 8) + e[e.length - 1], a += t(o >> 10), a += t(o >> 4 & 63), a += t(o << 2 & 63), a += "=";
+            }
+
+            return a;
+          }
+
+          var o = "undefined" != typeof Uint8Array ? Uint8Array : Array,
+              i = "+".charCodeAt(0),
+              u = "/".charCodeAt(0),
+              a = "0".charCodeAt(0),
+              f = "a".charCodeAt(0),
+              s = "A".charCodeAt(0),
+              l = "-".charCodeAt(0),
+              d = "_".charCodeAt(0);
+          e.toByteArray = n, e.fromByteArray = r;
+        }("undefined" == typeof n ? this.base64js = {} : n);
+      }).call(this, e("lYpoI2"), "undefined" != typeof self ? self : "undefined" != typeof window ? window : {}, e("buffer").Buffer, arguments[3], arguments[4], arguments[5], arguments[6], "/node_modules/gulp-browserify/node_modules/base64-js/lib/b64.js", "/node_modules/gulp-browserify/node_modules/base64-js/lib");
+    }, {
+      buffer: 3,
+      lYpoI2: 10
+    }],
+    3: [function (e, t, n) {
+      (function (t, r, o, i, u, a, f, s, c) {
+        function o(e, t, n) {
+          if (!(this instanceof o)) return new o(e, t, n);
+          var r = typeof e;
+          if ("base64" === t && "string" === r) for (e = N(e); e.length % 4 !== 0;) e += "=";
+          var i;
+          if ("number" === r) i = F(e);else if ("string" === r) i = o.byteLength(e, t);else {
+            if ("object" !== r) throw new Error("First argument needs to be a number, array or string.");
+            i = F(e.length);
+          }
+          var u;
+          o._useTypedArrays ? u = o._augment(new Uint8Array(i)) : (u = this, u.length = i, u._isBuffer = !0);
+          var a;
+          if (o._useTypedArrays && "number" == typeof e.byteLength) u._set(e);else if (O(e)) for (a = 0; a < i; a++) o.isBuffer(e) ? u[a] = e.readUInt8(a) : u[a] = e[a];else if ("string" === r) u.write(e, 0, t);else if ("number" === r && !o._useTypedArrays && !n) for (a = 0; a < i; a++) u[a] = 0;
+          return u;
+        }
+
+        function l(e, t, n, r) {
+          n = Number(n) || 0;
+          var i = e.length - n;
+          r ? (r = Number(r), r > i && (r = i)) : r = i;
+          var u = t.length;
+          $(u % 2 === 0, "Invalid hex string"), r > u / 2 && (r = u / 2);
+
+          for (var a = 0; a < r; a++) {
+            var f = parseInt(t.substr(2 * a, 2), 16);
+            $(!isNaN(f), "Invalid hex string"), e[n + a] = f;
+          }
+
+          return o._charsWritten = 2 * a, a;
+        }
+
+        function d(e, t, n, r) {
+          var i = o._charsWritten = W(V(t), e, n, r);
+          return i;
+        }
+
+        function h(e, t, n, r) {
+          var i = o._charsWritten = W(q(t), e, n, r);
+          return i;
+        }
+
+        function p(e, t, n, r) {
+          return h(e, t, n, r);
+        }
+
+        function g(e, t, n, r) {
+          var i = o._charsWritten = W(R(t), e, n, r);
+          return i;
+        }
+
+        function y(e, t, n, r) {
+          var i = o._charsWritten = W(P(t), e, n, r);
+          return i;
+        }
+
+        function w(e, t, n) {
+          return 0 === t && n === e.length ? G.fromByteArray(e) : G.fromByteArray(e.slice(t, n));
+        }
+
+        function b(e, t, n) {
+          var r = "",
+              o = "";
+          n = Math.min(e.length, n);
+
+          for (var i = t; i < n; i++) e[i] <= 127 ? (r += J(o) + String.fromCharCode(e[i]), o = "") : o += "%" + e[i].toString(16);
+
+          return r + J(o);
+        }
+
+        function v(e, t, n) {
+          var r = "";
+          n = Math.min(e.length, n);
+
+          for (var o = t; o < n; o++) r += String.fromCharCode(e[o]);
+
+          return r;
+        }
+
+        function m(e, t, n) {
+          return v(e, t, n);
+        }
+
+        function _(e, t, n) {
+          var r = e.length;
+          (!t || t < 0) && (t = 0), (!n || n < 0 || n > r) && (n = r);
+
+          for (var o = "", i = t; i < n; i++) o += H(e[i]);
+
+          return o;
+        }
+
+        function E(e, t, n) {
+          for (var r = e.slice(t, n), o = "", i = 0; i < r.length; i += 2) o += String.fromCharCode(r[i] + 256 * r[i + 1]);
+
+          return o;
+        }
+
+        function I(e, t, n, r) {
+          r || ($("boolean" == typeof n, "missing or invalid endian"), $(void 0 !== t && null !== t, "missing offset"), $(t + 1 < e.length, "Trying to read beyond buffer length"));
+          var o = e.length;
+
+          if (!(t >= o)) {
+            var i;
+            return n ? (i = e[t], t + 1 < o && (i |= e[t + 1] << 8)) : (i = e[t] << 8, t + 1 < o && (i |= e[t + 1])), i;
+          }
+        }
+
+        function A(e, t, n, r) {
+          r || ($("boolean" == typeof n, "missing or invalid endian"), $(void 0 !== t && null !== t, "missing offset"), $(t + 3 < e.length, "Trying to read beyond buffer length"));
+          var o = e.length;
+
+          if (!(t >= o)) {
+            var i;
+            return n ? (t + 2 < o && (i = e[t + 2] << 16), t + 1 < o && (i |= e[t + 1] << 8), i |= e[t], t + 3 < o && (i += e[t + 3] << 24 >>> 0)) : (t + 1 < o && (i = e[t + 1] << 16), t + 2 < o && (i |= e[t + 2] << 8), t + 3 < o && (i |= e[t + 3]), i += e[t] << 24 >>> 0), i;
+          }
+        }
+
+        function B(e, t, n, r) {
+          r || ($("boolean" == typeof n, "missing or invalid endian"), $(void 0 !== t && null !== t, "missing offset"), $(t + 1 < e.length, "Trying to read beyond buffer length"));
+          var o = e.length;
+
+          if (!(t >= o)) {
+            var i = I(e, t, n, !0),
+                u = 32768 & i;
+            return u ? (65535 - i + 1) * -1 : i;
+          }
+        }
+
+        function L(e, t, n, r) {
+          r || ($("boolean" == typeof n, "missing or invalid endian"), $(void 0 !== t && null !== t, "missing offset"), $(t + 3 < e.length, "Trying to read beyond buffer length"));
+          var o = e.length;
+
+          if (!(t >= o)) {
+            var i = A(e, t, n, !0),
+                u = 2147483648 & i;
+            return u ? (4294967295 - i + 1) * -1 : i;
+          }
+        }
+
+        function U(e, t, n, r) {
+          return r || ($("boolean" == typeof n, "missing or invalid endian"), $(t + 3 < e.length, "Trying to read beyond buffer length")), Q.read(e, t, n, 23, 4);
+        }
+
+        function x(e, t, n, r) {
+          return r || ($("boolean" == typeof n, "missing or invalid endian"), $(t + 7 < e.length, "Trying to read beyond buffer length")), Q.read(e, t, n, 52, 8);
+        }
+
+        function S(e, t, n, r, o) {
+          o || ($(void 0 !== t && null !== t, "missing value"), $("boolean" == typeof r, "missing or invalid endian"), $(void 0 !== n && null !== n, "missing offset"), $(n + 1 < e.length, "trying to write beyond buffer length"), K(t, 65535));
+          var i = e.length;
+          if (!(n >= i)) for (var u = 0, a = Math.min(i - n, 2); u < a; u++) e[n + u] = (t & 255 << 8 * (r ? u : 1 - u)) >>> 8 * (r ? u : 1 - u);
+        }
+
+        function j(e, t, n, r, o) {
+          o || ($(void 0 !== t && null !== t, "missing value"), $("boolean" == typeof r, "missing or invalid endian"), $(void 0 !== n && null !== n, "missing offset"), $(n + 3 < e.length, "trying to write beyond buffer length"), K(t, 4294967295));
+          var i = e.length;
+          if (!(n >= i)) for (var u = 0, a = Math.min(i - n, 4); u < a; u++) e[n + u] = t >>> 8 * (r ? u : 3 - u) & 255;
+        }
+
+        function C(e, t, n, r, o) {
+          o || ($(void 0 !== t && null !== t, "missing value"), $("boolean" == typeof r, "missing or invalid endian"), $(void 0 !== n && null !== n, "missing offset"), $(n + 1 < e.length, "Trying to write beyond buffer length"), z(t, 32767, -32768));
+          var i = e.length;
+          n >= i || (t >= 0 ? S(e, t, n, r, o) : S(e, 65535 + t + 1, n, r, o));
+        }
+
+        function k(e, t, n, r, o) {
+          o || ($(void 0 !== t && null !== t, "missing value"), $("boolean" == typeof r, "missing or invalid endian"), $(void 0 !== n && null !== n, "missing offset"), $(n + 3 < e.length, "Trying to write beyond buffer length"), z(t, 2147483647, -2147483648));
+          var i = e.length;
+          n >= i || (t >= 0 ? j(e, t, n, r, o) : j(e, 4294967295 + t + 1, n, r, o));
+        }
+
+        function T(e, t, n, r, o) {
+          o || ($(void 0 !== t && null !== t, "missing value"), $("boolean" == typeof r, "missing or invalid endian"), $(void 0 !== n && null !== n, "missing offset"), $(n + 3 < e.length, "Trying to write beyond buffer length"), X(t, 3.4028234663852886e38, -3.4028234663852886e38));
+          var i = e.length;
+          n >= i || Q.write(e, t, n, r, 23, 4);
+        }
+
+        function M(e, t, n, r, o) {
+          o || ($(void 0 !== t && null !== t, "missing value"), $("boolean" == typeof r, "missing or invalid endian"), $(void 0 !== n && null !== n, "missing offset"), $(n + 7 < e.length, "Trying to write beyond buffer length"), X(t, 1.7976931348623157e308, -1.7976931348623157e308));
+          var i = e.length;
+          n >= i || Q.write(e, t, n, r, 52, 8);
+        }
+
+        function N(e) {
+          return e.trim ? e.trim() : e.replace(/^\s+|\s+$/g, "");
+        }
+
+        function Y(e, t, n) {
+          return "number" != typeof e ? n : (e = ~~e, e >= t ? t : e >= 0 ? e : (e += t, e >= 0 ? e : 0));
+        }
+
+        function F(e) {
+          return e = ~~Math.ceil(+e), e < 0 ? 0 : e;
+        }
+
+        function D(e) {
+          return (Array.isArray || function (e) {
+            return "[object Array]" === Object.prototype.toString.call(e);
+          })(e);
+        }
+
+        function O(e) {
+          return D(e) || o.isBuffer(e) || e && "object" == typeof e && "number" == typeof e.length;
+        }
+
+        function H(e) {
+          return e < 16 ? "0" + e.toString(16) : e.toString(16);
+        }
+
+        function V(e) {
+          for (var t = [], n = 0; n < e.length; n++) {
+            var r = e.charCodeAt(n);
+            if (r <= 127) t.push(e.charCodeAt(n));else {
+              var o = n;
+              r >= 55296 && r <= 57343 && n++;
+
+              for (var i = encodeURIComponent(e.slice(o, n + 1)).substr(1).split("%"), u = 0; u < i.length; u++) t.push(parseInt(i[u], 16));
+            }
+          }
+
+          return t;
+        }
+
+        function q(e) {
+          for (var t = [], n = 0; n < e.length; n++) t.push(255 & e.charCodeAt(n));
+
+          return t;
+        }
+
+        function P(e) {
+          for (var t, n, r, o = [], i = 0; i < e.length; i++) t = e.charCodeAt(i), n = t >> 8, r = t % 256, o.push(r), o.push(n);
+
+          return o;
+        }
+
+        function R(e) {
+          return G.toByteArray(e);
+        }
+
+        function W(e, t, n, r) {
+          for (var o = 0; o < r && !(o + n >= t.length || o >= e.length); o++) t[o + n] = e[o];
+
+          return o;
+        }
+
+        function J(e) {
+          try {
+            return decodeURIComponent(e);
+          } catch (t) {
+            return String.fromCharCode(65533);
+          }
+        }
+
+        function K(e, t) {
+          $("number" == typeof e, "cannot write a non-number as a number"), $(e >= 0, "specified a negative value for writing an unsigned value"), $(e <= t, "value is larger than maximum value for type"), $(Math.floor(e) === e, "value has a fractional component");
+        }
+
+        function z(e, t, n) {
+          $("number" == typeof e, "cannot write a non-number as a number"), $(e <= t, "value larger than maximum allowed value"), $(e >= n, "value smaller than minimum allowed value"), $(Math.floor(e) === e, "value has a fractional component");
+        }
+
+        function X(e, t, n) {
+          $("number" == typeof e, "cannot write a non-number as a number"), $(e <= t, "value larger than maximum allowed value"), $(e >= n, "value smaller than minimum allowed value");
+        }
+
+        function $(e, t) {
+          if (!e) throw new Error(t || "Failed assertion");
+        }
+
+        var G = e("base64-js"),
+            Q = e("ieee754");
+        n.Buffer = o, n.SlowBuffer = o, n.INSPECT_MAX_BYTES = 50, o.poolSize = 8192, o._useTypedArrays = function () {
+          try {
+            var e = new ArrayBuffer(0),
+                t = new Uint8Array(e);
+            return t.foo = function () {
+              return 42;
+            }, 42 === t.foo() && "function" == typeof t.subarray;
+          } catch (n) {
+            return !1;
+          }
+        }(), o.isEncoding = function (e) {
+          switch (String(e).toLowerCase()) {
+            case "hex":
+            case "utf8":
+            case "utf-8":
+            case "ascii":
+            case "binary":
+            case "base64":
+            case "raw":
+            case "ucs2":
+            case "ucs-2":
+            case "utf16le":
+            case "utf-16le":
+              return !0;
+
+            default:
+              return !1;
+          }
+        }, o.isBuffer = function (e) {
+          return !(null === e || void 0 === e || !e._isBuffer);
+        }, o.byteLength = function (e, t) {
+          var n;
+
+          switch (e += "", t || "utf8") {
+            case "hex":
+              n = e.length / 2;
+              break;
+
+            case "utf8":
+            case "utf-8":
+              n = V(e).length;
+              break;
+
+            case "ascii":
+            case "binary":
+            case "raw":
+              n = e.length;
+              break;
+
+            case "base64":
+              n = R(e).length;
+              break;
+
+            case "ucs2":
+            case "ucs-2":
+            case "utf16le":
+            case "utf-16le":
+              n = 2 * e.length;
+              break;
+
+            default:
+              throw new Error("Unknown encoding");
+          }
+
+          return n;
+        }, o.concat = function (e, t) {
+          if ($(D(e), "Usage: Buffer.concat(list, [totalLength])\nlist should be an Array."), 0 === e.length) return new o(0);
+          if (1 === e.length) return e[0];
+          var n;
+          if ("number" != typeof t) for (t = 0, n = 0; n < e.length; n++) t += e[n].length;
+          var r = new o(t),
+              i = 0;
+
+          for (n = 0; n < e.length; n++) {
+            var u = e[n];
+            u.copy(r, i), i += u.length;
+          }
+
+          return r;
+        }, o.prototype.write = function (e, t, n, r) {
+          if (isFinite(t)) isFinite(n) || (r = n, n = void 0);else {
+            var o = r;
+            r = t, t = n, n = o;
+          }
+          t = Number(t) || 0;
+          var i = this.length - t;
+          n ? (n = Number(n), n > i && (n = i)) : n = i, r = String(r || "utf8").toLowerCase();
+          var u;
+
+          switch (r) {
+            case "hex":
+              u = l(this, e, t, n);
+              break;
+
+            case "utf8":
+            case "utf-8":
+              u = d(this, e, t, n);
+              break;
+
+            case "ascii":
+              u = h(this, e, t, n);
+              break;
+
+            case "binary":
+              u = p(this, e, t, n);
+              break;
+
+            case "base64":
+              u = g(this, e, t, n);
+              break;
+
+            case "ucs2":
+            case "ucs-2":
+            case "utf16le":
+            case "utf-16le":
+              u = y(this, e, t, n);
+              break;
+
+            default:
+              throw new Error("Unknown encoding");
+          }
+
+          return u;
+        }, o.prototype.toString = function (e, t, n) {
+          var r = this;
+          if (e = String(e || "utf8").toLowerCase(), t = Number(t) || 0, n = void 0 !== n ? Number(n) : n = r.length, n === t) return "";
+          var o;
+
+          switch (e) {
+            case "hex":
+              o = _(r, t, n);
+              break;
+
+            case "utf8":
+            case "utf-8":
+              o = b(r, t, n);
+              break;
+
+            case "ascii":
+              o = v(r, t, n);
+              break;
+
+            case "binary":
+              o = m(r, t, n);
+              break;
+
+            case "base64":
+              o = w(r, t, n);
+              break;
+
+            case "ucs2":
+            case "ucs-2":
+            case "utf16le":
+            case "utf-16le":
+              o = E(r, t, n);
+              break;
+
+            default:
+              throw new Error("Unknown encoding");
+          }
+
+          return o;
+        }, o.prototype.toJSON = function () {
+          return {
+            type: "Buffer",
+            data: Array.prototype.slice.call(this._arr || this, 0)
+          };
+        }, o.prototype.copy = function (e, t, n, r) {
+          var i = this;
+
+          if (n || (n = 0), r || 0 === r || (r = this.length), t || (t = 0), r !== n && 0 !== e.length && 0 !== i.length) {
+            $(r >= n, "sourceEnd < sourceStart"), $(t >= 0 && t < e.length, "targetStart out of bounds"), $(n >= 0 && n < i.length, "sourceStart out of bounds"), $(r >= 0 && r <= i.length, "sourceEnd out of bounds"), r > this.length && (r = this.length), e.length - t < r - n && (r = e.length - t + n);
+            var u = r - n;
+            if (u < 100 || !o._useTypedArrays) for (var a = 0; a < u; a++) e[a + t] = this[a + n];else e._set(this.subarray(n, n + u), t);
+          }
+        }, o.prototype.slice = function (e, t) {
+          var n = this.length;
+          if (e = Y(e, n, 0), t = Y(t, n, n), o._useTypedArrays) return o._augment(this.subarray(e, t));
+
+          for (var r = t - e, i = new o(r, void 0, !0), u = 0; u < r; u++) i[u] = this[u + e];
+
+          return i;
+        }, o.prototype.get = function (e) {
+          return console.log(".get() is deprecated. Access using array indexes instead."), this.readUInt8(e);
+        }, o.prototype.set = function (e, t) {
+          return console.log(".set() is deprecated. Access using array indexes instead."), this.writeUInt8(e, t);
+        }, o.prototype.readUInt8 = function (e, t) {
+          if (t || ($(void 0 !== e && null !== e, "missing offset"), $(e < this.length, "Trying to read beyond buffer length")), !(e >= this.length)) return this[e];
+        }, o.prototype.readUInt16LE = function (e, t) {
+          return I(this, e, !0, t);
+        }, o.prototype.readUInt16BE = function (e, t) {
+          return I(this, e, !1, t);
+        }, o.prototype.readUInt32LE = function (e, t) {
+          return A(this, e, !0, t);
+        }, o.prototype.readUInt32BE = function (e, t) {
+          return A(this, e, !1, t);
+        }, o.prototype.readInt8 = function (e, t) {
+          if (t || ($(void 0 !== e && null !== e, "missing offset"), $(e < this.length, "Trying to read beyond buffer length")), !(e >= this.length)) {
+            var n = 128 & this[e];
+            return n ? (255 - this[e] + 1) * -1 : this[e];
+          }
+        }, o.prototype.readInt16LE = function (e, t) {
+          return B(this, e, !0, t);
+        }, o.prototype.readInt16BE = function (e, t) {
+          return B(this, e, !1, t);
+        }, o.prototype.readInt32LE = function (e, t) {
+          return L(this, e, !0, t);
+        }, o.prototype.readInt32BE = function (e, t) {
+          return L(this, e, !1, t);
+        }, o.prototype.readFloatLE = function (e, t) {
+          return U(this, e, !0, t);
+        }, o.prototype.readFloatBE = function (e, t) {
+          return U(this, e, !1, t);
+        }, o.prototype.readDoubleLE = function (e, t) {
+          return x(this, e, !0, t);
+        }, o.prototype.readDoubleBE = function (e, t) {
+          return x(this, e, !1, t);
+        }, o.prototype.writeUInt8 = function (e, t, n) {
+          n || ($(void 0 !== e && null !== e, "missing value"), $(void 0 !== t && null !== t, "missing offset"), $(t < this.length, "trying to write beyond buffer length"), K(e, 255)), t >= this.length || (this[t] = e);
+        }, o.prototype.writeUInt16LE = function (e, t, n) {
+          S(this, e, t, !0, n);
+        }, o.prototype.writeUInt16BE = function (e, t, n) {
+          S(this, e, t, !1, n);
+        }, o.prototype.writeUInt32LE = function (e, t, n) {
+          j(this, e, t, !0, n);
+        }, o.prototype.writeUInt32BE = function (e, t, n) {
+          j(this, e, t, !1, n);
+        }, o.prototype.writeInt8 = function (e, t, n) {
+          n || ($(void 0 !== e && null !== e, "missing value"), $(void 0 !== t && null !== t, "missing offset"), $(t < this.length, "Trying to write beyond buffer length"), z(e, 127, -128)), t >= this.length || (e >= 0 ? this.writeUInt8(e, t, n) : this.writeUInt8(255 + e + 1, t, n));
+        }, o.prototype.writeInt16LE = function (e, t, n) {
+          C(this, e, t, !0, n);
+        }, o.prototype.writeInt16BE = function (e, t, n) {
+          C(this, e, t, !1, n);
+        }, o.prototype.writeInt32LE = function (e, t, n) {
+          k(this, e, t, !0, n);
+        }, o.prototype.writeInt32BE = function (e, t, n) {
+          k(this, e, t, !1, n);
+        }, o.prototype.writeFloatLE = function (e, t, n) {
+          T(this, e, t, !0, n);
+        }, o.prototype.writeFloatBE = function (e, t, n) {
+          T(this, e, t, !1, n);
+        }, o.prototype.writeDoubleLE = function (e, t, n) {
+          M(this, e, t, !0, n);
+        }, o.prototype.writeDoubleBE = function (e, t, n) {
+          M(this, e, t, !1, n);
+        }, o.prototype.fill = function (e, t, n) {
+          if (e || (e = 0), t || (t = 0), n || (n = this.length), "string" == typeof e && (e = e.charCodeAt(0)), $("number" == typeof e && !isNaN(e), "value is not a number"), $(n >= t, "end < start"), n !== t && 0 !== this.length) {
+            $(t >= 0 && t < this.length, "start out of bounds"), $(n >= 0 && n <= this.length, "end out of bounds");
+
+            for (var r = t; r < n; r++) this[r] = e;
+          }
+        }, o.prototype.inspect = function () {
+          for (var e = [], t = this.length, r = 0; r < t; r++) if (e[r] = H(this[r]), r === n.INSPECT_MAX_BYTES) {
+            e[r + 1] = "...";
+            break;
+          }
+
+          return "<Buffer " + e.join(" ") + ">";
+        }, o.prototype.toArrayBuffer = function () {
+          if ("undefined" != typeof Uint8Array) {
+            if (o._useTypedArrays) return new o(this).buffer;
+
+            for (var e = new Uint8Array(this.length), t = 0, n = e.length; t < n; t += 1) e[t] = this[t];
+
+            return e.buffer;
+          }
+
+          throw new Error("Buffer.toArrayBuffer not supported in this browser");
+        };
+        var Z = o.prototype;
+
+        o._augment = function (e) {
+          return e._isBuffer = !0, e._get = e.get, e._set = e.set, e.get = Z.get, e.set = Z.set, e.write = Z.write, e.toString = Z.toString, e.toLocaleString = Z.toString, e.toJSON = Z.toJSON, e.copy = Z.copy, e.slice = Z.slice, e.readUInt8 = Z.readUInt8, e.readUInt16LE = Z.readUInt16LE, e.readUInt16BE = Z.readUInt16BE, e.readUInt32LE = Z.readUInt32LE, e.readUInt32BE = Z.readUInt32BE, e.readInt8 = Z.readInt8, e.readInt16LE = Z.readInt16LE, e.readInt16BE = Z.readInt16BE, e.readInt32LE = Z.readInt32LE, e.readInt32BE = Z.readInt32BE, e.readFloatLE = Z.readFloatLE, e.readFloatBE = Z.readFloatBE, e.readDoubleLE = Z.readDoubleLE, e.readDoubleBE = Z.readDoubleBE, e.writeUInt8 = Z.writeUInt8, e.writeUInt16LE = Z.writeUInt16LE, e.writeUInt16BE = Z.writeUInt16BE, e.writeUInt32LE = Z.writeUInt32LE, e.writeUInt32BE = Z.writeUInt32BE, e.writeInt8 = Z.writeInt8, e.writeInt16LE = Z.writeInt16LE, e.writeInt16BE = Z.writeInt16BE, e.writeInt32LE = Z.writeInt32LE, e.writeInt32BE = Z.writeInt32BE, e.writeFloatLE = Z.writeFloatLE, e.writeFloatBE = Z.writeFloatBE, e.writeDoubleLE = Z.writeDoubleLE, e.writeDoubleBE = Z.writeDoubleBE, e.fill = Z.fill, e.inspect = Z.inspect, e.toArrayBuffer = Z.toArrayBuffer, e;
+        };
+      }).call(this, e("lYpoI2"), "undefined" != typeof self ? self : "undefined" != typeof window ? window : {}, e("buffer").Buffer, arguments[3], arguments[4], arguments[5], arguments[6], "/node_modules/gulp-browserify/node_modules/buffer/index.js", "/node_modules/gulp-browserify/node_modules/buffer");
+    }, {
+      "base64-js": 2,
+      buffer: 3,
+      ieee754: 11,
+      lYpoI2: 10
+    }],
+    4: [function (e, t, n) {
+      (function (n, r, o, i, u, a, f, s, c) {
+        function l(e, t) {
+          if (e.length % p !== 0) {
+            var n = e.length + (p - e.length % p);
+            e = o.concat([e, g], n);
+          }
+
+          for (var r = [], i = t ? e.readInt32BE : e.readInt32LE, u = 0; u < e.length; u += p) r.push(i.call(e, u));
+
+          return r;
+        }
+
+        function d(e, t, n) {
+          for (var r = new o(t), i = n ? r.writeInt32BE : r.writeInt32LE, u = 0; u < e.length; u++) i.call(r, e[u], 4 * u, !0);
+
+          return r;
+        }
+
+        function h(e, t, n, r) {
+          o.isBuffer(e) || (e = new o(e));
+          var i = t(l(e, r), e.length * y);
+          return d(i, n, r);
+        }
+
+        var o = e("buffer").Buffer,
+            p = 4,
+            g = new o(p);
+        g.fill(0);
+        var y = 8;
+        t.exports = {
+          hash: h
+        };
+      }).call(this, e("lYpoI2"), "undefined" != typeof self ? self : "undefined" != typeof window ? window : {}, e("buffer").Buffer, arguments[3], arguments[4], arguments[5], arguments[6], "/node_modules/gulp-browserify/node_modules/crypto-browserify/helpers.js", "/node_modules/gulp-browserify/node_modules/crypto-browserify");
+    }, {
+      buffer: 3,
+      lYpoI2: 10
+    }],
+    5: [function (e, t, n) {
+      (function (t, r, o, i, u, a, f, s, c) {
+        function l(e, t, n) {
+          o.isBuffer(t) || (t = new o(t)), o.isBuffer(n) || (n = new o(n)), t.length > m ? t = e(t) : t.length < m && (t = o.concat([t, _], m));
+
+          for (var r = new o(m), i = new o(m), u = 0; u < m; u++) r[u] = 54 ^ t[u], i[u] = 92 ^ t[u];
+
+          var a = e(o.concat([r, n]));
+          return e(o.concat([i, a]));
+        }
+
+        function d(e, t) {
+          e = e || "sha1";
+          var n = v[e],
+              r = [],
+              i = 0;
+          return n || h("algorithm:", e, "is not yet supported"), {
+            update: function (e) {
+              return o.isBuffer(e) || (e = new o(e)), r.push(e), i += e.length, this;
+            },
+            digest: function (e) {
+              var i = o.concat(r),
+                  u = t ? l(n, t, i) : n(i);
+              return r = null, e ? u.toString(e) : u;
+            }
+          };
+        }
+
+        function h() {
+          var e = [].slice.call(arguments).join(" ");
+          throw new Error([e, "we accept pull requests", "http://github.com/dominictarr/crypto-browserify"].join("\n"));
+        }
+
+        function p(e, t) {
+          for (var n in e) t(e[n], n);
+        }
+
+        var o = e("buffer").Buffer,
+            g = e("./sha"),
+            y = e("./sha256"),
+            w = e("./rng"),
+            b = e("./md5"),
+            v = {
+          sha1: g,
+          sha256: y,
+          md5: b
+        },
+            m = 64,
+            _ = new o(m);
+
+        _.fill(0), n.createHash = function (e) {
+          return d(e);
+        }, n.createHmac = function (e, t) {
+          return d(e, t);
+        }, n.randomBytes = function (e, t) {
+          if (!t || !t.call) return new o(w(e));
+
+          try {
+            t.call(this, void 0, new o(w(e)));
+          } catch (n) {
+            t(n);
+          }
+        }, p(["createCredentials", "createCipher", "createCipheriv", "createDecipher", "createDecipheriv", "createSign", "createVerify", "createDiffieHellman", "pbkdf2"], function (e) {
+          n[e] = function () {
+            h("sorry,", e, "is not implemented yet");
+          };
+        });
+      }).call(this, e("lYpoI2"), "undefined" != typeof self ? self : "undefined" != typeof window ? window : {}, e("buffer").Buffer, arguments[3], arguments[4], arguments[5], arguments[6], "/node_modules/gulp-browserify/node_modules/crypto-browserify/index.js", "/node_modules/gulp-browserify/node_modules/crypto-browserify");
+    }, {
+      "./md5": 6,
+      "./rng": 7,
+      "./sha": 8,
+      "./sha256": 9,
+      buffer: 3,
+      lYpoI2: 10
+    }],
+    6: [function (e, t, n) {
+      (function (n, r, o, i, u, a, f, s, c) {
+        function l(e, t) {
+          e[t >> 5] |= 128 << t % 32, e[(t + 64 >>> 9 << 4) + 14] = t;
+
+          for (var n = 1732584193, r = -271733879, o = -1732584194, i = 271733878, u = 0; u < e.length; u += 16) {
+            var a = n,
+                f = r,
+                s = o,
+                c = i;
+            n = h(n, r, o, i, e[u + 0], 7, -680876936), i = h(i, n, r, o, e[u + 1], 12, -389564586), o = h(o, i, n, r, e[u + 2], 17, 606105819), r = h(r, o, i, n, e[u + 3], 22, -1044525330), n = h(n, r, o, i, e[u + 4], 7, -176418897), i = h(i, n, r, o, e[u + 5], 12, 1200080426), o = h(o, i, n, r, e[u + 6], 17, -1473231341), r = h(r, o, i, n, e[u + 7], 22, -45705983), n = h(n, r, o, i, e[u + 8], 7, 1770035416), i = h(i, n, r, o, e[u + 9], 12, -1958414417), o = h(o, i, n, r, e[u + 10], 17, -42063), r = h(r, o, i, n, e[u + 11], 22, -1990404162), n = h(n, r, o, i, e[u + 12], 7, 1804603682), i = h(i, n, r, o, e[u + 13], 12, -40341101), o = h(o, i, n, r, e[u + 14], 17, -1502002290), r = h(r, o, i, n, e[u + 15], 22, 1236535329), n = p(n, r, o, i, e[u + 1], 5, -165796510), i = p(i, n, r, o, e[u + 6], 9, -1069501632), o = p(o, i, n, r, e[u + 11], 14, 643717713), r = p(r, o, i, n, e[u + 0], 20, -373897302), n = p(n, r, o, i, e[u + 5], 5, -701558691), i = p(i, n, r, o, e[u + 10], 9, 38016083), o = p(o, i, n, r, e[u + 15], 14, -660478335), r = p(r, o, i, n, e[u + 4], 20, -405537848), n = p(n, r, o, i, e[u + 9], 5, 568446438), i = p(i, n, r, o, e[u + 14], 9, -1019803690), o = p(o, i, n, r, e[u + 3], 14, -187363961), r = p(r, o, i, n, e[u + 8], 20, 1163531501), n = p(n, r, o, i, e[u + 13], 5, -1444681467), i = p(i, n, r, o, e[u + 2], 9, -51403784), o = p(o, i, n, r, e[u + 7], 14, 1735328473), r = p(r, o, i, n, e[u + 12], 20, -1926607734), n = g(n, r, o, i, e[u + 5], 4, -378558), i = g(i, n, r, o, e[u + 8], 11, -2022574463), o = g(o, i, n, r, e[u + 11], 16, 1839030562), r = g(r, o, i, n, e[u + 14], 23, -35309556), n = g(n, r, o, i, e[u + 1], 4, -1530992060), i = g(i, n, r, o, e[u + 4], 11, 1272893353), o = g(o, i, n, r, e[u + 7], 16, -155497632), r = g(r, o, i, n, e[u + 10], 23, -1094730640), n = g(n, r, o, i, e[u + 13], 4, 681279174), i = g(i, n, r, o, e[u + 0], 11, -358537222), o = g(o, i, n, r, e[u + 3], 16, -722521979), r = g(r, o, i, n, e[u + 6], 23, 76029189), n = g(n, r, o, i, e[u + 9], 4, -640364487), i = g(i, n, r, o, e[u + 12], 11, -421815835), o = g(o, i, n, r, e[u + 15], 16, 530742520), r = g(r, o, i, n, e[u + 2], 23, -995338651), n = y(n, r, o, i, e[u + 0], 6, -198630844), i = y(i, n, r, o, e[u + 7], 10, 1126891415), o = y(o, i, n, r, e[u + 14], 15, -1416354905), r = y(r, o, i, n, e[u + 5], 21, -57434055), n = y(n, r, o, i, e[u + 12], 6, 1700485571), i = y(i, n, r, o, e[u + 3], 10, -1894986606), o = y(o, i, n, r, e[u + 10], 15, -1051523), r = y(r, o, i, n, e[u + 1], 21, -2054922799), n = y(n, r, o, i, e[u + 8], 6, 1873313359), i = y(i, n, r, o, e[u + 15], 10, -30611744), o = y(o, i, n, r, e[u + 6], 15, -1560198380), r = y(r, o, i, n, e[u + 13], 21, 1309151649), n = y(n, r, o, i, e[u + 4], 6, -145523070), i = y(i, n, r, o, e[u + 11], 10, -1120210379), o = y(o, i, n, r, e[u + 2], 15, 718787259), r = y(r, o, i, n, e[u + 9], 21, -343485551), n = w(n, a), r = w(r, f), o = w(o, s), i = w(i, c);
+          }
+
+          return Array(n, r, o, i);
+        }
+
+        function d(e, t, n, r, o, i) {
+          return w(b(w(w(t, e), w(r, i)), o), n);
+        }
+
+        function h(e, t, n, r, o, i, u) {
+          return d(t & n | ~t & r, e, t, o, i, u);
+        }
+
+        function p(e, t, n, r, o, i, u) {
+          return d(t & r | n & ~r, e, t, o, i, u);
+        }
+
+        function g(e, t, n, r, o, i, u) {
+          return d(t ^ n ^ r, e, t, o, i, u);
+        }
+
+        function y(e, t, n, r, o, i, u) {
+          return d(n ^ (t | ~r), e, t, o, i, u);
+        }
+
+        function w(e, t) {
+          var n = (65535 & e) + (65535 & t),
+              r = (e >> 16) + (t >> 16) + (n >> 16);
+          return r << 16 | 65535 & n;
+        }
+
+        function b(e, t) {
+          return e << t | e >>> 32 - t;
+        }
+
+        var v = e("./helpers");
+
+        t.exports = function (e) {
+          return v.hash(e, l, 16);
+        };
+      }).call(this, e("lYpoI2"), "undefined" != typeof self ? self : "undefined" != typeof window ? window : {}, e("buffer").Buffer, arguments[3], arguments[4], arguments[5], arguments[6], "/node_modules/gulp-browserify/node_modules/crypto-browserify/md5.js", "/node_modules/gulp-browserify/node_modules/crypto-browserify");
+    }, {
+      "./helpers": 4,
+      buffer: 3,
+      lYpoI2: 10
+    }],
+    7: [function (e, t, n) {
+      (function (e, n, r, o, i, u, a, f, s) {
+        !function () {
+          var e,
+              n,
+              r = this;
+          e = function (e) {
+            for (var t, t, n = new Array(e), r = 0; r < e; r++) 0 == (3 & r) && (t = 4294967296 * Math.random()), n[r] = t >>> ((3 & r) << 3) & 255;
+
+            return n;
+          }, r.crypto && crypto.getRandomValues && (n = function (e) {
+            var t = new Uint8Array(e);
+            return crypto.getRandomValues(t), t;
+          }), t.exports = n || e;
+        }();
+      }).call(this, e("lYpoI2"), "undefined" != typeof self ? self : "undefined" != typeof window ? window : {}, e("buffer").Buffer, arguments[3], arguments[4], arguments[5], arguments[6], "/node_modules/gulp-browserify/node_modules/crypto-browserify/rng.js", "/node_modules/gulp-browserify/node_modules/crypto-browserify");
+    }, {
+      buffer: 3,
+      lYpoI2: 10
+    }],
+    8: [function (e, t, n) {
+      (function (n, r, o, i, u, a, f, s, c) {
+        function l(e, t) {
+          e[t >> 5] |= 128 << 24 - t % 32, e[(t + 64 >> 9 << 4) + 15] = t;
+
+          for (var n = Array(80), r = 1732584193, o = -271733879, i = -1732584194, u = 271733878, a = -1009589776, f = 0; f < e.length; f += 16) {
+            for (var s = r, c = o, l = i, y = u, w = a, b = 0; b < 80; b++) {
+              b < 16 ? n[b] = e[f + b] : n[b] = g(n[b - 3] ^ n[b - 8] ^ n[b - 14] ^ n[b - 16], 1);
+              var v = p(p(g(r, 5), d(b, o, i, u)), p(p(a, n[b]), h(b)));
+              a = u, u = i, i = g(o, 30), o = r, r = v;
+            }
+
+            r = p(r, s), o = p(o, c), i = p(i, l), u = p(u, y), a = p(a, w);
+          }
+
+          return Array(r, o, i, u, a);
+        }
+
+        function d(e, t, n, r) {
+          return e < 20 ? t & n | ~t & r : e < 40 ? t ^ n ^ r : e < 60 ? t & n | t & r | n & r : t ^ n ^ r;
+        }
+
+        function h(e) {
+          return e < 20 ? 1518500249 : e < 40 ? 1859775393 : e < 60 ? -1894007588 : -899497514;
+        }
+
+        function p(e, t) {
+          var n = (65535 & e) + (65535 & t),
+              r = (e >> 16) + (t >> 16) + (n >> 16);
+          return r << 16 | 65535 & n;
+        }
+
+        function g(e, t) {
+          return e << t | e >>> 32 - t;
+        }
+
+        var y = e("./helpers");
+
+        t.exports = function (e) {
+          return y.hash(e, l, 20, !0);
+        };
+      }).call(this, e("lYpoI2"), "undefined" != typeof self ? self : "undefined" != typeof window ? window : {}, e("buffer").Buffer, arguments[3], arguments[4], arguments[5], arguments[6], "/node_modules/gulp-browserify/node_modules/crypto-browserify/sha.js", "/node_modules/gulp-browserify/node_modules/crypto-browserify");
+    }, {
+      "./helpers": 4,
+      buffer: 3,
+      lYpoI2: 10
+    }],
+    9: [function (e, t, n) {
+      (function (n, r, o, i, u, a, f, s, c) {
+        var l = e("./helpers"),
+            d = function (e, t) {
+          var n = (65535 & e) + (65535 & t),
+              r = (e >> 16) + (t >> 16) + (n >> 16);
+          return r << 16 | 65535 & n;
+        },
+            h = function (e, t) {
+          return e >>> t | e << 32 - t;
+        },
+            p = function (e, t) {
+          return e >>> t;
+        },
+            g = function (e, t, n) {
+          return e & t ^ ~e & n;
+        },
+            y = function (e, t, n) {
+          return e & t ^ e & n ^ t & n;
+        },
+            w = function (e) {
+          return h(e, 2) ^ h(e, 13) ^ h(e, 22);
+        },
+            b = function (e) {
+          return h(e, 6) ^ h(e, 11) ^ h(e, 25);
+        },
+            v = function (e) {
+          return h(e, 7) ^ h(e, 18) ^ p(e, 3);
+        },
+            m = function (e) {
+          return h(e, 17) ^ h(e, 19) ^ p(e, 10);
+        },
+            _ = function (e, t) {
+          var n,
+              r,
+              o,
+              i,
+              u,
+              a,
+              f,
+              s,
+              c,
+              l,
+              h,
+              p,
+              _ = new Array(1116352408, 1899447441, 3049323471, 3921009573, 961987163, 1508970993, 2453635748, 2870763221, 3624381080, 310598401, 607225278, 1426881987, 1925078388, 2162078206, 2614888103, 3248222580, 3835390401, 4022224774, 264347078, 604807628, 770255983, 1249150122, 1555081692, 1996064986, 2554220882, 2821834349, 2952996808, 3210313671, 3336571891, 3584528711, 113926993, 338241895, 666307205, 773529912, 1294757372, 1396182291, 1695183700, 1986661051, 2177026350, 2456956037, 2730485921, 2820302411, 3259730800, 3345764771, 3516065817, 3600352804, 4094571909, 275423344, 430227734, 506948616, 659060556, 883997877, 958139571, 1322822218, 1537002063, 1747873779, 1955562222, 2024104815, 2227730452, 2361852424, 2428436474, 2756734187, 3204031479, 3329325298),
+              E = new Array(1779033703, 3144134277, 1013904242, 2773480762, 1359893119, 2600822924, 528734635, 1541459225),
+              I = new Array(64);
+
+          e[t >> 5] |= 128 << 24 - t % 32, e[(t + 64 >> 9 << 4) + 15] = t;
+
+          for (var c = 0; c < e.length; c += 16) {
+            n = E[0], r = E[1], o = E[2], i = E[3], u = E[4], a = E[5], f = E[6], s = E[7];
+
+            for (var l = 0; l < 64; l++) l < 16 ? I[l] = e[l + c] : I[l] = d(d(d(m(I[l - 2]), I[l - 7]), v(I[l - 15])), I[l - 16]), h = d(d(d(d(s, b(u)), g(u, a, f)), _[l]), I[l]), p = d(w(n), y(n, r, o)), s = f, f = a, a = u, u = d(i, h), i = o, o = r, r = n, n = d(h, p);
+
+            E[0] = d(n, E[0]), E[1] = d(r, E[1]), E[2] = d(o, E[2]), E[3] = d(i, E[3]), E[4] = d(u, E[4]), E[5] = d(a, E[5]), E[6] = d(f, E[6]), E[7] = d(s, E[7]);
+          }
+
+          return E;
+        };
+
+        t.exports = function (e) {
+          return l.hash(e, _, 32, !0);
+        };
+      }).call(this, e("lYpoI2"), "undefined" != typeof self ? self : "undefined" != typeof window ? window : {}, e("buffer").Buffer, arguments[3], arguments[4], arguments[5], arguments[6], "/node_modules/gulp-browserify/node_modules/crypto-browserify/sha256.js", "/node_modules/gulp-browserify/node_modules/crypto-browserify");
+    }, {
+      "./helpers": 4,
+      buffer: 3,
+      lYpoI2: 10
+    }],
+    10: [function (e, t, n) {
+      (function (e, n, r, o, i, u, a, f, s) {
+        function c() {}
+
+        var e = t.exports = {};
+        e.nextTick = function () {
+          var e = "undefined" != typeof window && window.setImmediate,
+              t = "undefined" != typeof window && window.postMessage && window.addEventListener;
+          if (e) return function (e) {
+            return window.setImmediate(e);
+          };
+
+          if (t) {
+            var n = [];
+            return window.addEventListener("message", function (e) {
+              var t = e.source;
+
+              if ((t === window || null === t) && "process-tick" === e.data && (e.stopPropagation(), n.length > 0)) {
+                var r = n.shift();
+                r();
+              }
+            }, !0), function (e) {
+              n.push(e), window.postMessage("process-tick", "*");
+            };
+          }
+
+          return function (e) {
+            setTimeout(e, 0);
+          };
+        }(), e.title = "browser", e.browser = !0, e.env = {}, e.argv = [], e.on = c, e.addListener = c, e.once = c, e.off = c, e.removeListener = c, e.removeAllListeners = c, e.emit = c, e.binding = function (e) {
+          throw new Error("process.binding is not supported");
+        }, e.cwd = function () {
+          return "/";
+        }, e.chdir = function (e) {
+          throw new Error("process.chdir is not supported");
+        };
+      }).call(this, e("lYpoI2"), "undefined" != typeof self ? self : "undefined" != typeof window ? window : {}, e("buffer").Buffer, arguments[3], arguments[4], arguments[5], arguments[6], "/node_modules/gulp-browserify/node_modules/process/browser.js", "/node_modules/gulp-browserify/node_modules/process");
+    }, {
+      buffer: 3,
+      lYpoI2: 10
+    }],
+    11: [function (e, t, n) {
+      (function (e, t, r, o, i, u, a, f, s) {
+        n.read = function (e, t, n, r, o) {
+          var i,
+              u,
+              a = 8 * o - r - 1,
+              f = (1 << a) - 1,
+              s = f >> 1,
+              c = -7,
+              l = n ? o - 1 : 0,
+              d = n ? -1 : 1,
+              h = e[t + l];
+
+          for (l += d, i = h & (1 << -c) - 1, h >>= -c, c += a; c > 0; i = 256 * i + e[t + l], l += d, c -= 8);
+
+          for (u = i & (1 << -c) - 1, i >>= -c, c += r; c > 0; u = 256 * u + e[t + l], l += d, c -= 8);
+
+          if (0 === i) i = 1 - s;else {
+            if (i === f) return u ? NaN : (h ? -1 : 1) * (1 / 0);
+            u += Math.pow(2, r), i -= s;
+          }
+          return (h ? -1 : 1) * u * Math.pow(2, i - r);
+        }, n.write = function (e, t, n, r, o, i) {
+          var u,
+              a,
+              f,
+              s = 8 * i - o - 1,
+              c = (1 << s) - 1,
+              l = c >> 1,
+              d = 23 === o ? Math.pow(2, -24) - Math.pow(2, -77) : 0,
+              h = r ? 0 : i - 1,
+              p = r ? 1 : -1,
+              g = t < 0 || 0 === t && 1 / t < 0 ? 1 : 0;
+
+          for (t = Math.abs(t), isNaN(t) || t === 1 / 0 ? (a = isNaN(t) ? 1 : 0, u = c) : (u = Math.floor(Math.log(t) / Math.LN2), t * (f = Math.pow(2, -u)) < 1 && (u--, f *= 2), t += u + l >= 1 ? d / f : d * Math.pow(2, 1 - l), t * f >= 2 && (u++, f /= 2), u + l >= c ? (a = 0, u = c) : u + l >= 1 ? (a = (t * f - 1) * Math.pow(2, o), u += l) : (a = t * Math.pow(2, l - 1) * Math.pow(2, o), u = 0)); o >= 8; e[n + h] = 255 & a, h += p, a /= 256, o -= 8);
+
+          for (u = u << o | a, s += o; s > 0; e[n + h] = 255 & u, h += p, u /= 256, s -= 8);
+
+          e[n + h - p] |= 128 * g;
+        };
+      }).call(this, e("lYpoI2"), "undefined" != typeof self ? self : "undefined" != typeof window ? window : {}, e("buffer").Buffer, arguments[3], arguments[4], arguments[5], arguments[6], "/node_modules/ieee754/index.js", "/node_modules/ieee754");
+    }, {
+      buffer: 3,
+      lYpoI2: 10
+    }]
+  }, {}, [1])(1);
+});
+
+/***/ }),
+
 /***/ "./node_modules/regenerator-runtime/runtime.js":
 /*!*****************************************************!*\
   !*** ./node_modules/regenerator-runtime/runtime.js ***!
@@ -51547,11 +52882,9 @@ var _regenerator = _interopRequireDefault(__webpack_require__(/*! ../node_module
 
 __webpack_require__(/*! ../node_modules/regenerator-runtime/runtime */ "./node_modules/regenerator-runtime/runtime.js");
 
-var _Log = __webpack_require__(/*! ./api/Log */ "./src/api/Log.ts");
+var _OnmsError = __webpack_require__(/*! ./api/OnmsError */ "./src/api/OnmsError.ts");
 
 var _OnmsHTTPOptions = __webpack_require__(/*! ./api/OnmsHTTPOptions */ "./src/api/OnmsHTTPOptions.ts");
-
-var _OnmsError = __webpack_require__(/*! ./api/OnmsError */ "./src/api/OnmsError.ts");
 
 var _OnmsVersion = __webpack_require__(/*! ./api/OnmsVersion */ "./src/api/OnmsVersion.ts");
 
@@ -51574,6 +52907,8 @@ var _NodeDAO = __webpack_require__(/*! ./dao/NodeDAO */ "./src/dao/NodeDAO.ts");
 var _SituationFeedbackDAO = __webpack_require__(/*! ./dao/SituationFeedbackDAO */ "./src/dao/SituationFeedbackDAO.ts");
 
 var _AxiosHTTP = __webpack_require__(/*! ./rest/AxiosHTTP */ "./src/rest/AxiosHTTP.ts");
+
+var _OnmsAuthConfig = __webpack_require__(/*! ./api/OnmsAuthConfig */ "./src/api/OnmsAuthConfig.ts");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -51610,41 +52945,36 @@ function () {
       var _checkServer = _asyncToGenerator(
       /*#__PURE__*/
       _regenerator.default.mark(function _callee(server, httpImpl, timeout) {
-        var opts, infoUrl;
+        var infoUrl, builder;
         return _regenerator.default.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                opts = new _OnmsHTTPOptions.OnmsHTTPOptions(timeout, server.auth, server);
-
                 if (httpImpl) {
-                  _context.next = 5;
+                  _context.next = 4;
                   break;
                 }
 
                 if (Client.defaultHttp) {
-                  _context.next = 4;
+                  _context.next = 3;
                   break;
                 }
 
                 throw new _OnmsError.OnmsError('No HTTP implementation is configured!');
 
+              case 3:
+                httpImpl = new Client.defaultHttp();
+
               case 4:
-                httpImpl = Client.defaultHttp;
-
-              case 5:
-                opts.headers.accept = 'text/plain';
                 infoUrl = server.resolveURL('rest/alarms/count');
+                builder = _OnmsHTTPOptions.OnmsHTTPOptions.newBuilder().setTimeout(timeout).setServer(server).setHeader('Accept', 'text/plain');
+                _context.next = 8;
+                return httpImpl.get(infoUrl, builder.build());
 
-                _Log.log.debug('checkServer: checking URL: ' + infoUrl);
-
-                _context.next = 10;
-                return httpImpl.get(infoUrl, opts);
-
-              case 10:
+              case 8:
                 return _context.abrupt("return", true);
 
-              case 11:
+              case 9:
               case "end":
                 return _context.stop();
             }
@@ -51673,63 +53003,58 @@ function () {
       var _getMetadata = _asyncToGenerator(
       /*#__PURE__*/
       _regenerator.default.mark(function _callee2(server, httpImpl, timeout) {
-        var opts, infoUrl, response, version, metadata;
+        var infoUrl, builder, response, version, type, config;
         return _regenerator.default.wrap(function _callee2$(_context2) {
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
-                opts = new _OnmsHTTPOptions.OnmsHTTPOptions(timeout, server.auth, server);
-                opts.headers.accept = 'application/json';
-
                 if (httpImpl) {
-                  _context2.next = 6;
+                  _context2.next = 4;
                   break;
                 }
 
                 if (Client.defaultHttp) {
-                  _context2.next = 5;
+                  _context2.next = 3;
                   break;
                 }
 
-                throw new _OnmsError.OnmsError('No default HTTP implementation is configured!');
+                throw new _OnmsError.OnmsError('No HTTP implementation is configured!');
 
-              case 5:
-                httpImpl = Client.defaultHttp;
+              case 3:
+                httpImpl = new Client.defaultHttp();
 
-              case 6:
+              case 4:
+                infoUrl = server.resolveURL('rest/info');
+                builder = _OnmsHTTPOptions.OnmsHTTPOptions.newBuilder().setServer(server).setTimeout(timeout).setHeader('Accept', 'application/json');
+
                 if (!timeout && httpImpl && httpImpl.options && httpImpl.options.timeout) {
-                  opts.timeout = httpImpl.options.timeout;
+                  builder.setTimeout(httpImpl.options.timeout);
                 }
 
-                infoUrl = server.resolveURL('rest/info');
+                _context2.next = 9;
+                return httpImpl.get(infoUrl, builder.build());
 
-                _Log.log.debug('getMetadata: checking URL: ' + infoUrl);
-
-                _context2.next = 11;
-                return httpImpl.get(infoUrl, opts);
-
-              case 11:
+              case 9:
                 response = _context2.sent;
                 version = new _OnmsVersion.OnmsVersion(response.data.version, response.data.displayVersion);
-                metadata = new _ServerMetadata.ServerMetadata(version);
+                type = _ServerType.ServerTypes.HORIZON;
 
                 if (response.data.packageName) {
                   if (response.data.packageName.toLowerCase() === 'meridian') {
-                    metadata.type = _ServerType.ServerTypes.MERIDIAN;
+                    type = _ServerType.ServerTypes.MERIDIAN;
                   }
                 }
 
-                if (metadata.ticketer()) {
-                  metadata.ticketerConfig = new _TicketerConfig.TicketerConfig();
-                  metadata.ticketerConfig.enabled = false;
-
-                  if (response.data.ticketerConfig) {
-                    metadata.ticketerConfig.plugin = response.data.ticketerConfig.plugin;
-                    metadata.ticketerConfig.enabled = response.data.ticketerConfig.enabled === true;
-                  }
+                if (!response.data.ticketerConfig) {
+                  _context2.next = 16;
+                  break;
                 }
 
-                return _context2.abrupt("return", metadata);
+                config = response.data.ticketerConfig;
+                return _context2.abrupt("return", new _ServerMetadata.ServerMetadata(version, type, new _TicketerConfig.TicketerConfig(config.plugin, config.enabled)));
+
+              case 16:
+                return _context2.abrupt("return", new _ServerMetadata.ServerMetadata(version, type));
 
               case 17:
               case "end":
@@ -51751,31 +53076,29 @@ function () {
 
   /**
    * Construct a new OpenNMS client.
+   *
+   * If no `httpImpl` parameter is provided, the class in `Client.defaultHttp` will be used by default.
+   * Unless overridden, this defaults to [[AxiosHTTP]].
+   *
    * @constructor
-   * @param httpImpl - The OnmsHTTP implementation to use. Normally
-   *        this will automatically choose the best implementation
-   *        based on the environment.
+   * @param httpImpl - The IOnmsHTTP implementation to use.
    */
   function Client(httpImpl) {
     _classCallCheck(this, Client);
 
     _defineProperty(this, "http", void 0);
 
-    _defineProperty(this, "server", void 0);
-
     _defineProperty(this, "daos", new _map.default());
 
-    if (httpImpl) {
-      Client.defaultHttp = httpImpl;
-    } else {
-      Client.defaultHttp = new _AxiosHTTP.AxiosHTTP();
-    }
-
-    this.http = Client.defaultHttp;
+    this.http = httpImpl || new Client.defaultHttp();
   }
   /**
-   * Connect to an OpenNMS server, check what capabilities it has, and return an [[OnmsServer]]
-   * for that connection.
+   * Connect to an OpenNMS server.
+   *
+   * NOTE: This method will connect to the server using the provided
+   * information, get the server metadata, and then _assign_ that
+   * server to the _existing_ [[IOnmsHTTP]] implementation associated
+   * with this client (or the default impl, if one has not yet been provided).
    */
 
 
@@ -51785,35 +53108,27 @@ function () {
       var _connect = _asyncToGenerator(
       /*#__PURE__*/
       _regenerator.default.mark(function _callee3(name, url, username, password, timeout) {
-        var self, server;
+        var builder, testServer, metadata;
         return _regenerator.default.wrap(function _callee3$(_context3) {
           while (1) {
             switch (_context3.prev = _context3.next) {
               case 0:
-                self = this;
-                server = new _OnmsServer.OnmsServer(name, url, username, password);
+                builder = _OnmsServer.OnmsServer.newBuilder().setName(name).setUrl(url).setAuth(new _OnmsAuthConfig.OnmsAuthConfig(username, password));
+                testServer = builder.build(); // first check the server; throws if it can't connect
+
                 _context3.next = 4;
-                return Client.checkServer(server, undefined, timeout);
+                return Client.checkServer(testServer, this.http, timeout);
 
               case 4:
                 _context3.next = 6;
-                return Client.getMetadata(server, undefined, timeout);
+                return Client.getMetadata(testServer, this.http, timeout);
 
               case 6:
-                server.metadata = _context3.sent;
+                metadata = _context3.sent;
+                this.http.server = builder.setMetadata(metadata).build();
+                return _context3.abrupt("return", this);
 
-                if (!self.http) {
-                  self.http = Client.defaultHttp;
-                }
-
-                if (!self.http.server) {
-                  self.http.server = server;
-                }
-
-                self.server = server;
-                return _context3.abrupt("return", self);
-
-              case 11:
+              case 9:
               case "end":
                 return _context3.stop();
             }
@@ -51875,7 +53190,7 @@ function () {
       var existing = this.daos.get(key);
 
       if (existing) {
-        if (existing.server && existing.server.equals(this.server)) {
+        if (existing.server && existing.server.equals(this.http.server)) {
           return existing;
         }
       }
@@ -51892,7 +53207,7 @@ function () {
 
 exports.Client = Client;
 
-_defineProperty(Client, "defaultHttp", void 0);
+_defineProperty(Client, "defaultHttp", _AxiosHTTP.AxiosHTTP);
 
 /***/ }),
 
@@ -52528,7 +53843,7 @@ function () {
   function NestedRestriction() {
     _classCallCheck(this, NestedRestriction);
 
-    _defineProperty(this, "clauses", []);
+    _defineProperty(this, "clauses", void 0);
 
     for (var _len = arguments.length, clauses = new Array(_len), _key = 0; _key < _len; _key++) {
       clauses[_key] = arguments[_key];
@@ -52556,6 +53871,10 @@ function () {
   }, {
     key: "withClause",
     value: function withClause(clause) {
+      if (!this.clauses) {
+        this.clauses = [];
+      }
+
       this.clauses.push(clause);
       return this;
     }
@@ -52587,6 +53906,8 @@ _Object$defineProperty2(exports, "__esModule", {
 exports.OnmsAuthConfig = void 0;
 
 var _defineProperty2 = _interopRequireDefault(__webpack_require__(/*! ../../node_modules/@babel/runtime-corejs2/core-js/object/define-property */ "./node_modules/@babel/runtime-corejs2/core-js/object/define-property.js"));
+
+var _freeze = _interopRequireDefault(__webpack_require__(/*! ../../node_modules/@babel/runtime-corejs2/core-js/object/freeze */ "./node_modules/@babel/runtime-corejs2/core-js/object/freeze.js"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -52620,8 +53941,9 @@ function () {
 
     _defineProperty(this, "username", void 0);
 
-    this.username = username;
-    this.password = password;
+    this.username = username || null;
+    this.password = password || null;
+    (0, _freeze.default)(this);
   }
   /**
    * Whether this auth object is the same as another.
@@ -52826,7 +54148,7 @@ _Object$defineProperty2(exports, "__esModule", {
   value: true
 });
 
-exports.OnmsHTTPOptions = exports.AUTH_PROP = exports.TIMEOUT_PROP = exports.DEFAULT_TIMEOUT = void 0;
+exports.OnmsHTTPOptions = exports.OnmsHTTPOptionsBuilder = exports.AUTH_PROP = exports.TIMEOUT_PROP = exports.DEFAULT_TIMEOUT = void 0;
 
 var _defineProperty2 = _interopRequireDefault(__webpack_require__(/*! ../../node_modules/@babel/runtime-corejs2/core-js/object/define-property */ "./node_modules/@babel/runtime-corejs2/core-js/object/define-property.js"));
 
@@ -52834,9 +54156,13 @@ var _assign = _interopRequireDefault(__webpack_require__(/*! ../../node_modules/
 
 var _isArray = _interopRequireDefault(__webpack_require__(/*! ../../node_modules/@babel/runtime-corejs2/core-js/array/is-array */ "./node_modules/@babel/runtime-corejs2/core-js/array/is-array.js"));
 
+var _keys = _interopRequireDefault(__webpack_require__(/*! ../../node_modules/@babel/runtime-corejs2/core-js/object/keys */ "./node_modules/@babel/runtime-corejs2/core-js/object/keys.js"));
+
 var _for = _interopRequireDefault(__webpack_require__(/*! ../../node_modules/@babel/runtime-corejs2/core-js/symbol/for */ "./node_modules/@babel/runtime-corejs2/core-js/symbol/for.js"));
 
-var _OnmsAuthConfig = __webpack_require__(/*! ./OnmsAuthConfig */ "./src/api/OnmsAuthConfig.ts");
+var _Util = __webpack_require__(/*! ../internal/Util */ "./src/internal/Util.ts");
+
+var _lodash = __webpack_require__(/*! ../../node_modules/lodash/lodash */ "./node_modules/lodash/lodash.js");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -52853,12 +54179,293 @@ exports.DEFAULT_TIMEOUT = DEFAULT_TIMEOUT;
 var TIMEOUT_PROP = (0, _for.default)('timeout');
 exports.TIMEOUT_PROP = TIMEOUT_PROP;
 var AUTH_PROP = (0, _for.default)('auth');
+/** @hidden */
+
+exports.AUTH_PROP = AUTH_PROP;
+
+var isString = function isString(v) {
+  return v && (typeof v === 'string' || v instanceof String);
+};
+/**
+ * A builder for [[OnmsHTTPOptions]].  Create a new one with `OnmsHTTPOptions.newBuilder()`.
+ */
+// tslint:disable:completed-docs variable-name whitespace
+
+
+var OnmsHTTPOptionsBuilder =
+/*#__PURE__*/
+function () {
+  /**
+   * Construct a new builder from an existing options object, if provided.
+   *
+   * NOTE: server, auth, headers, and parameters are cloned, but data is left alone
+   * and assumed to be mutable autside of the builder or elsewhere.
+   */
+  function OnmsHTTPOptionsBuilder(options) {
+    _classCallCheck(this, OnmsHTTPOptionsBuilder);
+
+    _defineProperty(this, "_timeout", void 0);
+
+    _defineProperty(this, "_server", void 0);
+
+    _defineProperty(this, "_auth", void 0);
+
+    _defineProperty(this, "_headers", {});
+
+    _defineProperty(this, "_parameters", {});
+
+    _defineProperty(this, "_data", void 0);
+
+    if (options) {
+      this._timeout = options.timeout;
+      this._server = options.server ? options.server.clone() : undefined;
+      this._auth = options.auth ? options.auth.clone() : undefined;
+      this._headers = options.headers ? (0, _lodash.cloneDeep)(options.headers) : {};
+      this._parameters = options.parameters ? (0, _lodash.cloneDeep)(options.parameters) : {};
+      this._data = options.data;
+    }
+  }
+  /** Build the [[OnmsHTTPOptions]] object. */
+
+
+  _createClass(OnmsHTTPOptionsBuilder, [{
+    key: "build",
+    value: function build() {
+      return new OnmsHTTPOptions(this._timeout, this._server, this._auth, (0, _lodash.cloneDeep)(this._headers), (0, _lodash.cloneDeep)(this._parameters), this._data);
+    }
+    /**
+     * Merge the contents of the provided [[OnmsHTTPOptions]] object, additively.
+     * Timeout, server, auth, and data will be replaced only if set, and headers and parameters
+     * will be overlayed on top of existing.
+     * @param options the options to merge with this builder's current values
+     */
+
+  }, {
+    key: "merge",
+    value: function merge(options) {
+      if (options) {
+        if (options.timeout) {
+          this.setTimeout(options.timeout);
+        }
+
+        if (options.server) {
+          this.setServer(options.server);
+        }
+
+        if (options.auth) {
+          this.setAuth(options.auth);
+        }
+
+        if (options.headers) {
+          for (var _i = 0, _Object$keys = (0, _keys.default)(options.headers); _i < _Object$keys.length; _i++) {
+            var header = _Object$keys[_i];
+            this.setHeader(header, options.headers[header]);
+          }
+        }
+
+        if (options.parameters) {
+          for (var _i2 = 0, _Object$keys3 = (0, _keys.default)(options.parameters); _i2 < _Object$keys3.length; _i2++) {
+            var parameter = _Object$keys3[_i2];
+            this.addParameter(parameter, options.parameters[parameter]);
+          }
+        }
+
+        if (options.data) {
+          this.setData(options.data);
+        }
+      }
+
+      return this;
+    }
+    /**
+     * The connection timeout for the request.
+     *
+     * If `undefined` is passed, the default timeout will be used.
+     * @param timeout the new timeout
+     */
+
+  }, {
+    key: "setTimeout",
+    value: function setTimeout(timeout) {
+      this._timeout = timeout;
+      return this;
+    }
+    /**
+     * The [[OnmsServer]] to connect to.
+     *
+     * If `undefined` is passed, the default server will be used.
+     * @param server the new server
+     */
+
+  }, {
+    key: "setServer",
+    value: function setServer(server) {
+      this._server = server;
+      return this;
+    }
+    /**
+     * The authentication config to use when connecting.
+     *
+     * If `undefined` is passed, the default authentication settings will be used.
+     * @param auth the authentication config
+     */
+
+  }, {
+    key: "setAuth",
+    value: function setAuth(auth) {
+      this._auth = auth;
+      return this;
+    }
+    /**
+     * The headers to set in the request.
+     *
+     * If `undefined` is passed, all headers in the builder will be reset and the default headers will be used.
+     * @param headers the headers to use (or `undefined`)
+     */
+
+  }, {
+    key: "setHeaders",
+    value: function setHeaders(headers) {
+      this._headers = headers || {};
+      return this;
+    }
+    /**
+     * A header to set in the request.
+     *
+     * If `undefined` is passed, that header will be reset to defaults.
+     * @param header the header name
+     * @param value the value of the header
+     */
+
+  }, {
+    key: "setHeader",
+    value: function setHeader(header, value) {
+      var v = value ? String(value) : undefined;
+
+      var actualKey = _Util.Util.insensitiveKey(header, this._headers);
+
+      delete this._headers[header];
+
+      if (actualKey) {
+        delete this._headers[actualKey];
+      }
+
+      if (v !== undefined) {
+        this._headers[header] = v;
+      }
+
+      return this;
+    }
+    /**
+     * A header to set in the request only if it is not already set.
+     * @param header the header name
+     * @param value the value of the header
+     */
+
+  }, {
+    key: "setDefaultHeader",
+    value: function setDefaultHeader(header, value) {
+      var actualKey = _Util.Util.insensitiveKey(header, this._headers);
+
+      if (!actualKey) {
+        this._headers[header] = String(value);
+      }
+
+      return this;
+    }
+    /**
+     * The parameters to pass to the request.
+     *
+     * If `undefined` is passed, all parameters in the builder will be reset.
+     * @param parameters the parameters to use (or `undefined`)
+     */
+
+  }, {
+    key: "setParameters",
+    value: function setParameters(parameters) {
+      if (!parameters) {
+        this._parameters = {};
+      } else {
+        this._parameters = parameters;
+      }
+
+      return this;
+    }
+    /**
+     * A parameter to add or append to the request.
+     *
+     * If `undefined` is passed, that parameter will be reset to defaults.
+     * If the value is a string array, the existing value in the builder will be replaced.
+     * Otherwise, if the parameter already exists in the builder, the parameter will be converted to an array
+     * if necessary and this parameter will be added to it.
+     * @param parameter the parameter name
+     * @param value the value of the parameter to add (or `undefined`)
+     */
+
+  }, {
+    key: "addParameter",
+    value: function addParameter(parameter, value) {
+      var v = value && !isString(value) ? String(value) : value; // Since parameters can be repeated an arbitrary number of times we will store them in an array in the map
+      // as soon as the occurrence of a given key is > 1
+
+      if (this._parameters[parameter]) {
+        if (v === undefined) {
+          delete this._parameters[parameter];
+        } else if ((0, _isArray.default)(v)) {
+          this._parameters[parameter] = v.map(function (obj) {
+            return String(obj);
+          });
+        } else {
+          var currentValue = this._parameters[parameter];
+
+          if ((0, _isArray.default)(currentValue)) {
+            currentValue.push(String(v));
+          } else {
+            var newArrayValue = [];
+            newArrayValue.push(currentValue);
+            newArrayValue.push(String(v));
+            this._parameters[parameter] = newArrayValue;
+          }
+        }
+      } else {
+        if (v) {
+          if ((0, _isArray.default)(v)) {
+            this._parameters[parameter] = v.map(function (obj) {
+              return String(obj);
+            });
+          } else {
+            this._parameters[parameter] = String(v);
+          }
+        }
+      }
+
+      return this;
+    }
+    /**
+     * The data to use in the request.
+     *
+     * If `undefined` is passed, the data will be cleared.
+     * @param data the data
+     */
+
+  }, {
+    key: "setData",
+    value: function setData(data) {
+      this._data = data;
+      return this;
+    }
+  }]);
+
+  return OnmsHTTPOptionsBuilder;
+}(); // tslint:enable:completed-docs variable-name whitespace
+
 /**
  * Options to be used when making HTTP ReST calls.
  * @module OnmsHTTPOptions
  */
 
-exports.AUTH_PROP = AUTH_PROP;
+
+exports.OnmsHTTPOptionsBuilder = OnmsHTTPOptionsBuilder;
 
 var OnmsHTTPOptions =
 /*#__PURE__*/
@@ -52868,42 +54475,44 @@ function () {
 
     /** How long to wait for ReST calls to time out. */
     get: function get() {
-      if (this[TIMEOUT_PROP]) {
-        return this[TIMEOUT_PROP];
-      }
-
-      return DEFAULT_TIMEOUT;
-    },
-    set: function set(t) {
-      this[TIMEOUT_PROP] = t;
+      return this[TIMEOUT_PROP] || undefined;
     }
     /** The authentication config that should be used. */
 
   }, {
     key: "auth",
     get: function get() {
-      if (this[AUTH_PROP]) {
-        return this[AUTH_PROP];
+      var auth = this[AUTH_PROP];
+
+      if (auth !== null && auth !== undefined) {
+        return auth;
       }
 
       if (this.server && this.server.auth) {
         return this.server.auth;
       }
 
-      return {};
-    },
-    set: function set(a) {
-      this[AUTH_PROP] = a;
+      return undefined;
     }
-    /** The server to use if no server is set on the HTTP implementation. */
+    /** The server to use instead of that provided by the HTTP implementation. */
 
+  }], [{
+    key: "newBuilder",
+
+    /**
+     * Create a new builder for an [[OnmsHTTPOptions]] object.
+     * @param options if an existing options object is passed, the builder will be pre-populated
+     */
+    value: function newBuilder(options) {
+      return new OnmsHTTPOptionsBuilder(options);
+    }
   }]);
 
   /**
    * Construct a new OnmsHTTPOptions object.
    * @constructor
    */
-  function OnmsHTTPOptions(timeout, auth, server) {
+  function OnmsHTTPOptions(timeout, server, auth, headers, parameters, data) {
     _classCallCheck(this, OnmsHTTPOptions);
 
     _defineProperty(this, "server", void 0);
@@ -52918,56 +54527,34 @@ function () {
 
     _defineProperty(this, AUTH_PROP, void 0);
 
-    this.timeout = timeout || DEFAULT_TIMEOUT;
-    this.auth = auth || new _OnmsAuthConfig.OnmsAuthConfig();
+    this[TIMEOUT_PROP] = timeout || DEFAULT_TIMEOUT;
     this.server = server || null;
+    this[AUTH_PROP] = null;
+
+    if (server && auth && auth !== server.auth) {
+      this[AUTH_PROP] = auth;
+    }
+
+    this.headers = headers || {};
+    this.parameters = parameters || {};
+    this.data = data;
   }
   /**
-   * Add a URL parameter. Returns the OnmsHTTPOptions object so it can be chained.
-   * @param key - the parameter's key
-   * @param value - the parameter's value
+   * Convert the options to a plain JSON object.
    */
 
 
   _createClass(OnmsHTTPOptions, [{
-    key: "withParameter",
-    value: function withParameter(key, value) {
-      if (value !== undefined) {
-        // Since parameters can be repeated an arbitrary number of times we will store them in an array in the map
-        // as soon as the occurrence of a given key is > 1
-        if (this.parameters[key]) {
-          var currentValue = this.parameters[key];
-
-          if ((0, _isArray.default)(currentValue)) {
-            currentValue.push('' + value);
-          } else {
-            var newArrayValue = [];
-            newArrayValue.push(currentValue);
-            newArrayValue.push(value);
-            this.parameters[key] = newArrayValue;
-          }
-        } else {
-          this.parameters[key] = '' + value;
-        }
-      }
-
-      return this;
-    }
-    /**
-     * Convert the options to a plain JSON object.
-     */
-
-  }, {
     key: "toJSON",
     value: function toJSON() {
       var ret = (0, _assign.default)({}, this);
 
       if (this[TIMEOUT_PROP]) {
-        ret.timeout = this.timeout;
+        ret.timeout = this[TIMEOUT_PROP];
       }
 
       if (this[AUTH_PROP]) {
-        ret.auth = this.auth;
+        ret.auth = this[AUTH_PROP];
       }
 
       return ret;
@@ -53093,7 +54680,7 @@ _Object$defineProperty2(exports, "__esModule", {
   value: true
 });
 
-exports.OnmsServer = void 0;
+exports.OnmsServer = exports.OnmsServerBuilder = void 0;
 
 var _defineProperty2 = _interopRequireDefault(__webpack_require__(/*! ../../node_modules/@babel/runtime-corejs2/core-js/object/define-property */ "./node_modules/@babel/runtime-corejs2/core-js/object/define-property.js"));
 
@@ -53103,11 +54690,9 @@ __webpack_require__(/*! ../../node_modules/core-js/modules/es6.object.to-string 
 
 __webpack_require__(/*! ../../node_modules/core-js/modules/es6.function.name */ "./node_modules/core-js/modules/es6.function.name.js");
 
-var _OnmsAuthConfig = __webpack_require__(/*! ../api/OnmsAuthConfig */ "./src/api/OnmsAuthConfig.ts");
-
 var _ServerType = __webpack_require__(/*! ./ServerType */ "./src/api/ServerType.ts");
 
-var _UUID = __webpack_require__(/*! ../internal/UUID */ "./src/internal/UUID.ts");
+var _objectHash = __webpack_require__(/*! ../../node_modules/object-hash */ "./node_modules/object-hash/dist/object_hash.js");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -53119,26 +54704,144 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 function _defineProperty(obj, key, value) { if (key in obj) { (0, _defineProperty2.default)(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+// tslint:disable:max-classes-per-file
+
 /** @hidden */
 // tslint:disable-next-line
 var URI = __webpack_require__(/*! ../../node_modules/urijs/src/URI */ "./node_modules/urijs/src/URI.js");
 
 /**
+ * A builder for [[OnmsServer]].  Create a new one with `OnmsServer.newBuilder()`.
+ */
+// tslint:disable:completed-docs variable-name whitespace
+var OnmsServerBuilder =
+/*#__PURE__*/
+function () {
+  /**
+   * Construct a new builder from an existing options object, if provided.
+   */
+  function OnmsServerBuilder(url) {
+    _classCallCheck(this, OnmsServerBuilder);
+
+    _defineProperty(this, "_name", void 0);
+
+    _defineProperty(this, "_url", void 0);
+
+    _defineProperty(this, "_auth", void 0);
+
+    _defineProperty(this, "_metadata", void 0);
+
+    this._url = url;
+  }
+  /** Build the [[OnmsServer]] object. */
+
+
+  _createClass(OnmsServerBuilder, [{
+    key: "build",
+    value: function build() {
+      return new OnmsServer(this);
+    }
+    /**
+     * The display name of the server.
+     *
+     * If `undefined` is passed, the name will be unset.
+     * @param name the server name
+     */
+
+  }, {
+    key: "setName",
+    value: function setName(name) {
+      this._name = name;
+      return this;
+    }
+    /**
+     * The URL of the server.
+     *
+     * If `undefined` is passed, the URL will be unset.
+     * @param url the server's URL
+     */
+
+  }, {
+    key: "setUrl",
+    value: function setUrl(url) {
+      this._url = url;
+      return this;
+    }
+    /**
+     * The authentication config to use when connecting.
+     *
+     * If `undefined` is passed, the default authentication settings will be used.
+     * @param auth the authentication config
+     */
+
+  }, {
+    key: "setAuth",
+    value: function setAuth(auth) {
+      this._auth = auth;
+      return this;
+    }
+    /**
+     * The server metadata to associate with the server.
+     *
+     * If `undefined` is passed, no metadata will be used.
+     * @param metadata the metadata
+     */
+
+  }, {
+    key: "setMetadata",
+    value: function setMetadata(metadata) {
+      this._metadata = metadata;
+      return this;
+    }
+  }, {
+    key: "name",
+    get: function get() {
+      return this._name;
+    }
+  }, {
+    key: "url",
+    get: function get() {
+      return this._url;
+    }
+  }, {
+    key: "auth",
+    get: function get() {
+      return this._auth;
+    }
+  }, {
+    key: "metadata",
+    get: function get() {
+      return this._metadata;
+    }
+  }]);
+
+  return OnmsServerBuilder;
+}(); // tslint:enable:completed-docs variable-name whitespace
+
+/**
  * Represents a remote OpenNMS server.
  * @module OnmsServer
  */
+
+
+exports.OnmsServerBuilder = OnmsServerBuilder;
+
 var OnmsServer =
 /*#__PURE__*/
 function () {
-  /** A unique identifier for this server. */
+  _createClass(OnmsServer, null, [{
+    key: "newBuilder",
 
-  /** An optional name associated with this server. */
+    /**
+     * Create a new builder for an [[OnmsServer]] object.
+     * @param server if an existing server object is passed, the builder will be pre-populated
+     */
+    value: function newBuilder(url) {
+      return new OnmsServerBuilder(url);
+    }
+    /** A unique identifier for this server. */
 
-  /** The base URL to the server. */
-
-  /** The authorization configuration associated with the server. */
-
-  /** The capabilities of the server */
+  }]);
 
   /**
    * Construct a new OnmsServer object representing a remote server.
@@ -53147,11 +54850,7 @@ function () {
    * ```javascript
    * const server = new OnmsServer('Test', 'https://myserver/opennms/', auth);
    * ```
-   * @example
-   * <caption>provide a username and password for auth</caption>
-   * ```javascript
-   * const server = new OnmsServer('Test', 'https://myserver/opennms/', 'admin', 'admin');
-   * ```
+   *
    * @constructor
    * @param name - A name for the server suitable for display.
    * @param url - The URL to the server.
@@ -53159,7 +54858,7 @@ function () {
    * @param password - The password to authorize with if a username was
    *                   supplied to the `auth` parameter.
    */
-  function OnmsServer(name, url, auth, password) {
+  function OnmsServer(serverBuilder) {
     _classCallCheck(this, OnmsServer);
 
     _defineProperty(this, "id", void 0);
@@ -53172,15 +54871,15 @@ function () {
 
     _defineProperty(this, "metadata", void 0);
 
-    this.id = _UUID.UUID.generate();
-    this.name = name;
-    this.url = url;
-
-    if (auth instanceof _OnmsAuthConfig.OnmsAuthConfig) {
-      this.auth = auth;
-    } else {
-      this.auth = new _OnmsAuthConfig.OnmsAuthConfig(auth, password);
+    if (!serverBuilder.url) {
+      throw new TypeError('URL is a required field!');
     }
+
+    this.name = serverBuilder.name;
+    this.url = serverBuilder.url;
+    this.auth = serverBuilder.auth || null;
+    this.metadata = serverBuilder.metadata || null;
+    this.id = (0, _objectHash.MD5)([this.name, this.url, this.auth, this.metadata]);
   }
   /**
    * Given a relative URL fragment, construct a URL for that fragment on the server.
@@ -53216,25 +54915,24 @@ function () {
       return uri.toString();
     }
     /**
-     * Deep-checks equality including auth and metadata.
+     * Check whether the provided server has the same settings as this one.
      */
 
   }, {
     key: "equals",
     value: function equals(that) {
-      return that && this.id === that.id && this.name === that.name && this.url === that.url && (this.auth === that.auth || this.auth && this.auth.equals(that.auth)) && (this.metadata === that.metadata || this.metadata && this.metadata.equals(that.metadata));
+      return that && this.id === that.id;
     }
     /**
-     * Create a new server object from this existing one.
+     * Create a new server object from this existing one, with the same ID.
      */
 
   }, {
     key: "clone",
     value: function clone() {
       var auth = this.auth ? this.auth.clone() : undefined;
-      var ret = new OnmsServer(this.name, this.url, auth);
-      ret.metadata = this.metadata ? this.metadata.clone() : undefined;
-      return ret;
+      var metadata = this.metadata ? this.metadata.clone() : undefined;
+      return new OnmsServerBuilder(this.url).setName(this.name).setAuth(this.auth || undefined).setMetadata(this.metadata || undefined).build();
     }
     /**
      * Get the hostname portion of the URL associated with this server.
@@ -53313,47 +55011,39 @@ var OnmsVersion =
 /*#__PURE__*/
 function () {
   _createClass(OnmsVersion, [{
-    key: "version",
-
-    /** The numeric version (ex: `19.0.0`). */
-    get: function get() {
-      return this.rv;
-    },
-    set: function set(ver) {
-      this.rv = ver;
-    }
-    /** The display version (ex: `19.0.0-SNAPSHOT`). */
-
-  }, {
     key: "displayVersion",
+
+    /**
+     * The numeric version (ex: `19.0.0`).
+     */
+
+    /**
+     * The internal display version.
+     * @hidden
+     */
+
+    /** The display version (ex: `19.0.0-SNAPSHOT`). */
     get: function get() {
       return this.dv || this.version;
-    },
-    set: function set(displayVersion) {
-      this.dv = displayVersion;
     }
     /**
-     * The internal raw version.
-     * @hidden
+     * Construct a new version.
+     * @param version - The numeric version.
+     * @param displayVersion - The full display version
+     *                         (including extra designators like `x.x.x-SNAPSHOT`).
      */
 
   }]);
 
-  /**
-   * Construct a new version.
-   * @param version - The numeric version.
-   * @param displayVersion - The full display version
-   *                         (including extra designators like `x.x.x-SNAPSHOT`).
-   */
   function OnmsVersion(version, displayVersion) {
     _classCallCheck(this, OnmsVersion);
 
-    _defineProperty(this, "rv", void 0);
+    _defineProperty(this, "version", void 0);
 
     _defineProperty(this, "dv", void 0);
 
-    this.rv = version || '0.0.0';
-    this.displayVersion = displayVersion;
+    this.version = version || '0.0.0';
+    this.dv = displayVersion;
   }
   /**
    * Returns true if this version is less than the passed version.
@@ -54002,7 +55692,7 @@ function () {
    * @param version the version of the server
    * @param type the type of server (Horizon, Meridian)
    */
-  function ServerMetadata(version, type) {
+  function ServerMetadata(version, type, ticketerConfig) {
     _classCallCheck(this, ServerMetadata);
 
     _defineProperty(this, "version", void 0);
@@ -54018,6 +55708,7 @@ function () {
     }
 
     this.type = type || _ServerType.ServerTypes.HORIZON;
+    this.ticketerConfig = ticketerConfig;
   }
   /** Can you ack alarms through ReST? */
 
@@ -54159,7 +55850,17 @@ function () {
   }, {
     key: "clone",
     value: function clone() {
-      return new ServerMetadata(this.version.clone(), this.type);
+      var ticketerConfig = this.ticketerConfig ? this.ticketerConfig.clone() : undefined;
+      return new ServerMetadata(this.version.clone(), this.type, ticketerConfig);
+    }
+    /**
+     * Create a new metadata object from this existing one, with the given ticketer config.
+     */
+
+  }, {
+    key: "withTicketer",
+    value: function withTicketer(ticketerConfig) {
+      return new ServerMetadata(this.version.clone(), this.type, ticketerConfig);
     }
   }]);
 
@@ -54287,22 +55988,37 @@ function _defineProperty(obj, key, value) { if (key in obj) { (0, _definePropert
 var TicketerConfig =
 /*#__PURE__*/
 function () {
-  function TicketerConfig() {
+  /** The name of the ticketer plugin currently in use. */
+
+  /** Defines if the ticketer integration is enabled. True if enabled, False otherwise. */
+  function TicketerConfig(plugin, enabled) {
     _classCallCheck(this, TicketerConfig);
 
     _defineProperty(this, "plugin", void 0);
 
     _defineProperty(this, "enabled", void 0);
+
+    this.plugin = plugin;
+    this.enabled = enabled || false;
   }
+  /**
+   * Whether this ticketer object is the same as another.
+   */
+
 
   _createClass(TicketerConfig, [{
     key: "equals",
-
-    /**
-     * Whether this ticketer object is the same as another.
-     */
     value: function equals(that) {
       return that && this.plugin === that.plugin && this.enabled === that.enabled;
+    }
+    /**
+     * Create a new ticketer config object from this existing one.
+     */
+
+  }, {
+    key: "clone",
+    value: function clone() {
+      return new TicketerConfig(this.plugin, this.enabled);
     }
   }]);
 
@@ -54350,8 +56066,6 @@ __webpack_require__(/*! ../../node_modules/core-js/modules/es6.function.name */ 
 var _isArray = _interopRequireDefault(__webpack_require__(/*! ../../node_modules/@babel/runtime-corejs2/core-js/array/is-array */ "./node_modules/@babel/runtime-corejs2/core-js/array/is-array.js"));
 
 var _stringify = _interopRequireDefault(__webpack_require__(/*! ../../node_modules/@babel/runtime-corejs2/core-js/json/stringify */ "./node_modules/@babel/runtime-corejs2/core-js/json/stringify.js"));
-
-var _assign = _interopRequireDefault(__webpack_require__(/*! ../../node_modules/@babel/runtime-corejs2/core-js/object/assign */ "./node_modules/@babel/runtime-corejs2/core-js/object/assign.js"));
 
 __webpack_require__(/*! ../../node_modules/core-js/modules/web.dom.iterable */ "./node_modules/core-js/modules/web.dom.iterable.js");
 
@@ -54608,7 +56322,7 @@ function (_BaseDAO) {
 
               case 2:
                 if (this.propertiesCache) {
-                  _context4.next = 11;
+                  _context4.next = 10;
                   break;
                 }
 
@@ -54616,21 +56330,20 @@ function (_BaseDAO) {
                 return this.getOptions();
 
               case 5:
-                opts = _context4.sent;
-                opts.headers.accept = 'application/json';
-                _context4.next = 9;
-                return this.http.get(this.searchPropertyPath(), opts);
+                opts = _context4.sent.setHeader('Accept', 'application/json');
+                _context4.next = 8;
+                return this.http.get(this.searchPropertyPath(), opts.build());
 
-              case 9:
+              case 8:
                 result = _context4.sent;
                 this.propertiesCache = this.parseResultList(result, 'searchProperty', this.searchPropertyPath(), function (prop) {
                   return _this2.toSearchProperty(prop);
                 });
 
-              case 11:
+              case 10:
                 return _context4.abrupt("return", this.propertiesCache);
 
-              case 12:
+              case 11:
               case "end":
                 return _context4.stop();
             }
@@ -54658,20 +56371,20 @@ function (_BaseDAO) {
       var _findValues = _asyncToGenerator(
       /*#__PURE__*/
       _regenerator.default.mark(function _callee5(propertyId, options) {
-        var _ref, _ref2, property, opts, path, result;
+        var _ref, _ref2, property, defaultOptions, path, opts, result;
 
         return _regenerator.default.wrap(function _callee5$(_context5) {
           while (1) {
             switch (_context5.prev = _context5.next) {
               case 0:
                 _context5.next = 2;
-                return _promise.default.all([this.searchProperty(propertyId), this.getOptions()]);
+                return _promise.default.all([this.searchProperty(propertyId), this.getOptions(options)]);
 
               case 2:
                 _ref = _context5.sent;
                 _ref2 = _slicedToArray(_ref, 2);
                 property = _ref2[0];
-                opts = _ref2[1];
+                defaultOptions = _ref2[1];
 
                 if (!(!property || !property.id)) {
                   _context5.next = 8;
@@ -54682,22 +56395,17 @@ function (_BaseDAO) {
 
               case 8:
                 path = this.searchPropertyPath() + '/' + property.id;
-                opts.headers.accept = 'application/json';
+                opts = defaultOptions.setHeader('Accept', 'application/json');
+                _context5.next = 12;
+                return this.http.get(path, opts.build());
 
-                if (options) {
-                  (0, _assign.default)(opts, options);
-                }
-
-                _context5.next = 13;
-                return this.http.get(path, opts);
-
-              case 13:
+              case 12:
                 result = _context5.sent;
                 return _context5.abrupt("return", this.parseResultList(result, 'value', path, function (value) {
                   return value;
                 }));
 
-              case 15:
+              case 14:
               case "end":
                 return _context5.stop();
             }
@@ -54780,9 +56488,11 @@ function (_BaseDAO) {
           visitor.onNestedRestriction(restriction);
         }
 
-        restriction.clauses.forEach(function (c) {
-          self.visitClause(c, visitor);
-        });
+        if (restriction.clauses) {
+          restriction.clauses.forEach(function (c) {
+            self.visitClause(c, visitor);
+          });
+        }
       } else {
         _Log.log.warn('Restriction is of an unknown type: ' + (0, _stringify.default)(restriction));
       }
@@ -54802,9 +56512,11 @@ function (_BaseDAO) {
         visitor.onFilter(filter);
       }
 
-      filter.clauses.forEach(function (clause) {
-        self.visitClause(clause, visitor);
-      });
+      if (filter.clauses) {
+        filter.clauses.forEach(function (clause) {
+          self.visitClause(clause, visitor);
+        });
+      }
     }
     /**
      * Create an [[OnmsHTTPOptions]] object for DAO calls given an optional filter.
@@ -54817,19 +56529,19 @@ function (_BaseDAO) {
       var _getOptions = _asyncToGenerator(
       /*#__PURE__*/
       _regenerator.default.mark(function _callee6(filter) {
-        var options, processor;
+        var builder, processor;
         return _regenerator.default.wrap(function _callee6$(_context6) {
           while (1) {
             switch (_context6.prev = _context6.next) {
               case 0:
-                options = new _OnmsHTTPOptions.OnmsHTTPOptions();
+                builder = _OnmsHTTPOptions.OnmsHTTPOptions.newBuilder();
 
                 if (this.useJson()) {
-                  options.headers.accept = 'application/json';
+                  builder.setHeader('Accept', 'application/json');
                 } else {
                   // always use application/xml in DAO calls when we're not sure how
                   // usable JSON output will be.
-                  options.headers.accept = 'application/xml';
+                  builder.setHeader('Accept', 'application/xml');
                 }
 
                 if (!filter) {
@@ -54842,10 +56554,10 @@ function (_BaseDAO) {
 
               case 5:
                 processor = _context6.sent;
-                options.parameters = processor.getParameters(filter);
+                builder.setParameters(processor.getParameters(filter));
 
               case 7:
-                return _context6.abrupt("return", options);
+                return _context6.abrupt("return", builder);
 
               case 8:
               case "end":
@@ -54888,7 +56600,7 @@ function (_BaseDAO) {
   }, {
     key: "getApiVersion",
     value: function getApiVersion() {
-      if (!this.server || this.server.metadata === undefined) {
+      if (!this.server || this.server.metadata === null) {
         throw new _OnmsError.OnmsError('Server meta-data must be populated prior to making DAO calls.');
       }
 
@@ -55056,7 +56768,7 @@ function (_AbstractDAO) {
             switch (_context.prev = _context.next) {
               case 0:
                 return _context.abrupt("return", this.getOptions().then(function (opts) {
-                  return _this2.http.get(_this2.pathToAlarmsEndpoint() + '/' + id, opts).then(function (result) {
+                  return _this2.http.get(_this2.pathToAlarmsEndpoint() + '/' + id, opts.build()).then(function (result) {
                     return _this2.fromData(result.data);
                   });
                 }));
@@ -55096,7 +56808,7 @@ function (_AbstractDAO) {
             switch (_context2.prev = _context2.next) {
               case 0:
                 return _context2.abrupt("return", this.getOptions(filter).then(function (opts) {
-                  return _this3.http.get(_this3.pathToAlarmsEndpoint(), opts).then(function (result) {
+                  return _this3.http.get(_this3.pathToAlarmsEndpoint(), opts.build()).then(function (result) {
                     var data = _this3.getData(result);
 
                     if (!(0, _isArray.default)(data)) {
@@ -55404,7 +57116,7 @@ function (_AbstractDAO) {
       var _createTicket = _asyncToGenerator(
       /*#__PURE__*/
       _regenerator.default.mark(function _callee9(alarm) {
-        var alarmId, options;
+        var alarmId, builder;
         return _regenerator.default.wrap(function _callee9$(_context9) {
           while (1) {
             switch (_context9.prev = _context9.next) {
@@ -55418,13 +57130,12 @@ function (_AbstractDAO) {
 
               case 2:
                 alarmId = typeof alarm === 'number' ? alarm : alarm.id;
-                options = new _OnmsHTTPOptions.OnmsHTTPOptions();
-                options.headers.accept = 'text/plain';
-                return _context9.abrupt("return", this.http.post(this.pathToAlarmsEndpoint() + '/' + alarmId + '/ticket/create', options).then(function () {
+                builder = _OnmsHTTPOptions.OnmsHTTPOptions.newBuilder().setHeader('Accept', 'text/plain');
+                return _context9.abrupt("return", this.http.post(this.pathToAlarmsEndpoint() + '/' + alarmId + '/ticket/create', builder.build()).then(function () {
                   _Log.log.debug('Ticket creation pending.');
                 }).catch(this.handleError));
 
-              case 6:
+              case 5:
               case "end":
                 return _context9.stop();
             }
@@ -55451,7 +57162,7 @@ function (_AbstractDAO) {
       var _triggerTicketUpdate = _asyncToGenerator(
       /*#__PURE__*/
       _regenerator.default.mark(function _callee10(alarm) {
-        var alarmId, options;
+        var alarmId, builder;
         return _regenerator.default.wrap(function _callee10$(_context10) {
           while (1) {
             switch (_context10.prev = _context10.next) {
@@ -55465,13 +57176,12 @@ function (_AbstractDAO) {
 
               case 2:
                 alarmId = typeof alarm === 'number' ? alarm : alarm.id;
-                options = new _OnmsHTTPOptions.OnmsHTTPOptions();
-                options.headers.accept = 'text/plain';
-                return _context10.abrupt("return", this.http.post(this.pathToAlarmsEndpoint() + '/' + alarmId + '/ticket/update', options).then(function () {
+                builder = _OnmsHTTPOptions.OnmsHTTPOptions.newBuilder().setHeader('Accept', 'text/plain');
+                return _context10.abrupt("return", this.http.post(this.pathToAlarmsEndpoint() + '/' + alarmId + '/ticket/update', builder.build()).then(function () {
                   _Log.log.debug('Ticket update pending.');
                 }).catch(this.handleError));
 
-              case 6:
+              case 5:
               case "end":
                 return _context10.stop();
             }
@@ -55498,7 +57208,7 @@ function (_AbstractDAO) {
       var _closeTicket = _asyncToGenerator(
       /*#__PURE__*/
       _regenerator.default.mark(function _callee11(alarm) {
-        var alarmId, options;
+        var alarmId, builder;
         return _regenerator.default.wrap(function _callee11$(_context11) {
           while (1) {
             switch (_context11.prev = _context11.next) {
@@ -55512,13 +57222,12 @@ function (_AbstractDAO) {
 
               case 2:
                 alarmId = typeof alarm === 'number' ? alarm : alarm.id;
-                options = new _OnmsHTTPOptions.OnmsHTTPOptions();
-                options.headers.accept = 'text/plain';
-                return _context11.abrupt("return", this.http.post(this.pathToAlarmsEndpoint() + '/' + alarmId + '/ticket/close', options).then(function () {
+                builder = _OnmsHTTPOptions.OnmsHTTPOptions.newBuilder().setHeader('Accept', 'text/plain');
+                return _context11.abrupt("return", this.http.post(this.pathToAlarmsEndpoint() + '/' + alarmId + '/ticket/close', builder.build()).then(function () {
                   _Log.log.debug('Ticket close pending.');
                 }).catch(this.handleError));
 
-              case 6:
+              case 5:
               case "end":
                 return _context11.stop();
             }
@@ -55840,7 +57549,7 @@ function (_AbstractDAO) {
                 return _context16.abrupt("return", _get(_getPrototypeOf(AlarmDAO.prototype), "getOptions", this).call(this, filter).then(function (options) {
                   // always use application/json for v2 calls
                   if (_this4.getApiVersion() === 2) {
-                    options.headers.accept = 'application/json';
+                    return options.setHeader('Accept', 'application/json');
                   }
 
                   return options;
@@ -55871,29 +57580,30 @@ function (_AbstractDAO) {
       var _put = _asyncToGenerator(
       /*#__PURE__*/
       _regenerator.default.mark(function _callee17(url) {
-        var _this5 = this;
-
         var parameters,
+            builder,
             _args17 = arguments;
         return _regenerator.default.wrap(function _callee17$(_context17) {
           while (1) {
             switch (_context17.prev = _context17.next) {
               case 0:
                 parameters = _args17.length > 1 && _args17[1] !== undefined ? _args17[1] : {};
-                return _context17.abrupt("return", this.getOptions().then(function (opts) {
-                  opts.headers['content-type'] = 'application/x-www-form-urlencoded';
-                  delete opts.headers.accept;
-                  opts.parameters = parameters;
-                  return _this5.http.put(url, opts).then(function (result) {
-                    if (!result.isSuccess) {
-                      throw result;
-                    }
+                _context17.next = 3;
+                return this.getOptions();
 
-                    return;
-                  });
+              case 3:
+                _context17.t0 = undefined;
+                _context17.t1 = parameters;
+                builder = _context17.sent.setHeader('Content-Type', 'application/x-www-form-urlencoded').setHeader('Accept', _context17.t0).setParameters(_context17.t1);
+                return _context17.abrupt("return", this.http.put(url, builder.build()).then(function (result) {
+                  if (!result.isSuccess) {
+                    throw result;
+                  }
+
+                  return;
                 }));
 
-              case 2:
+              case 7:
               case "end":
                 return _context17.stop();
             }
@@ -55918,29 +57628,30 @@ function (_AbstractDAO) {
       var _httpDelete = _asyncToGenerator(
       /*#__PURE__*/
       _regenerator.default.mark(function _callee18(url) {
-        var _this6 = this;
-
         var parameters,
+            builder,
             _args18 = arguments;
         return _regenerator.default.wrap(function _callee18$(_context18) {
           while (1) {
             switch (_context18.prev = _context18.next) {
               case 0:
                 parameters = _args18.length > 1 && _args18[1] !== undefined ? _args18[1] : {};
-                return _context18.abrupt("return", this.getOptions().then(function (opts) {
-                  opts.headers['content-type'] = 'application/x-www-form-urlencoded';
-                  delete opts.headers.accept;
-                  opts.parameters = parameters;
-                  return _this6.http.httpDelete(url, opts).then(function (result) {
-                    if (!result.isSuccess) {
-                      throw result;
-                    }
+                _context18.next = 3;
+                return this.getOptions();
 
-                    return;
-                  });
+              case 3:
+                _context18.t0 = undefined;
+                _context18.t1 = parameters;
+                builder = _context18.sent.setHeader('Content-Type', 'application/x-www-form-urlencoded').setHeader('Accept', _context18.t0).setParameters(_context18.t1);
+                return _context18.abrupt("return", this.http.httpDelete(url, builder.build()).then(function (result) {
+                  if (!result.isSuccess) {
+                    throw result;
+                  }
+
+                  return;
                 }));
 
-              case 2:
+              case 7:
               case "end":
                 return _context18.stop();
             }
@@ -56234,7 +57945,7 @@ function () {
   }, {
     key: "useJson",
     value: function useJson() {
-      if (!this.server || this.server.metadata === undefined) {
+      if (!this.server || this.server.metadata === null) {
         throw new _OnmsError.OnmsError('Server meta-data must be populated prior to making DAO calls.');
       }
 
@@ -56436,8 +58147,8 @@ function (_AbstractDAO) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                return _context.abrupt("return", this.getOptions().then(function (opts) {
-                  return _this.http.get(_this.pathToEventsEndpoint() + '/' + id, opts).then(function (result) {
+                return _context.abrupt("return", this.getOptions().then(function (builder) {
+                  return _this.http.get(_this.pathToEventsEndpoint() + '/' + id, builder.build()).then(function (result) {
                     return _this.fromData(result.data);
                   });
                 }));
@@ -56470,8 +58181,8 @@ function (_AbstractDAO) {
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
-                return _context2.abrupt("return", this.getOptions(filter).then(function (opts) {
-                  return _this2.http.get(_this2.pathToEventsEndpoint(), opts).then(function (result) {
+                return _context2.abrupt("return", this.getOptions(filter).then(function (builder) {
+                  return _this2.http.get(_this2.pathToEventsEndpoint(), builder.build()).then(function (result) {
                     var data = result.data;
 
                     if (data !== null && _this2.getCount(data, result.code) > 0 && data.event) {
@@ -56629,6 +58340,8 @@ var _iterator2 = _interopRequireDefault(__webpack_require__(/*! ../../node_modul
 
 var _symbol = _interopRequireDefault(__webpack_require__(/*! ../../node_modules/@babel/runtime-corejs2/core-js/symbol */ "./node_modules/@babel/runtime-corejs2/core-js/symbol.js"));
 
+var _promise = _interopRequireDefault(__webpack_require__(/*! ../../node_modules/@babel/runtime-corejs2/core-js/promise */ "./node_modules/@babel/runtime-corejs2/core-js/promise.js"));
+
 var _defineProperty = _interopRequireDefault(__webpack_require__(/*! ../../node_modules/@babel/runtime-corejs2/core-js/object/define-property */ "./node_modules/@babel/runtime-corejs2/core-js/object/define-property.js"));
 
 var _getPrototypeOf2 = _interopRequireDefault(__webpack_require__(/*! ../../node_modules/@babel/runtime-corejs2/core-js/object/get-prototype-of */ "./node_modules/@babel/runtime-corejs2/core-js/object/get-prototype-of.js"));
@@ -56636,8 +58349,6 @@ var _getPrototypeOf2 = _interopRequireDefault(__webpack_require__(/*! ../../node
 var _create = _interopRequireDefault(__webpack_require__(/*! ../../node_modules/@babel/runtime-corejs2/core-js/object/create */ "./node_modules/@babel/runtime-corejs2/core-js/object/create.js"));
 
 var _setPrototypeOf2 = _interopRequireDefault(__webpack_require__(/*! ../../node_modules/@babel/runtime-corejs2/core-js/object/set-prototype-of */ "./node_modules/@babel/runtime-corejs2/core-js/object/set-prototype-of.js"));
-
-var _promise = _interopRequireDefault(__webpack_require__(/*! ../../node_modules/@babel/runtime-corejs2/core-js/promise */ "./node_modules/@babel/runtime-corejs2/core-js/promise.js"));
 
 var _getIterator2 = _interopRequireDefault(__webpack_require__(/*! ../../node_modules/@babel/runtime-corejs2/core-js/get-iterator */ "./node_modules/@babel/runtime-corejs2/core-js/get-iterator.js"));
 
@@ -56735,34 +58446,45 @@ function (_BaseDAO) {
       _regenerator.default.mark(function _callee(limit, start, end) {
         var _this = this;
 
+        var url, builder, result;
         return _regenerator.default.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                return _context.abrupt("return", FlowDAO.getOptions().then(function (opts) {
-                  var url = _this.pathToFlowsEndpoint() + '/exporters';
-                  opts.withParameter('limit', limit).withParameter('start', start).withParameter('end', end);
-                  return _this.http.get(url, opts).then(function (result) {
-                    if (result && result.data) {
-                      if (!(0, _isArray.default)(result.data)) {
-                        throw new _OnmsError.OnmsError('Expected an array of flow exporter summaries but got "' + _typeof(result) + '" instead.');
-                      }
+                url = this.pathToFlowsEndpoint() + '/exporters';
+                builder = this.getOptions().addParameter('limit', limit).addParameter('start', start).addParameter('end', end);
+                _context.next = 4;
+                return this.http.get(url, builder.build());
 
-                      return result.data.map(function (exporter) {
-                        return _this.toFlowExporterSummary(exporter);
-                      });
-                    }
+              case 4:
+                result = _context.sent;
 
-                    throw new _OnmsError.OnmsError('Unexpected response from GET ' + url + ': no result data found.');
-                  });
+                if (!(result && result.data)) {
+                  _context.next = 9;
+                  break;
+                }
+
+                if ((0, _isArray.default)(result.data)) {
+                  _context.next = 8;
+                  break;
+                }
+
+                throw new _OnmsError.OnmsError('Expected an array of flow exporter summaries but got "' + _typeof(result) + '" instead.');
+
+              case 8:
+                return _context.abrupt("return", result.data.map(function (exporter) {
+                  return _this.toFlowExporterSummary(exporter);
                 }));
 
-              case 1:
+              case 9:
+                throw new _OnmsError.OnmsError('Unexpected response from GET ' + url + ': no result data found.');
+
+              case 10:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee);
+        }, _callee, this);
       }));
 
       function getExporters(_x, _x2, _x3) {
@@ -56786,25 +58508,25 @@ function (_BaseDAO) {
       var _getExporter = _asyncToGenerator(
       /*#__PURE__*/
       _regenerator.default.mark(function _callee2(criteria, limit, start, end) {
-        var _this2 = this;
-
+        var builder, result;
         return _regenerator.default.wrap(function _callee2$(_context2) {
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
-                return _context2.abrupt("return", FlowDAO.getOptions().then(function (opts) {
-                  opts.withParameter('limit', limit).withParameter('start', start).withParameter('end', end);
-                  return _this2.http.get(_this2.pathToFlowsEndpoint() + '/exporters/' + criteria, opts).then(function (result) {
-                    return _this2.toFlowExporter(result.data);
-                  });
-                }));
+                builder = this.getOptions().addParameter('limit', limit).addParameter('start', start).addParameter('end', end);
+                _context2.next = 3;
+                return this.http.get(this.pathToFlowsEndpoint() + '/exporters/' + criteria, builder.build());
 
-              case 1:
+              case 3:
+                result = _context2.sent;
+                return _context2.abrupt("return", this.toFlowExporter(result.data));
+
+              case 5:
               case "end":
                 return _context2.stop();
             }
           }
-        }, _callee2);
+        }, _callee2, this);
       }));
 
       function getExporter(_x4, _x5, _x6, _x7) {
@@ -56828,25 +58550,25 @@ function (_BaseDAO) {
       var _getApplications = _asyncToGenerator(
       /*#__PURE__*/
       _regenerator.default.mark(function _callee3(prefix, start, end, exporterNodeCriteria, ifIndex) {
-        var _this3 = this;
-
+        var builder, result;
         return _regenerator.default.wrap(function _callee3$(_context3) {
           while (1) {
             switch (_context3.prev = _context3.next) {
               case 0:
-                return _context3.abrupt("return", FlowDAO.getOptions().then(function (opts) {
-                  opts.withParameter('start', start).withParameter('end', end).withParameter('exporterNode', exporterNodeCriteria).withParameter('ifIndex', ifIndex).withParameter('prefix', prefix);
-                  return _this3.http.get(_this3.pathToFlowsEndpoint() + '/applications/enumerate', opts).then(function (result) {
-                    return result.data;
-                  });
-                }));
+                builder = this.getOptions().addParameter('start', start).addParameter('end', end).addParameter('exporterNode', exporterNodeCriteria).addParameter('ifIndex', ifIndex).addParameter('prefix', prefix);
+                _context3.next = 3;
+                return this.http.get(this.pathToFlowsEndpoint() + '/applications/enumerate', builder.build());
 
-              case 1:
+              case 3:
+                result = _context3.sent;
+                return _context3.abrupt("return", result.data);
+
+              case 5:
               case "end":
                 return _context3.stop();
             }
           }
-        }, _callee3);
+        }, _callee3, this);
       }));
 
       function getApplications(_x8, _x9, _x10, _x11, _x12) {
@@ -56872,25 +58594,25 @@ function (_BaseDAO) {
       var _getSummaryForTopNApplications = _asyncToGenerator(
       /*#__PURE__*/
       _regenerator.default.mark(function _callee4(N, start, end, includeOther, exporterNodeCriteria, ifIndex) {
-        var _this4 = this;
-
+        var builder, result;
         return _regenerator.default.wrap(function _callee4$(_context4) {
           while (1) {
             switch (_context4.prev = _context4.next) {
               case 0:
-                return _context4.abrupt("return", FlowDAO.getOptions().then(function (opts) {
-                  opts.withParameter('N', N).withParameter('start', start).withParameter('end', end).withParameter('exporterNode', exporterNodeCriteria).withParameter('ifIndex', ifIndex).withParameter('includeOther', includeOther);
-                  return _this4.http.get(_this4.pathToFlowsEndpoint() + '/applications', opts).then(function (result) {
-                    return _this4.tableFromData(result.data);
-                  });
-                }));
+                builder = this.getOptions().addParameter('N', N).addParameter('start', start).addParameter('end', end).addParameter('exporterNode', exporterNodeCriteria).addParameter('ifIndex', ifIndex).addParameter('includeOther', includeOther);
+                _context4.next = 3;
+                return this.http.get(this.pathToFlowsEndpoint() + '/applications', builder.build());
 
-              case 1:
+              case 3:
+                result = _context4.sent;
+                return _context4.abrupt("return", this.tableFromData(result.data));
+
+              case 5:
               case "end":
                 return _context4.stop();
             }
           }
-        }, _callee4);
+        }, _callee4, this);
       }));
 
       function getSummaryForTopNApplications(_x13, _x14, _x15, _x16, _x17, _x18) {
@@ -56916,28 +58638,28 @@ function (_BaseDAO) {
       var _getSummaryForApplications = _asyncToGenerator(
       /*#__PURE__*/
       _regenerator.default.mark(function _callee5(applications, start, end, includeOther, exporterNodeCriteria, ifIndex) {
-        var _this5 = this;
-
+        var builder, result;
         return _regenerator.default.wrap(function _callee5$(_context5) {
           while (1) {
             switch (_context5.prev = _context5.next) {
               case 0:
                 this.checkForEnhancedFlows();
-                return _context5.abrupt("return", FlowDAO.getOptions().then(function (opts) {
-                  opts.withParameter('start', start).withParameter('end', end).withParameter('exporterNode', exporterNodeCriteria).withParameter('ifIndex', ifIndex).withParameter('includeOther', includeOther);
+                builder = this.getOptions().addParameter('start', start).addParameter('end', end).addParameter('exporterNode', exporterNodeCriteria).addParameter('ifIndex', ifIndex).addParameter('includeOther', includeOther);
 
-                  if (applications) {
-                    applications.forEach(function (application) {
-                      opts.withParameter('application', application);
-                    });
-                  }
-
-                  return _this5.http.get(_this5.pathToFlowsEndpoint() + '/applications', opts).then(function (result) {
-                    return _this5.tableFromData(result.data);
+                if (applications) {
+                  applications.forEach(function (application) {
+                    builder.addParameter('application', application);
                   });
-                }));
+                }
 
-              case 2:
+                _context5.next = 5;
+                return this.http.get(this.pathToFlowsEndpoint() + '/applications', builder.build());
+
+              case 5:
+                result = _context5.sent;
+                return _context5.abrupt("return", this.tableFromData(result.data));
+
+              case 7:
               case "end":
                 return _context5.stop();
             }
@@ -56969,25 +58691,25 @@ function (_BaseDAO) {
       var _getSeriesForTopNApplications = _asyncToGenerator(
       /*#__PURE__*/
       _regenerator.default.mark(function _callee6(N, start, end, step, includeOther, exporterNodeCriteria, ifIndex) {
-        var _this6 = this;
-
+        var builder, result;
         return _regenerator.default.wrap(function _callee6$(_context6) {
           while (1) {
             switch (_context6.prev = _context6.next) {
               case 0:
-                return _context6.abrupt("return", FlowDAO.getOptions().then(function (opts) {
-                  opts.withParameter('N', N).withParameter('start', start).withParameter('end', end).withParameter('step', step).withParameter('exporterNode', exporterNodeCriteria).withParameter('ifIndex', ifIndex).withParameter('includeOther', includeOther);
-                  return _this6.http.get(_this6.pathToFlowsEndpoint() + '/applications/series', opts).then(function (result) {
-                    return _this6.seriesFromData(result.data);
-                  });
-                }));
+                builder = this.getOptions().addParameter('N', N).addParameter('start', start).addParameter('end', end).addParameter('step', step).addParameter('exporterNode', exporterNodeCriteria).addParameter('ifIndex', ifIndex).addParameter('includeOther', includeOther);
+                _context6.next = 3;
+                return this.http.get(this.pathToFlowsEndpoint() + '/applications/series', builder.build());
 
-              case 1:
+              case 3:
+                result = _context6.sent;
+                return _context6.abrupt("return", this.seriesFromData(result.data));
+
+              case 5:
               case "end":
                 return _context6.stop();
             }
           }
-        }, _callee6);
+        }, _callee6, this);
       }));
 
       function getSeriesForTopNApplications(_x25, _x26, _x27, _x28, _x29, _x30, _x31) {
@@ -57014,28 +58736,28 @@ function (_BaseDAO) {
       var _getSeriesForApplications = _asyncToGenerator(
       /*#__PURE__*/
       _regenerator.default.mark(function _callee7(applications, start, end, step, includeOther, exporterNodeCriteria, ifIndex) {
-        var _this7 = this;
-
+        var builder, result;
         return _regenerator.default.wrap(function _callee7$(_context7) {
           while (1) {
             switch (_context7.prev = _context7.next) {
               case 0:
                 this.checkForEnhancedFlows();
-                return _context7.abrupt("return", FlowDAO.getOptions().then(function (opts) {
-                  opts.withParameter('start', start).withParameter('end', end).withParameter('step', step).withParameter('exporterNode', exporterNodeCriteria).withParameter('ifIndex', ifIndex).withParameter('includeOther', includeOther);
+                builder = this.getOptions().addParameter('start', start).addParameter('end', end).addParameter('step', step).addParameter('exporterNode', exporterNodeCriteria).addParameter('ifIndex', ifIndex).addParameter('includeOther', includeOther);
 
-                  if (applications) {
-                    applications.forEach(function (application) {
-                      opts.withParameter('application', application);
-                    });
-                  }
-
-                  return _this7.http.get(_this7.pathToFlowsEndpoint() + '/applications/series', opts).then(function (result) {
-                    return _this7.seriesFromData(result.data);
+                if (applications) {
+                  applications.forEach(function (application) {
+                    builder.addParameter('application', application);
                   });
-                }));
+                }
 
-              case 2:
+                _context7.next = 5;
+                return this.http.get(this.pathToFlowsEndpoint() + '/applications/series', builder.build());
+
+              case 5:
+                result = _context7.sent;
+                return _context7.abrupt("return", this.seriesFromData(result.data));
+
+              case 7:
               case "end":
                 return _context7.stop();
             }
@@ -57065,33 +58787,36 @@ function (_BaseDAO) {
       var _getSummaryForTopNConversations = _asyncToGenerator(
       /*#__PURE__*/
       _regenerator.default.mark(function _callee8(NOptions, start, end, exporterNodeCriteria, ifIndex) {
-        var _this8 = this;
+        var builder, _i, _Object$keys, key, result;
 
         return _regenerator.default.wrap(function _callee8$(_context8) {
           while (1) {
             switch (_context8.prev = _context8.next) {
               case 0:
-                return _context8.abrupt("return", FlowDAO.getOptions().then(function (opts) {
-                  if (typeof NOptions === 'number') {
-                    opts.withParameter('N', NOptions).withParameter('start', start).withParameter('end', end).withParameter('exporterNode', exporterNodeCriteria).withParameter('ifIndex', ifIndex);
-                  } else if (NOptions) {
-                    for (var _i = 0, _Object$keys = (0, _keys.default)(NOptions); _i < _Object$keys.length; _i++) {
-                      var key = _Object$keys[_i];
-                      opts.withParameter(key, NOptions[key]);
-                    }
+                builder = this.getOptions();
+
+                if (typeof NOptions === 'number') {
+                  builder.addParameter('N', NOptions).addParameter('start', start).addParameter('end', end).addParameter('exporterNode', exporterNodeCriteria).addParameter('ifIndex', ifIndex);
+                } else if (NOptions) {
+                  for (_i = 0, _Object$keys = (0, _keys.default)(NOptions); _i < _Object$keys.length; _i++) {
+                    key = _Object$keys[_i];
+                    builder.addParameter(key, NOptions[key]);
                   }
+                }
 
-                  return _this8.http.get(_this8.pathToFlowsEndpoint() + '/conversations', opts).then(function (result) {
-                    return _this8.tableFromData(result.data);
-                  });
-                }));
+                _context8.next = 4;
+                return this.http.get(this.pathToFlowsEndpoint() + '/conversations', builder.build());
 
-              case 1:
+              case 4:
+                result = _context8.sent;
+                return _context8.abrupt("return", this.tableFromData(result.data));
+
+              case 6:
               case "end":
                 return _context8.stop();
             }
           }
-        }, _callee8);
+        }, _callee8, this);
       }));
 
       function getSummaryForTopNConversations(_x39, _x40, _x41, _x42, _x43) {
@@ -57117,28 +58842,28 @@ function (_BaseDAO) {
       var _getSummaryForConversations = _asyncToGenerator(
       /*#__PURE__*/
       _regenerator.default.mark(function _callee9(conversations, start, end, includeOther, exporterNodeCriteria, ifIndex) {
-        var _this9 = this;
-
+        var builder, result;
         return _regenerator.default.wrap(function _callee9$(_context9) {
           while (1) {
             switch (_context9.prev = _context9.next) {
               case 0:
                 this.checkForEnhancedFlows();
-                return _context9.abrupt("return", FlowDAO.getOptions().then(function (opts) {
-                  opts.withParameter('start', start).withParameter('end', end).withParameter('exporterNode', exporterNodeCriteria).withParameter('ifIndex', ifIndex).withParameter('includeOther', includeOther);
+                builder = this.getOptions().addParameter('start', start).addParameter('end', end).addParameter('exporterNode', exporterNodeCriteria).addParameter('ifIndex', ifIndex).addParameter('includeOther', includeOther);
 
-                  if (conversations) {
-                    conversations.forEach(function (conversation) {
-                      opts.withParameter('conversation', conversation);
-                    });
-                  }
-
-                  return _this9.http.get(_this9.pathToFlowsEndpoint() + '/conversations', opts).then(function (result) {
-                    return _this9.tableFromData(result.data);
+                if (conversations) {
+                  conversations.forEach(function (conversation) {
+                    builder.addParameter('conversation', conversation);
                   });
-                }));
+                }
 
-              case 2:
+                _context9.next = 5;
+                return this.http.get(this.pathToFlowsEndpoint() + '/conversations', builder.build());
+
+              case 5:
+                result = _context9.sent;
+                return _context9.abrupt("return", this.tableFromData(result.data));
+
+              case 7:
               case "end":
                 return _context9.stop();
             }
@@ -57169,33 +58894,36 @@ function (_BaseDAO) {
       var _getSeriesForTopNConversations = _asyncToGenerator(
       /*#__PURE__*/
       _regenerator.default.mark(function _callee10(NOptions, start, end, step, exporterNodeCriteria, ifIndex) {
-        var _this10 = this;
+        var builder, _i2, _Object$keys3, key, result;
 
         return _regenerator.default.wrap(function _callee10$(_context10) {
           while (1) {
             switch (_context10.prev = _context10.next) {
               case 0:
-                return _context10.abrupt("return", FlowDAO.getOptions().then(function (opts) {
-                  if (typeof NOptions === 'number') {
-                    opts.withParameter('N', NOptions).withParameter('start', start).withParameter('end', end).withParameter('step', step).withParameter('exporterNode', exporterNodeCriteria).withParameter('ifIndex', ifIndex);
-                  } else if (NOptions) {
-                    for (var _i2 = 0, _Object$keys3 = (0, _keys.default)(NOptions); _i2 < _Object$keys3.length; _i2++) {
-                      var key = _Object$keys3[_i2];
-                      opts.withParameter(key, NOptions[key]);
-                    }
+                builder = this.getOptions();
+
+                if (typeof NOptions === 'number') {
+                  builder.addParameter('N', NOptions).addParameter('start', start).addParameter('end', end).addParameter('step', step).addParameter('exporterNode', exporterNodeCriteria).addParameter('ifIndex', ifIndex);
+                } else if (NOptions) {
+                  for (_i2 = 0, _Object$keys3 = (0, _keys.default)(NOptions); _i2 < _Object$keys3.length; _i2++) {
+                    key = _Object$keys3[_i2];
+                    builder.addParameter(key, NOptions[key]);
                   }
+                }
 
-                  return _this10.http.get(_this10.pathToFlowsEndpoint() + '/conversations/series', opts).then(function (result) {
-                    return _this10.seriesFromData(result.data);
-                  });
-                }));
+                _context10.next = 4;
+                return this.http.get(this.pathToFlowsEndpoint() + '/conversations/series', builder.build());
 
-              case 1:
+              case 4:
+                result = _context10.sent;
+                return _context10.abrupt("return", this.seriesFromData(result.data));
+
+              case 6:
               case "end":
                 return _context10.stop();
             }
           }
-        }, _callee10);
+        }, _callee10, this);
       }));
 
       function getSeriesForTopNConversations(_x50, _x51, _x52, _x53, _x54, _x55) {
@@ -57222,28 +58950,28 @@ function (_BaseDAO) {
       var _getSeriesForConversations = _asyncToGenerator(
       /*#__PURE__*/
       _regenerator.default.mark(function _callee11(conversations, start, end, step, includeOther, exporterNodeCriteria, ifIndex) {
-        var _this11 = this;
-
+        var builder, result;
         return _regenerator.default.wrap(function _callee11$(_context11) {
           while (1) {
             switch (_context11.prev = _context11.next) {
               case 0:
                 this.checkForEnhancedFlows();
-                return _context11.abrupt("return", FlowDAO.getOptions().then(function (opts) {
-                  opts.withParameter('start', start).withParameter('end', end).withParameter('step', step).withParameter('exporterNode', exporterNodeCriteria).withParameter('ifIndex', ifIndex).withParameter('includeOther', includeOther);
+                builder = this.getOptions().addParameter('start', start).addParameter('end', end).addParameter('step', step).addParameter('exporterNode', exporterNodeCriteria).addParameter('ifIndex', ifIndex).addParameter('includeOther', includeOther);
 
-                  if (conversations) {
-                    conversations.forEach(function (conversation) {
-                      opts.withParameter('conversation', conversation);
-                    });
-                  }
-
-                  return _this11.http.get(_this11.pathToFlowsEndpoint() + '/conversations/series', opts).then(function (result) {
-                    return _this11.seriesFromData(result.data);
+                if (conversations) {
+                  conversations.forEach(function (conversation) {
+                    builder.addParameter('conversation', conversation);
                   });
-                }));
+                }
 
-              case 2:
+                _context11.next = 5;
+                return this.http.get(this.pathToFlowsEndpoint() + '/conversations/series', builder.build());
+
+              case 5:
+                result = _context11.sent;
+                return _context11.abrupt("return", this.seriesFromData(result.data));
+
+              case 7:
               case "end":
                 return _context11.stop();
             }
@@ -57272,25 +59000,25 @@ function (_BaseDAO) {
       var _getHosts = _asyncToGenerator(
       /*#__PURE__*/
       _regenerator.default.mark(function _callee12(pattern, start, end, exporterNodeCriteria, ifIndex) {
-        var _this12 = this;
-
+        var builder, result;
         return _regenerator.default.wrap(function _callee12$(_context12) {
           while (1) {
             switch (_context12.prev = _context12.next) {
               case 0:
-                return _context12.abrupt("return", FlowDAO.getOptions().then(function (opts) {
-                  opts.withParameter('start', start).withParameter('end', end).withParameter('exporterNode', exporterNodeCriteria).withParameter('ifIndex', ifIndex).withParameter('pattern', pattern);
-                  return _this12.http.get(_this12.pathToFlowsEndpoint() + '/hosts/enumerate', opts).then(function (result) {
-                    return result.data;
-                  });
-                }));
+                builder = this.getOptions().addParameter('start', start).addParameter('end', end).addParameter('exporterNode', exporterNodeCriteria).addParameter('ifIndex', ifIndex).addParameter('pattern', pattern);
+                _context12.next = 3;
+                return this.http.get(this.pathToFlowsEndpoint() + '/hosts/enumerate', builder.build());
 
-              case 1:
+              case 3:
+                result = _context12.sent;
+                return _context12.abrupt("return", result.data);
+
+              case 5:
               case "end":
                 return _context12.stop();
             }
           }
-        }, _callee12);
+        }, _callee12, this);
       }));
 
       function getHosts(_x63, _x64, _x65, _x66, _x67) {
@@ -57316,28 +59044,28 @@ function (_BaseDAO) {
       var _getSummaryForHosts = _asyncToGenerator(
       /*#__PURE__*/
       _regenerator.default.mark(function _callee13(hosts, start, end, includeOther, exporterNodeCriteria, ifIndex) {
-        var _this13 = this;
-
+        var builder, result;
         return _regenerator.default.wrap(function _callee13$(_context13) {
           while (1) {
             switch (_context13.prev = _context13.next) {
               case 0:
                 this.checkForEnhancedFlows();
-                return _context13.abrupt("return", FlowDAO.getOptions().then(function (opts) {
-                  opts.withParameter('start', start).withParameter('end', end).withParameter('exporterNode', exporterNodeCriteria).withParameter('ifIndex', ifIndex).withParameter('includeOther', includeOther);
+                builder = this.getOptions().addParameter('start', start).addParameter('end', end).addParameter('exporterNode', exporterNodeCriteria).addParameter('ifIndex', ifIndex).addParameter('includeOther', includeOther);
 
-                  if (hosts) {
-                    hosts.forEach(function (host) {
-                      opts.withParameter('host', host);
-                    });
-                  }
-
-                  return _this13.http.get(_this13.pathToFlowsEndpoint() + '/hosts', opts).then(function (result) {
-                    return _this13.tableFromData(result.data);
+                if (hosts) {
+                  hosts.forEach(function (host) {
+                    builder.addParameter('host', host);
                   });
-                }));
+                }
 
-              case 2:
+                _context13.next = 5;
+                return this.http.get(this.pathToFlowsEndpoint() + '/hosts', builder.build());
+
+              case 5:
+                result = _context13.sent;
+                return _context13.abrupt("return", this.tableFromData(result.data));
+
+              case 7:
               case "end":
                 return _context13.stop();
             }
@@ -57368,21 +59096,21 @@ function (_BaseDAO) {
       var _getSummaryForTopNHosts = _asyncToGenerator(
       /*#__PURE__*/
       _regenerator.default.mark(function _callee14(N, start, end, includeOther, exporterNodeCriteria, ifIndex) {
-        var _this14 = this;
-
+        var builder, result;
         return _regenerator.default.wrap(function _callee14$(_context14) {
           while (1) {
             switch (_context14.prev = _context14.next) {
               case 0:
                 this.checkForEnhancedFlows();
-                return _context14.abrupt("return", FlowDAO.getOptions().then(function (opts) {
-                  opts.withParameter('N', N).withParameter('start', start).withParameter('end', end).withParameter('exporterNode', exporterNodeCriteria).withParameter('ifIndex', ifIndex).withParameter('includeOther', includeOther);
-                  return _this14.http.get(_this14.pathToFlowsEndpoint() + '/hosts', opts).then(function (result) {
-                    return _this14.tableFromData(result.data);
-                  });
-                }));
+                builder = this.getOptions().addParameter('N', N).addParameter('start', start).addParameter('end', end).addParameter('exporterNode', exporterNodeCriteria).addParameter('ifIndex', ifIndex).addParameter('includeOther', includeOther);
+                _context14.next = 4;
+                return this.http.get(this.pathToFlowsEndpoint() + '/hosts', builder.build());
 
-              case 2:
+              case 4:
+                result = _context14.sent;
+                return _context14.abrupt("return", this.tableFromData(result.data));
+
+              case 6:
               case "end":
                 return _context14.stop();
             }
@@ -57414,21 +59142,21 @@ function (_BaseDAO) {
       var _getSeriesForTopNHosts = _asyncToGenerator(
       /*#__PURE__*/
       _regenerator.default.mark(function _callee15(N, start, end, step, includeOther, exporterNodeCriteria, ifIndex) {
-        var _this15 = this;
-
+        var builder, result;
         return _regenerator.default.wrap(function _callee15$(_context15) {
           while (1) {
             switch (_context15.prev = _context15.next) {
               case 0:
                 this.checkForEnhancedFlows();
-                return _context15.abrupt("return", FlowDAO.getOptions().then(function (opts) {
-                  opts.withParameter('N', N).withParameter('start', start).withParameter('end', end).withParameter('step', step).withParameter('exporterNode', exporterNodeCriteria).withParameter('ifIndex', ifIndex).withParameter('includeOther', includeOther);
-                  return _this15.http.get(_this15.pathToFlowsEndpoint() + '/hosts/series', opts).then(function (result) {
-                    return _this15.seriesFromData(result.data);
-                  });
-                }));
+                builder = this.getOptions().addParameter('N', N).addParameter('start', start).addParameter('end', end).addParameter('step', step).addParameter('exporterNode', exporterNodeCriteria).addParameter('ifIndex', ifIndex).addParameter('includeOther', includeOther);
+                _context15.next = 4;
+                return this.http.get(this.pathToFlowsEndpoint() + '/hosts/series', builder.build());
 
-              case 2:
+              case 4:
+                result = _context15.sent;
+                return _context15.abrupt("return", this.seriesFromData(result.data));
+
+              case 6:
               case "end":
                 return _context15.stop();
             }
@@ -57460,28 +59188,28 @@ function (_BaseDAO) {
       var _getSeriesForHosts = _asyncToGenerator(
       /*#__PURE__*/
       _regenerator.default.mark(function _callee16(hosts, start, end, step, includeOther, exporterNodeCriteria, ifIndex) {
-        var _this16 = this;
-
+        var builder, result;
         return _regenerator.default.wrap(function _callee16$(_context16) {
           while (1) {
             switch (_context16.prev = _context16.next) {
               case 0:
                 this.checkForEnhancedFlows();
-                return _context16.abrupt("return", FlowDAO.getOptions().then(function (opts) {
-                  opts.withParameter('start', start).withParameter('end', end).withParameter('step', step).withParameter('exporterNode', exporterNodeCriteria).withParameter('ifIndex', ifIndex).withParameter('includeOther', includeOther);
+                builder = this.getOptions().addParameter('start', start).addParameter('end', end).addParameter('step', step).addParameter('exporterNode', exporterNodeCriteria).addParameter('ifIndex', ifIndex).addParameter('includeOther', includeOther);
 
-                  if (hosts) {
-                    hosts.forEach(function (host) {
-                      opts.withParameter('host', host);
-                    });
-                  }
-
-                  return _this16.http.get(_this16.pathToFlowsEndpoint() + '/hosts/series', opts).then(function (result) {
-                    return _this16.seriesFromData(result.data);
+                if (hosts) {
+                  hosts.forEach(function (host) {
+                    builder.addParameter('host', host);
                   });
-                }));
+                }
 
-              case 2:
+                _context16.next = 5;
+                return this.http.get(this.pathToFlowsEndpoint() + '/hosts/series', builder.build());
+
+              case 5:
+                result = _context16.sent;
+                return _context16.abrupt("return", this.seriesFromData(result.data));
+
+              case 7:
               case "end":
                 return _context16.stop();
             }
@@ -57518,7 +59246,7 @@ function (_BaseDAO) {
   }, {
     key: "toFlowExporter",
     value: function toFlowExporter(data) {
-      var _this17 = this;
+      var _this2 = this;
 
       var exporter = new _OnmsFlowExporter.OnmsFlowExporter();
       exporter.id = data.id;
@@ -57529,7 +59257,7 @@ function (_BaseDAO) {
 
       if (data.interface) {
         exporter.interfaces = data.interface.map(function (iff) {
-          return _this17.toInterface(iff);
+          return _this2.toInterface(iff);
         });
       }
 
@@ -57614,6 +59342,15 @@ function (_BaseDAO) {
       return series;
     }
     /**
+     * Create an [[OnmsHTTPOptions]] object for DAO calls.
+     */
+
+  }, {
+    key: "getOptions",
+    value: function getOptions() {
+      return _OnmsHTTPOptions.OnmsHTTPOptions.newBuilder().setHeader('Accept', 'application/json');
+    }
+    /**
      * Get the path to the flows endpoint for the appropriate API version.
      * @hidden
      */
@@ -57634,39 +59371,6 @@ function (_BaseDAO) {
         throw new _OnmsError.OnmsError('Enhanced flow API is not supported by this version of OpenNMS.');
       }
     }
-  }], [{
-    key: "getOptions",
-
-    /**
-     * Create an [[OnmsHTTPOptions]] object for DAO calls.
-     */
-    value: function () {
-      var _getOptions = _asyncToGenerator(
-      /*#__PURE__*/
-      _regenerator.default.mark(function _callee17() {
-        return _regenerator.default.wrap(function _callee17$(_context17) {
-          while (1) {
-            switch (_context17.prev = _context17.next) {
-              case 0:
-                return _context17.abrupt("return", _promise.default.resolve(new _OnmsHTTPOptions.OnmsHTTPOptions()).then(function (options) {
-                  options.headers.accept = 'application/json';
-                  return options;
-                }));
-
-              case 1:
-              case "end":
-                return _context17.stop();
-            }
-          }
-        }, _callee17);
-      }));
-
-      function getOptions() {
-        return _getOptions.apply(this, arguments);
-      }
-
-      return getOptions;
-    }()
   }]);
 
   return FlowDAO;
@@ -57819,8 +59523,8 @@ function (_AbstractDAO) {
             switch (_context.prev = _context.next) {
               case 0:
                 recurse = _args.length > 1 && _args[1] !== undefined ? _args[1] : false;
-                return _context.abrupt("return", this.getOptions().then(function (opts) {
-                  return _this.http.get(_this.pathToNodesEndpoint() + '/' + id, opts).then(function (result) {
+                return _context.abrupt("return", this.getOptions().then(function (builder) {
+                  return _this.http.get(_this.pathToNodesEndpoint() + '/' + id, builder.build()).then(function (result) {
                     var node = _this.fromData(result.data);
 
                     if (recurse) {
@@ -57859,8 +59563,8 @@ function (_AbstractDAO) {
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
-                return _context2.abrupt("return", this.getOptions(filter).then(function (opts) {
-                  return _this2.http.get(_this2.pathToNodesEndpoint(), opts).then(function (result) {
+                return _context2.abrupt("return", this.getOptions(filter).then(function (builder) {
+                  return _this2.http.get(_this2.pathToNodesEndpoint(), builder.build()).then(function (result) {
                     var data = result.data;
 
                     if (data !== null && _this2.getCount(data, result.code) > 0 && data.node) {
@@ -57970,8 +59674,8 @@ function (_AbstractDAO) {
                   node = String(passedNode);
                 }
 
-                return _context4.abrupt("return", this.getOptions(filter).then(function (opts) {
-                  return _this4.http.get(_this4.pathToNodesEndpoint() + '/' + node + '/ipinterfaces', opts).then(function (result) {
+                return _context4.abrupt("return", this.getOptions(filter).then(function (builder) {
+                  return _this4.http.get(_this4.pathToNodesEndpoint() + '/' + node + '/ipinterfaces', builder.build()).then(function (result) {
                     var data = result.data;
 
                     if (_this4.getCount(data, result.code) > 0 && data.ipInterface) {
@@ -58024,8 +59728,8 @@ function (_AbstractDAO) {
             switch (_context5.prev = _context5.next) {
               case 0:
                 node = String(this.getNodeId(passedNode));
-                return _context5.abrupt("return", this.getOptions(filter).then(function (opts) {
-                  return _this5.http.get(_this5.pathToNodesEndpoint() + '/' + node + '/snmpinterfaces', opts).then(function (result) {
+                return _context5.abrupt("return", this.getOptions(filter).then(function (builder) {
+                  return _this5.http.get(_this5.pathToNodesEndpoint() + '/' + node + '/snmpinterfaces', builder.build()).then(function (result) {
                     var data = result.data;
 
                     if (_this5.getCount(data, result.code) > 0 && data.snmpInterface) {
@@ -58078,13 +59782,13 @@ function (_AbstractDAO) {
             switch (_context6.prev = _context6.next) {
               case 0:
                 node = String(this.getNodeId(passedNode));
-                return _context6.abrupt("return", this.getOptions(filter).then(function (opts) {
+                return _context6.abrupt("return", this.getOptions(filter).then(function (builder) {
                   if (ipInterface instanceof _OnmsIpInterface.OnmsIpInterface && ipInterface.ipAddress) {
                     ipInterface = ipInterface.ipAddress.address;
                   }
 
                   var url = _this6.pathToNodesEndpoint() + '/' + node + '/ipinterfaces/' + ipInterface + '/services';
-                  return _this6.http.get(url, opts).then(function (result) {
+                  return _this6.http.get(url, builder.build()).then(function (result) {
                     var data = result.data;
 
                     if (_this6.getCount(data, result.code) > 0 && data.service) {
@@ -58398,14 +60102,13 @@ function (_BaseDAO) {
       _regenerator.default.mark(function _callee(situationId) {
         var _this = this;
 
-        var options;
+        var builder;
         return _regenerator.default.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                options = new _OnmsHTTPOptions.OnmsHTTPOptions();
-                options.headers.accept = 'application/json';
-                return _context.abrupt("return", this.http.get(this.pathToEndpoint() + '/' + situationId, options).then(function (result) {
+                builder = _OnmsHTTPOptions.OnmsHTTPOptions.newBuilder().setHeader('Accept', 'application/json');
+                return _context.abrupt("return", this.http.get(this.pathToEndpoint() + '/' + situationId, builder.build()).then(function (result) {
                   var data = _this.getData(result);
 
                   if (!(0, _isArray.default)(data)) {
@@ -58421,7 +60124,7 @@ function (_BaseDAO) {
                   });
                 }));
 
-              case 3:
+              case 2:
               case "end":
                 return _context.stop();
             }
@@ -58446,14 +60149,13 @@ function (_BaseDAO) {
       var _getTags = _asyncToGenerator(
       /*#__PURE__*/
       _regenerator.default.mark(function _callee2(prefix) {
-        var options;
+        var builder;
         return _regenerator.default.wrap(function _callee2$(_context2) {
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
-                options = new _OnmsHTTPOptions.OnmsHTTPOptions();
-                options.headers.accept = 'application/json';
-                return _context2.abrupt("return", this.http.get(this.pathToEndpoint() + '/tags?prefix=' + prefix, options).then(function (result) {
+                builder = _OnmsHTTPOptions.OnmsHTTPOptions.newBuilder().setHeader('Accept', 'application/json');
+                return _context2.abrupt("return", this.http.get(this.pathToEndpoint() + '/tags?prefix=' + prefix, builder.build()).then(function (result) {
                   var data = result.data;
 
                   if (!(0, _isArray.default)(data)) {
@@ -58467,7 +60169,7 @@ function (_BaseDAO) {
                   return data;
                 }));
 
-              case 3:
+              case 2:
               case "end":
                 return _context2.stop();
             }
@@ -58590,16 +60292,13 @@ function (_BaseDAO) {
       var _post = _asyncToGenerator(
       /*#__PURE__*/
       _regenerator.default.mark(function _callee4(url, data) {
-        var options;
+        var builder;
         return _regenerator.default.wrap(function _callee4$(_context4) {
           while (1) {
             switch (_context4.prev = _context4.next) {
               case 0:
-                options = new _OnmsHTTPOptions.OnmsHTTPOptions();
-                options.headers['content-type'] = 'application/json';
-                options.headers.accept = 'application/json';
-                options.data = data;
-                return _context4.abrupt("return", this.http.post(url, options).then(function (result) {
+                builder = _OnmsHTTPOptions.OnmsHTTPOptions.newBuilder().setHeader('Content-Type', 'application/json').setHeader('Accept', 'application/json').setData(data);
+                return _context4.abrupt("return", this.http.post(url, builder.build()).then(function (result) {
                   if (!result.isSuccess) {
                     throw result;
                   }
@@ -58607,7 +60306,7 @@ function (_BaseDAO) {
                   return;
                 }));
 
-              case 5:
+              case 2:
               case "end":
                 return _context4.stop();
             }
@@ -58711,6 +60410,10 @@ function () {
 
       if (filter.limit !== undefined) {
         ret.limit = '' + filter.limit;
+      }
+
+      if (!filter.clauses) {
+        return ret;
       }
 
       var _iteratorNormalCompletion = true;
@@ -58983,6 +60686,11 @@ function () {
     key: "toFIQL",
     value: function toFIQL(clauses) {
       var search = '';
+
+      if (!clauses || clauses.length === 0) {
+        return search;
+      }
+
       var _iteratorNormalCompletion = true;
       var _didIteratorError = false;
       var _iteratorError = undefined;
@@ -59204,83 +60912,6 @@ function forLabel(collection, label) {
 
 /***/ }),
 
-/***/ "./src/internal/UUID.ts":
-/*!******************************!*\
-  !*** ./src/internal/UUID.ts ***!
-  \******************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _Object$defineProperty2 = __webpack_require__(/*! @babel/runtime-corejs2/core-js/object/define-property */ "./node_modules/@babel/runtime-corejs2/core-js/object/define-property.js");
-
-_Object$defineProperty2(exports, "__esModule", {
-  value: true
-});
-
-exports.UUID = void 0;
-
-var _defineProperty = _interopRequireDefault(__webpack_require__(/*! ../../node_modules/@babel/runtime-corejs2/core-js/object/define-property */ "./node_modules/@babel/runtime-corejs2/core-js/object/define-property.js"));
-
-__webpack_require__(/*! ../../node_modules/core-js/modules/es6.regexp.to-string */ "./node_modules/core-js/modules/es6.regexp.to-string.js");
-
-__webpack_require__(/*! ../../node_modules/core-js/modules/es6.object.to-string */ "./node_modules/core-js/modules/es6.object.to-string.js");
-
-__webpack_require__(/*! ../../node_modules/core-js/modules/es6.regexp.replace */ "./node_modules/core-js/modules/es6.regexp.replace.js");
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; (0, _defineProperty.default)(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
-// http://stackoverflow.com/a/8809472
-
-/* tslint:disable:no-bitwise */
-
-/**
- * A utility class for generating UUIDs.
- * @module UUID
- */
-var UUID =
-/*#__PURE__*/
-function () {
-  function UUID() {
-    _classCallCheck(this, UUID);
-  }
-
-  _createClass(UUID, null, [{
-    key: "generate",
-
-    /**
-     * Generates a UUID.  Attempts to use the high-precision timer if possible.
-     */
-    value: function generate() {
-      var d = new Date().getTime();
-
-      if (typeof performance !== 'undefined' && typeof performance.now === 'function') {
-        d += performance.now(); // use high-precision timer if available
-      }
-
-      return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
-        var r = (d + Math.random() * 16) % 16 | 0;
-        d = Math.floor(d / 16);
-        return (c === 'x' ? r : r & 0x3 | 0x8).toString(16);
-      });
-    }
-  }]);
-
-  return UUID;
-}();
-
-exports.UUID = UUID;
-
-/***/ }),
-
 /***/ "./src/internal/Util.ts":
 /*!******************************!*\
   !*** ./src/internal/Util.ts ***!
@@ -59400,6 +61031,41 @@ function () {
       } else {
         return undefined;
       }
+    }
+    /**
+     * Retrieve the matching key (regardless of case) in the given search object.
+     * @param key the key to search for
+     * @param search the object to search
+     */
+
+  }, {
+    key: "insensitiveKey",
+    value: function insensitiveKey(key, search) {
+      if (!key || !search) {
+        return;
+      }
+
+      for (var k in search) {
+        if (k && k.toLowerCase() === key.toLowerCase()) {
+          return k;
+        }
+      }
+    }
+    /**
+     * Retrieve the value for the matching key (regardless of case) in the given search.
+     * @param key the key to search for
+     * @param search the object to search
+     */
+
+  }, {
+    key: "insensitiveValue",
+    value: function insensitiveValue(key, search) {
+      if (!key || !search) {
+        return;
+      }
+
+      var k = Util.insensitiveKey(key, search);
+      return k ? search[k] : undefined;
     }
   }]);
 
@@ -62326,19 +63992,17 @@ __webpack_require__(/*! ../../node_modules/core-js/modules/es6.regexp.to-string 
 
 __webpack_require__(/*! ../../node_modules/core-js/modules/es6.object.to-string */ "./node_modules/core-js/modules/es6.object.to-string.js");
 
-var _assign = _interopRequireDefault(__webpack_require__(/*! ../../node_modules/@babel/runtime-corejs2/core-js/object/assign */ "./node_modules/@babel/runtime-corejs2/core-js/object/assign.js"));
-
 var _for = _interopRequireDefault(__webpack_require__(/*! ../../node_modules/@babel/runtime-corejs2/core-js/symbol/for */ "./node_modules/@babel/runtime-corejs2/core-js/symbol/for.js"));
 
 var _OnmsError = __webpack_require__(/*! ../api/OnmsError */ "./src/api/OnmsError.ts");
 
 var _OnmsHTTPOptions = __webpack_require__(/*! ../api/OnmsHTTPOptions */ "./src/api/OnmsHTTPOptions.ts");
 
+var _Util = __webpack_require__(/*! ../internal/Util */ "./src/internal/Util.ts");
+
 var _XmlTransformer = __webpack_require__(/*! ./XmlTransformer */ "./src/rest/XmlTransformer.ts");
 
 var _JsonTransformer = __webpack_require__(/*! ./JsonTransformer */ "./src/rest/JsonTransformer.ts");
-
-var _lodash = __webpack_require__(/*! ../../node_modules/lodash/lodash */ "./node_modules/lodash/lodash.js");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -62423,7 +64087,7 @@ function () {
     }
 
     if (timeout) {
-      this.options.timeout = timeout;
+      this.options = _OnmsHTTPOptions.OnmsHTTPOptions.newBuilder(this.options).setTimeout(timeout).build();
     }
   }
   /** Make an HTTP GET call. This must be implemented by the concrete implementation. */
@@ -62472,17 +64136,17 @@ function () {
   }, {
     key: "getType",
     value: function getType(response) {
-      if (response.headers['content-type'] === 'application/json') {
+      if (_Util.Util.insensitiveValue('Content-Type', response.headers) === 'application/json') {
         return 'json';
       } else if (response.config.responseType === 'json') {
         return 'json';
-      } else if (response.config.headers.accept === 'application/json') {
+      } else if (_Util.Util.insensitiveValue('Accept', response.config.headers) === 'application/json') {
         return 'json';
       } else if (response.responseType === 'json') {
         return 'json';
-      } else if (response.config.headers.accept === 'application/xml') {
+      } else if (_Util.Util.insensitiveValue('Accept', response.headers) === 'application/xml') {
         return 'xml';
-      } else if (response.headers['content-type'] === 'application/xml') {
+      } else if (_Util.Util.insensitiveValue('Content-Type', response.config.headers) === 'application/xml') {
         return 'xml';
       }
 
@@ -62516,33 +64180,7 @@ function () {
   }, {
     key: "getOptions",
     value: function getOptions(options) {
-      var ret = new _OnmsHTTPOptions.OnmsHTTPOptions();
-      (0, _assign.default)(ret, (0, _lodash.cloneDeep)(this.options));
-      (0, _assign.default)(ret, (0, _lodash.cloneDeep)(options));
-      var server = this.getServer(ret);
-      ret.server = server;
-
-      if (server && server.auth) {
-        (0, _assign.default)(ret.auth, (0, _lodash.cloneDeep)(server.auth));
-      }
-
-      if (!ret.headers) {
-        ret.headers = {};
-      }
-
-      if (!ret.headers.hasOwnProperty('X-Requested-With')) {
-        ret.headers['X-Requested-With'] = 'XMLHttpRequest';
-      }
-
-      if (!ret.headers.accept && !ret.headers.Accept) {
-        ret.headers.accept = 'application/json';
-      }
-
-      if (!ret.headers['content-type'] && !ret.headers['Content-Type']) {
-        ret.headers['content-type'] = 'application/json;charset=utf-8';
-      }
-
-      return ret;
+      return _OnmsHTTPOptions.OnmsHTTPOptions.newBuilder().setServer(this.serverObj || undefined).merge(this.options).merge(options).setDefaultHeader('X-Requested-With', 'XMLHttpRequest').setDefaultHeader('Accept', 'application/json').setDefaultHeader('Content-Type', 'application/json;charset=utf-8').build();
     }
     /**
      * Implementers should override this method if they have actions that need to be performed
@@ -62789,8 +64427,8 @@ function (_AbstractHTTP) {
       return this.getImpl(options).request(opts).then(function (response) {
         var type;
 
-        if (response.headers && response.headers['content-type']) {
-          type = response.headers['content-type'];
+        if (response.headers && response.headers['Content-Type']) {
+          type = response.headers['Content-Type'];
         }
 
         return _OnmsResult.OnmsResult.ok(_this2.getData(response), undefined, response.status, type);
@@ -62819,8 +64457,8 @@ function (_AbstractHTTP) {
       return this.getImpl(options).request(opts).then(function (response) {
         var type;
 
-        if (response.headers && response.headers['content-type']) {
-          type = response.headers['content-type'];
+        if (response.headers && response.headers['Content-Type']) {
+          type = response.headers['Content-Type'];
         }
 
         return _OnmsResult.OnmsResult.ok(_this3.getData(response), undefined, response.status, type);
@@ -62850,8 +64488,8 @@ function (_AbstractHTTP) {
       return this.getImpl(options).request(opts).then(function (response) {
         var type;
 
-        if (response.headers && response.headers['content-type']) {
-          type = response.headers['content-type'];
+        if (response.headers && response.headers['Content-Type']) {
+          type = response.headers['Content-Type'];
         }
 
         return _OnmsResult.OnmsResult.ok(_this4.getData(response), undefined, response.status, type);
@@ -62880,8 +64518,8 @@ function (_AbstractHTTP) {
       return this.getImpl(options).request(opts).then(function (response) {
         var type;
 
-        if (response.headers && response.headers['content-type']) {
-          type = response.headers['content-type'];
+        if (response.headers && response.headers['Content-Type']) {
+          type = response.headers['Content-Type'];
         }
 
         return _OnmsResult.OnmsResult.ok(_this5.getData(response), undefined, response.status, type);
@@ -62910,8 +64548,8 @@ function (_AbstractHTTP) {
       return this.getImpl(options).request(opts).then(function (response) {
         var type;
 
-        if (response.headers && response.headers['content-type']) {
-          type = response.headers['content-type'];
+        if (response.headers && response.headers['Content-Type']) {
+          type = response.headers['Content-Type'];
         }
 
         return _OnmsResult.OnmsResult.ok(_this6.getData(response), undefined, response.status, type);
@@ -62963,15 +64601,15 @@ function (_AbstractHTTP) {
         ret.headers = {};
       }
 
-      if (!ret.headers.accept) {
-        ret.headers.accept = 'application/json';
+      if (!ret.headers.Accept) {
+        ret.headers.Accept = 'application/json';
       }
 
-      if (!ret.headers['content-type']) {
-        ret.headers['content-type'] = 'application/json;charset=utf-8';
+      if (!ret.headers['Content-Type']) {
+        ret.headers['Content-Type'] = 'application/json;charset=utf-8';
       }
 
-      var type = ret.headers.accept;
+      var type = ret.headers.Accept;
       ret.transformResponse = [];
 
       if (type === 'application/json') {
@@ -63245,12 +64883,12 @@ function (_AbstractHTTP) {
       return this.backendSrv.datasourceRequest(query).then(function (response) {
         var type = 'application/xml';
 
-        if (query && query.headers && query.headers.accept) {
-          type = query.headers.accept;
+        if (query && query.headers && query.headers.Accept) {
+          type = query.headers.Accept;
         }
 
-        if (response.headers && response.headers['content-type']) {
-          type = response.headers['content-type'];
+        if (response.headers && response.headers['Content-Type']) {
+          type = response.headers['Content-Type'];
         }
 
         return _OnmsResult.OnmsResult.ok(_this2.getData(response), undefined, response.status, type);
@@ -63275,12 +64913,12 @@ function (_AbstractHTTP) {
       return this.backendSrv.datasourceRequest(query).then(function (response) {
         var type = 'application/xml';
 
-        if (query && query.headers && query.headers.accept) {
-          type = query.headers.accept;
+        if (query && query.headers && query.headers.Accept) {
+          type = query.headers.Accept;
         }
 
-        if (response.headers && response.headers['content-type']) {
-          type = response.headers['content-type'];
+        if (response.headers && response.headers['Content-Type']) {
+          type = response.headers['Content-Type'];
         }
 
         return _OnmsResult.OnmsResult.ok(_this3.getData(response), undefined, response.status, type);
@@ -63306,12 +64944,12 @@ function (_AbstractHTTP) {
       return this.backendSrv.datasourceRequest(query).then(function (response) {
         var type = 'application/xml';
 
-        if (query && query.headers && query.headers.accept) {
-          type = query.headers.accept;
+        if (query && query.headers && query.headers.Accept) {
+          type = query.headers.Accept;
         }
 
-        if (response.headers && response.headers['content-type']) {
-          type = response.headers['content-type'];
+        if (response.headers && response.headers['Content-Type']) {
+          type = response.headers['Content-Type'];
         }
 
         return _OnmsResult.OnmsResult.ok(_this4.getData(response), undefined, response.status, type);
@@ -63336,12 +64974,12 @@ function (_AbstractHTTP) {
       return this.backendSrv.datasourceRequest(query).then(function (response) {
         var type = 'application/xml';
 
-        if (query && query.headers && query.headers.accept) {
-          type = query.headers.accept;
+        if (query && query.headers && query.headers.Accept) {
+          type = query.headers.Accept;
         }
 
-        if (response.headers && response.headers['content-type']) {
-          type = response.headers['content-type'];
+        if (response.headers && response.headers['Content-Type']) {
+          type = response.headers['Content-Type'];
         }
 
         return _OnmsResult.OnmsResult.ok(_this5.getData(response), undefined, response.status, type);
@@ -63366,12 +65004,12 @@ function (_AbstractHTTP) {
       return this.backendSrv.datasourceRequest(query).then(function (response) {
         var type = 'application/xml';
 
-        if (query && query.headers && query.headers.accept) {
-          type = query.headers.accept;
+        if (query && query.headers && query.headers.Accept) {
+          type = query.headers.Accept;
         }
 
-        if (response.headers && response.headers['content-type']) {
-          type = response.headers['content-type'];
+        if (response.headers && response.headers['Content-Type']) {
+          type = response.headers['Content-Type'];
         }
 
         return _OnmsResult.OnmsResult.ok(_this6.getData(response), undefined, response.status, type);
