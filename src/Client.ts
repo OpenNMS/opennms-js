@@ -90,7 +90,7 @@ export class Client implements IHasHTTP {
   }
 
   /** The default OnmsHTTP implementation to be used when making requests */
-  private static defaultHttp = AxiosHTTP;
+  private static readonly defaultHttp = AxiosHTTP;
 
   /** the OnmsHTTP implementation that will be used when making requests */
   public http: IOnmsHTTP;
