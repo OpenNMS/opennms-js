@@ -364,8 +364,12 @@ module.exports = __webpack_require__(/*! fast-deep-equal */ "./node_modules/fast
 "use strict";
 
 
-module.exports = function () {
-  return /[\u001b\u009b][[()#;?]*(?:[0-9]{1,4}(?:;[0-9]{0,4})*)?[0-9A-PRZcf-nqry=><]/g;
+module.exports = options => {
+  options = Object.assign({
+    onlyFirst: false
+  }, options);
+  const pattern = ['[\\u001B\\u009B][[\\]()#;?]*(?:(?:(?:[a-zA-Z\\d]*(?:;[-a-zA-Z\\d\\/#&.:=?%@~_]*)*)?\\u0007)', '(?:(?:\\d{1,4}(?:;\\d{0,4})*)?[\\dA-PR-TZcf-ntqry=><~]))'].join('|');
+  return new RegExp(pattern, options.onlyFirst ? undefined : 'g');
 };
 
 /***/ }),
@@ -53867,11 +53871,16 @@ const append = (row, columnWidthIndex, config) => {
   const body = rows.map(literalRow => {
     return (0, _drawRow.default)(literalRow, config.border);
   }).join('');
-  let output;
-  output = '\r\u001B[K';
+  let output = '';
+  const bottom = (0, _drawBorder.drawBorderBottom)(columnWidthIndex, config.border);
+
+  if (bottom !== '\n') {
+    output = '\r\u001B[K';
+  }
+
   output += (0, _drawBorder.drawBorderJoin)(columnWidthIndex, config.border);
   output += body;
-  output += (0, _drawBorder.drawBorderBottom)(columnWidthIndex, config.border);
+  output += bottom;
   output = (0, _trimEnd2.default)(output);
   process.stdout.write(output);
 };
@@ -53966,12 +53975,18 @@ const drawBorder = (columnSizeIndex, parts) => {
 exports.drawBorder = drawBorder;
 
 const drawBorderTop = (columnSizeIndex, parts) => {
-  return drawBorder(columnSizeIndex, {
+  const border = drawBorder(columnSizeIndex, {
     body: parts.topBody,
     join: parts.topJoin,
     left: parts.topLeft,
     right: parts.topRight
   });
+
+  if (border === '\n') {
+    return '';
+  }
+
+  return border;
 };
 /**
  * @typedef drawBorderJoin~parts
