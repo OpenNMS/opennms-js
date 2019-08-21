@@ -59,9 +59,8 @@ OpenNMS.js 2.0 adds a few new APIs, contains a ton of refactoring and build syst
 * The previously deprecated `timeout` property in `AbstractHTTP` (and sub-classes) has been removed.  Access the `AbstractHTTP.options.timeout` property directly.
 * The `Client` no longer keeps a separate copy of the server object.  Instead you should access the `http.server` sub-property directly.
 * A number of API objects are now immutable/read-only to reduce side-effects: `OnmsAuthConfig`, `OnmsEnum`, `OnmsError`, `OnmsHTTPOptions`, `OnmsResult`, `OnmsServer`, `Operator`, `SearchPropertyType`, `ServerMetadata`, `TicketerConfig`.
-  The `OnmsHTTPOptions` and `OnmsServer` objects now have a builder (use `.newBuilder()` to create) for chain-creating the objects.
+  The `OnmsHTTPOptions` and `OnmsServer` objects now have builders (use `.newBuilder()` to create) rather than constructors with a bunch of arguments.
 * The `id` property on `OnmsServer` is no longer generated, it is computed based on the contents of the server object and should be repeatably equal if the contents are equal.
-* The `OnmsServer` object now expects an optional `auth` and and optional `metadata` field as the 3rd and 4th arguments.  The overloaded form where you could pass a string `username` and `password` is no longer supported.
 
 ### 1.5
 
