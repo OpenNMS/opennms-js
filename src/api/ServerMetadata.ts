@@ -8,13 +8,13 @@ import {TicketerConfig} from './TicketerConfig';
  */
 export class ServerMetadata {
   /** The version of the server. */
-  public version: OnmsVersion;
+  public readonly version: OnmsVersion;
 
   /** The type of server (Horizon, Meridian). */
-  public type: ServerType;
+  public readonly type: ServerType;
 
   /** The ticketer config. Requires at least version 21.0.0 of OpenNMS. */
-  public ticketerConfig?: TicketerConfig;
+  public readonly ticketerConfig?: TicketerConfig;
 
   /**
    * Construct a ServerMetadata object.
@@ -22,13 +22,14 @@ export class ServerMetadata {
    * @param version the version of the server
    * @param type the type of server (Horizon, Meridian)
    */
-  constructor(version?: string | OnmsVersion, type?: ServerType) {
+  constructor(version: string | OnmsVersion, type: ServerType, ticketerConfig?: TicketerConfig) {
     if (version instanceof OnmsVersion) {
       this.version = version || new OnmsVersion('0.0.0');
     } else {
       this.version = new OnmsVersion(version || '0.0.0');
     }
     this.type = type || ServerTypes.HORIZON;
+    this.ticketerConfig = ticketerConfig;
   }
 
   /** Can you ack alarms through ReST? */
@@ -144,7 +145,7 @@ export class ServerMetadata {
   /**
    * Whether this metadata object is the same as another.
    */
-  public equals(that?: ServerMetadata) {
+  public equals(that?: ServerMetadata | null) {
     return that &&
       (this.version === that.version || (this.version && this.version.equals(that.version))) &&
       (this.type === that.type || this.type.id === that.type.id) &&
@@ -156,6 +157,14 @@ export class ServerMetadata {
    * Create a new metadata object from this existing one.
    */
   public clone() {
-    return new ServerMetadata(this.version.clone(), this.type);
+    const ticketerConfig = this.ticketerConfig ? this.ticketerConfig.clone() : undefined;
+    return new ServerMetadata(this.version.clone(), this.type, ticketerConfig);
+  }
+
+  /**
+   * Create a new metadata object from this existing one, with the given ticketer config.
+   */
+  public withTicketer(ticketerConfig?: TicketerConfig) {
+    return new ServerMetadata(this.version.clone(), this.type, ticketerConfig);
   }
 }

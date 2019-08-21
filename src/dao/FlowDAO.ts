@@ -5,7 +5,7 @@ import {OnmsFlowExporterSummary} from '../model/OnmsFlowExporterSummary';
 import {OnmsFlowSnmpInterface} from '../model/OnmsFlowSnmpInterface';
 import {OnmsFlowExporter} from '../model/OnmsFlowExporter';
 import {OnmsFlowTable} from '../model/OnmsFlowTable';
-import {OnmsHTTPOptions} from '../api/OnmsHTTPOptions';
+import {OnmsHTTPOptions, OnmsHTTPOptionsBuilder} from '../api/OnmsHTTPOptions';
 
 import {BaseDAO} from './BaseDAO';
 
@@ -19,17 +19,6 @@ const moment = require('moment');
  */
 export class FlowDAO extends BaseDAO {
     /**
-     * Create an [[OnmsHTTPOptions]] object for DAO calls.
-     */
-    protected static async getOptions(): Promise<OnmsHTTPOptions> {
-        return Promise.resolve(new OnmsHTTPOptions())
-            .then((options) => {
-                options.headers.accept = 'application/json';
-                return options;
-            });
-    }
-
-    /**
      * Get a summary of the nodes that have exported flows.
      * @param limit - maximum number of exporters to return (those with the most flows will be returned
      *                if the results are truncated)
@@ -37,24 +26,24 @@ export class FlowDAO extends BaseDAO {
      * @param end - the end of the timespan to query (defaults to now)
      */
     public async getExporters(limit: number, start?: number, end?: number): Promise<OnmsFlowExporterSummary[]> {
-        return FlowDAO.getOptions().then((opts) => {
-            const url = this.pathToFlowsEndpoint() + '/exporters';
-            opts.withParameter('limit', limit)
-                .withParameter('start', start)
-                .withParameter('end', end);
-            return this.http.get(url, opts).then((result) => {
-                if (result && result.data) {
-                    if (!Array.isArray(result.data)) {
-                        throw new OnmsError('Expected an array of flow exporter summaries but got "' +
-                            (typeof result) + '" instead.');
-                    }
-                    return result.data.map((exporter) => {
-                        return this.toFlowExporterSummary(exporter);
-                    });
-                }
-                throw new OnmsError('Unexpected response from GET ' + url + ': no result data found.');
+        const url = this.pathToFlowsEndpoint() + '/exporters';
+
+        const builder = this.getOptions()
+            .addParameter('limit', limit)
+            .addParameter('start', start)
+            .addParameter('end', end);
+
+        const result = await this.http.get(url, builder.build());
+        if (result && result.data) {
+            if (!Array.isArray(result.data)) {
+                throw new OnmsError('Expected an array of flow exporter summaries but got "' +
+                    (typeof result) + '" instead.');
+            }
+            return result.data.map((exporter) => {
+                return this.toFlowExporterSummary(exporter);
             });
-        });
+        }
+        throw new OnmsError('Unexpected response from GET ' + url + ': no result data found.');
     }
 
     /**
@@ -66,14 +55,12 @@ export class FlowDAO extends BaseDAO {
      * @param end - the end of the timespan to query (defaults to now)
      */
     public async getExporter(criteria: string, limit: number, start?: number, end?: number): Promise<OnmsFlowExporter> {
-        return FlowDAO.getOptions().then((opts) => {
-            opts.withParameter('limit', limit)
-                .withParameter('start', start)
-                .withParameter('end', end);
-            return this.http.get(this.pathToFlowsEndpoint() + '/exporters/' + criteria, opts).then((result) => {
-                return this.toFlowExporter(result.data);
-            });
-        });
+        const builder = this.getOptions()
+            .addParameter('limit', limit)
+            .addParameter('start', start)
+            .addParameter('end', end);
+        const result = await this.http.get(this.pathToFlowsEndpoint() + '/exporters/' + criteria, builder.build());
+        return this.toFlowExporter(result.data);
     }
 
     /**
@@ -87,16 +74,14 @@ export class FlowDAO extends BaseDAO {
     public async getApplications(prefix?: string, start?: number, end?: number,
                                  exporterNodeCriteria?: string,
                                  ifIndex?: number): Promise<OnmsFlowTable> {
-        return FlowDAO.getOptions().then((opts) => {
-            opts.withParameter('start', start)
-                .withParameter('end', end)
-                .withParameter('exporterNode', exporterNodeCriteria)
-                .withParameter('ifIndex', ifIndex)
-                .withParameter('prefix', prefix);
-            return this.http.get(this.pathToFlowsEndpoint() + '/applications/enumerate', opts).then((result) => {
-                return result.data;
-            });
-        });
+        const builder = this.getOptions()
+            .addParameter('start', start)
+            .addParameter('end', end)
+            .addParameter('exporterNode', exporterNodeCriteria)
+            .addParameter('ifIndex', ifIndex)
+            .addParameter('prefix', prefix);
+        const result = await this.http.get(this.pathToFlowsEndpoint() + '/applications/enumerate', builder.build());
+        return result.data;
     }
 
     /**
@@ -113,17 +98,14 @@ export class FlowDAO extends BaseDAO {
                                                includeOther?: boolean,
                                                exporterNodeCriteria?: string,
                                                ifIndex?: number): Promise<OnmsFlowTable> {
-        return FlowDAO.getOptions().then((opts) => {
-            opts.withParameter('N', N)
-                .withParameter('start', start)
-                .withParameter('end', end)
-                .withParameter('exporterNode', exporterNodeCriteria)
-                .withParameter('ifIndex', ifIndex)
-                .withParameter('includeOther', includeOther);
-            return this.http.get(this.pathToFlowsEndpoint() + '/applications', opts).then((result) => {
-                return this.tableFromData(result.data);
-            });
-        });
+        const builder = this.getOptions().addParameter('N', N)
+            .addParameter('start', start)
+            .addParameter('end', end)
+            .addParameter('exporterNode', exporterNodeCriteria)
+            .addParameter('ifIndex', ifIndex)
+            .addParameter('includeOther', includeOther);
+        const result = await this.http.get(this.pathToFlowsEndpoint() + '/applications', builder.build());
+        return this.tableFromData(result.data);
     }
 
     /**
@@ -141,21 +123,19 @@ export class FlowDAO extends BaseDAO {
                                            exporterNodeCriteria?: string,
                                            ifIndex?: number): Promise<OnmsFlowTable> {
         this.checkForEnhancedFlows();
-        return FlowDAO.getOptions().then((opts) => {
-            opts.withParameter('start', start)
-                .withParameter('end', end)
-                .withParameter('exporterNode', exporterNodeCriteria)
-                .withParameter('ifIndex', ifIndex)
-                .withParameter('includeOther', includeOther);
-            if (applications) {
-                applications.forEach((application) => {
-                    opts.withParameter('application', application);
-                });
-            }
-            return this.http.get(this.pathToFlowsEndpoint() + '/applications', opts).then((result) => {
-                return this.tableFromData(result.data);
+        const builder = this.getOptions()
+            .addParameter('start', start)
+            .addParameter('end', end)
+            .addParameter('exporterNode', exporterNodeCriteria)
+            .addParameter('ifIndex', ifIndex)
+            .addParameter('includeOther', includeOther);
+        if (applications) {
+            applications.forEach((application) => {
+                builder.addParameter('application', application);
             });
-        });
+        }
+        const result = await this.http.get(this.pathToFlowsEndpoint() + '/applications', builder.build());
+        return this.tableFromData(result.data);
     }
 
     /**
@@ -173,18 +153,16 @@ export class FlowDAO extends BaseDAO {
                                               step?: number, includeOther?: boolean,
                                               exporterNodeCriteria?: string,
                                               ifIndex?: number): Promise<OnmsFlowSeries> {
-        return FlowDAO.getOptions().then((opts) => {
-            opts.withParameter('N', N)
-                .withParameter('start', start)
-                .withParameter('end', end)
-                .withParameter('step', step)
-                .withParameter('exporterNode', exporterNodeCriteria)
-                .withParameter('ifIndex', ifIndex)
-                .withParameter('includeOther', includeOther);
-            return this.http.get(this.pathToFlowsEndpoint() + '/applications/series', opts).then((result) => {
-                return this.seriesFromData(result.data);
-            });
-        });
+        const builder = this.getOptions()
+            .addParameter('N', N)
+            .addParameter('start', start)
+            .addParameter('end', end)
+            .addParameter('step', step)
+            .addParameter('exporterNode', exporterNodeCriteria)
+            .addParameter('ifIndex', ifIndex)
+            .addParameter('includeOther', includeOther);
+        const result = await this.http.get(this.pathToFlowsEndpoint() + '/applications/series', builder.build());
+        return this.seriesFromData(result.data);
     }
 
     /**
@@ -203,22 +181,20 @@ export class FlowDAO extends BaseDAO {
                                           exporterNodeCriteria?: string,
                                           ifIndex?: number): Promise<OnmsFlowSeries> {
         this.checkForEnhancedFlows();
-        return FlowDAO.getOptions().then((opts) => {
-            opts.withParameter('start', start)
-                .withParameter('end', end)
-                .withParameter('step', step)
-                .withParameter('exporterNode', exporterNodeCriteria)
-                .withParameter('ifIndex', ifIndex)
-                .withParameter('includeOther', includeOther);
-            if (applications) {
-                applications.forEach((application) => {
-                    opts.withParameter('application', application);
-                });
-            }
-            return this.http.get(this.pathToFlowsEndpoint() + '/applications/series', opts).then((result) => {
-                return this.seriesFromData(result.data);
+        const builder = this.getOptions()
+            .addParameter('start', start)
+            .addParameter('end', end)
+            .addParameter('step', step)
+            .addParameter('exporterNode', exporterNodeCriteria)
+            .addParameter('ifIndex', ifIndex)
+            .addParameter('includeOther', includeOther);
+        if (applications) {
+            applications.forEach((application) => {
+                builder.addParameter('application', application);
             });
-        });
+        }
+        const result = await this.http.get(this.pathToFlowsEndpoint() + '/applications/series', builder.build());
+        return this.seriesFromData(result.data);
     }
 
     /**
@@ -233,22 +209,20 @@ export class FlowDAO extends BaseDAO {
     public async getSummaryForTopNConversations(NOptions?: number | ITopNOptions, start?: number, end?: number,
                                                 exporterNodeCriteria?: string,
                                                 ifIndex?: number): Promise<OnmsFlowTable> {
-        return FlowDAO.getOptions().then((opts) => {
-            if (typeof NOptions === 'number') {
-                opts.withParameter('N', NOptions)
-                    .withParameter('start', start)
-                    .withParameter('end', end)
-                    .withParameter('exporterNode', exporterNodeCriteria)
-                    .withParameter('ifIndex', ifIndex);
-            } else if (NOptions) {
-                for (const key of Object.keys(NOptions)) {
-                    opts.withParameter(key, (NOptions as any)[key]);
-                }
+        const builder = this.getOptions();
+        if (typeof NOptions === 'number') {
+            builder.addParameter('N', NOptions)
+                .addParameter('start', start)
+                .addParameter('end', end)
+                .addParameter('exporterNode', exporterNodeCriteria)
+                .addParameter('ifIndex', ifIndex);
+        } else if (NOptions) {
+            for (const key of Object.keys(NOptions)) {
+                builder.addParameter(key, (NOptions as any)[key]);
             }
-            return this.http.get(this.pathToFlowsEndpoint() + '/conversations', opts).then((result) => {
-                return this.tableFromData(result.data);
-            });
-        });
+        }
+        const result = await this.http.get(this.pathToFlowsEndpoint() + '/conversations', builder.build());
+        return this.tableFromData(result.data);
     }
 
     /**
@@ -265,21 +239,19 @@ export class FlowDAO extends BaseDAO {
                                             includeOther?: boolean, exporterNodeCriteria?: string,
                                             ifIndex?: number): Promise<OnmsFlowTable> {
         this.checkForEnhancedFlows();
-        return FlowDAO.getOptions().then((opts) => {
-            opts.withParameter('start', start)
-                .withParameter('end', end)
-                .withParameter('exporterNode', exporterNodeCriteria)
-                .withParameter('ifIndex', ifIndex)
-                .withParameter('includeOther', includeOther);
-            if (conversations) {
-                conversations.forEach((conversation) => {
-                    opts.withParameter('conversation', conversation);
-                });
-            }
-            return this.http.get(this.pathToFlowsEndpoint() + '/conversations', opts).then((result) => {
-                return this.tableFromData(result.data);
+        const builder = this.getOptions()
+            .addParameter('start', start)
+            .addParameter('end', end)
+            .addParameter('exporterNode', exporterNodeCriteria)
+            .addParameter('ifIndex', ifIndex)
+            .addParameter('includeOther', includeOther);
+        if (conversations) {
+            conversations.forEach((conversation) => {
+                builder.addParameter('conversation', conversation);
             });
-        });
+        }
+        const result = await this.http.get(this.pathToFlowsEndpoint() + '/conversations', builder.build());
+        return this.tableFromData(result.data);
     }
 
     /**
@@ -295,23 +267,21 @@ export class FlowDAO extends BaseDAO {
     public async getSeriesForTopNConversations(NOptions?: number | ITopNOptions, start?: number, end?: number,
                                                step?: number, exporterNodeCriteria?: string,
                                                ifIndex?: number): Promise<OnmsFlowSeries> {
-        return FlowDAO.getOptions().then((opts) => {
-            if (typeof NOptions === 'number') {
-                opts.withParameter('N', NOptions)
-                    .withParameter('start', start)
-                    .withParameter('end', end)
-                    .withParameter('step', step)
-                    .withParameter('exporterNode', exporterNodeCriteria)
-                    .withParameter('ifIndex', ifIndex);
-            } else if (NOptions) {
-                for (const key of Object.keys(NOptions)) {
-                    opts.withParameter(key, (NOptions as any)[key]);
-                }
+        const builder = this.getOptions();
+        if (typeof NOptions === 'number') {
+            builder.addParameter('N', NOptions)
+                .addParameter('start', start)
+                .addParameter('end', end)
+                .addParameter('step', step)
+                .addParameter('exporterNode', exporterNodeCriteria)
+                .addParameter('ifIndex', ifIndex);
+        } else if (NOptions) {
+            for (const key of Object.keys(NOptions)) {
+                builder.addParameter(key, (NOptions as any)[key]);
             }
-            return this.http.get(this.pathToFlowsEndpoint() + '/conversations/series', opts).then((result) => {
-                return this.seriesFromData(result.data);
-            });
-        });
+        }
+        const result = await this.http.get(this.pathToFlowsEndpoint() + '/conversations/series', builder.build());
+        return this.seriesFromData(result.data);
     }
 
     /**
@@ -329,22 +299,20 @@ export class FlowDAO extends BaseDAO {
                                            step?: number, includeOther?: boolean, exporterNodeCriteria?: string,
                                            ifIndex?: number): Promise<OnmsFlowSeries> {
         this.checkForEnhancedFlows();
-        return FlowDAO.getOptions().then((opts) => {
-            opts.withParameter('start', start)
-                .withParameter('end', end)
-                .withParameter('step', step)
-                .withParameter('exporterNode', exporterNodeCriteria)
-                .withParameter('ifIndex', ifIndex)
-                .withParameter('includeOther', includeOther);
-            if (conversations) {
-                conversations.forEach((conversation) => {
-                    opts.withParameter('conversation', conversation);
-                });
-            }
-            return this.http.get(this.pathToFlowsEndpoint() + '/conversations/series', opts).then((result) => {
-                return this.seriesFromData(result.data);
+        const builder = this.getOptions()
+            .addParameter('start', start)
+            .addParameter('end', end)
+            .addParameter('step', step)
+            .addParameter('exporterNode', exporterNodeCriteria)
+            .addParameter('ifIndex', ifIndex)
+            .addParameter('includeOther', includeOther);
+        if (conversations) {
+            conversations.forEach((conversation) => {
+                builder.addParameter('conversation', conversation);
             });
-        });
+        }
+        const result = await this.http.get(this.pathToFlowsEndpoint() + '/conversations/series', builder.build());
+        return this.seriesFromData(result.data);
     }
 
     /**
@@ -358,16 +326,14 @@ export class FlowDAO extends BaseDAO {
     public async getHosts(pattern?: string, start?: number, end?: number,
                           exporterNodeCriteria?: string,
                           ifIndex?: number): Promise<OnmsFlowTable> {
-        return FlowDAO.getOptions().then((opts) => {
-            opts.withParameter('start', start)
-                .withParameter('end', end)
-                .withParameter('exporterNode', exporterNodeCriteria)
-                .withParameter('ifIndex', ifIndex)
-                .withParameter('pattern', pattern);
-            return this.http.get(this.pathToFlowsEndpoint() + '/hosts/enumerate', opts).then((result) => {
-                return result.data;
-            });
-        });
+        const builder = this.getOptions()
+            .addParameter('start', start)
+            .addParameter('end', end)
+            .addParameter('exporterNode', exporterNodeCriteria)
+            .addParameter('ifIndex', ifIndex)
+            .addParameter('pattern', pattern);
+        const result = await this.http.get(this.pathToFlowsEndpoint() + '/hosts/enumerate', builder.build());
+        return result.data;
     }
 
     /**
@@ -385,21 +351,19 @@ export class FlowDAO extends BaseDAO {
                                     exporterNodeCriteria?: string,
                                     ifIndex?: number): Promise<OnmsFlowTable> {
         this.checkForEnhancedFlows();
-        return FlowDAO.getOptions().then((opts) => {
-            opts.withParameter('start', start)
-                .withParameter('end', end)
-                .withParameter('exporterNode', exporterNodeCriteria)
-                .withParameter('ifIndex', ifIndex)
-                .withParameter('includeOther', includeOther);
-            if (hosts) {
-                hosts.forEach((host) => {
-                    opts.withParameter('host', host);
-                });
-            }
-            return this.http.get(this.pathToFlowsEndpoint() + '/hosts', opts).then((result) => {
-                return this.tableFromData(result.data);
+        const builder = this.getOptions()
+            .addParameter('start', start)
+            .addParameter('end', end)
+            .addParameter('exporterNode', exporterNodeCriteria)
+            .addParameter('ifIndex', ifIndex)
+            .addParameter('includeOther', includeOther);
+        if (hosts) {
+            hosts.forEach((host) => {
+                builder.addParameter('host', host);
             });
-        });
+        }
+        const result = await this.http.get(this.pathToFlowsEndpoint() + '/hosts', builder.build());
+        return this.tableFromData(result.data);
     }
 
     /**
@@ -416,17 +380,15 @@ export class FlowDAO extends BaseDAO {
                                         includeOther?: boolean, exporterNodeCriteria?: string,
                                         ifIndex?: number): Promise<OnmsFlowTable> {
         this.checkForEnhancedFlows();
-        return FlowDAO.getOptions().then((opts) => {
-            opts.withParameter('N', N)
-                .withParameter('start', start)
-                .withParameter('end', end)
-                .withParameter('exporterNode', exporterNodeCriteria)
-                .withParameter('ifIndex', ifIndex)
-                .withParameter('includeOther', includeOther);
-            return this.http.get(this.pathToFlowsEndpoint() + '/hosts', opts).then((result) => {
-                return this.tableFromData(result.data);
-            });
-        });
+        const builder = this.getOptions()
+            .addParameter('N', N)
+            .addParameter('start', start)
+            .addParameter('end', end)
+            .addParameter('exporterNode', exporterNodeCriteria)
+            .addParameter('ifIndex', ifIndex)
+            .addParameter('includeOther', includeOther);
+        const result = await this.http.get(this.pathToFlowsEndpoint() + '/hosts', builder.build());
+        return this.tableFromData(result.data);
     }
 
     /**
@@ -445,18 +407,16 @@ export class FlowDAO extends BaseDAO {
                                        exporterNodeCriteria?: string,
                                        ifIndex?: number): Promise<OnmsFlowSeries> {
         this.checkForEnhancedFlows();
-        return FlowDAO.getOptions().then((opts) => {
-            opts.withParameter('N', N)
-                .withParameter('start', start)
-                .withParameter('end', end)
-                .withParameter('step', step)
-                .withParameter('exporterNode', exporterNodeCriteria)
-                .withParameter('ifIndex', ifIndex)
-                .withParameter('includeOther', includeOther);
-            return this.http.get(this.pathToFlowsEndpoint() + '/hosts/series', opts).then((result) => {
-                return this.seriesFromData(result.data);
-            });
-        });
+        const builder = this.getOptions()
+            .addParameter('N', N)
+            .addParameter('start', start)
+            .addParameter('end', end)
+            .addParameter('step', step)
+            .addParameter('exporterNode', exporterNodeCriteria)
+            .addParameter('ifIndex', ifIndex)
+            .addParameter('includeOther', includeOther);
+        const result = await this.http.get(this.pathToFlowsEndpoint() + '/hosts/series', builder.build());
+        return this.seriesFromData(result.data);
     }
 
     /**
@@ -475,22 +435,20 @@ export class FlowDAO extends BaseDAO {
                                    exporterNodeCriteria?: string,
                                    ifIndex?: number): Promise<OnmsFlowSeries> {
         this.checkForEnhancedFlows();
-        return FlowDAO.getOptions().then((opts) => {
-            opts.withParameter('start', start)
-                .withParameter('end', end)
-                .withParameter('step', step)
-                .withParameter('exporterNode', exporterNodeCriteria)
-                .withParameter('ifIndex', ifIndex)
-                .withParameter('includeOther', includeOther);
-            if (hosts) {
-                hosts.forEach((host) => {
-                    opts.withParameter('host', host);
-                });
-            }
-            return this.http.get(this.pathToFlowsEndpoint() + '/hosts/series', opts).then((result) => {
-                return this.seriesFromData(result.data);
+        const builder = this.getOptions()
+            .addParameter('start', start)
+            .addParameter('end', end)
+            .addParameter('step', step)
+            .addParameter('exporterNode', exporterNodeCriteria)
+            .addParameter('ifIndex', ifIndex)
+            .addParameter('includeOther', includeOther);
+        if (hosts) {
+            hosts.forEach((host) => {
+                builder.addParameter('host', host);
             });
-        });
+        }
+        const result = await this.http.get(this.pathToFlowsEndpoint() + '/hosts/series', builder.build());
+        return this.seriesFromData(result.data);
     }
 
     /**
@@ -581,6 +539,13 @@ export class FlowDAO extends BaseDAO {
         }
 
         return series;
+    }
+
+    /**
+     * Create an [[OnmsHTTPOptions]] object for DAO calls.
+     */
+    protected getOptions(): OnmsHTTPOptionsBuilder {
+        return OnmsHTTPOptions.newBuilder().setHeader('Accept', 'application/json');
     }
 
     /**

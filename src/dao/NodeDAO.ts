@@ -38,8 +38,8 @@ export class NodeDAO extends AbstractDAO<number, OnmsNode> {
    * @param recurse - Optionally fetch all sub-model objects. (ipInterface, etc.)
    */
   public async get(id: number, recurse = false): Promise<OnmsNode> {
-    return this.getOptions().then((opts) => {
-        return this.http.get(this.pathToNodesEndpoint() + '/' + id, opts).then((result) => {
+    return this.getOptions().then((builder) => {
+        return this.http.get(this.pathToNodesEndpoint() + '/' + id, builder.build()).then((result) => {
             const node = this.fromData(result.data);
 
             if (recurse) {
@@ -53,8 +53,8 @@ export class NodeDAO extends AbstractDAO<number, OnmsNode> {
 
   /** Search for nodes, given an optional filter. */
   public async find(filter?: Filter): Promise<OnmsNode[]> {
-    return this.getOptions(filter).then((opts) => {
-        return this.http.get(this.pathToNodesEndpoint(), opts).then((result) => {
+    return this.getOptions(filter).then((builder) => {
+        return this.http.get(this.pathToNodesEndpoint(), builder.build()).then((result) => {
             let data = result.data;
 
             if (data !== null && this.getCount(data, result.code) > 0 && data.node) {
@@ -112,8 +112,11 @@ export class NodeDAO extends AbstractDAO<number, OnmsNode> {
       } else {
         node = String(passedNode);
       }
-      return this.getOptions(filter).then((opts) => {
-        return this.http.get(this.pathToNodesEndpoint() + '/' + node + '/ipinterfaces', opts).then((result) => {
+      return this.getOptions(filter).then((builder) => {
+        return this.http.get(
+            this.pathToNodesEndpoint() + '/' + node + '/ipinterfaces',
+            builder.build(),
+        ).then((result) => {
             let data = result.data;
 
             if (this.getCount(data, result.code) > 0 && data.ipInterface) {
@@ -139,8 +142,11 @@ export class NodeDAO extends AbstractDAO<number, OnmsNode> {
   /** Given a node, get the SNMP interfaces for that node. */
   public async snmpInterfaces(passedNode: number | OnmsNode, filter?: Filter): Promise<OnmsSnmpInterface[]> {
     const node = String(this.getNodeId(passedNode));
-    return this.getOptions(filter).then((opts) => {
-        return this.http.get(this.pathToNodesEndpoint() + '/' + node + '/snmpinterfaces', opts).then((result) => {
+    return this.getOptions(filter).then((builder) => {
+        return this.http.get(
+            this.pathToNodesEndpoint() + '/' + node + '/snmpinterfaces',
+            builder.build(),
+        ).then((result) => {
             let data = result.data;
 
             if (this.getCount(data, result.code) > 0 && data.snmpInterface) {
@@ -172,12 +178,12 @@ export class NodeDAO extends AbstractDAO<number, OnmsNode> {
   ): Promise<OnmsMonitoredService[]> {
     const node = String(this.getNodeId(passedNode));
 
-    return this.getOptions(filter).then((opts) => {
+    return this.getOptions(filter).then((builder) => {
         if (ipInterface instanceof OnmsIpInterface && ipInterface.ipAddress) {
             ipInterface = ipInterface.ipAddress.address;
         }
         const url = this.pathToNodesEndpoint() + '/' + node + '/ipinterfaces/' + ipInterface + '/services';
-        return this.http.get(url, opts).then((result) => {
+        return this.http.get(url, builder.build()).then((result) => {
             let data = result.data;
 
             if (this.getCount(data, result.code) > 0 && data.service) {

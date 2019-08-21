@@ -124,8 +124,11 @@ export class V2FilterProcessor implements IFilterProcessor {
   }
 
   /** Given a list of clauses, recursively generate the FIQL query string. */
-  private toFIQL(clauses: Clause[]) {
+  private toFIQL(clauses: Clause[] | undefined) {
     let search = '';
+    if (!clauses || clauses.length === 0) {
+      return search;
+    }
     for (const clause of clauses) {
       if (search.length > 0) {
         search += this.toFIQLOperator(clause.operator);

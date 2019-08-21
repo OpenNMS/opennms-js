@@ -1,42 +1,25 @@
 declare const describe, beforeEach, it, expect;
 
-import {Client} from '../../src/Client';
 import {OnmsAuthConfig} from '../../src/api/OnmsAuthConfig';
 import {OnmsServer} from '../../src/api/OnmsServer';
 
-const SERVER_NAME='Demo';
-const SERVER_URL='http://demo.opennms.org/opennms/';
-const SERVER_USER='demo';
-const SERVER_PASSWORD='demo';
+const SERVER_NAME = 'Demo';
+const SERVER_URL = 'http://demo.opennms.org/opennms/';
+const SERVER_USER = 'demo';
+const SERVER_PASSWORD = 'demo';
 
-var server, auth;
+let server, auth;
 
-describe('Given an instance of OnmsServer...', () => {
+describe('api.OnmsServer', () => {
   beforeEach(() => {
     auth = new OnmsAuthConfig(SERVER_USER, SERVER_PASSWORD);
-    server = new OnmsServer(SERVER_NAME, SERVER_URL, auth);
-  });
-
-  describe('When I have a server with just an ID...', () => {
-    it('it should have an ID', () => {
-      expect(server.id).toBeDefined();
-      expect(new OnmsServer().id.length).toEqual(36);
-    });
-    it('it should have no URL', () => {
-      expect(new OnmsServer().url).toBeUndefined();
-    });
-    it('it should return undefined when asking for a relative URL without a URL set', () => {
-      expect(new OnmsServer().resolveURL()).toBeUndefined();
-    });
-    it('it should not have a "host" property', () => {
-      expect(new OnmsServer().host).toBeUndefined();
-    });
+    server = OnmsServer.newBuilder(SERVER_URL).setName(SERVER_NAME).setAuth(auth).build();
   });
 
   describe('When I have a properly-configured server object...', () => {
     it('it should have an ID', () => {
       expect(server.id).toBeDefined();
-      expect(server.id.length).toEqual(36);
+      expect(server.id.length).toEqual(32);
     });
     it('it should have a URL', () => {
       expect(server.url).toBeDefined();

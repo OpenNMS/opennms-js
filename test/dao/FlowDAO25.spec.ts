@@ -17,22 +17,25 @@ import {FlowDAO} from '../../src/dao/FlowDAO';
 // tslint:disable-next-line
 const moment = require('moment');
 
-const SERVER_NAME='Demo';
-const SERVER_URL='http://demo.opennms.org/opennms/';
-const SERVER_USER='demo';
-const SERVER_PASSWORD='demo';
+const SERVER_NAME = 'Demo';
+const SERVER_URL = 'http://demo.opennms.org/opennms/';
+const SERVER_USER = 'demo';
+const SERVER_PASSWORD = 'demo';
 
-let opennms : Client, server, auth, mockHTTP, dao : FlowDAO;
+let opennms: Client, server, auth, mockHTTP, dao: FlowDAO;
 
 describe('FlowDAO25', () => {
     beforeEach((done) => {
         auth = new OnmsAuthConfig(SERVER_USER, SERVER_PASSWORD);
-        server = new OnmsServer(SERVER_NAME, SERVER_URL, auth);
+        const builder = OnmsServer.newBuilder(SERVER_URL).setName(SERVER_NAME).setAuth(auth);
+        server = builder.build();
         mockHTTP = new MockHTTP25(server);
         opennms = new Client(mockHTTP);
         dao = new FlowDAO(mockHTTP);
         Client.getMetadata(server, mockHTTP).then((metadata) => {
-            server.metadata = metadata;
+            server = builder.setMetadata(metadata).build();
+            mockHTTP.server = server;
+            dao.server = server;
             done();
         });
     });

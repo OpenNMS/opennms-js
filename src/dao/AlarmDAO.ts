@@ -7,7 +7,7 @@ import {IHasHTTP} from '../api/IHasHTTP';
 import {IHash} from '../internal/IHash';
 import {IOnmsHTTP} from '../api/IOnmsHTTP';
 import {OnmsError} from '../api/OnmsError';
-import {OnmsHTTPOptions} from '../api/OnmsHTTPOptions';
+import {OnmsHTTPOptions, OnmsHTTPOptionsBuilder} from '../api/OnmsHTTPOptions';
 import {OnmsResult} from '../api/OnmsResult';
 import {Restriction} from '../api/Restriction';
 
@@ -46,7 +46,7 @@ export class AlarmDAO extends AbstractDAO<number, OnmsAlarm> {
    */
   public async get(id: number): Promise<OnmsAlarm> {
     return this.getOptions().then((opts) => {
-        return this.http.get(this.pathToAlarmsEndpoint() + '/' + id, opts).then((result) => {
+        return this.http.get(this.pathToAlarmsEndpoint() + '/' + id, opts.build()).then((result) => {
             return this.fromData(result.data);
         });
     });
@@ -61,7 +61,7 @@ export class AlarmDAO extends AbstractDAO<number, OnmsAlarm> {
    */
   public async find(filter?: Filter): Promise<OnmsAlarm[]> {
     return this.getOptions(filter).then((opts) => {
-        return this.http.get(this.pathToAlarmsEndpoint(), opts).then((result) => {
+        return this.http.get(this.pathToAlarmsEndpoint(), opts.build()).then((result) => {
             const data = this.getData(result);
             if (!Array.isArray(data)) {
               if (!data) {
@@ -202,9 +202,8 @@ export class AlarmDAO extends AbstractDAO<number, OnmsAlarm> {
     }
 
     const alarmId = (typeof(alarm) === 'number' ? alarm : alarm.id);
-    const options = new OnmsHTTPOptions();
-    options.headers.accept = 'text/plain';
-    return this.http.post(this.pathToAlarmsEndpoint() + '/' + alarmId + '/ticket/create', options).then(() => {
+    const builder = OnmsHTTPOptions.newBuilder().setHeader('Accept', 'text/plain');
+    return this.http.post(this.pathToAlarmsEndpoint() + '/' + alarmId + '/ticket/create', builder.build()).then(() => {
       log.debug('Ticket creation pending.');
     }).catch(this.handleError);
   }
@@ -222,9 +221,8 @@ export class AlarmDAO extends AbstractDAO<number, OnmsAlarm> {
     }
 
     const alarmId = (typeof(alarm) === 'number' ? alarm : alarm.id);
-    const options = new OnmsHTTPOptions();
-    options.headers.accept = 'text/plain';
-    return this.http.post(this.pathToAlarmsEndpoint() + '/' + alarmId + '/ticket/update', options).then(() => {
+    const builder = OnmsHTTPOptions.newBuilder().setHeader('Accept', 'text/plain');
+    return this.http.post(this.pathToAlarmsEndpoint() + '/' + alarmId + '/ticket/update', builder.build()).then(() => {
       log.debug('Ticket update pending.');
     }).catch(this.handleError);
   }
@@ -242,9 +240,8 @@ export class AlarmDAO extends AbstractDAO<number, OnmsAlarm> {
     }
 
     const alarmId = (typeof(alarm) === 'number' ? alarm : alarm.id);
-    const options = new OnmsHTTPOptions();
-    options.headers.accept = 'text/plain';
-    return this.http.post(this.pathToAlarmsEndpoint() + '/' + alarmId + '/ticket/close', options).then(() => {
+    const builder = OnmsHTTPOptions.newBuilder().setHeader('Accept', 'text/plain');
+    return this.http.post(this.pathToAlarmsEndpoint() + '/' + alarmId + '/ticket/close', builder.build()).then(() => {
       log.debug('Ticket close pending.');
     }).catch(this.handleError);
   }
@@ -413,7 +410,7 @@ export class AlarmDAO extends AbstractDAO<number, OnmsAlarm> {
    * Given an optional filter, generate an [[OnmsHTTPOptions]] object for DAO calls.
    * @hidden
    */
-  protected async getOptions(filter?: Filter): Promise<OnmsHTTPOptions> {
+  protected async getOptions(filter?: Filter): Promise<OnmsHTTPOptionsBuilder> {
     if (filter) {
       this.visitFilter(filter, {
         onRestriction: (restriction: Restriction) => {
@@ -433,7 +430,7 @@ export class AlarmDAO extends AbstractDAO<number, OnmsAlarm> {
     return super.getOptions(filter).then((options) => {
         // always use application/json for v2 calls
         if (this.getApiVersion() === 2) {
-            options.headers.accept = 'application/json';
+          return options.setHeader('Accept', 'application/json');
         }
         return options;
     });
@@ -444,16 +441,16 @@ export class AlarmDAO extends AbstractDAO<number, OnmsAlarm> {
    * @hidden
    */
   private async put(url: string, parameters = {} as IHash<string>): Promise<void> {
-    return this.getOptions().then((opts) => {
-        opts.headers['content-type'] = 'application/x-www-form-urlencoded';
-        delete opts.headers.accept;
-        opts.parameters = parameters;
-        return this.http.put(url, opts).then((result) => {
-            if (!result.isSuccess) {
-                throw result;
-            }
-            return;
-        });
+    const builder = (await this.getOptions())
+      .setHeader('Content-Type', 'application/x-www-form-urlencoded')
+      .setHeader('Accept', undefined)
+      .setParameters(parameters);
+
+    return this.http.put(url, builder.build()).then((result) => {
+        if (!result.isSuccess) {
+            throw result;
+        }
+        return;
     });
   }
 
@@ -462,17 +459,16 @@ export class AlarmDAO extends AbstractDAO<number, OnmsAlarm> {
    * @hidden
    */
   private async httpDelete(url: string, parameters = {} as IHash<string>): Promise<void> {
-      return this.getOptions().then((opts) => {
-          opts.headers['content-type'] = 'application/x-www-form-urlencoded';
-          delete opts.headers.accept;
-          opts.parameters = parameters;
-          return this.http.httpDelete(url, opts).then((result) => {
-              if (!result.isSuccess) {
-                  throw result;
-              }
-              return;
-          });
-      });
+    const builder = (await this.getOptions())
+      .setHeader('Content-Type', 'application/x-www-form-urlencoded')
+      .setHeader('Accept', undefined)
+      .setParameters(parameters);
+    return this.http.httpDelete(url, builder.build()).then((result) => {
+        if (!result.isSuccess) {
+            throw result;
+        }
+        return;
+    });
   }
 
   /**

@@ -6,35 +6,21 @@ import * as VersionCompare from 'version_compare';
  * @module OnmsVersion
  */
 export class OnmsVersion {
-  /** The numeric version (ex: `19.0.0`). */
-  public get version() {
-    return this.rv;
-  }
-
-  public set version(ver: string) {
-    this.rv = ver;
-  }
-
-  /** The display version (ex: `19.0.0-SNAPSHOT`). */
-  public get displayVersion() {
-    return this.dv || this.version;
-  }
-
-  public set displayVersion(displayVersion: string|undefined) {
-    this.dv = displayVersion;
-  }
-
   /**
-   * The internal raw version.
-   * @hidden
+   * The numeric version (ex: `19.0.0`).
    */
-  private rv: string;
+  public readonly version: string;
 
   /**
    * The internal display version.
    * @hidden
    */
-  private dv?: string;
+  private readonly dv?: string;
+
+  /** The display version (ex: `19.0.0-SNAPSHOT`). */
+  public get displayVersion() {
+    return this.dv || this.version;
+  }
 
   /**
    * Construct a new version.
@@ -43,8 +29,8 @@ export class OnmsVersion {
    *                         (including extra designators like `x.x.x-SNAPSHOT`).
    */
   constructor(version?: string, displayVersion?: string) {
-    this.rv = version || '0.0.0';
-    this.displayVersion = displayVersion;
+    this.version = version || '0.0.0';
+    this.dv = displayVersion;
   }
 
   /**

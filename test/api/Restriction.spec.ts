@@ -7,8 +7,8 @@ import {Util} from '../../src/internal/Util';
 
 const filterMatches = {
   '': null,
-  'foo eq bar': Comparators.EQ,
   'foo == bar': Comparators.EQ,
+  'foo eq bar': Comparators.EQ,
   'foo==bar': Comparators.EQ,
   'foo>=bar': Comparators.GE,
 };

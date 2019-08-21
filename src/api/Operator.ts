@@ -11,7 +11,7 @@ export class Operator extends OnmsEnum<number> {
   }
 
   /** Aliases for the command-line. */
-  private aliases = [] as string[];
+  private readonly aliases = [] as string[];
 
   constructor(id: number, label: string, ...aliases: string[]) {
     super(id, label);
