@@ -298,7 +298,7 @@ export class OnmsHTTPOptions {
    * This is a trick for making sure serialization to JSON happens properly
    * without exposing internals.
    */
-  private [AUTH_PROP]: OnmsAuthConfig | null;
+  private readonly [AUTH_PROP]: OnmsAuthConfig | null;
 
   /**
    * Construct a new OnmsHTTPOptions object.
