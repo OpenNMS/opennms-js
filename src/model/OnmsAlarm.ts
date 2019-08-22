@@ -12,7 +12,7 @@ import {OnmsMemo} from './OnmsMemo';
 
 /**
  * Represents an OpenNMS alarm.
- * @module OnmsAlarm
+ * @category Model
  */
 export class OnmsAlarm implements IHasUrlValue {
   /** the alarm ID */

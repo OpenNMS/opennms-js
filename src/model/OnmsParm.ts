@@ -4,7 +4,7 @@ import {Util} from '../internal/Util';
 
 /**
  * Represents an OpenNMS event or alarm parameter.
- * @module OnmsParm
+ * @category Model
  */
 export class OnmsParm implements IHasUrlValue {
   /** the name of the parm */

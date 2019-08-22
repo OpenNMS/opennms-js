@@ -2,10 +2,10 @@
 
 /* tslint:disable:no-bitwise */
 
-  /**
-   * A utility class for generating UUIDs.
-   * @module UUID
-   */
+/**
+ * A utility class for generating UUIDs.
+ * @category Internal
+ */
 export class UUID {
   /**
    * Generates a UUID.  Attempts to use the high-precision timer if possible.

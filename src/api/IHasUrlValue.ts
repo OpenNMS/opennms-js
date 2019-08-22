@@ -6,7 +6,7 @@
  * represented when serialized to an OpenNMS URL parameter.
  *
  * @interface
- * @module IHasUrlValue
+ * @category Rest
  */
 export interface IHasUrlValue {
   /** The value of this object when added to an OpenNMS URL parameter. */

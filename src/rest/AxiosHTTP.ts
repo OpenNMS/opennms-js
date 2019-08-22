@@ -16,7 +16,7 @@ import {log} from '../api/Log';
 
 /**
  * Implementation of the [[IOnmsHTTP]] interface using Axios: https://github.com/mzabriskie/axios
- * @module AxiosHTTP
+ * @category Rest Implementation
  * @implements IOnmsHTTP
  */
 export class AxiosHTTP extends AbstractHTTP {

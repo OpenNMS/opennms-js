@@ -1,12 +1,10 @@
-import {Moment} from 'moment';
-
 import {IHasUrlValue} from '../api/IHasUrlValue';
 import {OnmsAlarmType} from './OnmsAlarmType';
 import {OnmsSeverity} from './OnmsSeverity';
 
 /**
  * Represents an OpenNMS alarm.
- * @module OnmsAlarm
+ * @category Model
  */
 export class OnmsAlarmSummary implements IHasUrlValue {
   /** the alarm ID */

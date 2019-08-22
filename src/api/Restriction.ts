@@ -1,12 +1,15 @@
 import {Comparator, Comparators} from './Comparator';
 import {log} from './Log';
 
+/** @hidden */
 const namePattern = /^(.*?)\s+(eq|ne|ilike|like|gt|lt|ge|le|null|isnull|notnull)\s+(.*?)$/i;
+
+/** @hidden */
 const symbolPattern = /^(\w+?)\s*(\=\=|\=|\!\=|\>\=|\<\=|\>|\<)\s*(\w+?)$/;
 
 /**
  * A query restriction.
- * @module Restriction
+ * @category Filtering API
  */
 export class Restriction {
   /** Given a restriction JSON structure, return a Restriction object. */

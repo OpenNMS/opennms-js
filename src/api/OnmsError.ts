@@ -1,6 +1,6 @@
 /**
  * Represents an OpenNMS.js error.
- * @module OnmsError
+ * @category Internal
  */
 export class OnmsError extends Error {
   /**

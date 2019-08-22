@@ -3,7 +3,7 @@ import {IHasUrlValue} from '../api/IHasUrlValue';
 import {OnmsEnum, forId, forLabel} from '../internal/OnmsEnum';
 /**
  * Represents an OpenNMS severity.
- * @module OnmsSeverity
+ * @category Model
  */
 export class OnmsSeverity extends OnmsEnum<number> implements IHasUrlValue {
   /** @inheritdoc */
@@ -23,6 +23,10 @@ export class OnmsSeverity extends OnmsEnum<number> implements IHasUrlValue {
 }
 
 /* tslint:disable:object-literal-sort-keys */
+/**
+ * Contains constant instances of all severities.
+ * @category Model
+ */
 const Severities = {
   INDETERMINATE: new OnmsSeverity(1, 'INDETERMINATE'),
   CLEARED: new OnmsSeverity(2, 'CLEARED'),

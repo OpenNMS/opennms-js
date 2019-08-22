@@ -1,4 +1,4 @@
-
+// If running under Node, use `xmldom`'s DOM parser.
 if (global && !global.window) {
     global.window = {} as Window;
     if (!global.window.DOMParser) {
@@ -22,6 +22,7 @@ const xmlParser = new X2JS({
 
 /**
  * Helper class to transform any xml string to a javascript object.
+ * @category Rest API
  */
 export class XmlTransformer {
     /**

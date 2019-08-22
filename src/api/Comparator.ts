@@ -2,7 +2,7 @@ import {OnmsEnum} from '../internal/OnmsEnum';
 
 /**
  * Represents a filter comparator.
- * @module Comparator
+ * @category Filtering API
  */
 export class Comparator extends OnmsEnum<number> {
   /** Find the comparator that matches the given comparator string. */
@@ -34,6 +34,10 @@ export class Comparator extends OnmsEnum<number> {
 
 /* tslint:disable:object-literal-sort-keys */
 
+/**
+ * Contains constant instances of all available comparators.
+ * @category Filtering API
+ */
 const Comparators = {
   /** Equals (`=` or `==`) */
   EQ: new Comparator(1, 'EQ', '=', '=='),
@@ -78,4 +82,5 @@ const Comparators = {
 
 /** @hidden */
 const frozen = Object.freeze(Comparators);
+
 export {frozen as Comparators};

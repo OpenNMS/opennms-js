@@ -4,7 +4,7 @@ import {OnmsEnum, forId, forLabel} from '../internal/OnmsEnum';
 
 /**
  * Represents an OpenNMS node label source.
- * @module OnmsNodeLabelSource
+ * @category Model
  */
 export class OnmsNodeLabelSource extends OnmsEnum<string> implements IHasUrlValue {
   /** Given an ID, return the matching node label source object. */
@@ -24,6 +24,10 @@ export class OnmsNodeLabelSource extends OnmsEnum<string> implements IHasUrlValu
 }
 
 /* tslint:disable:object-literal-sort-keys */
+/**
+ * Contains constant instances of all available node label sources.
+ * @category Model
+ */
 const NodeLabelSources = {
   /** Node label is set by the user. */
   USER: new OnmsNodeLabelSource('U', 'USER'),

@@ -4,7 +4,7 @@ import {NestedRestriction} from './NestedRestriction';
 
 /**
  * A restriction and boolean operator pair.
- * @module Clause
+ * @category Filtering API
  */
 export class Clause {
   /** Given a clause JSON structure, return a Clause object. */

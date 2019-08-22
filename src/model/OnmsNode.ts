@@ -10,7 +10,7 @@ import {OnmsSnmpInterface} from './OnmsSnmpInterface';
 
 /**
  * Represents an OpenNMS node.
- * @module OnmsNode
+ * @category Model
  */
 export class OnmsNode implements IHasUrlValue {
   /** the node ID */

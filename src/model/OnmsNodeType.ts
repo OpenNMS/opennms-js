@@ -4,7 +4,7 @@ import {OnmsEnum, forId, forLabel} from '../internal/OnmsEnum';
 
 /**
  * Represents an OpenNMS node type.
- * @module OnmsNodeType
+ * @category Model
  */
 export class OnmsNodeType extends OnmsEnum<string> implements IHasUrlValue {
   /** Given an ID (A, D, etc.), return the corresponding node type object. */
@@ -24,6 +24,10 @@ export class OnmsNodeType extends OnmsEnum<string> implements IHasUrlValue {
 }
 
 /* tslint:disable:object-literal-sort-keys */
+/**
+ * Contains constant instances of all node types.
+ * @category Model
+ */
 const NodeTypes = {
   /** Node is active */
   ACTIVE: new OnmsNodeType('A', 'ACTIVE'),

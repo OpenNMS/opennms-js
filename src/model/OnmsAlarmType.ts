@@ -3,7 +3,7 @@ import {OnmsEnum, forId} from '../internal/OnmsEnum';
 
 /**
  * Represents an OpenNMS alarm type.
- * @module OnmsAlarmType
+ * @category Model
  */
 export class OnmsAlarmType extends OnmsEnum<number> implements IHasUrlValue {
   /** @inheritdoc */
@@ -17,6 +17,10 @@ export class OnmsAlarmType extends OnmsEnum<number> implements IHasUrlValue {
   }
 }
 
+/**
+ * Contains constant instances of all available alarm types.
+ * @category Model
+ */
 const AlarmTypes = {
   /** Possible Resolution */
   1: new OnmsAlarmType(1, 'possible resolution'),

@@ -4,7 +4,7 @@ import {Restriction} from './Restriction';
 
 /**
  * Nested query restrictions.
- * @module NestedRestriction
+ * @category Filtering API
  */
 export class NestedRestriction {
     /** given a nested restriction JSON structure, return a NestedRestriction object */

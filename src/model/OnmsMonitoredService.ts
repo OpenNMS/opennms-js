@@ -7,7 +7,7 @@ import {OnmsServiceStatusType} from './OnmsServiceStatusType';
 
 /**
  * Represents an OpenNMS monitored service.
- * @module OnmsMonitoredService
+ * @category Model
  */
 export class OnmsMonitoredService implements IHasUrlValue {
   /** the service ID */

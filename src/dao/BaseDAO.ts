@@ -18,7 +18,7 @@ import {Moment} from 'moment';
  * the [[AbstractDAO]] in that it doesn't have a "default" interface for
  * dealing with model objects, it only provides core conveniences.
  *
- * @module BaseDAO
+ * @category DAO
  */
 export abstract class BaseDAO {
   /**
