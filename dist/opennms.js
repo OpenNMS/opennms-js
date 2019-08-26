@@ -52926,7 +52926,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { (0, _definePropert
 
 /**
  * The OpenNMS client.  This is the primary interface to OpenNMS servers.
- * @module Client
+ * @category Rest API
  */
 var Client =
 /*#__PURE__*/
@@ -53077,7 +53077,7 @@ function () {
   /**
    * Construct a new OpenNMS client.
    *
-   * If no `httpImpl` parameter is provided, the class in `Client.defaultHttp` will be used by default.
+   * If no `httpImpl` parameter is provided, the class in [[Client.defaultHttp]] will be used by default.
    * Unless overridden, this defaults to [[AxiosHTTP]].
    *
    * @constructor
@@ -53249,7 +53249,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { (0, _definePropert
 
 /**
  * A restriction and boolean operator pair.
- * @module Clause
+ * @category Filtering API
  */
 var Clause =
 /*#__PURE__*/
@@ -53353,7 +53353,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { (0, _definePropert
 
 /**
  * Represents a filter comparator.
- * @module Comparator
+ * @category Filtering API
  */
 var Comparator =
 /*#__PURE__*/
@@ -53410,6 +53410,11 @@ function (_OnmsEnum) {
   return Comparator;
 }(_OnmsEnum2.OnmsEnum);
 /* tslint:disable:object-literal-sort-keys */
+
+/**
+ * Contains constant instances of all available comparators.
+ * @category Filtering API
+ */
 
 
 exports.Comparator = Comparator;
@@ -53517,8 +53522,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { (0, _definePropert
 
 /**
  * A query filter for DAOs.
- * @module Filter
- * @param T the model type (OnmsAlarm, OnmsEvent, etc.)
+ * @category Filtering API
  */
 var Filter =
 /*#__PURE__*/
@@ -53609,7 +53613,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { (0, _definePropert
 
 /**
  * Simple logger used for both CLI and browser use.
- * @module Logger
+ * @category Internal
+ * @namespace API
  */
 var Logger =
 /*#__PURE__*/
@@ -53773,6 +53778,17 @@ function () {
 
   return Logger;
 }();
+/**
+ * The default logging implementation.
+ * Import a logger using:
+ *
+ * ```ts
+ * import {log} from 'api/Logger';
+ * ```
+ *
+ * @category API
+ */
+
 
 exports.Logger = Logger;
 var log = new Logger();
@@ -53816,7 +53832,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { (0, _definePropert
 
 /**
  * Nested query restrictions.
- * @module NestedRestriction
+ * @category Filtering API
  */
 var NestedRestriction =
 /*#__PURE__*/
@@ -53921,7 +53937,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { (0, _definePropert
 
 /**
  * Represents server authentication config.
- * @module OnmsAuthConfig
+ * @category Rest API
  */
 var OnmsAuthConfig =
 /*#__PURE__*/
@@ -54045,7 +54061,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { (0, _definePropert
 
 /**
  * Represents an OpenNMS.js error.
- * @module OnmsError
+ * @category Internal
  */
 var OnmsError =
 /*#__PURE__*/
@@ -54174,9 +54190,14 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 function _defineProperty(obj, key, value) { if (key in obj) { (0, _defineProperty2.default)(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+/** @hidden */
 var DEFAULT_TIMEOUT = 10000;
+/** @hidden */
+
 exports.DEFAULT_TIMEOUT = DEFAULT_TIMEOUT;
 var TIMEOUT_PROP = (0, _for.default)('timeout');
+/** @hidden */
+
 exports.TIMEOUT_PROP = TIMEOUT_PROP;
 var AUTH_PROP = (0, _for.default)('auth');
 /** @hidden */
@@ -54187,7 +54208,8 @@ var isString = function isString(v) {
   return v && (typeof v === 'string' || v instanceof String);
 };
 /**
- * A builder for [[OnmsHTTPOptions]].  Create a new one with `OnmsHTTPOptions.newBuilder()`.
+ * A builder for [[OnmsHTTPOptions]].  Create a new one with [[OnmsHTTPOptions.newBuilder]].
+ * @category Rest API
  */
 // tslint:disable:completed-docs variable-name whitespace
 
@@ -54195,6 +54217,18 @@ var isString = function isString(v) {
 var OnmsHTTPOptionsBuilder =
 /*#__PURE__*/
 function () {
+  /** @hidden */
+
+  /** @hidden */
+
+  /** @hidden */
+
+  /** @hidden */
+
+  /** @hidden */
+
+  /** @hidden */
+
   /**
    * Construct a new builder from an existing options object, if provided.
    *
@@ -54461,7 +54495,7 @@ function () {
 
 /**
  * Options to be used when making HTTP ReST calls.
- * @module OnmsHTTPOptions
+ * @category Rest API
  */
 
 
@@ -54600,7 +54634,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { (0, _definePropert
 
 /**
  * An [[IOnmsHTTP]] query result.
- * @module OnmsResult
+ * @category Rest API
  */
 var OnmsResult =
 /*#__PURE__*/
@@ -54711,12 +54745,21 @@ function _defineProperty(obj, key, value) { if (key in obj) { (0, _definePropert
 var URI = __webpack_require__(/*! ../../node_modules/urijs/src/URI */ "./node_modules/urijs/src/URI.js");
 
 /**
- * A builder for [[OnmsServer]].  Create a new one with `OnmsServer.newBuilder()`.
+ * A builder for [[OnmsServer]].  Create a new one with [[OnmsServer.newBuilder]].
+ * @category Rest API
  */
 // tslint:disable:completed-docs variable-name whitespace
 var OnmsServerBuilder =
 /*#__PURE__*/
 function () {
+  /** @hidden */
+
+  /** @hidden */
+
+  /** @hidden */
+
+  /** @hidden */
+
   /**
    * Construct a new builder from an existing options object, if provided.
    */
@@ -54820,7 +54863,7 @@ function () {
 
 /**
  * Represents a remote OpenNMS server.
- * @module OnmsServer
+ * @category Rest API
  */
 
 
@@ -55005,7 +55048,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { (0, _definePropert
 
 /**
  * An OpenNMS version.
- * @module OnmsVersion
+ * @category Rest API
  */
 var OnmsVersion =
 /*#__PURE__*/
@@ -55188,7 +55231,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { (0, _definePropert
 
 /**
  * Represents a filter comparator.
- * @module Comparator
+ * @category Filtering API
  */
 var Operator =
 /*#__PURE__*/
@@ -55235,6 +55278,11 @@ function (_OnmsEnum) {
   return Operator;
 }(_OnmsEnum2.OnmsEnum);
 /* tslint:disable:object-literal-sort-keys */
+
+/**
+ * Contains constant instances of all operators.
+ * @category Model
+ */
 
 
 exports.Operator = Operator;
@@ -55292,11 +55340,14 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 function _defineProperty(obj, key, value) { if (key in obj) { (0, _defineProperty2.default)(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+/** @hidden */
 var namePattern = /^(.*?)\s+(eq|ne|ilike|like|gt|lt|ge|le|null|isnull|notnull)\s+(.*?)$/i;
+/** @hidden */
+
 var symbolPattern = /^(\w+?)\s*(\=\=|\=|\!\=|\>\=|\<\=|\>|\<)\s*(\w+?)$/;
 /**
  * A query restriction.
- * @module Restriction
+ * @category Filtering API
  */
 
 var Restriction =
@@ -55418,7 +55469,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { (0, _definePropert
 
 /**
  * Represents a query search property.
- * @module SearchProperty
+ * @category Rest API
  */
 var SearchProperty =
 /*#__PURE__*/
@@ -55559,7 +55610,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { (0, _definePropert
 
 /**
  * Represents a search property type.
- * @module SearchPropertyType
+ * @category Rest API
  */
 var SearchPropertyType =
 /*#__PURE__*/
@@ -55620,6 +55671,11 @@ var StringComparators = [_Comparator.Comparators.EQ, _Comparator.Comparators.NE]
 /** @hidden */
 
 var NumberComparators = [_Comparator.Comparators.EQ, _Comparator.Comparators.NE, _Comparator.Comparators.GE, _Comparator.Comparators.GT, _Comparator.Comparators.LE, _Comparator.Comparators.LT];
+/**
+ * Contains constant instances of all search property types.
+ * @category Model
+ */
+
 var SearchPropertyTypes = {
   FLOAT: new SearchPropertyType('FLOAT', 'floating-point number', NumberComparators),
   INTEGER: new SearchPropertyType('INTEGER', 'integer', NumberComparators),
@@ -55675,7 +55731,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { (0, _definePropert
 
 /**
  * A class that represents the capabilities an OpenNMS server has and other information about it.
- * @module ServerMetadata
+ * @category Rest API
  */
 var ServerMetadata =
 /*#__PURE__*/
@@ -55921,7 +55977,7 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = _setPrototypeOf2.default || f
 
 /**
  * Represents an OpenNMS server type.
- * @module ServerType
+ * @category Rest API
  */
 var ServerType =
 /*#__PURE__*/
@@ -55936,6 +55992,11 @@ function (_OnmsEnum) {
 
   return ServerType;
 }(_OnmsEnum2.OnmsEnum);
+/**
+ * Contains constant instances of all server types.
+ * @category Model
+ */
+
 
 exports.ServerType = ServerType;
 var ServerTypes = {
@@ -55984,6 +56045,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { (0, _definePropert
 
 /**
  * States the current ticket configuration.
+ * @category Rest API
  */
 var TicketerConfig =
 /*#__PURE__*/
@@ -56142,9 +56204,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { (0, _definePropert
  * inside OpenNMS.  Used to retrieve model data like alarms, events, etc. from the
  * OpenNMS ReST API in a consistent way.
  *
- * @module AbstractDAO
- * @param K the ID/key type (number, string, etc.)
- * @param T the model type (OnmsAlarm, OnmsEvent, etc.)
+ * @category DAO
+ * @typeparam K the ID/key type (number, string, etc.)
+ * @typeparam T the model type (OnmsAlarm, OnmsEvent, etc.)
  */
 var AbstractDAO =
 /*#__PURE__*/
@@ -56723,7 +56785,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { (0, _definePropert
 
 /**
  * Data access for [[OnmsAlarm]] objects.
- * @module AlarmDAO
+ * @category DAO
  */
 var AlarmDAO =
 /*#__PURE__*/
@@ -57854,7 +57916,7 @@ var moment = __webpack_require__(/*! ../../node_modules/moment/moment */ "./node
  * the [[AbstractDAO]] in that it doesn't have a "default" interface for
  * dealing with model objects, it only provides core conveniences.
  *
- * @module BaseDAO
+ * @category DAO
  */
 var BaseDAO =
 /*#__PURE__*/
@@ -58120,7 +58182,7 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = _setPrototypeOf2.default || f
 
 /**
  * Data access for [[OnmsEvent]] objects.
- * @module EventDAO
+ * @category DAO
  */
 var EventDAO =
 /*#__PURE__*/
@@ -58415,7 +58477,7 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = _setPrototypeOf2.default || f
 var moment = __webpack_require__(/*! ../../node_modules/moment/moment */ "./node_modules/moment/moment.js");
 /**
  * DAO for accessing flow (Netflow/IPFIX/sFlow) data.
- * @module FlowDAO
+ * @category DAO
  */
 
 
@@ -59375,6 +59437,11 @@ function (_BaseDAO) {
 
   return FlowDAO;
 }(_BaseDAO2.BaseDAO);
+/**
+ * Preferred object for providing options to TopN queries.
+ * @category DAO
+ */
+
 
 exports.FlowDAO = FlowDAO;
 
@@ -59488,7 +59555,7 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = _setPrototypeOf2.default || f
 
 /**
  * Data access for [[OnmsNode]] objects.
- * @module NodeDAO
+ * @category DAO
  */
 var NodeDAO =
 /*#__PURE__*/
@@ -60073,7 +60140,7 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = _setPrototypeOf2.default || f
 
 /**
  * Data access for [[OnmsSituationFeedback]] objects.
- * @module SituationFeedbackDAO
+ * @category DAO
  */
 var SituationFeedbackDAO =
 /*#__PURE__*/
@@ -60390,7 +60457,7 @@ var isExclusive = function isExclusive(comparator) {
 };
 /**
  * Converts a [[Filter]] into ReSTv1 parameters.
- * @module V1FilterProcessor
+ * @category Filtering API
  */
 
 
@@ -60545,7 +60612,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { (0, _definePropert
 
 /**
  * Converts a [[Filter]] into ReSTv2 FIQL parameters.
- * @module V2FilterProcessor
+ * @category Filtering API
  */
 var V2FilterProcessor =
 /*#__PURE__*/
@@ -60794,7 +60861,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { (0, _definePropert
 
 /**
  * Represents an enumerated type.
- * @module OnmsEnum
+ * @category Internal
  */
 var OnmsEnum =
 /*#__PURE__*/
@@ -60959,7 +61026,7 @@ var moment = __webpack_require__(/*! ../../node_modules/moment/moment */ "./node
 var dateFormat = 'YYYY-MM-DDTHH:mm:ss.SSSZZ';
 /**
  * A utility class for random stuff.
- * @module Util
+ * @category Internal
  */
 
 var Util =
@@ -61108,7 +61175,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { (0, _definePropert
 
 /**
  * Represents an OpenNMS alarm.
- * @module OnmsAlarm
+ * @category Model
  */
 var OnmsAlarm =
 /*#__PURE__*/
@@ -61254,7 +61321,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { (0, _definePropert
 
 /**
  * Represents an OpenNMS alarm.
- * @module OnmsAlarm
+ * @category Model
  */
 var OnmsAlarmSummary =
 /*#__PURE__*/
@@ -61349,7 +61416,7 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = _setPrototypeOf2.default || f
 
 /**
  * Represents an OpenNMS alarm type.
- * @module OnmsAlarmType
+ * @category Model
  */
 var OnmsAlarmType =
 /*#__PURE__*/
@@ -61380,6 +61447,11 @@ function (_OnmsEnum) {
 
   return OnmsAlarmType;
 }(_OnmsEnum2.OnmsEnum);
+/**
+ * Contains constant instances of all available alarm types.
+ * @category Model
+ */
+
 
 exports.OnmsAlarmType = OnmsAlarmType;
 var AlarmTypes = {
@@ -61437,7 +61509,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { (0, _definePropert
 var Categories = {};
 /**
  * Represents an OpenNMS category.
- * @module OnmsCategory
+ * @category Model
  */
 
 exports.Categories = Categories;
@@ -61549,7 +61621,7 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = _setPrototypeOf2.default || f
 
 /**
  * Represents an OpenNMS SNMP interface "should collect" type.
- * @module OnmsCollectType
+ * @category Model
  */
 var OnmsCollectType =
 /*#__PURE__*/
@@ -61595,6 +61667,11 @@ function (_OnmsEnum) {
   return OnmsCollectType;
 }(_OnmsEnum2.OnmsEnum);
 /* tslint:disable:object-literal-sort-keys */
+
+/**
+ * Contains constant instances of all available collect types.
+ * @category Model
+ */
 
 
 exports.OnmsCollectType = OnmsCollectType;
@@ -61652,7 +61729,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { (0, _definePropert
 
 /**
  * Represents an OpenNMS event.
- * @module OnmsEvent
+ * @category Model
  */
 var OnmsEvent =
 /*#__PURE__*/
@@ -61770,7 +61847,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { (0, _definePropert
 
 /**
  * Represents OpenNMS flow information about a node and its interfaces.
- * @module OnmsFlowExporter
+ * @category Model
  */
 var OnmsFlowExporter =
 /*#__PURE__*/
@@ -61830,7 +61907,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { (0, _definePropert
 
 /**
  * Represents basic OpenNMS flow information about node.
- * @module OnmsFlowExporterSummary
+ * @category Model
  */
 var OnmsFlowExporterSummary = function OnmsFlowExporterSummary() {
   _classCallCheck(this, OnmsFlowExporterSummary);
@@ -61878,7 +61955,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { (0, _definePropert
 
 /**
  * Time series metrics derived from flow data.
- * @module OnmsFlowSeries
+ * @category Model
  */
 var OnmsFlowSeries = function OnmsFlowSeries() {
   _classCallCheck(this, OnmsFlowSeries);
@@ -61926,7 +62003,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { (0, _definePropert
 
 /**
  * Time series column.
- * @module OnmsFlowSeriesColumn
+ * @category Model
  */
 var OnmsFlowSeriesColumn =
 /** label */
@@ -61975,7 +62052,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { (0, _definePropert
 
 /**
  * OpenNMS flow node SNMP interface metadata.
- * @module OnmsFlowSnmpInterface
+ * @category Model
  */
 var OnmsFlowSnmpInterface = function OnmsFlowSnmpInterface() {
   _classCallCheck(this, OnmsFlowSnmpInterface);
@@ -62021,7 +62098,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { (0, _definePropert
 
 /**
  * A collection of flow time-series data.
- * @module OnmsFlowTable
+ * @category Model
  */
 var OnmsFlowTable = function OnmsFlowTable() {
   _classCallCheck(this, OnmsFlowTable);
@@ -62073,7 +62150,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { (0, _definePropert
 
 /**
  * Represents an OpenNMS IP interface.
- * @module OnmsIpInterface
+ * @category Model
  */
 var OnmsIpInterface =
 /*#__PURE__*/
@@ -62210,7 +62287,7 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = _setPrototypeOf2.default || f
 
 /**
  * Represents an OpenNMS node "is managed" type.
- * @module OnmsManagedType
+ * @category Model
  */
 var OnmsManagedType =
 /*#__PURE__*/
@@ -62256,6 +62333,11 @@ function (_OnmsEnum) {
   return OnmsManagedType;
 }(_OnmsEnum2.OnmsEnum);
 /* tslint:disable:object-literal-sort-keys */
+
+/**
+ * Contains constant instances of all managed types.
+ * @category Model
+ */
 
 
 exports.OnmsManagedType = OnmsManagedType;
@@ -62316,7 +62398,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { (0, _definePropert
 
 /**
  * Represents an OpenNMS memo.
- * @module OnmsMemo
+ * @category Model
  */
 var OnmsMemo = function OnmsMemo() {
   _classCallCheck(this, OnmsMemo);
@@ -62370,7 +62452,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { (0, _definePropert
 
 /**
  * Represents an OpenNMS monitored service.
- * @module OnmsMonitoredService
+ * @category Model
  */
 var OnmsMonitoredService =
 /*#__PURE__*/
@@ -62441,7 +62523,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { (0, _definePropert
 
 /**
  * Represents an OpenNMS node.
- * @module OnmsNode
+ * @category Model
  */
 var OnmsNode =
 /*#__PURE__*/
@@ -62566,7 +62648,7 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = _setPrototypeOf2.default || f
 
 /**
  * Represents an OpenNMS node label source.
- * @module OnmsNodeLabelSource
+ * @category Model
  */
 var OnmsNodeLabelSource =
 /*#__PURE__*/
@@ -62605,6 +62687,11 @@ function (_OnmsEnum) {
   return OnmsNodeLabelSource;
 }(_OnmsEnum2.OnmsEnum);
 /* tslint:disable:object-literal-sort-keys */
+
+/**
+ * Contains constant instances of all available node label sources.
+ * @category Model
+ */
 
 
 exports.OnmsNodeLabelSource = OnmsNodeLabelSource;
@@ -62690,7 +62777,7 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = _setPrototypeOf2.default || f
 
 /**
  * Represents an OpenNMS node type.
- * @module OnmsNodeType
+ * @category Model
  */
 var OnmsNodeType =
 /*#__PURE__*/
@@ -62729,6 +62816,11 @@ function (_OnmsEnum) {
   return OnmsNodeType;
 }(_OnmsEnum2.OnmsEnum);
 /* tslint:disable:object-literal-sort-keys */
+
+/**
+ * Contains constant instances of all node types.
+ * @category Model
+ */
 
 
 exports.OnmsNodeType = OnmsNodeType;
@@ -62787,7 +62879,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { (0, _definePropert
 
 /**
  * Represents an OpenNMS event or alarm parameter.
- * @module OnmsParm
+ * @category Model
  */
 var OnmsParm =
 /*#__PURE__*/
@@ -62929,7 +63021,7 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = _setPrototypeOf2.default || f
 
 /**
  * Represents an OpenNMS "SNMP primary" type.
- * @module OnmsPrimaryType
+ * @category Model
  */
 var OnmsPrimaryType =
 /*#__PURE__*/
@@ -62975,6 +63067,11 @@ function (_OnmsEnum) {
   return OnmsPrimaryType;
 }(_OnmsEnum2.OnmsEnum);
 /* tslint:disable:object-literal-sort-keys */
+
+/**
+ * Contains constant instances of all primary SNMP types.
+ * @category Model
+ */
 
 
 exports.OnmsPrimaryType = OnmsPrimaryType;
@@ -63051,7 +63148,7 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = _setPrototypeOf2.default || f
 
 /**
  * Represents an OpenNMS monitored service status type.
- * @module OnmsServiceStatusType
+ * @category Model
  */
 var OnmsServiceStatusType =
 /*#__PURE__*/
@@ -63097,6 +63194,11 @@ function (_OnmsEnum) {
   return OnmsServiceStatusType;
 }(_OnmsEnum2.OnmsEnum);
 /* tslint:disable:object-literal-sort-keys */
+
+/**
+ * Contains constant instances of all service status types.
+ * @category Model
+ */
 
 
 exports.OnmsServiceStatusType = OnmsServiceStatusType;
@@ -63170,7 +63272,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { (0, _definePropert
 var ServiceTypes = {};
 /**
  * Represents an OpenNMS service.
- * @module OnmsServiceType
+ * @category Model
  */
 
 exports.ServiceTypes = ServiceTypes;
@@ -63282,7 +63384,7 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = _setPrototypeOf2.default || f
 
 /**
  * Represents an OpenNMS severity.
- * @module OnmsSeverity
+ * @category Model
  */
 var OnmsSeverity =
 /*#__PURE__*/
@@ -63321,6 +63423,11 @@ function (_OnmsEnum) {
   return OnmsSeverity;
 }(_OnmsEnum2.OnmsEnum);
 /* tslint:disable:object-literal-sort-keys */
+
+/**
+ * Contains constant instances of all severities.
+ * @category Model
+ */
 
 
 exports.OnmsSeverity = OnmsSeverity;
@@ -63372,7 +63479,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { (0, _definePropert
 
 /**
  * Represents an OpenNMS alarm.
- * @module OnmsAlarm
+ * @category Model
  */
 var OnmsSituationFeedback =
 /*#__PURE__*/
@@ -63471,7 +63578,7 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = _setPrototypeOf2.default || f
 
 /**
  * Represents an OpenNMS "SituationFeedback" type.
- * @module OnmsSituationFeedbackType
+ * @category Model
  */
 var OnmsSituationFeedbackType =
 /*#__PURE__*/
@@ -63510,6 +63617,11 @@ function (_OnmsEnum) {
   return OnmsSituationFeedbackType;
 }(_OnmsEnum2.OnmsEnum);
 /* tslint:disable:object-literal-sort-keys */
+
+/**
+ * Contains constant instances of all feedback types.
+ * @category Model
+ */
 
 
 exports.OnmsSituationFeedbackType = OnmsSituationFeedbackType;
@@ -63565,7 +63677,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { (0, _definePropert
 
 /**
  * Represents an OpenNMS SNMP interface.
- * @module OnmsSnmpInterface
+ * @category Model
  */
 var OnmsSnmpInterface =
 /*#__PURE__*/
@@ -63676,7 +63788,7 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = _setPrototypeOf2.default || f
 
 /**
  * Represents an OpenNMS SNMP admin/oper status type.
- * @module OnmsSnmpStatusType
+ * @category Model
  */
 var OnmsSnmpStatusType =
 /*#__PURE__*/
@@ -63715,6 +63827,11 @@ function (_OnmsEnum) {
   return OnmsSnmpStatusType;
 }(_OnmsEnum2.OnmsEnum);
 /* tslint:disable:object-literal-sort-keys */
+
+/**
+ * Contains constant instances of all SNMP status types.
+ * @category Model
+ */
 
 
 exports.OnmsSnmpStatusType = OnmsSnmpStatusType;
@@ -63791,7 +63908,7 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = _setPrototypeOf2.default || f
 
 /**
  * Represents an OpenNMS trouble ticket state.
- * @module OnmsTroubleTicketState
+ * @category Model
  */
 var OnmsTroubleTicketState =
 /*#__PURE__*/
@@ -63830,6 +63947,11 @@ function (_OnmsEnum) {
   return OnmsTroubleTicketState;
 }(_OnmsEnum2.OnmsEnum);
 /* tslint:disable:object-literal-sort-keys */
+
+/**
+ * Contains constant instances of all trouble ticket states.
+ * @category Model
+ */
 
 
 exports.OnmsTroubleTicketState = OnmsTroubleTicketState;
@@ -63923,7 +64045,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { (0, _definePropert
 
 /**
  * Represents a physical (MAC) address.
- * @module PhysAddr
+ * @category Model
  */
 var PhysAddr =
 /*#__PURE__*/
@@ -64019,10 +64141,12 @@ var xmlTransformer = new _XmlTransformer.XmlTransformer();
 /** @hidden */
 
 var jsonTransformer = new _JsonTransformer.JsonTransformer();
+/** @hidden */
+
 var OPTIONS_PROP = (0, _for.default)('options');
 /**
  * Abstract implementation of the OnmsHTTP interface meant to be extended by a concrete class.
- * @module AbstractHTTP
+ * @category Rest API
  * @implements IOnmsHTTP
  */
 
@@ -64363,7 +64487,7 @@ var URI = __webpack_require__(/*! ../../node_modules/urijs/src/URI */ "./node_mo
 
 /**
  * Implementation of the [[IOnmsHTTP]] interface using Axios: https://github.com/mzabriskie/axios
- * @module AxiosHTTP
+ * @category Rest Implementation
  * @implements IOnmsHTTP
  */
 var AxiosHTTP =
@@ -64727,7 +64851,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { (0, _definePropert
 
 /**
  * A Grafana error object.
- * @module GrafanaError
+ * @category Rest API
  */
 var GrafanaError =
 /*#__PURE__*/
@@ -64834,7 +64958,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { (0, _definePropert
 
 /**
  * Implementation of the [[IOnmsHTTP]] interface for Grafana.
- * @module GrafanaHTTP
+ * @category Rest Implementation
  * @implements IOnmsHTTP
  */
 var GrafanaHTTP =
@@ -65099,6 +65223,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 /**
  * Helper to transform a json string to an json object.
+ * @category Rest API
  */
 var JsonTransformer =
 /*#__PURE__*/
@@ -65169,6 +65294,7 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
+// If running under Node, use `xmldom`'s DOM parser.
 if (global && !global.window) {
   global.window = {};
 
@@ -65191,6 +65317,7 @@ var xmlParser = new X2JS({
 });
 /**
  * Helper class to transform any xml string to a javascript object.
+ * @category Rest API
  */
 
 var XmlTransformer =

@@ -71,6 +71,34 @@
 					<div class="lead">
 						<p>Interface for making ReST calls to an HTTP server.</p>
 					</div>
+					<p>Notes to implementors:</p>
+					<ul>
+						<li>Implementations of this interface MUST have a constructor that allows an empty
+							constructor to be passed (although it is OK to take optional arguments for
+						the purposes of unit testing or convenience).</li>
+						<li>Implementations MUST always use the current state of the <code>server</code> config property
+							when creating requests.  If the <code>server</code> property changes, the implementation
+						should do whatever is necessary to reconfigure itself.</li>
+						<li>Implementations MUST follow this precedence for resolving the preferred
+							<a href="../classes/onmsserver.html">OnmsServer</a> object to use when making an individual connection:<ol>
+								<li>The <code>server</code> property on the passed <a href="../classes/onmshttpoptions.html">OnmsHTTPOptions</a> on individual
+								method calls.</li>
+								<li>The <code>server</code> property in the <code>options</code> property of the implementation.</li>
+								<li>The <code>server</code> property of the implementation.</li>
+							</ol>
+						</li>
+						<li>Implementations MUST follow this precedence for resolving the preferred
+							<a href="../classes/onmsauthconfig.html">OnmsAuthConfig</a> to use when making an individual connection:<ol>
+								<li>The <code>auth</code> property on the passed <a href="../classes/onmshttpoptions.html">OnmsHTTPOptions</a> on individual
+								method calls.</li>
+								<li>The <code>auth</code> property on the <code>options</code> property of the implementation.</li>
+								<li>The <code>auth</code> property on the <code>server</code> property of the implementation.</li>
+							</ol>
+						</li>
+					</ul>
+					<p>Note that if you subclass <a href="../classes/abstracthttp.html">AbstractHTTP</a>, <a href="../classes/abstracthttp.html#getoptions">AbstractHTTP.getOptions</a>
+						will automatically provide you a hydrated <a href="../classes/onmshttpoptions.html">OnmsHTTPOptions</a> that handles
+					most of this precedence for combining the server metadata.</p>
 					<dl class="tsd-comment-tags">
 						<dt>interface</dt>
 						<dd></dd>
@@ -125,7 +153,7 @@
 					<div class="tsd-signature tsd-kind-icon">options<span class="tsd-signature-symbol">:</span> <a href="../classes/onmshttpoptions.html" class="tsd-signature-type">OnmsHTTPOptions</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/e204077/src/api/IOnmsHTTP.ts#L28">api/IOnmsHTTP.ts:28</a></li>
+							<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/192426a/src/api/IOnmsHTTP.ts#L40">api/IOnmsHTTP.ts:40</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -140,7 +168,7 @@
 					<div class="tsd-signature tsd-kind-icon">server<span class="tsd-signature-symbol">:</span> <a href="../classes/onmsserver.html" class="tsd-signature-type">OnmsServer</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/e204077/src/api/IOnmsHTTP.ts#L25">api/IOnmsHTTP.ts:25</a></li>
+							<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/192426a/src/api/IOnmsHTTP.ts#L37">api/IOnmsHTTP.ts:37</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -162,7 +190,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/e204077/src/api/IOnmsHTTP.ts#L36">api/IOnmsHTTP.ts:36</a></li>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/192426a/src/api/IOnmsHTTP.ts#L48">api/IOnmsHTTP.ts:48</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -200,7 +228,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/e204077/src/api/IOnmsHTTP.ts#L44">api/IOnmsHTTP.ts:44</a></li>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/192426a/src/api/IOnmsHTTP.ts#L56">api/IOnmsHTTP.ts:56</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -238,7 +266,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/e204077/src/api/IOnmsHTTP.ts#L68">api/IOnmsHTTP.ts:68</a></li>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/192426a/src/api/IOnmsHTTP.ts#L80">api/IOnmsHTTP.ts:80</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -276,7 +304,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/e204077/src/api/IOnmsHTTP.ts#L60">api/IOnmsHTTP.ts:60</a></li>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/192426a/src/api/IOnmsHTTP.ts#L72">api/IOnmsHTTP.ts:72</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -314,7 +342,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/e204077/src/api/IOnmsHTTP.ts#L52">api/IOnmsHTTP.ts:52</a></li>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/192426a/src/api/IOnmsHTTP.ts#L64">api/IOnmsHTTP.ts:64</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
