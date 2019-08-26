@@ -1,6 +1,6 @@
 /**
  * Represents basic OpenNMS flow information about node.
- * @module OnmsFlowExporterSummary
+ * @category Model
  */
 export class OnmsFlowExporterSummary {
     /** node unique identifier */

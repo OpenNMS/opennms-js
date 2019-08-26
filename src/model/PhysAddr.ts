@@ -2,7 +2,7 @@ import {IHasUrlValue} from '../api/IHasUrlValue';
 
 /**
  * Represents a physical (MAC) address.
- * @module PhysAddr
+ * @category Model
  */
 export class PhysAddr implements IHasUrlValue {
   /** The MAC address string. */

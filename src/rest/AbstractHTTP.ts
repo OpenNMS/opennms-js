@@ -19,11 +19,12 @@ const xmlTransformer = new XmlTransformer();
 /** @hidden */
 const jsonTransformer = new JsonTransformer();
 
+/** @hidden */
 export const OPTIONS_PROP = Symbol.for('options');
 
 /**
  * Abstract implementation of the OnmsHTTP interface meant to be extended by a concrete class.
- * @module AbstractHTTP
+ * @category Rest API
  * @implements IOnmsHTTP
  */
 export abstract class AbstractHTTP implements IOnmsHTTP {

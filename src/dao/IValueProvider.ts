@@ -1,6 +1,8 @@
 
 /**
- * Interface to provide values to a certain property id.
+ * Interface to provide values to a certain property ID.
+ * @interface
+ * @category DAO
  */
 export interface IValueProvider {
 

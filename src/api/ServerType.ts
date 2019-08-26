@@ -2,11 +2,15 @@ import {OnmsEnum} from '../internal/OnmsEnum';
 
 /**
  * Represents an OpenNMS server type.
- * @module ServerType
+ * @category Rest API
  */
 export class ServerType extends OnmsEnum<number> {
 }
 
+/**
+ * Contains constant instances of all server types.
+ * @category Model
+ */
 const ServerTypes = {
   /** OpenNMS Horizon */
   HORIZON: new ServerType(1, 'HORIZON'),

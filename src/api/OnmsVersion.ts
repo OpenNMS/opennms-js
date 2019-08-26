@@ -3,7 +3,7 @@ import * as VersionCompare from 'version_compare';
 
 /**
  * An OpenNMS version.
- * @module OnmsVersion
+ * @category Rest API
  */
 export class OnmsVersion {
   /**

@@ -8,7 +8,7 @@ import {PhysAddr} from './PhysAddr';
 
 /**
  * Represents an OpenNMS SNMP interface.
- * @module OnmsSnmpInterface
+ * @category Model
  */
 export class OnmsSnmpInterface implements IHasUrlValue {
   /** the interface ID */

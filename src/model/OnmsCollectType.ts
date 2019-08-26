@@ -4,7 +4,7 @@ import {OnmsEnum, forId, forLabel} from '../internal/OnmsEnum';
 
 /**
  * Represents an OpenNMS SNMP interface "should collect" type.
- * @module OnmsCollectType
+ * @category Model
  */
 export class OnmsCollectType extends OnmsEnum<string> implements IHasUrlValue {
   /** given an ID, return the matching collect type object */
@@ -29,6 +29,10 @@ export class OnmsCollectType extends OnmsEnum<string> implements IHasUrlValue {
 }
 
 /* tslint:disable:object-literal-sort-keys */
+/**
+ * Contains constant instances of all available collect types.
+ * @category Model
+ */
 const CollectTypes = {
   /** Collection Enabled */
   COLLECT: new OnmsCollectType('C', 'COLLECT'),

@@ -4,7 +4,8 @@ import chalk from 'chalk';
 
 /**
  * Simple logger used for both CLI and browser use.
- * @module Logger
+ * @category Internal
+ * @namespace API
  */
 export class Logger {
   /** The actual "console" implementation to use. */
@@ -142,4 +143,14 @@ export class Logger {
   }
 }
 
+/**
+ * The default logging implementation.
+ * Import a logger using:
+ *
+ * ```ts
+ * import {log} from 'api/Logger';
+ * ```
+ *
+ * @category API
+ */
 export const log = new Logger();

@@ -1,6 +1,6 @@
 /**
  * Represents server authentication config.
- * @module OnmsAuthConfig
+ * @category Rest API
  */
 export class OnmsAuthConfig {
   /** The password to authenticate with. */

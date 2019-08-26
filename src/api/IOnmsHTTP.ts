@@ -1,24 +1,36 @@
-import {IFilterProcessor} from './IFilterProcessor';
-
 import {OnmsHTTPOptions} from './OnmsHTTPOptions';
 import {OnmsResult} from './OnmsResult';
 import {OnmsServer} from './OnmsServer';
 
 /**
  * Interface for making ReST calls to an HTTP server.
- * @interface
- * @module IOnmsHTTP
  *
  * Notes to implementors:
  * - Implementations of this interface MUST have a constructor that allows an empty
  *   constructor to be passed (although it is OK to take optional arguments for
- *   the purposes of unit testing).
- * - Implementations MUST always use the current state of the 'server' config property
- *   when creating requests.  If the 'server' property changes, the implementation
+ *   the purposes of unit testing or convenience).
+ * - Implementations MUST always use the current state of the `server` config property
+ *   when creating requests.  If the `server` property changes, the implementation
  *   should do whatever is necessary to reconfigure itself.
- * - Implementations SHOULD prefer the auth in the OnmsServer (if available)
- *   over the one in the OnmsHTTPOptions, but should fall back if no auth
- *   configuration is supplied in the server property.
+ * - Implementations MUST follow this precedence for resolving the preferred
+ *   [[OnmsServer]] object to use when making an individual connection:
+ *   1. The `server` property on the passed [[OnmsHTTPOptions]] on individual
+ *      method calls.
+ *   2. The `server` property in the `options` property of the implementation.
+ *   3. The `server` property of the implementation.
+ * - Implementations MUST follow this precedence for resolving the preferred
+ *   [[OnmsAuthConfig]] to use when making an individual connection:
+ *   1. The `auth` property on the passed [[OnmsHTTPOptions]] on individual
+ *      method calls.
+ *   2. The `auth` property on the `options` property of the implementation.
+ *   3. The `auth` property on the `server` property of the implementation.
+ *
+ * Note that if you subclass [[AbstractHTTP]], [[AbstractHTTP.getOptions]]
+ * will automatically provide you a hydrated [[OnmsHTTPOptions]] that handles
+ * most of this precedence for combining the server metadata.
+ *
+ * @interface
+ * @category Rest
  */
 export interface IOnmsHTTP {
   /** The server associated with this instance. */

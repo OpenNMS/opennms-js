@@ -4,7 +4,7 @@ import {OnmsEnum, forId, forLabel} from '../internal/OnmsEnum';
 
 /**
  * Represents an OpenNMS monitored service status type.
- * @module OnmsServiceStatusType
+ * @category Model
  */
 export class OnmsServiceStatusType extends OnmsEnum<string> implements IHasUrlValue {
   /** Given an ID, return the matching service status type object. */
@@ -29,6 +29,10 @@ export class OnmsServiceStatusType extends OnmsEnum<string> implements IHasUrlVa
 }
 
 /* tslint:disable:object-literal-sort-keys */
+/**
+ * Contains constant instances of all service status types.
+ * @category Model
+ */
 const ServiceStatusTypes = {
   /** Service is managed */
   MANAGED: new OnmsServiceStatusType('A', 'MANAGED'),

@@ -8,7 +8,7 @@ export const Categories = {
 
 /**
  * Represents an OpenNMS category.
- * @module OnmsCategory
+ * @category Model
  */
 export class OnmsCategory implements IHasUrlValue {
   /** Get a singleton category object for the given category. */

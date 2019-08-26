@@ -7,9 +7,12 @@ import {Util} from '../internal/Util';
 
 import {cloneDeep} from 'lodash';
 
+/** @hidden */
 export const DEFAULT_TIMEOUT = 10000;
 
+/** @hidden */
 export const TIMEOUT_PROP = Symbol.for('timeout');
+/** @hidden */
 export const AUTH_PROP = Symbol.for('auth');
 
 /** @hidden */
@@ -18,15 +21,22 @@ const isString = (v?: any) => {
 };
 
 /**
- * A builder for [[OnmsHTTPOptions]].  Create a new one with `OnmsHTTPOptions.newBuilder()`.
+ * A builder for [[OnmsHTTPOptions]].  Create a new one with [[OnmsHTTPOptions.newBuilder]].
+ * @category Rest API
  */
 // tslint:disable:completed-docs variable-name whitespace
 export class OnmsHTTPOptionsBuilder {
+  /** @hidden */
   private _timeout?: number;
+  /** @hidden */
   private _server?: OnmsServer;
+  /** @hidden */
   private _auth?: OnmsAuthConfig;
+  /** @hidden */
   private _headers = {} as IHash<string>;
+  /** @hidden */
   private _parameters = {} as IHash<string | string[]>;
+  /** @hidden */
   private _data?: any;
 
   /**
@@ -244,7 +254,7 @@ export class OnmsHTTPOptionsBuilder {
 
 /**
  * Options to be used when making HTTP ReST calls.
- * @module OnmsHTTPOptions
+ * @category Rest API
  */
 export class OnmsHTTPOptions {
   /**

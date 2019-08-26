@@ -4,7 +4,7 @@ import {OnmsEnum, forId, forLabel} from '../internal/OnmsEnum';
 
 /**
  * Represents an OpenNMS node "is managed" type.
- * @module OnmsManagedType
+ * @category Model
  */
 export class OnmsManagedType extends OnmsEnum<string> implements IHasUrlValue {
   /** Given an ID, return the matching managed type object. */
@@ -29,6 +29,10 @@ export class OnmsManagedType extends OnmsEnum<string> implements IHasUrlValue {
 }
 
 /* tslint:disable:object-literal-sort-keys */
+/**
+ * Contains constant instances of all managed types.
+ * @category Model
+ */
 const ManagedTypes = {
   /** Interface is managed */
   MANAGED: new OnmsManagedType('M', 'MANAGED'),

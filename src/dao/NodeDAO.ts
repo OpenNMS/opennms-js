@@ -24,7 +24,7 @@ import {PhysAddr} from '../model/PhysAddr';
 
 /**
  * Data access for [[OnmsNode]] objects.
- * @module NodeDAO
+ * @category DAO
  */
 export class NodeDAO extends AbstractDAO<number, OnmsNode> {
   constructor(impl: IHasHTTP | IOnmsHTTP) {

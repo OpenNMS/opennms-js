@@ -3,7 +3,7 @@ import {Comparator, Comparators} from './Comparator';
 
 /**
  * Represents a search property type.
- * @module SearchPropertyType
+ * @category Rest API
  */
 export class SearchPropertyType extends OnmsEnum<string> {
   /** @inheritdoc */
@@ -46,6 +46,10 @@ const NumberComparators = [
     Comparators.LE, Comparators.LT,
 ];
 
+/**
+ * Contains constant instances of all search property types.
+ * @category Model
+ */
 const SearchPropertyTypes = {
   FLOAT: new SearchPropertyType('FLOAT', 'floating-point number', NumberComparators),
   INTEGER: new SearchPropertyType('INTEGER', 'integer', NumberComparators),

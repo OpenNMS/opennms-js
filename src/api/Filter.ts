@@ -1,10 +1,8 @@
-
 import {NestedRestriction} from './NestedRestriction';
 
 /**
  * A query filter for DAOs.
- * @module Filter
- * @param T the model type (OnmsAlarm, OnmsEvent, etc.)
+ * @category Filtering API
  */
 export class Filter extends NestedRestriction {
   /** given a filter JSON structure, return a Filter object */

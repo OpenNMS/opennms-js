@@ -2,6 +2,7 @@ import {OnmsError} from '../api/OnmsError';
 
 /**
  * Helper to transform a json string to an json object.
+ * @category Rest API
  */
 export class JsonTransformer {
     /**

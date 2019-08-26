@@ -3,7 +3,7 @@ import {OnmsFlowSeriesColumn} from './OnmsFlowSeriesColumn';
 
 /**
  * Time series metrics derived from flow data.
- * @module OnmsFlowSeries
+ * @category Model
  */
 export class OnmsFlowSeries {
     /** start time */
