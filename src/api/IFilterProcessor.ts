@@ -3,8 +3,8 @@ import {IHash} from '../internal/IHash';
 
 /**
  * Interface that represents a processor to convert a [[Filter]] into a set of HTTP parameters.
- * @module IFilterProcessor
  * @interface
+ * @category Filtering API
  */
 export interface IFilterProcessor {
   /**

@@ -1,5 +1,3 @@
-import {log} from './api/Log';
-
 import {IHasHTTP} from './api/IHasHTTP';
 import {IOnmsHTTP} from './api/IOnmsHTTP';
 
@@ -24,7 +22,7 @@ import { OnmsAuthConfig } from './api/OnmsAuthConfig';
 
 /**
  * The OpenNMS client.  This is the primary interface to OpenNMS servers.
- * @module Client
+ * @category Rest API
  */
 export class Client implements IHasHTTP {
   /**
@@ -110,7 +108,7 @@ export class Client implements IHasHTTP {
   /**
    * Construct a new OpenNMS client.
    *
-   * If no `httpImpl` parameter is provided, the class in `Client.defaultHttp` will be used by default.
+   * If no `httpImpl` parameter is provided, the class in [[Client.defaultHttp]] will be used by default.
    * Unless overridden, this defaults to [[AxiosHTTP]].
    *
    * @constructor

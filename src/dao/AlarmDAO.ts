@@ -16,14 +16,14 @@ import {OnmsAlarmType} from '../model/OnmsAlarmType';
 import {OnmsParm} from '../model/OnmsParm';
 import {OnmsServiceType} from '../model/OnmsServiceType';
 import {OnmsSeverity} from '../model/OnmsSeverity';
-import {OnmsTroubleTicketState, TroubleTicketStates} from '../model/OnmsTroubleTicketState';
+import {OnmsTroubleTicketState} from '../model/OnmsTroubleTicketState';
 import {OnmsMemo} from '../model/OnmsMemo';
 
 import {log} from '../api/Log';
 
 /**
  * Data access for [[OnmsAlarm]] objects.
- * @module AlarmDAO
+ * @category DAO
  */
 export class AlarmDAO extends AbstractDAO<number, OnmsAlarm> {
   /**

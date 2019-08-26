@@ -24,9 +24,9 @@ import {BaseDAO} from './BaseDAO';
  * inside OpenNMS.  Used to retrieve model data like alarms, events, etc. from the
  * OpenNMS ReST API in a consistent way.
  *
- * @module AbstractDAO
- * @param K the ID/key type (number, string, etc.)
- * @param T the model type (OnmsAlarm, OnmsEvent, etc.)
+ * @category DAO
+ * @typeparam K the ID/key type (number, string, etc.)
+ * @typeparam T the model type (OnmsAlarm, OnmsEvent, etc.)
  */
 export abstract class AbstractDAO<K, T> extends BaseDAO implements IValueProvider {
   /** A local cache of v2 DAO properties (`api/v2/DAO/properties`) */

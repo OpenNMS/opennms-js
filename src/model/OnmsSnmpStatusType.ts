@@ -4,7 +4,7 @@ import {OnmsEnum, forId, forLabel} from '../internal/OnmsEnum';
 
 /**
  * Represents an OpenNMS SNMP admin/oper status type.
- * @module OnmsSnmpStatusType
+ * @category Model
  */
 export class OnmsSnmpStatusType extends OnmsEnum<number> implements IHasUrlValue {
   /** Given an ID, return the matching snmp status type object. */
@@ -24,6 +24,10 @@ export class OnmsSnmpStatusType extends OnmsEnum<number> implements IHasUrlValue
 }
 
 /* tslint:disable:object-literal-sort-keys */
+/**
+ * Contains constant instances of all SNMP status types.
+ * @category Model
+ */
 const SnmpStatusTypes = {
   /** Device is up */
   1: new OnmsSnmpStatusType(1, 'UP'),

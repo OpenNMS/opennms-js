@@ -10,7 +10,7 @@ import {OnmsSituationFeedbackType} from '../model/OnmsSituationFeedbackType';
 
 /**
  * Data access for [[OnmsSituationFeedback]] objects.
- * @module SituationFeedbackDAO
+ * @category DAO
  */
 export class SituationFeedbackDAO extends BaseDAO {
 

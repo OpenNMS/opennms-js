@@ -7,7 +7,7 @@ import {OnmsSeverity} from './OnmsSeverity';
 
 /**
  * Represents an OpenNMS event.
- * @module OnmsEvent
+ * @category Model
  */
 export class OnmsEvent implements IHasUrlValue {
   /** the event ID */

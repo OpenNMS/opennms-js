@@ -3,7 +3,7 @@ import {OnmsSituationFeedbackType} from './OnmsSituationFeedbackType';
 
 /**
  * Represents an OpenNMS alarm.
- * @module OnmsAlarm
+ * @category Model
  */
 export class OnmsSituationFeedback implements IHasUrlValue {
 

@@ -1,4 +1,3 @@
-
 import {Clause} from './Clause';
 import {Filter} from './Filter';
 import {NestedRestriction} from './NestedRestriction';
@@ -6,7 +5,9 @@ import {Restriction} from './Restriction';
 
 /**
  * A visitor for filters.
- * @module FilterVisitor
+ *
+ * @interface
+ * @category Filtering API
  */
 export interface IFilterVisitor {
   /** Process a [[Filter]] */

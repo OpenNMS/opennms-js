@@ -8,7 +8,7 @@ export const ServiceTypes = {
 
 /**
  * Represents an OpenNMS service.
- * @module OnmsServiceType
+ * @category Model
  */
 export class OnmsServiceType implements IHasUrlValue {
   /** Get a singleton service type object for the given service. */

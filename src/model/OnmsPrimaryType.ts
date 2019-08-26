@@ -4,7 +4,7 @@ import {OnmsEnum, forId, forLabel} from '../internal/OnmsEnum';
 
 /**
  * Represents an OpenNMS "SNMP primary" type.
- * @module OnmsPrimaryType
+ * @category Model
  */
 export class OnmsPrimaryType extends OnmsEnum<string> implements IHasUrlValue {
   /** Given an ID, return the matching primary type object. */
@@ -29,6 +29,10 @@ export class OnmsPrimaryType extends OnmsEnum<string> implements IHasUrlValue {
 }
 
 /* tslint:disable:object-literal-sort-keys */
+/**
+ * Contains constant instances of all primary SNMP types.
+ * @category Model
+ */
 const PrimaryTypes = {
   /** Primary SNMP interface */
   PRIMARY: new OnmsPrimaryType('P', 'PRIMARY'),

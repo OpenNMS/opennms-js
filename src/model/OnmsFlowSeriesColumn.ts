@@ -1,6 +1,6 @@
 /**
  * Time series column.
- * @module OnmsFlowSeriesColumn
+ * @category Model
  */
 export class OnmsFlowSeriesColumn {
     /** label */

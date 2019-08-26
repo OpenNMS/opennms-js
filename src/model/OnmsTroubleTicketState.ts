@@ -4,7 +4,7 @@ import {OnmsEnum, forId, forLabel} from '../internal/OnmsEnum';
 
 /**
  * Represents an OpenNMS trouble ticket state.
- * @module OnmsTroubleTicketState
+ * @category Model
  */
 export class OnmsTroubleTicketState extends OnmsEnum<number> implements IHasUrlValue {
   /** @inheritdoc */
@@ -24,6 +24,10 @@ export class OnmsTroubleTicketState extends OnmsEnum<number> implements IHasUrlV
 }
 
 /* tslint:disable:object-literal-sort-keys */
+/**
+ * Contains constant instances of all trouble ticket states.
+ * @category Model
+ */
 const TroubleTicketStates = {
   /** Trouble ticket is currently open */
   OPEN: new OnmsTroubleTicketState(0, 'OPEN'),

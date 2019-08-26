@@ -1,6 +1,6 @@
 /**
  * OpenNMS flow node SNMP interface metadata.
- * @module OnmsFlowSnmpInterface
+ * @category Model
  */
 export class OnmsFlowSnmpInterface {
     /** the interface's ifIndex */

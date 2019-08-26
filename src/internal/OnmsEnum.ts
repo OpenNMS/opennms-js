@@ -1,7 +1,6 @@
-
 /**
  * Represents an enumerated type.
- * @module OnmsEnum
+ * @category Internal
  */
 export class OnmsEnum<T> {
   /** the internal index/id */

@@ -3,7 +3,7 @@ import {OnmsFlowExporterSummary} from './OnmsFlowExporterSummary';
 
 /**
  * Represents OpenNMS flow information about a node and its interfaces.
- * @module OnmsFlowExporter
+ * @category Model
  */
 export class OnmsFlowExporter extends OnmsFlowExporterSummary {
     /** a collection of interface information */

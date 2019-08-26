@@ -2,7 +2,7 @@ import {Moment} from 'moment';
 
 /**
  * Represents an OpenNMS memo.
- * @module OnmsMemo
+ * @category Model
  */
 export class OnmsMemo {
     /** the memo ID */

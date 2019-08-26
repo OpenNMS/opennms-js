@@ -12,7 +12,7 @@ const dateFormat = 'YYYY-MM-DDTHH:mm:ss.SSSZZ';
 
 /**
  * A utility class for random stuff.
- * @module Util
+ * @category Internal
  */
 export class Util {
 

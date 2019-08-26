@@ -7,7 +7,7 @@ import {IOnmsHTTP} from './IOnmsHTTP';
  * and the [[Client]] which needs to contain an [[IOnmsHTTP]].
  *
  * @interface
- * @module IHasHTTP
+ * @category Rest
  */
 export interface IHasHTTP {
   /** The HTTP implementation this object should contain. */

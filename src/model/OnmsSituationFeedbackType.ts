@@ -4,7 +4,7 @@ import {OnmsEnum, forId, forLabel} from '../internal/OnmsEnum';
 
 /**
  * Represents an OpenNMS "SituationFeedback" type.
- * @module OnmsSituationFeedbackType
+ * @category Model
  */
 export class OnmsSituationFeedbackType extends OnmsEnum<string> implements IHasUrlValue {
   /** Given an ID, return the matching SituationFeedback type object. */
@@ -24,6 +24,10 @@ export class OnmsSituationFeedbackType extends OnmsEnum<string> implements IHasU
 }
 
 /* tslint:disable:object-literal-sort-keys */
+/**
+ * Contains constant instances of all feedback types.
+ * @category Model
+ */
 const FeedbackTypes = {
   /** Alarm is correctly correlated */
   CORRECT: new OnmsSituationFeedbackType('CORRECT', 'CORRECT'),

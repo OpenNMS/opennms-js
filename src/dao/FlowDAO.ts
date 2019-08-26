@@ -15,7 +15,7 @@ const moment = require('moment');
 
 /**
  * DAO for accessing flow (Netflow/IPFIX/sFlow) data.
- * @module FlowDAO
+ * @category DAO
  */
 export class FlowDAO extends BaseDAO {
     /**
@@ -568,6 +568,10 @@ export class FlowDAO extends BaseDAO {
     }
 }
 
+/**
+ * Preferred object for providing options to TopN queries.
+ * @category DAO
+ */
 export interface ITopNOptions {
     /** how many series to return */
     N: number;

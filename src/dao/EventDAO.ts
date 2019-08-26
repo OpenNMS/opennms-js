@@ -14,7 +14,7 @@ import {Severities, OnmsSeverity} from '../model/OnmsSeverity';
 
 /**
  * Data access for [[OnmsEvent]] objects.
- * @module EventDAO
+ * @category DAO
  */
 export class EventDAO extends AbstractDAO<number, OnmsEvent> {
   constructor(impl: IHasHTTP | IOnmsHTTP) {

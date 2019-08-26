@@ -2,7 +2,7 @@ import {OnmsEnum, forLabel} from '../internal/OnmsEnum';
 
 /**
  * Represents a filter comparator.
- * @module Comparator
+ * @category Filtering API
  */
 export class Operator extends OnmsEnum<number> {
   /** Given a label ('and', 'or'), return the corresponding operator. */
@@ -27,6 +27,10 @@ export class Operator extends OnmsEnum<number> {
 
 /* tslint:disable:object-literal-sort-keys */
 
+/**
+ * Contains constant instances of all operators.
+ * @category Model
+ */
 const Operators = {
   /** AND (all must match) */
   AND: new Operator(1, 'AND'),

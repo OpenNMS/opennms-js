@@ -9,7 +9,7 @@ import {OnmsPrimaryType} from './OnmsPrimaryType';
 
 /**
  * Represents an OpenNMS IP interface.
- * @module OnmsIpInterface
+ * @category Model
  */
 export class OnmsIpInterface implements IHasUrlValue {
   /** the interface ID */

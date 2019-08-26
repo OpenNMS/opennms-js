@@ -11,13 +11,18 @@ import {ServerTypes} from './ServerType';
 import {MD5} from 'object-hash';
 
 /**
- * A builder for [[OnmsServer]].  Create a new one with `OnmsServer.newBuilder()`.
+ * A builder for [[OnmsServer]].  Create a new one with [[OnmsServer.newBuilder]].
+ * @category Rest API
  */
 // tslint:disable:completed-docs variable-name whitespace
 export class OnmsServerBuilder {
+  /** @hidden */
   private _name?: string;
+  /** @hidden */
   private _url?: string;
+  /** @hidden */
   private _auth?: OnmsAuthConfig;
+  /** @hidden */
   private _metadata?: ServerMetadata;
 
   /**
@@ -96,7 +101,7 @@ export class OnmsServerBuilder {
 
 /**
  * Represents a remote OpenNMS server.
- * @module OnmsServer
+ * @category Rest API
  */
 export class OnmsServer {
   /**
