@@ -1,8 +1,9 @@
-declare const await, describe, beforeEach, it, expect, jest;
+declare const describe, it, expect;
 
-import {OnmsError} from '../../src/api/OnmsError';
 import {Comparators} from '../../src/api/Comparator';
 import {Filter} from '../../src/api/Filter';
+import {OnmsError} from '../../src/api/OnmsError';
+import {OrderBy, Orders} from '../../src/api/OrderBy';
 import {Restriction} from '../../src/api/Restriction';
 
 import {Severities} from '../../src/model/OnmsSeverity';
@@ -80,5 +81,24 @@ describe('V1FilterProcessor', () => {
     expect(proc.getParameters(filter)).toMatchObject({
       lastEventTime: '1976-04-14T00:00:00.000+0000',
     });
+  });
+  it('alarm filter: orderBy=lastEventTime&orderBy=id&order=DESC', () => {
+    const filter = new Filter();
+    filter
+      .withOrderBy(new OrderBy('lastEventTime', Orders.DESC))
+      .withOrderBy(new OrderBy('id', Orders.DESC));
+    const proc = new V1FilterProcessor();
+    expect(proc.getParameters(filter)).toMatchObject({
+      order: 'DESC',
+      orderBy: ['lastEventTime', 'id'],
+    });
+  });
+  it('alarm filter: orderBy=lastEventTime&order=DESC&orderBy=id&order=ASC', () => {
+    const filter = new Filter();
+    filter
+      .withOrderBy(new OrderBy('lastEventTime', Orders.DESC))
+      .withOrderBy(new OrderBy('id', Orders.ASC));
+    const proc = new V1FilterProcessor();
+    expect(() => { proc.getParameters(filter); }).toThrow();
   });
 });

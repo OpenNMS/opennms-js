@@ -78,6 +78,17 @@ export class V1FilterProcessor implements IFilterProcessor {
       }
     }
 
+    if (filter.orderBy && filter.orderBy.length > 0) {
+      const orders = filter.orderBy.map((o) => o.order.label).filter((val, index, self) => self.indexOf(val) === index);
+      if (orders.length > 1) {
+        throw new OnmsError('The V1 ReST API only supports one order (ASC or DESC), they cannot be mixed.');
+      }
+      addParameter(ret, 'order', orders[0] || 'DESC');
+      for (const orderBy of filter.orderBy) {
+        addParameter(ret, 'orderBy', orderBy.attribute);
+      }
+    }
+
     return ret;
   }
 }
