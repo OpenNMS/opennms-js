@@ -5,6 +5,7 @@ import {log} from './api/Log';
 import chalk from 'chalk';
 import {cloneDeep, startCase} from 'lodash';
 import {table, getBorderCharacters} from 'table';
+import { OrderBy, Order, Orders } from './api/OrderBy';
 
 /** @hidden */
 const CLI = () => {
@@ -198,23 +199,42 @@ const CLI = () => {
   // list current alarms
   program
     .command('alarms [filters...]')
-    .description('List current alarms with optional filters (eg: "severity eq MAJOR" or "node.label like dns*")')
+    // tslint:disable-next-line:max-line-length
+    .description('List current alarms with optional filters (eg: "severity eq MAJOR", "node.label like dns*", "orderBy=lastEventTime")')
     .action((filters: string[]) => {
       const config = readConfig();
       return new Client().connect('OpenNMS', config.url, config.username, config.password).then((client) => {
         const dao = new DAO.AlarmDAO(client);
 
         const filter = new API.Filter();
+        let order: Order | undefined;
 
         for (const f of filters) {
           log.debug('filter=' + f);
-          const parsed = API.Restriction.fromString(f);
-          if (parsed) {
-            filter.withOrRestriction(parsed);
+
+          if (f.toLowerCase().startsWith('orderby')) {
+            const orderBy = OrderBy.fromString(f);
+            if (orderBy) {
+              filter.withOrderBy(orderBy);
+            }
+          } else if (f.startsWith('order')) {
+            if (!order) {
+              order = Order.fromString(f);
+            } else {
+              log.warn('Only the first order= filter option will be used.');
+            }
           } else {
-            log.warn('Unable to parse filter "' + f + '"');
+            const parsed = API.Restriction.fromString(f);
+            if (parsed) {
+              filter.withOrRestriction(parsed);
+            } else {
+              log.warn('Unable to parse filter "' + f + '"');
+            }
           }
         }
+
+        // make sure all OrderBy options have the same order, defaulting to DESC
+        filter.orderBy = filter.orderBy.map((o) => new OrderBy(o.attribute, order || Orders.DESC));
 
         return dao.find(filter).then((alarms) => {
           if (!alarms || alarms.length === 0) {
