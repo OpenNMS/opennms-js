@@ -1,7 +1,7 @@
 import {IHash} from '../internal/IHash';
 import {Util} from '../internal/Util';
 
-import {IFilterProcessor} from '../api/IFilterProcessor';
+import {addParameter, IFilterProcessor} from '../api/IFilterProcessor';
 
 import {Filter} from '../api/Filter';
 import {Comparator, Comparators} from '../api/Comparator';
@@ -42,19 +42,19 @@ export class V2FilterProcessor implements IFilterProcessor {
   }
 
   /** Given a filter, return a hash of URL parameters. */
-  public getParameters(filter: Filter) {
-      const ret = {} as IHash<string>;
+  public getParameters(filter: Filter): IHash<string|string[]> {
+    const ret = {} as IHash<string|string[]>;
 
-      if (filter.limit !== undefined) {
-          ret.limit = '' + filter.limit;
-      }
+    if (filter.limit !== undefined) {
+      addParameter(ret, 'limit', filter.limit);
+    }
 
-      const search = this.toFIQL(filter.clauses);
-      if (search.length > 0) {
-          ret._s = search;
-      }
+    const search = this.toFIQL(filter.clauses);
+    if (search.length > 0) {
+      addParameter(ret, '_s', search);
+    }
 
-      return ret;
+    return ret;
   }
 
   /**

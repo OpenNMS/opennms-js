@@ -15,6 +15,33 @@ import {OnmsServer} from '../api/OnmsServer';
 import {log} from '../api/Log';
 
 /**
+ * By default, Axios turns `key` in multi-value parameters into
+ * `key[]`.  We need to implement an alternate parameter processor
+ * to leave it as just the key name.  See
+ * https://github.com/axios/axios/issues/604#issuecomment-420135579
+ * for details.
+ *
+ * @hidden
+ */
+const parseParams = (params: { [key: string]: string|string[] }) => {
+  const keys = Object.keys(params);
+  let options = '';
+
+  keys.forEach((key) => {
+    if (Array.isArray(params[key])) {
+      const value = params[key] as string[];
+      value.forEach((element) => {
+        options += `${key}=${element}&`;
+      });
+    } else {
+      options += `${key}=${params[key]}&`;
+    }
+  });
+
+  return options ? options.slice(0, -1) : options;
+};
+
+/**
  * Implementation of the [[IOnmsHTTP]] interface using Axios: https://github.com/mzabriskie/axios
  * @category Rest Implementation
  * @implements IOnmsHTTP
@@ -227,6 +254,8 @@ export class AxiosHTTP extends AbstractHTTP {
     } else {
       throw new OnmsError('Unhandled "Accept" header: ' + type);
     }
+
+    ret.paramsSerializer = (params) => parseParams(params);
 
     if (allOptions.parameters) {
       ret.params = cloneDeep(allOptions.parameters);
