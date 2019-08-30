@@ -1,7 +1,7 @@
 import {IHash} from '../internal/IHash';
 import {Util} from '../internal/Util';
 
-import {IFilterProcessor} from '../api/IFilterProcessor';
+import {addParameter, IFilterProcessor} from '../api/IFilterProcessor';
 
 import {Filter} from '../api/Filter';
 import {Comparator, Comparators} from '../api/Comparator';
@@ -42,19 +42,30 @@ export class V2FilterProcessor implements IFilterProcessor {
   }
 
   /** Given a filter, return a hash of URL parameters. */
-  public getParameters(filter: Filter) {
-      const ret = {} as IHash<string>;
+  public getParameters(filter: Filter): IHash<string|string[]> {
+    const ret = {} as IHash<string|string[]>;
 
-      if (filter.limit !== undefined) {
-          ret.limit = '' + filter.limit;
+    if (filter.limit !== undefined) {
+      addParameter(ret, 'limit', filter.limit);
+    }
+
+    const search = this.toFIQL(filter.clauses);
+    if (search.length > 0) {
+      addParameter(ret, '_s', search);
+    }
+
+    if (filter.orderBy && filter.orderBy.length > 0) {
+      const orders = filter.orderBy.map((o) => o.order.label).filter((val, index, self) => self.indexOf(val) === index);
+      if (orders.length > 1) {
+        throw new OnmsError('The V2 ReST API only supports one order (ASC or DESC), they cannot be mixed.');
       }
-
-      const search = this.toFIQL(filter.clauses);
-      if (search.length > 0) {
-          ret._s = search;
+      addParameter(ret, 'order', orders[0] || 'DESC');
+      for (const orderBy of filter.orderBy) {
+        addParameter(ret, 'orderBy', orderBy.attribute);
       }
+    }
 
-      return ret;
+    return ret;
   }
 
   /**

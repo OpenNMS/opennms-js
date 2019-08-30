@@ -1,18 +1,19 @@
-declare const await, describe, beforeEach, it, expect, jest;
+declare const describe, it, expect;
 
 import {Comparators} from '../../src/api/Comparator';
 import {Filter} from '../../src/api/Filter';
+import {NestedRestriction} from '../../src/api/NestedRestriction';
+import {OrderBy, Orders} from '../../src/api/OrderBy';
 import {Restriction} from '../../src/api/Restriction';
 import {SearchProperty} from '../../src/api/SearchProperty';
 import {SearchPropertyTypes} from '../../src/api/SearchPropertyType';
-import {NestedRestriction} from '../../src/api/NestedRestriction';
 
 import {Severities} from '../../src/model/OnmsSeverity';
 
 import {V2FilterProcessor} from '../../src/dao/V2FilterProcessor';
 
 describe('V2FilterProcessor', () => {
-
+  // tslint:disable-next-line:completed-docs
   function toSearch(filter: Filter, processor?: V2FilterProcessor) {
     if (!processor) {
       processor = new V2FilterProcessor();
@@ -109,5 +110,24 @@ describe('V2FilterProcessor', () => {
           'alarmAckTime==1970-01-01T00%3A00%3A00.000%2B0000'
           + ';alarmAckTime!=1970-01-01T00%3A00%3A00.000%2B0000'
           + ';id==\u0000;id!=\u0000');
+  });
+  it('alarm filter: orderBy=lastEventTime&orderBy=id&order=DESC', () => {
+    const filter = new Filter();
+    filter
+      .withOrderBy(new OrderBy('lastEventTime', Orders.DESC))
+      .withOrderBy(new OrderBy('id', Orders.DESC));
+    const proc = new V2FilterProcessor();
+    expect(proc.getParameters(filter)).toMatchObject({
+      order: 'DESC',
+      orderBy: ['lastEventTime', 'id'],
+    });
+  });
+  it('alarm filter: orderBy=lastEventTime&order=DESC&orderBy=id&order=ASC', () => {
+    const filter = new Filter();
+    filter
+      .withOrderBy(new OrderBy('lastEventTime', Orders.DESC))
+      .withOrderBy(new OrderBy('id', Orders.ASC));
+    const proc = new V2FilterProcessor();
+    expect(() => { proc.getParameters(filter); }).toThrow();
   });
 });
