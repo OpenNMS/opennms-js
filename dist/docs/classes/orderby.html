@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>PhysAddr | OpenNMS.js</title>
+	<title>OrderBy | OpenNMS.js</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -56,10 +56,10 @@
 					<a href="../globals.html">Globals</a>
 				</li>
 				<li>
-					<a href="physaddr.html">PhysAddr</a>
+					<a href="orderby.html">OrderBy</a>
 				</li>
 			</ul>
-			<h1>Class PhysAddr</h1>
+			<h1>Class OrderBy</h1>
 		</div>
 	</div>
 </header>
@@ -69,7 +69,7 @@
 			<section class="tsd-panel tsd-comment">
 				<div class="tsd-comment tsd-typography">
 					<div class="lead">
-						<p>Represents a physical (MAC) address.</p>
+						<p>Column ordering.</p>
 					</div>
 				</div>
 			</section>
@@ -77,14 +77,8 @@
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<span class="target">PhysAddr</span>
+						<span class="target">OrderBy</span>
 					</li>
-				</ul>
-			</section>
-			<section class="tsd-panel">
-				<h3>Implements</h3>
-				<ul class="tsd-hierarchy">
-					<li><a href="../interfaces/ihasurlvalue.html" class="tsd-signature-type">IHasUrlValue</a></li>
 				</ul>
 			</section>
 			<section class="tsd-panel-group tsd-index-group">
@@ -94,25 +88,21 @@
 						<section class="tsd-index-section ">
 							<h3>Constructors</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-constructor tsd-parent-kind-class"><a href="physaddr.html#constructor" class="tsd-kind-icon">constructor</a></li>
+								<li class="tsd-kind-constructor tsd-parent-kind-class"><a href="orderby.html#constructor" class="tsd-kind-icon">constructor</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-class"><a href="physaddr.html#addr" class="tsd-kind-icon">addr</a></li>
-							</ul>
-						</section>
-						<section class="tsd-index-section ">
-							<h3>Accessors</h3>
-							<ul class="tsd-index-list">
-								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="physaddr.html#urlvalue" class="tsd-kind-icon">url<wbr>Value</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="orderby.html#attribute" class="tsd-kind-icon">attribute</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="orderby.html#order" class="tsd-kind-icon">order</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
 							<h3>Methods</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-method tsd-parent-kind-class"><a href="physaddr.html#tostring" class="tsd-kind-icon">to<wbr>String</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="orderby.html#fromjson" class="tsd-kind-icon">from<wbr>Json</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="orderby.html#fromstring" class="tsd-kind-icon">from<wbr>String</a></li>
 							</ul>
 						</section>
 					</div>
@@ -124,22 +114,25 @@
 					<a name="constructor" class="tsd-anchor"></a>
 					<h3>constructor</h3>
 					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">new <wbr>Phys<wbr>Addr<span class="tsd-signature-symbol">(</span>addr<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="physaddr.html" class="tsd-signature-type">PhysAddr</a></li>
+						<li class="tsd-signature tsd-kind-icon">new <wbr>Order<wbr>By<span class="tsd-signature-symbol">(</span>attribute<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, order<span class="tsd-signature-symbol">?: </span><a href="order.html" class="tsd-signature-type">Order</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="orderby.html" class="tsd-signature-type">OrderBy</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/bcc07e1/src/model/PhysAddr.ts#L9">model/PhysAddr.ts:9</a></li>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/bcc07e1/src/api/OrderBy.ts#L66">api/OrderBy.ts:66</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>addr: <span class="tsd-signature-type">string</span></h5>
+									<h5>attribute: <span class="tsd-signature-type">string</span></h5>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> order: <a href="order.html" class="tsd-signature-type">Order</a></h5>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <a href="physaddr.html" class="tsd-signature-type">PhysAddr</a></h4>
+							<h4 class="tsd-returns-title">Returns <a href="orderby.html" class="tsd-signature-type">OrderBy</a></h4>
 						</li>
 					</ul>
 				</section>
@@ -147,71 +140,97 @@
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Properties</h2>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
-					<a name="addr" class="tsd-anchor"></a>
-					<h3>addr</h3>
-					<div class="tsd-signature tsd-kind-icon">addr<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<a name="attribute" class="tsd-anchor"></a>
+					<h3>attribute</h3>
+					<div class="tsd-signature tsd-kind-icon">attribute<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/bcc07e1/src/model/PhysAddr.ts#L9">model/PhysAddr.ts:9</a></li>
+							<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/bcc07e1/src/api/OrderBy.ts#L63">api/OrderBy.ts:63</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>The MAC address string.</p>
+							<p>the attribute to order by</p>
+						</div>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="order" class="tsd-anchor"></a>
+					<h3>order</h3>
+					<div class="tsd-signature tsd-kind-icon">order<span class="tsd-signature-symbol">:</span> <a href="order.html" class="tsd-signature-type">Order</a></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/bcc07e1/src/api/OrderBy.ts#L66">api/OrderBy.ts:66</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>the order to sort</p>
 						</div>
 					</div>
 				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
-				<h2>Accessors</h2>
-				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class">
-					<a name="urlvalue" class="tsd-anchor"></a>
-					<h3>url<wbr>Value</h3>
-					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> urlValue<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li>
+				<h2>Methods</h2>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-static">
+					<a name="fromjson" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> from<wbr>Json</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-static">
+						<li class="tsd-signature tsd-kind-icon">from<wbr>Json<span class="tsd-signature-symbol">(</span>orderBy<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="orderby.html" class="tsd-signature-type">OrderBy</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/bcc07e1/src/model/PhysAddr.ts#L31">model/PhysAddr.ts:31</a></li>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/bcc07e1/src/api/OrderBy.ts#L45">api/OrderBy.ts:45</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>The value of this object when added to an OpenNMS URL parameter.</p>
+									<p>given an OrderBy JSON structure, return an <a href="orderby.html">OrderBy</a> object</p>
 								</div>
-								<dl class="tsd-comment-tags">
-									<dt>inheritdoc</dt>
-									<dd></dd>
-								</dl>
 							</div>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>orderBy: <span class="tsd-signature-type">any</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="orderby.html" class="tsd-signature-type">OrderBy</a>
+								<span class="tsd-signature-symbol"> | </span>
+								<span class="tsd-signature-type">undefined</span>
+							</h4>
 						</li>
 					</ul>
 				</section>
-			</section>
-			<section class="tsd-panel-group tsd-member-group ">
-				<h2>Methods</h2>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
-					<a name="tostring" class="tsd-anchor"></a>
-					<h3>to<wbr>String</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">to<wbr>String<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-static">
+					<a name="fromstring" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> from<wbr>String</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-static">
+						<li class="tsd-signature tsd-kind-icon">from<wbr>String<span class="tsd-signature-symbol">(</span>order<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="orderby.html" class="tsd-signature-type">OrderBy</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/bcc07e1/src/model/PhysAddr.ts#L16">model/PhysAddr.ts:16</a></li>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/bcc07e1/src/api/OrderBy.ts#L53">api/OrderBy.ts:53</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>A human-readable string suitable for display.</p>
+									<p>given an orderBy spec (<code>orderBy=attribute</code>), return an <a href="orderby.html">OrderBy</a> object</p>
 								</div>
 							</div>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>order: <span class="tsd-signature-type">string</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="orderby.html" class="tsd-signature-type">OrderBy</a>
+								<span class="tsd-signature-symbol"> | </span>
+								<span class="tsd-signature-type">undefined</span>
+							</h4>
 						</li>
 					</ul>
 				</section>
@@ -230,19 +249,22 @@
 				</ul>
 				<ul class="current">
 					<li class="current tsd-kind-class">
-						<a href="physaddr.html" class="tsd-kind-icon">Phys<wbr>Addr</a>
+						<a href="orderby.html" class="tsd-kind-icon">Order<wbr>By</a>
 						<ul>
 							<li class=" tsd-kind-constructor tsd-parent-kind-class">
-								<a href="physaddr.html#constructor" class="tsd-kind-icon">constructor</a>
+								<a href="orderby.html#constructor" class="tsd-kind-icon">constructor</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class">
-								<a href="physaddr.html#addr" class="tsd-kind-icon">addr</a>
+								<a href="orderby.html#attribute" class="tsd-kind-icon">attribute</a>
 							</li>
-							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
-								<a href="physaddr.html#urlvalue" class="tsd-kind-icon">url<wbr>Value</a>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="orderby.html#order" class="tsd-kind-icon">order</a>
 							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="physaddr.html#tostring" class="tsd-kind-icon">to<wbr>String</a>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static">
+								<a href="orderby.html#fromjson" class="tsd-kind-icon">from<wbr>Json</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static">
+								<a href="orderby.html#fromstring" class="tsd-kind-icon">from<wbr>String</a>
 							</li>
 						</ul>
 					</li>

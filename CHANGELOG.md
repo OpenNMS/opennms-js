@@ -1,4 +1,4 @@
-# [2.0.0-SNAPSHOT](https://github.com/OpenNMS/opennms-js/compare/v1.5.0...v2.0.0-SNAPSHOT) (2019-08-28)
+# [2.0.0-SNAPSHOT](https://github.com/OpenNMS/opennms-js/compare/v1.5.0...v2.0.0-SNAPSHOT) (2019-08-30)
 
 
 ### Bug Fixes
@@ -26,10 +26,13 @@
 ### Features
 
 * add .equals() to various metadata objects ([cf3ff5f](https://github.com/OpenNMS/opennms-js/commit/cf3ff5f))
+* make common API objects immutable ([0b8407c](https://github.com/OpenNMS/opennms-js/commit/0b8407c))
+* **api:** add orderBy support to filter queries (HELM-174) ([6e7edfa](https://github.com/OpenNMS/opennms-js/commit/6e7edfa))
+* **api:** add support for multi-value parameters ([138f524](https://github.com/OpenNMS/opennms-js/commit/138f524))
 * **build:** add dependabot auto-updater config ([b0eb941](https://github.com/OpenNMS/opennms-js/commit/b0eb941))
+* **cli:** add orderBy= and order= support to `alarms` ([d67832a](https://github.com/OpenNMS/opennms-js/commit/d67832a))
 * **client:** cache DAOs accessed through the Client API (JS-38) ([76c9205](https://github.com/OpenNMS/opennms-js/commit/76c9205))
 * **rest:** add HTTP HEAD ([bea34a5](https://github.com/OpenNMS/opennms-js/commit/bea34a5))
-* make common API objects immutable ([0b8407c](https://github.com/OpenNMS/opennms-js/commit/0b8407c))
 
 
 ### BREAKING CHANGES
