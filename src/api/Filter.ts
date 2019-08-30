@@ -1,4 +1,5 @@
 import {NestedRestriction} from './NestedRestriction';
+import {OrderBy} from './OrderBy';
 
 /**
  * A query filter for DAOs.
@@ -12,6 +13,9 @@ export class Filter extends NestedRestriction {
       newFilter.limit = filter.limit;
       const nested = NestedRestriction.fromJson(filter);
       newFilter.clauses = nested.clauses;
+      if (filter.orderBy && filter.orderBy.length > 0) {
+        newFilter.orderBy = filter.orderBy.map((o: any) => OrderBy.fromJson(o));
+      }
     }
     return newFilter;
   }
@@ -19,5 +23,12 @@ export class Filter extends NestedRestriction {
   /** how many results to get back by default */
   public limit = 1000;
 
-  /** TODO: add (multiple) orderBy/order support */
+  /** how to sort results */
+  public orderBy: OrderBy[] = [];
+
+  /** Add the given order criteria to the filter. */
+  public withOrderBy(order: OrderBy) {
+    this.orderBy.push(order);
+    return this;
+  }
 }

@@ -2,7 +2,7 @@ import {IHash} from '../internal/IHash';
 import {OnmsEnum} from '../internal/OnmsEnum';
 import {Util} from '../internal/Util';
 
-import {IFilterProcessor} from '../api/IFilterProcessor';
+import {addParameter, IFilterProcessor} from '../api/IFilterProcessor';
 
 import {Filter} from '../api/Filter';
 import {Comparator, Comparators} from '../api/Comparator';
@@ -28,11 +28,11 @@ const isExclusive = (comparator: Comparator) => {
  */
 export class V1FilterProcessor implements IFilterProcessor {
   /** Given a filter, return a hash of URL parameters. */
-  public getParameters(filter: Filter) {
-    const ret = {} as IHash<string>;
+  public getParameters(filter: Filter): IHash<string|string[]> {
+    const ret = {} as IHash<string|string[]>;
 
     if (filter.limit !== undefined) {
-      ret.limit = '' + filter.limit;
+      addParameter(ret, 'limit', filter.limit);
     }
 
     if (!filter.clauses) {
@@ -51,30 +51,41 @@ export class V1FilterProcessor implements IFilterProcessor {
       const restriction = clause.restriction as Restriction;
       switch (restriction.comparator) {
         case Comparators.NULL: {
-          ret[restriction.attribute] = 'null';
+          addParameter(ret, restriction.attribute, 'null');
           break;
         }
         case Comparators.NOTNULL: {
-          ret[restriction.attribute] = 'notnull';
+          addParameter(ret, restriction.attribute, 'notnull');
           break;
         }
         default: {
           const comp = restriction.comparator.label.toLowerCase();
-          if (ret.comparator && ret.comparator !== comp) {
+          addParameter(ret, 'comparator', comp);
+          if (Array.isArray(ret.comparator) && ret.comparator.length > 1) {
             throw new OnmsError('V1 only supports one restriction comparator type!');
           }
-          ret.comparator = comp;
           if (restriction.value instanceof OnmsEnum) {
-            ret[restriction.attribute] = (restriction.value as OnmsEnum<any>).label;
+            addParameter(ret, restriction.attribute, (restriction.value as OnmsEnum<any>).label);
           } else if (Util.isDateObject(restriction.value)) {
             const v = Util.toDateString(restriction.value);
             if (v) {
-              ret[restriction.attribute] = v;
+              addParameter(ret, restriction.attribute, v);
             }
           } else {
-            ret[restriction.attribute] = '' + restriction.value;
+            addParameter(ret, restriction.attribute, restriction.value);
           }
         }
+      }
+    }
+
+    if (filter.orderBy && filter.orderBy.length > 0) {
+      const orders = filter.orderBy.map((o) => o.order.label).filter((val, index, self) => self.indexOf(val) === index);
+      if (orders.length > 1) {
+        throw new OnmsError('The V1 ReST API only supports one order (ASC or DESC), they cannot be mixed.');
+      }
+      addParameter(ret, 'order', orders[0] || 'DESC');
+      for (const orderBy of filter.orderBy) {
+        addParameter(ret, 'orderBy', orderBy.attribute);
       }
     }
 
