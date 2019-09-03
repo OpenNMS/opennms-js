@@ -4658,8 +4658,15 @@ Command.prototype.parse = function (argv) {
   var normalized = this.normalize(argv.slice(2));
   var parsed = this.parseOptions(normalized);
   var args = this.args = parsed.args;
-  var result = this.parseArgs(this.args, parsed.unknown); // executable sub-commands
+  var result = this.parseArgs(this.args, parsed.unknown);
+  if (args[0] === 'help' && args.length === 1) this.help(); // <cmd> --help
+
+  if (args[0] === 'help') {
+    args[0] = args[1];
+    args[1] = this._helpLongFlag;
+  } // executable sub-commands
   // (Debugging note for future: args[0] is not right if an action has been called)
+
 
   var name = result.args[0];
   var subCommand = null; // Look for subcommand
@@ -4711,13 +4718,6 @@ Command.prototype.parse = function (argv) {
 Command.prototype.executeSubCommand = function (argv, args, unknown, executableFile) {
   args = args.concat(unknown);
   if (!args.length) this.help();
-  if (args[0] === 'help' && args.length === 1) this.help(); // <cmd> --help
-
-  if (args[0] === 'help') {
-    args[0] = args[1];
-    args[1] = this._helpLongFlag;
-  }
-
   var isExplicitJS = false; // Whether to use node to launch "executable"
   // executable
 
@@ -5438,7 +5438,7 @@ function outputHelpIfNecessary(cmd, options) {
   }
 }
 /**
- * Takes an argument an returns its human readable equivalent for help usage.
+ * Takes an argument and returns its human readable equivalent for help usage.
  *
  * @param {Object} arg
  * @return {String}
