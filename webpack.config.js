@@ -119,9 +119,7 @@ function createConfig(options) {
       console.log('minimizer exists:',myconf.optimization.minimizer);
     }
     myconf.optimization.minimizer.push(new TerserPlugin({
-      cache: true,
-      parallel: true,
-      sourceMap: true,
+      extractComments: false,
       terserOptions: {
         mangle: {
           keep_classnames: true,
