@@ -63678,8 +63678,6 @@ var _isIterable2 = _interopRequireDefault(__webpack_require__(/*! ../node_module
 
 var _isArray = _interopRequireDefault(__webpack_require__(/*! ../node_modules/@babel/runtime-corejs2/core-js/array/is-array */ "./node_modules/@babel/runtime-corejs2/core-js/array/is-array.js"));
 
-__webpack_require__(/*! ../node_modules/core-js/modules/es6.function.name */ "./node_modules/core-js/modules/es6.function.name.js");
-
 var _parseInt2 = _interopRequireDefault(__webpack_require__(/*! ../node_modules/@babel/runtime-corejs2/core-js/parse-int */ "./node_modules/@babel/runtime-corejs2/core-js/parse-int.js"));
 
 __webpack_require__(/*! ../node_modules/core-js/modules/es6.string.starts-with */ "./node_modules/core-js/modules/es6.string.starts-with.js");
