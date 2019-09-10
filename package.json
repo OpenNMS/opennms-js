@@ -30,6 +30,8 @@
     "@babel/polyfill": "^7.6.0",
     "@babel/preset-env": "^7.6.0",
     "@babel/preset-typescript": "^7.6.0",
+    "@commitlint/cli": "^8.1.0",
+    "@commitlint/config-conventional": "^8.1.0",
     "@types/ip-address": "^5.8.2",
     "@types/jest": "^24.0.15",
     "@types/lodash": "^4.14.136",
@@ -41,11 +43,9 @@
     "babel-loader": "^8.0.6",
     "babel-plugin-angularjs-annotate": "^0.10.0",
     "babel-plugin-module-resolver": "^3.2.0",
-    "babel-preset-es2015-nostrict": "^6.6.2",
     "cache-loader": "^4.1.0",
     "chai": "^4.1.2",
     "child_process": "^1.0.2",
-    "conventional-changelog-lint": "^2.1.1",
     "eslint": "^6.1.0",
     "husky": "^3.0.1",
     "jest": "^24.8.0",
@@ -106,15 +106,14 @@
   "resolutions": {
     "@types/marked": "^0.6.5",
     "atob": "^2.1.2",
-    "babel-plugin-istanbul": "^5.1.4",
-    "babel-traverse": "^6.26.0",
+    "babel-plugin-istanbul": "^5.2.0",
     "exec-sh": "^0.3.2",
     "chokidar": "^3.0.2",
     "deep-extend": "^0.6.0",
-    "follow-redirects": "^1.7.0",
-    "handlebars": "^4.1.2",
+    "follow-redirects": "^1.9.0",
+    "handlebars": "^4.2.0",
     "istanbul-lib-source-maps": "^3.0.6",
-    "jest-config": "^24.8.0",
+    "jest-config": "^24.9.0",
     "js-yaml": "^3.13.1",
     "lodash": "^4.17.15",
     "lodash.merge": "^4.6.2",
@@ -130,7 +129,7 @@
   "husky": {
     "hooks": {
       "pre-commit": "npm run test && npm run lint",
-      "pre-push": "conventional-changelog-lint --from=origin/master"
+      "pre-push": "commitlint --verbose --from=origin/master"
     }
   },
   "scripts": {
