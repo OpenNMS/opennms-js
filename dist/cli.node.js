@@ -375,12 +375,8 @@ module.exports = __webpack_require__(/*! fast-deep-equal */ "./node_modules/fast
 "use strict";
 
 
-module.exports = options => {
-  options = Object.assign({
-    onlyFirst: false
-  }, options);
-  const pattern = ['[\\u001B\\u009B][[\\]()#;?]*(?:(?:(?:[a-zA-Z\\d]*(?:;[-a-zA-Z\\d\\/#&.:=?%@~_]*)*)?\\u0007)', '(?:(?:\\d{1,4}(?:;\\d{0,4})*)?[\\dA-PR-TZcf-ntqry=><~]))'].join('|');
-  return new RegExp(pattern, options.onlyFirst ? undefined : 'g');
+module.exports = function () {
+  return /[\u001b\u009b][[()#;?]*(?:[0-9]{1,4}(?:;[0-9]{0,4})*)?[0-9A-PRZcf-nqry=><]/g;
 };
 
 /***/ }),
@@ -13703,35 +13699,25 @@ var SAFE_METHODS = {
 }; // Create handlers that pass events from native requests
 
 var eventHandlers = Object.create(null);
-["abort", "aborted", "error", "socket", "timeout"].forEach(function (event) {
-  eventHandlers[event] = function (arg) {
-    this._redirectable.emit(event, arg);
+["abort", "aborted", "connect", "error", "socket", "timeout"].forEach(function (event) {
+  eventHandlers[event] = function (arg1, arg2, arg3) {
+    this._redirectable.emit(event, arg1, arg2, arg3);
   };
 }); // An HTTP(S) request that can be redirected
 
 function RedirectableRequest(options, responseCallback) {
   // Initialize the request
   Writable.call(this);
-  options.headers = options.headers || {};
+
+  this._sanitizeOptions(options);
+
   this._options = options;
   this._ended = false;
   this._ending = false;
   this._redirectCount = 0;
   this._redirects = [];
   this._requestBodyLength = 0;
-  this._requestBodyBuffers = []; // Since http.request treats host as an alias of hostname,
-  // but the url module interprets host as hostname plus port,
-  // eliminate the host property to avoid confusion.
-
-  if (options.host) {
-    // Use hostname if set, because it has precedence
-    if (!options.hostname) {
-      options.hostname = options.host;
-    }
-
-    delete options.host;
-  } // Attach a callback if passed
-
+  this._requestBodyBuffers = []; // Attach a callback if passed
 
   if (responseCallback) {
     this.on("response", responseCallback);
@@ -13742,19 +13728,7 @@ function RedirectableRequest(options, responseCallback) {
 
   this._onNativeResponse = function (response) {
     self._processResponse(response);
-  }; // Complete the URL object when necessary
-
-
-  if (!options.pathname && options.path) {
-    var searchPos = options.path.indexOf("?");
-
-    if (searchPos < 0) {
-      options.pathname = options.path;
-    } else {
-      options.pathname = options.path.substring(0, searchPos);
-      options.search = options.path.substring(searchPos);
-    }
-  } // Perform the first request
+  }; // Perform the first request
 
 
   this._performRequest();
@@ -13891,7 +13865,39 @@ function clearTimer() {
       return this._currentRequest[property];
     }
   });
-}); // Executes the next native request (initial or redirect)
+});
+
+RedirectableRequest.prototype._sanitizeOptions = function (options) {
+  // Ensure headers are always present
+  if (!options.headers) {
+    options.headers = {};
+  } // Since http.request treats host as an alias of hostname,
+  // but the url module interprets host as hostname plus port,
+  // eliminate the host property to avoid confusion.
+
+
+  if (options.host) {
+    // Use hostname if set, because it has precedence
+    if (!options.hostname) {
+      options.hostname = options.host;
+    }
+
+    delete options.host;
+  } // Complete the URL object when necessary
+
+
+  if (!options.pathname && options.path) {
+    var searchPos = options.path.indexOf("?");
+
+    if (searchPos < 0) {
+      options.pathname = options.path;
+    } else {
+      options.pathname = options.path.substring(0, searchPos);
+      options.search = options.path.substring(searchPos);
+    }
+  }
+}; // Executes the next native request (initial or redirect)
+
 
 RedirectableRequest.prototype._performRequest = function () {
   // Load the native protocol
@@ -13961,11 +13967,13 @@ RedirectableRequest.prototype._performRequest = function () {
 
 RedirectableRequest.prototype._processResponse = function (response) {
   // Store the redirected response
+  var statusCode = response.statusCode;
+
   if (this._options.trackRedirects) {
     this._redirects.push({
       url: this._currentUrl,
       headers: response.headers,
-      statusCode: response.statusCode
+      statusCode: statusCode
     });
   } // RFC7231§6.4: The 3xx (Redirection) class of status code indicates
   // that further action needs to be taken by the user agent in order to
@@ -13977,15 +13985,17 @@ RedirectableRequest.prototype._processResponse = function (response) {
 
   var location = response.headers.location;
 
-  if (location && this._options.followRedirects !== false && response.statusCode >= 300 && response.statusCode < 400) {
+  if (location && this._options.followRedirects !== false && statusCode >= 300 && statusCode < 400) {
     // Abort the current request
     this._currentRequest.removeAllListeners();
 
     this._currentRequest.on("error", noop);
 
-    this._currentRequest.abort(); // RFC7231§6.4: A client SHOULD detect and intervene
-    // in cyclical redirections (i.e., "infinite" redirection loops).
+    this._currentRequest.abort(); // Discard the remainder of the response to avoid waiting for data
 
+
+    response.destroy(); // RFC7231§6.4: A client SHOULD detect and intervene
+    // in cyclical redirections (i.e., "infinite" redirection loops).
 
     if (++this._redirectCount > this._options.maxRedirects) {
       this.emit("error", new Error("Max redirects exceeded."));
@@ -14002,7 +14012,7 @@ RedirectableRequest.prototype._processResponse = function (response) {
     var header;
     var headers = this._options.headers;
 
-    if (response.statusCode !== 307 && !(this._options.method in SAFE_METHODS)) {
+    if (statusCode !== 307 && !(this._options.method in SAFE_METHODS)) {
       this._options.method = "GET"; // Drop a possible entity and headers related to it
 
       this._requestBodyBuffers = [];
@@ -14027,12 +14037,21 @@ RedirectableRequest.prototype._processResponse = function (response) {
     var redirectUrl = url.resolve(this._currentUrl, location);
     debug("redirecting to", redirectUrl);
     Object.assign(this._options, url.parse(redirectUrl));
+
+    if (typeof this._options.beforeRedirect === "function") {
+      try {
+        this._options.beforeRedirect.call(null, this._options);
+      } catch (err) {
+        this.emit("error", err);
+        return;
+      }
+
+      this._sanitizeOptions(this._options);
+    }
+
     this._isRedirect = true;
 
-    this._performRequest(); // Discard the remainder of the response to avoid waiting for data
-
-
-    response.destroy();
+    this._performRequest();
   } else {
     // The response is not a redirect; return it as-is
     response.responseUrl = this._currentUrl;
