@@ -9,6 +9,7 @@ import {OnmsResult} from './api/OnmsResult';
 import {OnmsServer} from './api/OnmsServer';
 import {OnmsVersion} from './api/OnmsVersion';
 import {Operator, Operators} from './api/Operator';
+import {OrderBy, Orders, Order} from './api/OrderBy';
 import {Restriction} from './api/Restriction';
 import {SearchProperty} from './api/SearchProperty';
 import {SearchPropertyType, SearchPropertyTypes} from './api/SearchPropertyType';
@@ -70,6 +71,9 @@ const API = Object.freeze({
   OnmsVersion,
   Operator,
   Operators,
+  OrderBy,
+  Order,
+  Orders,
   Restriction,
   SearchProperty,
   SearchPropertyType,
