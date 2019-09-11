@@ -51798,6 +51798,8 @@ var _OnmsVersion = __webpack_require__(/*! ./api/OnmsVersion */ "./src/api/OnmsV
 
 var _Operator = __webpack_require__(/*! ./api/Operator */ "./src/api/Operator.ts");
 
+var _OrderBy = __webpack_require__(/*! ./api/OrderBy */ "./src/api/OrderBy.ts");
+
 var _Restriction = __webpack_require__(/*! ./api/Restriction */ "./src/api/Restriction.ts");
 
 var _SearchProperty = __webpack_require__(/*! ./api/SearchProperty */ "./src/api/SearchProperty.ts");
@@ -51895,6 +51897,9 @@ var API = (0, _freeze.default)({
   OnmsVersion: _OnmsVersion.OnmsVersion,
   Operator: _Operator.Operator,
   Operators: _Operator.Operators,
+  OrderBy: _OrderBy.OrderBy,
+  Order: _OrderBy.Order,
+  Orders: _OrderBy.Orders,
   Restriction: _Restriction.Restriction,
   SearchProperty: _SearchProperty.SearchProperty,
   SearchPropertyType: _SearchPropertyType.SearchPropertyType,
