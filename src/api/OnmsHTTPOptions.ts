@@ -207,7 +207,11 @@ export class OnmsHTTPOptionsBuilder {
    * @param value the value of the parameter to add (or `undefined`)
    */
   public addParameter(parameter: string, value?: string | string[] | number | boolean) {
-    const v = (value && !isString(value)) ? String(value) : value;
+    // if it's already an array, coerce the contents to a string
+    // otherwise, coerce it as a scalar string
+    const v = Array.isArray(value) ?
+      value.map((vv) => String(vv)) :
+      (value && !isString(value)) ? String(value) : value;
 
     // Since parameters can be repeated an arbitrary number of times we will store them in an array in the map
     // as soon as the occurrence of a given key is > 1
