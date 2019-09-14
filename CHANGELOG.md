@@ -1,9 +1,10 @@
-# [2.0.0-SNAPSHOT](https://github.com/OpenNMS/opennms-js/compare/v1.5.0...v2.0.0-SNAPSHOT) (2019-09-11)
+# [2.0.0-SNAPSHOT](https://github.com/OpenNMS/opennms-js/compare/v1.5.0...v2.0.0-SNAPSHOT) (2019-09-14)
 
 
 ### Bug Fixes
 
 * **api:** add new OrderBy objects to API export ([ffdadeb](https://github.com/OpenNMS/opennms-js/commit/ffdadeb))
+* **api:** options mishandled arrays passed to .addParameter (JS-44) ([2905633](https://github.com/OpenNMS/opennms-js/commit/2905633))
 * **api:** remove unneccesary undefinability ([578ed1c](https://github.com/OpenNMS/opennms-js/commit/578ed1c))
 * **cli:** bounds-check remaining column width for table render ([54c8919](https://github.com/OpenNMS/opennms-js/commit/54c8919))
 * **cli:** CLI errors should exit immediately non-0 ([943710e](https://github.com/OpenNMS/opennms-js/commit/943710e))

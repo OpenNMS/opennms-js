@@ -54812,7 +54812,11 @@ function () {
   }, {
     key: "addParameter",
     value: function addParameter(parameter, value) {
-      var v = value && !isString(value) ? String(value) : value; // Since parameters can be repeated an arbitrary number of times we will store them in an array in the map
+      // if it's already an array, coerce the contents to a string
+      // otherwise, coerce it as a scalar string
+      var v = (0, _isArray.default)(value) ? value.map(function (vv) {
+        return String(vv);
+      }) : value && !isString(value) ? String(value) : value; // Since parameters can be repeated an arbitrary number of times we will store them in an array in the map
       // as soon as the occurrence of a given key is > 1
 
       if (this._parameters[parameter]) {
