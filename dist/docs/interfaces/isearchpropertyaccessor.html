@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>IValueProvider | OpenNMS.js</title>
+	<title>ISearchPropertyAccessor | OpenNMS.js</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -56,10 +56,10 @@
 					<a href="../globals.html">Globals</a>
 				</li>
 				<li>
-					<a href="ivalueprovider.html">IValueProvider</a>
+					<a href="isearchpropertyaccessor.html">ISearchPropertyAccessor</a>
 				</li>
 			</ul>
-			<h1>Interface IValueProvider</h1>
+			<h1>Interface ISearchPropertyAccessor</h1>
 		</div>
 	</div>
 </header>
@@ -69,29 +69,23 @@
 			<section class="tsd-panel tsd-comment">
 				<div class="tsd-comment tsd-typography">
 					<div class="lead">
-						<p>Interface to provide values to a certain property ID.</p>
+						<p>Convenient interface to access <a href="../classes/searchproperty.html">SearchProperty</a>s.
+						Mainly used for caching purposes.</p>
 					</div>
-					<dl class="tsd-comment-tags">
-						<dt>interface</dt>
-						<dd></dd>
-					</dl>
 				</div>
 			</section>
 			<section class="tsd-panel tsd-hierarchy">
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<span class="target">IValueProvider</span>
+						<span class="target">ISearchPropertyAccessor</span>
 					</li>
 				</ul>
 			</section>
 			<section class="tsd-panel">
 				<h3>Implemented by</h3>
 				<ul class="tsd-hierarchy">
-					<li><a href="../classes/abstractdao.html" class="tsd-signature-type">AbstractDAO</a></li>
-					<li><a href="../classes/alarmdao.html" class="tsd-signature-type">AlarmDAO</a></li>
-					<li><a href="../classes/eventdao.html" class="tsd-signature-type">EventDAO</a></li>
-					<li><a href="../classes/nodedao.html" class="tsd-signature-type">NodeDAO</a></li>
+					<li><a href="../classes/propertiescache.html" class="tsd-signature-type">PropertiesCache</a></li>
 				</ul>
 			</section>
 			<section class="tsd-panel-group tsd-index-group">
@@ -101,7 +95,8 @@
 						<section class="tsd-index-section ">
 							<h3>Methods</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="ivalueprovider.html#findvalues" class="tsd-kind-icon">find<wbr>Values</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="isearchpropertyaccessor.html#getproperties" class="tsd-kind-icon">get<wbr>Properties</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="isearchpropertyaccessor.html#getproperty" class="tsd-kind-icon">get<wbr>Property</a></li>
 							</ul>
 						</section>
 					</div>
@@ -110,40 +105,59 @@
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Methods</h2>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface">
-					<a name="findvalues" class="tsd-anchor"></a>
-					<h3>find<wbr>Values</h3>
+					<a name="getproperties" class="tsd-anchor"></a>
+					<h3>get<wbr>Properties</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
-						<li class="tsd-signature tsd-kind-icon">find<wbr>Values<span class="tsd-signature-symbol">(</span>propertyId<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, options<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Properties<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../classes/searchproperty.html" class="tsd-signature-type">SearchProperty</a><span class="tsd-signature-symbol">[]</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/a3fe8a4/src/dao/IValueProvider.ts#L16">dao/IValueProvider.ts:16</a></li>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/966a908/src/dao/ISearchPropertyAccessor.ts#L13">dao/ISearchPropertyAccessor.ts:13</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Finds the values for the given propertyId, if it exists.</p>
+									<p>Returns all available <a href="../classes/searchproperty.html">SearchProperty</a>s.</p>
+								</div>
+							</div>
+							<h4 class="tsd-returns-title">Returns <a href="../classes/searchproperty.html" class="tsd-signature-type">SearchProperty</a><span class="tsd-signature-symbol">[]</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface">
+					<a name="getproperty" class="tsd-anchor"></a>
+					<h3>get<wbr>Property</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Property<span class="tsd-signature-symbol">(</span>id<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../classes/searchproperty.html" class="tsd-signature-type">SearchProperty</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/966a908/src/dao/ISearchPropertyAccessor.ts#L21">dao/ISearchPropertyAccessor.ts:21</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Returns a certain <a href="../classes/searchproperty.html">SearchProperty</a>.</p>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>propertyId: <span class="tsd-signature-type">string</span></h5>
+									<h5>id: <span class="tsd-signature-type">string</span></h5>
 									<div class="tsd-comment tsd-typography">
-										<p>The propertyId to find the values for</p>
-									</div>
-								</li>
-								<li>
-									<h5><span class="tsd-flag ts-flagOptional">Optional</span> options: <span class="tsd-signature-type">any</span></h5>
-									<div class="tsd-comment tsd-typography">
-										<p>Some additional options. May be implementer dependent, such as limit, or value restrictions</p>
+										<p>The property id to find the property for.</p>
 									</div>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></h4>
-							<p>A promise containing the values.</p>
+							<h4 class="tsd-returns-title">Returns <a href="../classes/searchproperty.html" class="tsd-signature-type">SearchProperty</a>
+								<span class="tsd-signature-symbol"> | </span>
+								<span class="tsd-signature-type">undefined</span>
+							</h4>
+							<p>The property found.</p>
 						</li>
 					</ul>
 				</section>
@@ -162,10 +176,13 @@
 				</ul>
 				<ul class="current">
 					<li class="current tsd-kind-interface">
-						<a href="ivalueprovider.html" class="tsd-kind-icon">IValue<wbr>Provider</a>
+						<a href="isearchpropertyaccessor.html" class="tsd-kind-icon">ISearch<wbr>Property<wbr>Accessor</a>
 						<ul>
 							<li class=" tsd-kind-method tsd-parent-kind-interface">
-								<a href="ivalueprovider.html#findvalues" class="tsd-kind-icon">find<wbr>Values</a>
+								<a href="isearchpropertyaccessor.html#getproperties" class="tsd-kind-icon">get<wbr>Properties</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-interface">
+								<a href="isearchpropertyaccessor.html#getproperty" class="tsd-kind-icon">get<wbr>Property</a>
 							</li>
 						</ul>
 					</li>
@@ -188,7 +205,6 @@
 				<li class="tsd-kind-function tsd-has-type-parameter"><span class="tsd-kind-icon">Function with type parameter</span></li>
 				<li class="tsd-kind-index-signature"><span class="tsd-kind-icon">Index signature</span></li>
 				<li class="tsd-kind-type-alias"><span class="tsd-kind-icon">Type alias</span></li>
-				<li class="tsd-kind-type-alias tsd-has-type-parameter"><span class="tsd-kind-icon">Type alias with type parameter</span></li>
 			</ul>
 			<ul class="tsd-legend">
 				<li class="tsd-kind-enum"><span class="tsd-kind-icon">Enumeration</span></li>
@@ -237,7 +253,7 @@
 	</div>
 </footer>
 <div class="container tsd-generator">
-	<p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p>
+	<p>Generated using <a href="http://typedoc.org/" target="_blank">TypeDoc</a></p>
 </div>
 <div class="overlay"></div>
 <script src="../assets/js/main.js"></script>

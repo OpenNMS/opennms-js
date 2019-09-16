@@ -1,4 +1,4 @@
-# [2.0.0-SNAPSHOT](https://github.com/OpenNMS/opennms-js/compare/v1.5.0...v2.0.0-SNAPSHOT) (2019-09-14)
+# [2.0.0-SNAPSHOT](https://github.com/OpenNMS/opennms-js/compare/v1.5.0...v2.0.0-SNAPSHOT) (2019-09-16)
 
 
 ### Bug Fixes
