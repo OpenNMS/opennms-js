@@ -1215,9 +1215,9 @@
   integrity sha512-2dVz9LTEGWVj9Ov9zaDnpvqHFV+W4bXtU0EUEGAzWfdRNO3dlUuosdHpENI6/oQW+Kejn0hAjk6P/czs9h/hvg==
 
 "@types/lodash@^4.14.136":
-  version "4.14.138"
-  resolved "https://registry.yarnpkg.com/@types/lodash/-/lodash-4.14.138.tgz#34f52640d7358230308344e579c15b378d91989e"
-  integrity sha512-A4uJgHz4hakwNBdHNPdxOTkYmXNgmUAKLbXZ7PKGslgeV0Mb8P3BlbYfPovExek1qnod4pDfRbxuzcVs3dlFLg==
+  version "4.14.141"
+  resolved "https://registry.yarnpkg.com/@types/lodash/-/lodash-4.14.141.tgz#d81f4d0c562abe28713406b571ffb27692a82ae6"
+  integrity sha512-v5NYIi9qEbFEUpCyikmnOYe4YlP8BMUdTcNCAquAKzu+FA7rZ1onj9x80mbnDdOW/K5bFf3Tv5kJplP33+gAbQ==
 
 "@types/marked@^0.6.5":
   version "0.6.5"
@@ -1230,9 +1230,9 @@
   integrity sha512-tHq6qdbT9U1IRSGf14CL0pUlULksvY9OZ+5eEgl1N7t+OA3tGvNpxJCzuKQlsNgCVwbAs670L1vcVQi8j9HjnA==
 
 "@types/node@*", "@types/node@^12.0.2", "@types/node@^12.6.8":
-  version "12.7.5"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-12.7.5.tgz#e19436e7f8e9b4601005d73673b6dc4784ffcc2f"
-  integrity sha512-9fq4jZVhPNW8r+UYKnxF1e2HkDWOWKM5bC2/7c9wPV835I0aOrVbS/Hw/pWPk2uKrNXQqg9Z959Kz+IYDd5p3w==
+  version "12.7.8"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-12.7.8.tgz#cb1bf6800238898bc2ff6ffa5702c3cadd350708"
+  integrity sha512-FMdVn84tJJdV+xe+53sYiZS4R5yn1mAIxfj+DVoNiQjTYz1+OYmjwEZr1ev9nU0axXwda0QDbYl06QHanRVH3A==
 
 "@types/normalize-package-data@^2.4.0":
   version "2.4.0"
@@ -1262,9 +1262,9 @@
   integrity sha512-HKtXvBxU8U8evZCSlUi9HbfT/SFW7nSGCoiBEheB06jAhXeW6JbGh8biEAqIFG5rZo9f8xeJVdIn455sddmIcw==
 
 "@types/urijs@^1.19.3":
-  version "1.19.3"
-  resolved "https://registry.yarnpkg.com/@types/urijs/-/urijs-1.19.3.tgz#ed90d38baf3eff1627544ad6ed3bcdeb79ef3533"
-  integrity sha512-L5tP2dEIV+OMVEVRhf8PCFMNMyO5ZBodrXpEqnGczky60lcv8l5Kl9Yi4J1yxhSVfHUe+Pr2nXJfDM+rUYNs3w==
+  version "1.19.4"
+  resolved "https://registry.yarnpkg.com/@types/urijs/-/urijs-1.19.4.tgz#29c4a694d4842d7f95e359a26223fc1865f1ab13"
+  integrity sha512-uHUvuLfy4YkRHL4UH8J8oRsINhdEHd9ymag7KJZVT94CjAmY1njoUzhazJsZjwfy+IpWKQKGVyXCwzhZvg73Fg==
 
 "@types/yargs-parser@*":
   version "13.0.0"
