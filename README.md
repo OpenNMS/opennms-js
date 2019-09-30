@@ -51,6 +51,7 @@ OpenNMS.js 2.0 adds a few new APIs, contains a ton of refactoring and build syst
 * a number of metadata objects (notably `OnmsServer`) support `.equals()` for comparison now
 * property caching on v2 API calls is fixed when interacting with multiple servers/DAOs
 * filter API now supports `orderBy` and `order` (and the `alarms` CLI list command supports it)
+* HTTP parameters in `OnmsHTTPOptions` can now have multiple values -- for example a parameter with value `[ 1, 2 ]` will serialize to `&foo=1&foo=2`
 
 #### Breaking Changes:
 
