@@ -121,6 +121,7 @@
 					<li>a number of metadata objects (notably <code>OnmsServer</code>) support <code>.equals()</code> for comparison now</li>
 					<li>property caching on v2 API calls is fixed when interacting with multiple servers/DAOs</li>
 					<li>filter API now supports <code>orderBy</code> and <code>order</code> (and the <code>alarms</code> CLI list command supports it)</li>
+					<li>HTTP parameters in <code>OnmsHTTPOptions</code> can now have multiple values -- for example a parameter with value <code>[ 1, 2 ]</code> will serialize to <code>&amp;foo=1&amp;foo=2</code></li>
 				</ul>
 				<a href="#breaking-changes" id="breaking-changes" style="color: inherit; text-decoration: none;">
 					<h4>Breaking Changes:</h4>
