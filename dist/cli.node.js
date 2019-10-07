@@ -4309,7 +4309,7 @@ Option.prototype.is = function (arg) {
 function Command(name) {
   this.commands = [];
   this.options = [];
-  this._execs = {};
+  this._execs = new Set();
   this._allowUnknownOption = false;
   this._args = [];
   this._name = name || '';
@@ -4362,7 +4362,9 @@ Command.prototype.command = function (nameAndArgs, actionOptsOrExecDesc, execOpt
   if (desc) {
     cmd.description(desc);
     this.executables = true;
-    this._execs[cmd._name] = true;
+
+    this._execs.add(cmd._name);
+
     if (opts.isDefault) this.defaultExecutable = cmd._name;
   }
 
@@ -4705,7 +4707,7 @@ Command.prototype.parse = function (argv) {
     });
   }
 
-  if (this._execs[name] && typeof this._execs[name] !== 'function') {
+  if (this._execs.has(name)) {
     return this.executeSubCommand(argv, args, parsed.unknown, subCommand ? subCommand._executableFile : undefined);
   }
 
