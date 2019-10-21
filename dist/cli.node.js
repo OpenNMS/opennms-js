@@ -52353,27 +52353,29 @@ var hashes = crypto.getHashes ? crypto.getHashes().slice() : ['sha1', 'md5'];
 hashes.push('passthrough');
 var encodings = ['buffer', 'hex', 'binary', 'base64'];
 
-function applyDefaults(object, options) {
-  options = options || {};
-  options.algorithm = options.algorithm || 'sha1';
-  options.encoding = options.encoding || 'hex';
-  options.excludeValues = options.excludeValues ? true : false;
+function applyDefaults(object, sourceOptions) {
+  sourceOptions = sourceOptions || {}; // create a copy rather than mutating
+
+  var options = {};
+  options.algorithm = sourceOptions.algorithm || 'sha1';
+  options.encoding = sourceOptions.encoding || 'hex';
+  options.excludeValues = sourceOptions.excludeValues ? true : false;
   options.algorithm = options.algorithm.toLowerCase();
   options.encoding = options.encoding.toLowerCase();
-  options.ignoreUnknown = options.ignoreUnknown !== true ? false : true; // default to false
+  options.ignoreUnknown = sourceOptions.ignoreUnknown !== true ? false : true; // default to false
 
-  options.respectType = options.respectType === false ? false : true; // default to true
+  options.respectType = sourceOptions.respectType === false ? false : true; // default to true
 
-  options.respectFunctionNames = options.respectFunctionNames === false ? false : true;
-  options.respectFunctionProperties = options.respectFunctionProperties === false ? false : true;
-  options.unorderedArrays = options.unorderedArrays !== true ? false : true; // default to false
+  options.respectFunctionNames = sourceOptions.respectFunctionNames === false ? false : true;
+  options.respectFunctionProperties = sourceOptions.respectFunctionProperties === false ? false : true;
+  options.unorderedArrays = sourceOptions.unorderedArrays !== true ? false : true; // default to false
 
-  options.unorderedSets = options.unorderedSets === false ? false : true; // default to false
+  options.unorderedSets = sourceOptions.unorderedSets === false ? false : true; // default to false
 
-  options.unorderedObjects = options.unorderedObjects === false ? false : true; // default to true
+  options.unorderedObjects = sourceOptions.unorderedObjects === false ? false : true; // default to true
 
-  options.replacer = options.replacer || undefined;
-  options.excludeKeys = options.excludeKeys || undefined;
+  options.replacer = sourceOptions.replacer || undefined;
+  options.excludeKeys = sourceOptions.excludeKeys || undefined;
 
   if (typeof object === 'undefined') {
     throw new Error('Object argument required.');
@@ -52425,7 +52427,10 @@ function hash(object, options) {
 
   var hasher = typeHasher(options, hashingStream);
   hasher.dispatch(object);
-  if (!hashingStream.update) hashingStream.end('');
+
+  if (!hashingStream.update) {
+    hashingStream.end('');
+  }
 
   if (hashingStream.digest) {
     return hashingStream.digest(options.encoding === 'buffer' ? undefined : options.encoding);
@@ -52463,7 +52468,11 @@ function typeHasher(options, writeTo, context) {
   context = context || [];
 
   var write = function (str) {
-    if (writeTo.update) return writeTo.update(str, 'utf8');else return writeTo.write(str, 'utf8');
+    if (writeTo.update) {
+      return writeTo.update(str, 'utf8');
+    } else {
+      return writeTo.write(str, 'utf8');
+    }
   };
 
   return {
@@ -56867,7 +56876,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
  * URI.js - Mutating URLs
  * IPv6 Support
  *
- * Version: 1.19.1
+ * Version: 1.19.2
  *
  * Author: Rodney Rehm
  * Web: http://medialize.github.io/URI.js/
@@ -57064,7 +57073,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
  * URI.js - Mutating URLs
  * Second Level Domain (SLD) Support
  *
- * Version: 1.19.1
+ * Version: 1.19.2
  *
  * Author: Rodney Rehm
  * Web: http://medialize.github.io/URI.js/
@@ -57336,7 +57345,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
  * URI.js - Mutating URLs
  *
- * Version: 1.19.1
+ * Version: 1.19.2
  *
  * Author: Rodney Rehm
  * Web: http://medialize.github.io/URI.js/
@@ -57417,7 +57426,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     return /^[0-9]+$/.test(value);
   }
 
-  URI.version = '1.19.1';
+  URI.version = '1.19.2';
   var p = URI.prototype;
   var hasOwn = Object.prototype.hasOwnProperty;
 
@@ -58023,6 +58032,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
   URI.build = function (parts) {
     var t = '';
+    var requireAbsolutePath = false;
 
     if (parts.protocol) {
       t += parts.protocol + ':';
@@ -58030,12 +58040,13 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
     if (!parts.urn && (t || parts.hostname)) {
       t += '//';
+      requireAbsolutePath = true;
     }
 
     t += URI.buildAuthority(parts) || '';
 
     if (typeof parts.path === 'string') {
-      if (parts.path.charAt(0) !== '/' && typeof parts.hostname === 'string') {
+      if (parts.path.charAt(0) !== '/' && requireAbsolutePath) {
         t += '/';
       }
 
@@ -58103,7 +58114,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     var unique, key, i, length;
 
     for (key in data) {
-      if (hasOwn.call(data, key) && key) {
+      if (hasOwn.call(data, key)) {
         if (isArray(data[key])) {
           unique = {};
 
