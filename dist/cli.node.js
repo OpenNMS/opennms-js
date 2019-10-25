@@ -64006,7 +64006,7 @@ function _arrayWithoutHoles(arr) { if ((0, _isArray.default)(arr)) { for (var i 
 
 /** @hidden */
 var CLI = function CLI() {
-  var version = "2.0.1-SNAPSHOT" || false || false; // tslint:disable
+  var version = "2.0.1" || false || false; // tslint:disable
 
   var fs = __webpack_require__(/*! fs */ "fs");
 
