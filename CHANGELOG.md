@@ -1,4 +1,10 @@
-## [2.0.1-SNAPSHOT](https://github.com/OpenNMS/opennms-js/compare/v2.0.0...v2.0.1-SNAPSHOT) (2019-10-21)
+## [2.0.1-SNAPSHOT](https://github.com/OpenNMS/opennms-js/compare/v2.0.0...v2.0.1-SNAPSHOT) (2019-10-25)
+
+
+### Bug Fixes
+
+* **dao:** handle .fromData when data is undefined (JS-45) ([efe6858](https://github.com/OpenNMS/opennms-js/commit/efe6858229fd56a61bba224653f9c1e0c250aa01))
+* **dao:** warn if lastEvent is missing on an alarm (JS-45) ([e4af27d](https://github.com/OpenNMS/opennms-js/commit/e4af27d2391aa20a10d47465c2fabb8d77dc451d))
 
 
 

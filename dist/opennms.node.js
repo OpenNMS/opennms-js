@@ -56222,7 +56222,13 @@ function (_AbstractDAO) {
               case 0:
                 return _context.abrupt("return", this.getOptions().then(function (opts) {
                   return _this2.http.get(_this2.pathToAlarmsEndpoint() + '/' + id, opts.build()).then(function (result) {
-                    return _this2.fromData(result.data);
+                    var alarm = _this2.fromData(result.data);
+
+                    if (!alarm) {
+                      throw new _OnmsError.OnmsError("AlarmDAO.get id={id} ReST request succeeded, but did not return a valid alarm.");
+                    }
+
+                    return alarm;
                   });
                 }));
 
@@ -56272,9 +56278,20 @@ function (_AbstractDAO) {
                       throw new _OnmsError.OnmsError('Expected an array of alarms but got "' + _typeof(data) + '" instead.');
                     }
 
-                    return data.map(function (alarmData) {
+                    var alarms = data.map(function (alarmData) {
                       return _this3.fromData(alarmData);
+                    }); // ugh, this cast is necessary to make tsc know there's nothing but OnmsAlarm objects
+
+                    var ret = alarms.filter(function (alarm) {
+                      return alarm !== undefined;
                     });
+                    var diff = alarms.length - ret.length;
+
+                    if (diff > 0) {
+                      _Log.log.warn("AlarmDAO.find ReST request succeeded, but {diff} alarms could not be parsed.");
+                    }
+
+                    return ret;
                   });
                 }));
 
@@ -56841,12 +56858,22 @@ function (_AbstractDAO) {
     key: "fromData",
     value: function fromData(data) {
       var alarm = new _OnmsAlarm.OnmsAlarm();
+
+      if (!data) {
+        return undefined;
+      }
+
       alarm.id = this.toNumber(data.id);
       alarm.count = data.count;
       alarm.ackUser = data.ackUser;
       alarm.uei = data.uei;
       alarm.description = data.description;
       alarm.firstEventTime = this.toDate(data.firstEventTime);
+
+      if (!data.lastEvent) {
+        _Log.log.warn("\"lastEvent\" missing on alarm id={alarm.id}.");
+      }
+
       alarm.lastEvent = this.eventDao.fromData(data.lastEvent);
       alarm.location = data.location;
       alarm.logMessage = data.logMessage;
@@ -57547,6 +57574,8 @@ var _OnmsServiceType = __webpack_require__(/*! ../model/OnmsServiceType */ "./sr
 
 var _OnmsSeverity = __webpack_require__(/*! ../model/OnmsSeverity */ "./src/model/OnmsSeverity.ts");
 
+var _Log = __webpack_require__(/*! ../api/Log */ "./src/api/Log.ts");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _typeof(obj) { if (typeof _symbol.default === "function" && typeof _iterator2.default === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof _symbol.default === "function" && obj.constructor === _symbol.default && obj !== _symbol.default.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
@@ -57602,7 +57631,13 @@ function (_AbstractDAO) {
               case 0:
                 return _context.abrupt("return", this.getOptions().then(function (builder) {
                   return _this.http.get(_this.pathToEventsEndpoint() + '/' + id, builder.build()).then(function (result) {
-                    return _this.fromData(result.data);
+                    var ev = _this.fromData(result.data);
+
+                    if (!ev) {
+                      throw new _OnmsError.OnmsError("EventDAO.get id={id} ReST request succeeded, but did not return a valid event.");
+                    }
+
+                    return ev;
                   });
                 }));
 
@@ -57652,9 +57687,20 @@ function (_AbstractDAO) {
                       }
                     }
 
-                    return data.map(function (eventData) {
+                    var events = data.map(function (eventData) {
                       return _this2.fromData(eventData);
+                    }); // ugh, this cast is necessary to make tsc know there's nothing but OnmsEvent objects
+
+                    var ret = events.filter(function (event) {
+                      return event !== undefined;
                     });
+                    var diff = events.length - ret.length;
+
+                    if (diff > 0) {
+                      _Log.log.warn("EventDAO.find ReST request succeeded, but {diff} events could not be parsed.");
+                    }
+
+                    return ret;
                   });
                 }));
 
@@ -57681,6 +57727,11 @@ function (_AbstractDAO) {
     key: "fromData",
     value: function fromData(data) {
       var event = new _OnmsEvent.OnmsEvent();
+
+      if (!data) {
+        return undefined;
+      }
+
       event.id = this.toNumber(data.id);
       event.uei = data.uei;
       event.label = data.label;
@@ -58985,6 +59036,10 @@ function (_AbstractDAO) {
                   return _this.http.get(_this.pathToNodesEndpoint() + '/' + id, builder.build()).then(function (result) {
                     var node = _this.fromData(result.data);
 
+                    if (!node) {
+                      throw new _OnmsError.OnmsError("NodeDAO.get id={id} ReST request succeeded, but did not return a valid node.");
+                    }
+
                     if (recurse) {
                       return _this.fetch(node);
                     } else {
@@ -59292,6 +59347,11 @@ function (_AbstractDAO) {
     key: "fromData",
     value: function fromData(data) {
       var node = new _OnmsNode.OnmsNode();
+
+      if (!data) {
+        return undefined;
+      }
+
       node.id = this.toNumber(data.id);
       node.label = data.label;
       node.location = data.location;
