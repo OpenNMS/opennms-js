@@ -10,7 +10,9 @@ import {Util} from '../internal/Util';
 import {OnmsEvent} from '../model/OnmsEvent';
 import {OnmsParm} from '../model/OnmsParm';
 import {OnmsServiceType} from '../model/OnmsServiceType';
-import {Severities, OnmsSeverity} from '../model/OnmsSeverity';
+import {OnmsSeverity} from '../model/OnmsSeverity';
+
+import {log} from '../api/Log';
 
 /**
  * Data access for [[OnmsEvent]] objects.
@@ -25,7 +27,11 @@ export class EventDAO extends AbstractDAO<number, OnmsEvent> {
   public async get(id: number): Promise<OnmsEvent> {
     return this.getOptions().then((builder) => {
         return this.http.get(this.pathToEventsEndpoint() + '/' + id, builder.build()).then((result) => {
-            return this.fromData(result.data);
+            const ev = this.fromData(result.data);
+            if (!ev) {
+              throw new OnmsError(`EventDAO.get id={id} ReST request succeeded, but did not return a valid event.`);
+            }
+            return ev;
         });
     });
   }
@@ -49,9 +55,16 @@ export class EventDAO extends AbstractDAO<number, OnmsEvent> {
                     throw new OnmsError('Expected an array of events but got "' + (typeof data) + '" instead.');
                 }
             }
-            return data.map((eventData: any) => {
+            const events = data.map((eventData: any) => {
                 return this.fromData(eventData);
             });
+            // ugh, this cast is necessary to make tsc know there's nothing but OnmsEvent objects
+            const ret = events.filter((event: OnmsEvent | undefined) => event !== undefined) as OnmsEvent[];
+            const diff = events.length - ret.length;
+            if (diff > 0) {
+              log.warn(`EventDAO.find ReST request succeeded, but {diff} events could not be parsed.`);
+            }
+            return ret;
         });
     });
   }
@@ -62,6 +75,10 @@ export class EventDAO extends AbstractDAO<number, OnmsEvent> {
    */
   public fromData(data: any) {
     const event = new OnmsEvent();
+
+    if (!data) {
+      return undefined;
+    }
 
     event.id = this.toNumber(data.id);
     event.uei = data.uei;

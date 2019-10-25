@@ -38,7 +38,11 @@ OpenNMS.js follows [semantic versioning](https://semver.org/).
 
 ## Release Notes
 
-### 2.0
+### 2.0.1
+
+This is a small release with some dependency updates and a fix for handling of ReST data that is missing a response.
+
+### 2.0.0
 
 OpenNMS.js 2.0 adds a few new APIs, contains a ton of refactoring and build system updates, and has a few small breaking changes.
 
