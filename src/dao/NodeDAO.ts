@@ -42,6 +42,10 @@ export class NodeDAO extends AbstractDAO<number, OnmsNode> {
         return this.http.get(this.pathToNodesEndpoint() + '/' + id, builder.build()).then((result) => {
             const node = this.fromData(result.data);
 
+            if (!node) {
+              throw new OnmsError(`NodeDAO.get id={id} ReST request succeeded, but did not return a valid node.`);
+            }
+
             if (recurse) {
                 return this.fetch(node);
             } else {
@@ -210,8 +214,12 @@ export class NodeDAO extends AbstractDAO<number, OnmsNode> {
    * Create a node object from a JSON object.
    * @hidden
    */
-  public fromData(data: any): OnmsNode {
+  public fromData(data: any) {
     const node = new OnmsNode();
+
+    if (!data) {
+      return undefined;
+    }
 
     node.id = this.toNumber(data.id);
     node.label = data.label;

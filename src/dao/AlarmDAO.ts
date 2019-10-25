@@ -47,7 +47,11 @@ export class AlarmDAO extends AbstractDAO<number, OnmsAlarm> {
   public async get(id: number): Promise<OnmsAlarm> {
     return this.getOptions().then((opts) => {
         return this.http.get(this.pathToAlarmsEndpoint() + '/' + id, opts.build()).then((result) => {
-            return this.fromData(result.data);
+            const alarm = this.fromData(result.data);
+            if (!alarm) {
+              throw new OnmsError(`AlarmDAO.get id={id} ReST request succeeded, but did not return a valid alarm.`);
+            }
+            return alarm;
         });
     });
   }
@@ -69,9 +73,16 @@ export class AlarmDAO extends AbstractDAO<number, OnmsAlarm> {
               }
               throw new OnmsError('Expected an array of alarms but got "' + (typeof data) + '" instead.');
             }
-            return data.map((alarmData) => {
+            const alarms = data.map((alarmData) => {
                 return this.fromData(alarmData);
             });
+            // ugh, this cast is necessary to make tsc know there's nothing but OnmsAlarm objects
+            const ret = alarms.filter((alarm: OnmsAlarm | undefined) => alarm !== undefined) as OnmsAlarm[];
+            const diff = alarms.length - ret.length;
+            if (diff > 0) {
+              log.warn(`AlarmDAO.find ReST request succeeded, but {diff} alarms could not be parsed.`);
+            }
+            return ret;
         });
     });
   }
@@ -299,13 +310,22 @@ export class AlarmDAO extends AbstractDAO<number, OnmsAlarm> {
   public fromData(data: any) {
     const alarm = new OnmsAlarm();
 
+    if (!data) {
+      return undefined;
+    }
+
     alarm.id = this.toNumber(data.id);
     alarm.count = data.count;
     alarm.ackUser = data.ackUser;
     alarm.uei = data.uei;
     alarm.description = data.description;
     alarm.firstEventTime = this.toDate(data.firstEventTime);
+
+    if (!data.lastEvent) {
+      log.warn(`"lastEvent" missing on alarm id={alarm.id}.`);
+    }
     alarm.lastEvent = this.eventDao.fromData(data.lastEvent);
+
     alarm.location = data.location;
     alarm.logMessage = data.logMessage;
     alarm.reductionKey = data.reductionKey;
