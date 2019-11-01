@@ -12,8 +12,8 @@ function doExec(command, ...args) {
 }
 
 console.log('=== running with ts-node ===');
-doExec('yarn', 'cli', '--debug', 'connect', '--username', 'demo', '--password', 'demo', 'https://demo.opennms.org/opennms/');
-doExec('yarn', 'cli', '--debug', 'alarms');
+doExec('npm', 'run', 'cli', '--debug', 'connect', '--username', 'demo', '--password', 'demo', 'https://demo.opennms.org/opennms/');
+doExec('npm', 'run', 'cli', '--debug', 'alarms');
 
 console.log('=== running with minified js ===');
 doExec('node', 'dist/cli.node.min.js', '--debug', 'connect', '--username', 'demo', '--password', 'demo', 'https://demo.opennms.org/opennms/');

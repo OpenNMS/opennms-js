@@ -104,24 +104,20 @@ OpenNMS.js currently supports a subset of the OpenNMS ReST API:
 
 # Development
 
-To build this project, first install yarn:
+To build this project, first use `npm` to fetch all dependencies:
 
-`npm install -g yarn`
+`npm install`
 
-Then run yarn to fetch all dependencies:
+Then you can use `npm run` to build or test the project:
 
-`yarn`
-
-Then you can run yarn to build or test the project:
-
-* `yarn dist` - run tests and lint, and build the complete tree in `dist/`
-* `yarn dev` - build a development version of the API in `dist/opennms.js` and `dist/opennms.node.js`
-* `yarn build` - build the development and production versions of the API in `dist/`
-* `yarn docs` - build the docs in `dist/docs/`
-* `yarn watch` - continuously build the development version in `dist/opennms.js`
-* `yarn test` - run the tests
-* `yarn watch-test` - continuously run the tests
-* `yarn cli -- <arguments>` - run the CLI test tool (try `--help` for options)
+* `npm run dist` - run tests and lint, and build the complete tree in `dist/`
+* `npm run dev` - build a development version of the API in `dist/opennms.js` and `dist/opennms.node.js`
+* `npm run build` - build the development and production versions of the API in `dist/`
+* `npm run docs` - build the docs in `dist/docs/`
+* `npm run watch` - continuously build the development version in `dist/opennms.js`
+* `npm run test` - run the tests
+* `npm run watch-test` - continuously run the tests
+* `npm run cli -- <arguments>` - run the CLI test tool (try `--help` for options)
 
 # Reporting Bugs or Feature Requests
 
