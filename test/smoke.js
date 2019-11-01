@@ -1,4 +1,7 @@
 const { spawnSync } = require('child_process');
+const { existsSync, unlinkSync } = require('fs');
+const { homedir } = require('os');
+const { resolve } = require('path');
 
 function doExec(command, ...args) {
   const ret = spawnSync(command, args, {
@@ -11,10 +14,19 @@ function doExec(command, ...args) {
   }
 }
 
+const configFile = resolve(homedir(), '.opennms-cli.config.json');
+const rmConfig = () => {
+	if (existsSync(configFile)) {
+		unlinkSync(configFile);
+	}
+};
+
 console.log('=== running with ts-node ===');
-doExec('npm', 'run', 'cli', '--debug', 'connect', '--username', 'demo', '--password', 'demo', 'https://demo.opennms.org/opennms/');
-doExec('npm', 'run', 'cli', '--debug', 'alarms');
+rmConfig();
+doExec('npm', 'run', 'cli', '--', '--debug', 'connect', '--username', 'demo', '--password', 'demo', 'https://demo.opennms.org/opennms/');
+doExec('npm', 'run', 'cli', '--', '--debug', 'alarms');
 
 console.log('=== running with minified js ===');
+rmConfig();
 doExec('node', 'dist/cli.node.min.js', '--debug', 'connect', '--username', 'demo', '--password', 'demo', 'https://demo.opennms.org/opennms/');
 doExec('node', 'dist/cli.node.min.js', '--debug', 'alarms');
