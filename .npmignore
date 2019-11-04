@@ -5,4 +5,3 @@
 dist/.empty
 node_modules
 fix-ownership.sh
-yarn-error.log

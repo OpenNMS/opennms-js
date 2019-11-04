@@ -68,8 +68,7 @@
     "webpack": "^4.36.1",
     "webpack-cli": "^3.3.9",
     "webpack-closure-compiler": "^2.1.6",
-    "yargs": "^14.0.0",
-    "yarn": "^1.17.3"
+    "yargs": "^14.0.0"
   },
   "jest": {
     "verbose": true,
@@ -136,16 +135,16 @@
     "changelog": "standard-changelog -i CHANGELOG.md -s -r 1",
     "build": "webpack --define process.env.NODE_ENV=production --env production",
     "dev": "webpack --progress --colors",
-    "dist": "yarn --ignore-engines lint && yarn --ignore-engines test && yarn --ignore-engines build",
+    "dist": "npm run lint && npm run test && npm run build",
     "docs": "webpack --env docs",
     "watch": "webpack --progress --colors --watch",
     "test": "jest",
     "watch-test": "jest --watch",
-    "dist-test": "yarn --ignore-engines dist && yarn --ignore-engines smoke",
+    "dist-test": "npm run dist && npm run smoke",
     "smoke": "node test/smoke.js",
     "lint": "tslint 'src/**/*.ts' && tsc --project tsconfig-check.json",
     "cli": "ts-node src/CLI.ts",
-    "docker-build": "yarn --ignore-engines && yarn --ignore-engines dist-test && yarn --ignore-engines changelog && ./fix-ownership.sh",
-    "docker": "docker run --rm --name opennms-js -v `pwd`:/build -w /build node:carbon yarn --ignore-engines docker-build"
+    "docker-build": "npm --prefer-offline --no-progress install && npm run dist-test && npm run changelog && ./fix-ownership.sh",
+    "docker": "docker run --rm --name opennms-js -v `pwd`:/build -w /build node:carbon npm run docker-build"
   }
 }
