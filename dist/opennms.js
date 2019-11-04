@@ -2252,8 +2252,9 @@ function toByteArray(b64) {
   var curByte = 0; // if there are placeholders, only get up to the last complete 4 chars
 
   var len = placeHoldersLen > 0 ? validLen - 4 : validLen;
+  var i;
 
-  for (var i = 0; i < len; i += 4) {
+  for (i = 0; i < len; i += 4) {
     tmp = revLookup[b64.charCodeAt(i)] << 18 | revLookup[b64.charCodeAt(i + 1)] << 12 | revLookup[b64.charCodeAt(i + 2)] << 6 | revLookup[b64.charCodeAt(i + 3)];
     arr[curByte++] = tmp >> 16 & 0xFF;
     arr[curByte++] = tmp >> 8 & 0xFF;
@@ -6917,7 +6918,7 @@ module.exports = function (NAME, wrapper, methods, common, IS_MAP, IS_WEAK) {
 /***/ (function(module, exports) {
 
 var core = module.exports = {
-  version: '2.6.9'
+  version: '2.6.10'
 };
 if (typeof __e == 'number') __e = core; // eslint-disable-line no-undef
 
@@ -10725,7 +10726,7 @@ module.exports = function (it) {
 /***/ (function(module, exports) {
 
 var core = module.exports = {
-  version: '2.6.9'
+  version: '2.6.10'
 };
 if (typeof __e == 'number') __e = core; // eslint-disable-line no-undef
 
@@ -14867,20 +14868,9 @@ exports.regularExpression = function (optionalSubstring) {
  * @author   Feross Aboukhadijeh <https://feross.org>
  * @license  MIT
  */
-// The _isBuffer check is for Safari 5-7 support, because it's missing
-// Object.prototype.constructor. Remove this eventually
-module.exports = function (obj) {
-  return obj != null && (isBuffer(obj) || isSlowBuffer(obj) || !!obj._isBuffer);
+module.exports = function isBuffer(obj) {
+  return obj != null && obj.constructor != null && typeof obj.constructor.isBuffer === 'function' && obj.constructor.isBuffer(obj);
 };
-
-function isBuffer(obj) {
-  return !!obj.constructor && typeof obj.constructor.isBuffer === 'function' && obj.constructor.isBuffer(obj);
-} // For Node v0.10 support. Remove this eventually.
-
-
-function isSlowBuffer(obj) {
-  return typeof obj.readFloatLE === 'function' && typeof obj.slice === 'function' && isBuffer(obj.slice(0, 0));
-}
 
 /***/ }),
 
@@ -16632,11 +16622,13 @@ module.exports = Array.isArray || function (arr) {
 
 
   var rng_psize = 256;
-  BigInteger.SecureRandom = SecureRandom;
-  BigInteger.BigInteger = BigInteger;
 
   if (true) {
-    exports = module.exports = BigInteger;
+    exports = module.exports = {
+      default: BigInteger,
+      BigInteger: BigInteger,
+      SecureRandom: SecureRandom
+    };
   } else {}
 }).call(this);
 
