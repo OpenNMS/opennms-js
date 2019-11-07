@@ -105,7 +105,11 @@ export abstract class AbstractDAO<K, T> extends BaseDAO implements IValueProvide
    * @returns {Promise<any>} A promise containing the values.
    */
   public async findValues(propertyId: string, options?: any): Promise<any> {
-    const [property, defaultOptions] = await Promise.all([this.searchProperty(propertyId), this.getOptions(options)]);
+    // FIXME get rid of the "as" bit once https://github.com/microsoft/TypeScript/issues/33752 is closed
+    const [property, defaultOptions] = await Promise.all([
+      this.searchProperty(propertyId),
+      this.getOptions(options),
+    ]) as [SearchProperty, OnmsHTTPOptionsBuilder];
     if (!property || !property.id) {
       throw new OnmsError('Unable to determine property for ID ' + propertyId);
     }
