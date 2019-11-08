@@ -1,4 +1,3 @@
-# This is an example with only required properties:
 version: 1
 update_configs:
   - package_manager: "javascript"
@@ -14,4 +13,4 @@ update_configs:
       include_scope: true
     allowed_updates:
       - match:
-        update_type: "security"
+          update_type: "security"
