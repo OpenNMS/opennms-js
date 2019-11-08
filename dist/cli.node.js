@@ -64429,8 +64429,6 @@ _Object$defineProperty2(exports, "__esModule", {
 
 exports.Client = void 0;
 
-var _promise = _interopRequireDefault(__webpack_require__(/*! ../node_modules/@babel/runtime-corejs2/core-js/promise */ "./node_modules/@babel/runtime-corejs2/core-js/promise.js"));
-
 var _defineProperty2 = _interopRequireDefault(__webpack_require__(/*! ../node_modules/@babel/runtime-corejs2/core-js/object/define-property */ "./node_modules/@babel/runtime-corejs2/core-js/object/define-property.js"));
 
 var _map = _interopRequireDefault(__webpack_require__(/*! ../node_modules/@babel/runtime-corejs2/core-js/map */ "./node_modules/@babel/runtime-corejs2/core-js/map.js"));
@@ -64469,10 +64467,6 @@ var _OnmsAuthConfig = __webpack_require__(/*! ./api/OnmsAuthConfig */ "./src/api
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { _promise.default.resolve(value).then(_next, _throw); } }
-
-function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new _promise.default(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
-
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; (0, _defineProperty2.default)(target, descriptor.key, descriptor); } }
@@ -64498,53 +64492,43 @@ function () {
      * @param httpImpl - the [[IOnmsHTTP]] implementation to use
      * @param timeout - how long to wait before giving up when making ReST calls
      */
-    value: function () {
-      var _checkServer = _asyncToGenerator(
-      /*#__PURE__*/
-      _regenerator.default.mark(function _callee(server, httpImpl, timeout) {
-        var infoUrl, builder;
-        return _regenerator.default.wrap(function _callee$(_context) {
-          while (1) {
-            switch (_context.prev = _context.next) {
-              case 0:
-                if (httpImpl) {
-                  _context.next = 4;
-                  break;
-                }
+    value: function checkServer(server, httpImpl, timeout) {
+      var infoUrl, builder;
+      return _regenerator.default.async(function checkServer$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              if (httpImpl) {
+                _context.next = 4;
+                break;
+              }
 
-                if (Client.defaultHttp) {
-                  _context.next = 3;
-                  break;
-                }
+              if (Client.defaultHttp) {
+                _context.next = 3;
+                break;
+              }
 
-                throw new _OnmsError.OnmsError('No HTTP implementation is configured!');
+              throw new _OnmsError.OnmsError('No HTTP implementation is configured!');
 
-              case 3:
-                httpImpl = new Client.defaultHttp();
+            case 3:
+              httpImpl = new Client.defaultHttp();
 
-              case 4:
-                infoUrl = server.resolveURL('rest/alarms/count');
-                builder = _OnmsHTTPOptions.OnmsHTTPOptions.newBuilder().setTimeout(timeout).setServer(server).setHeader('Accept', 'text/plain');
-                _context.next = 8;
-                return httpImpl.get(infoUrl, builder.build());
+            case 4:
+              infoUrl = server.resolveURL('rest/alarms/count');
+              builder = _OnmsHTTPOptions.OnmsHTTPOptions.newBuilder().setTimeout(timeout).setServer(server).setHeader('Accept', 'text/plain');
+              _context.next = 8;
+              return _regenerator.default.awrap(httpImpl.get(infoUrl, builder.build()));
 
-              case 8:
-                return _context.abrupt("return", true);
+            case 8:
+              return _context.abrupt("return", true);
 
-              case 9:
-              case "end":
-                return _context.stop();
-            }
+            case 9:
+            case "end":
+              return _context.stop();
           }
-        }, _callee);
-      }));
-
-      function checkServer(_x, _x2, _x3) {
-        return _checkServer.apply(this, arguments);
-      }
-
-      return checkServer;
-    }()
+        }
+      });
+    }
     /**
      * Given an OnmsServer object, query what capabilities it has, and return the capabilities
      * associated with that server.
@@ -64556,77 +64540,67 @@ function () {
 
   }, {
     key: "getMetadata",
-    value: function () {
-      var _getMetadata = _asyncToGenerator(
-      /*#__PURE__*/
-      _regenerator.default.mark(function _callee2(server, httpImpl, timeout) {
-        var infoUrl, builder, response, version, type, config;
-        return _regenerator.default.wrap(function _callee2$(_context2) {
-          while (1) {
-            switch (_context2.prev = _context2.next) {
-              case 0:
-                if (httpImpl) {
-                  _context2.next = 4;
-                  break;
+    value: function getMetadata(server, httpImpl, timeout) {
+      var infoUrl, builder, response, version, type, config;
+      return _regenerator.default.async(function getMetadata$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
+              if (httpImpl) {
+                _context2.next = 4;
+                break;
+              }
+
+              if (Client.defaultHttp) {
+                _context2.next = 3;
+                break;
+              }
+
+              throw new _OnmsError.OnmsError('No HTTP implementation is configured!');
+
+            case 3:
+              httpImpl = new Client.defaultHttp();
+
+            case 4:
+              infoUrl = server.resolveURL('rest/info');
+              builder = _OnmsHTTPOptions.OnmsHTTPOptions.newBuilder().setServer(server).setTimeout(timeout).setHeader('Accept', 'application/json');
+
+              if (!timeout && httpImpl && httpImpl.options && httpImpl.options.timeout) {
+                builder.setTimeout(httpImpl.options.timeout);
+              }
+
+              _context2.next = 9;
+              return _regenerator.default.awrap(httpImpl.get(infoUrl, builder.build()));
+
+            case 9:
+              response = _context2.sent;
+              version = new _OnmsVersion.OnmsVersion(response.data.version, response.data.displayVersion);
+              type = _ServerType.ServerTypes.HORIZON;
+
+              if (response.data.packageName) {
+                if (response.data.packageName.toLowerCase() === 'meridian') {
+                  type = _ServerType.ServerTypes.MERIDIAN;
                 }
+              }
 
-                if (Client.defaultHttp) {
-                  _context2.next = 3;
-                  break;
-                }
+              if (!response.data.ticketerConfig) {
+                _context2.next = 16;
+                break;
+              }
 
-                throw new _OnmsError.OnmsError('No HTTP implementation is configured!');
+              config = response.data.ticketerConfig;
+              return _context2.abrupt("return", new _ServerMetadata.ServerMetadata(version, type, new _TicketerConfig.TicketerConfig(config.plugin, config.enabled)));
 
-              case 3:
-                httpImpl = new Client.defaultHttp();
+            case 16:
+              return _context2.abrupt("return", new _ServerMetadata.ServerMetadata(version, type));
 
-              case 4:
-                infoUrl = server.resolveURL('rest/info');
-                builder = _OnmsHTTPOptions.OnmsHTTPOptions.newBuilder().setServer(server).setTimeout(timeout).setHeader('Accept', 'application/json');
-
-                if (!timeout && httpImpl && httpImpl.options && httpImpl.options.timeout) {
-                  builder.setTimeout(httpImpl.options.timeout);
-                }
-
-                _context2.next = 9;
-                return httpImpl.get(infoUrl, builder.build());
-
-              case 9:
-                response = _context2.sent;
-                version = new _OnmsVersion.OnmsVersion(response.data.version, response.data.displayVersion);
-                type = _ServerType.ServerTypes.HORIZON;
-
-                if (response.data.packageName) {
-                  if (response.data.packageName.toLowerCase() === 'meridian') {
-                    type = _ServerType.ServerTypes.MERIDIAN;
-                  }
-                }
-
-                if (!response.data.ticketerConfig) {
-                  _context2.next = 16;
-                  break;
-                }
-
-                config = response.data.ticketerConfig;
-                return _context2.abrupt("return", new _ServerMetadata.ServerMetadata(version, type, new _TicketerConfig.TicketerConfig(config.plugin, config.enabled)));
-
-              case 16:
-                return _context2.abrupt("return", new _ServerMetadata.ServerMetadata(version, type));
-
-              case 17:
-              case "end":
-                return _context2.stop();
-            }
+            case 17:
+            case "end":
+              return _context2.stop();
           }
-        }, _callee2);
-      }));
-
-      function getMetadata(_x4, _x5, _x6) {
-        return _getMetadata.apply(this, arguments);
-      }
-
-      return getMetadata;
-    }()
+        }
+      });
+    }
     /** The default OnmsHTTP implementation to be used when making requests */
 
   }]);
@@ -64661,44 +64635,34 @@ function () {
 
   _createClass(Client, [{
     key: "connect",
-    value: function () {
-      var _connect = _asyncToGenerator(
-      /*#__PURE__*/
-      _regenerator.default.mark(function _callee3(name, url, username, password, timeout) {
-        var builder, testServer, metadata;
-        return _regenerator.default.wrap(function _callee3$(_context3) {
-          while (1) {
-            switch (_context3.prev = _context3.next) {
-              case 0:
-                builder = _OnmsServer.OnmsServer.newBuilder().setName(name).setUrl(url).setAuth(new _OnmsAuthConfig.OnmsAuthConfig(username, password));
-                testServer = builder.build(); // first check the server; throws if it can't connect
+    value: function connect(name, url, username, password, timeout) {
+      var builder, testServer, metadata;
+      return _regenerator.default.async(function connect$(_context3) {
+        while (1) {
+          switch (_context3.prev = _context3.next) {
+            case 0:
+              builder = _OnmsServer.OnmsServer.newBuilder().setName(name).setUrl(url).setAuth(new _OnmsAuthConfig.OnmsAuthConfig(username, password));
+              testServer = builder.build(); // first check the server; throws if it can't connect
 
-                _context3.next = 4;
-                return Client.checkServer(testServer, this.http, timeout);
+              _context3.next = 4;
+              return _regenerator.default.awrap(Client.checkServer(testServer, this.http, timeout));
 
-              case 4:
-                _context3.next = 6;
-                return Client.getMetadata(testServer, this.http, timeout);
+            case 4:
+              _context3.next = 6;
+              return _regenerator.default.awrap(Client.getMetadata(testServer, this.http, timeout));
 
-              case 6:
-                metadata = _context3.sent;
-                this.http.server = builder.setMetadata(metadata).build();
-                return _context3.abrupt("return", this);
+            case 6:
+              metadata = _context3.sent;
+              this.http.server = builder.setMetadata(metadata).build();
+              return _context3.abrupt("return", this);
 
-              case 9:
-              case "end":
-                return _context3.stop();
-            }
+            case 9:
+            case "end":
+              return _context3.stop();
           }
-        }, _callee3, this);
-      }));
-
-      function connect(_x7, _x8, _x9, _x10, _x11) {
-        return _connect.apply(this, arguments);
-      }
-
-      return connect;
-    }()
+        }
+      }, null, this);
+    }
     /** Get an alarm DAO for querying alarms. */
 
   }, {
@@ -66655,6 +66619,12 @@ exports.OnmsServer = OnmsServer;
 "use strict";
 
 
+function _typeof(obj) { if (typeof _Symbol === "function" && typeof _Symbol$iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof _Symbol === "function" && obj.constructor === _Symbol && obj !== _Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+var _Symbol$iterator = __webpack_require__(/*! @babel/runtime-corejs2/core-js/symbol/iterator */ "./node_modules/@babel/runtime-corejs2/core-js/symbol/iterator.js");
+
+var _Symbol = __webpack_require__(/*! @babel/runtime-corejs2/core-js/symbol */ "./node_modules/@babel/runtime-corejs2/core-js/symbol.js");
+
 var _Object$getOwnPropertyDescriptor = __webpack_require__(/*! @babel/runtime-corejs2/core-js/object/get-own-property-descriptor */ "./node_modules/@babel/runtime-corejs2/core-js/object/get-own-property-descriptor.js");
 
 var _Object$defineProperty2 = __webpack_require__(/*! @babel/runtime-corejs2/core-js/object/define-property */ "./node_modules/@babel/runtime-corejs2/core-js/object/define-property.js");
@@ -66673,7 +66643,7 @@ var VersionCompare = _interopRequireWildcard(__webpack_require__(/*! ../../node_
 
 function _getRequireWildcardCache() { if (typeof _WeakMap !== "function") return null; var cache = new _WeakMap(); _getRequireWildcardCache = function _getRequireWildcardCache() { return cache; }; return cache; }
 
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; if (obj != null) { var hasPropertyDescriptor = _Object$defineProperty2 && _Object$getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? _Object$getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { _Object$defineProperty2(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || _typeof(obj) !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = _Object$defineProperty2 && _Object$getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? _Object$getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { _Object$defineProperty2(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -67256,8 +67226,6 @@ _Object$defineProperty2(exports, "__esModule", {
 
 exports.SearchProperty = void 0;
 
-var _promise = _interopRequireDefault(__webpack_require__(/*! ../../node_modules/@babel/runtime-corejs2/core-js/promise */ "./node_modules/@babel/runtime-corejs2/core-js/promise.js"));
-
 var _defineProperty2 = _interopRequireDefault(__webpack_require__(/*! ../../node_modules/@babel/runtime-corejs2/core-js/object/define-property */ "./node_modules/@babel/runtime-corejs2/core-js/object/define-property.js"));
 
 var _regenerator = _interopRequireDefault(__webpack_require__(/*! ../../node_modules/@babel/runtime-corejs2/regenerator */ "./node_modules/@babel/runtime-corejs2/regenerator/index.js"));
@@ -67265,10 +67233,6 @@ var _regenerator = _interopRequireDefault(__webpack_require__(/*! ../../node_mod
 __webpack_require__(/*! ../../node_modules/regenerator-runtime/runtime */ "./node_modules/regenerator-runtime/runtime.js");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { _promise.default.resolve(value).then(_next, _throw); } }
-
-function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new _promise.default(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -67323,35 +67287,25 @@ function () {
 
   _createClass(SearchProperty, [{
     key: "findValues",
-    value: function () {
-      var _findValues = _asyncToGenerator(
-      /*#__PURE__*/
-      _regenerator.default.mark(function _callee(options) {
-        return _regenerator.default.wrap(function _callee$(_context) {
-          while (1) {
-            switch (_context.prev = _context.next) {
-              case 0:
-                if (!this.id) {
-                  _context.next = 2;
-                  break;
-                }
+    value: function findValues(options) {
+      return _regenerator.default.async(function findValues$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              if (!this.id) {
+                _context.next = 2;
+                break;
+              }
 
-                return _context.abrupt("return", this.valueProvider.findValues(this.id, options));
+              return _context.abrupt("return", this.valueProvider.findValues(this.id, options));
 
-              case 2:
-              case "end":
-                return _context.stop();
-            }
+            case 2:
+            case "end":
+              return _context.stop();
           }
-        }, _callee, this);
-      }));
-
-      function findValues(_x) {
-        return _findValues.apply(this, arguments);
-      }
-
-      return findValues;
-    }()
+        }
+      }, null, this);
+    }
   }]);
 
   return SearchProperty;
@@ -67992,10 +67946,6 @@ function _iterableToArrayLimit(arr, i) { if (!((0, _isIterable2.default)(Object(
 
 function _arrayWithHoles(arr) { if ((0, _isArray.default)(arr)) return arr; }
 
-function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { _promise.default.resolve(value).then(_next, _throw); } }
-
-function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new _promise.default(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
-
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; (0, _defineProperty2.default)(target, descriptor.key, descriptor); } }
@@ -68053,44 +68003,34 @@ function (_BaseDAO) {
      * Returns the Promise for a [[IFilterProcessor]].
      * @returns {Promise}
      */
-    value: function () {
-      var _getFilterProcessor = _asyncToGenerator(
-      /*#__PURE__*/
-      _regenerator.default.mark(function _callee() {
-        var cache;
-        return _regenerator.default.wrap(function _callee$(_context) {
-          while (1) {
-            switch (_context.prev = _context.next) {
-              case 0:
-                _context.t0 = this.getApiVersion();
-                _context.next = _context.t0 === 2 ? 3 : 7;
-                break;
+    value: function getFilterProcessor() {
+      var cache;
+      return _regenerator.default.async(function getFilterProcessor$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              _context.t0 = this.getApiVersion();
+              _context.next = _context.t0 === 2 ? 3 : 7;
+              break;
 
-              case 3:
-                _context.next = 5;
-                return this.getPropertiesCache();
+            case 3:
+              _context.next = 5;
+              return _regenerator.default.awrap(this.getPropertiesCache());
 
-              case 5:
-                cache = _context.sent;
-                return _context.abrupt("return", new _V2FilterProcessor.V2FilterProcessor(cache));
+            case 5:
+              cache = _context.sent;
+              return _context.abrupt("return", new _V2FilterProcessor.V2FilterProcessor(cache));
 
-              case 7:
-                return _context.abrupt("return", _promise.default.resolve(new _V1FilterProcessor.V1FilterProcessor()));
+            case 7:
+              return _context.abrupt("return", _promise.default.resolve(new _V1FilterProcessor.V1FilterProcessor()));
 
-              case 8:
-              case "end":
-                return _context.stop();
-            }
+            case 8:
+            case "end":
+              return _context.stop();
           }
-        }, _callee, this);
-      }));
-
-      function getFilterProcessor() {
-        return _getFilterProcessor.apply(this, arguments);
-      }
-
-      return getFilterProcessor;
-    }()
+        }
+      }, null, this);
+    }
     /**
      * Retrieve a model object.
      * @param id - the ID of the object
@@ -68103,34 +68043,24 @@ function (_BaseDAO) {
      * Get the list properties that can be used in queries.
      * @version ReST v2
      */
-    value: function () {
-      var _searchProperties = _asyncToGenerator(
-      /*#__PURE__*/
-      _regenerator.default.mark(function _callee2() {
-        return _regenerator.default.wrap(function _callee2$(_context2) {
-          while (1) {
-            switch (_context2.prev = _context2.next) {
-              case 0:
-                _context2.next = 2;
-                return this.getPropertiesCache();
+    value: function searchProperties() {
+      return _regenerator.default.async(function searchProperties$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
+              _context2.next = 2;
+              return _regenerator.default.awrap(this.getPropertiesCache());
 
-              case 2:
-                return _context2.abrupt("return", _context2.sent);
+            case 2:
+              return _context2.abrupt("return", _context2.sent);
 
-              case 3:
-              case "end":
-                return _context2.stop();
-            }
+            case 3:
+            case "end":
+              return _context2.stop();
           }
-        }, _callee2, this);
-      }));
-
-      function searchProperties() {
-        return _searchProperties.apply(this, arguments);
-      }
-
-      return searchProperties;
-    }()
+        }
+      }, null, this);
+    }
     /**
      * Gets the property identified by the id if it exists.
      *
@@ -68139,38 +68069,28 @@ function (_BaseDAO) {
 
   }, {
     key: "searchProperty",
-    value: function () {
-      var _searchProperty = _asyncToGenerator(
-      /*#__PURE__*/
-      _regenerator.default.mark(function _callee3(id) {
-        var cache;
-        return _regenerator.default.wrap(function _callee3$(_context3) {
-          while (1) {
-            switch (_context3.prev = _context3.next) {
-              case 0:
-                _context3.next = 2;
-                return this.getPropertiesCache();
+    value: function searchProperty(id) {
+      var cache;
+      return _regenerator.default.async(function searchProperty$(_context3) {
+        while (1) {
+          switch (_context3.prev = _context3.next) {
+            case 0:
+              _context3.next = 2;
+              return _regenerator.default.awrap(this.getPropertiesCache());
 
-              case 2:
-                cache = _context3.sent;
-                return _context3.abrupt("return", cache.find(function (prop) {
-                  return prop.id === id;
-                }));
+            case 2:
+              cache = _context3.sent;
+              return _context3.abrupt("return", cache.find(function (prop) {
+                return prop.id === id;
+              }));
 
-              case 4:
-              case "end":
-                return _context3.stop();
-            }
+            case 4:
+            case "end":
+              return _context3.stop();
           }
-        }, _callee3, this);
-      }));
-
-      function searchProperty(_x) {
-        return _searchProperty.apply(this, arguments);
-      }
-
-      return searchProperty;
-    }()
+        }
+      }, null, this);
+    }
     /**
      * Returns or creates a cache of properties for this dao.
      *
@@ -68179,61 +68099,51 @@ function (_BaseDAO) {
 
   }, {
     key: "getPropertiesCache",
-    value: function () {
-      var _getPropertiesCache = _asyncToGenerator(
-      /*#__PURE__*/
-      _regenerator.default.mark(function _callee4() {
-        var _this2 = this;
+    value: function getPropertiesCache() {
+      var _this2 = this;
 
-        var opts, result;
-        return _regenerator.default.wrap(function _callee4$(_context4) {
-          while (1) {
-            switch (_context4.prev = _context4.next) {
-              case 0:
-                if (!(this.getApiVersion() === 1)) {
-                  _context4.next = 2;
-                  break;
-                }
+      var opts, result;
+      return _regenerator.default.async(function getPropertiesCache$(_context4) {
+        while (1) {
+          switch (_context4.prev = _context4.next) {
+            case 0:
+              if (!(this.getApiVersion() === 1)) {
+                _context4.next = 2;
+                break;
+              }
 
-                throw new _OnmsError.OnmsError('Search property metadata is only available in OpenNMS ' + 'versions that support the ReSTv2 API.');
+              throw new _OnmsError.OnmsError('Search property metadata is only available in OpenNMS ' + 'versions that support the ReSTv2 API.');
 
-              case 2:
-                if (this.propertiesCache) {
-                  _context4.next = 10;
-                  break;
-                }
+            case 2:
+              if (this.propertiesCache) {
+                _context4.next = 10;
+                break;
+              }
 
-                _context4.next = 5;
-                return this.getOptions();
+              _context4.next = 5;
+              return _regenerator.default.awrap(this.getOptions());
 
-              case 5:
-                opts = _context4.sent.setHeader('Accept', 'application/json');
-                _context4.next = 8;
-                return this.http.get(this.searchPropertyPath(), opts.build());
+            case 5:
+              opts = _context4.sent.setHeader('Accept', 'application/json');
+              _context4.next = 8;
+              return _regenerator.default.awrap(this.http.get(this.searchPropertyPath(), opts.build()));
 
-              case 8:
-                result = _context4.sent;
-                this.propertiesCache = this.parseResultList(result, 'searchProperty', this.searchPropertyPath(), function (prop) {
-                  return _this2.toSearchProperty(prop);
-                });
+            case 8:
+              result = _context4.sent;
+              this.propertiesCache = this.parseResultList(result, 'searchProperty', this.searchPropertyPath(), function (prop) {
+                return _this2.toSearchProperty(prop);
+              });
 
-              case 10:
-                return _context4.abrupt("return", this.propertiesCache);
+            case 10:
+              return _context4.abrupt("return", this.propertiesCache);
 
-              case 11:
-              case "end":
-                return _context4.stop();
-            }
+            case 11:
+            case "end":
+              return _context4.stop();
           }
-        }, _callee4, this);
-      }));
-
-      function getPropertiesCache() {
-        return _getPropertiesCache.apply(this, arguments);
-      }
-
-      return getPropertiesCache;
-    }()
+        }
+      }, null, this);
+    }
     /**
      * Finds the values for the given propertyId, if it exists.
      *
@@ -68244,58 +68154,48 @@ function (_BaseDAO) {
 
   }, {
     key: "findValues",
-    value: function () {
-      var _findValues = _asyncToGenerator(
-      /*#__PURE__*/
-      _regenerator.default.mark(function _callee5(propertyId, options) {
-        var _ref, _ref2, property, defaultOptions, path, opts, result;
+    value: function findValues(propertyId, options) {
+      var _ref, _ref2, property, defaultOptions, path, opts, result;
 
-        return _regenerator.default.wrap(function _callee5$(_context5) {
-          while (1) {
-            switch (_context5.prev = _context5.next) {
-              case 0:
-                _context5.next = 2;
-                return _promise.default.all([this.searchProperty(propertyId), this.getOptions(options)]);
+      return _regenerator.default.async(function findValues$(_context5) {
+        while (1) {
+          switch (_context5.prev = _context5.next) {
+            case 0:
+              _context5.next = 2;
+              return _regenerator.default.awrap(_promise.default.all([this.searchProperty(propertyId), this.getOptions(options)]));
 
-              case 2:
-                _ref = _context5.sent;
-                _ref2 = _slicedToArray(_ref, 2);
-                property = _ref2[0];
-                defaultOptions = _ref2[1];
+            case 2:
+              _ref = _context5.sent;
+              _ref2 = _slicedToArray(_ref, 2);
+              property = _ref2[0];
+              defaultOptions = _ref2[1];
 
-                if (!(!property || !property.id)) {
-                  _context5.next = 8;
-                  break;
-                }
+              if (!(!property || !property.id)) {
+                _context5.next = 8;
+                break;
+              }
 
-                throw new _OnmsError.OnmsError('Unable to determine property for ID ' + propertyId);
+              throw new _OnmsError.OnmsError('Unable to determine property for ID ' + propertyId);
 
-              case 8:
-                path = this.searchPropertyPath() + '/' + property.id;
-                opts = defaultOptions.setHeader('Accept', 'application/json');
-                _context5.next = 12;
-                return this.http.get(path, opts.build());
+            case 8:
+              path = this.searchPropertyPath() + '/' + property.id;
+              opts = defaultOptions.setHeader('Accept', 'application/json');
+              _context5.next = 12;
+              return _regenerator.default.awrap(this.http.get(path, opts.build()));
 
-              case 12:
-                result = _context5.sent;
-                return _context5.abrupt("return", this.parseResultList(result, 'value', path, function (value) {
-                  return value;
-                }));
+            case 12:
+              result = _context5.sent;
+              return _context5.abrupt("return", this.parseResultList(result, 'value', path, function (value) {
+                return value;
+              }));
 
-              case 14:
-              case "end":
-                return _context5.stop();
-            }
+            case 14:
+            case "end":
+              return _context5.stop();
           }
-        }, _callee5, this);
-      }));
-
-      function findValues(_x2, _x3) {
-        return _findValues.apply(this, arguments);
-      }
-
-      return findValues;
-    }()
+        }
+      }, null, this);
+    }
     /** @inheritdoc */
 
   }, {
@@ -68402,54 +68302,44 @@ function (_BaseDAO) {
 
   }, {
     key: "getOptions",
-    value: function () {
-      var _getOptions = _asyncToGenerator(
-      /*#__PURE__*/
-      _regenerator.default.mark(function _callee6(filter) {
-        var builder, processor;
-        return _regenerator.default.wrap(function _callee6$(_context6) {
-          while (1) {
-            switch (_context6.prev = _context6.next) {
-              case 0:
-                builder = _OnmsHTTPOptions.OnmsHTTPOptions.newBuilder();
+    value: function getOptions(filter) {
+      var builder, processor;
+      return _regenerator.default.async(function getOptions$(_context6) {
+        while (1) {
+          switch (_context6.prev = _context6.next) {
+            case 0:
+              builder = _OnmsHTTPOptions.OnmsHTTPOptions.newBuilder();
 
-                if (this.useJson()) {
-                  builder.setHeader('Accept', 'application/json');
-                } else {
-                  // always use application/xml in DAO calls when we're not sure how
-                  // usable JSON output will be.
-                  builder.setHeader('Accept', 'application/xml');
-                }
+              if (this.useJson()) {
+                builder.setHeader('Accept', 'application/json');
+              } else {
+                // always use application/xml in DAO calls when we're not sure how
+                // usable JSON output will be.
+                builder.setHeader('Accept', 'application/xml');
+              }
 
-                if (!filter) {
-                  _context6.next = 7;
-                  break;
-                }
+              if (!filter) {
+                _context6.next = 7;
+                break;
+              }
 
-                _context6.next = 5;
-                return this.getFilterProcessor();
+              _context6.next = 5;
+              return _regenerator.default.awrap(this.getFilterProcessor());
 
-              case 5:
-                processor = _context6.sent;
-                builder.setParameters(processor.getParameters(filter));
+            case 5:
+              processor = _context6.sent;
+              builder.setParameters(processor.getParameters(filter));
 
-              case 7:
-                return _context6.abrupt("return", builder);
+            case 7:
+              return _context6.abrupt("return", builder);
 
-              case 8:
-              case "end":
-                return _context6.stop();
-            }
+            case 8:
+            case "end":
+              return _context6.stop();
           }
-        }, _callee6, this);
-      }));
-
-      function getOptions(_x4) {
-        return _getOptions.apply(this, arguments);
-      }
-
-      return getOptions;
-    }()
+        }
+      }, null, this);
+    }
     /**
      * Generate a [[SearchProperty]] from the given dictionary.
      * @hidden
@@ -68514,11 +68404,9 @@ var _iterator2 = _interopRequireDefault(__webpack_require__(/*! ../../node_modul
 
 var _symbol = _interopRequireDefault(__webpack_require__(/*! ../../node_modules/@babel/runtime-corejs2/core-js/symbol */ "./node_modules/@babel/runtime-corejs2/core-js/symbol.js"));
 
-var _promise = _interopRequireDefault(__webpack_require__(/*! ../../node_modules/@babel/runtime-corejs2/core-js/promise */ "./node_modules/@babel/runtime-corejs2/core-js/promise.js"));
-
 var _getOwnPropertyDescriptor = _interopRequireDefault(__webpack_require__(/*! ../../node_modules/@babel/runtime-corejs2/core-js/object/get-own-property-descriptor */ "./node_modules/@babel/runtime-corejs2/core-js/object/get-own-property-descriptor.js"));
 
-var _get3 = _interopRequireDefault(__webpack_require__(/*! ../../node_modules/@babel/runtime-corejs2/core-js/reflect/get */ "./node_modules/@babel/runtime-corejs2/core-js/reflect/get.js"));
+var _get2 = _interopRequireDefault(__webpack_require__(/*! ../../node_modules/@babel/runtime-corejs2/core-js/reflect/get */ "./node_modules/@babel/runtime-corejs2/core-js/reflect/get.js"));
 
 var _getPrototypeOf2 = _interopRequireDefault(__webpack_require__(/*! ../../node_modules/@babel/runtime-corejs2/core-js/object/get-prototype-of */ "./node_modules/@babel/runtime-corejs2/core-js/object/get-prototype-of.js"));
 
@@ -68572,10 +68460,6 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function _typeof(obj) { if (typeof _symbol.default === "function" && typeof _iterator2.default === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof _symbol.default === "function" && obj.constructor === _symbol.default && obj !== _symbol.default.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
-function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { _promise.default.resolve(value).then(_next, _throw); } }
-
-function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new _promise.default(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
-
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; (0, _defineProperty2.default)(target, descriptor.key, descriptor); } }
@@ -68586,7 +68470,7 @@ function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) ===
 
 function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
-function _get(target, property, receiver) { if (typeof Reflect !== "undefined" && _get3.default) { _get = _get3.default; } else { _get = function _get(target, property, receiver) { var base = _superPropBase(target, property); if (!base) return; var desc = (0, _getOwnPropertyDescriptor.default)(base, property); if (desc.get) { return desc.get.call(receiver); } return desc.value; }; } return _get(target, property, receiver || target); }
+function _get(target, property, receiver) { if (typeof Reflect !== "undefined" && _get2.default) { _get = _get2.default; } else { _get = function _get(target, property, receiver) { var base = _superPropBase(target, property); if (!base) return; var desc = (0, _getOwnPropertyDescriptor.default)(base, property); if (desc.get) { return desc.get.call(receiver); } return desc.value; }; } return _get(target, property, receiver || target); }
 
 function _superPropBase(object, property) { while (!Object.prototype.hasOwnProperty.call(object, property)) { object = _getPrototypeOf(object); if (object === null) break; } return object; }
 
@@ -68634,42 +68518,32 @@ function (_AbstractDAO) {
 
   _createClass(AlarmDAO, [{
     key: "get",
-    value: function () {
-      var _get2 = _asyncToGenerator(
-      /*#__PURE__*/
-      _regenerator.default.mark(function _callee(id) {
-        var _this2 = this;
+    value: function get(id) {
+      var _this2 = this;
 
-        return _regenerator.default.wrap(function _callee$(_context) {
-          while (1) {
-            switch (_context.prev = _context.next) {
-              case 0:
-                return _context.abrupt("return", this.getOptions().then(function (opts) {
-                  return _this2.http.get(_this2.pathToAlarmsEndpoint() + '/' + id, opts.build()).then(function (result) {
-                    var alarm = _this2.fromData(result.data);
+      return _regenerator.default.async(function get$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              return _context.abrupt("return", this.getOptions().then(function (opts) {
+                return _this2.http.get(_this2.pathToAlarmsEndpoint() + '/' + id, opts.build()).then(function (result) {
+                  var alarm = _this2.fromData(result.data);
 
-                    if (!alarm) {
-                      throw new _OnmsError.OnmsError("AlarmDAO.get id={id} ReST request succeeded, but did not return a valid alarm.");
-                    }
+                  if (!alarm) {
+                    throw new _OnmsError.OnmsError("AlarmDAO.get id={id} ReST request succeeded, but did not return a valid alarm.");
+                  }
 
-                    return alarm;
-                  });
-                }));
+                  return alarm;
+                });
+              }));
 
-              case 1:
-              case "end":
-                return _context.stop();
-            }
+            case 1:
+            case "end":
+              return _context.stop();
           }
-        }, _callee, this);
-      }));
-
-      function get(_x) {
-        return _get2.apply(this, arguments);
-      }
-
-      return get;
-    }()
+        }
+      }, null, this);
+    }
     /**
      * Find matching alarms.
      *
@@ -68680,59 +68554,49 @@ function (_AbstractDAO) {
 
   }, {
     key: "find",
-    value: function () {
-      var _find = _asyncToGenerator(
-      /*#__PURE__*/
-      _regenerator.default.mark(function _callee2(filter) {
-        var _this3 = this;
+    value: function find(filter) {
+      var _this3 = this;
 
-        return _regenerator.default.wrap(function _callee2$(_context2) {
-          while (1) {
-            switch (_context2.prev = _context2.next) {
-              case 0:
-                return _context2.abrupt("return", this.getOptions(filter).then(function (opts) {
-                  return _this3.http.get(_this3.pathToAlarmsEndpoint(), opts.build()).then(function (result) {
-                    var data = _this3.getData(result);
+      return _regenerator.default.async(function find$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
+              return _context2.abrupt("return", this.getOptions(filter).then(function (opts) {
+                return _this3.http.get(_this3.pathToAlarmsEndpoint(), opts.build()).then(function (result) {
+                  var data = _this3.getData(result);
 
-                    if (!(0, _isArray.default)(data)) {
-                      if (!data) {
-                        return [];
-                      }
-
-                      throw new _OnmsError.OnmsError('Expected an array of alarms but got "' + _typeof(data) + '" instead.');
+                  if (!(0, _isArray.default)(data)) {
+                    if (!data) {
+                      return [];
                     }
 
-                    var alarms = data.map(function (alarmData) {
-                      return _this3.fromData(alarmData);
-                    }); // ugh, this cast is necessary to make tsc know there's nothing but OnmsAlarm objects
+                    throw new _OnmsError.OnmsError('Expected an array of alarms but got "' + _typeof(data) + '" instead.');
+                  }
 
-                    var ret = alarms.filter(function (alarm) {
-                      return alarm !== undefined;
-                    });
-                    var diff = alarms.length - ret.length;
+                  var alarms = data.map(function (alarmData) {
+                    return _this3.fromData(alarmData);
+                  }); // ugh, this cast is necessary to make tsc know there's nothing but OnmsAlarm objects
 
-                    if (diff > 0) {
-                      _Log.log.warn("AlarmDAO.find ReST request succeeded, but {diff} alarms could not be parsed.");
-                    }
-
-                    return ret;
+                  var ret = alarms.filter(function (alarm) {
+                    return alarm !== undefined;
                   });
-                }));
+                  var diff = alarms.length - ret.length;
 
-              case 1:
-              case "end":
-                return _context2.stop();
-            }
+                  if (diff > 0) {
+                    _Log.log.warn("AlarmDAO.find ReST request succeeded, but {diff} alarms could not be parsed.");
+                  }
+
+                  return ret;
+                });
+              }));
+
+            case 1:
+            case "end":
+              return _context2.stop();
           }
-        }, _callee2, this);
-      }));
-
-      function find(_x2) {
-        return _find.apply(this, arguments);
-      }
-
-      return find;
-    }()
+        }
+      }, null, this);
+    }
     /**
      * Extracts the data from an HTTP Request result.
      *
@@ -68772,39 +68636,29 @@ function (_AbstractDAO) {
 
   }, {
     key: "acknowledge",
-    value: function () {
-      var _acknowledge = _asyncToGenerator(
-      /*#__PURE__*/
-      _regenerator.default.mark(function _callee3(alarm, user) {
-        var alarmId, parameters;
-        return _regenerator.default.wrap(function _callee3$(_context3) {
-          while (1) {
-            switch (_context3.prev = _context3.next) {
-              case 0:
-                alarmId = typeof alarm === 'number' ? alarm : alarm.id;
-                parameters = {};
-                parameters.ack = 'true';
+    value: function acknowledge(alarm, user) {
+      var alarmId, parameters;
+      return _regenerator.default.async(function acknowledge$(_context3) {
+        while (1) {
+          switch (_context3.prev = _context3.next) {
+            case 0:
+              alarmId = typeof alarm === 'number' ? alarm : alarm.id;
+              parameters = {};
+              parameters.ack = 'true';
 
-                if (user !== undefined) {
-                  parameters.ackUser = user;
-                }
+              if (user !== undefined) {
+                parameters.ackUser = user;
+              }
 
-                return _context3.abrupt("return", this.put(this.pathToAlarmsEndpoint() + '/' + alarmId, parameters));
+              return _context3.abrupt("return", this.put(this.pathToAlarmsEndpoint() + '/' + alarmId, parameters));
 
-              case 5:
-              case "end":
-                return _context3.stop();
-            }
+            case 5:
+            case "end":
+              return _context3.stop();
           }
-        }, _callee3, this);
-      }));
-
-      function acknowledge(_x3, _x4) {
-        return _acknowledge.apply(this, arguments);
-      }
-
-      return acknowledge;
-    }()
+        }
+      }, null, this);
+    }
     /**
      * Un-acknowledge an alarm.
      *
@@ -68814,39 +68668,29 @@ function (_AbstractDAO) {
 
   }, {
     key: "unacknowledge",
-    value: function () {
-      var _unacknowledge = _asyncToGenerator(
-      /*#__PURE__*/
-      _regenerator.default.mark(function _callee4(alarm, user) {
-        var alarmId, parameters;
-        return _regenerator.default.wrap(function _callee4$(_context4) {
-          while (1) {
-            switch (_context4.prev = _context4.next) {
-              case 0:
-                alarmId = typeof alarm === 'number' ? alarm : alarm.id;
-                parameters = {};
-                parameters.ack = 'false';
+    value: function unacknowledge(alarm, user) {
+      var alarmId, parameters;
+      return _regenerator.default.async(function unacknowledge$(_context4) {
+        while (1) {
+          switch (_context4.prev = _context4.next) {
+            case 0:
+              alarmId = typeof alarm === 'number' ? alarm : alarm.id;
+              parameters = {};
+              parameters.ack = 'false';
 
-                if (user !== undefined) {
-                  parameters.ackUser = user;
-                }
+              if (user !== undefined) {
+                parameters.ackUser = user;
+              }
 
-                return _context4.abrupt("return", this.put(this.pathToAlarmsEndpoint() + '/' + alarmId, parameters));
+              return _context4.abrupt("return", this.put(this.pathToAlarmsEndpoint() + '/' + alarmId, parameters));
 
-              case 5:
-              case "end":
-                return _context4.stop();
-            }
+            case 5:
+            case "end":
+              return _context4.stop();
           }
-        }, _callee4, this);
-      }));
-
-      function unacknowledge(_x5, _x6) {
-        return _unacknowledge.apply(this, arguments);
-      }
-
-      return unacknowledge;
-    }()
+        }
+      }, null, this);
+    }
     /**
      * Escalate an alarm.
      *
@@ -68856,34 +68700,24 @@ function (_AbstractDAO) {
 
   }, {
     key: "escalate",
-    value: function () {
-      var _escalate = _asyncToGenerator(
-      /*#__PURE__*/
-      _regenerator.default.mark(function _callee5(alarm) {
-        var alarmId, parameters;
-        return _regenerator.default.wrap(function _callee5$(_context5) {
-          while (1) {
-            switch (_context5.prev = _context5.next) {
-              case 0:
-                alarmId = typeof alarm === 'number' ? alarm : alarm.id;
-                parameters = {};
-                parameters.escalate = 'true';
-                return _context5.abrupt("return", this.put(this.pathToAlarmsEndpoint() + '/' + alarmId, parameters));
+    value: function escalate(alarm) {
+      var alarmId, parameters;
+      return _regenerator.default.async(function escalate$(_context5) {
+        while (1) {
+          switch (_context5.prev = _context5.next) {
+            case 0:
+              alarmId = typeof alarm === 'number' ? alarm : alarm.id;
+              parameters = {};
+              parameters.escalate = 'true';
+              return _context5.abrupt("return", this.put(this.pathToAlarmsEndpoint() + '/' + alarmId, parameters));
 
-              case 4:
-              case "end":
-                return _context5.stop();
-            }
+            case 4:
+            case "end":
+              return _context5.stop();
           }
-        }, _callee5, this);
-      }));
-
-      function escalate(_x7) {
-        return _escalate.apply(this, arguments);
-      }
-
-      return escalate;
-    }()
+        }
+      }, null, this);
+    }
     /**
      * Clear an alarm.
      *
@@ -68893,34 +68727,24 @@ function (_AbstractDAO) {
 
   }, {
     key: "clear",
-    value: function () {
-      var _clear = _asyncToGenerator(
-      /*#__PURE__*/
-      _regenerator.default.mark(function _callee6(alarm) {
-        var alarmId, parameters;
-        return _regenerator.default.wrap(function _callee6$(_context6) {
-          while (1) {
-            switch (_context6.prev = _context6.next) {
-              case 0:
-                alarmId = typeof alarm === 'number' ? alarm : alarm.id;
-                parameters = {};
-                parameters.clear = 'true';
-                return _context6.abrupt("return", this.put(this.pathToAlarmsEndpoint() + '/' + alarmId, parameters));
+    value: function clear(alarm) {
+      var alarmId, parameters;
+      return _regenerator.default.async(function clear$(_context6) {
+        while (1) {
+          switch (_context6.prev = _context6.next) {
+            case 0:
+              alarmId = typeof alarm === 'number' ? alarm : alarm.id;
+              parameters = {};
+              parameters.clear = 'true';
+              return _context6.abrupt("return", this.put(this.pathToAlarmsEndpoint() + '/' + alarmId, parameters));
 
-              case 4:
-              case "end":
-                return _context6.stop();
-            }
+            case 4:
+            case "end":
+              return _context6.stop();
           }
-        }, _callee6, this);
-      }));
-
-      function clear(_x8) {
-        return _clear.apply(this, arguments);
-      }
-
-      return clear;
-    }()
+        }
+      }, null, this);
+    }
     /**
      * Associate a ticket ID with the alarm.
      *
@@ -68931,34 +68755,24 @@ function (_AbstractDAO) {
 
   }, {
     key: "setTTicketId",
-    value: function () {
-      var _setTTicketId = _asyncToGenerator(
-      /*#__PURE__*/
-      _regenerator.default.mark(function _callee7(alarm, ticketId) {
-        var alarmId, parameters;
-        return _regenerator.default.wrap(function _callee7$(_context7) {
-          while (1) {
-            switch (_context7.prev = _context7.next) {
-              case 0:
-                alarmId = typeof alarm === 'number' ? alarm : alarm.id;
-                parameters = {};
-                parameters.ticketId = ticketId;
-                return _context7.abrupt("return", this.put(this.pathToAlarmsEndpoint() + '/' + alarmId, parameters));
+    value: function setTTicketId(alarm, ticketId) {
+      var alarmId, parameters;
+      return _regenerator.default.async(function setTTicketId$(_context7) {
+        while (1) {
+          switch (_context7.prev = _context7.next) {
+            case 0:
+              alarmId = typeof alarm === 'number' ? alarm : alarm.id;
+              parameters = {};
+              parameters.ticketId = ticketId;
+              return _context7.abrupt("return", this.put(this.pathToAlarmsEndpoint() + '/' + alarmId, parameters));
 
-              case 4:
-              case "end":
-                return _context7.stop();
-            }
+            case 4:
+            case "end":
+              return _context7.stop();
           }
-        }, _callee7, this);
-      }));
-
-      function setTTicketId(_x9, _x10) {
-        return _setTTicketId.apply(this, arguments);
-      }
-
-      return setTTicketId;
-    }()
+        }
+      }, null, this);
+    }
     /**
      * Update the state of the ticket associated with the alarm.
      *
@@ -68969,34 +68783,24 @@ function (_AbstractDAO) {
 
   }, {
     key: "setTTicketState",
-    value: function () {
-      var _setTTicketState = _asyncToGenerator(
-      /*#__PURE__*/
-      _regenerator.default.mark(function _callee8(alarm, state) {
-        var alarmId, parameters;
-        return _regenerator.default.wrap(function _callee8$(_context8) {
-          while (1) {
-            switch (_context8.prev = _context8.next) {
-              case 0:
-                alarmId = typeof alarm === 'number' ? alarm : alarm.id;
-                parameters = {};
-                parameters.ticketState = state.label;
-                return _context8.abrupt("return", this.put(this.pathToAlarmsEndpoint() + '/' + alarmId, parameters));
+    value: function setTTicketState(alarm, state) {
+      var alarmId, parameters;
+      return _regenerator.default.async(function setTTicketState$(_context8) {
+        while (1) {
+          switch (_context8.prev = _context8.next) {
+            case 0:
+              alarmId = typeof alarm === 'number' ? alarm : alarm.id;
+              parameters = {};
+              parameters.ticketState = state.label;
+              return _context8.abrupt("return", this.put(this.pathToAlarmsEndpoint() + '/' + alarmId, parameters));
 
-              case 4:
-              case "end":
-                return _context8.stop();
-            }
+            case 4:
+            case "end":
+              return _context8.stop();
           }
-        }, _callee8, this);
-      }));
-
-      function setTTicketState(_x11, _x12) {
-        return _setTTicketState.apply(this, arguments);
-      }
-
-      return setTTicketState;
-    }()
+        }
+      }, null, this);
+    }
     /**
      * Create a trouble ticket for the specified alarm.
      *
@@ -69006,43 +68810,33 @@ function (_AbstractDAO) {
 
   }, {
     key: "createTicket",
-    value: function () {
-      var _createTicket = _asyncToGenerator(
-      /*#__PURE__*/
-      _regenerator.default.mark(function _callee9(alarm) {
-        var alarmId, builder;
-        return _regenerator.default.wrap(function _callee9$(_context9) {
-          while (1) {
-            switch (_context9.prev = _context9.next) {
-              case 0:
-                if (!(this.getApiVersion() === 1)) {
-                  _context9.next = 2;
-                  break;
-                }
+    value: function createTicket(alarm) {
+      var alarmId, builder;
+      return _regenerator.default.async(function createTicket$(_context9) {
+        while (1) {
+          switch (_context9.prev = _context9.next) {
+            case 0:
+              if (!(this.getApiVersion() === 1)) {
+                _context9.next = 2;
+                break;
+              }
 
-                throw new _OnmsError.OnmsError('Create/Update/Close ticket is only available in OpenNMS ' + 'versions that support the ReSTv2 API.');
+              throw new _OnmsError.OnmsError('Create/Update/Close ticket is only available in OpenNMS ' + 'versions that support the ReSTv2 API.');
 
-              case 2:
-                alarmId = typeof alarm === 'number' ? alarm : alarm.id;
-                builder = _OnmsHTTPOptions.OnmsHTTPOptions.newBuilder().setHeader('Accept', 'text/plain');
-                return _context9.abrupt("return", this.http.post(this.pathToAlarmsEndpoint() + '/' + alarmId + '/ticket/create', builder.build()).then(function () {
-                  _Log.log.debug('Ticket creation pending.');
-                }).catch(this.handleError));
+            case 2:
+              alarmId = typeof alarm === 'number' ? alarm : alarm.id;
+              builder = _OnmsHTTPOptions.OnmsHTTPOptions.newBuilder().setHeader('Accept', 'text/plain');
+              return _context9.abrupt("return", this.http.post(this.pathToAlarmsEndpoint() + '/' + alarmId + '/ticket/create', builder.build()).then(function () {
+                _Log.log.debug('Ticket creation pending.');
+              }).catch(this.handleError));
 
-              case 5:
-              case "end":
-                return _context9.stop();
-            }
+            case 5:
+            case "end":
+              return _context9.stop();
           }
-        }, _callee9, this);
-      }));
-
-      function createTicket(_x13) {
-        return _createTicket.apply(this, arguments);
-      }
-
-      return createTicket;
-    }()
+        }
+      }, null, this);
+    }
     /**
      * Notify OpenNMS it should fetch updated ticket state for an alarm from the remote ticketing system.
      *
@@ -69052,43 +68846,33 @@ function (_AbstractDAO) {
 
   }, {
     key: "triggerTicketUpdate",
-    value: function () {
-      var _triggerTicketUpdate = _asyncToGenerator(
-      /*#__PURE__*/
-      _regenerator.default.mark(function _callee10(alarm) {
-        var alarmId, builder;
-        return _regenerator.default.wrap(function _callee10$(_context10) {
-          while (1) {
-            switch (_context10.prev = _context10.next) {
-              case 0:
-                if (!(this.getApiVersion() === 1)) {
-                  _context10.next = 2;
-                  break;
-                }
+    value: function triggerTicketUpdate(alarm) {
+      var alarmId, builder;
+      return _regenerator.default.async(function triggerTicketUpdate$(_context10) {
+        while (1) {
+          switch (_context10.prev = _context10.next) {
+            case 0:
+              if (!(this.getApiVersion() === 1)) {
+                _context10.next = 2;
+                break;
+              }
 
-                throw new _OnmsError.OnmsError('Create/Update/Close ticket is only available in OpenNMS ' + 'versions that support the ReSTv2 API.');
+              throw new _OnmsError.OnmsError('Create/Update/Close ticket is only available in OpenNMS ' + 'versions that support the ReSTv2 API.');
 
-              case 2:
-                alarmId = typeof alarm === 'number' ? alarm : alarm.id;
-                builder = _OnmsHTTPOptions.OnmsHTTPOptions.newBuilder().setHeader('Accept', 'text/plain');
-                return _context10.abrupt("return", this.http.post(this.pathToAlarmsEndpoint() + '/' + alarmId + '/ticket/update', builder.build()).then(function () {
-                  _Log.log.debug('Ticket update pending.');
-                }).catch(this.handleError));
+            case 2:
+              alarmId = typeof alarm === 'number' ? alarm : alarm.id;
+              builder = _OnmsHTTPOptions.OnmsHTTPOptions.newBuilder().setHeader('Accept', 'text/plain');
+              return _context10.abrupt("return", this.http.post(this.pathToAlarmsEndpoint() + '/' + alarmId + '/ticket/update', builder.build()).then(function () {
+                _Log.log.debug('Ticket update pending.');
+              }).catch(this.handleError));
 
-              case 5:
-              case "end":
-                return _context10.stop();
-            }
+            case 5:
+            case "end":
+              return _context10.stop();
           }
-        }, _callee10, this);
-      }));
-
-      function triggerTicketUpdate(_x14) {
-        return _triggerTicketUpdate.apply(this, arguments);
-      }
-
-      return triggerTicketUpdate;
-    }()
+        }
+      }, null, this);
+    }
     /**
      * Close the ticket associated with the given alarm.
      *
@@ -69098,43 +68882,33 @@ function (_AbstractDAO) {
 
   }, {
     key: "closeTicket",
-    value: function () {
-      var _closeTicket = _asyncToGenerator(
-      /*#__PURE__*/
-      _regenerator.default.mark(function _callee11(alarm) {
-        var alarmId, builder;
-        return _regenerator.default.wrap(function _callee11$(_context11) {
-          while (1) {
-            switch (_context11.prev = _context11.next) {
-              case 0:
-                if (!(this.getApiVersion() === 1)) {
-                  _context11.next = 2;
-                  break;
-                }
+    value: function closeTicket(alarm) {
+      var alarmId, builder;
+      return _regenerator.default.async(function closeTicket$(_context11) {
+        while (1) {
+          switch (_context11.prev = _context11.next) {
+            case 0:
+              if (!(this.getApiVersion() === 1)) {
+                _context11.next = 2;
+                break;
+              }
 
-                throw new _OnmsError.OnmsError('Create/Update/Close ticket is only available in OpenNMS ' + 'versions that support the ReSTv2 API.');
+              throw new _OnmsError.OnmsError('Create/Update/Close ticket is only available in OpenNMS ' + 'versions that support the ReSTv2 API.');
 
-              case 2:
-                alarmId = typeof alarm === 'number' ? alarm : alarm.id;
-                builder = _OnmsHTTPOptions.OnmsHTTPOptions.newBuilder().setHeader('Accept', 'text/plain');
-                return _context11.abrupt("return", this.http.post(this.pathToAlarmsEndpoint() + '/' + alarmId + '/ticket/close', builder.build()).then(function () {
-                  _Log.log.debug('Ticket close pending.');
-                }).catch(this.handleError));
+            case 2:
+              alarmId = typeof alarm === 'number' ? alarm : alarm.id;
+              builder = _OnmsHTTPOptions.OnmsHTTPOptions.newBuilder().setHeader('Accept', 'text/plain');
+              return _context11.abrupt("return", this.http.post(this.pathToAlarmsEndpoint() + '/' + alarmId + '/ticket/close', builder.build()).then(function () {
+                _Log.log.debug('Ticket close pending.');
+              }).catch(this.handleError));
 
-              case 5:
-              case "end":
-                return _context11.stop();
-            }
+            case 5:
+            case "end":
+              return _context11.stop();
           }
-        }, _callee11, this);
-      }));
-
-      function closeTicket(_x15) {
-        return _closeTicket.apply(this, arguments);
-      }
-
-      return closeTicket;
-    }()
+        }
+      }, null, this);
+    }
     /**
      * Create or update the sticky memo associated with the alarm.
      *
@@ -69147,30 +68921,20 @@ function (_AbstractDAO) {
 
   }, {
     key: "saveStickyMemo",
-    value: function () {
-      var _saveStickyMemo = _asyncToGenerator(
-      /*#__PURE__*/
-      _regenerator.default.mark(function _callee12(alarm, body, user) {
-        return _regenerator.default.wrap(function _callee12$(_context12) {
-          while (1) {
-            switch (_context12.prev = _context12.next) {
-              case 0:
-                return _context12.abrupt("return", this.saveMemo('memo', alarm, body, user));
+    value: function saveStickyMemo(alarm, body, user) {
+      return _regenerator.default.async(function saveStickyMemo$(_context12) {
+        while (1) {
+          switch (_context12.prev = _context12.next) {
+            case 0:
+              return _context12.abrupt("return", this.saveMemo('memo', alarm, body, user));
 
-              case 1:
-              case "end":
-                return _context12.stop();
-            }
+            case 1:
+            case "end":
+              return _context12.stop();
           }
-        }, _callee12, this);
-      }));
-
-      function saveStickyMemo(_x16, _x17, _x18) {
-        return _saveStickyMemo.apply(this, arguments);
-      }
-
-      return saveStickyMemo;
-    }()
+        }
+      }, null, this);
+    }
     /**
      * Create or update the journal memo associated with the alarm.
      *
@@ -69183,30 +68947,20 @@ function (_AbstractDAO) {
 
   }, {
     key: "saveJournalMemo",
-    value: function () {
-      var _saveJournalMemo = _asyncToGenerator(
-      /*#__PURE__*/
-      _regenerator.default.mark(function _callee13(alarm, body, user) {
-        return _regenerator.default.wrap(function _callee13$(_context13) {
-          while (1) {
-            switch (_context13.prev = _context13.next) {
-              case 0:
-                return _context13.abrupt("return", this.saveMemo('journal', alarm, body, user));
+    value: function saveJournalMemo(alarm, body, user) {
+      return _regenerator.default.async(function saveJournalMemo$(_context13) {
+        while (1) {
+          switch (_context13.prev = _context13.next) {
+            case 0:
+              return _context13.abrupt("return", this.saveMemo('journal', alarm, body, user));
 
-              case 1:
-              case "end":
-                return _context13.stop();
-            }
+            case 1:
+            case "end":
+              return _context13.stop();
           }
-        }, _callee13, this);
-      }));
-
-      function saveJournalMemo(_x19, _x20, _x21) {
-        return _saveJournalMemo.apply(this, arguments);
-      }
-
-      return saveJournalMemo;
-    }()
+        }
+      }, null, this);
+    }
     /**
      * Delete the sticky memo ticket associated with the given alarm.
      *
@@ -69216,30 +68970,20 @@ function (_AbstractDAO) {
 
   }, {
     key: "deleteStickyMemo",
-    value: function () {
-      var _deleteStickyMemo = _asyncToGenerator(
-      /*#__PURE__*/
-      _regenerator.default.mark(function _callee14(alarm) {
-        return _regenerator.default.wrap(function _callee14$(_context14) {
-          while (1) {
-            switch (_context14.prev = _context14.next) {
-              case 0:
-                return _context14.abrupt("return", this.deleteMemo('memo', alarm));
+    value: function deleteStickyMemo(alarm) {
+      return _regenerator.default.async(function deleteStickyMemo$(_context14) {
+        while (1) {
+          switch (_context14.prev = _context14.next) {
+            case 0:
+              return _context14.abrupt("return", this.deleteMemo('memo', alarm));
 
-              case 1:
-              case "end":
-                return _context14.stop();
-            }
+            case 1:
+            case "end":
+              return _context14.stop();
           }
-        }, _callee14, this);
-      }));
-
-      function deleteStickyMemo(_x22) {
-        return _deleteStickyMemo.apply(this, arguments);
-      }
-
-      return deleteStickyMemo;
-    }()
+        }
+      }, null, this);
+    }
     /**
      * Delete the journal memo ticket associated with the given alarm.
      *
@@ -69249,30 +68993,20 @@ function (_AbstractDAO) {
 
   }, {
     key: "deleteJournalMemo",
-    value: function () {
-      var _deleteJournalMemo = _asyncToGenerator(
-      /*#__PURE__*/
-      _regenerator.default.mark(function _callee15(alarm) {
-        return _regenerator.default.wrap(function _callee15$(_context15) {
-          while (1) {
-            switch (_context15.prev = _context15.next) {
-              case 0:
-                return _context15.abrupt("return", this.deleteMemo('journal', alarm));
+    value: function deleteJournalMemo(alarm) {
+      return _regenerator.default.async(function deleteJournalMemo$(_context15) {
+        while (1) {
+          switch (_context15.prev = _context15.next) {
+            case 0:
+              return _context15.abrupt("return", this.deleteMemo('journal', alarm));
 
-              case 1:
-              case "end":
-                return _context15.stop();
-            }
+            case 1:
+            case "end":
+              return _context15.stop();
           }
-        }, _callee15, this);
-      }));
-
-      function deleteJournalMemo(_x23) {
-        return _deleteJournalMemo.apply(this, arguments);
-      }
-
-      return deleteJournalMemo;
-    }()
+        }
+      }, null, this);
+    }
     /**
      * Generate an alarm object from the given dictionary.
      * @hidden
@@ -69422,57 +69156,47 @@ function (_AbstractDAO) {
 
   }, {
     key: "getOptions",
-    value: function () {
-      var _getOptions = _asyncToGenerator(
-      /*#__PURE__*/
-      _regenerator.default.mark(function _callee16(filter) {
-        var _this4 = this;
+    value: function getOptions(filter) {
+      var _this4 = this;
 
-        return _regenerator.default.wrap(function _callee16$(_context16) {
-          while (1) {
-            switch (_context16.prev = _context16.next) {
-              case 0:
-                if (filter) {
-                  this.visitFilter(filter, {
-                    onRestriction: function onRestriction(restriction) {
-                      if (restriction.attribute === 'isAcknowledged') {
-                        var value = String(restriction.value).toLowerCase() === 'true';
-                        restriction.attribute = 'alarmAckTime';
+      return _regenerator.default.async(function getOptions$(_context16) {
+        while (1) {
+          switch (_context16.prev = _context16.next) {
+            case 0:
+              if (filter) {
+                this.visitFilter(filter, {
+                  onRestriction: function onRestriction(restriction) {
+                    if (restriction.attribute === 'isAcknowledged') {
+                      var value = String(restriction.value).toLowerCase() === 'true';
+                      restriction.attribute = 'alarmAckTime';
 
-                        if (restriction.comparator.label === _Comparator.Comparators.NE.label) {
-                          value = !value;
-                        }
-
-                        restriction.comparator = value ? _Comparator.Comparators.NOTNULL : _Comparator.Comparators.NULL;
-                        restriction.value = undefined;
+                      if (restriction.comparator.label === _Comparator.Comparators.NE.label) {
+                        value = !value;
                       }
+
+                      restriction.comparator = value ? _Comparator.Comparators.NOTNULL : _Comparator.Comparators.NULL;
+                      restriction.value = undefined;
                     }
-                  });
+                  }
+                });
+              }
+
+              return _context16.abrupt("return", _get(_getPrototypeOf(AlarmDAO.prototype), "getOptions", this).call(this, filter).then(function (options) {
+                // always use application/json for v2 calls
+                if (_this4.getApiVersion() === 2) {
+                  return options.setHeader('Accept', 'application/json');
                 }
 
-                return _context16.abrupt("return", _get(_getPrototypeOf(AlarmDAO.prototype), "getOptions", this).call(this, filter).then(function (options) {
-                  // always use application/json for v2 calls
-                  if (_this4.getApiVersion() === 2) {
-                    return options.setHeader('Accept', 'application/json');
-                  }
+                return options;
+              }));
 
-                  return options;
-                }));
-
-              case 2:
-              case "end":
-                return _context16.stop();
-            }
+            case 2:
+            case "end":
+              return _context16.stop();
           }
-        }, _callee16, this);
-      }));
-
-      function getOptions(_x24) {
-        return _getOptions.apply(this, arguments);
-      }
-
-      return getOptions;
-    }()
+        }
+      }, null, this);
+    }
     /**
      * Call a PUT request in the format the alarm ack API expects.
      * @hidden
@@ -69480,47 +69204,37 @@ function (_AbstractDAO) {
 
   }, {
     key: "put",
-    value: function () {
-      var _put = _asyncToGenerator(
-      /*#__PURE__*/
-      _regenerator.default.mark(function _callee17(url) {
-        var parameters,
-            builder,
-            _args17 = arguments;
-        return _regenerator.default.wrap(function _callee17$(_context17) {
-          while (1) {
-            switch (_context17.prev = _context17.next) {
-              case 0:
-                parameters = _args17.length > 1 && _args17[1] !== undefined ? _args17[1] : {};
-                _context17.next = 3;
-                return this.getOptions();
+    value: function put(url) {
+      var parameters,
+          builder,
+          _args17 = arguments;
+      return _regenerator.default.async(function put$(_context17) {
+        while (1) {
+          switch (_context17.prev = _context17.next) {
+            case 0:
+              parameters = _args17.length > 1 && _args17[1] !== undefined ? _args17[1] : {};
+              _context17.next = 3;
+              return _regenerator.default.awrap(this.getOptions());
 
-              case 3:
-                _context17.t0 = undefined;
-                _context17.t1 = parameters;
-                builder = _context17.sent.setHeader('Content-Type', 'application/x-www-form-urlencoded').setHeader('Accept', _context17.t0).setParameters(_context17.t1);
-                return _context17.abrupt("return", this.http.put(url, builder.build()).then(function (result) {
-                  if (!result.isSuccess) {
-                    throw result;
-                  }
+            case 3:
+              _context17.t0 = undefined;
+              _context17.t1 = parameters;
+              builder = _context17.sent.setHeader('Content-Type', 'application/x-www-form-urlencoded').setHeader('Accept', _context17.t0).setParameters(_context17.t1);
+              return _context17.abrupt("return", this.http.put(url, builder.build()).then(function (result) {
+                if (!result.isSuccess) {
+                  throw result;
+                }
 
-                  return;
-                }));
+                return;
+              }));
 
-              case 7:
-              case "end":
-                return _context17.stop();
-            }
+            case 7:
+            case "end":
+              return _context17.stop();
           }
-        }, _callee17, this);
-      }));
-
-      function put(_x25) {
-        return _put.apply(this, arguments);
-      }
-
-      return put;
-    }()
+        }
+      }, null, this);
+    }
     /**
      * Call a DELETE request in the format the alarm ack API expects.
      * @hidden
@@ -69528,47 +69242,37 @@ function (_AbstractDAO) {
 
   }, {
     key: "httpDelete",
-    value: function () {
-      var _httpDelete = _asyncToGenerator(
-      /*#__PURE__*/
-      _regenerator.default.mark(function _callee18(url) {
-        var parameters,
-            builder,
-            _args18 = arguments;
-        return _regenerator.default.wrap(function _callee18$(_context18) {
-          while (1) {
-            switch (_context18.prev = _context18.next) {
-              case 0:
-                parameters = _args18.length > 1 && _args18[1] !== undefined ? _args18[1] : {};
-                _context18.next = 3;
-                return this.getOptions();
+    value: function httpDelete(url) {
+      var parameters,
+          builder,
+          _args18 = arguments;
+      return _regenerator.default.async(function httpDelete$(_context18) {
+        while (1) {
+          switch (_context18.prev = _context18.next) {
+            case 0:
+              parameters = _args18.length > 1 && _args18[1] !== undefined ? _args18[1] : {};
+              _context18.next = 3;
+              return _regenerator.default.awrap(this.getOptions());
 
-              case 3:
-                _context18.t0 = undefined;
-                _context18.t1 = parameters;
-                builder = _context18.sent.setHeader('Content-Type', 'application/x-www-form-urlencoded').setHeader('Accept', _context18.t0).setParameters(_context18.t1);
-                return _context18.abrupt("return", this.http.httpDelete(url, builder.build()).then(function (result) {
-                  if (!result.isSuccess) {
-                    throw result;
-                  }
+            case 3:
+              _context18.t0 = undefined;
+              _context18.t1 = parameters;
+              builder = _context18.sent.setHeader('Content-Type', 'application/x-www-form-urlencoded').setHeader('Accept', _context18.t0).setParameters(_context18.t1);
+              return _context18.abrupt("return", this.http.httpDelete(url, builder.build()).then(function (result) {
+                if (!result.isSuccess) {
+                  throw result;
+                }
 
-                  return;
-                }));
+                return;
+              }));
 
-              case 7:
-              case "end":
-                return _context18.stop();
-            }
+            case 7:
+            case "end":
+              return _context18.stop();
           }
-        }, _callee18, this);
-      }));
-
-      function httpDelete(_x26) {
-        return _httpDelete.apply(this, arguments);
-      }
-
-      return httpDelete;
-    }()
+        }
+      }, null, this);
+    }
     /**
      * Get the path to the alarms endpoint for the appropriate API version.
      * @hidden
@@ -69586,47 +69290,37 @@ function (_AbstractDAO) {
 
   }, {
     key: "saveMemo",
-    value: function () {
-      var _saveMemo = _asyncToGenerator(
-      /*#__PURE__*/
-      _regenerator.default.mark(function _callee19(type, alarm, body, user) {
-        var alarmId, parameters;
-        return _regenerator.default.wrap(function _callee19$(_context19) {
-          while (1) {
-            switch (_context19.prev = _context19.next) {
-              case 0:
-                if (!(this.getApiVersion() === 1)) {
-                  _context19.next = 2;
-                  break;
-                }
+    value: function saveMemo(type, alarm, body, user) {
+      var alarmId, parameters;
+      return _regenerator.default.async(function saveMemo$(_context19) {
+        while (1) {
+          switch (_context19.prev = _context19.next) {
+            case 0:
+              if (!(this.getApiVersion() === 1)) {
+                _context19.next = 2;
+                break;
+              }
 
-                throw new _OnmsError.OnmsError('Save/Delete memo is only available in OpenNMS ' + 'versions that support the ReSTv2 API.');
+              throw new _OnmsError.OnmsError('Save/Delete memo is only available in OpenNMS ' + 'versions that support the ReSTv2 API.');
 
-              case 2:
-                alarmId = typeof alarm === 'number' ? alarm : alarm.id;
-                parameters = {};
-                parameters.body = body;
+            case 2:
+              alarmId = typeof alarm === 'number' ? alarm : alarm.id;
+              parameters = {};
+              parameters.body = body;
 
-                if (user !== undefined) {
-                  parameters.user = user;
-                }
+              if (user !== undefined) {
+                parameters.user = user;
+              }
 
-                return _context19.abrupt("return", this.put(this.pathToAlarmsEndpoint() + '/' + alarmId + '/' + type, parameters));
+              return _context19.abrupt("return", this.put(this.pathToAlarmsEndpoint() + '/' + alarmId + '/' + type, parameters));
 
-              case 7:
-              case "end":
-                return _context19.stop();
-            }
+            case 7:
+            case "end":
+              return _context19.stop();
           }
-        }, _callee19, this);
-      }));
-
-      function saveMemo(_x27, _x28, _x29, _x30) {
-        return _saveMemo.apply(this, arguments);
-      }
-
-      return saveMemo;
-    }()
+        }
+      }, null, this);
+    }
     /**
      * Delete a journal or sticky memo
      * @hidden
@@ -69634,40 +69328,30 @@ function (_AbstractDAO) {
 
   }, {
     key: "deleteMemo",
-    value: function () {
-      var _deleteMemo = _asyncToGenerator(
-      /*#__PURE__*/
-      _regenerator.default.mark(function _callee20(type, alarm) {
-        var alarmId;
-        return _regenerator.default.wrap(function _callee20$(_context20) {
-          while (1) {
-            switch (_context20.prev = _context20.next) {
-              case 0:
-                if (!(this.getApiVersion() === 1)) {
-                  _context20.next = 2;
-                  break;
-                }
+    value: function deleteMemo(type, alarm) {
+      var alarmId;
+      return _regenerator.default.async(function deleteMemo$(_context20) {
+        while (1) {
+          switch (_context20.prev = _context20.next) {
+            case 0:
+              if (!(this.getApiVersion() === 1)) {
+                _context20.next = 2;
+                break;
+              }
 
-                throw new _OnmsError.OnmsError('Save/Delete memo is only available in OpenNMS ' + 'versions that support the ReSTv2 API.');
+              throw new _OnmsError.OnmsError('Save/Delete memo is only available in OpenNMS ' + 'versions that support the ReSTv2 API.');
 
-              case 2:
-                alarmId = typeof alarm === 'number' ? alarm : alarm.id;
-                return _context20.abrupt("return", this.httpDelete(this.pathToAlarmsEndpoint() + '/' + alarmId + '/' + type));
+            case 2:
+              alarmId = typeof alarm === 'number' ? alarm : alarm.id;
+              return _context20.abrupt("return", this.httpDelete(this.pathToAlarmsEndpoint() + '/' + alarmId + '/' + type));
 
-              case 4:
-              case "end":
-                return _context20.stop();
-            }
+            case 4:
+            case "end":
+              return _context20.stop();
           }
-        }, _callee20, this);
-      }));
-
-      function deleteMemo(_x31, _x32) {
-        return _deleteMemo.apply(this, arguments);
-      }
-
-      return deleteMemo;
-    }()
+        }
+      }, null, this);
+    }
     /**
      * Retrieves the URL to the details page for the given alarm.
      *
@@ -69964,8 +69648,6 @@ var _iterator2 = _interopRequireDefault(__webpack_require__(/*! ../../node_modul
 
 var _symbol = _interopRequireDefault(__webpack_require__(/*! ../../node_modules/@babel/runtime-corejs2/core-js/symbol */ "./node_modules/@babel/runtime-corejs2/core-js/symbol.js"));
 
-var _promise = _interopRequireDefault(__webpack_require__(/*! ../../node_modules/@babel/runtime-corejs2/core-js/promise */ "./node_modules/@babel/runtime-corejs2/core-js/promise.js"));
-
 var _defineProperty = _interopRequireDefault(__webpack_require__(/*! ../../node_modules/@babel/runtime-corejs2/core-js/object/define-property */ "./node_modules/@babel/runtime-corejs2/core-js/object/define-property.js"));
 
 var _getPrototypeOf2 = _interopRequireDefault(__webpack_require__(/*! ../../node_modules/@babel/runtime-corejs2/core-js/object/get-prototype-of */ "./node_modules/@babel/runtime-corejs2/core-js/object/get-prototype-of.js"));
@@ -70004,10 +69686,6 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function _typeof(obj) { if (typeof _symbol.default === "function" && typeof _iterator2.default === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof _symbol.default === "function" && obj.constructor === _symbol.default && obj !== _symbol.default.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
-function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { _promise.default.resolve(value).then(_next, _throw); } }
-
-function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new _promise.default(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
-
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; (0, _defineProperty.default)(target, descriptor.key, descriptor); } }
@@ -70043,105 +69721,85 @@ function (_AbstractDAO) {
 
   _createClass(EventDAO, [{
     key: "get",
-    value: function () {
-      var _get = _asyncToGenerator(
-      /*#__PURE__*/
-      _regenerator.default.mark(function _callee(id) {
-        var _this = this;
+    value: function get(id) {
+      var _this = this;
 
-        return _regenerator.default.wrap(function _callee$(_context) {
-          while (1) {
-            switch (_context.prev = _context.next) {
-              case 0:
-                return _context.abrupt("return", this.getOptions().then(function (builder) {
-                  return _this.http.get(_this.pathToEventsEndpoint() + '/' + id, builder.build()).then(function (result) {
-                    var ev = _this.fromData(result.data);
+      return _regenerator.default.async(function get$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              return _context.abrupt("return", this.getOptions().then(function (builder) {
+                return _this.http.get(_this.pathToEventsEndpoint() + '/' + id, builder.build()).then(function (result) {
+                  var ev = _this.fromData(result.data);
 
-                    if (!ev) {
-                      throw new _OnmsError.OnmsError("EventDAO.get id={id} ReST request succeeded, but did not return a valid event.");
-                    }
+                  if (!ev) {
+                    throw new _OnmsError.OnmsError("EventDAO.get id={id} ReST request succeeded, but did not return a valid event.");
+                  }
 
-                    return ev;
-                  });
-                }));
+                  return ev;
+                });
+              }));
 
-              case 1:
-              case "end":
-                return _context.stop();
-            }
+            case 1:
+            case "end":
+              return _context.stop();
           }
-        }, _callee, this);
-      }));
-
-      function get(_x) {
-        return _get.apply(this, arguments);
-      }
-
-      return get;
-    }()
+        }
+      }, null, this);
+    }
     /** Get an event, given a filter. */
 
   }, {
     key: "find",
-    value: function () {
-      var _find = _asyncToGenerator(
-      /*#__PURE__*/
-      _regenerator.default.mark(function _callee2(filter) {
-        var _this2 = this;
+    value: function find(filter) {
+      var _this2 = this;
 
-        return _regenerator.default.wrap(function _callee2$(_context2) {
-          while (1) {
-            switch (_context2.prev = _context2.next) {
-              case 0:
-                return _context2.abrupt("return", this.getOptions(filter).then(function (builder) {
-                  return _this2.http.get(_this2.pathToEventsEndpoint(), builder.build()).then(function (result) {
-                    var data = result.data;
+      return _regenerator.default.async(function find$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
+              return _context2.abrupt("return", this.getOptions(filter).then(function (builder) {
+                return _this2.http.get(_this2.pathToEventsEndpoint(), builder.build()).then(function (result) {
+                  var data = result.data;
 
-                    if (data !== null && _this2.getCount(data, result.code) > 0 && data.event) {
-                      data = data.event;
+                  if (data !== null && _this2.getCount(data, result.code) > 0 && data.event) {
+                    data = data.event;
+                  } else {
+                    data = [];
+                  }
+
+                  if (!(0, _isArray.default)(data)) {
+                    if (data.id) {
+                      data = [data];
                     } else {
-                      data = [];
+                      throw new _OnmsError.OnmsError('Expected an array of events but got "' + _typeof(data) + '" instead.');
                     }
+                  }
 
-                    if (!(0, _isArray.default)(data)) {
-                      if (data.id) {
-                        data = [data];
-                      } else {
-                        throw new _OnmsError.OnmsError('Expected an array of events but got "' + _typeof(data) + '" instead.');
-                      }
-                    }
+                  var events = data.map(function (eventData) {
+                    return _this2.fromData(eventData);
+                  }); // ugh, this cast is necessary to make tsc know there's nothing but OnmsEvent objects
 
-                    var events = data.map(function (eventData) {
-                      return _this2.fromData(eventData);
-                    }); // ugh, this cast is necessary to make tsc know there's nothing but OnmsEvent objects
-
-                    var ret = events.filter(function (event) {
-                      return event !== undefined;
-                    });
-                    var diff = events.length - ret.length;
-
-                    if (diff > 0) {
-                      _Log.log.warn("EventDAO.find ReST request succeeded, but {diff} events could not be parsed.");
-                    }
-
-                    return ret;
+                  var ret = events.filter(function (event) {
+                    return event !== undefined;
                   });
-                }));
+                  var diff = events.length - ret.length;
 
-              case 1:
-              case "end":
-                return _context2.stop();
-            }
+                  if (diff > 0) {
+                    _Log.log.warn("EventDAO.find ReST request succeeded, but {diff} events could not be parsed.");
+                  }
+
+                  return ret;
+                });
+              }));
+
+            case 1:
+            case "end":
+              return _context2.stop();
           }
-        }, _callee2, this);
-      }));
-
-      function find(_x2) {
-        return _find.apply(this, arguments);
-      }
-
-      return find;
-    }()
+        }
+      }, null, this);
+    }
     /**
      * Create an event object from a JSON object.
      * @hidden
@@ -70268,8 +69926,6 @@ var _iterator2 = _interopRequireDefault(__webpack_require__(/*! ../../node_modul
 
 var _symbol = _interopRequireDefault(__webpack_require__(/*! ../../node_modules/@babel/runtime-corejs2/core-js/symbol */ "./node_modules/@babel/runtime-corejs2/core-js/symbol.js"));
 
-var _promise = _interopRequireDefault(__webpack_require__(/*! ../../node_modules/@babel/runtime-corejs2/core-js/promise */ "./node_modules/@babel/runtime-corejs2/core-js/promise.js"));
-
 var _defineProperty = _interopRequireDefault(__webpack_require__(/*! ../../node_modules/@babel/runtime-corejs2/core-js/object/define-property */ "./node_modules/@babel/runtime-corejs2/core-js/object/define-property.js"));
 
 var _getPrototypeOf2 = _interopRequireDefault(__webpack_require__(/*! ../../node_modules/@babel/runtime-corejs2/core-js/object/get-prototype-of */ "./node_modules/@babel/runtime-corejs2/core-js/object/get-prototype-of.js"));
@@ -70318,10 +69974,6 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function _typeof(obj) { if (typeof _symbol.default === "function" && typeof _iterator2.default === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof _symbol.default === "function" && obj.constructor === _symbol.default && obj !== _symbol.default.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
-function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { _promise.default.resolve(value).then(_next, _throw); } }
-
-function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new _promise.default(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
-
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; (0, _defineProperty.default)(target, descriptor.key, descriptor); } }
@@ -70368,59 +70020,49 @@ function (_BaseDAO) {
      * @param start - the start of the timespan to query (defaults to 4 hours ago)
      * @param end - the end of the timespan to query (defaults to now)
      */
-    value: function () {
-      var _getExporters = _asyncToGenerator(
-      /*#__PURE__*/
-      _regenerator.default.mark(function _callee(limit, start, end) {
-        var _this = this;
+    value: function getExporters(limit, start, end) {
+      var _this = this;
 
-        var url, builder, result;
-        return _regenerator.default.wrap(function _callee$(_context) {
-          while (1) {
-            switch (_context.prev = _context.next) {
-              case 0:
-                url = this.pathToFlowsEndpoint() + '/exporters';
-                builder = this.getOptions().addParameter('limit', limit).addParameter('start', start).addParameter('end', end);
-                _context.next = 4;
-                return this.http.get(url, builder.build());
+      var url, builder, result;
+      return _regenerator.default.async(function getExporters$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              url = this.pathToFlowsEndpoint() + '/exporters';
+              builder = this.getOptions().addParameter('limit', limit).addParameter('start', start).addParameter('end', end);
+              _context.next = 4;
+              return _regenerator.default.awrap(this.http.get(url, builder.build()));
 
-              case 4:
-                result = _context.sent;
+            case 4:
+              result = _context.sent;
 
-                if (!(result && result.data)) {
-                  _context.next = 9;
-                  break;
-                }
+              if (!(result && result.data)) {
+                _context.next = 9;
+                break;
+              }
 
-                if ((0, _isArray.default)(result.data)) {
-                  _context.next = 8;
-                  break;
-                }
+              if ((0, _isArray.default)(result.data)) {
+                _context.next = 8;
+                break;
+              }
 
-                throw new _OnmsError.OnmsError('Expected an array of flow exporter summaries but got "' + _typeof(result) + '" instead.');
+              throw new _OnmsError.OnmsError('Expected an array of flow exporter summaries but got "' + _typeof(result) + '" instead.');
 
-              case 8:
-                return _context.abrupt("return", result.data.map(function (exporter) {
-                  return _this.toFlowExporterSummary(exporter);
-                }));
+            case 8:
+              return _context.abrupt("return", result.data.map(function (exporter) {
+                return _this.toFlowExporterSummary(exporter);
+              }));
 
-              case 9:
-                throw new _OnmsError.OnmsError('Unexpected response from GET ' + url + ': no result data found.');
+            case 9:
+              throw new _OnmsError.OnmsError('Unexpected response from GET ' + url + ': no result data found.');
 
-              case 10:
-              case "end":
-                return _context.stop();
-            }
+            case 10:
+            case "end":
+              return _context.stop();
           }
-        }, _callee, this);
-      }));
-
-      function getExporters(_x, _x2, _x3) {
-        return _getExporters.apply(this, arguments);
-      }
-
-      return getExporters;
-    }()
+        }
+      }, null, this);
+    }
     /**
      * Get detailed information about a specific node.
      * @param criteria - the node ID or foreignSource:foreignId tuple
@@ -70432,37 +70074,27 @@ function (_BaseDAO) {
 
   }, {
     key: "getExporter",
-    value: function () {
-      var _getExporter = _asyncToGenerator(
-      /*#__PURE__*/
-      _regenerator.default.mark(function _callee2(criteria, limit, start, end) {
-        var builder, result;
-        return _regenerator.default.wrap(function _callee2$(_context2) {
-          while (1) {
-            switch (_context2.prev = _context2.next) {
-              case 0:
-                builder = this.getOptions().addParameter('limit', limit).addParameter('start', start).addParameter('end', end);
-                _context2.next = 3;
-                return this.http.get(this.pathToFlowsEndpoint() + '/exporters/' + criteria, builder.build());
+    value: function getExporter(criteria, limit, start, end) {
+      var builder, result;
+      return _regenerator.default.async(function getExporter$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
+              builder = this.getOptions().addParameter('limit', limit).addParameter('start', start).addParameter('end', end);
+              _context2.next = 3;
+              return _regenerator.default.awrap(this.http.get(this.pathToFlowsEndpoint() + '/exporters/' + criteria, builder.build()));
 
-              case 3:
-                result = _context2.sent;
-                return _context2.abrupt("return", this.toFlowExporter(result.data));
+            case 3:
+              result = _context2.sent;
+              return _context2.abrupt("return", this.toFlowExporter(result.data));
 
-              case 5:
-              case "end":
-                return _context2.stop();
-            }
+            case 5:
+            case "end":
+              return _context2.stop();
           }
-        }, _callee2, this);
-      }));
-
-      function getExporter(_x4, _x5, _x6, _x7) {
-        return _getExporter.apply(this, arguments);
-      }
-
-      return getExporter;
-    }()
+        }
+      }, null, this);
+    }
     /**
      * Enumerate the applications matching the given prefix and filters.
      * @param prefix - the prefix to match
@@ -70474,37 +70106,27 @@ function (_BaseDAO) {
 
   }, {
     key: "getApplications",
-    value: function () {
-      var _getApplications = _asyncToGenerator(
-      /*#__PURE__*/
-      _regenerator.default.mark(function _callee3(prefix, start, end, exporterNodeCriteria, ifIndex) {
-        var builder, result;
-        return _regenerator.default.wrap(function _callee3$(_context3) {
-          while (1) {
-            switch (_context3.prev = _context3.next) {
-              case 0:
-                builder = this.getOptions().addParameter('start', start).addParameter('end', end).addParameter('exporterNode', exporterNodeCriteria).addParameter('ifIndex', ifIndex).addParameter('prefix', prefix);
-                _context3.next = 3;
-                return this.http.get(this.pathToFlowsEndpoint() + '/applications/enumerate', builder.build());
+    value: function getApplications(prefix, start, end, exporterNodeCriteria, ifIndex) {
+      var builder, result;
+      return _regenerator.default.async(function getApplications$(_context3) {
+        while (1) {
+          switch (_context3.prev = _context3.next) {
+            case 0:
+              builder = this.getOptions().addParameter('start', start).addParameter('end', end).addParameter('exporterNode', exporterNodeCriteria).addParameter('ifIndex', ifIndex).addParameter('prefix', prefix);
+              _context3.next = 3;
+              return _regenerator.default.awrap(this.http.get(this.pathToFlowsEndpoint() + '/applications/enumerate', builder.build()));
 
-              case 3:
-                result = _context3.sent;
-                return _context3.abrupt("return", result.data);
+            case 3:
+              result = _context3.sent;
+              return _context3.abrupt("return", result.data);
 
-              case 5:
-              case "end":
-                return _context3.stop();
-            }
+            case 5:
+            case "end":
+              return _context3.stop();
           }
-        }, _callee3, this);
-      }));
-
-      function getApplications(_x8, _x9, _x10, _x11, _x12) {
-        return _getApplications.apply(this, arguments);
-      }
-
-      return getApplications;
-    }()
+        }
+      }, null, this);
+    }
     /**
      * Summarize the top N applications/protocols based on parameters.
      * @param N - how many applications to return
@@ -70518,37 +70140,27 @@ function (_BaseDAO) {
 
   }, {
     key: "getSummaryForTopNApplications",
-    value: function () {
-      var _getSummaryForTopNApplications = _asyncToGenerator(
-      /*#__PURE__*/
-      _regenerator.default.mark(function _callee4(N, start, end, includeOther, exporterNodeCriteria, ifIndex) {
-        var builder, result;
-        return _regenerator.default.wrap(function _callee4$(_context4) {
-          while (1) {
-            switch (_context4.prev = _context4.next) {
-              case 0:
-                builder = this.getOptions().addParameter('N', N).addParameter('start', start).addParameter('end', end).addParameter('exporterNode', exporterNodeCriteria).addParameter('ifIndex', ifIndex).addParameter('includeOther', includeOther);
-                _context4.next = 3;
-                return this.http.get(this.pathToFlowsEndpoint() + '/applications', builder.build());
+    value: function getSummaryForTopNApplications(N, start, end, includeOther, exporterNodeCriteria, ifIndex) {
+      var builder, result;
+      return _regenerator.default.async(function getSummaryForTopNApplications$(_context4) {
+        while (1) {
+          switch (_context4.prev = _context4.next) {
+            case 0:
+              builder = this.getOptions().addParameter('N', N).addParameter('start', start).addParameter('end', end).addParameter('exporterNode', exporterNodeCriteria).addParameter('ifIndex', ifIndex).addParameter('includeOther', includeOther);
+              _context4.next = 3;
+              return _regenerator.default.awrap(this.http.get(this.pathToFlowsEndpoint() + '/applications', builder.build()));
 
-              case 3:
-                result = _context4.sent;
-                return _context4.abrupt("return", this.tableFromData(result.data));
+            case 3:
+              result = _context4.sent;
+              return _context4.abrupt("return", this.tableFromData(result.data));
 
-              case 5:
-              case "end":
-                return _context4.stop();
-            }
+            case 5:
+            case "end":
+              return _context4.stop();
           }
-        }, _callee4, this);
-      }));
-
-      function getSummaryForTopNApplications(_x13, _x14, _x15, _x16, _x17, _x18) {
-        return _getSummaryForTopNApplications.apply(this, arguments);
-      }
-
-      return getSummaryForTopNApplications;
-    }()
+        }
+      }, null, this);
+    }
     /**
      * Summarize the given applications/protocols based on parameters.
      * @param applications - the applications to include
@@ -70562,45 +70174,35 @@ function (_BaseDAO) {
 
   }, {
     key: "getSummaryForApplications",
-    value: function () {
-      var _getSummaryForApplications = _asyncToGenerator(
-      /*#__PURE__*/
-      _regenerator.default.mark(function _callee5(applications, start, end, includeOther, exporterNodeCriteria, ifIndex) {
-        var builder, result;
-        return _regenerator.default.wrap(function _callee5$(_context5) {
-          while (1) {
-            switch (_context5.prev = _context5.next) {
-              case 0:
-                this.checkForEnhancedFlows();
-                builder = this.getOptions().addParameter('start', start).addParameter('end', end).addParameter('exporterNode', exporterNodeCriteria).addParameter('ifIndex', ifIndex).addParameter('includeOther', includeOther);
+    value: function getSummaryForApplications(applications, start, end, includeOther, exporterNodeCriteria, ifIndex) {
+      var builder, result;
+      return _regenerator.default.async(function getSummaryForApplications$(_context5) {
+        while (1) {
+          switch (_context5.prev = _context5.next) {
+            case 0:
+              this.checkForEnhancedFlows();
+              builder = this.getOptions().addParameter('start', start).addParameter('end', end).addParameter('exporterNode', exporterNodeCriteria).addParameter('ifIndex', ifIndex).addParameter('includeOther', includeOther);
 
-                if (applications) {
-                  applications.forEach(function (application) {
-                    builder.addParameter('application', application);
-                  });
-                }
+              if (applications) {
+                applications.forEach(function (application) {
+                  builder.addParameter('application', application);
+                });
+              }
 
-                _context5.next = 5;
-                return this.http.get(this.pathToFlowsEndpoint() + '/applications', builder.build());
+              _context5.next = 5;
+              return _regenerator.default.awrap(this.http.get(this.pathToFlowsEndpoint() + '/applications', builder.build()));
 
-              case 5:
-                result = _context5.sent;
-                return _context5.abrupt("return", this.tableFromData(result.data));
+            case 5:
+              result = _context5.sent;
+              return _context5.abrupt("return", this.tableFromData(result.data));
 
-              case 7:
-              case "end":
-                return _context5.stop();
-            }
+            case 7:
+            case "end":
+              return _context5.stop();
           }
-        }, _callee5, this);
-      }));
-
-      function getSummaryForApplications(_x19, _x20, _x21, _x22, _x23, _x24) {
-        return _getSummaryForApplications.apply(this, arguments);
-      }
-
-      return getSummaryForApplications;
-    }()
+        }
+      }, null, this);
+    }
     /**
      * Get time series data for the top N applications/protocols based on parameters.
      * @param N - how many applications' series to return
@@ -70615,37 +70217,27 @@ function (_BaseDAO) {
 
   }, {
     key: "getSeriesForTopNApplications",
-    value: function () {
-      var _getSeriesForTopNApplications = _asyncToGenerator(
-      /*#__PURE__*/
-      _regenerator.default.mark(function _callee6(N, start, end, step, includeOther, exporterNodeCriteria, ifIndex) {
-        var builder, result;
-        return _regenerator.default.wrap(function _callee6$(_context6) {
-          while (1) {
-            switch (_context6.prev = _context6.next) {
-              case 0:
-                builder = this.getOptions().addParameter('N', N).addParameter('start', start).addParameter('end', end).addParameter('step', step).addParameter('exporterNode', exporterNodeCriteria).addParameter('ifIndex', ifIndex).addParameter('includeOther', includeOther);
-                _context6.next = 3;
-                return this.http.get(this.pathToFlowsEndpoint() + '/applications/series', builder.build());
+    value: function getSeriesForTopNApplications(N, start, end, step, includeOther, exporterNodeCriteria, ifIndex) {
+      var builder, result;
+      return _regenerator.default.async(function getSeriesForTopNApplications$(_context6) {
+        while (1) {
+          switch (_context6.prev = _context6.next) {
+            case 0:
+              builder = this.getOptions().addParameter('N', N).addParameter('start', start).addParameter('end', end).addParameter('step', step).addParameter('exporterNode', exporterNodeCriteria).addParameter('ifIndex', ifIndex).addParameter('includeOther', includeOther);
+              _context6.next = 3;
+              return _regenerator.default.awrap(this.http.get(this.pathToFlowsEndpoint() + '/applications/series', builder.build()));
 
-              case 3:
-                result = _context6.sent;
-                return _context6.abrupt("return", this.seriesFromData(result.data));
+            case 3:
+              result = _context6.sent;
+              return _context6.abrupt("return", this.seriesFromData(result.data));
 
-              case 5:
-              case "end":
-                return _context6.stop();
-            }
+            case 5:
+            case "end":
+              return _context6.stop();
           }
-        }, _callee6, this);
-      }));
-
-      function getSeriesForTopNApplications(_x25, _x26, _x27, _x28, _x29, _x30, _x31) {
-        return _getSeriesForTopNApplications.apply(this, arguments);
-      }
-
-      return getSeriesForTopNApplications;
-    }()
+        }
+      }, null, this);
+    }
     /**
      * Get time series data for the top N applications/protocols based on parameters.
      * @param applications - the applications to include
@@ -70660,45 +70252,35 @@ function (_BaseDAO) {
 
   }, {
     key: "getSeriesForApplications",
-    value: function () {
-      var _getSeriesForApplications = _asyncToGenerator(
-      /*#__PURE__*/
-      _regenerator.default.mark(function _callee7(applications, start, end, step, includeOther, exporterNodeCriteria, ifIndex) {
-        var builder, result;
-        return _regenerator.default.wrap(function _callee7$(_context7) {
-          while (1) {
-            switch (_context7.prev = _context7.next) {
-              case 0:
-                this.checkForEnhancedFlows();
-                builder = this.getOptions().addParameter('start', start).addParameter('end', end).addParameter('step', step).addParameter('exporterNode', exporterNodeCriteria).addParameter('ifIndex', ifIndex).addParameter('includeOther', includeOther);
+    value: function getSeriesForApplications(applications, start, end, step, includeOther, exporterNodeCriteria, ifIndex) {
+      var builder, result;
+      return _regenerator.default.async(function getSeriesForApplications$(_context7) {
+        while (1) {
+          switch (_context7.prev = _context7.next) {
+            case 0:
+              this.checkForEnhancedFlows();
+              builder = this.getOptions().addParameter('start', start).addParameter('end', end).addParameter('step', step).addParameter('exporterNode', exporterNodeCriteria).addParameter('ifIndex', ifIndex).addParameter('includeOther', includeOther);
 
-                if (applications) {
-                  applications.forEach(function (application) {
-                    builder.addParameter('application', application);
-                  });
-                }
+              if (applications) {
+                applications.forEach(function (application) {
+                  builder.addParameter('application', application);
+                });
+              }
 
-                _context7.next = 5;
-                return this.http.get(this.pathToFlowsEndpoint() + '/applications/series', builder.build());
+              _context7.next = 5;
+              return _regenerator.default.awrap(this.http.get(this.pathToFlowsEndpoint() + '/applications/series', builder.build()));
 
-              case 5:
-                result = _context7.sent;
-                return _context7.abrupt("return", this.seriesFromData(result.data));
+            case 5:
+              result = _context7.sent;
+              return _context7.abrupt("return", this.seriesFromData(result.data));
 
-              case 7:
-              case "end":
-                return _context7.stop();
-            }
+            case 7:
+            case "end":
+              return _context7.stop();
           }
-        }, _callee7, this);
-      }));
-
-      function getSeriesForApplications(_x32, _x33, _x34, _x35, _x36, _x37, _x38) {
-        return _getSeriesForApplications.apply(this, arguments);
-      }
-
-      return getSeriesForApplications;
-    }()
+        }
+      }, null, this);
+    }
     /**
      * Summarize the top N conversations based on parameters.
      * @param NOptions - how many conversations to return or an object that includes all of the parameters to be set on
@@ -70711,48 +70293,38 @@ function (_BaseDAO) {
 
   }, {
     key: "getSummaryForTopNConversations",
-    value: function () {
-      var _getSummaryForTopNConversations = _asyncToGenerator(
-      /*#__PURE__*/
-      _regenerator.default.mark(function _callee8(NOptions, start, end, exporterNodeCriteria, ifIndex) {
-        var builder, _i, _Object$keys, key, result;
+    value: function getSummaryForTopNConversations(NOptions, start, end, exporterNodeCriteria, ifIndex) {
+      var builder, _i, _Object$keys, key, result;
 
-        return _regenerator.default.wrap(function _callee8$(_context8) {
-          while (1) {
-            switch (_context8.prev = _context8.next) {
-              case 0:
-                builder = this.getOptions();
+      return _regenerator.default.async(function getSummaryForTopNConversations$(_context8) {
+        while (1) {
+          switch (_context8.prev = _context8.next) {
+            case 0:
+              builder = this.getOptions();
 
-                if (typeof NOptions === 'number') {
-                  builder.addParameter('N', NOptions).addParameter('start', start).addParameter('end', end).addParameter('exporterNode', exporterNodeCriteria).addParameter('ifIndex', ifIndex);
-                } else if (NOptions) {
-                  for (_i = 0, _Object$keys = (0, _keys.default)(NOptions); _i < _Object$keys.length; _i++) {
-                    key = _Object$keys[_i];
-                    builder.addParameter(key, NOptions[key]);
-                  }
+              if (typeof NOptions === 'number') {
+                builder.addParameter('N', NOptions).addParameter('start', start).addParameter('end', end).addParameter('exporterNode', exporterNodeCriteria).addParameter('ifIndex', ifIndex);
+              } else if (NOptions) {
+                for (_i = 0, _Object$keys = (0, _keys.default)(NOptions); _i < _Object$keys.length; _i++) {
+                  key = _Object$keys[_i];
+                  builder.addParameter(key, NOptions[key]);
                 }
+              }
 
-                _context8.next = 4;
-                return this.http.get(this.pathToFlowsEndpoint() + '/conversations', builder.build());
+              _context8.next = 4;
+              return _regenerator.default.awrap(this.http.get(this.pathToFlowsEndpoint() + '/conversations', builder.build()));
 
-              case 4:
-                result = _context8.sent;
-                return _context8.abrupt("return", this.tableFromData(result.data));
+            case 4:
+              result = _context8.sent;
+              return _context8.abrupt("return", this.tableFromData(result.data));
 
-              case 6:
-              case "end":
-                return _context8.stop();
-            }
+            case 6:
+            case "end":
+              return _context8.stop();
           }
-        }, _callee8, this);
-      }));
-
-      function getSummaryForTopNConversations(_x39, _x40, _x41, _x42, _x43) {
-        return _getSummaryForTopNConversations.apply(this, arguments);
-      }
-
-      return getSummaryForTopNConversations;
-    }()
+        }
+      }, null, this);
+    }
     /**
      * Summarize the given conversations based on parameters.
      * @param conversations - how many conversations to return
@@ -70766,45 +70338,35 @@ function (_BaseDAO) {
 
   }, {
     key: "getSummaryForConversations",
-    value: function () {
-      var _getSummaryForConversations = _asyncToGenerator(
-      /*#__PURE__*/
-      _regenerator.default.mark(function _callee9(conversations, start, end, includeOther, exporterNodeCriteria, ifIndex) {
-        var builder, result;
-        return _regenerator.default.wrap(function _callee9$(_context9) {
-          while (1) {
-            switch (_context9.prev = _context9.next) {
-              case 0:
-                this.checkForEnhancedFlows();
-                builder = this.getOptions().addParameter('start', start).addParameter('end', end).addParameter('exporterNode', exporterNodeCriteria).addParameter('ifIndex', ifIndex).addParameter('includeOther', includeOther);
+    value: function getSummaryForConversations(conversations, start, end, includeOther, exporterNodeCriteria, ifIndex) {
+      var builder, result;
+      return _regenerator.default.async(function getSummaryForConversations$(_context9) {
+        while (1) {
+          switch (_context9.prev = _context9.next) {
+            case 0:
+              this.checkForEnhancedFlows();
+              builder = this.getOptions().addParameter('start', start).addParameter('end', end).addParameter('exporterNode', exporterNodeCriteria).addParameter('ifIndex', ifIndex).addParameter('includeOther', includeOther);
 
-                if (conversations) {
-                  conversations.forEach(function (conversation) {
-                    builder.addParameter('conversation', conversation);
-                  });
-                }
+              if (conversations) {
+                conversations.forEach(function (conversation) {
+                  builder.addParameter('conversation', conversation);
+                });
+              }
 
-                _context9.next = 5;
-                return this.http.get(this.pathToFlowsEndpoint() + '/conversations', builder.build());
+              _context9.next = 5;
+              return _regenerator.default.awrap(this.http.get(this.pathToFlowsEndpoint() + '/conversations', builder.build()));
 
-              case 5:
-                result = _context9.sent;
-                return _context9.abrupt("return", this.tableFromData(result.data));
+            case 5:
+              result = _context9.sent;
+              return _context9.abrupt("return", this.tableFromData(result.data));
 
-              case 7:
-              case "end":
-                return _context9.stop();
-            }
+            case 7:
+            case "end":
+              return _context9.stop();
           }
-        }, _callee9, this);
-      }));
-
-      function getSummaryForConversations(_x44, _x45, _x46, _x47, _x48, _x49) {
-        return _getSummaryForConversations.apply(this, arguments);
-      }
-
-      return getSummaryForConversations;
-    }()
+        }
+      }, null, this);
+    }
     /**
      * Get time series data for the top N conversations based on parameters.
      * @param NOptions - how many conversations to return or an object that includes all of the parameters to be set on
@@ -70818,48 +70380,38 @@ function (_BaseDAO) {
 
   }, {
     key: "getSeriesForTopNConversations",
-    value: function () {
-      var _getSeriesForTopNConversations = _asyncToGenerator(
-      /*#__PURE__*/
-      _regenerator.default.mark(function _callee10(NOptions, start, end, step, exporterNodeCriteria, ifIndex) {
-        var builder, _i2, _Object$keys3, key, result;
+    value: function getSeriesForTopNConversations(NOptions, start, end, step, exporterNodeCriteria, ifIndex) {
+      var builder, _i2, _Object$keys3, key, result;
 
-        return _regenerator.default.wrap(function _callee10$(_context10) {
-          while (1) {
-            switch (_context10.prev = _context10.next) {
-              case 0:
-                builder = this.getOptions();
+      return _regenerator.default.async(function getSeriesForTopNConversations$(_context10) {
+        while (1) {
+          switch (_context10.prev = _context10.next) {
+            case 0:
+              builder = this.getOptions();
 
-                if (typeof NOptions === 'number') {
-                  builder.addParameter('N', NOptions).addParameter('start', start).addParameter('end', end).addParameter('step', step).addParameter('exporterNode', exporterNodeCriteria).addParameter('ifIndex', ifIndex);
-                } else if (NOptions) {
-                  for (_i2 = 0, _Object$keys3 = (0, _keys.default)(NOptions); _i2 < _Object$keys3.length; _i2++) {
-                    key = _Object$keys3[_i2];
-                    builder.addParameter(key, NOptions[key]);
-                  }
+              if (typeof NOptions === 'number') {
+                builder.addParameter('N', NOptions).addParameter('start', start).addParameter('end', end).addParameter('step', step).addParameter('exporterNode', exporterNodeCriteria).addParameter('ifIndex', ifIndex);
+              } else if (NOptions) {
+                for (_i2 = 0, _Object$keys3 = (0, _keys.default)(NOptions); _i2 < _Object$keys3.length; _i2++) {
+                  key = _Object$keys3[_i2];
+                  builder.addParameter(key, NOptions[key]);
                 }
+              }
 
-                _context10.next = 4;
-                return this.http.get(this.pathToFlowsEndpoint() + '/conversations/series', builder.build());
+              _context10.next = 4;
+              return _regenerator.default.awrap(this.http.get(this.pathToFlowsEndpoint() + '/conversations/series', builder.build()));
 
-              case 4:
-                result = _context10.sent;
-                return _context10.abrupt("return", this.seriesFromData(result.data));
+            case 4:
+              result = _context10.sent;
+              return _context10.abrupt("return", this.seriesFromData(result.data));
 
-              case 6:
-              case "end":
-                return _context10.stop();
-            }
+            case 6:
+            case "end":
+              return _context10.stop();
           }
-        }, _callee10, this);
-      }));
-
-      function getSeriesForTopNConversations(_x50, _x51, _x52, _x53, _x54, _x55) {
-        return _getSeriesForTopNConversations.apply(this, arguments);
-      }
-
-      return getSeriesForTopNConversations;
-    }()
+        }
+      }, null, this);
+    }
     /**
      * Get time series data for the given conversations based on parameters.
      * @param conversations - how many conversations' series to return
@@ -70874,45 +70426,35 @@ function (_BaseDAO) {
 
   }, {
     key: "getSeriesForConversations",
-    value: function () {
-      var _getSeriesForConversations = _asyncToGenerator(
-      /*#__PURE__*/
-      _regenerator.default.mark(function _callee11(conversations, start, end, step, includeOther, exporterNodeCriteria, ifIndex) {
-        var builder, result;
-        return _regenerator.default.wrap(function _callee11$(_context11) {
-          while (1) {
-            switch (_context11.prev = _context11.next) {
-              case 0:
-                this.checkForEnhancedFlows();
-                builder = this.getOptions().addParameter('start', start).addParameter('end', end).addParameter('step', step).addParameter('exporterNode', exporterNodeCriteria).addParameter('ifIndex', ifIndex).addParameter('includeOther', includeOther);
+    value: function getSeriesForConversations(conversations, start, end, step, includeOther, exporterNodeCriteria, ifIndex) {
+      var builder, result;
+      return _regenerator.default.async(function getSeriesForConversations$(_context11) {
+        while (1) {
+          switch (_context11.prev = _context11.next) {
+            case 0:
+              this.checkForEnhancedFlows();
+              builder = this.getOptions().addParameter('start', start).addParameter('end', end).addParameter('step', step).addParameter('exporterNode', exporterNodeCriteria).addParameter('ifIndex', ifIndex).addParameter('includeOther', includeOther);
 
-                if (conversations) {
-                  conversations.forEach(function (conversation) {
-                    builder.addParameter('conversation', conversation);
-                  });
-                }
+              if (conversations) {
+                conversations.forEach(function (conversation) {
+                  builder.addParameter('conversation', conversation);
+                });
+              }
 
-                _context11.next = 5;
-                return this.http.get(this.pathToFlowsEndpoint() + '/conversations/series', builder.build());
+              _context11.next = 5;
+              return _regenerator.default.awrap(this.http.get(this.pathToFlowsEndpoint() + '/conversations/series', builder.build()));
 
-              case 5:
-                result = _context11.sent;
-                return _context11.abrupt("return", this.seriesFromData(result.data));
+            case 5:
+              result = _context11.sent;
+              return _context11.abrupt("return", this.seriesFromData(result.data));
 
-              case 7:
-              case "end":
-                return _context11.stop();
-            }
+            case 7:
+            case "end":
+              return _context11.stop();
           }
-        }, _callee11, this);
-      }));
-
-      function getSeriesForConversations(_x56, _x57, _x58, _x59, _x60, _x61, _x62) {
-        return _getSeriesForConversations.apply(this, arguments);
-      }
-
-      return getSeriesForConversations;
-    }()
+        }
+      }, null, this);
+    }
     /**
      * Enumerate all the hosts matching the given pattern and filters.
      * @param pattern - the regex pattern to match
@@ -70924,37 +70466,27 @@ function (_BaseDAO) {
 
   }, {
     key: "getHosts",
-    value: function () {
-      var _getHosts = _asyncToGenerator(
-      /*#__PURE__*/
-      _regenerator.default.mark(function _callee12(pattern, start, end, exporterNodeCriteria, ifIndex) {
-        var builder, result;
-        return _regenerator.default.wrap(function _callee12$(_context12) {
-          while (1) {
-            switch (_context12.prev = _context12.next) {
-              case 0:
-                builder = this.getOptions().addParameter('start', start).addParameter('end', end).addParameter('exporterNode', exporterNodeCriteria).addParameter('ifIndex', ifIndex).addParameter('pattern', pattern);
-                _context12.next = 3;
-                return this.http.get(this.pathToFlowsEndpoint() + '/hosts/enumerate', builder.build());
+    value: function getHosts(pattern, start, end, exporterNodeCriteria, ifIndex) {
+      var builder, result;
+      return _regenerator.default.async(function getHosts$(_context12) {
+        while (1) {
+          switch (_context12.prev = _context12.next) {
+            case 0:
+              builder = this.getOptions().addParameter('start', start).addParameter('end', end).addParameter('exporterNode', exporterNodeCriteria).addParameter('ifIndex', ifIndex).addParameter('pattern', pattern);
+              _context12.next = 3;
+              return _regenerator.default.awrap(this.http.get(this.pathToFlowsEndpoint() + '/hosts/enumerate', builder.build()));
 
-              case 3:
-                result = _context12.sent;
-                return _context12.abrupt("return", result.data);
+            case 3:
+              result = _context12.sent;
+              return _context12.abrupt("return", result.data);
 
-              case 5:
-              case "end":
-                return _context12.stop();
-            }
+            case 5:
+            case "end":
+              return _context12.stop();
           }
-        }, _callee12, this);
-      }));
-
-      function getHosts(_x63, _x64, _x65, _x66, _x67) {
-        return _getHosts.apply(this, arguments);
-      }
-
-      return getHosts;
-    }()
+        }
+      }, null, this);
+    }
     /**
      * Summarize the given hosts based on parameters.
      * @param hosts - the hosts to include
@@ -70968,45 +70500,35 @@ function (_BaseDAO) {
 
   }, {
     key: "getSummaryForHosts",
-    value: function () {
-      var _getSummaryForHosts = _asyncToGenerator(
-      /*#__PURE__*/
-      _regenerator.default.mark(function _callee13(hosts, start, end, includeOther, exporterNodeCriteria, ifIndex) {
-        var builder, result;
-        return _regenerator.default.wrap(function _callee13$(_context13) {
-          while (1) {
-            switch (_context13.prev = _context13.next) {
-              case 0:
-                this.checkForEnhancedFlows();
-                builder = this.getOptions().addParameter('start', start).addParameter('end', end).addParameter('exporterNode', exporterNodeCriteria).addParameter('ifIndex', ifIndex).addParameter('includeOther', includeOther);
+    value: function getSummaryForHosts(hosts, start, end, includeOther, exporterNodeCriteria, ifIndex) {
+      var builder, result;
+      return _regenerator.default.async(function getSummaryForHosts$(_context13) {
+        while (1) {
+          switch (_context13.prev = _context13.next) {
+            case 0:
+              this.checkForEnhancedFlows();
+              builder = this.getOptions().addParameter('start', start).addParameter('end', end).addParameter('exporterNode', exporterNodeCriteria).addParameter('ifIndex', ifIndex).addParameter('includeOther', includeOther);
 
-                if (hosts) {
-                  hosts.forEach(function (host) {
-                    builder.addParameter('host', host);
-                  });
-                }
+              if (hosts) {
+                hosts.forEach(function (host) {
+                  builder.addParameter('host', host);
+                });
+              }
 
-                _context13.next = 5;
-                return this.http.get(this.pathToFlowsEndpoint() + '/hosts', builder.build());
+              _context13.next = 5;
+              return _regenerator.default.awrap(this.http.get(this.pathToFlowsEndpoint() + '/hosts', builder.build()));
 
-              case 5:
-                result = _context13.sent;
-                return _context13.abrupt("return", this.tableFromData(result.data));
+            case 5:
+              result = _context13.sent;
+              return _context13.abrupt("return", this.tableFromData(result.data));
 
-              case 7:
-              case "end":
-                return _context13.stop();
-            }
+            case 7:
+            case "end":
+              return _context13.stop();
           }
-        }, _callee13, this);
-      }));
-
-      function getSummaryForHosts(_x68, _x69, _x70, _x71, _x72, _x73) {
-        return _getSummaryForHosts.apply(this, arguments);
-      }
-
-      return getSummaryForHosts;
-    }()
+        }
+      }, null, this);
+    }
     /**
      * Summarize the top N hosts based on parameters.
      * @param N - how many conversations to return
@@ -71020,38 +70542,28 @@ function (_BaseDAO) {
 
   }, {
     key: "getSummaryForTopNHosts",
-    value: function () {
-      var _getSummaryForTopNHosts = _asyncToGenerator(
-      /*#__PURE__*/
-      _regenerator.default.mark(function _callee14(N, start, end, includeOther, exporterNodeCriteria, ifIndex) {
-        var builder, result;
-        return _regenerator.default.wrap(function _callee14$(_context14) {
-          while (1) {
-            switch (_context14.prev = _context14.next) {
-              case 0:
-                this.checkForEnhancedFlows();
-                builder = this.getOptions().addParameter('N', N).addParameter('start', start).addParameter('end', end).addParameter('exporterNode', exporterNodeCriteria).addParameter('ifIndex', ifIndex).addParameter('includeOther', includeOther);
-                _context14.next = 4;
-                return this.http.get(this.pathToFlowsEndpoint() + '/hosts', builder.build());
+    value: function getSummaryForTopNHosts(N, start, end, includeOther, exporterNodeCriteria, ifIndex) {
+      var builder, result;
+      return _regenerator.default.async(function getSummaryForTopNHosts$(_context14) {
+        while (1) {
+          switch (_context14.prev = _context14.next) {
+            case 0:
+              this.checkForEnhancedFlows();
+              builder = this.getOptions().addParameter('N', N).addParameter('start', start).addParameter('end', end).addParameter('exporterNode', exporterNodeCriteria).addParameter('ifIndex', ifIndex).addParameter('includeOther', includeOther);
+              _context14.next = 4;
+              return _regenerator.default.awrap(this.http.get(this.pathToFlowsEndpoint() + '/hosts', builder.build()));
 
-              case 4:
-                result = _context14.sent;
-                return _context14.abrupt("return", this.tableFromData(result.data));
+            case 4:
+              result = _context14.sent;
+              return _context14.abrupt("return", this.tableFromData(result.data));
 
-              case 6:
-              case "end":
-                return _context14.stop();
-            }
+            case 6:
+            case "end":
+              return _context14.stop();
           }
-        }, _callee14, this);
-      }));
-
-      function getSummaryForTopNHosts(_x74, _x75, _x76, _x77, _x78, _x79) {
-        return _getSummaryForTopNHosts.apply(this, arguments);
-      }
-
-      return getSummaryForTopNHosts;
-    }()
+        }
+      }, null, this);
+    }
     /**
      * Get time series data for the top N hosts based on parameters.
      * @param N - how many applications' series to return
@@ -71066,38 +70578,28 @@ function (_BaseDAO) {
 
   }, {
     key: "getSeriesForTopNHosts",
-    value: function () {
-      var _getSeriesForTopNHosts = _asyncToGenerator(
-      /*#__PURE__*/
-      _regenerator.default.mark(function _callee15(N, start, end, step, includeOther, exporterNodeCriteria, ifIndex) {
-        var builder, result;
-        return _regenerator.default.wrap(function _callee15$(_context15) {
-          while (1) {
-            switch (_context15.prev = _context15.next) {
-              case 0:
-                this.checkForEnhancedFlows();
-                builder = this.getOptions().addParameter('N', N).addParameter('start', start).addParameter('end', end).addParameter('step', step).addParameter('exporterNode', exporterNodeCriteria).addParameter('ifIndex', ifIndex).addParameter('includeOther', includeOther);
-                _context15.next = 4;
-                return this.http.get(this.pathToFlowsEndpoint() + '/hosts/series', builder.build());
+    value: function getSeriesForTopNHosts(N, start, end, step, includeOther, exporterNodeCriteria, ifIndex) {
+      var builder, result;
+      return _regenerator.default.async(function getSeriesForTopNHosts$(_context15) {
+        while (1) {
+          switch (_context15.prev = _context15.next) {
+            case 0:
+              this.checkForEnhancedFlows();
+              builder = this.getOptions().addParameter('N', N).addParameter('start', start).addParameter('end', end).addParameter('step', step).addParameter('exporterNode', exporterNodeCriteria).addParameter('ifIndex', ifIndex).addParameter('includeOther', includeOther);
+              _context15.next = 4;
+              return _regenerator.default.awrap(this.http.get(this.pathToFlowsEndpoint() + '/hosts/series', builder.build()));
 
-              case 4:
-                result = _context15.sent;
-                return _context15.abrupt("return", this.seriesFromData(result.data));
+            case 4:
+              result = _context15.sent;
+              return _context15.abrupt("return", this.seriesFromData(result.data));
 
-              case 6:
-              case "end":
-                return _context15.stop();
-            }
+            case 6:
+            case "end":
+              return _context15.stop();
           }
-        }, _callee15, this);
-      }));
-
-      function getSeriesForTopNHosts(_x80, _x81, _x82, _x83, _x84, _x85, _x86) {
-        return _getSeriesForTopNHosts.apply(this, arguments);
-      }
-
-      return getSeriesForTopNHosts;
-    }()
+        }
+      }, null, this);
+    }
     /**
      * Get time series data for the given hosts based on parameters.
      * @param hosts - the hosts to include
@@ -71112,45 +70614,35 @@ function (_BaseDAO) {
 
   }, {
     key: "getSeriesForHosts",
-    value: function () {
-      var _getSeriesForHosts = _asyncToGenerator(
-      /*#__PURE__*/
-      _regenerator.default.mark(function _callee16(hosts, start, end, step, includeOther, exporterNodeCriteria, ifIndex) {
-        var builder, result;
-        return _regenerator.default.wrap(function _callee16$(_context16) {
-          while (1) {
-            switch (_context16.prev = _context16.next) {
-              case 0:
-                this.checkForEnhancedFlows();
-                builder = this.getOptions().addParameter('start', start).addParameter('end', end).addParameter('step', step).addParameter('exporterNode', exporterNodeCriteria).addParameter('ifIndex', ifIndex).addParameter('includeOther', includeOther);
+    value: function getSeriesForHosts(hosts, start, end, step, includeOther, exporterNodeCriteria, ifIndex) {
+      var builder, result;
+      return _regenerator.default.async(function getSeriesForHosts$(_context16) {
+        while (1) {
+          switch (_context16.prev = _context16.next) {
+            case 0:
+              this.checkForEnhancedFlows();
+              builder = this.getOptions().addParameter('start', start).addParameter('end', end).addParameter('step', step).addParameter('exporterNode', exporterNodeCriteria).addParameter('ifIndex', ifIndex).addParameter('includeOther', includeOther);
 
-                if (hosts) {
-                  hosts.forEach(function (host) {
-                    builder.addParameter('host', host);
-                  });
-                }
+              if (hosts) {
+                hosts.forEach(function (host) {
+                  builder.addParameter('host', host);
+                });
+              }
 
-                _context16.next = 5;
-                return this.http.get(this.pathToFlowsEndpoint() + '/hosts/series', builder.build());
+              _context16.next = 5;
+              return _regenerator.default.awrap(this.http.get(this.pathToFlowsEndpoint() + '/hosts/series', builder.build()));
 
-              case 5:
-                result = _context16.sent;
-                return _context16.abrupt("return", this.seriesFromData(result.data));
+            case 5:
+              result = _context16.sent;
+              return _context16.abrupt("return", this.seriesFromData(result.data));
 
-              case 7:
-              case "end":
-                return _context16.stop();
-            }
+            case 7:
+            case "end":
+              return _context16.stop();
           }
-        }, _callee16, this);
-      }));
-
-      function getSeriesForHosts(_x87, _x88, _x89, _x90, _x91, _x92, _x93) {
-        return _getSeriesForHosts.apply(this, arguments);
-      }
-
-      return getSeriesForHosts;
-    }()
+        }
+      }, null, this);
+    }
     /**
      * Convert flow ReST exporter summary JSON data to an [[OnmsFlowExporterSummary]] object.
      * @hidden
@@ -71399,10 +70891,6 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function _typeof(obj) { if (typeof _symbol.default === "function" && typeof _iterator.default === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof _symbol.default === "function" && obj.constructor === _symbol.default && obj !== _symbol.default.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
-function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { _promise.default.resolve(value).then(_next, _throw); } }
-
-function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new _promise.default(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
-
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; (0, _defineProperty.default)(target, descriptor.key, descriptor); } }
@@ -71443,325 +70931,265 @@ function (_AbstractDAO) {
 
   _createClass(NodeDAO, [{
     key: "get",
-    value: function () {
-      var _get = _asyncToGenerator(
-      /*#__PURE__*/
-      _regenerator.default.mark(function _callee(id) {
-        var _this = this;
+    value: function get(id) {
+      var _this = this;
 
-        var recurse,
-            _args = arguments;
-        return _regenerator.default.wrap(function _callee$(_context) {
-          while (1) {
-            switch (_context.prev = _context.next) {
-              case 0:
-                recurse = _args.length > 1 && _args[1] !== undefined ? _args[1] : false;
-                return _context.abrupt("return", this.getOptions().then(function (builder) {
-                  return _this.http.get(_this.pathToNodesEndpoint() + '/' + id, builder.build()).then(function (result) {
-                    var node = _this.fromData(result.data);
+      var recurse,
+          _args = arguments;
+      return _regenerator.default.async(function get$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              recurse = _args.length > 1 && _args[1] !== undefined ? _args[1] : false;
+              return _context.abrupt("return", this.getOptions().then(function (builder) {
+                return _this.http.get(_this.pathToNodesEndpoint() + '/' + id, builder.build()).then(function (result) {
+                  var node = _this.fromData(result.data);
 
-                    if (!node) {
-                      throw new _OnmsError.OnmsError("NodeDAO.get id={id} ReST request succeeded, but did not return a valid node.");
-                    }
+                  if (!node) {
+                    throw new _OnmsError.OnmsError("NodeDAO.get id={id} ReST request succeeded, but did not return a valid node.");
+                  }
 
-                    if (recurse) {
-                      return _this.fetch(node);
-                    } else {
-                      return node;
-                    }
-                  });
-                }));
+                  if (recurse) {
+                    return _this.fetch(node);
+                  } else {
+                    return node;
+                  }
+                });
+              }));
 
-              case 2:
-              case "end":
-                return _context.stop();
-            }
+            case 2:
+            case "end":
+              return _context.stop();
           }
-        }, _callee, this);
-      }));
-
-      function get(_x) {
-        return _get.apply(this, arguments);
-      }
-
-      return get;
-    }()
+        }
+      }, null, this);
+    }
     /** Search for nodes, given an optional filter. */
 
   }, {
     key: "find",
-    value: function () {
-      var _find = _asyncToGenerator(
-      /*#__PURE__*/
-      _regenerator.default.mark(function _callee2(filter) {
-        var _this2 = this;
+    value: function find(filter) {
+      var _this2 = this;
 
-        return _regenerator.default.wrap(function _callee2$(_context2) {
-          while (1) {
-            switch (_context2.prev = _context2.next) {
-              case 0:
-                return _context2.abrupt("return", this.getOptions(filter).then(function (builder) {
-                  return _this2.http.get(_this2.pathToNodesEndpoint(), builder.build()).then(function (result) {
-                    var data = result.data;
+      return _regenerator.default.async(function find$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
+              return _context2.abrupt("return", this.getOptions(filter).then(function (builder) {
+                return _this2.http.get(_this2.pathToNodesEndpoint(), builder.build()).then(function (result) {
+                  var data = result.data;
 
-                    if (data !== null && _this2.getCount(data, result.code) > 0 && data.node) {
-                      data = data.node;
+                  if (data !== null && _this2.getCount(data, result.code) > 0 && data.node) {
+                    data = data.node;
+                  } else {
+                    data = [];
+                  }
+
+                  if (!(0, _isArray.default)(data)) {
+                    if (data.id) {
+                      data = [data];
                     } else {
-                      data = [];
+                      throw new _OnmsError.OnmsError('Expected an array of nodes but got "' + _typeof(data) + '" instead.');
                     }
+                  }
 
-                    if (!(0, _isArray.default)(data)) {
-                      if (data.id) {
-                        data = [data];
-                      } else {
-                        throw new _OnmsError.OnmsError('Expected an array of nodes but got "' + _typeof(data) + '" instead.');
-                      }
-                    }
-
-                    return data.map(function (nodeData) {
-                      return _this2.fromData(nodeData);
-                    });
+                  return data.map(function (nodeData) {
+                    return _this2.fromData(nodeData);
                   });
-                }));
+                });
+              }));
 
-              case 1:
-              case "end":
-                return _context2.stop();
-            }
+            case 1:
+            case "end":
+              return _context2.stop();
           }
-        }, _callee2, this);
-      }));
-
-      function find(_x2) {
-        return _find.apply(this, arguments);
-      }
-
-      return find;
-    }()
+        }
+      }, null, this);
+    }
     /** Given a node, fetch all the sub-model objects for that node. (ipInterfaces, snmpInterfaces, etc.) */
 
   }, {
     key: "fetch",
-    value: function () {
-      var _fetch = _asyncToGenerator(
-      /*#__PURE__*/
-      _regenerator.default.mark(function _callee3(node) {
-        var _this3 = this;
+    value: function fetch(node) {
+      var _this3 = this;
 
-        return _regenerator.default.wrap(function _callee3$(_context3) {
-          while (1) {
-            switch (_context3.prev = _context3.next) {
-              case 0:
-                return _context3.abrupt("return", this.snmpInterfaces(node).then(function (si) {
-                  node.snmpInterfaces = si;
-                  si.forEach(function (iface) {
+      return _regenerator.default.async(function fetch$(_context3) {
+        while (1) {
+          switch (_context3.prev = _context3.next) {
+            case 0:
+              return _context3.abrupt("return", this.snmpInterfaces(node).then(function (si) {
+                node.snmpInterfaces = si;
+                si.forEach(function (iface) {
+                  iface.node = node;
+                });
+                return _this3.ipInterfaces(node).then(function (ifaces) {
+                  node.ipInterfaces = ifaces;
+                  ifaces.forEach(function (iface) {
                     iface.node = node;
                   });
-                  return _this3.ipInterfaces(node).then(function (ifaces) {
-                    node.ipInterfaces = ifaces;
-                    ifaces.forEach(function (iface) {
-                      iface.node = node;
-                    });
-                    return _promise.default.all(ifaces.map(function (iface) {
-                      return _this3.services(node, iface).then(function (services) {
-                        iface.services = services;
-                        services.forEach(function (service) {
-                          service.node = node;
-                          service.ipInterface = iface;
-                        });
+                  return _promise.default.all(ifaces.map(function (iface) {
+                    return _this3.services(node, iface).then(function (services) {
+                      iface.services = services;
+                      services.forEach(function (service) {
+                        service.node = node;
+                        service.ipInterface = iface;
                       });
-                    })).then(function () {
-                      return node;
                     });
+                  })).then(function () {
+                    return node;
                   });
-                }));
+                });
+              }));
 
-              case 1:
-              case "end":
-                return _context3.stop();
-            }
+            case 1:
+            case "end":
+              return _context3.stop();
           }
-        }, _callee3, this);
-      }));
-
-      function fetch(_x3) {
-        return _fetch.apply(this, arguments);
-      }
-
-      return fetch;
-    }()
+        }
+      }, null, this);
+    }
     /** Given a node, get the IP interfaces for that node. */
 
   }, {
     key: "ipInterfaces",
-    value: function () {
-      var _ipInterfaces = _asyncToGenerator(
-      /*#__PURE__*/
-      _regenerator.default.mark(function _callee4(passedNode, filter) {
-        var _this4 = this;
+    value: function ipInterfaces(passedNode, filter) {
+      var _this4 = this;
 
-        var node;
-        return _regenerator.default.wrap(function _callee4$(_context4) {
-          while (1) {
-            switch (_context4.prev = _context4.next) {
-              case 0:
-                if (passedNode instanceof _OnmsNode.OnmsNode) {
-                  node = String(passedNode.id);
-                } else {
-                  node = String(passedNode);
-                }
+      var node;
+      return _regenerator.default.async(function ipInterfaces$(_context4) {
+        while (1) {
+          switch (_context4.prev = _context4.next) {
+            case 0:
+              if (passedNode instanceof _OnmsNode.OnmsNode) {
+                node = String(passedNode.id);
+              } else {
+                node = String(passedNode);
+              }
 
-                return _context4.abrupt("return", this.getOptions(filter).then(function (builder) {
-                  return _this4.http.get(_this4.pathToNodesEndpoint() + '/' + node + '/ipinterfaces', builder.build()).then(function (result) {
-                    var data = result.data;
+              return _context4.abrupt("return", this.getOptions(filter).then(function (builder) {
+                return _this4.http.get(_this4.pathToNodesEndpoint() + '/' + node + '/ipinterfaces', builder.build()).then(function (result) {
+                  var data = result.data;
 
-                    if (_this4.getCount(data, result.code) > 0 && data.ipInterface) {
-                      data = data.ipInterface;
+                  if (_this4.getCount(data, result.code) > 0 && data.ipInterface) {
+                    data = data.ipInterface;
+                  } else {
+                    data = [];
+                  }
+
+                  if (!(0, _isArray.default)(data)) {
+                    if (data.nodeId) {
+                      data = [data];
                     } else {
-                      data = [];
+                      throw new _OnmsError.OnmsError('Expected an array of IP interfaces but got "' + _typeof(data) + '" instead.');
                     }
+                  }
 
-                    if (!(0, _isArray.default)(data)) {
-                      if (data.nodeId) {
-                        data = [data];
-                      } else {
-                        throw new _OnmsError.OnmsError('Expected an array of IP interfaces but got "' + _typeof(data) + '" instead.');
-                      }
-                    }
-
-                    return data.map(function (ifaceData) {
-                      return _this4.fromIpInterfaceData(ifaceData);
-                    });
+                  return data.map(function (ifaceData) {
+                    return _this4.fromIpInterfaceData(ifaceData);
                   });
-                }));
+                });
+              }));
 
-              case 2:
-              case "end":
-                return _context4.stop();
-            }
+            case 2:
+            case "end":
+              return _context4.stop();
           }
-        }, _callee4, this);
-      }));
-
-      function ipInterfaces(_x4, _x5) {
-        return _ipInterfaces.apply(this, arguments);
-      }
-
-      return ipInterfaces;
-    }()
+        }
+      }, null, this);
+    }
     /** Given a node, get the SNMP interfaces for that node. */
 
   }, {
     key: "snmpInterfaces",
-    value: function () {
-      var _snmpInterfaces = _asyncToGenerator(
-      /*#__PURE__*/
-      _regenerator.default.mark(function _callee5(passedNode, filter) {
-        var _this5 = this;
+    value: function snmpInterfaces(passedNode, filter) {
+      var _this5 = this;
 
-        var node;
-        return _regenerator.default.wrap(function _callee5$(_context5) {
-          while (1) {
-            switch (_context5.prev = _context5.next) {
-              case 0:
-                node = String(this.getNodeId(passedNode));
-                return _context5.abrupt("return", this.getOptions(filter).then(function (builder) {
-                  return _this5.http.get(_this5.pathToNodesEndpoint() + '/' + node + '/snmpinterfaces', builder.build()).then(function (result) {
-                    var data = result.data;
+      var node;
+      return _regenerator.default.async(function snmpInterfaces$(_context5) {
+        while (1) {
+          switch (_context5.prev = _context5.next) {
+            case 0:
+              node = String(this.getNodeId(passedNode));
+              return _context5.abrupt("return", this.getOptions(filter).then(function (builder) {
+                return _this5.http.get(_this5.pathToNodesEndpoint() + '/' + node + '/snmpinterfaces', builder.build()).then(function (result) {
+                  var data = result.data;
 
-                    if (_this5.getCount(data, result.code) > 0 && data.snmpInterface) {
-                      data = data.snmpInterface;
+                  if (_this5.getCount(data, result.code) > 0 && data.snmpInterface) {
+                    data = data.snmpInterface;
+                  } else {
+                    data = [];
+                  }
+
+                  if (!(0, _isArray.default)(data)) {
+                    if (data.ifName) {
+                      data = [data];
                     } else {
-                      data = [];
+                      throw new _OnmsError.OnmsError('Expected an array of SNMP interfaces but got "' + _typeof(data) + '" instead.');
                     }
+                  }
 
-                    if (!(0, _isArray.default)(data)) {
-                      if (data.ifName) {
-                        data = [data];
-                      } else {
-                        throw new _OnmsError.OnmsError('Expected an array of SNMP interfaces but got "' + _typeof(data) + '" instead.');
-                      }
-                    }
-
-                    return data.map(function (ifaceData) {
-                      return _this5.fromSnmpData(ifaceData);
-                    });
+                  return data.map(function (ifaceData) {
+                    return _this5.fromSnmpData(ifaceData);
                   });
-                }));
+                });
+              }));
 
-              case 2:
-              case "end":
-                return _context5.stop();
-            }
+            case 2:
+            case "end":
+              return _context5.stop();
           }
-        }, _callee5, this);
-      }));
-
-      function snmpInterfaces(_x6, _x7) {
-        return _snmpInterfaces.apply(this, arguments);
-      }
-
-      return snmpInterfaces;
-    }()
+        }
+      }, null, this);
+    }
     /** Given a node, get the IP interfaces for that node. */
 
   }, {
     key: "services",
-    value: function () {
-      var _services = _asyncToGenerator(
-      /*#__PURE__*/
-      _regenerator.default.mark(function _callee6(passedNode, ipInterface, filter) {
-        var _this6 = this;
+    value: function services(passedNode, ipInterface, filter) {
+      var _this6 = this;
 
-        var node;
-        return _regenerator.default.wrap(function _callee6$(_context6) {
-          while (1) {
-            switch (_context6.prev = _context6.next) {
-              case 0:
-                node = String(this.getNodeId(passedNode));
-                return _context6.abrupt("return", this.getOptions(filter).then(function (builder) {
-                  if (ipInterface instanceof _OnmsIpInterface.OnmsIpInterface && ipInterface.ipAddress) {
-                    ipInterface = ipInterface.ipAddress.address;
+      var node;
+      return _regenerator.default.async(function services$(_context6) {
+        while (1) {
+          switch (_context6.prev = _context6.next) {
+            case 0:
+              node = String(this.getNodeId(passedNode));
+              return _context6.abrupt("return", this.getOptions(filter).then(function (builder) {
+                if (ipInterface instanceof _OnmsIpInterface.OnmsIpInterface && ipInterface.ipAddress) {
+                  ipInterface = ipInterface.ipAddress.address;
+                }
+
+                var url = _this6.pathToNodesEndpoint() + '/' + node + '/ipinterfaces/' + ipInterface + '/services';
+                return _this6.http.get(url, builder.build()).then(function (result) {
+                  var data = result.data;
+
+                  if (_this6.getCount(data, result.code) > 0 && data.service) {
+                    data = data.service;
+                  } else {
+                    data = [];
                   }
 
-                  var url = _this6.pathToNodesEndpoint() + '/' + node + '/ipinterfaces/' + ipInterface + '/services';
-                  return _this6.http.get(url, builder.build()).then(function (result) {
-                    var data = result.data;
-
-                    if (_this6.getCount(data, result.code) > 0 && data.service) {
-                      data = data.service;
+                  if (!(0, _isArray.default)(data)) {
+                    if (data.lastGood) {
+                      data = [data];
                     } else {
-                      data = [];
+                      throw new _OnmsError.OnmsError('Expected an array of services but got "' + _typeof(data) + '" instead.');
                     }
+                  }
 
-                    if (!(0, _isArray.default)(data)) {
-                      if (data.lastGood) {
-                        data = [data];
-                      } else {
-                        throw new _OnmsError.OnmsError('Expected an array of services but got "' + _typeof(data) + '" instead.');
-                      }
-                    }
-
-                    return data.map(function (ifaceData) {
-                      return _this6.fromServiceData(ifaceData);
-                    });
+                  return data.map(function (ifaceData) {
+                    return _this6.fromServiceData(ifaceData);
                   });
-                }));
+                });
+              }));
 
-              case 2:
-              case "end":
-                return _context6.stop();
-            }
+            case 2:
+            case "end":
+              return _context6.stop();
           }
-        }, _callee6, this);
-      }));
-
-      function services(_x8, _x9, _x10) {
-        return _services.apply(this, arguments);
-      }
-
-      return services;
-    }()
+        }
+      }, null, this);
+    }
     /**
      * Create a node object from a JSON object.
      * @hidden
@@ -71961,8 +71389,6 @@ var _iterator = _interopRequireDefault(__webpack_require__(/*! ../../node_module
 
 var _symbol = _interopRequireDefault(__webpack_require__(/*! ../../node_modules/@babel/runtime-corejs2/core-js/symbol */ "./node_modules/@babel/runtime-corejs2/core-js/symbol.js"));
 
-var _promise = _interopRequireDefault(__webpack_require__(/*! ../../node_modules/@babel/runtime-corejs2/core-js/promise */ "./node_modules/@babel/runtime-corejs2/core-js/promise.js"));
-
 var _defineProperty = _interopRequireDefault(__webpack_require__(/*! ../../node_modules/@babel/runtime-corejs2/core-js/object/define-property */ "./node_modules/@babel/runtime-corejs2/core-js/object/define-property.js"));
 
 var _getPrototypeOf2 = _interopRequireDefault(__webpack_require__(/*! ../../node_modules/@babel/runtime-corejs2/core-js/object/get-prototype-of */ "./node_modules/@babel/runtime-corejs2/core-js/object/get-prototype-of.js"));
@@ -71992,10 +71418,6 @@ var _OnmsSituationFeedbackType = __webpack_require__(/*! ../model/OnmsSituationF
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _typeof(obj) { if (typeof _symbol.default === "function" && typeof _iterator.default === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof _symbol.default === "function" && obj.constructor === _symbol.default && obj !== _symbol.default.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
-
-function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { _promise.default.resolve(value).then(_next, _throw); } }
-
-function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new _promise.default(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -72038,48 +71460,38 @@ function (_BaseDAO) {
 
   _createClass(SituationFeedbackDAO, [{
     key: "getFeedback",
-    value: function () {
-      var _getFeedback = _asyncToGenerator(
-      /*#__PURE__*/
-      _regenerator.default.mark(function _callee(situationId) {
-        var _this = this;
+    value: function getFeedback(situationId) {
+      var _this = this;
 
-        var builder;
-        return _regenerator.default.wrap(function _callee$(_context) {
-          while (1) {
-            switch (_context.prev = _context.next) {
-              case 0:
-                builder = _OnmsHTTPOptions.OnmsHTTPOptions.newBuilder().setHeader('Accept', 'application/json');
-                return _context.abrupt("return", this.http.get(this.pathToEndpoint() + '/' + situationId, builder.build()).then(function (result) {
-                  var data = _this.getData(result);
+      var builder;
+      return _regenerator.default.async(function getFeedback$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              builder = _OnmsHTTPOptions.OnmsHTTPOptions.newBuilder().setHeader('Accept', 'application/json');
+              return _context.abrupt("return", this.http.get(this.pathToEndpoint() + '/' + situationId, builder.build()).then(function (result) {
+                var data = _this.getData(result);
 
-                  if (!(0, _isArray.default)(data)) {
-                    if (!data) {
-                      return [];
-                    }
-
-                    throw new _OnmsError.OnmsError('Expected an array of feedback but got "' + _typeof(data) + '" instead.');
+                if (!(0, _isArray.default)(data)) {
+                  if (!data) {
+                    return [];
                   }
 
-                  return data.map(function (feedbackData) {
-                    return _this.fromData(feedbackData);
-                  });
-                }));
+                  throw new _OnmsError.OnmsError('Expected an array of feedback but got "' + _typeof(data) + '" instead.');
+                }
 
-              case 2:
-              case "end":
-                return _context.stop();
-            }
+                return data.map(function (feedbackData) {
+                  return _this.fromData(feedbackData);
+                });
+              }));
+
+            case 2:
+            case "end":
+              return _context.stop();
           }
-        }, _callee, this);
-      }));
-
-      function getFeedback(_x) {
-        return _getFeedback.apply(this, arguments);
-      }
-
-      return getFeedback;
-    }()
+        }
+      }, null, this);
+    }
     /**
      * Retrieve the tags for a given prefix
      * @param prefix the prefix associated with the tags
@@ -72087,44 +71499,34 @@ function (_BaseDAO) {
 
   }, {
     key: "getTags",
-    value: function () {
-      var _getTags = _asyncToGenerator(
-      /*#__PURE__*/
-      _regenerator.default.mark(function _callee2(prefix) {
-        var builder;
-        return _regenerator.default.wrap(function _callee2$(_context2) {
-          while (1) {
-            switch (_context2.prev = _context2.next) {
-              case 0:
-                builder = _OnmsHTTPOptions.OnmsHTTPOptions.newBuilder().setHeader('Accept', 'application/json');
-                return _context2.abrupt("return", this.http.get(this.pathToEndpoint() + '/tags?prefix=' + prefix, builder.build()).then(function (result) {
-                  var data = result.data;
+    value: function getTags(prefix) {
+      var builder;
+      return _regenerator.default.async(function getTags$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
+              builder = _OnmsHTTPOptions.OnmsHTTPOptions.newBuilder().setHeader('Accept', 'application/json');
+              return _context2.abrupt("return", this.http.get(this.pathToEndpoint() + '/tags?prefix=' + prefix, builder.build()).then(function (result) {
+                var data = result.data;
 
-                  if (!(0, _isArray.default)(data)) {
-                    if (!data) {
-                      return [];
-                    }
-
-                    throw new _OnmsError.OnmsError('Expected an array of tags but got "' + _typeof(data) + '" instead.');
+                if (!(0, _isArray.default)(data)) {
+                  if (!data) {
+                    return [];
                   }
 
-                  return data;
-                }));
+                  throw new _OnmsError.OnmsError('Expected an array of tags but got "' + _typeof(data) + '" instead.');
+                }
 
-              case 2:
-              case "end":
-                return _context2.stop();
-            }
+                return data;
+              }));
+
+            case 2:
+            case "end":
+              return _context2.stop();
           }
-        }, _callee2, this);
-      }));
-
-      function getTags(_x2) {
-        return _getTags.apply(this, arguments);
-      }
-
-      return getTags;
-    }()
+        }
+      }, null, this);
+    }
     /**
      * Submit Correlation Feedback for a Situation.
      *
@@ -72135,30 +71537,20 @@ function (_BaseDAO) {
 
   }, {
     key: "saveFeedback",
-    value: function () {
-      var _saveFeedback = _asyncToGenerator(
-      /*#__PURE__*/
-      _regenerator.default.mark(function _callee3(feedback, situationId) {
-        return _regenerator.default.wrap(function _callee3$(_context3) {
-          while (1) {
-            switch (_context3.prev = _context3.next) {
-              case 0:
-                return _context3.abrupt("return", this.post(this.pathToEndpoint() + '/' + situationId, this.serializeFeedback(feedback)));
+    value: function saveFeedback(feedback, situationId) {
+      return _regenerator.default.async(function saveFeedback$(_context3) {
+        while (1) {
+          switch (_context3.prev = _context3.next) {
+            case 0:
+              return _context3.abrupt("return", this.post(this.pathToEndpoint() + '/' + situationId, this.serializeFeedback(feedback)));
 
-              case 1:
-              case "end":
-                return _context3.stop();
-            }
+            case 1:
+            case "end":
+              return _context3.stop();
           }
-        }, _callee3, this);
-      }));
-
-      function saveFeedback(_x3, _x4) {
-        return _saveFeedback.apply(this, arguments);
-      }
-
-      return saveFeedback;
-    }()
+        }
+      }, null, this);
+    }
     /**
      * Extracts the data from an HTTP Request result.
      *
@@ -72230,38 +71622,28 @@ function (_BaseDAO) {
 
   }, {
     key: "post",
-    value: function () {
-      var _post = _asyncToGenerator(
-      /*#__PURE__*/
-      _regenerator.default.mark(function _callee4(url, data) {
-        var builder;
-        return _regenerator.default.wrap(function _callee4$(_context4) {
-          while (1) {
-            switch (_context4.prev = _context4.next) {
-              case 0:
-                builder = _OnmsHTTPOptions.OnmsHTTPOptions.newBuilder().setHeader('Content-Type', 'application/json').setHeader('Accept', 'application/json').setData(data);
-                return _context4.abrupt("return", this.http.post(url, builder.build()).then(function (result) {
-                  if (!result.isSuccess) {
-                    throw result;
-                  }
+    value: function post(url, data) {
+      var builder;
+      return _regenerator.default.async(function post$(_context4) {
+        while (1) {
+          switch (_context4.prev = _context4.next) {
+            case 0:
+              builder = _OnmsHTTPOptions.OnmsHTTPOptions.newBuilder().setHeader('Content-Type', 'application/json').setHeader('Accept', 'application/json').setData(data);
+              return _context4.abrupt("return", this.http.post(url, builder.build()).then(function (result) {
+                if (!result.isSuccess) {
+                  throw result;
+                }
 
-                  return;
-                }));
+                return;
+              }));
 
-              case 2:
-              case "end":
-                return _context4.stop();
-            }
+            case 2:
+            case "end":
+              return _context4.stop();
           }
-        }, _callee4, this);
-      }));
-
-      function post(_x5, _x6) {
-        return _post.apply(this, arguments);
-      }
-
-      return post;
-    }()
+        }
+      }, null, this);
+    }
     /**
      * Get the path to the SituationFeedback endpoint.
      * @hidden
