@@ -4625,9 +4625,12 @@ Command.prototype.action = function (fn) {
     unknown = unknown || [];
     var parsed = self.parseOptions(unknown); // Output help if necessary
 
-    outputHelpIfNecessary(self, parsed.unknown); // If there are still any unknown options, then we simply
+    outputHelpIfNecessary(self, parsed.unknown);
+
+    self._checkForMissingMandatoryOptions(); // If there are still any unknown options, then we simply
     // die, unless someone asked for help, in which case we give it
     // to them, and then we die.
+
 
     if (parsed.unknown.length > 0) {
       self.unknownOption(parsed.unknown[0]);
@@ -4858,11 +4861,17 @@ Command.prototype.parse = function (argv) {
   var parsed = this.parseOptions(normalized);
   var args = this.args = parsed.args;
   var result = this.parseArgs(this.args, parsed.unknown);
-  if (args[0] === 'help' && args.length === 1) this.help(); // <cmd> --help
+  if (args[0] === 'help' && args.length === 1) this.help(); // Note for future: we could return early if we found an action handler in parseArgs, as none of following code needed?
+  // <cmd> --help
 
   if (args[0] === 'help') {
     args[0] = args[1];
     args[1] = this._helpLongFlag;
+  } else {
+    // If calling through to executable subcommand we could check for help flags before failing,
+    // but a somewhat unlikely case since program options not passed to executable subcommands.
+    // Wait for reports to see if check needed and what usage pattern is.
+    this._checkForMissingMandatoryOptions();
   } // executable sub-commands
   // (Debugging note for future: args[0] is not right if an action has been called)
 
@@ -5133,12 +5142,14 @@ Command.prototype.optionFor = function (arg) {
 
 
 Command.prototype._checkForMissingMandatoryOptions = function () {
-  const self = this;
-  this.options.forEach(anOption => {
-    if (anOption.mandatory && self[anOption.attributeName()] === undefined) {
-      self.missingMandatoryOptionValue(anOption);
-    }
-  });
+  // Walk up hierarchy so can call from action handler after checking for displaying help.
+  for (var cmd = this; cmd; cmd = cmd.parent) {
+    cmd.options.forEach(anOption => {
+      if (anOption.mandatory && cmd[anOption.attributeName()] === undefined) {
+        cmd.missingMandatoryOptionValue(anOption);
+      }
+    });
+  }
 };
 /**
  * Parse options from `argv` returning `argv`
@@ -5213,8 +5224,6 @@ Command.prototype.parseOptions = function (argv) {
 
     args.push(arg);
   }
-
-  this._checkForMissingMandatoryOptions();
 
   return {
     args: args,
