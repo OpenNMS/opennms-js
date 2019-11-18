@@ -2574,71 +2574,78 @@ module.exports = JSON.parse("{\"_args\":[[\"axios@0.19.0\",\"/data\"]],\"_from\"
 
 /***/ }),
 
-/***/ "./node_modules/chalk/index.js":
-/*!*************************************!*\
-  !*** ./node_modules/chalk/index.js ***!
-  \*************************************/
+/***/ "./node_modules/chalk/source/index.js":
+/*!********************************************!*\
+  !*** ./node_modules/chalk/source/index.js ***!
+  \********************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-const escapeStringRegexp = __webpack_require__(/*! escape-string-regexp */ "./node_modules/escape-string-regexp/index.js");
-
 const ansiStyles = __webpack_require__(/*! ansi-styles */ "./node_modules/ansi-styles/index.js");
 
-const stdoutColor = __webpack_require__(/*! supports-color */ "./node_modules/supports-color/index.js").stdout;
+const {
+  stdout: stdoutColor,
+  stderr: stderrColor
+} = __webpack_require__(/*! supports-color */ "./node_modules/supports-color/index.js");
 
-const template = __webpack_require__(/*! ./templates.js */ "./node_modules/chalk/templates.js");
+const {
+  stringReplaceAll,
+  stringEncaseCRLFWithFirstIndex
+} = __webpack_require__(/*! ./util */ "./node_modules/chalk/source/util.js"); // `supportsColor.level` → `ansiStyles.color[name]` mapping
 
-const isSimpleWindowsTerm = process.platform === 'win32' && !(process.env.TERM || '').toLowerCase().startsWith('xterm'); // `supportsColor.level` → `ansiStyles.color[name]` mapping
 
-const levelMapping = ['ansi', 'ansi', 'ansi256', 'ansi16m']; // `color-convert` models to exclude from the Chalk API due to conflicts and such
-
-const skipModels = new Set(['gray']);
+const levelMapping = ['ansi', 'ansi', 'ansi256', 'ansi16m'];
 const styles = Object.create(null);
 
-function applyOptions(obj, options) {
-  options = options || {}; // Detect level if not set manually
+const applyOptions = (object, options = {}) => {
+  if (options.level > 3 || options.level < 0) {
+    throw new Error('The `level` option should be an integer from 0 to 3');
+  } // Detect level if not set manually
 
-  const scLevel = stdoutColor ? stdoutColor.level : 0;
-  obj.level = options.level === undefined ? scLevel : options.level;
-  obj.enabled = 'enabled' in options ? options.enabled : obj.level > 0;
-}
 
-function Chalk(options) {
-  // We check for this.template here since calling `chalk.constructor()`
-  // by itself will have a `this` of a previously constructed chalk object
-  if (!this || !(this instanceof Chalk) || this.template) {
-    const chalk = {};
-    applyOptions(chalk, options);
+  const colorLevel = stdoutColor ? stdoutColor.level : 0;
+  object.level = options.level === undefined ? colorLevel : options.level;
+};
 
-    chalk.template = function () {
-      const args = [].slice.call(arguments);
-      return chalkTag.apply(null, [chalk.template].concat(args));
-    };
-
-    Object.setPrototypeOf(chalk, Chalk.prototype);
-    Object.setPrototypeOf(chalk.template, chalk);
-    chalk.template.constructor = Chalk;
-    return chalk.template;
+class ChalkClass {
+  constructor(options) {
+    return chalkFactory(options);
   }
 
-  applyOptions(this, options);
-} // Use bright blue on Windows as the normal blue color is illegible
-
-
-if (isSimpleWindowsTerm) {
-  ansiStyles.blue.open = '\u001B[94m';
 }
 
-for (const key of Object.keys(ansiStyles)) {
-  ansiStyles[key].closeRe = new RegExp(escapeStringRegexp(ansiStyles[key].close), 'g');
-  styles[key] = {
+const chalkFactory = options => {
+  const chalk = {};
+  applyOptions(chalk, options);
+
+  chalk.template = (...arguments_) => chalkTag(chalk.template, ...arguments_);
+
+  Object.setPrototypeOf(chalk, Chalk.prototype);
+  Object.setPrototypeOf(chalk.template, chalk);
+
+  chalk.template.constructor = () => {
+    throw new Error('`chalk.constructor()` is deprecated. Use `new chalk.Instance()` instead.');
+  };
+
+  chalk.template.Instance = ChalkClass;
+  return chalk.template;
+};
+
+function Chalk(options) {
+  return chalkFactory(options);
+}
+
+for (const [styleName, style] of Object.entries(ansiStyles)) {
+  styles[styleName] = {
     get() {
-      const codes = ansiStyles[key];
-      return build.call(this, this._styles ? this._styles.concat(codes) : [codes], this._empty, key);
+      const builder = createBuilder(this, createStyler(style.open, style.close, this._styler), this._isEmpty);
+      Object.defineProperty(this, styleName, {
+        value: builder
+      });
+      return builder;
     }
 
   };
@@ -2646,208 +2653,230 @@ for (const key of Object.keys(ansiStyles)) {
 
 styles.visible = {
   get() {
-    return build.call(this, this._styles || [], true, 'visible');
+    const builder = createBuilder(this, this._styler, true);
+    Object.defineProperty(this, 'visible', {
+      value: builder
+    });
+    return builder;
   }
 
 };
-ansiStyles.color.closeRe = new RegExp(escapeStringRegexp(ansiStyles.color.close), 'g');
+const usedModels = ['rgb', 'hex', 'keyword', 'hsl', 'hsv', 'hwb', 'ansi', 'ansi256'];
 
-for (const model of Object.keys(ansiStyles.color.ansi)) {
-  if (skipModels.has(model)) {
-    continue;
-  }
-
+for (const model of usedModels) {
   styles[model] = {
     get() {
-      const level = this.level;
-      return function () {
-        const open = ansiStyles.color[levelMapping[level]][model].apply(null, arguments);
-        const codes = {
-          open,
-          close: ansiStyles.color.close,
-          closeRe: ansiStyles.color.closeRe
-        };
-        return build.call(this, this._styles ? this._styles.concat(codes) : [codes], this._empty, model);
+      const {
+        level
+      } = this;
+      return function (...arguments_) {
+        const styler = createStyler(ansiStyles.color[levelMapping[level]][model](...arguments_), ansiStyles.color.close, this._styler);
+        return createBuilder(this, styler, this._isEmpty);
       };
     }
 
   };
 }
 
-ansiStyles.bgColor.closeRe = new RegExp(escapeStringRegexp(ansiStyles.bgColor.close), 'g');
-
-for (const model of Object.keys(ansiStyles.bgColor.ansi)) {
-  if (skipModels.has(model)) {
-    continue;
-  }
-
+for (const model of usedModels) {
   const bgModel = 'bg' + model[0].toUpperCase() + model.slice(1);
   styles[bgModel] = {
     get() {
-      const level = this.level;
-      return function () {
-        const open = ansiStyles.bgColor[levelMapping[level]][model].apply(null, arguments);
-        const codes = {
-          open,
-          close: ansiStyles.bgColor.close,
-          closeRe: ansiStyles.bgColor.closeRe
-        };
-        return build.call(this, this._styles ? this._styles.concat(codes) : [codes], this._empty, model);
+      const {
+        level
+      } = this;
+      return function (...arguments_) {
+        const styler = createStyler(ansiStyles.bgColor[levelMapping[level]][model](...arguments_), ansiStyles.bgColor.close, this._styler);
+        return createBuilder(this, styler, this._isEmpty);
       };
     }
 
   };
 }
 
-const proto = Object.defineProperties(() => {}, styles);
-
-function build(_styles, _empty, key) {
-  const builder = function () {
-    return applyStyle.apply(builder, arguments);
-  };
-
-  builder._styles = _styles;
-  builder._empty = _empty;
-  const self = this;
-  Object.defineProperty(builder, 'level', {
+const proto = Object.defineProperties(() => {}, { ...styles,
+  level: {
     enumerable: true,
 
     get() {
-      return self.level;
+      return this._generator.level;
     },
 
     set(level) {
-      self.level = level;
+      this._generator.level = level;
     }
 
-  });
-  Object.defineProperty(builder, 'enabled', {
-    enumerable: true,
+  }
+});
 
-    get() {
-      return self.enabled;
-    },
+const createStyler = (open, close, parent) => {
+  let openAll;
+  let closeAll;
 
-    set(enabled) {
-      self.enabled = enabled;
-    }
+  if (parent === undefined) {
+    openAll = open;
+    closeAll = close;
+  } else {
+    openAll = parent.openAll + open;
+    closeAll = close + parent.closeAll;
+  }
 
-  }); // See below for fix regarding invisible grey/dim combination on Windows
+  return {
+    open,
+    close,
+    openAll,
+    closeAll,
+    parent
+  };
+};
 
-  builder.hasGrey = this.hasGrey || key === 'gray' || key === 'grey'; // `__proto__` is used because we must return a function, but there is
+const createBuilder = (self, _styler, _isEmpty) => {
+  const builder = (...arguments_) => {
+    // Single argument is hot path, implicit coercion is faster than anything
+    // eslint-disable-next-line no-implicit-coercion
+    return applyStyle(builder, arguments_.length === 1 ? '' + arguments_[0] : arguments_.join(' '));
+  }; // `__proto__` is used because we must return a function, but there is
   // no way to create a function with a different prototype
+
 
   builder.__proto__ = proto; // eslint-disable-line no-proto
 
+  builder._generator = self;
+  builder._styler = _styler;
+  builder._isEmpty = _isEmpty;
   return builder;
-}
+};
 
-function applyStyle() {
-  // Support varags, but simply cast to string in case there's only one arg
-  const args = arguments;
-  const argsLen = args.length;
-  let str = String(arguments[0]);
-
-  if (argsLen === 0) {
-    return '';
+const applyStyle = (self, string) => {
+  if (self.level <= 0 || !string) {
+    return self._isEmpty ? '' : string;
   }
 
-  if (argsLen > 1) {
-    // Don't slice `arguments`, it prevents V8 optimizations
-    for (let a = 1; a < argsLen; a++) {
-      str += ' ' + args[a];
+  let styler = self._styler;
+
+  if (styler === undefined) {
+    return string;
+  }
+
+  const {
+    openAll,
+    closeAll
+  } = styler;
+
+  if (string.indexOf('\u001B') !== -1) {
+    while (styler !== undefined) {
+      // Replace any instances already present with a re-opening code
+      // otherwise only the part of the string until said closing code
+      // will be colored, and the rest will simply be 'plain'.
+      string = stringReplaceAll(string, styler.close, styler.open);
+      styler = styler.parent;
     }
+  } // We can move both next actions out of loop, because remaining actions in loop won't have
+  // any/visible effect on parts we add here. Close the styling before a linebreak and reopen
+  // after next line to fix a bleed issue on macOS: https://github.com/chalk/chalk/pull/92
+
+
+  const lfIndex = string.indexOf('\n');
+
+  if (lfIndex !== -1) {
+    string = stringEncaseCRLFWithFirstIndex(string, closeAll, openAll, lfIndex);
   }
 
-  if (!this.enabled || this.level <= 0 || !str) {
-    return this._empty ? '' : str;
-  } // Turns out that on Windows dimmed gray text becomes invisible in cmd.exe,
-  // see https://github.com/chalk/chalk/issues/58
-  // If we're on Windows and we're dealing with a gray color, temporarily make 'dim' a noop.
+  return openAll + string + closeAll;
+};
 
+let template;
 
-  const originalDim = ansiStyles.dim.open;
+const chalkTag = (chalk, ...strings) => {
+  const [firstString] = strings;
 
-  if (isSimpleWindowsTerm && this.hasGrey) {
-    ansiStyles.dim.open = '';
-  }
-
-  for (const code of this._styles.slice().reverse()) {
-    // Replace any instances already present with a re-opening code
-    // otherwise only the part of the string until said closing code
-    // will be colored, and the rest will simply be 'plain'.
-    str = code.open + str.replace(code.closeRe, code.open) + code.close; // Close the styling before a linebreak and reopen
-    // after next line to fix a bleed issue on macOS
-    // https://github.com/chalk/chalk/pull/92
-
-    str = str.replace(/\r?\n/g, `${code.close}$&${code.open}`);
-  } // Reset the original `dim` if we changed it to work around the Windows dimmed gray issue
-
-
-  ansiStyles.dim.open = originalDim;
-  return str;
-}
-
-function chalkTag(chalk, strings) {
-  if (!Array.isArray(strings)) {
+  if (!Array.isArray(firstString)) {
     // If chalk() was called by itself or with a string,
     // return the string itself as a string.
-    return [].slice.call(arguments, 1).join(' ');
+    return strings.join(' ');
   }
 
-  const args = [].slice.call(arguments, 2);
-  const parts = [strings.raw[0]];
+  const arguments_ = strings.slice(1);
+  const parts = [firstString.raw[0]];
 
-  for (let i = 1; i < strings.length; i++) {
-    parts.push(String(args[i - 1]).replace(/[{}\\]/g, '\\$&'));
-    parts.push(String(strings.raw[i]));
+  for (let i = 1; i < firstString.length; i++) {
+    parts.push(String(arguments_[i - 1]).replace(/[{}\\]/g, '\\$&'), String(firstString.raw[i]));
+  }
+
+  if (template === undefined) {
+    template = __webpack_require__(/*! ./templates */ "./node_modules/chalk/source/templates.js");
   }
 
   return template(chalk, parts.join(''));
-}
+};
 
 Object.defineProperties(Chalk.prototype, styles);
-module.exports = Chalk(); // eslint-disable-line new-cap
+const chalk = Chalk(); // eslint-disable-line new-cap
 
-module.exports.supportsColor = stdoutColor;
-module.exports.default = module.exports; // For TypeScript
+chalk.supportsColor = stdoutColor;
+chalk.stderr = Chalk({
+  level: stderrColor ? stderrColor.level : 0
+}); // eslint-disable-line new-cap
+
+chalk.stderr.supportsColor = stderrColor; // For TypeScript
+
+chalk.Level = {
+  None: 0,
+  Basic: 1,
+  Ansi256: 2,
+  TrueColor: 3,
+  0: 'None',
+  1: 'Basic',
+  2: 'Ansi256',
+  3: 'TrueColor'
+};
+module.exports = chalk;
 
 /***/ }),
 
-/***/ "./node_modules/chalk/templates.js":
-/*!*****************************************!*\
-  !*** ./node_modules/chalk/templates.js ***!
-  \*****************************************/
+/***/ "./node_modules/chalk/source/templates.js":
+/*!************************************************!*\
+  !*** ./node_modules/chalk/source/templates.js ***!
+  \************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-const TEMPLATE_REGEX = /(?:\\(u[a-f\d]{4}|x[a-f\d]{2}|.))|(?:\{(~)?(\w+(?:\([^)]*\))?(?:\.\w+(?:\([^)]*\))?)*)(?:[ \t]|(?=\r?\n)))|(\})|((?:.|[\r\n\f])+?)/gi;
+const TEMPLATE_REGEX = /(?:\\(u(?:[a-f\d]{4}|\{[a-f\d]{1,6}\})|x[a-f\d]{2}|.))|(?:\{(~)?(\w+(?:\([^)]*\))?(?:\.\w+(?:\([^)]*\))?)*)(?:[ \t]|(?=\r?\n)))|(\})|((?:.|[\r\n\f])+?)/gi;
 const STYLE_REGEX = /(?:^|\.)(\w+)(?:\(([^)]*)\))?/g;
 const STRING_REGEX = /^(['"])((?:\\.|(?!\1)[^\\])*)\1$/;
-const ESCAPE_REGEX = /\\(u[a-f\d]{4}|x[a-f\d]{2}|.)|([^\\])/gi;
+const ESCAPE_REGEX = /\\(u(?:[a-f\d]{4}|\{[a-f\d]{1,6}\})|x[a-f\d]{2}|.)|([^\\])/gi;
 const ESCAPES = new Map([['n', '\n'], ['r', '\r'], ['t', '\t'], ['b', '\b'], ['f', '\f'], ['v', '\v'], ['0', '\0'], ['\\', '\\'], ['e', '\u001B'], ['a', '\u0007']]);
 
 function unescape(c) {
-  if (c[0] === 'u' && c.length === 5 || c[0] === 'x' && c.length === 3) {
+  const u = c[0] === 'u';
+  const bracket = c[1] === '{';
+
+  if (u && !bracket && c.length === 5 || c[0] === 'x' && c.length === 3) {
     return String.fromCharCode(parseInt(c.slice(1), 16));
+  }
+
+  if (u && bracket) {
+    return String.fromCodePoint(parseInt(c.slice(2, -1), 16));
   }
 
   return ESCAPES.get(c) || c;
 }
 
-function parseArguments(name, args) {
+function parseArguments(name, arguments_) {
   const results = [];
-  const chunks = args.trim().split(/\s*,\s*/g);
+  const chunks = arguments_.trim().split(/\s*,\s*/g);
   let matches;
 
   for (const chunk of chunks) {
-    if (!isNaN(chunk)) {
-      results.push(Number(chunk));
+    const number = Number(chunk);
+
+    if (!Number.isNaN(number)) {
+      results.push(number);
     } else if (matches = chunk.match(STRING_REGEX)) {
-      results.push(matches[2].replace(ESCAPE_REGEX, (m, escape, chr) => escape ? unescape(escape) : chr));
+      results.push(matches[2].replace(ESCAPE_REGEX, (m, escape, character) => escape ? unescape(escape) : character));
     } else {
       throw new Error(`Invalid Chalk template style argument: ${chunk} (in style '${name}')`);
     }
@@ -2886,35 +2915,33 @@ function buildStyle(chalk, styles) {
 
   let current = chalk;
 
-  for (const styleName of Object.keys(enabled)) {
-    if (Array.isArray(enabled[styleName])) {
-      if (!(styleName in current)) {
-        throw new Error(`Unknown Chalk style: ${styleName}`);
-      }
-
-      if (enabled[styleName].length > 0) {
-        current = current[styleName].apply(current, enabled[styleName]);
-      } else {
-        current = current[styleName];
-      }
+  for (const [styleName, styles] of Object.entries(enabled)) {
+    if (!Array.isArray(styles)) {
+      continue;
     }
+
+    if (!(styleName in current)) {
+      throw new Error(`Unknown Chalk style: ${styleName}`);
+    }
+
+    current = styles.length > 0 ? current[styleName](...styles) : current[styleName];
   }
 
   return current;
 }
 
-module.exports = (chalk, tmp) => {
+module.exports = (chalk, temporary) => {
   const styles = [];
   const chunks = [];
   let chunk = []; // eslint-disable-next-line max-params
 
-  tmp.replace(TEMPLATE_REGEX, (m, escapeChar, inverse, style, close, chr) => {
-    if (escapeChar) {
-      chunk.push(unescape(escapeChar));
+  temporary.replace(TEMPLATE_REGEX, (m, escapeCharacter, inverse, style, close, character) => {
+    if (escapeCharacter) {
+      chunk.push(unescape(escapeCharacter));
     } else if (style) {
-      const str = chunk.join('');
+      const string = chunk.join('');
       chunk = [];
-      chunks.push(styles.length === 0 ? str : buildStyle(chalk, styles)(str));
+      chunks.push(styles.length === 0 ? string : buildStyle(chalk, styles)(string));
       styles.push({
         inverse,
         styles: parseStyle(style)
@@ -2928,7 +2955,7 @@ module.exports = (chalk, tmp) => {
       chunk = [];
       styles.pop();
     } else {
-      chunk.push(chr);
+      chunk.push(character);
     }
   });
   chunks.push(chunk.join(''));
@@ -2939,6 +2966,59 @@ module.exports = (chalk, tmp) => {
   }
 
   return chunks.join('');
+};
+
+/***/ }),
+
+/***/ "./node_modules/chalk/source/util.js":
+/*!*******************************************!*\
+  !*** ./node_modules/chalk/source/util.js ***!
+  \*******************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+const stringReplaceAll = (string, substring, replacer) => {
+  let index = string.indexOf(substring);
+
+  if (index === -1) {
+    return string;
+  }
+
+  const substringLength = substring.length;
+  let endIndex = 0;
+  let returnValue = '';
+
+  do {
+    returnValue += string.substr(endIndex, index - endIndex) + substring + replacer;
+    endIndex = index + substringLength;
+    index = string.indexOf(substring, endIndex);
+  } while (index !== -1);
+
+  returnValue += string.substr(endIndex);
+  return returnValue;
+};
+
+const stringEncaseCRLFWithFirstIndex = (string, prefix, postfix, index) => {
+  let endIndex = 0;
+  let returnValue = '';
+
+  do {
+    const gotCR = string[index - 1] === '\r';
+    returnValue += string.substr(endIndex, (gotCR ? index - 1 : index) - endIndex) + prefix + (gotCR ? '\r\n' : '\n') + postfix;
+    endIndex = index + 1;
+    index = string.indexOf('\n', endIndex);
+  } while (index !== -1);
+
+  returnValue += string.substr(endIndex);
+  return returnValue;
+};
+
+module.exports = {
+  stringReplaceAll,
+  stringEncaseCRLFWithFirstIndex
 };
 
 /***/ }),
@@ -13730,28 +13810,6 @@ function init(debug) {
 
 
 exports.enable(load());
-
-/***/ }),
-
-/***/ "./node_modules/escape-string-regexp/index.js":
-/*!****************************************************!*\
-  !*** ./node_modules/escape-string-regexp/index.js ***!
-  \****************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var matchOperatorsRe = /[|\\{}()[\]^$+*?.]/g;
-
-module.exports = function (str) {
-  if (typeof str !== 'string') {
-    throw new TypeError('Expected a string');
-  }
-
-  return str.replace(matchOperatorsRe, '\\$&');
-};
 
 /***/ }),
 
@@ -54116,19 +54174,29 @@ var __WEBPACK_AMD_DEFINE_RESULT__;
 
 const os = __webpack_require__(/*! os */ "os");
 
+const tty = __webpack_require__(/*! tty */ "tty");
+
 const hasFlag = __webpack_require__(/*! has-flag */ "./node_modules/has-flag/index.js");
 
-const env = process.env;
+const {
+  env
+} = process;
 let forceColor;
 
-if (hasFlag('no-color') || hasFlag('no-colors') || hasFlag('color=false')) {
-  forceColor = false;
+if (hasFlag('no-color') || hasFlag('no-colors') || hasFlag('color=false') || hasFlag('color=never')) {
+  forceColor = 0;
 } else if (hasFlag('color') || hasFlag('colors') || hasFlag('color=true') || hasFlag('color=always')) {
-  forceColor = true;
+  forceColor = 1;
 }
 
 if ('FORCE_COLOR' in env) {
-  forceColor = env.FORCE_COLOR.length === 0 || parseInt(env.FORCE_COLOR, 10) !== 0;
+  if (env.FORCE_COLOR === 'true') {
+    forceColor = 1;
+  } else if (env.FORCE_COLOR === 'false') {
+    forceColor = 0;
+  } else {
+    forceColor = env.FORCE_COLOR.length === 0 ? 1 : Math.min(parseInt(env.FORCE_COLOR, 10), 3);
+  }
 }
 
 function translateLevel(level) {
@@ -54144,8 +54212,8 @@ function translateLevel(level) {
   };
 }
 
-function supportsColor(stream) {
-  if (forceColor === false) {
+function supportsColor(haveStream, streamIsTTY) {
+  if (forceColor === 0) {
     return 0;
   }
 
@@ -54157,22 +54225,22 @@ function supportsColor(stream) {
     return 2;
   }
 
-  if (stream && !stream.isTTY && forceColor !== true) {
+  if (haveStream && !streamIsTTY && forceColor === undefined) {
     return 0;
   }
 
-  const min = forceColor ? 1 : 0;
+  const min = forceColor || 0;
+
+  if (env.TERM === 'dumb') {
+    return min;
+  }
 
   if (process.platform === 'win32') {
-    // Node.js 7.5.0 is the first version of Node.js to include a patch to
-    // libuv that enables 256 color output on Windows. Anything earlier and it
-    // won't work. However, here we target Node.js 8 at minimum as it is an LTS
-    // release, and Node.js 7 is not. Windows 10 build 10586 is the first Windows
-    // release that supports 256 colors. Windows 10 build 14931 is the first release
-    // that supports 16m/TrueColor.
+    // Windows 10 build 10586 is the first Windows release that supports 256 colors.
+    // Windows 10 build 14931 is the first release that supports 16m/TrueColor.
     const osRelease = os.release().split('.');
 
-    if (Number(process.versions.node.split('.')[0]) >= 8 && Number(osRelease[0]) >= 10 && Number(osRelease[2]) >= 10586) {
+    if (Number(osRelease[0]) >= 10 && Number(osRelease[2]) >= 10586) {
       return Number(osRelease[2]) >= 14931 ? 3 : 2;
     }
 
@@ -54189,6 +54257,10 @@ function supportsColor(stream) {
 
   if ('TEAMCITY_VERSION' in env) {
     return /^(9\.(0*[1-9]\d*)\.|\d{2,}\.)/.test(env.TEAMCITY_VERSION) ? 1 : 0;
+  }
+
+  if ('GITHUB_ACTIONS' in env) {
+    return 1;
   }
 
   if (env.COLORTERM === 'truecolor') {
@@ -54220,22 +54292,18 @@ function supportsColor(stream) {
     return 1;
   }
 
-  if (env.TERM === 'dumb') {
-    return min;
-  }
-
   return min;
 }
 
 function getSupportLevel(stream) {
-  const level = supportsColor(stream);
+  const level = supportsColor(stream, stream && stream.isTTY);
   return translateLevel(level);
 }
 
 module.exports = {
   supportsColor: getSupportLevel,
-  stdout: getSupportLevel(process.stdout),
-  stderr: getSupportLevel(process.stderr)
+  stdout: translateLevel(supportsColor(true, tty.isatty(1))),
+  stderr: translateLevel(supportsColor(true, tty.isatty(2)))
 };
 
 /***/ }),
@@ -63946,7 +64014,7 @@ var _API = __webpack_require__(/*! ./API */ "./src/API.ts");
 
 var _Log = __webpack_require__(/*! ./api/Log */ "./src/api/Log.ts");
 
-var _chalk = _interopRequireDefault(__webpack_require__(/*! ../node_modules/chalk */ "./node_modules/chalk/index.js"));
+var _source = _interopRequireDefault(__webpack_require__(/*! ../node_modules/chalk/source */ "./node_modules/chalk/source/index.js"));
 
 var _lodash = __webpack_require__(/*! ../node_modules/lodash/lodash */ "./node_modules/lodash/lodash.js");
 
@@ -64039,7 +64107,7 @@ var CLI = function CLI() {
   }); // connect (validate server and save config)
 
   program.command('connect [url]').description('Connect to an OpenNMS Horizon or Meridian server').option('-u, --username <username>', 'The username to authenticate as (default: admin)').option('-p, --password <password>', 'The password to authenticate with (default: admin)').action(function (url, options) {
-    _Log.log.warn(_chalk.default.red('WARNING: This command saves your login' + ' information to ~/.opennms-cli.config.json in clear text.'));
+    _Log.log.warn(_source.default.red('WARNING: This command saves your login' + ' information to ~/.opennms-cli.config.json in clear text.'));
 
     var config = readConfig();
 
@@ -64064,7 +64132,7 @@ var CLI = function CLI() {
 
     var http = new _API.Rest.AxiosHTTP(server);
     return _API.Client.checkServer(server, http).then(function () {
-      _Log.log.info(_chalk.default.green('Connection succeeded.'));
+      _Log.log.info(_source.default.green('Connection succeeded.'));
 
       if (!program.config) {
         // don't write the config if a config was passed in
@@ -64089,14 +64157,14 @@ var CLI = function CLI() {
 
     var http = new _API.Rest.AxiosHTTP();
     return _API.Client.getMetadata(server, http).then(function (res) {
-      var c = _chalk.default.green;
+      var c = _source.default.green;
 
       if (res.type === _API.API.ServerTypes.MERIDIAN) {
-        _Log.log.log(_chalk.default.blue('OpenNMS Meridian ' + res.version.displayVersion + ' Capabilities:'));
+        _Log.log.log(_source.default.blue('OpenNMS Meridian ' + res.version.displayVersion + ' Capabilities:'));
 
-        c = _chalk.default.blue;
+        c = _source.default.blue;
       } else {
-        _Log.log.log(_chalk.default.green('OpenNMS Horizon ' + res.version.displayVersion + ' Capabilities:'));
+        _Log.log.log(_source.default.green('OpenNMS Horizon ' + res.version.displayVersion + ' Capabilities:'));
       }
 
       _Log.log.log('');
@@ -64109,7 +64177,7 @@ var CLI = function CLI() {
           continue;
         }
 
-        data.push([_chalk.default.bold((0, _lodash.startCase)(cap) + ':'), caps[cap]]);
+        data.push([_source.default.bold((0, _lodash.startCase)(cap) + ':'), caps[cap]]);
       }
 
       _Log.log.log((0, _dist.table)(data, tableConfig));
@@ -64126,25 +64194,25 @@ var CLI = function CLI() {
   var colorify = function colorify(severity) {
     switch (severity) {
       case 'INDETERMINATE':
-        return _chalk.default.grey(severity);
+        return _source.default.grey(severity);
 
       case 'CLEARED':
-        return _chalk.default.white(severity);
+        return _source.default.white(severity);
 
       case 'NORMAL':
-        return _chalk.default.green(severity);
+        return _source.default.green(severity);
 
       case 'WARNING':
-        return _chalk.default.magenta(severity);
+        return _source.default.magenta(severity);
 
       case 'MINOR':
-        return _chalk.default.yellow(severity);
+        return _source.default.yellow(severity);
 
       case 'MAJOR':
-        return _chalk.default.bold.yellow(severity);
+        return _source.default.bold.yellow(severity);
 
       case 'CRITICAL':
-        return _chalk.default.bold.red(severity);
+        return _source.default.bold.red(severity);
 
       default:
         return severity;
@@ -64252,7 +64320,7 @@ var CLI = function CLI() {
         var alarmTableConfig = (0, _lodash.cloneDeep)(tableConfig);
         alarmTableConfig.columns = {};
         var data = [['ID', 'Severity', 'Node', 'Count', 'Time', 'Log'].map(function (header) {
-          return _chalk.default.bold(header);
+          return _source.default.bold(header);
         })];
         var colWidths = [
         /* id */
@@ -64336,7 +64404,7 @@ var CLI = function CLI() {
       return new _API.Client().connect('OpenNMS', config.url, config.username, config.password).then(function (client) {
         var dao = client.alarms();
         return dao[name](id).then(function () {
-          _Log.log.log(_chalk.default.green('Success!'));
+          _Log.log.log(_source.default.green('Success!'));
 
           return true;
         });
@@ -64352,7 +64420,7 @@ var CLI = function CLI() {
     var config = readConfig();
     return new _API.Client().connect('OpenNMS', config.url, config.username, config.password).then(function (client) {
       return client.alarms().acknowledge(id, options.user).then(function () {
-        _Log.log.log(_chalk.default.green('Success!'));
+        _Log.log.log(_source.default.green('Success!'));
 
         return true;
       });
@@ -64366,7 +64434,7 @@ var CLI = function CLI() {
     var config = readConfig();
     return new _API.Client().connect('OpenNMS', config.url, config.username, config.password).then(function (client) {
       return client.alarms().saveStickyMemo(id, options.body, options.user).then(function () {
-        _Log.log.log(_chalk.default.green('Success!'));
+        _Log.log.log(_source.default.green('Success!'));
 
         return true;
       });
@@ -64380,7 +64448,7 @@ var CLI = function CLI() {
     var config = readConfig();
     return new _API.Client().connect('OpenNMS', config.url, config.username, config.password).then(function (client) {
       return client.alarms().saveJournalMemo(id, options.body, options.user).then(function () {
-        _Log.log.log(_chalk.default.green('Success!'));
+        _Log.log.log(_source.default.green('Success!'));
 
         return true;
       });
@@ -65194,7 +65262,7 @@ var _defineProperty2 = _interopRequireDefault(__webpack_require__(/*! ../../node
 
 __webpack_require__(/*! ../../node_modules/core-js/modules/es6.string.bold */ "./node_modules/core-js/modules/es6.string.bold.js");
 
-var _chalk = _interopRequireDefault(__webpack_require__(/*! ../../node_modules/chalk */ "./node_modules/chalk/index.js"));
+var _source = _interopRequireDefault(__webpack_require__(/*! ../../node_modules/chalk/source */ "./node_modules/chalk/source/index.js"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -65258,7 +65326,7 @@ function () {
     key: "trace",
     value: function trace() {
       if (this._debug) {
-        this.impl.trace(_chalk.default.gray.apply(_chalk.default, arguments));
+        this.impl.trace(_source.default.gray.apply(_source.default, arguments));
       }
     }
     /**
@@ -65270,7 +65338,7 @@ function () {
     key: "debug",
     value: function debug() {
       if (this._debug) {
-        this.impl.debug(_chalk.default.gray.apply(_chalk.default, arguments));
+        this.impl.debug(_source.default.gray.apply(_source.default, arguments));
       }
     }
     /**
@@ -65296,7 +65364,7 @@ function () {
     key: "warn",
     value: function warn() {
       if (!this._quiet && !this._silent) {
-        this.impl.warn(_chalk.default.yellow.apply(_chalk.default, arguments));
+        this.impl.warn(_source.default.yellow.apply(_source.default, arguments));
       }
     }
     /**
@@ -65308,7 +65376,7 @@ function () {
     key: "error",
     value: function error() {
       if (!this._silent) {
-        this.impl.error(_chalk.default.red.apply(_chalk.default, arguments));
+        this.impl.error(_source.default.red.apply(_source.default, arguments));
       }
     }
     /**
@@ -65322,7 +65390,7 @@ function () {
       if (!this._silent) {
         var _chalk$bold;
 
-        this.impl.error((_chalk$bold = _chalk.default.bold).red.apply(_chalk$bold, arguments));
+        this.impl.error((_chalk$bold = _source.default.bold).red.apply(_chalk$bold, arguments));
       }
     }
     /**
