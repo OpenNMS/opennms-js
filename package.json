@@ -87,7 +87,7 @@
     "@babel/runtime-corejs2": "^7.7.0",
     "axios": "^0.19.0",
     "btoa": "^1.2.1",
-    "chalk": "^2.4.2",
+    "chalk": "^3.0.0",
     "cli-table3": "^0.5.0",
     "commander": "^4.0.0",
     "fs": "^0.0.1-security",
