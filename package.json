@@ -44,7 +44,7 @@
     "babel-eslint": "^10.0.2",
     "babel-loader": "^8.0.6",
     "babel-plugin-angularjs-annotate": "^0.10.0",
-    "babel-plugin-module-resolver": "^3.2.0",
+    "babel-plugin-module-resolver": "^4.0.0",
     "cache-loader": "^4.1.0",
     "chai": "^4.1.2",
     "child_process": "^1.0.2",
