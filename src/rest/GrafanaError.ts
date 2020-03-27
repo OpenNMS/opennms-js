@@ -9,7 +9,7 @@ export class GrafanaError extends OnmsError {
    * The request options (configuration).
    * @hidden
    */
-  private config: any;
+  private config?: any;
 
   /**
    * Construct a new Grafana error.
@@ -20,7 +20,9 @@ export class GrafanaError extends OnmsError {
    */
   constructor(message: string, code?: number, options?: any, data?: any) {
     super(message, code, options, data);
-    this.config = options;
+    if (options) {
+      this.config = options;
+    }
   }
 
 }
