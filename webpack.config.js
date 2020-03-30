@@ -1,7 +1,6 @@
 var webpack = require('webpack');
 var path = require('path');
 var TerserPlugin = require('terser-webpack-plugin');
-var TypedocWebpackPlugin = require('typedoc-webpack-plugin');
 var pkginfo = require('./package.json');
 
 var createVariants = require('parallel-webpack').createVariants;
@@ -10,7 +9,6 @@ var cloneDeep = require('lodash').cloneDeep;
 
 var argv = require('yargs').argv;
 var isProduction = argv.env === 'production';
-var justDocs = argv.env === 'docs';
 
 var libraryName = 'opennms';
 
@@ -20,13 +18,6 @@ var variants = {
 
 if (isProduction) {
   variants.production = [ true, false ];
-}
-
-if (justDocs) {
-  variants = {
-    target: ['node'],
-    docs: [true],
-  };
 }
 
 var config = {
@@ -152,7 +143,7 @@ function createConfig(options) {
     });
 
     defs['global.GENTLY'] = false;
-  
+
     myconf.plugins.push(new webpack.LoaderOptionsPlugin({
       minimize: true,
       debug: false
@@ -162,23 +153,9 @@ function createConfig(options) {
 
   myconf.plugins.push(new webpack.DefinePlugin(defs));
   myconf.plugins.push(new webpack.ProvidePlugin({X2JS: 'x2js'}));
-
-  // build docs either on a dedicated doc build, or during production node.js build
-  var buildDocs = !!(justDocs || (options.production && options.target === 'node'));
-  if (buildDocs) {
-    // generate documentation
-    var tsconfig = require('./tsconfig.json');
-    tsconfig.name = 'OpenNMS.js';
-    tsconfig.mode = 'file';
-    tsconfig.ignoreCompilerErrors = true;
-    tsconfig.exclude = "/**/+(node_modules|test)/**/*";
-    tsconfig.excludeExternals = false;
-    myconf.plugins.push(new TypedocWebpackPlugin(tsconfig));
-  }
-
   myconf.output.filename += '.js';
 
-  console.log('Building variant: target=' + options.target + ', production=' + (!!options.production) + ', docs=' + buildDocs);
+  console.log('Building variant: target=' + options.target + ', production=' + (!!options.production));
 
   return myconf;
 }
