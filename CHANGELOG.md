@@ -1,4 +1,9 @@
-## [2.0.2-SNAPSHOT](https://github.com/OpenNMS/opennms-js/compare/v2.0.1...v2.0.2-SNAPSHOT) (2020-03-30)
+## [2.0.2-SNAPSHOT](https://github.com/OpenNMS/opennms-js/compare/v2.0.1...v2.0.2-SNAPSHOT) (2020-04-13)
+
+
+### Bug Fixes
+
+* **rest:** fix response type handling in grafana 6.7 (HELM-232) ([874cd80](https://github.com/OpenNMS/opennms-js/commit/874cd801bc76683b41bd4dda75565e3d9a43f84f))
 
 
 
