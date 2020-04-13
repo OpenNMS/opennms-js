@@ -127,15 +127,15 @@ export abstract class AbstractHTTP implements IOnmsHTTP {
   protected getType(response: any) {
     if (Util.insensitiveValue('Content-Type', response.headers) === 'application/json') {
       return 'json';
-    } else if (response.config.responseType === 'json') {
+    } else if (response.config && response.config.responseType === 'json') {
       return 'json';
-    } else if (Util.insensitiveValue('Accept', response.config.headers) === 'application/json') {
+    } else if (response.config && Util.insensitiveValue('Accept', response.config.headers) === 'application/json') {
       return 'json';
     } else if (response.responseType === 'json') {
       return 'json';
     } else if (Util.insensitiveValue('Accept', response.headers) === 'application/xml') {
       return 'xml';
-    } else if (Util.insensitiveValue('Content-Type', response.config.headers) === 'application/xml') {
+    } else if (response.config && Util.insensitiveValue('Content-Type', response.config.headers) === 'application/xml') {
       return 'xml';
     }
     return 'text';
