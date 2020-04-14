@@ -70440,7 +70440,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 
 /** @hidden */
 var CLI = function CLI() {
-  var version = "2.0.2" || false || false; // tslint:disable
+  var version = "2.0.3-SNAPSHOT" || false || false; // tslint:disable
 
   var fs = __webpack_require__(/*! fs */ "fs");
 
