@@ -32,7 +32,7 @@ Future plans include adding support for other common ReST operations:
 
 # Changes and Versioning
 
-The CHANGELOG should always contain the complete list od changes between versions, and should always be accessible [here](https://github.com/OpenNMS/opennms-js/blob/master/CHANGELOG.md).
+The CHANGELOG should always contain the complete list of changes between versions, and should always be accessible [here](https://github.com/OpenNMS/opennms-js/blob/master/CHANGELOG.md).
 
 OpenNMS.js follows [semantic versioning](https://semver.org/).
 
