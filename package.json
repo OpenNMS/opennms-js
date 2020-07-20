@@ -139,7 +139,7 @@
     "watch": "webpack --progress --colors --watch",
     "test": "jest",
     "watch-test": "jest --watch",
-    "dist-test": "npm run dist && npm run smoke",
+    "dist-test": "npm run dist",
     "smoke": "node test/smoke.js",
     "lint": "tslint 'src/**/*.ts' && tsc --project tsconfig-check.json",
     "cli": "ts-node src/CLI.ts",
