@@ -1,4 +1,5 @@
 import {OnmsError} from '../api/OnmsError';
+import {log} from '../api/Log';
 
 import {Address4, Address6} from 'ip-address';
 import {Moment} from 'moment';
@@ -21,10 +22,14 @@ export class Util {
    */
   public static toIPAddress(addr?: string) {
     if (addr) {
-      if (addr.indexOf(':') >= 0) {
-        return new Address6(addr);
-      } else {
-        return new Address4(addr);
+      try {
+        if (addr.indexOf(':') >= 0) {
+          return new Address6(addr);
+        } else {
+          return new Address4(addr);
+        }
+      } catch (err) {
+        log.error('Unable to parse IP address "' + addr + '"', err);
       }
     }
     return undefined;

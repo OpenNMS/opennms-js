@@ -68,14 +68,12 @@ const CLI = () => {
 
   // global options
   program
+    .version(version)
     .option('-d, --debug', 'Enable debug output', () => {
       log.setDebug();
     })
     .option('-c, --config <file>', 'Specify a configuration file (default: ~/.opennms-cli.config.json)')
-    .option('-v, --version', 'Print the OpenNMS.js version and exit', () => {
-      log.log(version);
-      process.exit(0);
-    });
+    ;
 
   // connect (validate server and save config)
   program
