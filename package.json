@@ -53,6 +53,7 @@
     "jest-environment-node-debug": "^2.0.0",
     "parallel-webpack": "^2.6.0",
     "regenerator-runtime": "^0.13.7",
+    "rimraf": "^3.0.2",
     "standard-changelog": "^2.0.24",
     "terser-webpack-plugin": "^5.0.0",
     "ts-jest": "^26.4.2",
@@ -82,6 +83,8 @@
     "testRegex": "(/__tests__/.*|\\.(test|spec))\\.(ts|tsx|js)$"
   },
   "dependencies": {
+    "@antora/cli": "^2.3.4",
+    "@antora/site-generator-default": "^2.3.4",
     "@babel/runtime-corejs2": "^7.12.1",
     "axios": "^0.19.2",
     "btoa": "^1.2.1",
@@ -133,7 +136,7 @@
     "build": "webpack --mode production --env production",
     "dev": "webpack --progress --colors",
     "dist": "npm run lint && npm run test && npm run build && npm run docs",
-    "docs": "typedoc --out dist/docs src",
+    "docs": "typedoc --out dist/docs/ src && antora generate local-site.yml --to-dir docs/",
     "watch": "webpack --progress --colors --watch",
     "test": "jest",
     "watch-test": "jest --watch",

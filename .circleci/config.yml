@@ -22,3 +22,6 @@ jobs:
       - run:
           name: Run tests
           command: npm --prefer-offline --no-progress run dist-test
+      - run:
+          name: Build documentation
+          command: npm --prefer-offline --no-progress run docs

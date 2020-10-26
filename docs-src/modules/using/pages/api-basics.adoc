@@ -1,0 +1,72 @@
+= OpenNMS.js API Basics
+
+== Importing the Code
+
+=== TypeScript
+
+If you are using TypeScript, you can import the APIs directly into your project:
+
+[source,javascript]
+----
+import { API, Model, Rest, DAO, Client } from 'opennms/src/API';
+----
+
+=== JavaScript
+
+[source,javascript]
+----
+const { API, Model, Rest, DAO, Client } = require('opennms');
+----
+
+== Connecting to a Server
+
+Before you can make any queries, you must first connect to a server.
+To do so, use the `Client` object.
+
+[source,javascript]
+----
+const client = await new Client().connect('Demo', 'http://my-server:8980/opennms/', 'admin', 'admin');
+----
+
+== Making Queries
+
+To make a query, OpenNMS.js provides a number of DAO APIs for accessing data through ReST.
+
+To do so, you first connect (like above), and then call into the appropriate DAO to query.
+
+Here's an example that queries alarms with an ID greater than 7:
+
+[source,javascript]
+----
+const { Comparators, Filter, Restriction } = API;
+const idRestriction = new Restriction('id', Comparators.GE, 7);
+const filter = new Filter().withOrRestriction(idRestriction);
+
+try {
+  const alarms = await client.alarms().find(filter);
+  console.info(`got ${alarms.length} alarms with id >= 7.`);
+
+  // get all the node IDs associated with the matching alarms
+  const allNodeIds = alarms
+    .map((alarm) => alarm.nodeId)
+    .filter((nodeId) => nodeId !== undefined);
+
+  // create a unique list
+  const nodeIds = allNodeIds
+    .filter((val,index) => allNodeIds.indexOf(val) === index);
+
+  // if the 2nd argument to nodes().get() is true,
+  // it also populates ipInterfaces and snmpInterfaces
+  const nodes = await Promise.all(
+    nodeIds.map(id => client.nodes().get(id, true))
+  );
+
+  nodes.forEach(node => {
+    const numIfaces = node.ipInterfaces.length;
+    console.info(`${node.id} (${node.label}) has ${numIfaces} IP interfaces.`);
+  });
+----
+
+== API Reference
+
+The complete API reference is available at https://opennms.github.io/opennms-js/
