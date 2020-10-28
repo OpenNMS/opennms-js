@@ -131,7 +131,7 @@
   "scripts": {
     "changelog": "standard-changelog -i CHANGELOG.md -s -r 1",
     "build": "webpack --mode production --env production",
-    "dev": "webpack --progress --colors",
+    "dev": "webpack --mode=development --progress",
     "dist": "npm run lint && npm run test && npm run build && npm run docs",
     "docs": "typedoc --out dist/docs src",
     "watch": "webpack --progress --colors --watch",
