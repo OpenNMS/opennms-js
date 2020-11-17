@@ -1,4 +1,8 @@
-version: 2
+version: 2.1
+
+orbs:
+  branch-management: opennms/branch-management@2.3.0
+
 jobs:
   build:
     docker:
@@ -25,3 +29,29 @@ jobs:
       - run:
           name: Build documentation
           command: npm --prefer-offline --no-progress run docs
+  merge:
+    docker:
+      - image: circleci/node:10
+    steps:
+      - checkout
+      - branch-management/merge-branch:
+          committer_email: "cicd-system@opennms.com"
+          committer_name: "CI/CD System"
+          from: develop
+          to: main
+      - run:
+          name: "Push to Main"
+          command: git push origin
+
+workflows:
+  build-and-merge:
+    jobs:
+      - build
+      - merge:
+          requires:
+            - build
+          filters:
+            branches:
+              only:
+                - develop
+                - ranger/docs

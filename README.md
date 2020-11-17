@@ -16,7 +16,7 @@ The complete API list is available at [opennms.github.io](https://opennms.github
 
 ## Changes and Versioning
 
-The CHANGELOG should always contain the complete list of changes between versions, and should always be accessible [here](https://github.com/OpenNMS/opennms-js/blob/master/CHANGELOG.md).
+The CHANGELOG should always contain the complete list of changes between versions, and should always be accessible [here](https://github.com/OpenNMS/opennms-js/blob/main/CHANGELOG.md).
 
 OpenNMS.js follows [semantic versioning](https://semver.org/).
 
