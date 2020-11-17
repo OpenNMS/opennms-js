@@ -26,7 +26,6 @@ var config = {
   },
   devtool: 'source-map',
   output: {
-    path: __dirname + '/dist',
     libraryTarget: 'umd',
     umdNamedDefine: true
   },
@@ -50,11 +49,8 @@ var config = {
   },
   plugins: [],
   node: {
-    fs: 'empty',
     __dirname: true,
-    child_process: false,
     global: true,
-    process: false
   }
 };
 
@@ -73,7 +69,6 @@ function createConfig(options) {
     myconf.target = 'web';
   } else {
     myconf.target = 'node';
-    myconf.node = { process: false };
   }
 
   if (options.target === 'node') {
