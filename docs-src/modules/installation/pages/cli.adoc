@@ -2,7 +2,7 @@
 
 == Installation
 
-Just install the `opennms` project globally, using https://www.npmjs.com/[npm].
+Install the `opennms` project globally, using https://www.npmjs.com/[npm].
 
 1. install https://nodejs.org/en/download/[Node.js] (Node.js comes with `npm`)
 2. run `npm install -g opennms`
