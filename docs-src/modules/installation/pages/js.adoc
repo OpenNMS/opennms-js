@@ -1,0 +1,11 @@
+= Getting Started With the JavaScript or TypeScript API
+
+== Installation
+
+You can use NPM or Yarn to install `opennms` as a dependency to your project:
+
+```bash
+npm install opennms
+# or
+yarn install opennms
+```

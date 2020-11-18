@@ -1,0 +1,22 @@
+= Getting Started With the CLI Utility
+
+== Installation
+
+Install the `opennms` project globally, using https://www.npmjs.com/[npm].
+
+1. install https://nodejs.org/en/download/[Node.js] (Node.js comes with `npm`)
+2. run `npm install -g opennms`
+3. run `opennms --help` for a list of available commands
+
+== Configuration
+
+Before you can query your OpenNMS server, you must first configure the command-line tool to know where to find it.
+
+Run:
+
+[source, shell]
+----
+opennms connect --username <your-username> --password <your-password> https://your-opennms-server/opennms
+----
+
+This will store a configuration file that the `opennms` command will read automatically when you run it.

@@ -1,24 +1,101 @@
-version: 2
+version: 2.1
+
+orbs:
+  branch-management: opennms/branch-management@2.3.0
+
 jobs:
   build:
     docker:
-      - image: circleci/node:9
+      - image: circleci/node:10
     steps:
       - checkout
       - restore_cache:
           name: Restore Package Cache
           keys:
-            - npm-packages-{{ .Branch }}-{{ checksum "package-lock.json" }}
-            - npm-packages-{{ .Branch }}
-            - npm-packages-
+            - npm-cache-v1-{{ .Branch }}-{{ checksum "package-lock.json" }}
+            - npm-cache-v1-{{ .Branch }}
+            - npm-cache-v1-
       - run:
           name: Install Dependencies
-          command: npm --prefer-offline --no-progress install
+          command: npm ci
       - save_cache:
           name: Save Package Cache
-          key: npm-packages-{{ .Branch }}-{{ checksum "package-lock.json" }}
+          key: npm-cache-v1-{{ .Branch }}-{{ checksum "package-lock.json" }}
           paths:
-            - node_modules/
+            - ~/.npm
       - run:
           name: Run tests
-          command: npm --prefer-offline --no-progress run dist-test
+          command: npm run dist-test
+      - run:
+          name: Build documentation
+          command: |
+            npm run docs
+            pushd dist/docs
+            zip -9 -r ../../build/api.zip .
+      - store_artifacts:
+          path: build/api.zip
+          destination: api-docs.zip
+      - store_artifacts:
+          path: build/site.zip
+          destination: antora-docs.zip
+  merge:
+    docker:
+      - image: circleci/node:10
+    steps:
+      - checkout
+      - branch-management/merge-branch:
+          committer_email: "cicd-system@opennms.com"
+          committer_name: "CI/CD System"
+          from: develop
+          to: main
+      - run:
+          name: "Push to Main"
+          command: git push origin
+  pages:
+    docker:
+      - image: circleci/node:10
+    steps:
+      - checkout
+      - branch-management/merge-branch:
+          committer_email: "cicd-system@opennms.com"
+          committer_name: "CI/CD System"
+          from: main
+          to: gh-pages
+      - restore_cache:
+          name: Restore Package Cache
+          keys:
+            - npm-cache-v1-{{ .Branch }}-{{ checksum "package-lock.json" }}
+            - npm-cache-v1-{{ .Branch }}
+            - npm-cache-v1-
+      - run:
+          name: "Publish API Docs to docs/"
+          command: |
+            export GIT_MERGE_AUTOEDIT=no
+            npm ci
+            npm run api
+            rsync -avr --delete dist/docs/ docs/
+            git add -A docs
+            git commit --author='CI/CD System <cicd-system@opennms.com>' -m 'publish latest API docs'
+      - run:
+          name: "Push to GitHub Pages"
+          command: git push origin
+
+
+workflows:
+  build-and-merge:
+    jobs:
+      - build
+      - merge:
+          requires:
+            - build
+          filters:
+            branches:
+              only:
+                - develop
+      - pages:
+          requires:
+            - build
+          filters:
+            branches:
+              only:
+                - main

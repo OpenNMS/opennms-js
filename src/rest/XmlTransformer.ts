@@ -1,9 +1,9 @@
 // If running under Node, use `xmldom`'s DOM parser.
 if (global && !global.window) {
-    global.window = {} as Window;
-    if (!global.window.DOMParser) {
+    (global as any).window = {} as Window;
+    if (!(global.window as any).DOMParser) {
         // tslint:disable-next-line
-        global.window.DOMParser = require('xmldom').DOMParser;
+        (global.window as any).DOMParser = require('xmldom').DOMParser;
     }
 }
 
