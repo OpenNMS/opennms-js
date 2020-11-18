@@ -28,7 +28,13 @@ jobs:
           command: npm run dist-test
       - run:
           name: Build documentation
-          command: npm run docs
+          command: |
+            npm run docs
+            pushd dist/docs
+            zip -9 -r ../../build/api.zip .
+      - store_artifacts:
+          path: build/api.zip
+          destination: api-docs.zip
       - store_artifacts:
           path: build/site.zip
           destination: antora-docs.zip
@@ -45,6 +51,35 @@ jobs:
       - run:
           name: "Push to Main"
           command: git push origin
+  pages:
+    docker:
+      - image: circleci/node:10
+    steps:
+      - checkout
+      - branch-management/merge-branch:
+          committer_email: "cicd-system@opennms.com"
+          committer_name: "CI/CD System"
+          from: main
+          to: gh-pages
+      - restore_cache:
+          name: Restore Package Cache
+          keys:
+            - npm-cache-v1-{{ .Branch }}-{{ checksum "package-lock.json" }}
+            - npm-cache-v1-{{ .Branch }}
+            - npm-cache-v1-
+      - run:
+          name: "Publish API Docs to docs/"
+          command: |
+            export GIT_MERGE_AUTOEDIT=no
+            npm ci
+            npm run api
+            rsync -avr --delete dist/docs/ docs/
+            git add -A docs
+            git commit --author='CI/CD System <cicd-system@opennms.com>' -m 'publish latest API docs'
+      - run:
+          name: "Push to GitHub Pages"
+          command: git push origin
+
 
 workflows:
   build-and-merge:
@@ -57,4 +92,10 @@ workflows:
             branches:
               only:
                 - develop
-                - ranger/docs
+      - pages:
+          requires:
+            - build
+          filters:
+            branches:
+              only:
+                - main
