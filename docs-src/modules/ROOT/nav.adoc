@@ -6,7 +6,6 @@
 * xref:installation:cli.adoc[CLI Utility]
 * xref:installation:js.adoc[JavaScript/TypeScript API]
 
-.Contributing
 * xref:contributing:index.adoc[Contributing]
 
 .Using
