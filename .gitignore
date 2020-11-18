@@ -42,5 +42,6 @@ dist/opennms.*
 dist/docs
 
 # Antora documentation
-docs/
-build/
+/docs/
+/build/
+/public/
