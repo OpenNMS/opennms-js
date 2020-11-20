@@ -38,6 +38,5 @@ grafana
 .notouch
 
 # Antora documentation
-/docs/
 /build/
 /public/
