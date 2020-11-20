@@ -37,10 +37,6 @@ profile.cov
 grafana
 .notouch
 
-dist/cli.*
-dist/opennms.*
-dist/docs
-
 # Antora documentation
 /docs/
 /build/
