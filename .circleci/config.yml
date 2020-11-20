@@ -87,7 +87,8 @@ jobs:
             export GIT_MERGE_AUTOEDIT=no
             npm ci
             npm run api
-            rsync -avr --delete dist/docs/ docs/
+            rm -rf docs/*
+            cp -pR dist/docs/ docs/
             git add -A docs
             git commit --author='CI/CD System <cicd-system@opennms.com>' -m 'publish latest API docs'
       - run:
