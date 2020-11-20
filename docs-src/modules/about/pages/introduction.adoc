@@ -1,0 +1,17 @@
+:imagesdir: ../assets/images
+:!figure-caption:
+
+= What is {page-component-title}?
+
+{page-component-title} is both a command-line utility as well as a collection of JavaScript and TypeScript APIs for interacting with OpenNMS Horizon and Meridian servers.
+
+[[cli]]
+== Command-Line Utility
+
+The CLI is a tool for performing a variety of operations against an OpenNMS server, most notably querying, acknowledging, and creating tickets from alarms.
+
+[[api]]
+== JavaScript and TypeScript API
+
+The JavaScript and TypeScript API provides access to a wide variety of functions for interacting with an OpenNMS server.
+It provides a core of functionality used by other OpenNMS tools, most notably Helm.

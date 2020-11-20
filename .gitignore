@@ -40,3 +40,8 @@ grafana
 dist/cli.*
 dist/opennms.*
 dist/docs
+
+# Antora documentation
+/docs/
+/build/
+/public/

@@ -1,0 +1,32 @@
+= Using OpenNMS.js
+
+== Development and Production Branches
+
+Development is done in the `develop` (default GitHub) branch.
+
+Commits to the `develop` branch are automatically compiled and committed to the `main` branch.
+
+Releases are tagged from the `main` branch and submitted to https://www.npmjs.com/package/opennms[npm].
+
+== Working With the Project Code
+
+First, you must install the project dependencies.
+You can do so with `npm`:
+
+```bash
+npm install
+```
+
+[[commands]]
+Then, there are a number of commands you can run to work with the code:
+
+`npm run dev`:: build the non-minified, development version of the code into the `dist/` directory
+`npm run build`:: build both the development and production versions of the code into the `dist/` directory
+`npm run test`:: run the unit tests
+`npm run lint`:: check the TypeScript code for errors and formatting warnings
+`npm run docs`:: build the API documentation into the `dist/docs/` directory
+`npm run changelog`:: generate the `CHANGELOG.md` file from the current git history
+`npm run watch`:: build the development version of the code into the `dist/` directory, automatically recompiling if code changes are detected
+`npm run watch-test`:: run the tests continuously, automatically rerunning if code changes are detected
+`npm run dist`:: does everything necessary to update the `dist/` directory with the latest changes, including lint, test, build(s), and docs
+`npm run cli`:: run the CLI tool directly from the source tree (e.g., `npm run cli -- connect -u admin -p admin http://your-opennms:8980/opennms/`)
