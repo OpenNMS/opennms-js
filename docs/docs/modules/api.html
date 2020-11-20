@@ -1,0 +1,616 @@
+<!doctype html>
+<html class="default no-js">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>api | opennms</title>
+	<meta name="description" content="Documentation for opennms">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="../assets/css/main.css">
+</head>
+<body>
+<header>
+	<div class="tsd-page-toolbar">
+		<div class="container">
+			<div class="table-wrap">
+				<div class="table-cell" id="tsd-search" data-index="../assets/js/search.json" data-base="..">
+					<div class="field">
+						<label for="tsd-search-field" class="tsd-widget search no-caption">Search</label>
+						<input id="tsd-search-field" type="text" />
+					</div>
+					<ul class="results">
+						<li class="state loading">Preparing search index...</li>
+						<li class="state failure">The search index is not available</li>
+					</ul>
+					<a href="../index.html" class="title">opennms</a>
+				</div>
+				<div class="table-cell" id="tsd-widgets">
+					<div id="tsd-filter">
+						<a href="#" class="tsd-widget options no-caption" data-toggle="options">Options</a>
+						<div class="tsd-filter-group">
+							<div class="tsd-select" id="tsd-filter-visibility">
+								<span class="tsd-select-label">All</span>
+								<ul class="tsd-select-list">
+									<li data-value="public">Public</li>
+									<li data-value="protected">Public/Protected</li>
+									<li data-value="private" class="selected">All</li>
+								</ul>
+							</div>
+							<input type="checkbox" id="tsd-filter-inherited" checked />
+							<label class="tsd-widget" for="tsd-filter-inherited">Inherited</label>
+							<input type="checkbox" id="tsd-filter-externals" checked />
+							<label class="tsd-widget" for="tsd-filter-externals">Externals</label>
+							<input type="checkbox" id="tsd-filter-only-exported" />
+							<label class="tsd-widget" for="tsd-filter-only-exported">Only exported</label>
+						</div>
+					</div>
+					<a href="#" class="tsd-widget menu no-caption" data-toggle="menu">Menu</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="tsd-page-title">
+		<div class="container">
+			<ul class="tsd-breadcrumb">
+				<li>
+					<a href="../globals.html">Globals</a>
+				</li>
+				<li>
+					<a href="api.html">api</a>
+				</li>
+			</ul>
+			<h1>Module api</h1>
+		</div>
+	</div>
+</header>
+<div class="container container-main">
+	<div class="row">
+		<div class="col-8 col-content">
+			<section class="tsd-panel-group tsd-index-group">
+				<h2>Index</h2>
+				<section class="tsd-panel tsd-index-panel">
+					<div class="tsd-index-content">
+						<section class="tsd-index-section ">
+							<h3>Filtering API Classes</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-class tsd-parent-kind-module"><a href="../classes/api.clause.html" class="tsd-kind-icon">Clause</a></li>
+								<li class="tsd-kind-class tsd-parent-kind-module"><a href="../classes/api.comparator.html" class="tsd-kind-icon">Comparator</a></li>
+								<li class="tsd-kind-class tsd-parent-kind-module"><a href="../classes/api.filter.html" class="tsd-kind-icon">Filter</a></li>
+								<li class="tsd-kind-class tsd-parent-kind-module"><a href="../classes/api.nestedrestriction.html" class="tsd-kind-icon">Nested<wbr>Restriction</a></li>
+								<li class="tsd-kind-class tsd-parent-kind-module"><a href="../classes/api.operator.html" class="tsd-kind-icon">Operator</a></li>
+								<li class="tsd-kind-class tsd-parent-kind-module"><a href="../classes/api.order.html" class="tsd-kind-icon">Order</a></li>
+								<li class="tsd-kind-class tsd-parent-kind-module"><a href="../classes/api.orderby.html" class="tsd-kind-icon">Order<wbr>By</a></li>
+								<li class="tsd-kind-class tsd-parent-kind-module"><a href="../classes/api.restriction.html" class="tsd-kind-icon">Restriction</a></li>
+							</ul>
+							<h3>Internal Classes</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-class tsd-parent-kind-module"><a href="../classes/api.logger.html" class="tsd-kind-icon">Logger</a></li>
+								<li class="tsd-kind-class tsd-parent-kind-module"><a href="../classes/api.onmserror.html" class="tsd-kind-icon">Onms<wbr>Error</a></li>
+							</ul>
+							<h3>Rest API Classes</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-class tsd-parent-kind-module"><a href="../classes/api.onmsauthconfig.html" class="tsd-kind-icon">Onms<wbr>Auth<wbr>Config</a></li>
+								<li class="tsd-kind-class tsd-parent-kind-module"><a href="../classes/api.onmshttpoptions.html" class="tsd-kind-icon">OnmsHTTPOptions</a></li>
+								<li class="tsd-kind-class tsd-parent-kind-module"><a href="../classes/api.onmshttpoptionsbuilder.html" class="tsd-kind-icon">OnmsHTTPOptions<wbr>Builder</a></li>
+								<li class="tsd-kind-class tsd-parent-kind-module tsd-has-type-parameter"><a href="../classes/api.onmsresult.html" class="tsd-kind-icon">Onms<wbr>Result</a></li>
+								<li class="tsd-kind-class tsd-parent-kind-module"><a href="../classes/api.onmsserver.html" class="tsd-kind-icon">Onms<wbr>Server</a></li>
+								<li class="tsd-kind-class tsd-parent-kind-module"><a href="../classes/api.onmsserverbuilder.html" class="tsd-kind-icon">Onms<wbr>Server<wbr>Builder</a></li>
+								<li class="tsd-kind-class tsd-parent-kind-module"><a href="../classes/api.onmsversion.html" class="tsd-kind-icon">Onms<wbr>Version</a></li>
+								<li class="tsd-kind-class tsd-parent-kind-module"><a href="../classes/api.searchproperty.html" class="tsd-kind-icon">Search<wbr>Property</a></li>
+								<li class="tsd-kind-class tsd-parent-kind-module"><a href="../classes/api.searchpropertytype.html" class="tsd-kind-icon">Search<wbr>Property<wbr>Type</a></li>
+								<li class="tsd-kind-class tsd-parent-kind-module"><a href="../classes/api.servermetadata.html" class="tsd-kind-icon">Server<wbr>Metadata</a></li>
+								<li class="tsd-kind-class tsd-parent-kind-module"><a href="../classes/api.servertype.html" class="tsd-kind-icon">Server<wbr>Type</a></li>
+								<li class="tsd-kind-class tsd-parent-kind-module"><a href="../classes/api.ticketerconfig.html" class="tsd-kind-icon">Ticketer<wbr>Config</a></li>
+							</ul>
+						</section>
+						<section class="tsd-index-section ">
+							<h3>Filtering API Interfaces</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-interface tsd-parent-kind-module"><a href="../interfaces/api.ifilterprocessor.html" class="tsd-kind-icon">IFilter<wbr>Processor</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module"><a href="../interfaces/api.ifiltervisitor.html" class="tsd-kind-icon">IFilter<wbr>Visitor</a></li>
+							</ul>
+							<h3>Rest Interfaces</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-interface tsd-parent-kind-module"><a href="../interfaces/api.ihashttp.html" class="tsd-kind-icon">IHasHTTP</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module"><a href="../interfaces/api.ihasurlvalue.html" class="tsd-kind-icon">IHas<wbr>Url<wbr>Value</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module"><a href="../interfaces/api.ionmshttp.html" class="tsd-kind-icon">IOnmsHTTP</a></li>
+							</ul>
+						</section>
+						<section class="tsd-index-section ">
+							<h3>API Variables</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-variable tsd-parent-kind-module"><a href="api.html#log" class="tsd-kind-icon">log</a></li>
+							</ul>
+							<h3>Filtering API Variables</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-variable tsd-parent-kind-module"><a href="api.html#comparators" class="tsd-kind-icon">Comparators</a></li>
+							</ul>
+							<h3>Other Variables</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-variable tsd-parent-kind-module tsd-is-not-exported"><a href="api.html#frozen" class="tsd-kind-icon">frozen</a></li>
+							</ul>
+						</section>
+						<section class="tsd-index-section ">
+							<h3>Filtering API Functions</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-function tsd-parent-kind-module"><a href="api.html#addparameter" class="tsd-kind-icon">add<wbr>Parameter</a></li>
+							</ul>
+						</section>
+						<section class="tsd-index-section ">
+							<h3>Model Object literals</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-object-literal tsd-parent-kind-module"><a href="api.html#operators" class="tsd-kind-icon">Operators</a></li>
+								<li class="tsd-kind-object-literal tsd-parent-kind-module"><a href="api.html#searchpropertytypes" class="tsd-kind-icon">Search<wbr>Property<wbr>Types</a></li>
+								<li class="tsd-kind-object-literal tsd-parent-kind-module"><a href="api.html#servertypes" class="tsd-kind-icon">Server<wbr>Types</a></li>
+							</ul>
+							<h3>Other Object literals</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-object-literal tsd-parent-kind-module"><a href="api.html#orders" class="tsd-kind-icon">Orders</a></li>
+							</ul>
+						</section>
+					</div>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group ">
+				<h2>API Variables</h2>
+				<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-module">
+					<a name="log" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagConst">Const</span> log</h3>
+					<div class="tsd-signature tsd-kind-icon">log<span class="tsd-signature-symbol">:</span> <a href="../classes/api.logger.html" class="tsd-signature-type">Logger</a><span class="tsd-signature-symbol"> = new Logger()</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/29c3d586/src/api/Log.ts#L156">src/api/Log.ts:156</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>The default logging implementation.
+							Import a logger using:</p>
+						</div>
+						<pre><code class="language-ts"><span class="hljs-keyword">import</span> {log} <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;api/Logger&#x27;</span>;</code></pre>
+					</div>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group ">
+				<h2>Filtering API Variables</h2>
+				<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-module">
+					<a name="comparators" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagConst">Const</span> Comparators</h3>
+					<div class="tsd-signature tsd-kind-icon">Comparators<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">{}</span><span class="tsd-signature-symbol"> = {/** Equals (&#x60;&#x3D;&#x60; or &#x60;&#x3D;&#x3D;&#x60;) */EQ: new Comparator(1, &#x27;EQ&#x27;, &#x27;&#x3D;&#x27;, &#x27;&#x3D;&#x3D;&#x27;),/** Not Equals (&#x60;!&#x3D;&#x60;) */NE: new Comparator(2, &#x27;NE&#x27;, &#x27;!&#x3D;&#x27;),/** Case-Insensitive Substring Match (&#x60;ILIKE&#x60;) */ILIKE: new Comparator(3, &#x27;ILIKE&#x27;),/** Case-Sensitive Substring Match (&#x60;LIKE&#x60;) */LIKE: new Comparator(4, &#x27;LIKE&#x27;),/** Greater Than (&#x60;&gt;&#x60;) */GT: new Comparator(5, &#x27;GT&#x27;, &#x27;&gt;&#x27;),/** Less Than (&#x60;&lt;&#x60;) */LT: new Comparator(6, &#x27;LT&#x27;, &#x27;&lt;&#x27;),/** Greater Than or Equal To (&#x60;&gt;&#x3D;&#x60;) */GE: new Comparator(7, &#x27;GE&#x27;, &#x27;&gt;&#x3D;&#x27;),/** Less Than or Equal To (&#x60;&lt;&#x3D;&#x60;) */LE: new Comparator(8, &#x27;LE&#x27;, &#x27;&lt;&#x3D;&#x27;),/** Is Null (&#x60;NULL&#x60;) */NULL: new Comparator(9, &#x27;NULL&#x27;, &#x27;ISNULL&#x27;),/** Is Not Null (&#x60;NOTNULL&#x60;) */NOTNULL: new Comparator(10, &#x27;NOTNULL&#x27;),/*ALL: new Comparator(9, &#x27;ALL&#x27;),ANY: new Comparator(10, &#x27;ANY&#x27;),BETWEEN: new Comparator(15, &#x27;BETWEEN&#x27;),NOT: new Comparator(14, &#x27;NOT&#x27;),IN: new Comparator(13, &#x27;IN&#x27;),IPLIKE: new Comparator(17, &#x27;IPLIKE&#x27;),SQL: new Comparator(16, &#x27;SQL&#x27;),*/} as { [key: string]: Comparator }</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/29c3d586/src/api/Comparator.ts#L41">src/api/Comparator.ts:41</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Contains constant instances of all available comparators.</p>
+						</div>
+					</div>
+					<div class="tsd-type-declaration">
+						<h4>Type declaration</h4>
+						<ul class="tsd-parameters">
+							<li class="tsd-parameter-index-signature">
+								<h5><span class="tsd-signature-symbol">[</span>key: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">]: </span><a href="../classes/api.comparator.html" class="tsd-signature-type">Comparator</a></h5>
+							</li>
+						</ul>
+					</div>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group ">
+				<h2>Other Variables</h2>
+				<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-module tsd-is-not-exported">
+					<a name="frozen" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagConst">Const</span> frozen</h3>
+					<div class="tsd-signature tsd-kind-icon">frozen<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">{ </span>ASC<span class="tsd-signature-symbol">: </span><a href="../classes/api.order.html" class="tsd-signature-type">Order</a><span class="tsd-signature-symbol">; </span>DESC<span class="tsd-signature-symbol">: </span><a href="../classes/api.order.html" class="tsd-signature-type">Order</a><span class="tsd-signature-symbol"> }</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> = Object.freeze(Orders)</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/29c3d586/src/api/OrderBy.ts#L36">src/api/OrderBy.ts:36</a></li>
+						</ul>
+					</aside>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group ">
+				<h2>Filtering API Functions</h2>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module">
+					<a name="addparameter" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagConst">Const</span> add<wbr>Parameter</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
+						<li class="tsd-signature tsd-kind-icon">add<wbr>Parameter<span class="tsd-signature-symbol">(</span>hash<span class="tsd-signature-symbol">: </span><a href="../interfaces/internal.ihash.html" class="tsd-signature-type">IHash</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span>, key<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, value<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/29c3d586/src/api/IFilterProcessor.ts#L20">src/api/IFilterProcessor.ts:20</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>A utility method to be used by IFilterProcessor to handle multi-value parameters.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>hash: <a href="../interfaces/internal.ihash.html" class="tsd-signature-type">IHash</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></h5>
+								</li>
+								<li>
+									<h5>key: <span class="tsd-signature-type">string</span></h5>
+								</li>
+								<li>
+									<h5>value: <span class="tsd-signature-type">any</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group ">
+				<h2>Model Object literals</h2>
+				<section class="tsd-panel tsd-member tsd-kind-object-literal tsd-parent-kind-module">
+					<a name="operators" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagConst">Const</span> Operators</h3>
+					<div class="tsd-signature tsd-kind-icon">Operators<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/29c3d586/src/api/Operator.ts#L34">src/api/Operator.ts:34</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Contains constant instances of all operators.</p>
+						</div>
+					</div>
+					<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal">
+						<a name="operators.and" class="tsd-anchor"></a>
+						<h3>AND</h3>
+						<div class="tsd-signature tsd-kind-icon">AND<span class="tsd-signature-symbol">:</span> <a href="../classes/api.operator.html" class="tsd-signature-type">Operator</a><span class="tsd-signature-symbol"> = new Operator(1, &#x27;AND&#x27;)</span></div>
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/29c3d586/src/api/Operator.ts#L36">src/api/Operator.ts:36</a></li>
+							</ul>
+						</aside>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<p>AND (all must match)</p>
+							</div>
+						</div>
+					</section>
+					<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal">
+						<a name="operators.or" class="tsd-anchor"></a>
+						<h3>OR</h3>
+						<div class="tsd-signature tsd-kind-icon">OR<span class="tsd-signature-symbol">:</span> <a href="../classes/api.operator.html" class="tsd-signature-type">Operator</a><span class="tsd-signature-symbol"> = new Operator(2, &#x27;OR&#x27;)</span></div>
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/29c3d586/src/api/Operator.ts#L39">src/api/Operator.ts:39</a></li>
+							</ul>
+						</aside>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<p>OR (at least one must match)</p>
+							</div>
+						</div>
+					</section>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-object-literal tsd-parent-kind-module">
+					<a name="searchpropertytypes" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagConst">Const</span> Search<wbr>Property<wbr>Types</h3>
+					<div class="tsd-signature tsd-kind-icon">Search<wbr>Property<wbr>Types<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/29c3d586/src/api/SearchPropertyType.ts#L53">src/api/SearchPropertyType.ts:53</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Contains constant instances of all search property types.</p>
+						</div>
+					</div>
+					<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal">
+						<a name="searchpropertytypes.float" class="tsd-anchor"></a>
+						<h3>FLOAT</h3>
+						<div class="tsd-signature tsd-kind-icon">FLOAT<span class="tsd-signature-symbol">:</span> <a href="../classes/api.searchpropertytype.html" class="tsd-signature-type">SearchPropertyType</a><span class="tsd-signature-symbol"> = new SearchPropertyType(&#x27;FLOAT&#x27;, &#x27;floating-point number&#x27;, NumberComparators)</span></div>
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/29c3d586/src/api/SearchPropertyType.ts#L54">src/api/SearchPropertyType.ts:54</a></li>
+							</ul>
+						</aside>
+					</section>
+					<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal">
+						<a name="searchpropertytypes.integer" class="tsd-anchor"></a>
+						<h3>INTEGER</h3>
+						<div class="tsd-signature tsd-kind-icon">INTEGER<span class="tsd-signature-symbol">:</span> <a href="../classes/api.searchpropertytype.html" class="tsd-signature-type">SearchPropertyType</a><span class="tsd-signature-symbol"> = new SearchPropertyType(&#x27;INTEGER&#x27;, &#x27;integer&#x27;, NumberComparators)</span></div>
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/29c3d586/src/api/SearchPropertyType.ts#L55">src/api/SearchPropertyType.ts:55</a></li>
+							</ul>
+						</aside>
+					</section>
+					<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal">
+						<a name="searchpropertytypes.ip_address" class="tsd-anchor"></a>
+						<h3>IP_<wbr>ADDRESS</h3>
+						<div class="tsd-signature tsd-kind-icon">IP_<wbr>ADDRESS<span class="tsd-signature-symbol">:</span> <a href="../classes/api.searchpropertytype.html" class="tsd-signature-type">SearchPropertyType</a><span class="tsd-signature-symbol"> = new SearchPropertyType(&#x27;IP_ADDRESS&#x27;, &#x27;IP address&#x27;, StringComparators)</span></div>
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/29c3d586/src/api/SearchPropertyType.ts#L56">src/api/SearchPropertyType.ts:56</a></li>
+							</ul>
+						</aside>
+					</section>
+					<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal">
+						<a name="searchpropertytypes.long" class="tsd-anchor"></a>
+						<h3>LONG</h3>
+						<div class="tsd-signature tsd-kind-icon">LONG<span class="tsd-signature-symbol">:</span> <a href="../classes/api.searchpropertytype.html" class="tsd-signature-type">SearchPropertyType</a><span class="tsd-signature-symbol"> = new SearchPropertyType(&#x27;LONG&#x27;, &#x27;long integer&#x27;, NumberComparators)</span></div>
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/29c3d586/src/api/SearchPropertyType.ts#L57">src/api/SearchPropertyType.ts:57</a></li>
+							</ul>
+						</aside>
+					</section>
+					<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal">
+						<a name="searchpropertytypes.string" class="tsd-anchor"></a>
+						<h3>STRING</h3>
+						<div class="tsd-signature tsd-kind-icon">STRING<span class="tsd-signature-symbol">:</span> <a href="../classes/api.searchpropertytype.html" class="tsd-signature-type">SearchPropertyType</a><span class="tsd-signature-symbol"> = new SearchPropertyType(&#x27;STRING&#x27;, &#x27;string&#x27;, StringComparators)</span></div>
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/29c3d586/src/api/SearchPropertyType.ts#L58">src/api/SearchPropertyType.ts:58</a></li>
+							</ul>
+						</aside>
+					</section>
+					<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal">
+						<a name="searchpropertytypes.timestamp" class="tsd-anchor"></a>
+						<h3>TIMESTAMP</h3>
+						<div class="tsd-signature tsd-kind-icon">TIMESTAMP<span class="tsd-signature-symbol">:</span> <a href="../classes/api.searchpropertytype.html" class="tsd-signature-type">SearchPropertyType</a><span class="tsd-signature-symbol"> = new SearchPropertyType(&#x27;TIMESTAMP&#x27;, &#x27;date and time&#x27;, NumberComparators)</span></div>
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/29c3d586/src/api/SearchPropertyType.ts#L59">src/api/SearchPropertyType.ts:59</a></li>
+							</ul>
+						</aside>
+					</section>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-object-literal tsd-parent-kind-module">
+					<a name="servertypes" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagConst">Const</span> Server<wbr>Types</h3>
+					<div class="tsd-signature tsd-kind-icon">Server<wbr>Types<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/29c3d586/src/api/ServerType.ts#L14">src/api/ServerType.ts:14</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Contains constant instances of all server types.</p>
+						</div>
+					</div>
+					<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal">
+						<a name="servertypes.horizon" class="tsd-anchor"></a>
+						<h3>HORIZON</h3>
+						<div class="tsd-signature tsd-kind-icon">HORIZON<span class="tsd-signature-symbol">:</span> <a href="../classes/api.servertype.html" class="tsd-signature-type">ServerType</a><span class="tsd-signature-symbol"> = new ServerType(1, &#x27;HORIZON&#x27;)</span></div>
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/29c3d586/src/api/ServerType.ts#L16">src/api/ServerType.ts:16</a></li>
+							</ul>
+						</aside>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<p>OpenNMS Horizon</p>
+							</div>
+						</div>
+					</section>
+					<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal">
+						<a name="servertypes.meridian" class="tsd-anchor"></a>
+						<h3>MERIDIAN</h3>
+						<div class="tsd-signature tsd-kind-icon">MERIDIAN<span class="tsd-signature-symbol">:</span> <a href="../classes/api.servertype.html" class="tsd-signature-type">ServerType</a><span class="tsd-signature-symbol"> = new ServerType(2, &#x27;MERIDIAN&#x27;)</span></div>
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/29c3d586/src/api/ServerType.ts#L19">src/api/ServerType.ts:19</a></li>
+							</ul>
+						</aside>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<p>OpenNMS Meridian</p>
+							</div>
+						</div>
+					</section>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group ">
+				<h2>Other Object literals</h2>
+				<section class="tsd-panel tsd-member tsd-kind-object-literal tsd-parent-kind-module">
+					<a name="orders" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagConst">Const</span> Orders</h3>
+					<div class="tsd-signature tsd-kind-icon">Orders<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/29c3d586/src/api/OrderBy.ts#L32">src/api/OrderBy.ts:32</a></li>
+						</ul>
+					</aside>
+					<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal">
+						<a name="orders.asc" class="tsd-anchor"></a>
+						<h3>ASC</h3>
+						<div class="tsd-signature tsd-kind-icon">ASC<span class="tsd-signature-symbol">:</span> <a href="../classes/api.order.html" class="tsd-signature-type">Order</a><span class="tsd-signature-symbol"> = new Order(&#x27;ASC&#x27;, &#x27;ASC&#x27;)</span></div>
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/29c3d586/src/api/OrderBy.ts#L33">src/api/OrderBy.ts:33</a></li>
+							</ul>
+						</aside>
+					</section>
+					<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal">
+						<a name="orders.desc" class="tsd-anchor"></a>
+						<h3>DESC</h3>
+						<div class="tsd-signature tsd-kind-icon">DESC<span class="tsd-signature-symbol">:</span> <a href="../classes/api.order.html" class="tsd-signature-type">Order</a><span class="tsd-signature-symbol"> = new Order(&#x27;DESC&#x27;, &#x27;DESC&#x27;)</span></div>
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/29c3d586/src/api/OrderBy.ts#L34">src/api/OrderBy.ts:34</a></li>
+							</ul>
+						</aside>
+					</section>
+				</section>
+			</section>
+		</div>
+		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
+			<nav class="tsd-navigation primary">
+				<ul>
+					<li class="globals  ">
+						<a href="../globals.html"><em>Globals</em></a>
+					</li>
+					<li class=" tsd-kind-module tsd-is-not-exported">
+						<a href="reflection-2696.html">&lt;em&gt;<wbr>Module&lt;/em&gt;</a>
+					</li>
+					<li class="current tsd-kind-module">
+						<a href="api.html">api</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="dao.html">dao</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="internal.html">internal</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="model.html">model</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="rest.html">rest</a>
+					</li>
+				</ul>
+			</nav>
+			<nav class="tsd-navigation secondary menu-sticky">
+				<ul class="before-current">
+					<li class=" tsd-kind-class tsd-parent-kind-module">
+						<a href="../classes/api.clause.html" class="tsd-kind-icon">Clause</a>
+					</li>
+					<li class=" tsd-kind-class tsd-parent-kind-module">
+						<a href="../classes/api.comparator.html" class="tsd-kind-icon">Comparator</a>
+					</li>
+					<li class=" tsd-kind-class tsd-parent-kind-module">
+						<a href="../classes/api.filter.html" class="tsd-kind-icon">Filter</a>
+					</li>
+					<li class=" tsd-kind-class tsd-parent-kind-module">
+						<a href="../classes/api.logger.html" class="tsd-kind-icon">Logger</a>
+					</li>
+					<li class=" tsd-kind-class tsd-parent-kind-module">
+						<a href="../classes/api.nestedrestriction.html" class="tsd-kind-icon">Nested<wbr>Restriction</a>
+					</li>
+					<li class=" tsd-kind-class tsd-parent-kind-module">
+						<a href="../classes/api.onmsauthconfig.html" class="tsd-kind-icon">Onms<wbr>Auth<wbr>Config</a>
+					</li>
+					<li class=" tsd-kind-class tsd-parent-kind-module">
+						<a href="../classes/api.onmserror.html" class="tsd-kind-icon">Onms<wbr>Error</a>
+					</li>
+					<li class=" tsd-kind-class tsd-parent-kind-module">
+						<a href="../classes/api.onmshttpoptions.html" class="tsd-kind-icon">OnmsHTTPOptions</a>
+					</li>
+					<li class=" tsd-kind-class tsd-parent-kind-module">
+						<a href="../classes/api.onmshttpoptionsbuilder.html" class="tsd-kind-icon">OnmsHTTPOptions<wbr>Builder</a>
+					</li>
+					<li class=" tsd-kind-class tsd-parent-kind-module tsd-has-type-parameter">
+						<a href="../classes/api.onmsresult.html" class="tsd-kind-icon">Onms<wbr>Result</a>
+					</li>
+					<li class=" tsd-kind-class tsd-parent-kind-module">
+						<a href="../classes/api.onmsserver.html" class="tsd-kind-icon">Onms<wbr>Server</a>
+					</li>
+					<li class=" tsd-kind-class tsd-parent-kind-module">
+						<a href="../classes/api.onmsserverbuilder.html" class="tsd-kind-icon">Onms<wbr>Server<wbr>Builder</a>
+					</li>
+					<li class=" tsd-kind-class tsd-parent-kind-module">
+						<a href="../classes/api.onmsversion.html" class="tsd-kind-icon">Onms<wbr>Version</a>
+					</li>
+					<li class=" tsd-kind-class tsd-parent-kind-module">
+						<a href="../classes/api.operator.html" class="tsd-kind-icon">Operator</a>
+					</li>
+					<li class=" tsd-kind-class tsd-parent-kind-module">
+						<a href="../classes/api.order.html" class="tsd-kind-icon">Order</a>
+					</li>
+					<li class=" tsd-kind-class tsd-parent-kind-module">
+						<a href="../classes/api.orderby.html" class="tsd-kind-icon">Order<wbr>By</a>
+					</li>
+					<li class=" tsd-kind-class tsd-parent-kind-module">
+						<a href="../classes/api.restriction.html" class="tsd-kind-icon">Restriction</a>
+					</li>
+					<li class=" tsd-kind-class tsd-parent-kind-module">
+						<a href="../classes/api.searchproperty.html" class="tsd-kind-icon">Search<wbr>Property</a>
+					</li>
+					<li class=" tsd-kind-class tsd-parent-kind-module">
+						<a href="../classes/api.searchpropertytype.html" class="tsd-kind-icon">Search<wbr>Property<wbr>Type</a>
+					</li>
+					<li class=" tsd-kind-class tsd-parent-kind-module">
+						<a href="../classes/api.servermetadata.html" class="tsd-kind-icon">Server<wbr>Metadata</a>
+					</li>
+					<li class=" tsd-kind-class tsd-parent-kind-module">
+						<a href="../classes/api.servertype.html" class="tsd-kind-icon">Server<wbr>Type</a>
+					</li>
+					<li class=" tsd-kind-class tsd-parent-kind-module">
+						<a href="../classes/api.ticketerconfig.html" class="tsd-kind-icon">Ticketer<wbr>Config</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
+						<a href="../interfaces/api.ifilterprocessor.html" class="tsd-kind-icon">IFilter<wbr>Processor</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
+						<a href="../interfaces/api.ifiltervisitor.html" class="tsd-kind-icon">IFilter<wbr>Visitor</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
+						<a href="../interfaces/api.ihashttp.html" class="tsd-kind-icon">IHasHTTP</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
+						<a href="../interfaces/api.ihasurlvalue.html" class="tsd-kind-icon">IHas<wbr>Url<wbr>Value</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
+						<a href="../interfaces/api.ionmshttp.html" class="tsd-kind-icon">IOnmsHTTP</a>
+					</li>
+					<li class=" tsd-kind-variable tsd-parent-kind-module">
+						<a href="api.html#comparators" class="tsd-kind-icon">Comparators</a>
+					</li>
+					<li class=" tsd-kind-variable tsd-parent-kind-module tsd-is-not-exported">
+						<a href="api.html#frozen" class="tsd-kind-icon">frozen</a>
+					</li>
+					<li class=" tsd-kind-variable tsd-parent-kind-module">
+						<a href="api.html#log" class="tsd-kind-icon">log</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-module">
+						<a href="api.html#addparameter" class="tsd-kind-icon">add<wbr>Parameter</a>
+					</li>
+					<li class=" tsd-kind-object-literal tsd-parent-kind-module">
+						<a href="api.html#operators" class="tsd-kind-icon">Operators</a>
+					</li>
+					<li class=" tsd-kind-object-literal tsd-parent-kind-module">
+						<a href="api.html#orders" class="tsd-kind-icon">Orders</a>
+					</li>
+					<li class=" tsd-kind-object-literal tsd-parent-kind-module">
+						<a href="api.html#searchpropertytypes" class="tsd-kind-icon">Search<wbr>Property<wbr>Types</a>
+					</li>
+					<li class=" tsd-kind-object-literal tsd-parent-kind-module">
+						<a href="api.html#servertypes" class="tsd-kind-icon">Server<wbr>Types</a>
+					</li>
+				</ul>
+			</nav>
+		</div>
+	</div>
+</div>
+<footer class="with-border-bottom">
+	<div class="container">
+		<h2>Legend</h2>
+		<div class="tsd-legend-group">
+			<ul class="tsd-legend">
+				<li class="tsd-kind-object-literal"><span class="tsd-kind-icon">Object literal</span></li>
+				<li class="tsd-kind-variable"><span class="tsd-kind-icon">Variable</span></li>
+				<li class="tsd-kind-function"><span class="tsd-kind-icon">Function</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-interface"><span class="tsd-kind-icon">Interface</span></li>
+				<li class="tsd-kind-interface tsd-has-type-parameter"><span class="tsd-kind-icon">Interface with type parameter</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-class"><span class="tsd-kind-icon">Class</span></li>
+				<li class="tsd-kind-class tsd-has-type-parameter"><span class="tsd-kind-icon">Class with type parameter</span></li>
+			</ul>
+		</div>
+	</div>
+</footer>
+<div class="container tsd-generator">
+	<p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p>
+</div>
+<div class="overlay"></div>
+<script src="../assets/js/main.js"></script>
+</body>
+</html>
