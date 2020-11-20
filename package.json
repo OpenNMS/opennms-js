@@ -145,7 +145,7 @@
     "smoke": "node test/smoke.js",
     "lint": "tslint 'src/**/*.ts' && tsc --project tsconfig-check.json",
     "cli": "ts-node src/CLI.ts",
-    "docker-build": "npm --prefer-offline --no-progress install && npm run dist-test && npm run changelog && ./fix-ownership.sh",
+    "docker-build": "npm ci && npm run dist-test && npm run changelog && ./fix-ownership.sh",
     "docker": "docker run --rm --name opennms-js -v `pwd`:/build -w /build node:carbon npm run docker-build"
   }
 }
