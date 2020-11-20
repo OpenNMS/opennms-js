@@ -69,53 +69,36 @@
 				</a>
 				<p>A client API for accessing the OpenNMS network monitoring platform.</p>
 				<a href="#using-the-opennmsjs-apis-in-your-code" id="using-the-opennmsjs-apis-in-your-code" style="color: inherit; text-decoration: none;">
-					<h1>Using the OpenNMS.js APIs In Your Code</h1>
+					<h2>Using the OpenNMS.js APIs In Your Code</h2>
 				</a>
-				<p>Information on getting started and how to use the API is in the <a href="https://github.com/OpenNMS/opennms-js/blob/master/HOWTO.md">HOWTO document</a>.</p>
-				<p>The complete API list is available at <a href="http://docs.opennms.org/opennms-js/branches/master/opennms-js/opennms-js.html">docs.opennms.org</a>.</p>
+				<p>Information on getting started and how to use the API is in the <a href="https://docs.opennms.com/">OpenNMS Documentation</a>.</p>
+				<p>The complete API list is available at <a href="https://opennms.github.io/opennms-js/">opennms.github.io</a>.</p>
 				<a href="#using-the-opennmsjs-command-line" id="using-the-opennmsjs-command-line" style="color: inherit; text-decoration: none;">
-					<h1>Using the OpenNMS.js Command Line</h1>
+					<h2>Using the OpenNMS.js Command Line</h2>
 				</a>
 				<ol>
 					<li>install <a href="https://nodejs.org/en/download/">Node.js</a></li>
-					<li>run <code>sudo npm install -g opennms</code></li>
-					<li>run <code>opennms --help</code> for a list of possible commands</li>
+					<li>run <code>npm install -g opennms</code></li>
+					<li>run <code>opennms --help</code> for a list of available commands</li>
 				</ol>
-				<a href="#api-coverage" id="api-coverage" style="color: inherit; text-decoration: none;">
-					<h1>API Coverage</h1>
-				</a>
-				<p>OpenNMS.js currently supports a subset of the OpenNMS ReST API:</p>
-				<ul>
-					<li>query alarms, events, and nodes (including complex queries against OpenNMS Horizon 21+ and Meridian 2017+)</li>
-					<li>acknowledge, escalate, and clear alarms</li>
-					<li>create, update, and close trouble tickets against an alarm</li>
-					<li>create, update, and delete alarm sticky memos</li>
-					<li>create, update, and delete alarm journal memos</li>
-				</ul>
-				<p>Future plans include adding support for other common ReST operations:</p>
-				<ul>
-					<li>creating, updating, deleting, and importing requisitions</li>
-					<li>query the measurements ReST API (RRD/Newts time-series data)</li>
-					<li>query outages and notifications</li>
-				</ul>
 				<a href="#changes-and-versioning" id="changes-and-versioning" style="color: inherit; text-decoration: none;">
-					<h1>Changes and Versioning</h1>
+					<h2>Changes and Versioning</h2>
 				</a>
-				<p>The CHANGELOG should always contain the complete list of changes between versions, and should always be accessible <a href="https://github.com/OpenNMS/opennms-js/blob/master/CHANGELOG.md">here</a>.</p>
+				<p>The CHANGELOG should always contain the complete list of changes between versions, and should always be accessible <a href="https://github.com/OpenNMS/opennms-js/blob/main/CHANGELOG.md">here</a>.</p>
 				<p>OpenNMS.js follows <a href="https://semver.org/">semantic versioning</a>.</p>
 				<a href="#release-notes" id="release-notes" style="color: inherit; text-decoration: none;">
-					<h2>Release Notes</h2>
+					<h3>Release Notes</h3>
 				</a>
 				<a href="#201" id="201" style="color: inherit; text-decoration: none;">
-					<h3>2.0.1</h3>
+					<h4>2.0.1</h4>
 				</a>
 				<p>This is a small release with some dependency updates and a fix for handling of ReST data that is missing a response.</p>
 				<a href="#200" id="200" style="color: inherit; text-decoration: none;">
-					<h3>2.0.0</h3>
+					<h4>2.0.0</h4>
 				</a>
 				<p>OpenNMS.js 2.0 adds a few new APIs, contains a ton of refactoring and build system updates, and has a few small breaking changes.</p>
 				<a href="#notable-changes" id="notable-changes" style="color: inherit; text-decoration: none;">
-					<h4>Notable Changes:</h4>
+					<h5>Notable Changes</h5>
 				</a>
 				<ul>
 					<li>updated CLI libraries to fix/improve table output</li>
@@ -128,7 +111,7 @@
 					<li>HTTP parameters in <code>OnmsHTTPOptions</code> can now have multiple values -- for example a parameter with value <code>[ 1, 2 ]</code> will serialize to <code>&amp;foo=1&amp;foo=2</code></li>
 				</ul>
 				<a href="#breaking-changes" id="breaking-changes" style="color: inherit; text-decoration: none;">
-					<h4>Breaking Changes:</h4>
+					<h5>Breaking Changes</h5>
 				</a>
 				<ul>
 					<li>The <code>api/Log</code> module now only exports a single, simplified <code>log</code> object; <code>typescript-logging</code> was overly complicated and not really adding much in the way of value.  Use <code>.setDebug()</code>, <code>.setQuiet()</code>, and <code>.setSilent()</code> to change the logging level instead.</li>
@@ -141,28 +124,28 @@
 					<li>The <code>id</code> property on <code>OnmsServer</code> is no longer generated, it is computed based on the contents of the server object and should be repeatably equal if the contents are equal.</li>
 				</ul>
 				<a href="#15" id="15" style="color: inherit; text-decoration: none;">
-					<h3>1.5</h3>
+					<h4>1.5</h4>
 				</a>
 				<p>This release includes support for some additional flow queries, as well as a few security updates and a fix for CLI formatting.</p>
 				<a href="#14" id="14" style="color: inherit; text-decoration: none;">
-					<h3>1.4</h3>
+					<h4>1.4</h4>
 				</a>
 				<p>This is a small feature release with a few changes targeted primarily to Helm (adding root cause and tags to the situation feedback API support, and support for <code>isAcknowledged</code> queries on alarms).</p>
 				<a href="#13" id="13" style="color: inherit; text-decoration: none;">
-					<h3>1.3</h3>
+					<h4>1.3</h4>
 				</a>
 				<p>This release contains a number of new features and a few bug fixes, including support for correlation alarms and feedback, and additional metadata for Helm 3.</p>
 				<a href="#12" id="12" style="color: inherit; text-decoration: none;">
-					<h3>1.2</h3>
+					<h4>1.2</h4>
 				</a>
 				<p>This is a small release which adds support for a default timeout in <code>GrafanaHTTP</code>, as well as adding <code>X-Requested-With</code> headers to requests (<a href="https://issues.opennms.org/browse/NMS-9783">NMS-9783</a>).</p>
 				<a href="#11" id="11" style="color: inherit; text-decoration: none;">
-					<h3>1.1</h3>
+					<h4>1.1</h4>
 				</a>
 				<p>This release adds support for telemetry (Netflow) APIs which will be introduced in OpenNMS 22.x.
 				It also includes a number of build optimizations and updates since 1.0.</p>
 				<a href="#10" id="10" style="color: inherit; text-decoration: none;">
-					<h3>1.0</h3>
+					<h4>1.0</h4>
 				</a>
 				<p>The initial official release of OpenNMS.js.</p>
 				<p>OpenNMS.js currently supports a subset of the OpenNMS ReST API:</p>
@@ -173,32 +156,6 @@
 					<li>create, update, and delete alarm sticky memos</li>
 					<li>create, update, and delete alarm journal memos</li>
 				</ul>
-				<a href="#development" id="development" style="color: inherit; text-decoration: none;">
-					<h1>Development</h1>
-				</a>
-				<p>To build this project, first use <code>npm</code> to fetch all dependencies:</p>
-				<p><code>npm install</code></p>
-				<p>Then you can use <code>npm run</code> to build or test the project:</p>
-				<ul>
-					<li><code>npm run dist</code> - run tests and lint, and build the complete tree in <code>dist/</code></li>
-					<li><code>npm run dev</code> - build a development version of the API in <code>dist/opennms.js</code> and <code>dist/opennms.node.js</code></li>
-					<li><code>npm run build</code> - build the development and production versions of the API in <code>dist/</code></li>
-					<li><code>npm run docs</code> - build the docs in <code>dist/docs/</code></li>
-					<li><code>npm run watch</code> - continuously build the development version in <code>dist/opennms.js</code></li>
-					<li><code>npm run test</code> - run the tests</li>
-					<li><code>npm run watch-test</code> - continuously run the tests</li>
-					<li><code>npm run cli -- &lt;arguments&gt;</code> - run the CLI test tool (try <code>--help</code> for options)</li>
-				</ul>
-				<a href="#reporting-bugs-or-feature-requests" id="reporting-bugs-or-feature-requests" style="color: inherit; text-decoration: none;">
-					<h1>Reporting Bugs or Feature Requests</h1>
-				</a>
-				<p>OpenNMS.js issues are tracked in the OpenNMS issue tracker: <a href="https://issues.opennms.org/browse/JS">https://issues.opennms.org/browse/JS</a></p>
-				<a href="#debugging-tests" id="debugging-tests" style="color: inherit; text-decoration: none;">
-					<h1>Debugging Tests</h1>
-				</a>
-				<p>On MAC OS X with WebStorm v2017.2 debugging tests may not work.
-					See <a href="https://github.com/facebook/jest/issues/1652">https://github.com/facebook/jest/issues/1652</a> for more details.
-				The described solution there is to add <code>--env jest-environment-node-debug</code> as argument to the runtime configuration.</p>
 			</div>
 		</div>
 		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
@@ -207,236 +164,23 @@
 					<li class="globals  ">
 						<a href="globals.html"><em>Globals</em></a>
 					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/_api_.html">&quot;API&quot;</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/_cli_.html">&quot;CLI&quot;</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/_client_.html">&quot;<wbr>Client&quot;</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/_api_clause_.html">&quot;api/<wbr>Clause&quot;</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/_api_comparator_.html">&quot;api/<wbr>Comparator&quot;</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/_api_filter_.html">&quot;api/<wbr>Filter&quot;</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/_api_ifilterprocessor_.html">&quot;api/IFilter<wbr>Processor&quot;</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/_api_ifiltervisitor_.html">&quot;api/IFilter<wbr>Visitor&quot;</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/_api_ihashttp_.html">&quot;api/IHasHTTP&quot;</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/_api_ihasurlvalue_.html">&quot;api/IHas<wbr>Url<wbr>Value&quot;</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/_api_ionmshttp_.html">&quot;api/IOnmsHTTP&quot;</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/_api_log_.html">&quot;api/<wbr>Log&quot;</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/_api_nestedrestriction_.html">&quot;api/<wbr>Nested<wbr>Restriction&quot;</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/_api_onmsauthconfig_.html">&quot;api/<wbr>Onms<wbr>Auth<wbr>Config&quot;</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/_api_onmserror_.html">&quot;api/<wbr>Onms<wbr>Error&quot;</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/_api_onmshttpoptions_.html">&quot;api/<wbr>OnmsHTTPOptions&quot;</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/_api_onmsresult_.html">&quot;api/<wbr>Onms<wbr>Result&quot;</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/_api_onmsserver_.html">&quot;api/<wbr>Onms<wbr>Server&quot;</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/_api_onmsversion_.html">&quot;api/<wbr>Onms<wbr>Version&quot;</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/_api_operator_.html">&quot;api/<wbr>Operator&quot;</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/_api_orderby_.html">&quot;api/<wbr>Order<wbr>By&quot;</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/_api_restriction_.html">&quot;api/<wbr>Restriction&quot;</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/_api_searchproperty_.html">&quot;api/<wbr>Search<wbr>Property&quot;</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/_api_searchpropertytype_.html">&quot;api/<wbr>Search<wbr>Property<wbr>Type&quot;</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/_api_servermetadata_.html">&quot;api/<wbr>Server<wbr>Metadata&quot;</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/_api_servertype_.html">&quot;api/<wbr>Server<wbr>Type&quot;</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/_api_ticketerconfig_.html">&quot;api/<wbr>Ticketer<wbr>Config&quot;</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/_dao_abstractdao_.html">&quot;dao/<wbr>AbstractDAO&quot;</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/_dao_alarmdao_.html">&quot;dao/<wbr>AlarmDAO&quot;</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/_dao_basedao_.html">&quot;dao/<wbr>BaseDAO&quot;</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/_dao_eventdao_.html">&quot;dao/<wbr>EventDAO&quot;</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/_dao_flowdao_.html">&quot;dao/<wbr>FlowDAO&quot;</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/_dao_ivalueprovider_.html">&quot;dao/IValue<wbr>Provider&quot;</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/_dao_nodedao_.html">&quot;dao/<wbr>NodeDAO&quot;</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/_dao_situationfeedbackdao_.html">&quot;dao/<wbr>Situation<wbr>FeedbackDAO&quot;</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/_dao_v1filterprocessor_.html">&quot;dao/<wbr>V1Filter<wbr>Processor&quot;</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/_dao_v2filterprocessor_.html">&quot;dao/<wbr>V2Filter<wbr>Processor&quot;</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/_internal_ihash_.html">&quot;internal/IHash&quot;</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/_internal_onmsenum_.html">&quot;internal/<wbr>Onms<wbr>Enum&quot;</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/_internal_uuid_.html">&quot;internal/UUID&quot;</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/_internal_util_.html">&quot;internal/<wbr>Util&quot;</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/_model_onmsalarm_.html">&quot;model/<wbr>Onms<wbr>Alarm&quot;</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/_model_onmsalarmsummary_.html">&quot;model/<wbr>Onms<wbr>Alarm<wbr>Summary&quot;</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/_model_onmsalarmtype_.html">&quot;model/<wbr>Onms<wbr>Alarm<wbr>Type&quot;</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/_model_onmscategory_.html">&quot;model/<wbr>Onms<wbr>Category&quot;</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/_model_onmscollecttype_.html">&quot;model/<wbr>Onms<wbr>Collect<wbr>Type&quot;</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/_model_onmsevent_.html">&quot;model/<wbr>Onms<wbr>Event&quot;</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/_model_onmsflowexporter_.html">&quot;model/<wbr>Onms<wbr>Flow<wbr>Exporter&quot;</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/_model_onmsflowexportersummary_.html">&quot;model/<wbr>Onms<wbr>Flow<wbr>Exporter<wbr>Summary&quot;</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/_model_onmsflowseries_.html">&quot;model/<wbr>Onms<wbr>Flow<wbr>Series&quot;</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/_model_onmsflowseriescolumn_.html">&quot;model/<wbr>Onms<wbr>Flow<wbr>Series<wbr>Column&quot;</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/_model_onmsflowsnmpinterface_.html">&quot;model/<wbr>Onms<wbr>Flow<wbr>Snmp<wbr>Interface&quot;</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/_model_onmsflowtable_.html">&quot;model/<wbr>Onms<wbr>Flow<wbr>Table&quot;</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/_model_onmsipinterface_.html">&quot;model/<wbr>Onms<wbr>IpInterface&quot;</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/_model_onmsmanagedtype_.html">&quot;model/<wbr>Onms<wbr>Managed<wbr>Type&quot;</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/_model_onmsmemo_.html">&quot;model/<wbr>Onms<wbr>Memo&quot;</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/_model_onmsmonitoredservice_.html">&quot;model/<wbr>Onms<wbr>Monitored<wbr>Service&quot;</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/_model_onmsnode_.html">&quot;model/<wbr>Onms<wbr>Node&quot;</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/_model_onmsnodelabelsource_.html">&quot;model/<wbr>Onms<wbr>Node<wbr>Label<wbr>Source&quot;</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/_model_onmsnodetype_.html">&quot;model/<wbr>Onms<wbr>Node<wbr>Type&quot;</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/_model_onmsparm_.html">&quot;model/<wbr>Onms<wbr>Parm&quot;</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/_model_onmsprimarytype_.html">&quot;model/<wbr>Onms<wbr>Primary<wbr>Type&quot;</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/_model_onmsservicestatustype_.html">&quot;model/<wbr>Onms<wbr>Service<wbr>Status<wbr>Type&quot;</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/_model_onmsservicetype_.html">&quot;model/<wbr>Onms<wbr>Service<wbr>Type&quot;</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/_model_onmsseverity_.html">&quot;model/<wbr>Onms<wbr>Severity&quot;</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/_model_onmssituationfeedback_.html">&quot;model/<wbr>Onms<wbr>Situation<wbr>Feedback&quot;</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/_model_onmssituationfeedbacktype_.html">&quot;model/<wbr>Onms<wbr>Situation<wbr>Feedback<wbr>Type&quot;</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/_model_onmssnmpinterface_.html">&quot;model/<wbr>Onms<wbr>Snmp<wbr>Interface&quot;</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/_model_onmssnmpstatustype_.html">&quot;model/<wbr>Onms<wbr>Snmp<wbr>Status<wbr>Type&quot;</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/_model_onmstroubleticketstate_.html">&quot;model/<wbr>Onms<wbr>Trouble<wbr>Ticket<wbr>State&quot;</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/_model_physaddr_.html">&quot;model/<wbr>Phys<wbr>Addr&quot;</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/_rest_abstracthttp_.html">&quot;rest/<wbr>AbstractHTTP&quot;</a>
+					<li class=" tsd-kind-module tsd-is-not-exported">
+						<a href="modules/reflection-2696.html">&lt;em&gt;<wbr>Module&lt;/em&gt;</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="modules/_rest_axioshttp_.html">&quot;rest/<wbr>AxiosHTTP&quot;</a>
+						<a href="modules/api.html">api</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="modules/_rest_grafanaerror_.html">&quot;rest/<wbr>Grafana<wbr>Error&quot;</a>
+						<a href="modules/dao.html">dao</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="modules/_rest_grafanahttp_.html">&quot;rest/<wbr>GrafanaHTTP&quot;</a>
+						<a href="modules/internal.html">internal</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="modules/_rest_jsontransformer_.html">&quot;rest/<wbr>Json<wbr>Transformer&quot;</a>
+						<a href="modules/model.html">model</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="modules/_rest_xmltransformer_.html">&quot;rest/<wbr>Xml<wbr>Transformer&quot;</a>
+						<a href="modules/rest.html">rest</a>
 					</li>
 				</ul>
 			</nav>
@@ -472,6 +216,5 @@
 </div>
 <div class="overlay"></div>
 <script src="assets/js/main.js"></script>
-<script>if (location.protocol == 'file:') document.write('<script src="assets/js/search.js"><' + '/script>');</script>
 </body>
 </html>
