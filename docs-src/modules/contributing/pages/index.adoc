@@ -1,0 +1,4 @@
+# Contributing
+
+* Fork me on https://github.com/OpenNMS/opennms-js[GitHub]
+* Open an https://issues.opennms.org/projects/JS/summary[issue in JIRA]

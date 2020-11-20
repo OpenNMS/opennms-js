@@ -16,17 +16,19 @@ function doExec(command, ...args) {
 
 const configFile = resolve(homedir(), '.opennms-cli.config.json');
 const rmConfig = () => {
-	if (existsSync(configFile)) {
-		unlinkSync(configFile);
-	}
+  if (existsSync(configFile)) {
+    unlinkSync(configFile);
+  }
 };
 
-console.log('=== running with ts-node ===');
+console.debug('Smoke tests used Demo, which no longer exists.  Exiting for now.');
+
+console.info('=== running with ts-node ===');
 rmConfig();
 doExec('npm', 'run', 'cli', '--', '--debug', 'connect', '--username', 'demo', '--password', 'demo', 'https://demo.opennms.org/opennms/');
 doExec('npm', 'run', 'cli', '--', '--debug', 'alarms');
 
-console.log('=== running with minified js ===');
+console.info('=== running with minified js ===');
 rmConfig();
 doExec('node', 'dist/cli.node.min.js', '--debug', 'connect', '--username', 'demo', '--password', 'demo', 'https://demo.opennms.org/opennms/');
 doExec('node', 'dist/cli.node.min.js', '--debug', 'alarms');
