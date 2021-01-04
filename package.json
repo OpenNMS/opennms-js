@@ -86,7 +86,7 @@
     "@antora/cli": "^2.3.4",
     "@antora/site-generator-default": "^2.3.4",
     "@babel/runtime-corejs2": "^7.12.1",
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "btoa": "^1.2.1",
     "chalk": "^4.0.0",
     "commander": "^6.0.0",
