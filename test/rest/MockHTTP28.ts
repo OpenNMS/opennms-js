@@ -24,9 +24,6 @@ export class MockHTTP28 extends AbstractMockHTTP {
       case 'rest/flows/dscp/series': {
         return this.okJsonFile('./28.0.0/get/rest/flows/dscp/series.json');
       }
-      case 'rest/flows/ecn/enumerate': {
-        return this.okJsonFile('./28.0.0/get/rest/flows/ecn/enumerate.json');
-      }
     }
   }
 }
