@@ -50,6 +50,9 @@ jobs:
     docker:
       - image: circleci/node:10
     steps:
+      - add_ssh_keys:
+          fingerprints:
+            - "82:76:19:fb:6a:71:a3:c5:cf:7c:99:aa:82:45:4a:96"
       - checkout
       - branch-management/merge-branch:
           committer_email: "cicd-system@opennms.com"
@@ -69,6 +72,9 @@ jobs:
     docker:
       - image: circleci/node:10
     steps:
+      - add_ssh_keys:
+          fingerprints:
+            - "82:76:19:fb:6a:71:a3:c5:cf:7c:99:aa:82:45:4a:96"
       - checkout
       - branch-management/merge-branch:
           committer_email: "cicd-system@opennms.com"
