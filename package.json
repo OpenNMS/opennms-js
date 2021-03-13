@@ -100,7 +100,7 @@
     "table": "^6.0.0",
     "version_compare": "^0.0.3",
     "x2js": "^3.4.0",
-    "xmldom": "^0.3.0"
+    "xmldom": "^0.5.0"
   },
   "resolutions": {
     "@types/marked": "^0.6.5",
