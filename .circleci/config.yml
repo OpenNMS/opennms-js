@@ -43,6 +43,24 @@ jobs:
       - store_artifacts:
           path: build/api.zip
           destination: api-docs.zip
+  build-docs:
+    docker:
+      - image: antora/antora:2.3.4
+    steps:
+      - run:
+          name: Install dependencies
+          command: |
+            apk --no-cache add git openssh-client
+            npm i -g gitlab:antora/xref-validator
+      - checkout
+      - run:
+          name: Validate Xrefs in docs
+          command: |
+            NODE_PATH="$(npm -g root)" antora --generator @antora/xref-validator local-site.yml
+      - run:
+          name: Build docs with Antora
+          command: |
+             NODE_PATH="$(npm -g root)" antora --stacktrace generate local-site.yml
       - store_artifacts:
           path: build/site.zip
           destination: antora-docs.zip
@@ -106,6 +124,7 @@ workflows:
   build-and-merge:
     jobs:
       - build
+      - build-docs
       - merge:
           requires:
             - build
