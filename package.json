@@ -134,7 +134,7 @@
   "scripts": {
     "changelog": "standard-changelog -i CHANGELOG.md -s -r 1",
     "build": "webpack --mode production --env production",
-    "dev": "webpack --progress --colors",
+    "dev": "webpack --mode=development --progress",
     "dist": "npm run lint && npm run test && npm run build && npm run docs",
     "api": "typedoc --out dist/docs/ src",
     "docs": "npm run api && antora --stacktrace generate local-site.yml",
