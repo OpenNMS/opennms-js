@@ -670,7 +670,7 @@ export class FlowDAO extends BaseDAO {
     private checkForToSSupport() {
         if (!this.server
             || !this.server.metadata
-            || !this.server.metadata.capabilities().tosSupport) {
+            || !this.server.metadata.capabilities().tos) {
             throw new OnmsError('ToS filtering API is not supported by this version of OpenNMS.');
         }
     }
