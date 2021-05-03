@@ -22,6 +22,10 @@ OpenNMS.js follows [semantic versioning](https://semver.org/).
 
 ### Release Notes
 
+#### 2.1.0
+
+This release adds support for some flow APIs coming in OpenNMS Horizon 28, as well as a documentation rework and _tons_ of dependency updates.
+
 #### 2.0.2
 
 Another small release with dependency and documentation updates and a switch (back) to npm rather than yarn.
