@@ -19,6 +19,7 @@ import {TicketerConfig} from './api/TicketerConfig';
 
 import {AlarmDAO} from './dao/AlarmDAO';
 import {EventDAO} from './dao/EventDAO';
+import {FlowDAO} from './dao/FlowDAO';
 import {NodeDAO} from './dao/NodeDAO';
 import {SituationFeedbackDAO} from './dao/SituationFeedbackDAO';
 import {V1FilterProcessor} from './dao/V1FilterProcessor';
@@ -30,6 +31,12 @@ import {OnmsAlarmType, AlarmTypes} from './model/OnmsAlarmType';
 import {OnmsCategory, Categories} from './model/OnmsCategory';
 import {OnmsCollectType, CollectTypes} from './model/OnmsCollectType';
 import {OnmsEvent} from './model/OnmsEvent';
+import {OnmsFlowSeries} from './model/OnmsFlowSeries';
+import {OnmsFlowSeriesColumn} from './model/OnmsFlowSeriesColumn';
+import {OnmsFlowExporter} from './model/OnmsFlowExporter';
+import {OnmsFlowExporterSummary} from './model/OnmsFlowExporterSummary';
+import {OnmsFlowSnmpInterface} from './model/OnmsFlowSnmpInterface';
+import {OnmsFlowTable} from './model/OnmsFlowTable';
 import {OnmsIpInterface} from './model/OnmsIpInterface';
 import {OnmsManagedType, ManagedTypes} from './model/OnmsManagedType';
 import {OnmsMemo} from './model/OnmsMemo';
@@ -88,6 +95,7 @@ const API = Object.freeze({
 const DAO = Object.freeze({
   AlarmDAO,
   EventDAO,
+  FlowDAO,
   NodeDAO,
   SituationFeedbackDAO,
   V1FilterProcessor,
@@ -96,6 +104,7 @@ const DAO = Object.freeze({
 
 /** @hidden */
 const Model = Object.freeze({
+  AlarmTypes,
   OnmsAlarm,
   OnmsAlarmSummary,
   OnmsAlarmType,
@@ -104,6 +113,12 @@ const Model = Object.freeze({
   OnmsCollectType,
   CollectTypes,
   OnmsEvent,
+  OnmsFlowSeries,
+  OnmsFlowSeriesColumn,
+  OnmsFlowExporter,
+  OnmsFlowExporterSummary,
+  OnmsFlowSnmpInterface,
+  OnmsFlowTable,
   OnmsIpInterface,
   OnmsManagedType,
   ManagedTypes,

@@ -64,21 +64,92 @@ export class FlowDAO extends BaseDAO {
     }
 
     /**
+     * Get used Dscp values for a specific interface
+     * @param exporterNodeCriteria - the node ID or foreignSource:foreignId tuple
+     * @param ifIndex - the SNMP interface
+     * @param start - the start of the timespan to query (defaults to 4 hours ago)
+     * @param end - the end of the timespan to query (defaults to now)
+     */
+    public async getDscpValues(exporterNodeCriteria?: string, ifIndex?: number, start?: number, end?: number): Promise<number[]> {
+        this.checkForToSSupport();
+        const builder = this.getOptions()
+            .addParameter('start', start)
+            .addParameter('end', end)
+            .addParameter('exporterNode', exporterNodeCriteria)
+            .addParameter('ifIndex', ifIndex);
+        const result = await this.http.get(this.pathToFlowsEndpoint() + '/dscp/enumerate', builder.build());
+        return result.data;
+    }
+
+    /**
+     * Summarize the the dscp values based on parameters.
+     * @param start - the start of the timespan to query (defaults to 4 hours ago)
+     * @param end - the end of the timespan to query (defaults to now)
+     * @param includeOther - include an additional "other" result that
+     *                       represents everything that does not match the given applications
+     * @param exporterNodeCriteria - the node ID or foreignSource:foreignId tuple
+     * @param ifIndex - filter for flows that came through this SNMP interface
+     * @param dscp - filter for flows with this Dscp value
+     */
+    public async getSummaryForDscps(start?: number, end?: number,
+                                    exporterNodeCriteria?: string,
+                                    ifIndex?: number, dscp?: string[]): Promise<OnmsFlowTable> {
+        this.checkForEnhancedFlows();
+        const builder = this.getOptions()
+            .addParameter('start', start)
+            .addParameter('end', end)
+            .addParameter('exporterNode', exporterNodeCriteria)
+            .addParameter('ifIndex', ifIndex)
+            .addParameter('dscp', dscp)
+        const result = await this.http.get(this.pathToFlowsEndpoint() + '/dscp', builder.build());
+        return this.tableFromData(result.data);
+    }
+
+    /**
+     * Get time series data for DSCP based on parameters.
+     * @param start - the start of the timespan to query (defaults to 4 hours ago)
+     * @param end - the end of the timespan to query (defaults to now)
+     * @param step - the requested time interval between rows
+     * @param includeOther - include an additional "other" result that
+     *                       represents everything that does not match the given applications
+     * @param exporterNodeCriteria - the node ID or foreignSource:foreignId tuple
+     * @param ifIndex - filter for flows that came through this SNMP interface
+     * @param dscp - filter for flows with this Dscp value
+     */
+    public async getSeriesForDscps(start?: number, end?: number,
+                                   step?: number,
+                                   exporterNodeCriteria?: string,
+                                   ifIndex?: number, dscp?: string[]): Promise<OnmsFlowSeries> {
+        this.checkForEnhancedFlows();
+        const builder = this.getOptions()
+            .addParameter('start', start)
+            .addParameter('end', end)
+            .addParameter('step', step)
+            .addParameter('exporterNode', exporterNodeCriteria)
+            .addParameter('ifIndex', ifIndex)
+            .addParameter('dscp', dscp)
+        const result = await this.http.get(this.pathToFlowsEndpoint() + '/dscp/series', builder.build());
+        return this.seriesFromData(result.data);
+    }
+
+    /**
      * Enumerate the applications matching the given prefix and filters.
      * @param prefix - the prefix to match
      * @param start - the start of the timespan to query (defaults to 4 hours ago)
      * @param end - the end of the timespan to query (defaults to now)
      * @param exporterNodeCriteria - the node ID or foreignSource:foreignId tuple
      * @param ifIndex - filter for flows that came through this SNMP interface
+     * @param dscp - filter for flows with this Dscp value
      */
     public async getApplications(prefix?: string, start?: number, end?: number,
                                  exporterNodeCriteria?: string,
-                                 ifIndex?: number): Promise<OnmsFlowTable> {
+                                 ifIndex?: number, dscp?: string[]): Promise<string[]> {
         const builder = this.getOptions()
             .addParameter('start', start)
             .addParameter('end', end)
             .addParameter('exporterNode', exporterNodeCriteria)
             .addParameter('ifIndex', ifIndex)
+            .addParameter('dscp', dscp)
             .addParameter('prefix', prefix);
         const result = await this.http.get(this.pathToFlowsEndpoint() + '/applications/enumerate', builder.build());
         return result.data;
@@ -93,16 +164,18 @@ export class FlowDAO extends BaseDAO {
      *                       represents everything that does not match the top N
      * @param exporterNodeCriteria - the node ID or foreignSource:foreignId tuple
      * @param ifIndex - filter for flows that came through this SNMP interface
+     * @param dscp - filter for flows with this Dscp value
      */
     public async getSummaryForTopNApplications(N?: number, start?: number, end?: number,
                                                includeOther?: boolean,
                                                exporterNodeCriteria?: string,
-                                               ifIndex?: number): Promise<OnmsFlowTable> {
+                                               ifIndex?: number, dscp?: string[]): Promise<OnmsFlowTable> {
         const builder = this.getOptions().addParameter('N', N)
             .addParameter('start', start)
             .addParameter('end', end)
             .addParameter('exporterNode', exporterNodeCriteria)
             .addParameter('ifIndex', ifIndex)
+            .addParameter('dscp', dscp)
             .addParameter('includeOther', includeOther);
         const result = await this.http.get(this.pathToFlowsEndpoint() + '/applications', builder.build());
         return this.tableFromData(result.data);
@@ -117,17 +190,19 @@ export class FlowDAO extends BaseDAO {
      *                       represents everything that does not match the given applications
      * @param exporterNodeCriteria - the node ID or foreignSource:foreignId tuple
      * @param ifIndex - filter for flows that came through this SNMP interface
+     * @param dscp - filter for flows with this Dscp value
      */
     public async getSummaryForApplications(applications?: string[], start?: number, end?: number,
                                            includeOther?: boolean,
                                            exporterNodeCriteria?: string,
-                                           ifIndex?: number): Promise<OnmsFlowTable> {
+                                           ifIndex?: number, dscp?: string[]): Promise<OnmsFlowTable> {
         this.checkForEnhancedFlows();
         const builder = this.getOptions()
             .addParameter('start', start)
             .addParameter('end', end)
             .addParameter('exporterNode', exporterNodeCriteria)
             .addParameter('ifIndex', ifIndex)
+            .addParameter('dscp', dscp)
             .addParameter('includeOther', includeOther);
         if (applications) {
             applications.forEach((application) => {
@@ -148,11 +223,12 @@ export class FlowDAO extends BaseDAO {
      *                       represents everything that does not match the top N
      * @param exporterNodeCriteria - the node ID or foreignSource:foreignId tuple
      * @param ifIndex - filter for flows that came through this SNMP interface
+     * @param dscp - filter for flows with this Dscp value
      */
     public async getSeriesForTopNApplications(N?: number, start?: number, end?: number,
                                               step?: number, includeOther?: boolean,
                                               exporterNodeCriteria?: string,
-                                              ifIndex?: number): Promise<OnmsFlowSeries> {
+                                              ifIndex?: number, dscp?: string[]): Promise<OnmsFlowSeries> {
         const builder = this.getOptions()
             .addParameter('N', N)
             .addParameter('start', start)
@@ -160,6 +236,7 @@ export class FlowDAO extends BaseDAO {
             .addParameter('step', step)
             .addParameter('exporterNode', exporterNodeCriteria)
             .addParameter('ifIndex', ifIndex)
+            .addParameter('dscp', dscp)
             .addParameter('includeOther', includeOther);
         const result = await this.http.get(this.pathToFlowsEndpoint() + '/applications/series', builder.build());
         return this.seriesFromData(result.data);
@@ -175,11 +252,12 @@ export class FlowDAO extends BaseDAO {
      *                       represents everything that does not match the given applications
      * @param exporterNodeCriteria - the node ID or foreignSource:foreignId tuple
      * @param ifIndex - filter for flows that came through this SNMP interface
+     * @param dscp - filter for flows with this Dscp value
      */
     public async getSeriesForApplications(applications?: string[], start?: number, end?: number,
                                           step?: number, includeOther?: boolean,
                                           exporterNodeCriteria?: string,
-                                          ifIndex?: number): Promise<OnmsFlowSeries> {
+                                          ifIndex?: number, dscp?: string[]): Promise<OnmsFlowSeries> {
         this.checkForEnhancedFlows();
         const builder = this.getOptions()
             .addParameter('start', start)
@@ -187,6 +265,7 @@ export class FlowDAO extends BaseDAO {
             .addParameter('step', step)
             .addParameter('exporterNode', exporterNodeCriteria)
             .addParameter('ifIndex', ifIndex)
+            .addParameter('dscp', dscp)
             .addParameter('includeOther', includeOther);
         if (applications) {
             applications.forEach((application) => {
@@ -205,17 +284,19 @@ export class FlowDAO extends BaseDAO {
      * @param end - the end of the timespan to query (defaults to now)
      * @param exporterNodeCriteria - the node ID or foreignSource:foreignId tuple
      * @param ifIndex - filter for flows that came through this SNMP interface
+     * @param dscp - filter for flows with this Dscp value
      */
     public async getSummaryForTopNConversations(NOptions?: number | ITopNOptions, start?: number, end?: number,
                                                 exporterNodeCriteria?: string,
-                                                ifIndex?: number): Promise<OnmsFlowTable> {
+                                                ifIndex?: number, dscp?: string[]): Promise<OnmsFlowTable> {
         const builder = this.getOptions();
         if (typeof NOptions === 'number') {
             builder.addParameter('N', NOptions)
                 .addParameter('start', start)
                 .addParameter('end', end)
                 .addParameter('exporterNode', exporterNodeCriteria)
-                .addParameter('ifIndex', ifIndex);
+                .addParameter('ifIndex', ifIndex)
+                .addParameter('dscp', dscp);
         } else if (NOptions) {
             for (const key of Object.keys(NOptions)) {
                 builder.addParameter(key, (NOptions as any)[key]);
@@ -234,16 +315,18 @@ export class FlowDAO extends BaseDAO {
      *                       represents everything that does not match the given conversations
      * @param exporterNodeCriteria - the node ID or foreignSource:foreignId tuple
      * @param ifIndex - filter for flows that came through this SNMP interface
+     * @param dscp - filter for flows with this Dscp value
      */
     public async getSummaryForConversations(conversations?: string[], start?: number, end?: number,
                                             includeOther?: boolean, exporterNodeCriteria?: string,
-                                            ifIndex?: number): Promise<OnmsFlowTable> {
+                                            ifIndex?: number, dscp?: string[]): Promise<OnmsFlowTable> {
         this.checkForEnhancedFlows();
         const builder = this.getOptions()
             .addParameter('start', start)
             .addParameter('end', end)
             .addParameter('exporterNode', exporterNodeCriteria)
             .addParameter('ifIndex', ifIndex)
+            .addParameter('dscp', dscp)
             .addParameter('includeOther', includeOther);
         if (conversations) {
             conversations.forEach((conversation) => {
@@ -263,10 +346,11 @@ export class FlowDAO extends BaseDAO {
      * @param step - the requested time interval between rows
      * @param exporterNodeCriteria - the node ID or foreignSource:foreignId tuple
      * @param ifIndex - filter for flows that came through this SNMP interface
+     * @param dscp - filter for flows with this Dscp value
      */
     public async getSeriesForTopNConversations(NOptions?: number | ITopNOptions, start?: number, end?: number,
                                                step?: number, exporterNodeCriteria?: string,
-                                               ifIndex?: number): Promise<OnmsFlowSeries> {
+                                               ifIndex?: number, dscp?: string[]): Promise<OnmsFlowSeries> {
         const builder = this.getOptions();
         if (typeof NOptions === 'number') {
             builder.addParameter('N', NOptions)
@@ -274,7 +358,8 @@ export class FlowDAO extends BaseDAO {
                 .addParameter('end', end)
                 .addParameter('step', step)
                 .addParameter('exporterNode', exporterNodeCriteria)
-                .addParameter('ifIndex', ifIndex);
+                .addParameter('ifIndex', ifIndex)
+                .addParameter('dscp', dscp);
         } else if (NOptions) {
             for (const key of Object.keys(NOptions)) {
                 builder.addParameter(key, (NOptions as any)[key]);
@@ -294,10 +379,11 @@ export class FlowDAO extends BaseDAO {
      *                       represents everything that does not match the given conversations
      * @param exporterNodeCriteria - the node ID or foreignSource:foreignId tuple
      * @param ifIndex - filter for flows that came through this SNMP interface
+     * @param dscp - filter for flows with this Dscp value
      */
     public async getSeriesForConversations(conversations?: string[], start?: number, end?: number,
                                            step?: number, includeOther?: boolean, exporterNodeCriteria?: string,
-                                           ifIndex?: number): Promise<OnmsFlowSeries> {
+                                           ifIndex?: number, dscp?: string[], ecn?: string[]): Promise<OnmsFlowSeries> {
         this.checkForEnhancedFlows();
         const builder = this.getOptions()
             .addParameter('start', start)
@@ -305,6 +391,7 @@ export class FlowDAO extends BaseDAO {
             .addParameter('step', step)
             .addParameter('exporterNode', exporterNodeCriteria)
             .addParameter('ifIndex', ifIndex)
+            .addParameter('dscp', dscp)
             .addParameter('includeOther', includeOther);
         if (conversations) {
             conversations.forEach((conversation) => {
@@ -322,15 +409,17 @@ export class FlowDAO extends BaseDAO {
      * @param end - the end of the timespan to query (defaults to now)
      * @param exporterNodeCriteria - the node ID or foreignSource:foreignId tuple
      * @param ifIndex - filter for flows that came through this SNMP interface
+     * @param dscp - filter for flows with this Dscp value
      */
     public async getHosts(pattern?: string, start?: number, end?: number,
                           exporterNodeCriteria?: string,
-                          ifIndex?: number): Promise<OnmsFlowTable> {
+                          ifIndex?: number, dscp?: string[]): Promise<string[]> {
         const builder = this.getOptions()
             .addParameter('start', start)
             .addParameter('end', end)
             .addParameter('exporterNode', exporterNodeCriteria)
             .addParameter('ifIndex', ifIndex)
+            .addParameter('dscp', dscp)
             .addParameter('pattern', pattern);
         const result = await this.http.get(this.pathToFlowsEndpoint() + '/hosts/enumerate', builder.build());
         return result.data;
@@ -345,17 +434,19 @@ export class FlowDAO extends BaseDAO {
      *                       represents everything that does not match the given hosts
      * @param exporterNodeCriteria - the node ID or foreignSource:foreignId tuple
      * @param ifIndex - filter for flows that came through this SNMP interface
+     * @param dscp - filter for flows with this Dscp value
      */
     public async getSummaryForHosts(hosts?: string[], start?: number, end?: number,
                                     includeOther?: boolean,
                                     exporterNodeCriteria?: string,
-                                    ifIndex?: number): Promise<OnmsFlowTable> {
+                                    ifIndex?: number, dscp?: string[]): Promise<OnmsFlowTable> {
         this.checkForEnhancedFlows();
         const builder = this.getOptions()
             .addParameter('start', start)
             .addParameter('end', end)
             .addParameter('exporterNode', exporterNodeCriteria)
             .addParameter('ifIndex', ifIndex)
+            .addParameter('dscp', dscp)
             .addParameter('includeOther', includeOther);
         if (hosts) {
             hosts.forEach((host) => {
@@ -375,10 +466,11 @@ export class FlowDAO extends BaseDAO {
      *                       represents everything that does not match the top N
      * @param exporterNodeCriteria - the node ID or foreignSource:foreignId tuple
      * @param ifIndex - filter for flows that came through this SNMP interface
+     * @param dscp - filter for flows with this Dscp value
      */
     public async getSummaryForTopNHosts(N?: number, start?: number, end?: number,
                                         includeOther?: boolean, exporterNodeCriteria?: string,
-                                        ifIndex?: number): Promise<OnmsFlowTable> {
+                                        ifIndex?: number, dscp?: string[]): Promise<OnmsFlowTable> {
         this.checkForEnhancedFlows();
         const builder = this.getOptions()
             .addParameter('N', N)
@@ -386,6 +478,7 @@ export class FlowDAO extends BaseDAO {
             .addParameter('end', end)
             .addParameter('exporterNode', exporterNodeCriteria)
             .addParameter('ifIndex', ifIndex)
+            .addParameter('dscp', dscp)
             .addParameter('includeOther', includeOther);
         const result = await this.http.get(this.pathToFlowsEndpoint() + '/hosts', builder.build());
         return this.tableFromData(result.data);
@@ -401,11 +494,12 @@ export class FlowDAO extends BaseDAO {
      *                       represents everything that does not match the top N
      * @param exporterNodeCriteria - the node ID or foreignSource:foreignId tuple
      * @param ifIndex - filter for flows that came through this SNMP interface
+     * @param dscp - filter for flows with this Dscp value
      */
     public async getSeriesForTopNHosts(N?: number, start?: number, end?: number,
                                        step?: number, includeOther?: boolean,
                                        exporterNodeCriteria?: string,
-                                       ifIndex?: number): Promise<OnmsFlowSeries> {
+                                       ifIndex?: number, dscp?: string[]): Promise<OnmsFlowSeries> {
         this.checkForEnhancedFlows();
         const builder = this.getOptions()
             .addParameter('N', N)
@@ -414,6 +508,7 @@ export class FlowDAO extends BaseDAO {
             .addParameter('step', step)
             .addParameter('exporterNode', exporterNodeCriteria)
             .addParameter('ifIndex', ifIndex)
+            .addParameter('dscp', dscp)
             .addParameter('includeOther', includeOther);
         const result = await this.http.get(this.pathToFlowsEndpoint() + '/hosts/series', builder.build());
         return this.seriesFromData(result.data);
@@ -429,11 +524,12 @@ export class FlowDAO extends BaseDAO {
      *                       represents everything that does not match the given hosts
      * @param exporterNodeCriteria - the node ID or foreignSource:foreignId tuple
      * @param ifIndex - filter for flows that came through this SNMP interface
+     * @param dscp - filter for flows with this Dscp value
      */
     public async getSeriesForHosts(hosts?: string[], start?: number, end?: number,
                                    step?: number, includeOther?: boolean,
                                    exporterNodeCriteria?: string,
-                                   ifIndex?: number): Promise<OnmsFlowSeries> {
+                                   ifIndex?: number, dscp?: string[]): Promise<OnmsFlowSeries> {
         this.checkForEnhancedFlows();
         const builder = this.getOptions()
             .addParameter('start', start)
@@ -441,6 +537,7 @@ export class FlowDAO extends BaseDAO {
             .addParameter('step', step)
             .addParameter('exporterNode', exporterNodeCriteria)
             .addParameter('ifIndex', ifIndex)
+            .addParameter('dscp', dscp)
             .addParameter('includeOther', includeOther);
         if (hosts) {
             hosts.forEach((host) => {
@@ -564,6 +661,17 @@ export class FlowDAO extends BaseDAO {
             || !this.server.metadata
             || !this.server.metadata.capabilities().enhancedFlows) {
             throw new OnmsError('Enhanced flow API is not supported by this version of OpenNMS.');
+        }
+    }
+
+    /**
+     * Check if this version of OpenNMS supports ToS filtering API and if not throw an error.
+     */
+    private checkForToSSupport() {
+        if (!this.server
+            || !this.server.metadata
+            || !this.server.metadata.capabilities().tos) {
+            throw new OnmsError('ToS filtering API is not supported by this version of OpenNMS.');
         }
     }
 }
