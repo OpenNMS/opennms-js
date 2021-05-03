@@ -1,6 +1,6 @@
 {
   "name": "opennms",
-  "version": "2.1.0",
+  "version": "2.1.1-SNAPSHOT",
   "description": "Client API for the OpenNMS network monitoring platform",
   "main": "dist/opennms.js",
   "bin": {
