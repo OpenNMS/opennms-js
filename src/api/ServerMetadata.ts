@@ -111,11 +111,11 @@ export class ServerMetadata {
   }
 
   /** Does this version support the ToS filtering for flows? */
-  public tosSupport() {
+  public tos() {
     if (this.type && this.type === ServerTypes.MERIDIAN) {
-      return this.version.ge('2021.0.0');
+      return this.version.ge('2022.0.0');
     } else {
-      return this.version.ge('27.0.0');
+      return this.version.ge('28.0.0');
     }
   }
 
@@ -126,7 +126,7 @@ export class ServerMetadata {
       apiVersion: this.apiVersion(),
       enhancedFlows: this.enhancedFlows(),
       flows: this.flows(),
-      tosSupport: this.tosSupport(),
+      tos: this.tos(),
       graphs: this.graphs(),
       outageSummaries: this.outageSummaries(),
       setNodeLocation: this.setNodeLocation(),
@@ -144,7 +144,7 @@ export class ServerMetadata {
       + ',ackAlarms=' + this.ackAlarms()
       + ',enhancedFlows=' + this.enhancedFlows()
       + ',flows=' + this.flows()
-      + ',tosSupport=' + this.tosSupport()
+      + ',tos=' + this.tos()
       + ',graphs=' + this.graphs()
       + ',outageSummaries=' + this.outageSummaries()
       + ',setNodeLocation=' + this.setNodeLocation()
