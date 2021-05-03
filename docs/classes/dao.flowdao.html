@@ -110,20 +110,24 @@
 							<h3>Methods</h3>
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><a href="dao.flowdao.html#checkforenhancedflows" class="tsd-kind-icon">check<wbr>For<wbr>Enhanced<wbr>Flows</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><a href="dao.flowdao.html#checkfortossupport" class="tsd-kind-icon">check<wbr>For<wbr>ToSSupport</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="dao.flowdao.html#getapplications" class="tsd-kind-icon">get<wbr>Applications</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected"><a href="dao.flowdao.html#getcount" class="tsd-kind-icon">get<wbr>Count</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="dao.flowdao.html#getdscpvalues" class="tsd-kind-icon">get<wbr>Dscp<wbr>Values</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="dao.flowdao.html#getexporter" class="tsd-kind-icon">get<wbr>Exporter</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="dao.flowdao.html#getexporters" class="tsd-kind-icon">get<wbr>Exporters</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="dao.flowdao.html#gethosts" class="tsd-kind-icon">get<wbr>Hosts</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected"><a href="dao.flowdao.html#getoptions" class="tsd-kind-icon">get<wbr>Options</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="dao.flowdao.html#getseriesforapplications" class="tsd-kind-icon">get<wbr>Series<wbr>For<wbr>Applications</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="dao.flowdao.html#getseriesforconversations" class="tsd-kind-icon">get<wbr>Series<wbr>For<wbr>Conversations</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="dao.flowdao.html#getseriesfordscps" class="tsd-kind-icon">get<wbr>Series<wbr>For<wbr>Dscps</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="dao.flowdao.html#getseriesforhosts" class="tsd-kind-icon">get<wbr>Series<wbr>For<wbr>Hosts</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="dao.flowdao.html#getseriesfortopnapplications" class="tsd-kind-icon">get<wbr>Series<wbr>For<wbr>TopNApplications</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="dao.flowdao.html#getseriesfortopnconversations" class="tsd-kind-icon">get<wbr>Series<wbr>For<wbr>TopNConversations</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="dao.flowdao.html#getseriesfortopnhosts" class="tsd-kind-icon">get<wbr>Series<wbr>For<wbr>TopNHosts</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="dao.flowdao.html#getsummaryforapplications" class="tsd-kind-icon">get<wbr>Summary<wbr>For<wbr>Applications</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="dao.flowdao.html#getsummaryforconversations" class="tsd-kind-icon">get<wbr>Summary<wbr>For<wbr>Conversations</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="dao.flowdao.html#getsummaryfordscps" class="tsd-kind-icon">get<wbr>Summary<wbr>For<wbr>Dscps</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="dao.flowdao.html#getsummaryforhosts" class="tsd-kind-icon">get<wbr>Summary<wbr>For<wbr>Hosts</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="dao.flowdao.html#getsummaryfortopnapplications" class="tsd-kind-icon">get<wbr>Summary<wbr>For<wbr>TopNApplications</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="dao.flowdao.html#getsummaryfortopnconversations" class="tsd-kind-icon">get<wbr>Summary<wbr>For<wbr>TopNConversations</a></li>
@@ -150,7 +154,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="dao.basedao.html">BaseDAO</a>.<a href="dao.basedao.html#constructor">constructor</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/2748e9d2/src/dao/BaseDAO.ts#L36">src/dao/BaseDAO.ts:36</a></li>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/a7495758/src/dao/BaseDAO.ts#L36">src/dao/BaseDAO.ts:36</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -165,7 +169,7 @@
 									<div class="tsd-comment tsd-typography">
 										<div class="lead">
 											<p>The HTTP implementation to use.  It is also legal to pass any object
-											conforming to the <a href="../interfaces/api.ihashttp.html">IHasHTTP</a> interface (like a <a href="reflection-2696.reflection-2479.client.html">Client</a>).</p>
+											conforming to the <a href="../interfaces/api.ihashttp.html">IHasHTTP</a> interface (like a <a href="reflection-2748.reflection-2519.client.html">Client</a>).</p>
 										</div>
 									</div>
 								</li>
@@ -189,7 +193,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="dao.basedao.html">BaseDAO</a>.<a href="dao.basedao.html#http">http</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/2748e9d2/src/dao/BaseDAO.ts#L55">src/dao/BaseDAO.ts:55</a></li>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/a7495758/src/dao/BaseDAO.ts#L55">src/dao/BaseDAO.ts:55</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -203,7 +207,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="dao.basedao.html">BaseDAO</a>.<a href="dao.basedao.html#http">http</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/2748e9d2/src/dao/BaseDAO.ts#L60">src/dao/BaseDAO.ts:60</a></li>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/a7495758/src/dao/BaseDAO.ts#L60">src/dao/BaseDAO.ts:60</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -233,7 +237,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="dao.basedao.html">BaseDAO</a>.<a href="dao.basedao.html#server">server</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/2748e9d2/src/dao/BaseDAO.ts#L67">src/dao/BaseDAO.ts:67</a></li>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/a7495758/src/dao/BaseDAO.ts#L67">src/dao/BaseDAO.ts:67</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -247,7 +251,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="dao.basedao.html">BaseDAO</a>.<a href="dao.basedao.html#server">server</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/2748e9d2/src/dao/BaseDAO.ts#L75">src/dao/BaseDAO.ts:75</a></li>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/a7495758/src/dao/BaseDAO.ts#L75">src/dao/BaseDAO.ts:75</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -278,7 +282,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/2748e9d2/src/dao/FlowDAO.ts#L562">src/dao/FlowDAO.ts:562</a></li>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/a7495758/src/dao/FlowDAO.ts#L659">src/dao/FlowDAO.ts:659</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -290,17 +294,39 @@
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
-					<a name="getapplications" class="tsd-anchor"></a>
-					<h3>get<wbr>Applications</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">get<wbr>Applications<span class="tsd-signature-symbol">(</span>prefix<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span>, start<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span>, end<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span>, exporterNodeCriteria<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span>, ifIndex<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="model.onmsflowtable.html" class="tsd-signature-type">OnmsFlowTable</a><span class="tsd-signature-symbol">&gt;</span></li>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-private">
+					<a name="checkfortossupport" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagPrivate">Private</span> check<wbr>For<wbr>ToSSupport</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-private">
+						<li class="tsd-signature tsd-kind-icon">check<wbr>For<wbr>ToSSupport<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/2748e9d2/src/dao/FlowDAO.ts#L74">src/dao/FlowDAO.ts:74</a></li>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/a7495758/src/dao/FlowDAO.ts#L670">src/dao/FlowDAO.ts:670</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Check if this version of OpenNMS supports ToS filtering API and if not throw an error.</p>
+								</div>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="getapplications" class="tsd-anchor"></a>
+					<h3>get<wbr>Applications</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Applications<span class="tsd-signature-symbol">(</span>prefix<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span>, start<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span>, end<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span>, exporterNodeCriteria<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span>, ifIndex<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span>, dscp<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/a7495758/src/dao/FlowDAO.ts#L144">src/dao/FlowDAO.ts:144</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -340,8 +366,14 @@
 										<p>filter for flows that came through this SNMP interface</p>
 									</div>
 								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> dscp: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>filter for flows with this Dscp value</p>
+									</div>
+								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="model.onmsflowtable.html" class="tsd-signature-type">OnmsFlowTable</a><span class="tsd-signature-symbol">&gt;</span></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -356,7 +388,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="dao.basedao.html">BaseDAO</a>.<a href="dao.basedao.html#getcount">getCount</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/2748e9d2/src/dao/BaseDAO.ts#L138">src/dao/BaseDAO.ts:138</a></li>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/a7495758/src/dao/BaseDAO.ts#L138">src/dao/BaseDAO.ts:138</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -379,6 +411,55 @@
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="getdscpvalues" class="tsd-anchor"></a>
+					<h3>get<wbr>Dscp<wbr>Values</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Dscp<wbr>Values<span class="tsd-signature-symbol">(</span>exporterNodeCriteria<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span>, ifIndex<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span>, start<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span>, end<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/a7495758/src/dao/FlowDAO.ts#L73">src/dao/FlowDAO.ts:73</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Get used Dscp values for a specific interface</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> exporterNodeCriteria: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>the node ID or foreignSource:foreignId tuple</p>
+									</div>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> ifIndex: <span class="tsd-signature-type">number</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>the SNMP interface</p>
+									</div>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> start: <span class="tsd-signature-type">number</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>the start of the timespan to query (defaults to 4 hours ago)</p>
+									</div>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> end: <span class="tsd-signature-type">number</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>the end of the timespan to query (defaults to now)</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
 					<a name="getexporter" class="tsd-anchor"></a>
 					<h3>get<wbr>Exporter</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
@@ -388,7 +469,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/2748e9d2/src/dao/FlowDAO.ts#L57">src/dao/FlowDAO.ts:57</a></li>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/a7495758/src/dao/FlowDAO.ts#L57">src/dao/FlowDAO.ts:57</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -438,7 +519,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/2748e9d2/src/dao/FlowDAO.ts#L28">src/dao/FlowDAO.ts:28</a></li>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/a7495758/src/dao/FlowDAO.ts#L28">src/dao/FlowDAO.ts:28</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -476,13 +557,13 @@
 					<a name="gethosts" class="tsd-anchor"></a>
 					<h3>get<wbr>Hosts</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">get<wbr>Hosts<span class="tsd-signature-symbol">(</span>pattern<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span>, start<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span>, end<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span>, exporterNodeCriteria<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span>, ifIndex<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="model.onmsflowtable.html" class="tsd-signature-type">OnmsFlowTable</a><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Hosts<span class="tsd-signature-symbol">(</span>pattern<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span>, start<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span>, end<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span>, exporterNodeCriteria<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span>, ifIndex<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span>, dscp<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/2748e9d2/src/dao/FlowDAO.ts#L326">src/dao/FlowDAO.ts:326</a></li>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/a7495758/src/dao/FlowDAO.ts#L414">src/dao/FlowDAO.ts:414</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -522,8 +603,14 @@
 										<p>filter for flows that came through this SNMP interface</p>
 									</div>
 								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> dscp: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>filter for flows with this Dscp value</p>
+									</div>
+								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="model.onmsflowtable.html" class="tsd-signature-type">OnmsFlowTable</a><span class="tsd-signature-symbol">&gt;</span></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -537,7 +624,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/2748e9d2/src/dao/FlowDAO.ts#L547">src/dao/FlowDAO.ts:547</a></li>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/a7495758/src/dao/FlowDAO.ts#L644">src/dao/FlowDAO.ts:644</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -553,13 +640,13 @@
 					<a name="getseriesforapplications" class="tsd-anchor"></a>
 					<h3>get<wbr>Series<wbr>For<wbr>Applications</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">get<wbr>Series<wbr>For<wbr>Applications<span class="tsd-signature-symbol">(</span>applications<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span>, start<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span>, end<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span>, step<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span>, includeOther<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span>, exporterNodeCriteria<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span>, ifIndex<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="model.onmsflowseries.html" class="tsd-signature-type">OnmsFlowSeries</a><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Series<wbr>For<wbr>Applications<span class="tsd-signature-symbol">(</span>applications<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span>, start<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span>, end<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span>, step<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span>, includeOther<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span>, exporterNodeCriteria<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span>, ifIndex<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span>, dscp<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="model.onmsflowseries.html" class="tsd-signature-type">OnmsFlowSeries</a><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/2748e9d2/src/dao/FlowDAO.ts#L179">src/dao/FlowDAO.ts:179</a></li>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/a7495758/src/dao/FlowDAO.ts#L257">src/dao/FlowDAO.ts:257</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -612,6 +699,12 @@
 										<p>filter for flows that came through this SNMP interface</p>
 									</div>
 								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> dscp: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>filter for flows with this Dscp value</p>
+									</div>
+								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="model.onmsflowseries.html" class="tsd-signature-type">OnmsFlowSeries</a><span class="tsd-signature-symbol">&gt;</span></h4>
 						</li>
@@ -621,13 +714,13 @@
 					<a name="getseriesforconversations" class="tsd-anchor"></a>
 					<h3>get<wbr>Series<wbr>For<wbr>Conversations</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">get<wbr>Series<wbr>For<wbr>Conversations<span class="tsd-signature-symbol">(</span>conversations<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span>, start<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span>, end<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span>, step<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span>, includeOther<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span>, exporterNodeCriteria<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span>, ifIndex<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="model.onmsflowseries.html" class="tsd-signature-type">OnmsFlowSeries</a><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Series<wbr>For<wbr>Conversations<span class="tsd-signature-symbol">(</span>conversations<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span>, start<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span>, end<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span>, step<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span>, includeOther<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span>, exporterNodeCriteria<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span>, ifIndex<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span>, dscp<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span>, ecn<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="model.onmsflowseries.html" class="tsd-signature-type">OnmsFlowSeries</a><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/2748e9d2/src/dao/FlowDAO.ts#L298">src/dao/FlowDAO.ts:298</a></li>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/a7495758/src/dao/FlowDAO.ts#L384">src/dao/FlowDAO.ts:384</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -680,6 +773,76 @@
 										<p>filter for flows that came through this SNMP interface</p>
 									</div>
 								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> dscp: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>filter for flows with this Dscp value</p>
+									</div>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> ecn: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="model.onmsflowseries.html" class="tsd-signature-type">OnmsFlowSeries</a><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="getseriesfordscps" class="tsd-anchor"></a>
+					<h3>get<wbr>Series<wbr>For<wbr>Dscps</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Series<wbr>For<wbr>Dscps<span class="tsd-signature-symbol">(</span>start<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span>, end<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span>, step<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span>, exporterNodeCriteria<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span>, ifIndex<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span>, dscp<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="model.onmsflowseries.html" class="tsd-signature-type">OnmsFlowSeries</a><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/a7495758/src/dao/FlowDAO.ts#L119">src/dao/FlowDAO.ts:119</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Get time series data for DSCP based on parameters.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> start: <span class="tsd-signature-type">number</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>the start of the timespan to query (defaults to 4 hours ago)</p>
+									</div>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> end: <span class="tsd-signature-type">number</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>the end of the timespan to query (defaults to now)</p>
+									</div>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> step: <span class="tsd-signature-type">number</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>the requested time interval between rows</p>
+									</div>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> exporterNodeCriteria: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>the node ID or foreignSource:foreignId tuple</p>
+									</div>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> ifIndex: <span class="tsd-signature-type">number</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>filter for flows that came through this SNMP interface</p>
+									</div>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> dscp: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>filter for flows with this Dscp value</p>
+									</div>
+								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="model.onmsflowseries.html" class="tsd-signature-type">OnmsFlowSeries</a><span class="tsd-signature-symbol">&gt;</span></h4>
 						</li>
@@ -689,13 +852,13 @@
 					<a name="getseriesforhosts" class="tsd-anchor"></a>
 					<h3>get<wbr>Series<wbr>For<wbr>Hosts</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">get<wbr>Series<wbr>For<wbr>Hosts<span class="tsd-signature-symbol">(</span>hosts<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span>, start<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span>, end<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span>, step<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span>, includeOther<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span>, exporterNodeCriteria<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span>, ifIndex<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="model.onmsflowseries.html" class="tsd-signature-type">OnmsFlowSeries</a><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Series<wbr>For<wbr>Hosts<span class="tsd-signature-symbol">(</span>hosts<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span>, start<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span>, end<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span>, step<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span>, includeOther<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span>, exporterNodeCriteria<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span>, ifIndex<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span>, dscp<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="model.onmsflowseries.html" class="tsd-signature-type">OnmsFlowSeries</a><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/2748e9d2/src/dao/FlowDAO.ts#L433">src/dao/FlowDAO.ts:433</a></li>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/a7495758/src/dao/FlowDAO.ts#L529">src/dao/FlowDAO.ts:529</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -748,6 +911,12 @@
 										<p>filter for flows that came through this SNMP interface</p>
 									</div>
 								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> dscp: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>filter for flows with this Dscp value</p>
+									</div>
+								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="model.onmsflowseries.html" class="tsd-signature-type">OnmsFlowSeries</a><span class="tsd-signature-symbol">&gt;</span></h4>
 						</li>
@@ -757,13 +926,13 @@
 					<a name="getseriesfortopnapplications" class="tsd-anchor"></a>
 					<h3>get<wbr>Series<wbr>For<wbr>TopNApplications</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">get<wbr>Series<wbr>For<wbr>TopNApplications<span class="tsd-signature-symbol">(</span>N<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span>, start<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span>, end<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span>, step<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span>, includeOther<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span>, exporterNodeCriteria<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span>, ifIndex<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="model.onmsflowseries.html" class="tsd-signature-type">OnmsFlowSeries</a><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Series<wbr>For<wbr>TopNApplications<span class="tsd-signature-symbol">(</span>N<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span>, start<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span>, end<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span>, step<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span>, includeOther<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span>, exporterNodeCriteria<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span>, ifIndex<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span>, dscp<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="model.onmsflowseries.html" class="tsd-signature-type">OnmsFlowSeries</a><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/2748e9d2/src/dao/FlowDAO.ts#L152">src/dao/FlowDAO.ts:152</a></li>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/a7495758/src/dao/FlowDAO.ts#L228">src/dao/FlowDAO.ts:228</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -816,6 +985,12 @@
 										<p>filter for flows that came through this SNMP interface</p>
 									</div>
 								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> dscp: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>filter for flows with this Dscp value</p>
+									</div>
+								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="model.onmsflowseries.html" class="tsd-signature-type">OnmsFlowSeries</a><span class="tsd-signature-symbol">&gt;</span></h4>
 						</li>
@@ -825,13 +1000,13 @@
 					<a name="getseriesfortopnconversations" class="tsd-anchor"></a>
 					<h3>get<wbr>Series<wbr>For<wbr>TopNConversations</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">get<wbr>Series<wbr>For<wbr>TopNConversations<span class="tsd-signature-symbol">(</span>NOptions<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> | </span><a href="../interfaces/dao.itopnoptions.html" class="tsd-signature-type">ITopNOptions</a>, start<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span>, end<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span>, step<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span>, exporterNodeCriteria<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span>, ifIndex<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="model.onmsflowseries.html" class="tsd-signature-type">OnmsFlowSeries</a><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Series<wbr>For<wbr>TopNConversations<span class="tsd-signature-symbol">(</span>NOptions<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> | </span><a href="../interfaces/dao.itopnoptions.html" class="tsd-signature-type">ITopNOptions</a>, start<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span>, end<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span>, step<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span>, exporterNodeCriteria<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span>, ifIndex<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span>, dscp<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="model.onmsflowseries.html" class="tsd-signature-type">OnmsFlowSeries</a><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/2748e9d2/src/dao/FlowDAO.ts#L267">src/dao/FlowDAO.ts:267</a></li>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/a7495758/src/dao/FlowDAO.ts#L351">src/dao/FlowDAO.ts:351</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -878,6 +1053,12 @@
 										<p>filter for flows that came through this SNMP interface</p>
 									</div>
 								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> dscp: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>filter for flows with this Dscp value</p>
+									</div>
+								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="model.onmsflowseries.html" class="tsd-signature-type">OnmsFlowSeries</a><span class="tsd-signature-symbol">&gt;</span></h4>
 						</li>
@@ -887,13 +1068,13 @@
 					<a name="getseriesfortopnhosts" class="tsd-anchor"></a>
 					<h3>get<wbr>Series<wbr>For<wbr>TopNHosts</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">get<wbr>Series<wbr>For<wbr>TopNHosts<span class="tsd-signature-symbol">(</span>N<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span>, start<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span>, end<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span>, step<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span>, includeOther<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span>, exporterNodeCriteria<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span>, ifIndex<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="model.onmsflowseries.html" class="tsd-signature-type">OnmsFlowSeries</a><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Series<wbr>For<wbr>TopNHosts<span class="tsd-signature-symbol">(</span>N<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span>, start<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span>, end<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span>, step<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span>, includeOther<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span>, exporterNodeCriteria<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span>, ifIndex<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span>, dscp<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="model.onmsflowseries.html" class="tsd-signature-type">OnmsFlowSeries</a><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/2748e9d2/src/dao/FlowDAO.ts#L405">src/dao/FlowDAO.ts:405</a></li>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/a7495758/src/dao/FlowDAO.ts#L499">src/dao/FlowDAO.ts:499</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -946,6 +1127,12 @@
 										<p>filter for flows that came through this SNMP interface</p>
 									</div>
 								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> dscp: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>filter for flows with this Dscp value</p>
+									</div>
+								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="model.onmsflowseries.html" class="tsd-signature-type">OnmsFlowSeries</a><span class="tsd-signature-symbol">&gt;</span></h4>
 						</li>
@@ -955,13 +1142,13 @@
 					<a name="getsummaryforapplications" class="tsd-anchor"></a>
 					<h3>get<wbr>Summary<wbr>For<wbr>Applications</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">get<wbr>Summary<wbr>For<wbr>Applications<span class="tsd-signature-symbol">(</span>applications<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span>, start<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span>, end<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span>, includeOther<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span>, exporterNodeCriteria<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span>, ifIndex<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="model.onmsflowtable.html" class="tsd-signature-type">OnmsFlowTable</a><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Summary<wbr>For<wbr>Applications<span class="tsd-signature-symbol">(</span>applications<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span>, start<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span>, end<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span>, includeOther<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span>, exporterNodeCriteria<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span>, ifIndex<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span>, dscp<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="model.onmsflowtable.html" class="tsd-signature-type">OnmsFlowTable</a><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/2748e9d2/src/dao/FlowDAO.ts#L121">src/dao/FlowDAO.ts:121</a></li>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/a7495758/src/dao/FlowDAO.ts#L195">src/dao/FlowDAO.ts:195</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1008,6 +1195,12 @@
 										<p>filter for flows that came through this SNMP interface</p>
 									</div>
 								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> dscp: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>filter for flows with this Dscp value</p>
+									</div>
+								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="model.onmsflowtable.html" class="tsd-signature-type">OnmsFlowTable</a><span class="tsd-signature-symbol">&gt;</span></h4>
 						</li>
@@ -1017,13 +1210,13 @@
 					<a name="getsummaryforconversations" class="tsd-anchor"></a>
 					<h3>get<wbr>Summary<wbr>For<wbr>Conversations</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">get<wbr>Summary<wbr>For<wbr>Conversations<span class="tsd-signature-symbol">(</span>conversations<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span>, start<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span>, end<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span>, includeOther<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span>, exporterNodeCriteria<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span>, ifIndex<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="model.onmsflowtable.html" class="tsd-signature-type">OnmsFlowTable</a><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Summary<wbr>For<wbr>Conversations<span class="tsd-signature-symbol">(</span>conversations<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span>, start<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span>, end<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span>, includeOther<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span>, exporterNodeCriteria<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span>, ifIndex<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span>, dscp<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="model.onmsflowtable.html" class="tsd-signature-type">OnmsFlowTable</a><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/2748e9d2/src/dao/FlowDAO.ts#L238">src/dao/FlowDAO.ts:238</a></li>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/a7495758/src/dao/FlowDAO.ts#L320">src/dao/FlowDAO.ts:320</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1070,6 +1263,67 @@
 										<p>filter for flows that came through this SNMP interface</p>
 									</div>
 								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> dscp: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>filter for flows with this Dscp value</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="model.onmsflowtable.html" class="tsd-signature-type">OnmsFlowTable</a><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="getsummaryfordscps" class="tsd-anchor"></a>
+					<h3>get<wbr>Summary<wbr>For<wbr>Dscps</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Summary<wbr>For<wbr>Dscps<span class="tsd-signature-symbol">(</span>start<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span>, end<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span>, exporterNodeCriteria<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span>, ifIndex<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span>, dscp<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="model.onmsflowtable.html" class="tsd-signature-type">OnmsFlowTable</a><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/a7495758/src/dao/FlowDAO.ts#L94">src/dao/FlowDAO.ts:94</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Summarize the the dscp values based on parameters.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> start: <span class="tsd-signature-type">number</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>the start of the timespan to query (defaults to 4 hours ago)</p>
+									</div>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> end: <span class="tsd-signature-type">number</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>the end of the timespan to query (defaults to now)</p>
+									</div>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> exporterNodeCriteria: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>the node ID or foreignSource:foreignId tuple</p>
+									</div>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> ifIndex: <span class="tsd-signature-type">number</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>filter for flows that came through this SNMP interface</p>
+									</div>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> dscp: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>filter for flows with this Dscp value</p>
+									</div>
+								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="model.onmsflowtable.html" class="tsd-signature-type">OnmsFlowTable</a><span class="tsd-signature-symbol">&gt;</span></h4>
 						</li>
@@ -1079,13 +1333,13 @@
 					<a name="getsummaryforhosts" class="tsd-anchor"></a>
 					<h3>get<wbr>Summary<wbr>For<wbr>Hosts</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">get<wbr>Summary<wbr>For<wbr>Hosts<span class="tsd-signature-symbol">(</span>hosts<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span>, start<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span>, end<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span>, includeOther<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span>, exporterNodeCriteria<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span>, ifIndex<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="model.onmsflowtable.html" class="tsd-signature-type">OnmsFlowTable</a><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Summary<wbr>For<wbr>Hosts<span class="tsd-signature-symbol">(</span>hosts<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span>, start<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span>, end<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span>, includeOther<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span>, exporterNodeCriteria<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span>, ifIndex<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span>, dscp<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="model.onmsflowtable.html" class="tsd-signature-type">OnmsFlowTable</a><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/2748e9d2/src/dao/FlowDAO.ts#L349">src/dao/FlowDAO.ts:349</a></li>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/a7495758/src/dao/FlowDAO.ts#L439">src/dao/FlowDAO.ts:439</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1132,6 +1386,12 @@
 										<p>filter for flows that came through this SNMP interface</p>
 									</div>
 								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> dscp: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>filter for flows with this Dscp value</p>
+									</div>
+								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="model.onmsflowtable.html" class="tsd-signature-type">OnmsFlowTable</a><span class="tsd-signature-symbol">&gt;</span></h4>
 						</li>
@@ -1141,13 +1401,13 @@
 					<a name="getsummaryfortopnapplications" class="tsd-anchor"></a>
 					<h3>get<wbr>Summary<wbr>For<wbr>TopNApplications</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">get<wbr>Summary<wbr>For<wbr>TopNApplications<span class="tsd-signature-symbol">(</span>N<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span>, start<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span>, end<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span>, includeOther<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span>, exporterNodeCriteria<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span>, ifIndex<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="model.onmsflowtable.html" class="tsd-signature-type">OnmsFlowTable</a><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Summary<wbr>For<wbr>TopNApplications<span class="tsd-signature-symbol">(</span>N<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span>, start<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span>, end<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span>, includeOther<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span>, exporterNodeCriteria<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span>, ifIndex<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span>, dscp<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="model.onmsflowtable.html" class="tsd-signature-type">OnmsFlowTable</a><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/2748e9d2/src/dao/FlowDAO.ts#L97">src/dao/FlowDAO.ts:97</a></li>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/a7495758/src/dao/FlowDAO.ts#L169">src/dao/FlowDAO.ts:169</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1194,6 +1454,12 @@
 										<p>filter for flows that came through this SNMP interface</p>
 									</div>
 								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> dscp: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>filter for flows with this Dscp value</p>
+									</div>
+								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="model.onmsflowtable.html" class="tsd-signature-type">OnmsFlowTable</a><span class="tsd-signature-symbol">&gt;</span></h4>
 						</li>
@@ -1203,13 +1469,13 @@
 					<a name="getsummaryfortopnconversations" class="tsd-anchor"></a>
 					<h3>get<wbr>Summary<wbr>For<wbr>TopNConversations</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">get<wbr>Summary<wbr>For<wbr>TopNConversations<span class="tsd-signature-symbol">(</span>NOptions<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> | </span><a href="../interfaces/dao.itopnoptions.html" class="tsd-signature-type">ITopNOptions</a>, start<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span>, end<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span>, exporterNodeCriteria<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span>, ifIndex<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="model.onmsflowtable.html" class="tsd-signature-type">OnmsFlowTable</a><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Summary<wbr>For<wbr>TopNConversations<span class="tsd-signature-symbol">(</span>NOptions<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> | </span><a href="../interfaces/dao.itopnoptions.html" class="tsd-signature-type">ITopNOptions</a>, start<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span>, end<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span>, exporterNodeCriteria<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span>, ifIndex<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span>, dscp<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="model.onmsflowtable.html" class="tsd-signature-type">OnmsFlowTable</a><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/2748e9d2/src/dao/FlowDAO.ts#L209">src/dao/FlowDAO.ts:209</a></li>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/a7495758/src/dao/FlowDAO.ts#L289">src/dao/FlowDAO.ts:289</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1250,6 +1516,12 @@
 										<p>filter for flows that came through this SNMP interface</p>
 									</div>
 								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> dscp: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>filter for flows with this Dscp value</p>
+									</div>
+								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="model.onmsflowtable.html" class="tsd-signature-type">OnmsFlowTable</a><span class="tsd-signature-symbol">&gt;</span></h4>
 						</li>
@@ -1259,13 +1531,13 @@
 					<a name="getsummaryfortopnhosts" class="tsd-anchor"></a>
 					<h3>get<wbr>Summary<wbr>For<wbr>TopNHosts</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">get<wbr>Summary<wbr>For<wbr>TopNHosts<span class="tsd-signature-symbol">(</span>N<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span>, start<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span>, end<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span>, includeOther<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span>, exporterNodeCriteria<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span>, ifIndex<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="model.onmsflowtable.html" class="tsd-signature-type">OnmsFlowTable</a><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Summary<wbr>For<wbr>TopNHosts<span class="tsd-signature-symbol">(</span>N<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span>, start<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span>, end<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span>, includeOther<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span>, exporterNodeCriteria<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span>, ifIndex<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span>, dscp<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="model.onmsflowtable.html" class="tsd-signature-type">OnmsFlowTable</a><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/2748e9d2/src/dao/FlowDAO.ts#L379">src/dao/FlowDAO.ts:379</a></li>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/a7495758/src/dao/FlowDAO.ts#L471">src/dao/FlowDAO.ts:471</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1312,6 +1584,12 @@
 										<p>filter for flows that came through this SNMP interface</p>
 									</div>
 								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> dscp: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>filter for flows with this Dscp value</p>
+									</div>
+								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="model.onmsflowtable.html" class="tsd-signature-type">OnmsFlowTable</a><span class="tsd-signature-symbol">&gt;</span></h4>
 						</li>
@@ -1328,7 +1606,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="dao.basedao.html">BaseDAO</a>.<a href="dao.basedao.html#onsetserver">onSetServer</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/2748e9d2/src/dao/BaseDAO.ts#L120">src/dao/BaseDAO.ts:120</a></li>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/a7495758/src/dao/BaseDAO.ts#L120">src/dao/BaseDAO.ts:120</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1360,7 +1638,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="dao.basedao.html">BaseDAO</a>.<a href="dao.basedao.html#todate">toDate</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/2748e9d2/src/dao/BaseDAO.ts#L159">src/dao/BaseDAO.ts:159</a></li>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/a7495758/src/dao/BaseDAO.ts#L159">src/dao/BaseDAO.ts:159</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1389,7 +1667,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="dao.basedao.html">BaseDAO</a>.<a href="dao.basedao.html#tonumber">toNumber</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/2748e9d2/src/dao/BaseDAO.ts#L169">src/dao/BaseDAO.ts:169</a></li>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/a7495758/src/dao/BaseDAO.ts#L169">src/dao/BaseDAO.ts:169</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1418,7 +1696,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="dao.basedao.html">BaseDAO</a>.<a href="dao.basedao.html#usejson">useJson</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/2748e9d2/src/dao/BaseDAO.ts#L127">src/dao/BaseDAO.ts:127</a></li>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/a7495758/src/dao/BaseDAO.ts#L127">src/dao/BaseDAO.ts:127</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1439,7 +1717,7 @@
 						<a href="../globals.html"><em>Globals</em></a>
 					</li>
 					<li class=" tsd-kind-module tsd-is-not-exported">
-						<a href="../modules/reflection-2696.html">&lt;em&gt;<wbr>Module&lt;/em&gt;</a>
+						<a href="../modules/reflection-2748.html">&lt;em&gt;<wbr>Module&lt;/em&gt;</a>
 					</li>
 					<li class=" tsd-kind-module">
 						<a href="../modules/api.html">api</a>
@@ -1489,11 +1767,17 @@
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-private">
 								<a href="dao.flowdao.html#checkforenhancedflows" class="tsd-kind-icon">check<wbr>For<wbr>Enhanced<wbr>Flows</a>
 							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-private">
+								<a href="dao.flowdao.html#checkfortossupport" class="tsd-kind-icon">check<wbr>For<wbr>ToSSupport</a>
+							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="dao.flowdao.html#getapplications" class="tsd-kind-icon">get<wbr>Applications</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
 								<a href="dao.flowdao.html#getcount" class="tsd-kind-icon">get<wbr>Count</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="dao.flowdao.html#getdscpvalues" class="tsd-kind-icon">get<wbr>Dscp<wbr>Values</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="dao.flowdao.html#getexporter" class="tsd-kind-icon">get<wbr>Exporter</a>
@@ -1514,6 +1798,9 @@
 								<a href="dao.flowdao.html#getseriesforconversations" class="tsd-kind-icon">get<wbr>Series<wbr>For<wbr>Conversations</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="dao.flowdao.html#getseriesfordscps" class="tsd-kind-icon">get<wbr>Series<wbr>For<wbr>Dscps</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="dao.flowdao.html#getseriesforhosts" class="tsd-kind-icon">get<wbr>Series<wbr>For<wbr>Hosts</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
@@ -1530,6 +1817,9 @@
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="dao.flowdao.html#getsummaryforconversations" class="tsd-kind-icon">get<wbr>Summary<wbr>For<wbr>Conversations</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="dao.flowdao.html#getsummaryfordscps" class="tsd-kind-icon">get<wbr>Summary<wbr>For<wbr>Dscps</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="dao.flowdao.html#getsummaryforhosts" class="tsd-kind-icon">get<wbr>Summary<wbr>For<wbr>Hosts</a>
