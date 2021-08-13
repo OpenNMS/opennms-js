@@ -5,22 +5,10 @@ import {IHasHTTP} from '../api/IHasHTTP';
 import {IOnmsHTTP} from '../api/IOnmsHTTP';
 import {OnmsError} from '../api/OnmsError';
 
-import {Util} from '../internal/Util';
-
-import {OnmsCategory} from '../model/OnmsCategory';
-import {OnmsCollectType} from '../model/OnmsCollectType';
 import {OnmsIpInterface} from '../model/OnmsIpInterface';
-import {OnmsManagedType} from '../model/OnmsManagedType';
 import {OnmsMonitoredService} from '../model/OnmsMonitoredService';
 import {OnmsNode} from '../model/OnmsNode';
-import {OnmsNodeLabelSource} from '../model/OnmsNodeLabelSource';
-import {OnmsNodeType} from '../model/OnmsNodeType';
-import {OnmsPrimaryType} from '../model/OnmsPrimaryType';
-import {OnmsServiceType} from '../model/OnmsServiceType';
-import {OnmsServiceStatusType} from '../model/OnmsServiceStatusType';
 import {OnmsSnmpInterface} from '../model/OnmsSnmpInterface';
-import {OnmsSnmpStatusType} from '../model/OnmsSnmpStatusType';
-import {PhysAddr} from '../model/PhysAddr';
 
 /**
  * Data access for [[OnmsNode]] objects.
@@ -215,52 +203,7 @@ export class NodeDAO extends AbstractDAO<number, OnmsNode> {
    * @hidden
    */
   public fromData(data: any) {
-    const node = new OnmsNode();
-
-    if (!data) {
-      return undefined;
-    }
-
-    node.id = this.toNumber(data.id);
-    node.label = data.label;
-    node.location = data.location;
-    node.foreignSource = data.foreignSource || undefined;
-    node.foreignId = data.foreignId || undefined;
-    node.sysContact = data.sysContact;
-    node.sysDescription = data.sysDescription;
-    node.sysLocation = data.sysLocation;
-    node.sysName = data.sysName;
-    node.sysObjectId = data.sysObjectId;
-
-    if (data.labelSource) {
-      node.labelSource = OnmsNodeLabelSource.forId(data.labelSource);
-    }
-    if (data.createTime) {
-      node.createTime = this.toDate(data.createTime);
-    }
-    if (data.lastCapsdPoll) {
-      node.lastCapsdPoll = this.toDate(data.lastCapsdPoll);
-    }
-    if (data.type) {
-      node.type = OnmsNodeType.forId(data.type);
-    }
-
-    node.categories = [];
-    if (data.categories) {
-      node.categories = data.categories.map((c: any) => {
-        return OnmsCategory.for(c.id, c.name);
-      });
-    }
-
-    for (const key in data.assetRecord) {
-      if (data.assetRecord.hasOwnProperty(key)
-        && data.assetRecord[key] !== null
-        && data.assetRecord[key] !== undefined) {
-        node.assets[key] = data.assetRecord[key];
-      }
-    }
-
-    return node;
+    return OnmsNode.fromData(data);
   }
 
   /**
@@ -268,20 +211,7 @@ export class NodeDAO extends AbstractDAO<number, OnmsNode> {
    * @hidden
    */
   public fromIpInterfaceData(data: any): OnmsIpInterface {
-    const iface = new OnmsIpInterface();
-
-    iface.id = this.toNumber(data.id);
-    iface.hostname = data.hostName || data.hostname;
-    iface.ipAddress = Util.toIPAddress(data.ipAddress);
-    iface.isManaged = OnmsManagedType.forId(data.isManaged);
-    iface.lastCapsdPoll = this.toDate(data.lastCapsdPoll);
-    iface.snmpPrimary = OnmsPrimaryType.forId(data.snmpPrimary);
-
-    if (data.snmpInterface && data.snmpInterface.id) {
-      iface.snmpInterfaceId = this.toNumber(data.snmpInterface.id);
-    }
-
-    return iface;
+    return OnmsIpInterface.fromData(data);
   }
 
   /**
@@ -289,27 +219,7 @@ export class NodeDAO extends AbstractDAO<number, OnmsNode> {
    * @hidden
    */
   public fromSnmpData(data: any): OnmsSnmpInterface {
-    const iface = new OnmsSnmpInterface();
-
-    iface.id = this.toNumber(data.id);
-    iface.ifIndex = this.toNumber(data.ifIndex);
-    iface.ifDescr = data.ifDescr;
-    iface.ifType = this.toNumber(data.ifType);
-    iface.ifName = data.ifName;
-    iface.ifSpeed = this.toNumber(data.ifSpeed);
-    iface.ifAdminStatus = OnmsSnmpStatusType.forId(this.toNumber(data.ifAdminStatus));
-    iface.ifOperStatus = OnmsSnmpStatusType.forId(this.toNumber(data.ifOperStatus));
-    iface.ifAlias = data.ifAlias;
-    iface.lastCapsdPoll = this.toDate(data.lastCapsdPoll);
-    iface.collect = OnmsCollectType.forId(data.collectFlag);
-    iface.poll = data.poll;
-    iface.lastSnmpPoll = this.toDate(data.lastSnmpPoll);
-
-    if (data.physAddr) {
-      iface.physAddr = new PhysAddr(data.physAddr);
-    }
-
-    return iface;
+    return OnmsSnmpInterface.fromData(data);
   }
 
   /**
@@ -317,20 +227,7 @@ export class NodeDAO extends AbstractDAO<number, OnmsNode> {
    * @hidden
    */
   public fromServiceData(data: any): OnmsMonitoredService {
-    const service = new OnmsMonitoredService();
-
-    service.id = this.toNumber(data.id);
-    service.lastFail = this.toDate(data.lastFail);
-    service.lastGood = this.toDate(data.lastGood);
-
-    if (data.serviceType) {
-      service.type = OnmsServiceType.for(data.serviceType.id, data.serviceType.name);
-    }
-    if (data.status) {
-      service.status = OnmsServiceStatusType.forId(data.status);
-    }
-
-    return service;
+    return OnmsMonitoredService.fromData(data);
   }
 
   /**

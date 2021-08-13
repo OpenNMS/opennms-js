@@ -1,0 +1,59 @@
+{
+  "count": 2,
+  "offset": 0,
+  "totalCount": 2,
+  "ipInterface": [
+    {
+      "isManaged": "M",
+      "snmpPrimary": "P",
+      "ipAddress": "127.0.0.1",
+      "monitoredServiceCount": 2,
+      "ifIndex": null,
+      "lastIngressFlow": null,
+      "lastEgressFlow": null,
+      "nodeId": 1,
+      "id": "1",
+      "hostName": "localhost",
+      "lastCapsdPoll": 1628873247203,
+      "isDown": false
+    },
+    {
+      "isManaged": "M",
+      "snmpPrimary": "P",
+      "snmpInterface": {
+        "id": 7,
+        "ifType": 1,
+        "ifAlias": "",
+        "ifIndex": 65,
+        "hasFlows": false,
+        "hasIngressFlows": false,
+        "hasEgressFlows": false,
+        "lastIngressFlow": null,
+        "lastEgressFlow": null,
+        "lastCapsdPoll": 1628878514980,
+        "ifDescr": " CPU Interface for Slot: 5 Port: 1",
+        "ifName": "CPU Interface:  5/1",
+        "physAddr": "f09fc26553be",
+        "ifSpeed": 0,
+        "ifAdminStatus": 1,
+        "ifOperStatus": 1,
+        "lastSnmpPoll": null,
+        "collectionUserSpecified": false,
+        "collectFlag": "C",
+        "pollFlag": "N",
+        "collect": true,
+        "poll": false
+      },
+      "ipAddress": "192.168.211.6",
+      "monitoredServiceCount": 3,
+      "ifIndex": 65,
+      "lastIngressFlow": null,
+      "lastEgressFlow": null,
+      "nodeId": 2,
+      "id": "5",
+      "hostName": "nonlocalhost",
+      "lastCapsdPoll": 1628878514980,
+      "isDown": false
+    }
+  ]
+}

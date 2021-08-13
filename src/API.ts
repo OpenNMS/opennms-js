@@ -20,6 +20,7 @@ import {TicketerConfig} from './api/TicketerConfig';
 import {AlarmDAO} from './dao/AlarmDAO';
 import {EventDAO} from './dao/EventDAO';
 import {FlowDAO} from './dao/FlowDAO';
+import {IpInterfaceDAO} from './dao/IpInterfaceDAO';
 import {NodeDAO} from './dao/NodeDAO';
 import {SituationFeedbackDAO} from './dao/SituationFeedbackDAO';
 import {V1FilterProcessor} from './dao/V1FilterProcessor';
@@ -96,6 +97,7 @@ const DAO = Object.freeze({
   AlarmDAO,
   EventDAO,
   FlowDAO,
+  IpInterfaceDAO,
   NodeDAO,
   SituationFeedbackDAO,
   V1FilterProcessor,

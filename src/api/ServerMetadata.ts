@@ -119,37 +119,52 @@ export class ServerMetadata {
     }
   }
 
+  /** Does this version support the api/v2/ipinterfaces ReST endpoint? */
+  public ipInterfaceRest() {
+    if (this.type === ServerTypes.MERIDIAN) {
+      return this.version.ge('2022.0.0');
+    } else {
+      return this.version.ge('29.0.0');
+    }
+  }
+
   /** Returns a convenient data structure with all capabilities listed. */
   public capabilities(): {[key: string]: any} {
     return {
-      ackAlarms: this.ackAlarms(),
+      version: this.version.toString(),
       apiVersion: this.apiVersion(),
+      type: (this.type === ServerTypes.MERIDIAN ? 'Meridian' : 'Horizon'),
+
+      ackAlarms: this.ackAlarms(),
       enhancedFlows: this.enhancedFlows(),
       flows: this.flows(),
-      tos: this.tos(),
       graphs: this.graphs(),
+      ipInterfaceRest: this.ipInterfaceRest(),
       outageSummaries: this.outageSummaries(),
       setNodeLocation: this.setNodeLocation(),
       situations: this.situations(),
       ticketer: this.ticketer(),
-      type: (this.type === ServerTypes.MERIDIAN ? 'Meridian' : 'Horizon'),
+      tos: this.tos(),
     };
   }
 
   /** A human-readable representation of the metadata. */
   public toString() {
-    return 'ServerMetadata[version=' + this.version.toString()
+    return 'ServerMetadata['
+      + 'version=' + this.version.toString()
       + ',apiVersion=' + this.apiVersion()
       + ',type=' + this.type.toString()
+
       + ',ackAlarms=' + this.ackAlarms()
       + ',enhancedFlows=' + this.enhancedFlows()
       + ',flows=' + this.flows()
-      + ',tos=' + this.tos()
       + ',graphs=' + this.graphs()
+      + ',ipInterfaceRest=' + this.ipInterfaceRest()
       + ',outageSummaries=' + this.outageSummaries()
       + ',setNodeLocation=' + this.setNodeLocation()
       + ',situations=' + this.situations()
       + ',ticketer=' + this.ticketer()
+      + ',tos=' + this.tos()
       + ']';
   }
 

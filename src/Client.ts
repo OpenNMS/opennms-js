@@ -15,6 +15,7 @@ import {AlarmDAO} from './dao/AlarmDAO';
 import {EventDAO} from './dao/EventDAO';
 import {FlowDAO} from './dao/FlowDAO';
 import {NodeDAO} from './dao/NodeDAO';
+import {IpInterfaceDAO} from './dao/IpInterfaceDAO';
 import {SituationFeedbackDAO} from './dao/SituationFeedbackDAO';
 
 import {AxiosHTTP} from './rest/AxiosHTTP';
@@ -158,6 +159,11 @@ export class Client implements IHasHTTP {
     return this.getDao('nodes', NodeDAO) as NodeDAO;
   }
 
+  /** Get an IP interface DAO for querying interfaces. */
+  public ipInterfaces() {
+    return this.getDao('ipInterfaces', IpInterfaceDAO) as IpInterfaceDAO;
+  }
+
   /** Get a flow DAO for querying flows. */
   public flows() {
     return this.getDao('flows', FlowDAO) as FlowDAO;
@@ -176,7 +182,7 @@ export class Client implements IHasHTTP {
    */
   private getDao(
     key: string,
-    daoClass: typeof AlarmDAO | typeof EventDAO | typeof NodeDAO | typeof FlowDAO | typeof SituationFeedbackDAO,
+    daoClass: typeof AlarmDAO | typeof EventDAO | typeof NodeDAO | typeof IpInterfaceDAO | typeof FlowDAO | typeof SituationFeedbackDAO,
   ) {
     const existing = this.daos.get(key);
     if (existing) {
