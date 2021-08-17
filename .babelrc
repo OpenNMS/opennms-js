@@ -21,6 +21,7 @@
         "node_modules"
       ]
       }],
+    "lodash",
     ["@babel/plugin-transform-runtime", {
       "corejs": 2,
       "helpers": false,

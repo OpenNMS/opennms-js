@@ -1,5 +1,6 @@
 var webpack = require('webpack');
 var path = require('path');
+var LodashPlugin = require('lodash-webpack-plugin');
 var TerserPlugin = require('terser-webpack-plugin');
 var pkginfo = require('./package.json');
 
@@ -143,6 +144,7 @@ function createConfig(options) {
       minimize: true,
       debug: false
     }));
+    myconf.plugins.push(new LodashPlugin);
     myconf.output.filename += '.min';
   }
 
