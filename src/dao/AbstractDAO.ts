@@ -50,13 +50,13 @@ export abstract class AbstractDAO<K, T> extends BaseDAO implements IValueProvide
    * Retrieve a model object.
    * @param id - the ID of the object
    */
-  public abstract async get(id: K): Promise<T>;
+  public abstract get(id: K): Promise<T>;
 
   /**
    * Find all model objects given an optional filter.
    * @param filter - the filter to use when retrieving a list of model objects
    */
-  public abstract async find(filter?: Filter): Promise<T[]>;
+  public abstract find(filter?: Filter): Promise<T[]>;
 
   /**
    * Get the list properties that can be used in queries.

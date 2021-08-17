@@ -3,7 +3,8 @@ import {API, Rest, DAO, Client} from './API';
 import {log} from './api/Log';
 
 import chalk from 'chalk';
-import {cloneDeep, startCase} from 'lodash';
+import cloneDeep from 'lodash/cloneDeep';
+import startCase from 'lodash/startCase';
 import {table, getBorderCharacters} from 'table';
 import { OrderBy, Order, Orders } from './api/OrderBy';
 
