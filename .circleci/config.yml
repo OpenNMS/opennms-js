@@ -22,17 +22,19 @@ commands:
             - ~/.npm
       - run:
           name: Run dist build
+          no_output_timeout: 20m
           command: npm run dist
 
 jobs:
   build:
     docker:
-      - image: circleci/node:10
+      - image: circleci/node:12
     steps:
       - checkout
       - build-dist
       - run:
           name: Run tests
+          no_output_timeout: 20m
           command: npm run lint && npm run test
       - run:
           name: Build documentation
@@ -61,7 +63,7 @@ jobs:
           destination: antora-docs.zip
   merge:
     docker:
-      - image: circleci/node:10
+      - image: circleci/node:12
     steps:
       - add_ssh_keys:
           fingerprints:
@@ -83,7 +85,7 @@ jobs:
           command: git push origin main:main
   pages:
     docker:
-      - image: circleci/node:10
+      - image: circleci/node:12
     steps:
       - add_ssh_keys:
           fingerprints:

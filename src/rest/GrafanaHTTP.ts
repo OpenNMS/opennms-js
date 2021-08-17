@@ -5,7 +5,7 @@ import {OnmsServer} from '../api/OnmsServer';
 
 import {log} from '../api/Log';
 
-import {cloneDeep} from 'lodash';
+import cloneDeep from 'lodash/cloneDeep';
 import {GrafanaError} from './GrafanaError';
 
 import btoa from 'btoa';

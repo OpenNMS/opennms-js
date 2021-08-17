@@ -5,7 +5,7 @@ import {OnmsServer} from './OnmsServer';
 import {IHash} from '../internal/IHash';
 import {Util} from '../internal/Util';
 
-import {cloneDeep} from 'lodash';
+import cloneDeep from 'lodash/cloneDeep';
 
 /** @hidden */
 export const DEFAULT_TIMEOUT = 10000;
