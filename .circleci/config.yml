@@ -22,6 +22,7 @@ commands:
             - ~/.npm
       - run:
           name: Run dist build
+          no_output_timeout: 20m
           command: npm run dist
 
 jobs:
@@ -33,6 +34,7 @@ jobs:
       - build-dist
       - run:
           name: Run tests
+          no_output_timeout: 20m
           command: npm run lint && npm run test
       - run:
           name: Build documentation
