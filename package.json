@@ -54,7 +54,7 @@
     "jest": "^27.0.0",
     "jest-environment-node-debug": "^2.0.0",
     "parallel-webpack": "^2.6.0",
-    "regenerator-runtime": "^0.13.7",
+    "regenerator-runtime": "^0.13.9",
     "rimraf": "^3.0.2",
     "standard-changelog": "^2.0.24",
     "terser-webpack-plugin": "^5.0.0",
