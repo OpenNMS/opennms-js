@@ -4,6 +4,7 @@ import {IHasUrlValue} from '../api/IHasUrlValue';
 
 import {OnmsServiceType} from './OnmsServiceType';
 import {OnmsServiceStatusType} from './OnmsServiceStatusType';
+import { Util } from '../internal/Util';
 
 /**
  * Represents an OpenNMS monitored service.
@@ -35,4 +36,26 @@ export class OnmsMonitoredService implements IHasUrlValue {
   public get urlValue() {
     return this.type ? this.type.name : 'null';
   }
+
+  /**
+   * create a monitored service object from a JSON object
+   * @hidden
+   */
+   public static fromData(data: any): OnmsMonitoredService {
+    const service = new OnmsMonitoredService();
+
+    service.id = Util.toNumber(data.id);
+    service.lastFail = Util.toDate(data.lastFail);
+    service.lastGood = Util.toDate(data.lastGood);
+
+    if (data.serviceType) {
+      service.type = OnmsServiceType.for(data.serviceType.id, data.serviceType.name);
+    }
+    if (data.status) {
+      service.status = OnmsServiceStatusType.forId(data.status);
+    }
+
+    return service;
+  }
+
 }
