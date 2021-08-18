@@ -97,11 +97,16 @@
 						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="model.onmsipinterface.html#_snmpinterface" class="tsd-kind-icon">_snmp<wbr>Interface</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="model.onmsipinterface.html#hostname" class="tsd-kind-icon">hostname</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="model.onmsipinterface.html#id" class="tsd-kind-icon">id</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="model.onmsipinterface.html#ipaddress" class="tsd-kind-icon">ip<wbr>Address</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="model.onmsipinterface.html#isdown" class="tsd-kind-icon">is<wbr>Down</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="model.onmsipinterface.html#ismanaged" class="tsd-kind-icon">is<wbr>Managed</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="model.onmsipinterface.html#lastcapsdpoll" class="tsd-kind-icon">last<wbr>Capsd<wbr>Poll</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="model.onmsipinterface.html#lastegressflow" class="tsd-kind-icon">last<wbr>Egress<wbr>Flow</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="model.onmsipinterface.html#lastingressflow" class="tsd-kind-icon">last<wbr>Ingress<wbr>Flow</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="model.onmsipinterface.html#monitoredservicecount" class="tsd-kind-icon">monitored<wbr>Service<wbr>Count</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="model.onmsipinterface.html#node" class="tsd-kind-icon">node</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="model.onmsipinterface.html#services" class="tsd-kind-icon">services</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="model.onmsipinterface.html#snmpinterfaceid" class="tsd-kind-icon">snmp<wbr>Interface<wbr>Id</a></li>
@@ -111,7 +116,7 @@
 						<section class="tsd-index-section ">
 							<h3>Accessors</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="model.onmsipinterface.html#snmpinterface" class="tsd-kind-icon">snmp<wbr>Interface</a></li>
+								<li class="tsd-kind-accessor tsd-parent-kind-class"><a href="model.onmsipinterface.html#snmpinterface" class="tsd-kind-icon">snmp<wbr>Interface</a></li>
 								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="model.onmsipinterface.html#urlvalue" class="tsd-kind-icon">url<wbr>Value</a></li>
 							</ul>
 						</section>
@@ -120,13 +125,28 @@
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Properties</h2>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
+					<a name="_snmpinterface" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagPrivate">Private</span> <span class="tsd-flag ts-flagOptional">Optional</span> _snmp<wbr>Interface</h3>
+					<div class="tsd-signature tsd-kind-icon">_snmp<wbr>Interface<span class="tsd-signature-symbol">:</span> <a href="model.onmssnmpinterface.html" class="tsd-signature-type">OnmsSnmpInterface</a></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/df244219/src/model/OnmsIpInterface.ts#L18">src/model/OnmsIpInterface.ts:18</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>store the interface&#39;s associated SNMP interface, used by get/set <code>.snmpInterface</code></p>
+						</div>
+					</div>
+				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
 					<a name="hostname" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagOptional">Optional</span> hostname</h3>
 					<div class="tsd-signature tsd-kind-icon">hostname<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/0ce7973b/src/model/OnmsIpInterface.ts#L22">src/model/OnmsIpInterface.ts:22</a></li>
+							<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/df244219/src/model/OnmsIpInterface.ts#L27">src/model/OnmsIpInterface.ts:27</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -141,7 +161,7 @@
 					<div class="tsd-signature tsd-kind-icon">id<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/0ce7973b/src/model/OnmsIpInterface.ts#L16">src/model/OnmsIpInterface.ts:16</a></li>
+							<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/df244219/src/model/OnmsIpInterface.ts#L21">src/model/OnmsIpInterface.ts:21</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -156,7 +176,7 @@
 					<div class="tsd-signature tsd-kind-icon">ip<wbr>Address<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Address4</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Address6</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/0ce7973b/src/model/OnmsIpInterface.ts#L19">src/model/OnmsIpInterface.ts:19</a></li>
+							<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/df244219/src/model/OnmsIpInterface.ts#L24">src/model/OnmsIpInterface.ts:24</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -166,12 +186,27 @@
 					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="isdown" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> is<wbr>Down</h3>
+					<div class="tsd-signature tsd-kind-icon">is<wbr>Down<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/df244219/src/model/OnmsIpInterface.ts#L30">src/model/OnmsIpInterface.ts:30</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>whether the interface is down</p>
+						</div>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
 					<a name="ismanaged" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagOptional">Optional</span> is<wbr>Managed</h3>
 					<div class="tsd-signature tsd-kind-icon">is<wbr>Managed<span class="tsd-signature-symbol">:</span> <a href="model.onmsmanagedtype.html" class="tsd-signature-type">OnmsManagedType</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/0ce7973b/src/model/OnmsIpInterface.ts#L25">src/model/OnmsIpInterface.ts:25</a></li>
+							<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/df244219/src/model/OnmsIpInterface.ts#L33">src/model/OnmsIpInterface.ts:33</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -186,7 +221,7 @@
 					<div class="tsd-signature tsd-kind-icon">last<wbr>Capsd<wbr>Poll<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Moment</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/0ce7973b/src/model/OnmsIpInterface.ts#L28">src/model/OnmsIpInterface.ts:28</a></li>
+							<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/df244219/src/model/OnmsIpInterface.ts#L36">src/model/OnmsIpInterface.ts:36</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -196,12 +231,57 @@
 					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="lastegressflow" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> last<wbr>Egress<wbr>Flow</h3>
+					<div class="tsd-signature tsd-kind-icon">last<wbr>Egress<wbr>Flow<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Moment</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/df244219/src/model/OnmsIpInterface.ts#L42">src/model/OnmsIpInterface.ts:42</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>the last time egress flows were received</p>
+						</div>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="lastingressflow" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> last<wbr>Ingress<wbr>Flow</h3>
+					<div class="tsd-signature tsd-kind-icon">last<wbr>Ingress<wbr>Flow<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Moment</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/df244219/src/model/OnmsIpInterface.ts#L39">src/model/OnmsIpInterface.ts:39</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>the last time ingress flows were received</p>
+						</div>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="monitoredservicecount" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> monitored<wbr>Service<wbr>Count</h3>
+					<div class="tsd-signature tsd-kind-icon">monitored<wbr>Service<wbr>Count<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/df244219/src/model/OnmsIpInterface.ts#L45">src/model/OnmsIpInterface.ts:45</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>the number of monitored services this interface has</p>
+						</div>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
 					<a name="node" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagOptional">Optional</span> node</h3>
 					<div class="tsd-signature tsd-kind-icon">node<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/0ce7973b/src/model/OnmsIpInterface.ts#L49">src/model/OnmsIpInterface.ts:49</a></li>
+							<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/df244219/src/model/OnmsIpInterface.ts#L72">src/model/OnmsIpInterface.ts:72</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -216,7 +296,7 @@
 					<div class="tsd-signature tsd-kind-icon">services<span class="tsd-signature-symbol">:</span> <a href="model.onmsmonitoredservice.html" class="tsd-signature-type">OnmsMonitoredService</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> = [] as OnmsMonitoredService[]</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/0ce7973b/src/model/OnmsIpInterface.ts#L52">src/model/OnmsIpInterface.ts:52</a></li>
+							<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/df244219/src/model/OnmsIpInterface.ts#L75">src/model/OnmsIpInterface.ts:75</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -231,7 +311,7 @@
 					<div class="tsd-signature tsd-kind-icon">snmp<wbr>Interface<wbr>Id<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/0ce7973b/src/model/OnmsIpInterface.ts#L34">src/model/OnmsIpInterface.ts:34</a></li>
+							<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/df244219/src/model/OnmsIpInterface.ts#L51">src/model/OnmsIpInterface.ts:51</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -246,7 +326,7 @@
 					<div class="tsd-signature tsd-kind-icon">snmp<wbr>Primary<span class="tsd-signature-symbol">:</span> <a href="model.onmsprimarytype.html" class="tsd-signature-type">OnmsPrimaryType</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/0ce7973b/src/model/OnmsIpInterface.ts#L31">src/model/OnmsIpInterface.ts:31</a></li>
+							<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/df244219/src/model/OnmsIpInterface.ts#L48">src/model/OnmsIpInterface.ts:48</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -258,17 +338,18 @@
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Accessors</h2>
-				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class">
+				<section class="tsd-panel tsd-member tsd-kind-accessor tsd-parent-kind-class">
 					<a name="snmpinterface" class="tsd-anchor"></a>
 					<h3>snmp<wbr>Interface</h3>
-					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> snmpInterface<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
+					<ul class="tsd-signatures tsd-kind-accessor tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> snmpInterface<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="model.onmssnmpinterface.html" class="tsd-signature-type">OnmsSnmpInterface</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span></li>
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">set</span> snmpInterface<span class="tsd-signature-symbol">(</span>iface<span class="tsd-signature-symbol">: </span><a href="model.onmssnmpinterface.html" class="tsd-signature-type">OnmsSnmpInterface</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/0ce7973b/src/model/OnmsIpInterface.ts#L37">src/model/OnmsIpInterface.ts:37</a></li>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/df244219/src/model/OnmsIpInterface.ts#L54">src/model/OnmsIpInterface.ts:54</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -276,7 +357,26 @@
 									<p>the SNMP interface, if it appears on the node</p>
 								</div>
 							</div>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
+							<h4 class="tsd-returns-title">Returns <a href="model.onmssnmpinterface.html" class="tsd-signature-type">OnmsSnmpInterface</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span></h4>
+						</li>
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/df244219/src/model/OnmsIpInterface.ts#L67">src/model/OnmsIpInterface.ts:67</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>the SNMP interface, if it appears on the node</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>iface: <a href="model.onmssnmpinterface.html" class="tsd-signature-type">OnmsSnmpInterface</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -290,7 +390,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/0ce7973b/src/model/OnmsIpInterface.ts#L55">src/model/OnmsIpInterface.ts:55</a></li>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/df244219/src/model/OnmsIpInterface.ts#L78">src/model/OnmsIpInterface.ts:78</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -341,6 +441,9 @@
 					<li class="current tsd-kind-class tsd-parent-kind-module">
 						<a href="model.onmsipinterface.html" class="tsd-kind-icon">Onms<wbr>IpInterface</a>
 						<ul>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
+								<a href="model.onmsipinterface.html#_snmpinterface" class="tsd-kind-icon">_snmp<wbr>Interface</a>
+							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class">
 								<a href="model.onmsipinterface.html#hostname" class="tsd-kind-icon">hostname</a>
 							</li>
@@ -351,10 +454,22 @@
 								<a href="model.onmsipinterface.html#ipaddress" class="tsd-kind-icon">ip<wbr>Address</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="model.onmsipinterface.html#isdown" class="tsd-kind-icon">is<wbr>Down</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
 								<a href="model.onmsipinterface.html#ismanaged" class="tsd-kind-icon">is<wbr>Managed</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class">
 								<a href="model.onmsipinterface.html#lastcapsdpoll" class="tsd-kind-icon">last<wbr>Capsd<wbr>Poll</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="model.onmsipinterface.html#lastegressflow" class="tsd-kind-icon">last<wbr>Egress<wbr>Flow</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="model.onmsipinterface.html#lastingressflow" class="tsd-kind-icon">last<wbr>Ingress<wbr>Flow</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="model.onmsipinterface.html#monitoredservicecount" class="tsd-kind-icon">monitored<wbr>Service<wbr>Count</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class">
 								<a href="model.onmsipinterface.html#node" class="tsd-kind-icon">node</a>
@@ -368,7 +483,7 @@
 							<li class=" tsd-kind-property tsd-parent-kind-class">
 								<a href="model.onmsipinterface.html#snmpprimary" class="tsd-kind-icon">snmp<wbr>Primary</a>
 							</li>
-							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
+							<li class=" tsd-kind-accessor tsd-parent-kind-class">
 								<a href="model.onmsipinterface.html#snmpinterface" class="tsd-kind-icon">snmp<wbr>Interface</a>
 							</li>
 							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
@@ -388,18 +503,22 @@
 		<h2>Legend</h2>
 		<div class="tsd-legend-group">
 			<ul class="tsd-legend">
+				<li class="tsd-kind-class"><span class="tsd-kind-icon">Class</span></li>
+				<li class="tsd-kind-class tsd-has-type-parameter"><span class="tsd-kind-icon">Class with type parameter</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-class"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class"><span class="tsd-kind-icon">Accessor</span></li>
+			</ul>
+			<ul class="tsd-legend">
 				<li class="tsd-kind-object-literal"><span class="tsd-kind-icon">Object literal</span></li>
 				<li class="tsd-kind-variable"><span class="tsd-kind-icon">Variable</span></li>
 				<li class="tsd-kind-function"><span class="tsd-kind-icon">Function</span></li>
 			</ul>
 			<ul class="tsd-legend">
-				<li class="tsd-kind-class"><span class="tsd-kind-icon">Class</span></li>
-				<li class="tsd-kind-class tsd-has-type-parameter"><span class="tsd-kind-icon">Class with type parameter</span></li>
-				<li class="tsd-kind-property tsd-parent-kind-class"><span class="tsd-kind-icon">Property</span></li>
-			</ul>
-			<ul class="tsd-legend">
 				<li class="tsd-kind-interface"><span class="tsd-kind-icon">Interface</span></li>
 				<li class="tsd-kind-interface tsd-has-type-parameter"><span class="tsd-kind-icon">Interface with type parameter</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private property</span></li>
 			</ul>
 		</div>
 	</div>
