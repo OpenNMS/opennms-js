@@ -36,35 +36,35 @@ export class OnmsVersion {
   /**
    * Returns true if this version is less than the passed version.
    */
-  public lt(compare = '0.0.0') {
+  public lt(compare = '0.0.0'): boolean {
     return VersionCompare.lt(this.version, compare);
   }
 
   /**
    * Returns true if this version is less than or equal to the passed version.
    */
-  public le(compare = '0.0.0') {
+  public le(compare = '0.0.0'): boolean {
     return VersionCompare.lte(this.version, compare);
   }
 
   /**
    * Returns true if this version is equal to the passed version.
    */
-  public eq(compare = '0.0.0') {
+  public eq(compare = '0.0.0'): boolean {
     return VersionCompare.matches(this.version, compare);
   }
 
   /**
    * Returns true if this version is greater than or equal to the passed version.
    */
-  public ge(compare = '0.0.0') {
+  public ge(compare = '0.0.0'): boolean {
     return VersionCompare.gte(this.version, compare);
   }
 
   /**
    * Returns true if this version is greater than the passed version.
    */
-  public gt(compare = '0.0.0') {
+  public gt(compare = '0.0.0'): boolean {
     return VersionCompare.gt(this.version, compare);
   }
 

@@ -12,6 +12,7 @@ const moment = require('moment');
 /** @hidden */
 // tslint:disable-next-line
 import {Moment} from 'moment';
+import { Util } from '../internal/Util';
 
 /**
  * A base DAO useful for subclassing to create real DAOs.  This differs from
@@ -155,19 +156,17 @@ export abstract class BaseDAO {
 
   /**
    * Convert the given value to a date, or undefined if it cannot be converted.
+   * @deprecated use {@link Util.toDate} instead.
    */
   protected toDate(from: any): Moment|undefined {
-    if (from === undefined || from === null || from === '') {
-      return undefined;
-    }
-    return moment(from);
+    return Util.toDate(from);
   }
 
   /**
    * Convert the given value to a number, or undefined if it cannot be converted.
+   * @deprecated use {@link Util.toNumber} instead.
    */
   protected toNumber(from: any): number|undefined {
-    const ret = parseInt(from, 10);
-    return isNaN(ret) ? undefined : ret;
+    return Util.toNumber(from);
   }
 }

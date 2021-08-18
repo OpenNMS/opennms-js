@@ -80,7 +80,7 @@ describe('NodeDAO with v1 API', () => {
       expect(ip.hostname).toEqual('butters.internal.opennms.com');
       expect(ip.services.length).toEqual(5);
 
-      expect(ip.snmpInterface).toEqual(snmp);
+      expect(ip.snmpInterface.toJSON()).toEqual(snmp.toJSON());
     });
   });
   it('NodeDAO.find(id=43)', () => {
@@ -144,7 +144,8 @@ describe('NodeDAO with v2 API', () => {
       expect(ip.hostname).toEqual('172.20.1.110');
       expect(ip.services.length).toEqual(3);
 
-      expect(ip.snmpInterface).toBeUndefined();
+      expect(ip.snmpInterface).toBeDefined();
+      expect(ip.snmpInterface.id).toEqual(2018);
     });
   });
   /* find is currently broken in v2
