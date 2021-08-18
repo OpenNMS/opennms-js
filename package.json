@@ -1,6 +1,6 @@
 {
   "name": "opennms",
-  "version": "2.1.2-SNAPSHOT",
+  "version": "2.2.0-SNAPSHOT",
   "description": "Client API for the OpenNMS network monitoring platform",
   "main": "dist/opennms.js",
   "bin": {
@@ -143,7 +143,7 @@
     "dist": "npm run lint && npm run test && npm run build && npm run docs",
     "api": "typedoc --out dist/docs/ src",
     "docs": "npm run api && antora --stacktrace generate local-site.yml",
-    "watch": "webpack --progress --colors --watch",
+    "watch": "webpack --progress --watch",
     "test": "jest",
     "watch-test": "jest --watch",
     "dist-test": "npm run dist",

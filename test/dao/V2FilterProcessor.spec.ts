@@ -11,6 +11,8 @@ import {SearchPropertyTypes} from '../../src/api/SearchPropertyType';
 import {Severities} from '../../src/model/OnmsSeverity';
 
 import {V2FilterProcessor} from '../../src/dao/V2FilterProcessor';
+import { Clause } from '../../src/api/Clause';
+import { Operators } from '../../src/api/Operator';
 
 describe('V2FilterProcessor', () => {
   // tslint:disable-next-line:completed-docs
@@ -123,11 +125,30 @@ describe('V2FilterProcessor', () => {
     });
   });
   it('alarm filter: orderBy=lastEventTime&order=DESC&orderBy=id&order=ASC', () => {
+    const clauses = [ 1, 2, 3 ].map((id) => {
+      return new Clause(new Restriction('node.id', Comparators.EQ, id), Operators.OR);
+    });
+
     const filter = new Filter();
     filter
       .withOrderBy(new OrderBy('lastEventTime', Orders.DESC))
       .withOrderBy(new OrderBy('id', Orders.ASC));
     const proc = new V2FilterProcessor();
     expect(() => { proc.getParameters(filter); }).toThrow();
+  });
+  it('nested query', () => {
+    const clauses = [ 1, 2, 3 ].map((id) => {
+      return new Clause(new Restriction('node.id', Comparators.EQ, id), Operators.OR);
+    });
+
+    const filter = new Filter()
+      .withAndRestriction(new Restriction('snmpPrimary', Comparators.EQ, 'P'))
+      .withAndRestriction(new NestedRestriction(...clauses));
+
+    const proc = new V2FilterProcessor();
+    expect(toSearch(filter, proc)).toEqual(
+      'snmpPrimary==P;'
+      + '(node.id==1,node.id==2,node.id==3)'
+    );
   });
 });
