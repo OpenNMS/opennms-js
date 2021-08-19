@@ -74,55 +74,7 @@ export class EventDAO extends AbstractDAO<number, OnmsEvent> {
    * @hidden
    */
   public fromData(data: any) {
-    const event = new OnmsEvent();
-
-    if (!data) {
-      return undefined;
-    }
-
-    event.id = this.toNumber(data.id);
-    event.uei = data.uei;
-    event.label = data.label;
-    event.location = data.location;
-    event.nodeId = this.toNumber(data.nodeId);
-    event.nodeLabel = data.nodeLabel;
-    event.ipAddress = Util.toIPAddress(data.ipAddress);
-    event.createTime = this.toDate(data.createTime);
-    event.time = this.toDate(data.time);
-    event.source = data.source;
-    event.description = data.description;
-    event.logMessage = data.logMessage;
-
-    if (data.severity) {
-      event.severity = OnmsSeverity.forLabel(data.severity);
-    }
-
-    if (data.serviceType) {
-      const st = data.serviceType;
-      event.service = OnmsServiceType.for(st.id, st.name);
-    }
-
-    if (data.parameters) {
-      let parms = data.parameters;
-      if (parms.parameter) {
-        parms = parms.parameter;
-      }
-      if (!Array.isArray(parms)) {
-        parms = [parms];
-      }
-      event.parameters = [];
-
-      for (let parm of parms) {
-        parm = new OnmsParm(
-          parm.name,
-          parm.type,
-          parm.value,
-        );
-        event.parameters.push(parm);
-      }
-    }
-
-    return event;
+    return OnmsEvent.fromData(data);
   }
 
   /**
