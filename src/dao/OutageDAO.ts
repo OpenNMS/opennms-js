@@ -6,29 +6,30 @@ import {IOnmsHTTP} from '../api/IOnmsHTTP';
 import {OnmsError} from '../api/OnmsError';
 
 import { OnmsIpInterface } from '../model/OnmsIpInterface';
+import { OnmsOutage } from '../model/OnmsOutage';
 
 /**
- * Data access for [[OnmsIpInterface]] objects.
+ * Data access for [[OnmsOutage]] objects.
  * @category DAO
  */
-export class IpInterfaceDAO extends AbstractDAO<number, OnmsIpInterface> {
+export class OutageDAO extends AbstractDAO<number, OnmsOutage> {
   constructor(impl: IHasHTTP | IOnmsHTTP) {
     super(impl);
   }
 
   /**
-   * Get an IP interface, given the interface's ID.
+   * Get an outage, given the outage's ID.
    *
-   * @param id - The interface's ID.
+   * @param id - The outage's ID.
    */
-  public async get(id: number): Promise<OnmsIpInterface> {
+  public async get(id: number): Promise<OnmsOutage> {
     this.assertV2();
     return this.getOptions().then((builder) => {
         return this.http.get(this.getRoot() + '/' + id, builder.build()).then((result) => {
-            const node = OnmsIpInterface.fromData(result.data);
+            const node = OnmsOutage.fromData(result.data);
 
             if (!node) {
-              throw new OnmsError(`IpInterfaceDAO.get id={id} ReST request succeeded, but did not return a valid node.`);
+              throw new OnmsError(`OutageDAO.get id={id} ReST request succeeded, but did not return a valid node.`);
             }
 
             return node;
@@ -36,15 +37,15 @@ export class IpInterfaceDAO extends AbstractDAO<number, OnmsIpInterface> {
     });
   }
 
-  /** Search for IP interfaces, given an optional filter. */
-  public async find(filter?: Filter): Promise<OnmsIpInterface[]> {
+  /** Search for outages, given an optional filter. */
+  public async find(filter?: Filter): Promise<OnmsOutage[]> {
     this.assertV2();
     return this.getOptions(filter).then((builder) => {
         return this.http.get(this.getRoot(), builder.build()).then((result) => {
             let data = result.data;
 
-            if (data !== null && this.getCount(data, result.code) > 0 && data.ipInterface) {
-                data = data.ipInterface;
+            if (data !== null && this.getCount(data, result.code) > 0 && data.outage) {
+                data = data.outage;
             } else {
                 data = [];
             }
@@ -53,11 +54,11 @@ export class IpInterfaceDAO extends AbstractDAO<number, OnmsIpInterface> {
                 if (data.id) {
                     data = [data];
                 } else {
-                    throw new OnmsError('Expected an array of IP interfaces but got "' + (typeof data) + '" instead.');
+                    throw new OnmsError('Expected an array of outages but got "' + (typeof data) + '" instead.');
                 }
             }
-            return data.map((ifaceData: any) => {
-                return OnmsIpInterface.fromData(ifaceData);
+            return data.map((outageData: any) => {
+                return OnmsOutage.fromData(outageData);
             });
         });
     });
@@ -71,11 +72,11 @@ export class IpInterfaceDAO extends AbstractDAO<number, OnmsIpInterface> {
   }
 
   /**
-   * The root of the IpInterfaces ReST API.
+   * The root of the outage ReST API.
    * @hidden
    */
   private getRoot() {
-    return 'api/v2/ipinterfaces';
+    return 'api/v2/outages';
   }
 
   /**
@@ -84,7 +85,7 @@ export class IpInterfaceDAO extends AbstractDAO<number, OnmsIpInterface> {
    */
    private assertV2() {
     if (this.getApiVersion() < 2) {
-      throw new OnmsError('The IP interface ReST API is only available on v2.');
+      throw new OnmsError('The outage ReST API is only available on v2.');
     }
   }
 }

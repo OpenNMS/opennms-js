@@ -22,6 +22,10 @@ OpenNMS.js follows [semantic versioning](https://semver.org/).
 
 ### Release Notes
 
+#### 2.3.0
+
+This release adds support for querying SNMP interfaces, monitored services, and outages.
+
 #### 2.2.0
 
 This release bumps a bunch of dependencies, plus it adds support for the `api/v2/ipinterfaces` API.

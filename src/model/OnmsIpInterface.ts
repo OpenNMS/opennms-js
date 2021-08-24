@@ -54,9 +54,10 @@ export class OnmsIpInterface implements IHasUrlValue {
   public get snmpInterface(): OnmsSnmpInterface | undefined {
     if (this._snmpInterface) {
       return this._snmpInterface;
-    } else if (this.node) {
+    } else if (this.node && this.node.snmpInterfaces) {
       for (const iface of this.node.snmpInterfaces) {
         if (iface.id === this.snmpInterfaceId) {
+          this._snmpInterface = iface;
           return iface;
         }
       }
