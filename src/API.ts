@@ -21,8 +21,11 @@ import {AlarmDAO} from './dao/AlarmDAO';
 import {EventDAO} from './dao/EventDAO';
 import {FlowDAO} from './dao/FlowDAO';
 import {IpInterfaceDAO} from './dao/IpInterfaceDAO';
+import {MonitoredServiceDAO} from './dao/MonitoredServiceDAO';
 import {NodeDAO} from './dao/NodeDAO';
+import {OutageDAO} from './dao/OutageDAO';
 import {SituationFeedbackDAO} from './dao/SituationFeedbackDAO';
+import {SnmpInterfaceDAO} from './dao/SnmpInterfaceDAO';
 import {V1FilterProcessor} from './dao/V1FilterProcessor';
 import {V2FilterProcessor} from './dao/V2FilterProcessor';
 
@@ -98,8 +101,11 @@ const DAO = Object.freeze({
   EventDAO,
   FlowDAO,
   IpInterfaceDAO,
+  MonitoredServiceDAO,
   NodeDAO,
+  OutageDAO,
   SituationFeedbackDAO,
+  SnmpInterfaceDAO,
   V1FilterProcessor,
   V2FilterProcessor,
 });

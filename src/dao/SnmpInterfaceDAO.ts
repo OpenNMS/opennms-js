@@ -5,30 +5,29 @@ import {IHasHTTP} from '../api/IHasHTTP';
 import {IOnmsHTTP} from '../api/IOnmsHTTP';
 import {OnmsError} from '../api/OnmsError';
 
-import { OnmsIpInterface } from '../model/OnmsIpInterface';
-
+import { OnmsSnmpInterface } from '../model/OnmsSnmpInterface';
 /**
- * Data access for [[OnmsIpInterface]] objects.
+ * Data access for [[OnmsSnmpInterface]] objects.
  * @category DAO
  */
-export class IpInterfaceDAO extends AbstractDAO<number, OnmsIpInterface> {
+export class SnmpInterfaceDAO extends AbstractDAO<number, OnmsSnmpInterface> {
   constructor(impl: IHasHTTP | IOnmsHTTP) {
     super(impl);
   }
 
   /**
-   * Get an IP interface, given the interface's ID.
+   * Get an SNMP interface, given the interface's ID.
    *
    * @param id - The interface's ID.
    */
-  public async get(id: number): Promise<OnmsIpInterface> {
+  public async get(id: number): Promise<OnmsSnmpInterface> {
     this.assertV2();
     return this.getOptions().then((builder) => {
         return this.http.get(this.getRoot() + '/' + id, builder.build()).then((result) => {
-            const node = OnmsIpInterface.fromData(result.data);
+            const node = OnmsSnmpInterface.fromData(result.data);
 
             if (!node) {
-              throw new OnmsError(`IpInterfaceDAO.get id={id} ReST request succeeded, but did not return a valid node.`);
+              throw new OnmsError(`SnmpInterfaceDAO.get id={id} ReST request succeeded, but did not return a valid node.`);
             }
 
             return node;
@@ -36,15 +35,15 @@ export class IpInterfaceDAO extends AbstractDAO<number, OnmsIpInterface> {
     });
   }
 
-  /** Search for IP interfaces, given an optional filter. */
-  public async find(filter?: Filter): Promise<OnmsIpInterface[]> {
+  /** Search for SNMP interfaces, given an optional filter. */
+  public async find(filter?: Filter): Promise<OnmsSnmpInterface[]> {
     this.assertV2();
     return this.getOptions(filter).then((builder) => {
         return this.http.get(this.getRoot(), builder.build()).then((result) => {
             let data = result.data;
 
-            if (data !== null && this.getCount(data, result.code) > 0 && data.ipInterface) {
-                data = data.ipInterface;
+            if (data !== null && this.getCount(data, result.code) > 0 && data.snmpInterface) {
+                data = data.snmpInterface;
             } else {
                 data = [];
             }
@@ -53,11 +52,11 @@ export class IpInterfaceDAO extends AbstractDAO<number, OnmsIpInterface> {
                 if (data.id) {
                     data = [data];
                 } else {
-                    throw new OnmsError('Expected an array of IP interfaces but got "' + (typeof data) + '" instead.');
+                    throw new OnmsError('Expected an array of SNMP interfaces but got "' + (typeof data) + '" instead.');
                 }
             }
             return data.map((ifaceData: any) => {
-                return OnmsIpInterface.fromData(ifaceData);
+                return OnmsSnmpInterface.fromData(ifaceData);
             });
         });
     });
@@ -71,11 +70,11 @@ export class IpInterfaceDAO extends AbstractDAO<number, OnmsIpInterface> {
   }
 
   /**
-   * The root of the IpInterfaces ReST API.
+   * The root of the SnmpInterfaces ReST API.
    * @hidden
    */
   private getRoot() {
-    return 'api/v2/ipinterfaces';
+    return 'api/v2/snmpinterfaces';
   }
 
   /**
@@ -84,7 +83,7 @@ export class IpInterfaceDAO extends AbstractDAO<number, OnmsIpInterface> {
    */
    private assertV2() {
     if (this.getApiVersion() < 2) {
-      throw new OnmsError('The IP interface ReST API is only available on v2.');
+      throw new OnmsError('The SNMP interface ReST API is only available on v2.');
     }
   }
 }
