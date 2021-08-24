@@ -14,9 +14,12 @@ import {BaseDAO} from './dao/BaseDAO';
 import {AlarmDAO} from './dao/AlarmDAO';
 import {EventDAO} from './dao/EventDAO';
 import {FlowDAO} from './dao/FlowDAO';
-import {NodeDAO} from './dao/NodeDAO';
 import {IpInterfaceDAO} from './dao/IpInterfaceDAO';
+import {MonitoredServiceDAO} from './dao/MonitoredServiceDAO';
+import {NodeDAO} from './dao/NodeDAO';
+import {OutageDAO} from './dao/OutageDAO';
 import {SituationFeedbackDAO} from './dao/SituationFeedbackDAO';
+import {SnmpInterfaceDAO} from './dao/SnmpInterfaceDAO';
 
 import {AxiosHTTP} from './rest/AxiosHTTP';
 import { OnmsAuthConfig } from './api/OnmsAuthConfig';
@@ -164,6 +167,21 @@ export class Client implements IHasHTTP {
     return this.getDao('ipInterfaces', IpInterfaceDAO) as IpInterfaceDAO;
   }
 
+  /** Get an SNMP interface DAO for querying interfaces. */
+  public snmpInterfaces() {
+    return this.getDao('snmpInterfaces', SnmpInterfaceDAO) as SnmpInterfaceDAO;
+  }
+
+  /** Get a monitored service DAO for querying services. */
+  public monitoredServices() {
+    return this.getDao('monitoredServices', MonitoredServiceDAO) as MonitoredServiceDAO;
+  }
+
+  /** Get an outage DAO for querying outages. */
+  public outages() {
+    return this.getDao('outages', OutageDAO) as OutageDAO;
+  }
+
   /** Get a flow DAO for querying flows. */
   public flows() {
     return this.getDao('flows', FlowDAO) as FlowDAO;
@@ -182,7 +200,7 @@ export class Client implements IHasHTTP {
    */
   private getDao(
     key: string,
-    daoClass: typeof AlarmDAO | typeof EventDAO | typeof NodeDAO | typeof IpInterfaceDAO | typeof FlowDAO | typeof SituationFeedbackDAO,
+    daoClass: typeof AlarmDAO | typeof EventDAO | typeof FlowDAO | typeof IpInterfaceDAO | typeof NodeDAO | typeof OutageDAO | typeof MonitoredServiceDAO | typeof SituationFeedbackDAO | typeof SnmpInterfaceDAO,
   ) {
     const existing = this.daos.get(key);
     if (existing) {
