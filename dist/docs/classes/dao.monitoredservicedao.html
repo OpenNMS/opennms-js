@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>NodeDAO | opennms</title>
+	<title>MonitoredServiceDAO | opennms</title>
 	<meta name="description" content="Documentation for opennms">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -59,10 +59,10 @@
 					<a href="../modules/dao.html">dao</a>
 				</li>
 				<li>
-					<a href="dao.nodedao.html">NodeDAO</a>
+					<a href="dao.monitoredservicedao.html">MonitoredServiceDAO</a>
 				</li>
 			</ul>
-			<h1>Class NodeDAO</h1>
+			<h1>Class MonitoredServiceDAO</h1>
 		</div>
 	</div>
 </header>
@@ -72,7 +72,7 @@
 			<section class="tsd-panel tsd-comment">
 				<div class="tsd-comment tsd-typography">
 					<div class="lead">
-						<p>Data access for <a href="model.onmsnode.html">OnmsNode</a> objects.</p>
+						<p>Data access for <a href="model.onmsmonitoredservice.html">OnmsMonitoredService</a> objects.</p>
 					</div>
 				</div>
 			</section>
@@ -80,10 +80,10 @@
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<a href="dao.abstractdao.html" class="tsd-signature-type">AbstractDAO</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">, </span><a href="model.onmsnode.html" class="tsd-signature-type">OnmsNode</a><span class="tsd-signature-symbol">&gt;</span>
+						<a href="dao.abstractdao.html" class="tsd-signature-type">AbstractDAO</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">, </span><a href="model.onmsmonitoredservice.html" class="tsd-signature-type">OnmsMonitoredService</a><span class="tsd-signature-symbol">&gt;</span>
 						<ul class="tsd-hierarchy">
 							<li>
-								<span class="target">NodeDAO</span>
+								<span class="target">MonitoredServiceDAO</span>
 							</li>
 						</ul>
 					</li>
@@ -102,42 +102,37 @@
 						<section class="tsd-index-section ">
 							<h3>Constructors</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite"><a href="dao.nodedao.html#constructor" class="tsd-kind-icon">constructor</a></li>
+								<li class="tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite"><a href="dao.monitoredservicedao.html#constructor" class="tsd-kind-icon">constructor</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section tsd-is-inherited">
 							<h3>Accessors</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited"><a href="dao.nodedao.html#http" class="tsd-kind-icon">http</a></li>
-								<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited"><a href="dao.nodedao.html#server" class="tsd-kind-icon">server</a></li>
+								<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited"><a href="dao.monitoredservicedao.html#http" class="tsd-kind-icon">http</a></li>
+								<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited"><a href="dao.monitoredservicedao.html#server" class="tsd-kind-icon">server</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
 							<h3>Methods</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-method tsd-parent-kind-class"><a href="dao.nodedao.html#fetch" class="tsd-kind-icon">fetch</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite"><a href="dao.nodedao.html#find" class="tsd-kind-icon">find</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="dao.nodedao.html#findvalues" class="tsd-kind-icon">find<wbr>Values</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite"><a href="dao.nodedao.html#get" class="tsd-kind-icon">get</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected"><a href="dao.nodedao.html#getapiversion" class="tsd-kind-icon">get<wbr>Api<wbr>Version</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected"><a href="dao.nodedao.html#getcount" class="tsd-kind-icon">get<wbr>Count</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="dao.nodedao.html#getfilterprocessor" class="tsd-kind-icon">get<wbr>Filter<wbr>Processor</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><a href="dao.nodedao.html#getnodeid" class="tsd-kind-icon">get<wbr>Node<wbr>Id</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected"><a href="dao.nodedao.html#getoptions" class="tsd-kind-icon">get<wbr>Options</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="dao.nodedao.html#getpropertiescache" class="tsd-kind-icon">get<wbr>Properties<wbr>Cache</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class"><a href="dao.nodedao.html#ipinterfaces" class="tsd-kind-icon">ip<wbr>Interfaces</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited tsd-is-protected"><a href="dao.nodedao.html#onsetserver" class="tsd-kind-icon">on<wbr>Set<wbr>Server</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected"><a href="dao.nodedao.html#parseresultlist" class="tsd-kind-icon">parse<wbr>Result<wbr>List</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="dao.nodedao.html#searchproperties" class="tsd-kind-icon">search<wbr>Properties</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="dao.nodedao.html#searchproperty" class="tsd-kind-icon">search<wbr>Property</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-protected"><a href="dao.nodedao.html#searchpropertypath" class="tsd-kind-icon">search<wbr>Property<wbr>Path</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class"><a href="dao.nodedao.html#services" class="tsd-kind-icon">services</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class"><a href="dao.nodedao.html#snmpinterfaces" class="tsd-kind-icon">snmp<wbr>Interfaces</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected"><a href="dao.nodedao.html#todate" class="tsd-kind-icon">to<wbr>Date</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected"><a href="dao.nodedao.html#tonumber" class="tsd-kind-icon">to<wbr>Number</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected"><a href="dao.nodedao.html#usejson" class="tsd-kind-icon">use<wbr>Json</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected"><a href="dao.nodedao.html#visitclause" class="tsd-kind-icon">visit<wbr>Clause</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected"><a href="dao.nodedao.html#visitfilter" class="tsd-kind-icon">visit<wbr>Filter</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite"><a href="dao.monitoredservicedao.html#find" class="tsd-kind-icon">find</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="dao.monitoredservicedao.html#findvalues" class="tsd-kind-icon">find<wbr>Values</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite"><a href="dao.monitoredservicedao.html#get" class="tsd-kind-icon">get</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected"><a href="dao.monitoredservicedao.html#getapiversion" class="tsd-kind-icon">get<wbr>Api<wbr>Version</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected"><a href="dao.monitoredservicedao.html#getcount" class="tsd-kind-icon">get<wbr>Count</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="dao.monitoredservicedao.html#getfilterprocessor" class="tsd-kind-icon">get<wbr>Filter<wbr>Processor</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected"><a href="dao.monitoredservicedao.html#getoptions" class="tsd-kind-icon">get<wbr>Options</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="dao.monitoredservicedao.html#getpropertiescache" class="tsd-kind-icon">get<wbr>Properties<wbr>Cache</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited tsd-is-protected"><a href="dao.monitoredservicedao.html#onsetserver" class="tsd-kind-icon">on<wbr>Set<wbr>Server</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected"><a href="dao.monitoredservicedao.html#parseresultlist" class="tsd-kind-icon">parse<wbr>Result<wbr>List</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="dao.monitoredservicedao.html#searchproperties" class="tsd-kind-icon">search<wbr>Properties</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="dao.monitoredservicedao.html#searchproperty" class="tsd-kind-icon">search<wbr>Property</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-protected"><a href="dao.monitoredservicedao.html#searchpropertypath" class="tsd-kind-icon">search<wbr>Property<wbr>Path</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected"><a href="dao.monitoredservicedao.html#todate" class="tsd-kind-icon">to<wbr>Date</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected"><a href="dao.monitoredservicedao.html#tonumber" class="tsd-kind-icon">to<wbr>Number</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected"><a href="dao.monitoredservicedao.html#usejson" class="tsd-kind-icon">use<wbr>Json</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected"><a href="dao.monitoredservicedao.html#visitclause" class="tsd-kind-icon">visit<wbr>Clause</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected"><a href="dao.monitoredservicedao.html#visitfilter" class="tsd-kind-icon">visit<wbr>Filter</a></li>
 							</ul>
 						</section>
 					</div>
@@ -149,14 +144,14 @@
 					<a name="constructor" class="tsd-anchor"></a>
 					<h3>constructor</h3>
 					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite">
-						<li class="tsd-signature tsd-kind-icon">new <wbr>NodeDAO<span class="tsd-signature-symbol">(</span>impl<span class="tsd-signature-symbol">: </span><a href="../interfaces/api.ihashttp.html" class="tsd-signature-type">IHasHTTP</a><span class="tsd-signature-symbol"> | </span><a href="../interfaces/api.ionmshttp.html" class="tsd-signature-type">IOnmsHTTP</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="dao.nodedao.html" class="tsd-signature-type">NodeDAO</a></li>
+						<li class="tsd-signature tsd-kind-icon">new <wbr>Monitored<wbr>ServiceDAO<span class="tsd-signature-symbol">(</span>impl<span class="tsd-signature-symbol">: </span><a href="../interfaces/api.ihashttp.html" class="tsd-signature-type">IHasHTTP</a><span class="tsd-signature-symbol"> | </span><a href="../interfaces/api.ionmshttp.html" class="tsd-signature-type">IOnmsHTTP</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="dao.monitoredservicedao.html" class="tsd-signature-type">MonitoredServiceDAO</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<p>Overrides <a href="dao.basedao.html">BaseDAO</a>.<a href="dao.basedao.html#constructor">constructor</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/62f7114e/src/dao/NodeDAO.ts#L17">src/dao/NodeDAO.ts:17</a></li>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/62f7114e/src/dao/MonitoredServiceDAO.ts#L14">src/dao/MonitoredServiceDAO.ts:14</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -165,7 +160,7 @@
 									<h5>impl: <a href="../interfaces/api.ihashttp.html" class="tsd-signature-type">IHasHTTP</a><span class="tsd-signature-symbol"> | </span><a href="../interfaces/api.ionmshttp.html" class="tsd-signature-type">IOnmsHTTP</a></h5>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <a href="dao.nodedao.html" class="tsd-signature-type">NodeDAO</a></h4>
+							<h4 class="tsd-returns-title">Returns <a href="dao.monitoredservicedao.html" class="tsd-signature-type">MonitoredServiceDAO</a></h4>
 						</li>
 					</ul>
 				</section>
@@ -263,51 +258,23 @@
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Methods</h2>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
-					<a name="fetch" class="tsd-anchor"></a>
-					<h3>fetch</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">fetch<span class="tsd-signature-symbol">(</span>node<span class="tsd-signature-symbol">: </span><a href="model.onmsnode.html" class="tsd-signature-type">OnmsNode</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="model.onmsnode.html" class="tsd-signature-type">OnmsNode</a><span class="tsd-signature-symbol">&gt;</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/62f7114e/src/dao/NodeDAO.ts#L73">src/dao/NodeDAO.ts:73</a></li>
-								</ul>
-							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>Given a node, fetch all the sub-model objects for that node. (ipInterfaces, snmpInterfaces, etc.)</p>
-								</div>
-							</div>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>node: <a href="model.onmsnode.html" class="tsd-signature-type">OnmsNode</a></h5>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="model.onmsnode.html" class="tsd-signature-type">OnmsNode</a><span class="tsd-signature-symbol">&gt;</span></h4>
-						</li>
-					</ul>
-				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
 					<a name="find" class="tsd-anchor"></a>
 					<h3>find</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
-						<li class="tsd-signature tsd-kind-icon">find<span class="tsd-signature-symbol">(</span>filter<span class="tsd-signature-symbol">?: </span><a href="api.filter.html" class="tsd-signature-type">Filter</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="model.onmsnode.html" class="tsd-signature-type">OnmsNode</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">find<span class="tsd-signature-symbol">(</span>filter<span class="tsd-signature-symbol">?: </span><a href="api.filter.html" class="tsd-signature-type">Filter</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="model.onmsmonitoredservice.html" class="tsd-signature-type">OnmsMonitoredService</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<p>Overrides <a href="dao.abstractdao.html">AbstractDAO</a>.<a href="dao.abstractdao.html#find">find</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/62f7114e/src/dao/NodeDAO.ts#L47">src/dao/NodeDAO.ts:47</a></li>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/62f7114e/src/dao/MonitoredServiceDAO.ts#L40">src/dao/MonitoredServiceDAO.ts:40</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Search for nodes, given an optional filter.</p>
+									<p>Search for services, given an optional filter.</p>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -316,7 +283,7 @@
 									<h5><span class="tsd-flag ts-flagOptional">Optional</span> filter: <a href="api.filter.html" class="tsd-signature-type">Filter</a></h5>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="model.onmsnode.html" class="tsd-signature-type">OnmsNode</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="model.onmsmonitoredservice.html" class="tsd-signature-type">OnmsMonitoredService</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -364,19 +331,19 @@
 					<a name="get" class="tsd-anchor"></a>
 					<h3>get</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
-						<li class="tsd-signature tsd-kind-icon">get<span class="tsd-signature-symbol">(</span>id<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, recurse<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="model.onmsnode.html" class="tsd-signature-type">OnmsNode</a><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">get<span class="tsd-signature-symbol">(</span>id<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="model.onmsmonitoredservice.html" class="tsd-signature-type">OnmsMonitoredService</a><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<p>Overrides <a href="dao.abstractdao.html">AbstractDAO</a>.<a href="dao.abstractdao.html#get">get</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/62f7114e/src/dao/NodeDAO.ts#L28">src/dao/NodeDAO.ts:28</a></li>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/62f7114e/src/dao/MonitoredServiceDAO.ts#L24">src/dao/MonitoredServiceDAO.ts:24</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Get an node, given the node&#39;s ID.</p>
+									<p>Get monitored service, given the service&#39;s ID.</p>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -384,17 +351,11 @@
 								<li>
 									<h5>id: <span class="tsd-signature-type">number</span></h5>
 									<div class="tsd-comment tsd-typography">
-										<p>The node&#39;s ID.</p>
-									</div>
-								</li>
-								<li>
-									<h5><span class="tsd-flag ts-flagDefault value">Default value</span> recurse: <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> = false</span></h5>
-									<div class="tsd-comment tsd-typography">
-										<p>Optionally fetch all sub-model objects. (ipInterface, etc.)</p>
+										<p>The service&#39;s ID.</p>
 									</div>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="model.onmsnode.html" class="tsd-signature-type">OnmsNode</a><span class="tsd-signature-symbol">&gt;</span></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="model.onmsmonitoredservice.html" class="tsd-signature-type">OnmsMonitoredService</a><span class="tsd-signature-symbol">&gt;</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -477,37 +438,6 @@
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-private">
-					<a name="getnodeid" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagPrivate">Private</span> get<wbr>Node<wbr>Id</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-private">
-						<li class="tsd-signature tsd-kind-icon">get<wbr>Node<wbr>Id<span class="tsd-signature-symbol">(</span>node<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> | </span><a href="model.onmsnode.html" class="tsd-signature-type">OnmsNode</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/62f7114e/src/dao/NodeDAO.ts#L247">src/dao/NodeDAO.ts:247</a></li>
-								</ul>
-							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>Get the node&#39;s ID</p>
-								</div>
-							</div>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>node: <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> | </span><a href="model.onmsnode.html" class="tsd-signature-type">OnmsNode</a></h5>
-									<div class="tsd-comment tsd-typography">
-										<p>the node</p>
-									</div>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span></h4>
-						</li>
-					</ul>
-				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
 					<a name="getoptions" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagProtected">Protected</span> get<wbr>Options</h3>
@@ -561,37 +491,6 @@
 							</div>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></h4>
 							<p>the cache for this dao. It is created if it does not exist.</p>
-						</li>
-					</ul>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
-					<a name="ipinterfaces" class="tsd-anchor"></a>
-					<h3>ip<wbr>Interfaces</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">ip<wbr>Interfaces<span class="tsd-signature-symbol">(</span>passedNode<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> | </span><a href="model.onmsnode.html" class="tsd-signature-type">OnmsNode</a>, filter<span class="tsd-signature-symbol">?: </span><a href="api.filter.html" class="tsd-signature-type">Filter</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="model.onmsipinterface.html" class="tsd-signature-type">OnmsIpInterface</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/62f7114e/src/dao/NodeDAO.ts#L100">src/dao/NodeDAO.ts:100</a></li>
-								</ul>
-							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>Given a node, get the IP interfaces for that node.</p>
-								</div>
-							</div>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>passedNode: <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> | </span><a href="model.onmsnode.html" class="tsd-signature-type">OnmsNode</a></h5>
-								</li>
-								<li>
-									<h5><span class="tsd-flag ts-flagOptional">Optional</span> filter: <a href="api.filter.html" class="tsd-signature-type">Filter</a></h5>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="model.onmsipinterface.html" class="tsd-signature-type">OnmsIpInterface</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -748,80 +647,15 @@
 							<aside class="tsd-sources">
 								<p>Overrides <a href="dao.abstractdao.html">AbstractDAO</a>.<a href="dao.abstractdao.html#searchpropertypath">searchPropertyPath</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/62f7114e/src/dao/NodeDAO.ts#L236">src/dao/NodeDAO.ts:236</a></li>
+									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/62f7114e/src/dao/MonitoredServiceDAO.ts#L69">src/dao/MonitoredServiceDAO.ts:69</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>The path to the node search properties endpoint.</p>
+									<p>The path to the service search properties endpoint.</p>
 								</div>
 							</div>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
-						</li>
-					</ul>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
-					<a name="services" class="tsd-anchor"></a>
-					<h3>services</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">services<span class="tsd-signature-symbol">(</span>passedNode<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> | </span><a href="model.onmsnode.html" class="tsd-signature-type">OnmsNode</a>, ipInterface<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><a href="model.onmsipinterface.html" class="tsd-signature-type">OnmsIpInterface</a>, filter<span class="tsd-signature-symbol">?: </span><a href="api.filter.html" class="tsd-signature-type">Filter</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="model.onmsmonitoredservice.html" class="tsd-signature-type">OnmsMonitoredService</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/62f7114e/src/dao/NodeDAO.ts#L166">src/dao/NodeDAO.ts:166</a></li>
-								</ul>
-							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>Given a node, get the IP interfaces for that node.</p>
-								</div>
-							</div>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>passedNode: <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> | </span><a href="model.onmsnode.html" class="tsd-signature-type">OnmsNode</a></h5>
-								</li>
-								<li>
-									<h5>ipInterface: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><a href="model.onmsipinterface.html" class="tsd-signature-type">OnmsIpInterface</a></h5>
-								</li>
-								<li>
-									<h5><span class="tsd-flag ts-flagOptional">Optional</span> filter: <a href="api.filter.html" class="tsd-signature-type">Filter</a></h5>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="model.onmsmonitoredservice.html" class="tsd-signature-type">OnmsMonitoredService</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></h4>
-						</li>
-					</ul>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
-					<a name="snmpinterfaces" class="tsd-anchor"></a>
-					<h3>snmp<wbr>Interfaces</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">snmp<wbr>Interfaces<span class="tsd-signature-symbol">(</span>passedNode<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> | </span><a href="model.onmsnode.html" class="tsd-signature-type">OnmsNode</a>, filter<span class="tsd-signature-symbol">?: </span><a href="api.filter.html" class="tsd-signature-type">Filter</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="model.onmssnmpinterface.html" class="tsd-signature-type">OnmsSnmpInterface</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/OpenNMS/opennms-js/blob/62f7114e/src/dao/NodeDAO.ts#L135">src/dao/NodeDAO.ts:135</a></li>
-								</ul>
-							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>Given a node, get the SNMP interfaces for that node.</p>
-								</div>
-							</div>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>passedNode: <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> | </span><a href="model.onmsnode.html" class="tsd-signature-type">OnmsNode</a></h5>
-								</li>
-								<li>
-									<h5><span class="tsd-flag ts-flagOptional">Optional</span> filter: <a href="api.filter.html" class="tsd-signature-type">Filter</a></h5>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="model.onmssnmpinterface.html" class="tsd-signature-type">OnmsSnmpInterface</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -1040,96 +874,81 @@
 					<li class=" tsd-kind-class tsd-parent-kind-module">
 						<a href="dao.ipinterfacedao.html" class="tsd-kind-icon">Ip<wbr>InterfaceDAO</a>
 					</li>
-					<li class=" tsd-kind-class tsd-parent-kind-module">
-						<a href="dao.monitoredservicedao.html" class="tsd-kind-icon">Monitored<wbr>ServiceDAO</a>
-					</li>
 				</ul>
 				<ul class="current">
 					<li class="current tsd-kind-class tsd-parent-kind-module">
-						<a href="dao.nodedao.html" class="tsd-kind-icon">NodeDAO</a>
+						<a href="dao.monitoredservicedao.html" class="tsd-kind-icon">Monitored<wbr>ServiceDAO</a>
 						<ul>
 							<li class=" tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite">
-								<a href="dao.nodedao.html#constructor" class="tsd-kind-icon">constructor</a>
+								<a href="dao.monitoredservicedao.html#constructor" class="tsd-kind-icon">constructor</a>
 							</li>
 							<li class=" tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited">
-								<a href="dao.nodedao.html#http" class="tsd-kind-icon">http</a>
+								<a href="dao.monitoredservicedao.html#http" class="tsd-kind-icon">http</a>
 							</li>
 							<li class=" tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited">
-								<a href="dao.nodedao.html#server" class="tsd-kind-icon">server</a>
-							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="dao.nodedao.html#fetch" class="tsd-kind-icon">fetch</a>
+								<a href="dao.monitoredservicedao.html#server" class="tsd-kind-icon">server</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
-								<a href="dao.nodedao.html#find" class="tsd-kind-icon">find</a>
+								<a href="dao.monitoredservicedao.html#find" class="tsd-kind-icon">find</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
-								<a href="dao.nodedao.html#findvalues" class="tsd-kind-icon">find<wbr>Values</a>
+								<a href="dao.monitoredservicedao.html#findvalues" class="tsd-kind-icon">find<wbr>Values</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
-								<a href="dao.nodedao.html#get" class="tsd-kind-icon">get</a>
+								<a href="dao.monitoredservicedao.html#get" class="tsd-kind-icon">get</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
-								<a href="dao.nodedao.html#getapiversion" class="tsd-kind-icon">get<wbr>Api<wbr>Version</a>
+								<a href="dao.monitoredservicedao.html#getapiversion" class="tsd-kind-icon">get<wbr>Api<wbr>Version</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
-								<a href="dao.nodedao.html#getcount" class="tsd-kind-icon">get<wbr>Count</a>
+								<a href="dao.monitoredservicedao.html#getcount" class="tsd-kind-icon">get<wbr>Count</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
-								<a href="dao.nodedao.html#getfilterprocessor" class="tsd-kind-icon">get<wbr>Filter<wbr>Processor</a>
-							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-private">
-								<a href="dao.nodedao.html#getnodeid" class="tsd-kind-icon">get<wbr>Node<wbr>Id</a>
+								<a href="dao.monitoredservicedao.html#getfilterprocessor" class="tsd-kind-icon">get<wbr>Filter<wbr>Processor</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
-								<a href="dao.nodedao.html#getoptions" class="tsd-kind-icon">get<wbr>Options</a>
+								<a href="dao.monitoredservicedao.html#getoptions" class="tsd-kind-icon">get<wbr>Options</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
-								<a href="dao.nodedao.html#getpropertiescache" class="tsd-kind-icon">get<wbr>Properties<wbr>Cache</a>
-							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="dao.nodedao.html#ipinterfaces" class="tsd-kind-icon">ip<wbr>Interfaces</a>
+								<a href="dao.monitoredservicedao.html#getpropertiescache" class="tsd-kind-icon">get<wbr>Properties<wbr>Cache</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited tsd-is-protected">
-								<a href="dao.nodedao.html#onsetserver" class="tsd-kind-icon">on<wbr>Set<wbr>Server</a>
+								<a href="dao.monitoredservicedao.html#onsetserver" class="tsd-kind-icon">on<wbr>Set<wbr>Server</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
-								<a href="dao.nodedao.html#parseresultlist" class="tsd-kind-icon">parse<wbr>Result<wbr>List</a>
+								<a href="dao.monitoredservicedao.html#parseresultlist" class="tsd-kind-icon">parse<wbr>Result<wbr>List</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
-								<a href="dao.nodedao.html#searchproperties" class="tsd-kind-icon">search<wbr>Properties</a>
+								<a href="dao.monitoredservicedao.html#searchproperties" class="tsd-kind-icon">search<wbr>Properties</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
-								<a href="dao.nodedao.html#searchproperty" class="tsd-kind-icon">search<wbr>Property</a>
+								<a href="dao.monitoredservicedao.html#searchproperty" class="tsd-kind-icon">search<wbr>Property</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-protected">
-								<a href="dao.nodedao.html#searchpropertypath" class="tsd-kind-icon">search<wbr>Property<wbr>Path</a>
-							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="dao.nodedao.html#services" class="tsd-kind-icon">services</a>
-							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="dao.nodedao.html#snmpinterfaces" class="tsd-kind-icon">snmp<wbr>Interfaces</a>
+								<a href="dao.monitoredservicedao.html#searchpropertypath" class="tsd-kind-icon">search<wbr>Property<wbr>Path</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
-								<a href="dao.nodedao.html#todate" class="tsd-kind-icon">to<wbr>Date</a>
+								<a href="dao.monitoredservicedao.html#todate" class="tsd-kind-icon">to<wbr>Date</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
-								<a href="dao.nodedao.html#tonumber" class="tsd-kind-icon">to<wbr>Number</a>
+								<a href="dao.monitoredservicedao.html#tonumber" class="tsd-kind-icon">to<wbr>Number</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
-								<a href="dao.nodedao.html#usejson" class="tsd-kind-icon">use<wbr>Json</a>
+								<a href="dao.monitoredservicedao.html#usejson" class="tsd-kind-icon">use<wbr>Json</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
-								<a href="dao.nodedao.html#visitclause" class="tsd-kind-icon">visit<wbr>Clause</a>
+								<a href="dao.monitoredservicedao.html#visitclause" class="tsd-kind-icon">visit<wbr>Clause</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
-								<a href="dao.nodedao.html#visitfilter" class="tsd-kind-icon">visit<wbr>Filter</a>
+								<a href="dao.monitoredservicedao.html#visitfilter" class="tsd-kind-icon">visit<wbr>Filter</a>
 							</li>
 						</ul>
 					</li>
 				</ul>
 				<ul class="after-current">
+					<li class=" tsd-kind-class tsd-parent-kind-module">
+						<a href="dao.nodedao.html" class="tsd-kind-icon">NodeDAO</a>
+					</li>
 					<li class=" tsd-kind-class tsd-parent-kind-module">
 						<a href="dao.outagedao.html" class="tsd-kind-icon">OutageDAO</a>
 					</li>
@@ -1181,9 +1000,6 @@
 			</ul>
 			<ul class="tsd-legend">
 				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected method</span></li>
-			</ul>
-			<ul class="tsd-legend">
-				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private method</span></li>
 			</ul>
 		</div>
 	</div>
