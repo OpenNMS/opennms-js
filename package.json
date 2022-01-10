@@ -91,6 +91,7 @@
     "@antora/cli": "^2.3.4",
     "@antora/site-generator-default": "^2.3.4",
     "@babel/runtime-corejs2": "^7.15.3",
+    "@xmldom/xmldom": "^0.8.0",
     "axios": "^0.21.1",
     "btoa": "^1.2.1",
     "chalk": "^4.1.2",
@@ -104,8 +105,7 @@
     "qs": "^6.10.1",
     "table": "^6.0.0",
     "version_compare": "^0.0.3",
-    "x2js": "^3.4.1",
-    "xmldom": "github:xmldom/xmldom#0.7.0"
+    "x2js": "^3.4.1"
   },
   "resolutions": {
     "@types/marked": "^0.6.5",
