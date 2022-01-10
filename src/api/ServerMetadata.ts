@@ -128,6 +128,15 @@ export class ServerMetadata {
     }
   }
 
+  /** Does this version support the rest/resources/select ReST endpoint? */
+  public selectPartialResources() {
+    if (this.type === ServerTypes.MERIDIAN) {
+      return this.version.ge('2022.0.0');
+    } else {
+      return this.version.ge('29.0.5');
+    }
+  }
+
   /** Returns a convenient data structure with all capabilities listed. */
   public capabilities(): {[key: string]: any} {
     return {
@@ -145,6 +154,7 @@ export class ServerMetadata {
       situations: this.situations(),
       ticketer: this.ticketer(),
       tos: this.tos(),
+      selectPartialResources: this.selectPartialResources()
     };
   }
 
