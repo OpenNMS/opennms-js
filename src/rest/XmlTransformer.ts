@@ -3,7 +3,7 @@ if (global && !global.window) {
     (global as any).window = {} as Window;
     if (!(global.window as any).DOMParser) {
         // tslint:disable-next-line
-        (global.window as any).DOMParser = require('xmldom').DOMParser;
+        (global.window as any).DOMParser = require('@xmldom/xmldom').DOMParser;
     }
 }
 
