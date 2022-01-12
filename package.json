@@ -17,6 +17,8 @@
     "url": "https://github.com/OpenNMS/opennms-js.git"
   },
   "devDependencies": {
+    "@antora/cli": "^3.0.1",
+    "@antora/site-generator-default": "^3.0.1",
     "@babel/cli": "^7.16.8",
     "@babel/core": "^7.16.7",
     "@babel/plugin-proposal-async-generator-functions": "^7.16.8",
@@ -86,8 +88,6 @@
     "testRegex": "(/__tests__/.*|\\.(test|spec))\\.(ts|tsx|js)$"
   },
   "dependencies": {
-    "@antora/cli": "^2.3.4",
-    "@antora/site-generator-default": "^2.3.4",
     "@babel/runtime-corejs2": "^7.16.7",
     "@xmldom/xmldom": "^0.8.0",
     "axios": "^0.21.1",
