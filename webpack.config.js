@@ -43,10 +43,10 @@ var config = {
   },
   resolve: {
     modules: [
-      path.resolve('./src'),
-      path.resolve('./node_modules')
+      path.resolve(__dirname, 'src'),
+      'node_modules',
     ],
-    extensions: ['.webpack.js', '.web.js', '.ts', '.js']
+    extensions: ['.ts', '.js']
   },
   plugins: [],
   node: {
