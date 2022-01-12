@@ -93,7 +93,7 @@
     "axios": "^0.24.0",
     "btoa": "^1.2.1",
     "chalk": "^4.1.2",
-    "commander": "^8.1.0",
+    "commander": "^8.3.0",
     "fs": "^0.0.1-security",
     "html-to-formatted-text": "^2.6.0",
     "ip-address": "^8.1.0",
