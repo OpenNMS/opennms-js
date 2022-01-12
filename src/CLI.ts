@@ -10,7 +10,7 @@ import { OrderBy, Order, Orders } from './api/OrderBy';
 
 /** @hidden */
 const CLI = () => {
-  const version = global.OPENNMS_JS_VERSION || require('../package.json').version || 'unknown';
+  const version = (global as any).OPENNMS_JS_VERSION || require('../package.json').version || 'unknown';
 
   // tslint:disable
   const fs = require('fs');
