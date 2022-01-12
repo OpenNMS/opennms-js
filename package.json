@@ -39,7 +39,6 @@
     "@types/lodash.startcase": "^4.4.6",
     "@types/node": "^14.14.2",
     "@types/object-hash": "^2.1.1",
-    "@types/table": "^6.0.0",
     "@types/urijs": "^1.19.12",
     "babel-eslint": "^10.1.0",
     "babel-loader": "^8.2.2",
@@ -102,7 +101,7 @@
     "moment": "^2.29.1",
     "object-hash": "^2.2.0",
     "qs": "^6.10.1",
-    "table": "^6.0.0",
+    "table": "^6.8.0",
     "version_compare": "^0.0.3",
     "x2js": "^3.4.1"
   },
