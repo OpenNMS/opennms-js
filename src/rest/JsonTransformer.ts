@@ -16,8 +16,8 @@ export class JsonTransformer {
             } else {
                 try {
                     return JSON.parse(data);
-                } catch (err) {
-                    throw new OnmsError(err.message, undefined, undefined, data);
+                } catch (err: unknown) {
+                    throw new OnmsError((err as Error).message, undefined, undefined, data);
                 }
             }
         } else {
