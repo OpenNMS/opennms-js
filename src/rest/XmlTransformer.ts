@@ -33,8 +33,8 @@ export class XmlTransformer {
         if (typeof data === 'string') {
             try {
                 return xmlParser.xml2js(data);
-            } catch (err) {
-                throw new OnmsError(err.message, undefined, undefined, data);
+            } catch (err: unknown) {
+                throw new OnmsError((err as Error).message, undefined, undefined, data);
             }
         } else {
             // assume it's already parsed
