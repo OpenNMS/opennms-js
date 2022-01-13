@@ -22,6 +22,11 @@ OpenNMS.js follows [semantic versioning](https://semver.org/).
 
 ### Release Notes
 
+#### 2.4.0
+
+This release includes a _ton_ of dependency updates, as well as an enhancement to specify whether a remote OpenNMS system supports
+the newer, more efficient, query API for selecting resources.
+
 #### 2.3.0
 
 This release adds support for querying SNMP interfaces, monitored services, and outages.
