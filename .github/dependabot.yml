@@ -13,4 +13,7 @@ updates:
       include: "scope"
     schedule:
       interval: "daily"
+    ignore:
+      - dependency-name: "@types/lodash"
+      - dependency-name: "@types/node"
 
