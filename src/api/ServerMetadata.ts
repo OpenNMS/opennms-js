@@ -4,7 +4,7 @@ import {TicketerConfig} from './TicketerConfig';
 
 /**
  * A class that represents the capabilities an OpenNMS server has and other information about it.
- * @category Rest API
+ * @category Rest
  */
 export class ServerMetadata {
   /** The version of the server. */

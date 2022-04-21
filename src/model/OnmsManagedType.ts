@@ -33,7 +33,7 @@ export class OnmsManagedType extends OnmsEnum<string> implements IHasUrlValue {
  * Contains constant instances of all managed types.
  * @category Model
  */
-const ManagedTypes = {
+export const ManagedTypes = {
   /** Interface is managed */
   MANAGED: new OnmsManagedType('M', 'MANAGED'),
   /** Interface is an alias */
@@ -49,7 +49,4 @@ const ManagedTypes = {
   /** Interface should only be polled remotely */
   REMOTE_ONLY: new OnmsManagedType('X', 'REMOTE_ONLY'),
 };
-
-/** @hidden */
-const frozen = Object.freeze(ManagedTypes);
-export {frozen as ManagedTypes};
+Object.freeze(ManagedTypes);

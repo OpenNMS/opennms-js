@@ -28,7 +28,7 @@ export class OnmsNodeLabelSource extends OnmsEnum<string> implements IHasUrlValu
  * Contains constant instances of all available node label sources.
  * @category Model
  */
-const NodeLabelSources = {
+export const NodeLabelSources = {
   /** Node label is set by the user. */
   USER: new OnmsNodeLabelSource('U', 'USER'),
   /** Node label was retrieved from NETBIOS/Windows */
@@ -42,7 +42,4 @@ const NodeLabelSources = {
   /** Node label source is unknown */
   UNKNOWN: new OnmsNodeLabelSource(' ', 'UNKNOWN'),
 };
-
-/** @hidden */
-const frozen = Object.freeze(NodeLabelSources);
-export {frozen as NodeLabelSources};
+Object.freeze(NodeLabelSources);

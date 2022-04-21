@@ -3,7 +3,7 @@ import {OrderBy} from './OrderBy';
 
 /**
  * A query filter for DAOs.
- * @category Filtering API
+ * @category Filtering
  */
 export class Filter extends NestedRestriction {
   /** given a filter JSON structure, return a Filter object */

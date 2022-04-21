@@ -1,6 +1,6 @@
 /**
  * States the current ticket configuration.
- * @category Rest API
+ * @category Client
  */
 export class TicketerConfig {
   /** The name of the ticketer plugin currently in use. */

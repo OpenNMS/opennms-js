@@ -43,7 +43,7 @@ const parseParams = (params: { [key: string]: string|string[] }) => {
 
 /**
  * Implementation of the [[IOnmsHTTP]] interface using Axios: https://github.com/mzabriskie/axios
- * @category Rest Implementation
+ * @category Rest
  * @implements IOnmsHTTP
  */
 export class AxiosHTTP extends AbstractHTTP {

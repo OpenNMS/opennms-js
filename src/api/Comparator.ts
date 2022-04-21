@@ -2,7 +2,7 @@ import {OnmsEnum} from '../internal/OnmsEnum';
 
 /**
  * Represents a filter comparator.
- * @category Filtering API
+ * @category Filtering
  */
 export class Comparator extends OnmsEnum<number> {
   /** Find the comparator that matches the given comparator string. */
@@ -36,9 +36,9 @@ export class Comparator extends OnmsEnum<number> {
 
 /**
  * Contains constant instances of all available comparators.
- * @category Filtering API
+ * @category Filtering
  */
-const Comparators = {
+export const Comparators = {
   /** Equals (`=` or `==`) */
   EQ: new Comparator(1, 'EQ', '=', '=='),
 
@@ -79,8 +79,4 @@ const Comparators = {
   SQL: new Comparator(16, 'SQL'),
   */
 } as { [key: string]: Comparator };
-
-/** @hidden */
-const frozen = Object.freeze(Comparators);
-
-export {frozen as Comparators};
+Object.freeze(Comparators);

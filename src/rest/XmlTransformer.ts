@@ -22,7 +22,7 @@ const xmlParser = new X2JS({
 
 /**
  * Helper class to transform any xml string to a javascript object.
- * @category Rest API
+ * @category Rest
  */
 export class XmlTransformer {
     /**

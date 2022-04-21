@@ -28,7 +28,7 @@ export class OnmsTroubleTicketState extends OnmsEnum<number> implements IHasUrlV
  * Contains constant instances of all trouble ticket states.
  * @category Model
  */
-const TroubleTicketStates = {
+export const TroubleTicketStates = {
   /** Trouble ticket is currently open */
   OPEN: new OnmsTroubleTicketState(0, 'OPEN'),
   /** Trouble ticket is being created */
@@ -58,7 +58,4 @@ const TroubleTicketStates = {
   /** An attempt to mark the ticket canceled in the remote helpdesk system has failed */
   CANCEL_FAILED: new OnmsTroubleTicketState(13, 'CANCEL_FAILED'),
 };
-
-/** @hidden */
-const frozen = Object.freeze(TroubleTicketStates);
-export {frozen as TroubleTicketStates};
+Object.freeze(TroubleTicketStates);

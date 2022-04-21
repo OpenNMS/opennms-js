@@ -28,7 +28,7 @@ export class OnmsNodeType extends OnmsEnum<string> implements IHasUrlValue {
  * Contains constant instances of all node types.
  * @category Model
  */
-const NodeTypes = {
+export const NodeTypes = {
   /** Node is active */
   ACTIVE: new OnmsNodeType('A', 'ACTIVE'),
   /** Node is disabled */
@@ -36,7 +36,4 @@ const NodeTypes = {
   /** Node state is unknown */
   UNKNOWN: new OnmsNodeType(' ', 'UNKNOWN'),
 };
-
-/** @hidden */
-const frozen = Object.freeze(NodeTypes);
-export {frozen as NodeTypes};
+Object.freeze(NodeTypes);

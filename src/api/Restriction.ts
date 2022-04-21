@@ -9,7 +9,7 @@ const symbolPattern = /^(\w+?)\s*(\=\=|\=|\!\=|\>\=|\<\=|\>|\<)\s*(\w+?)$/;
 
 /**
  * A query restriction.
- * @category Filtering API
+ * @category Filtering
  */
 export class Restriction {
   /** Given a restriction JSON structure, return a Restriction object. */
