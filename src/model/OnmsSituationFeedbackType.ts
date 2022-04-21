@@ -28,7 +28,7 @@ export class OnmsSituationFeedbackType extends OnmsEnum<string> implements IHasU
  * Contains constant instances of all feedback types.
  * @category Model
  */
-const FeedbackTypes = {
+export const FeedbackTypes = {
   /** Alarm is correctly correlated */
   CORRECT: new OnmsSituationFeedbackType('CORRECT', 'CORRECT'),
   /** Alarm should be correlated in a new Situation  */
@@ -38,7 +38,4 @@ const FeedbackTypes = {
   /** Alarm was incorrectly ommitted */
   FALSE_NEGATIVE: new OnmsSituationFeedbackType('FALSE_NEGATIVE', 'FALSE_NEGATIVE'),
 };
-
-/** @hidden */
-const frozen = Object.freeze(FeedbackTypes);
-export {frozen as FeedbackTypes};
+Object.freeze(FeedbackTypes);

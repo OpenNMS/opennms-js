@@ -27,7 +27,7 @@ export class OnmsSeverity extends OnmsEnum<number> implements IHasUrlValue {
  * Contains constant instances of all severities.
  * @category Model
  */
-const Severities = {
+export const Severities = {
   INDETERMINATE: new OnmsSeverity(1, 'INDETERMINATE'),
   CLEARED: new OnmsSeverity(2, 'CLEARED'),
   NORMAL: new OnmsSeverity(3, 'NORMAL'),
@@ -36,7 +36,4 @@ const Severities = {
   MAJOR: new OnmsSeverity(6, 'MAJOR'),
   CRITICAL: new OnmsSeverity(7, 'CRITICAL'),
 };
-
-/** @hidden */
-const frozen = Object.freeze(Severities);
-export {frozen as Severities};
+Object.freeze(Severities);

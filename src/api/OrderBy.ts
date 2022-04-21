@@ -29,12 +29,11 @@ export class Order extends OnmsEnum<string> {
   }
 }
 
-const Orders = {
+export const Orders = {
   ASC: new Order('ASC', 'ASC'),
   DESC: new Order('DESC', 'DESC'),
 };
-const frozen = Object.freeze(Orders);
-export {frozen as Orders};
+Object.freeze(Orders);
 
 /**
  * Column ordering.

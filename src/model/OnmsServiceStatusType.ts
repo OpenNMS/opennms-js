@@ -33,7 +33,7 @@ export class OnmsServiceStatusType extends OnmsEnum<string> implements IHasUrlVa
  * Contains constant instances of all service status types.
  * @category Model
  */
-const ServiceStatusTypes = {
+export const ServiceStatusTypes = {
   /** Service is managed */
   MANAGED: new OnmsServiceStatusType('A', 'MANAGED'),
   /** Service is unmanaged */
@@ -51,7 +51,4 @@ const ServiceStatusTypes = {
   /** Service should only be monitored from remote locations */
   REMOTELY_MONITORED: new OnmsServiceStatusType('X', 'REMOTELY_MONITORED'),
 };
-
-/** @hidden */
-const frozen = Object.freeze(ServiceStatusTypes);
-export {frozen as ServiceStatusTypes};
+Object.freeze(ServiceStatusTypes);

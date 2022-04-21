@@ -21,7 +21,7 @@ export class OnmsAlarmType extends OnmsEnum<number> implements IHasUrlValue {
  * Contains constant instances of all available alarm types.
  * @category Model
  */
-const AlarmTypes = {
+export const AlarmTypes = {
   /** Possible Resolution */
   1: new OnmsAlarmType(1, 'possible resolution'),
   /** Resolution Event */
@@ -29,7 +29,4 @@ const AlarmTypes = {
   /** No Possible Resolution */
   3: new OnmsAlarmType(3, 'no possible resolution'),
 };
-
-/** @hidden */
-const frozen = Object.freeze(AlarmTypes);
-export {frozen as AlarmTypes};
+Object.freeze(AlarmTypes);
