@@ -33,7 +33,7 @@ export class OnmsPrimaryType extends OnmsEnum<string> implements IHasUrlValue {
  * Contains constant instances of all primary SNMP types.
  * @category Model
  */
-const PrimaryTypes = {
+export const PrimaryTypes = {
   /** Primary SNMP interface */
   PRIMARY: new OnmsPrimaryType('P', 'PRIMARY'),
   /** Secondary SNMP interface */
@@ -41,7 +41,4 @@ const PrimaryTypes = {
   /** SNMP interface is not eligible for collection */
   NOT_ELIGIBLE: new OnmsPrimaryType('N', 'NOT_ELIGIBLE'),
 };
-
-/** @hidden */
-const frozen = Object.freeze(PrimaryTypes);
-export {frozen as PrimaryTypes};
+Object.freeze(PrimaryTypes);

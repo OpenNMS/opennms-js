@@ -2,7 +2,7 @@ import {OnmsEnum, forLabel} from '../internal/OnmsEnum';
 
 /**
  * Represents a filter comparator.
- * @category Filtering API
+ * @category Filtering
  */
 export class Operator extends OnmsEnum<number> {
   /** Given a label ('and', 'or'), return the corresponding operator. */
@@ -31,15 +31,12 @@ export class Operator extends OnmsEnum<number> {
  * Contains constant instances of all operators.
  * @category Model
  */
-const Operators = {
+export const Operators = {
   /** AND (all must match) */
   AND: new Operator(1, 'AND'),
 
   /** OR (at least one must match) */
   OR: new Operator(2, 'OR'),
 };
+Object.freeze(Operators);
 
-/** @hidden */
-const frozen = Object.freeze(Operators);
-
-export {frozen as Operators};

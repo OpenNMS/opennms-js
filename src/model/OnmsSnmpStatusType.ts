@@ -28,7 +28,7 @@ export class OnmsSnmpStatusType extends OnmsEnum<number> implements IHasUrlValue
  * Contains constant instances of all SNMP status types.
  * @category Model
  */
-const SnmpStatusTypes = {
+export const SnmpStatusTypes = {
   /** Device is up */
   1: new OnmsSnmpStatusType(1, 'UP'),
   /** Device is down */
@@ -36,7 +36,4 @@ const SnmpStatusTypes = {
   /** Device is in "testing" mode */
   3: new OnmsSnmpStatusType(3, 'TESTING'),
 };
-
-/** @hidden */
-const frozen = Object.freeze(SnmpStatusTypes);
-export {frozen as SnmpStatusTypes};
+Object.freeze(SnmpStatusTypes);

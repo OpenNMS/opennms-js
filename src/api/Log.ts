@@ -5,7 +5,6 @@ import chalk from 'chalk';
 /**
  * Simple logger used for both CLI and browser use.
  * @category Internal
- * @namespace API
  */
 export class Logger {
   /** The actual "console" implementation to use. */
@@ -151,6 +150,6 @@ export class Logger {
  * import {log} from 'api/Logger';
  * ```
  *
- * @category API
+ * @category Internal
  */
 export const log = new Logger();

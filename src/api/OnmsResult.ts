@@ -1,6 +1,6 @@
 /**
  * An [[IOnmsHTTP]] query result.
- * @category Rest API
+ * @category Rest
  */
 export class OnmsResult<T> {
   /** Create a new success result. */

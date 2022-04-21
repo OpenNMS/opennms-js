@@ -22,7 +22,7 @@ const isString = (v?: any) => {
 
 /**
  * A builder for [[OnmsHTTPOptions]].  Create a new one with [[OnmsHTTPOptions.newBuilder]].
- * @category Rest API
+ * @category Rest
  */
 // tslint:disable:completed-docs variable-name whitespace
 export class OnmsHTTPOptionsBuilder {
@@ -258,7 +258,7 @@ export class OnmsHTTPOptionsBuilder {
 
 /**
  * Options to be used when making HTTP ReST calls.
- * @category Rest API
+ * @category Rest
  */
 export class OnmsHTTPOptions {
   /**

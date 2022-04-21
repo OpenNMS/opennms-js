@@ -7,7 +7,7 @@ import {Restriction} from './Restriction';
  * A visitor for filters.
  *
  * @interface
- * @category Filtering API
+ * @category Filtering
  */
 export interface IFilterVisitor {
   /** Process a [[Filter]] */

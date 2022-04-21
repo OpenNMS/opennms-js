@@ -33,7 +33,7 @@ export class OnmsCollectType extends OnmsEnum<string> implements IHasUrlValue {
  * Contains constant instances of all available collect types.
  * @category Model
  */
-const CollectTypes = {
+export const CollectTypes = {
   /** Collection Enabled */
   COLLECT: new OnmsCollectType('C', 'COLLECT'),
   /** User has forced collection */
@@ -43,7 +43,4 @@ const CollectTypes = {
   /** User has forced collection to be disabled */
   FORCE_DO_NOT_COLLECT: new OnmsCollectType('UN', 'FORCE_DO_NOT_COLLECT'),
 };
-
-/** @hidden */
-const frozen = Object.freeze(CollectTypes);
-export {frozen as CollectTypes};
+Object.freeze(CollectTypes);

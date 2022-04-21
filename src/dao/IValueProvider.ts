@@ -2,7 +2,7 @@
 /**
  * Interface to provide values to a certain property ID.
  * @interface
- * @category DAO
+ * @category Internal
  */
 export interface IValueProvider {
 

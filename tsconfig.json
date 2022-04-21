@@ -14,5 +14,13 @@
   },
   "include": [
     "src"
-  ]
+  ],
+  "typedocOptions": {
+    "categorizeByGroup": false,
+    "categoryOrder": [ "Client", "Model", "DAO", "Filtering", "Rest", "*" ],
+    "entryPoints": [ "src/API.ts" ],
+    "includeVersion": true,
+    "name": "OpenNMS.js",
+    "out": "dist/docs"
+  }
 }

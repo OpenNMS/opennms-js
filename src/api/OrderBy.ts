@@ -5,7 +5,7 @@ import {log} from './Log';
 
 /**
  * Represents a sort order.
- * @category Filtering API
+ * @category Filtering
  */
 export class Order extends OnmsEnum<string> {
   /** Given a label ('ASC', 'DESC'), return the corresponding order. */
@@ -29,16 +29,19 @@ export class Order extends OnmsEnum<string> {
   }
 }
 
-const Orders = {
+/**
+ * Constant references to all OrderBy types.
+ * @category Filtering
+ */
+export const Orders = {
   ASC: new Order('ASC', 'ASC'),
   DESC: new Order('DESC', 'DESC'),
 };
-const frozen = Object.freeze(Orders);
-export {frozen as Orders};
+Object.freeze(Orders);
 
 /**
  * Column ordering.
- * @category Filtering API
+ * @category Filtering
  */
 export class OrderBy {
   /** given an OrderBy JSON structure, return an [[OrderBy]] object */

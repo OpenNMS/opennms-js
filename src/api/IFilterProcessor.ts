@@ -4,7 +4,7 @@ import {IHash} from '../internal/IHash';
 /**
  * Interface that represents a processor to convert a [[Filter]] into a set of HTTP parameters.
  * @interface
- * @category Filtering API
+ * @category Filtering
  */
 export interface IFilterProcessor {
   /**
@@ -15,7 +15,8 @@ export interface IFilterProcessor {
 
 /**
  * A utility method to be used by IFilterProcessor to handle multi-value parameters.
- * @category Filtering API
+ * @category Filtering
+ * @hidden
  */
 export const addParameter = (hash: IHash<string|string[]>, key: string, value: any) => {
   // if it doesn't exist, go ahead and set it as a scalar string

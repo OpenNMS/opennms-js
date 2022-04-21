@@ -15,7 +15,7 @@ import {SearchPropertyTypes} from '../api/SearchPropertyType';
 
 /**
  * Converts a [[Filter]] into ReSTv2 FIQL parameters.
- * @category Filtering API
+ * @category Filtering
  */
 export class V2FilterProcessor implements IFilterProcessor {
 

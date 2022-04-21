@@ -12,7 +12,7 @@ import {MD5} from 'object-hash';
 
 /**
  * A builder for [[OnmsServer]].  Create a new one with [[OnmsServer.newBuilder]].
- * @category Rest API
+ * @category Rest
  */
 // tslint:disable:completed-docs variable-name whitespace
 export class OnmsServerBuilder {
@@ -101,7 +101,7 @@ export class OnmsServerBuilder {
 
 /**
  * Represents a remote OpenNMS server.
- * @category Rest API
+ * @category Rest
  */
 export class OnmsServer {
   /**
