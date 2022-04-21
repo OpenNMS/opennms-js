@@ -2,7 +2,7 @@ import {OnmsEnum} from '../internal/OnmsEnum';
 
 /**
  * Represents an OpenNMS server type.
- * @category Rest API
+ * @category Rest
  */
 export class ServerType extends OnmsEnum<number> {
 }

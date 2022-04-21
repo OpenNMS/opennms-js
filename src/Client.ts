@@ -26,7 +26,7 @@ import { OnmsAuthConfig } from './api/OnmsAuthConfig';
 
 /**
  * The OpenNMS client.  This is the primary interface to OpenNMS servers.
- * @category Rest API
+ * @category Rest
  */
 export class Client implements IHasHTTP {
   /**

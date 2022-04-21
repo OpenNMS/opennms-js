@@ -2,7 +2,7 @@ import {OnmsError} from '../api/OnmsError';
 
 /**
  * A Grafana error object.
- * @category Rest API
+ * @category Rest
  */
 export class GrafanaError extends OnmsError {
   /**

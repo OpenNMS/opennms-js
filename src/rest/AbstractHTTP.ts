@@ -24,7 +24,7 @@ export const OPTIONS_PROP = Symbol.for('options');
 
 /**
  * Abstract implementation of the OnmsHTTP interface meant to be extended by a concrete class.
- * @category Rest API
+ * @category Rest
  * @implements IOnmsHTTP
  */
 export abstract class AbstractHTTP implements IOnmsHTTP {

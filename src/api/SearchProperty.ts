@@ -3,7 +3,7 @@ import {IValueProvider} from '../dao/IValueProvider';
 
 /**
  * Represents a query search property.
- * @category Rest API
+ * @category Rest
  */
 export class SearchProperty {
   /** the search property ID */

@@ -12,7 +12,7 @@ import btoa from 'btoa';
 
 /**
  * Implementation of the [[IOnmsHTTP]] interface for Grafana.
- * @category Rest Implementation
+ * @category Rest
  * @implements IOnmsHTTP
  */
 export class GrafanaHTTP extends AbstractHTTP {

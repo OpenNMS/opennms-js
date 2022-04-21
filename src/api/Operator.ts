@@ -2,7 +2,7 @@ import {OnmsEnum, forLabel} from '../internal/OnmsEnum';
 
 /**
  * Represents a filter comparator.
- * @category Filtering API
+ * @category Filtering
  */
 export class Operator extends OnmsEnum<number> {
   /** Given a label ('and', 'or'), return the corresponding operator. */

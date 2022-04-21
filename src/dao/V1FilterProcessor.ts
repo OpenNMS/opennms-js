@@ -24,7 +24,7 @@ const isExclusive = (comparator: Comparator) => {
 
 /**
  * Converts a [[Filter]] into ReSTv1 parameters.
- * @category Filtering API
+ * @category Filtering
  */
 export class V1FilterProcessor implements IFilterProcessor {
   /** Given a filter, return a hash of URL parameters. */
