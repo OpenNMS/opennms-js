@@ -28,7 +28,7 @@ commands:
 jobs:
   build:
     docker:
-      - image: circleci/node:12
+      - image: cimg/node:16.14
     steps:
       - checkout
       - build-dist
@@ -47,7 +47,7 @@ jobs:
           destination: api-docs.zip
   build-docs:
     docker:
-      - image: opennms/antora:2.3.4-b6293
+      - image: opennms/antora:2.3.4-b7274
     steps:
       - checkout
       - run:
@@ -63,7 +63,7 @@ jobs:
           destination: antora-docs.zip
   merge:
     docker:
-      - image: circleci/node:12
+      - image: cimg/node:16.14
     steps:
       - add_ssh_keys:
           fingerprints:
@@ -85,7 +85,7 @@ jobs:
           command: git push --no-verify origin main:main
   pages:
     docker:
-      - image: circleci/node:12
+      - image: cimg/node:16.14
     steps:
       - add_ssh_keys:
           fingerprints:
