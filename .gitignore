@@ -21,7 +21,8 @@ docs/changed-files
 # locally required config files
 public/css/*.min.css
 
-# Editor junk
+# Editor and OS junk
+.DS_Store
 .idea/
 .vscode/
 *.sublime-workspace
