@@ -8,18 +8,11 @@ var createVariants = require('parallel-webpack').createVariants;
 
 var cloneDeep = require('lodash').cloneDeep;
 
-var argv = require('yargs').argv;
-var isProduction = argv.env === 'production';
-
 var libraryName = 'opennms';
 
 var variants = {
   target: [ 'web', 'node' ],
 };
-
-if (isProduction) {
-  variants.production = [ true, false ];
-}
 
 var config = {
   entry: {
@@ -87,6 +80,11 @@ function createConfig(options) {
     myconf.optimization = {};
   }
 
+  myconf.optimization.chunkIds = 'named';
+  myconf.optimization.minimize = false;
+  myconf.optimization.moduleIds = 'named';
+  myconf.optimization.removeAvailableModules = false;
+
   if (!options.production) {
     myconf.module.rules.unshift({
       test: /(\.tsx?)$/,
@@ -99,6 +97,13 @@ function createConfig(options) {
   }
 
   if (options.production) {
+    myconf.optimization.chunkIds = 'deterministic';
+    myconf.optimization.concatenateModules = true;
+    myconf.optimization.flagIncludedChunks = true;
+    myconf.optimization.mangleExports = 'deterministic';
+    myconf.optimization.moduleIds = 'deterministic';
+    myconf.optimization.removeAvailableModules = true;
+
     myconf.optimization.minimize = true;
     if (!myconf.optimization.minimizer) {
       myconf.optimization.minimizer = [];
@@ -152,9 +157,16 @@ function createConfig(options) {
   myconf.plugins.push(new webpack.ProvidePlugin({X2JS: 'x2js'}));
   myconf.output.filename += '.js';
 
-  console.log('Building variant: target=' + options.target + ', production=' + (!!options.production));
+  console.log('webpack config variant: target=' + options.target + ', production=' + (!!options.production));
 
   return myconf;
 }
 
-module.exports = createVariants({}, variants, createConfig);
+module.exports = (env, argv) => {
+  if (argv.mode === 'production') {
+    variants.production = [ true, false ];
+  }
+  const config = createVariants({}, variants, createConfig);
+  // console.debug('webpack config: ' + JSON.stringify(config, undefined, 2));
+  return config;
+};

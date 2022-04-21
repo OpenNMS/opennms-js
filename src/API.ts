@@ -1,3 +1,6 @@
+import 'core-js/stable';
+import 'regenerator-runtime/runtime';
+
 import {Clause} from './api/Clause';
 import {Comparator, Comparators} from './api/Comparator';
 import {Filter} from './api/Filter';

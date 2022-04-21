@@ -1,3 +1,6 @@
+import 'core-js/stable';
+import 'regenerator-runtime/runtime';
+
 import {API, Rest, DAO, Client} from './API';
 
 import {log} from './api/Log';
