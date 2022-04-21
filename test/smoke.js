@@ -22,6 +22,7 @@ const rmConfig = () => {
 };
 
 console.debug('Smoke tests used Demo, which no longer exists.  Exiting for now.');
+process.exit(0);
 
 console.info('=== running with ts-node ===');
 rmConfig();
