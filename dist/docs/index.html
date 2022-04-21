@@ -1,245 +1,139 @@
-<!doctype html>
-<html class="default no-js">
-<head>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>opennms</title>
-	<meta name="description" content="Documentation for opennms">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet" href="assets/css/main.css">
-</head>
-<body>
-<header>
-	<div class="tsd-page-toolbar">
-		<div class="container">
-			<div class="table-wrap">
-				<div class="table-cell" id="tsd-search" data-index="assets/js/search.json" data-base=".">
-					<div class="field">
-						<label for="tsd-search-field" class="tsd-widget search no-caption">Search</label>
-						<input id="tsd-search-field" type="text" />
-					</div>
-					<ul class="results">
-						<li class="state loading">Preparing search index...</li>
-						<li class="state failure">The search index is not available</li>
-					</ul>
-					<a href="index.html" class="title">opennms</a>
-				</div>
-				<div class="table-cell" id="tsd-widgets">
-					<div id="tsd-filter">
-						<a href="#" class="tsd-widget options no-caption" data-toggle="options">Options</a>
-						<div class="tsd-filter-group">
-							<div class="tsd-select" id="tsd-filter-visibility">
-								<span class="tsd-select-label">All</span>
-								<ul class="tsd-select-list">
-									<li data-value="public">Public</li>
-									<li data-value="protected">Public/Protected</li>
-									<li data-value="private" class="selected">All</li>
-								</ul>
-							</div>
-							<input type="checkbox" id="tsd-filter-inherited" checked />
-							<label class="tsd-widget" for="tsd-filter-inherited">Inherited</label>
-							<input type="checkbox" id="tsd-filter-externals" checked />
-							<label class="tsd-widget" for="tsd-filter-externals">Externals</label>
-							<input type="checkbox" id="tsd-filter-only-exported" />
-							<label class="tsd-widget" for="tsd-filter-only-exported">Only exported</label>
-						</div>
-					</div>
-					<a href="#" class="tsd-widget menu no-caption" data-toggle="menu">Menu</a>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div class="tsd-page-title">
-		<div class="container">
-			<ul class="tsd-breadcrumb">
-				<li>
-					<a href="globals.html">Globals</a>
-				</li>
-			</ul>
-			<h1>opennms</h1>
-		</div>
-	</div>
-</header>
-<div class="container container-main">
-	<div class="row">
-		<div class="col-8 col-content">
-			<div class="tsd-panel tsd-typography">
-				<a href="#opennms-javascript-api-" id="opennms-javascript-api-" style="color: inherit; text-decoration: none;">
-					<h1>OpenNMS Javascript API <a href="https://circleci.com/gh/OpenNMS/opennms-js"><img src="https://circleci.com/gh/OpenNMS/opennms-js.svg?style=svg" alt="CircleCI"></a></h1>
-				</a>
-				<p>A client API for accessing the OpenNMS network monitoring platform.</p>
-				<a href="#using-the-opennmsjs-apis-in-your-code" id="using-the-opennmsjs-apis-in-your-code" style="color: inherit; text-decoration: none;">
-					<h2>Using the OpenNMS.js APIs In Your Code</h2>
-				</a>
-				<p>Information on getting started and how to use the API is in the <a href="https://docs.opennms.com/">OpenNMS Documentation</a>.</p>
-				<p>The complete API list is available at <a href="https://opennms.github.io/opennms-js/">opennms.github.io</a>.</p>
-				<a href="#using-the-opennmsjs-command-line" id="using-the-opennmsjs-command-line" style="color: inherit; text-decoration: none;">
-					<h2>Using the OpenNMS.js Command Line</h2>
-				</a>
-				<ol>
-					<li>install <a href="https://nodejs.org/en/download/">Node.js</a></li>
-					<li>run <code>npm install -g opennms</code></li>
-					<li>run <code>opennms --help</code> for a list of available commands</li>
-				</ol>
-				<a href="#changes-and-versioning" id="changes-and-versioning" style="color: inherit; text-decoration: none;">
-					<h2>Changes and Versioning</h2>
-				</a>
-				<p>The CHANGELOG should always contain the complete list of changes between versions, and should always be accessible <a href="https://github.com/OpenNMS/opennms-js/blob/main/CHANGELOG.md">here</a>.</p>
-				<p>OpenNMS.js follows <a href="https://semver.org/">semantic versioning</a>.</p>
-				<a href="#release-notes" id="release-notes" style="color: inherit; text-decoration: none;">
-					<h3>Release Notes</h3>
-				</a>
-				<a href="#241" id="241" style="color: inherit; text-decoration: none;">
-					<h4>2.4.1</h4>
-				</a>
-				<p>This is just a rerelease to fix an issue with artifact generation.</p>
-				<a href="#240" id="240" style="color: inherit; text-decoration: none;">
-					<h4>2.4.0</h4>
-				</a>
-				<p>This release includes a <em>ton</em> of dependency updates, as well as an enhancement to specify whether a remote OpenNMS system supports
-				the newer, more efficient, query API for selecting resources.</p>
-				<a href="#230" id="230" style="color: inherit; text-decoration: none;">
-					<h4>2.3.0</h4>
-				</a>
-				<p>This release adds support for querying SNMP interfaces, monitored services, and outages.</p>
-				<a href="#220" id="220" style="color: inherit; text-decoration: none;">
-					<h4>2.2.0</h4>
-				</a>
-				<p>This release bumps a bunch of dependencies, plus it adds support for the <code>api/v2/ipinterfaces</code> API.</p>
-				<a href="#210211" id="210211" style="color: inherit; text-decoration: none;">
-					<h4>2.1.0/2.1.1</h4>
-				</a>
-				<p>This release adds support for some flow APIs coming in OpenNMS Horizon 28, as well as a documentation rework and <em>tons</em> of dependency updates.</p>
-				<a href="#202" id="202" style="color: inherit; text-decoration: none;">
-					<h4>2.0.2</h4>
-				</a>
-				<p>Another small release with dependency and documentation updates and a switch (back) to npm rather than yarn.</p>
-				<a href="#201" id="201" style="color: inherit; text-decoration: none;">
-					<h4>2.0.1</h4>
-				</a>
-				<p>This is a small release with some dependency updates and a fix for handling of ReST data that is missing a response.</p>
-				<a href="#200" id="200" style="color: inherit; text-decoration: none;">
-					<h4>2.0.0</h4>
-				</a>
-				<p>OpenNMS.js 2.0 adds a few new APIs, contains a ton of refactoring and build system updates, and has a few small breaking changes.</p>
-				<a href="#notable-changes" id="notable-changes" style="color: inherit; text-decoration: none;">
-					<h5>Notable Changes</h5>
-				</a>
-				<ul>
-					<li>updated CLI libraries to fix/improve table output</li>
-					<li>better, faster build system to improve generated code</li>
-					<li>improved handling of authentication in HTTP implementations</li>
-					<li>support for <code>HEAD</code> requests has been added to the HTTP implementations</li>
-					<li>a number of metadata objects (notably <code>OnmsServer</code>) support <code>.equals()</code> for comparison now</li>
-					<li>property caching on v2 API calls is fixed when interacting with multiple servers/DAOs</li>
-					<li>filter API now supports <code>orderBy</code> and <code>order</code> (and the <code>alarms</code> CLI list command supports it)</li>
-					<li>HTTP parameters in <code>OnmsHTTPOptions</code> can now have multiple values -- for example a parameter with value <code>[ 1, 2 ]</code> will serialize to <code>&amp;foo=1&amp;foo=2</code></li>
-				</ul>
-				<a href="#breaking-changes" id="breaking-changes" style="color: inherit; text-decoration: none;">
-					<h5>Breaking Changes</h5>
-				</a>
-				<ul>
-					<li>The <code>api/Log</code> module now only exports a single, simplified <code>log</code> object; <code>typescript-logging</code> was overly complicated and not really adding much in the way of value.  Use <code>.setDebug()</code>, <code>.setQuiet()</code>, and <code>.setSilent()</code> to change the logging level instead.</li>
-					<li>A number of the TypeScript APIs have been clarified to be explicitly nullable (and/or <code>undefined</code>-able) to make strict null- and type-checking validation pass.</li>
-					<li><code>PropertiesCache</code> and its associated interface, <code>ISearchPropertyAccessor</code> are gone.  This only affects you if you have implemented custom DAOs, which is very unlikely.  :)</li>
-					<li>The previously deprecated <code>timeout</code> property in <code>AbstractHTTP</code> (and sub-classes) has been removed.  Access the <code>AbstractHTTP.options.timeout</code> property directly.</li>
-					<li>The <code>Client</code> no longer keeps a separate copy of the server object.  Instead you should access the <code>http.server</code> sub-property directly.</li>
-					<li>A number of API objects are now immutable/read-only to reduce side-effects: <code>OnmsAuthConfig</code>, <code>OnmsEnum</code>, <code>OnmsError</code>, <code>OnmsHTTPOptions</code>, <code>OnmsResult</code>, <code>OnmsServer</code>, <code>Operator</code>, <code>SearchPropertyType</code>, <code>ServerMetadata</code>, <code>TicketerConfig</code>.
-					The <code>OnmsHTTPOptions</code> and <code>OnmsServer</code> objects now have builders (use <code>.newBuilder()</code> to create) rather than constructors with a bunch of arguments.</li>
-					<li>The <code>id</code> property on <code>OnmsServer</code> is no longer generated, it is computed based on the contents of the server object and should be repeatably equal if the contents are equal.</li>
-				</ul>
-				<a href="#15" id="15" style="color: inherit; text-decoration: none;">
-					<h4>1.5</h4>
-				</a>
-				<p>This release includes support for some additional flow queries, as well as a few security updates and a fix for CLI formatting.</p>
-				<a href="#14" id="14" style="color: inherit; text-decoration: none;">
-					<h4>1.4</h4>
-				</a>
-				<p>This is a small feature release with a few changes targeted primarily to Helm (adding root cause and tags to the situation feedback API support, and support for <code>isAcknowledged</code> queries on alarms).</p>
-				<a href="#13" id="13" style="color: inherit; text-decoration: none;">
-					<h4>1.3</h4>
-				</a>
-				<p>This release contains a number of new features and a few bug fixes, including support for correlation alarms and feedback, and additional metadata for Helm 3.</p>
-				<a href="#12" id="12" style="color: inherit; text-decoration: none;">
-					<h4>1.2</h4>
-				</a>
-				<p>This is a small release which adds support for a default timeout in <code>GrafanaHTTP</code>, as well as adding <code>X-Requested-With</code> headers to requests (<a href="https://issues.opennms.org/browse/NMS-9783">NMS-9783</a>).</p>
-				<a href="#11" id="11" style="color: inherit; text-decoration: none;">
-					<h4>1.1</h4>
-				</a>
-				<p>This release adds support for telemetry (Netflow) APIs which will be introduced in OpenNMS 22.x.
-				It also includes a number of build optimizations and updates since 1.0.</p>
-				<a href="#10" id="10" style="color: inherit; text-decoration: none;">
-					<h4>1.0</h4>
-				</a>
-				<p>The initial official release of OpenNMS.js.</p>
-				<p>OpenNMS.js currently supports a subset of the OpenNMS ReST API:</p>
-				<ul>
-					<li>query alarms, events, and nodes (including complex queries against OpenNMS Horizon 21+ and Meridian 2017+)</li>
-					<li>acknowledge, escalate, and clear alarms</li>
-					<li>create, update, and close trouble tickets against an alarm</li>
-					<li>create, update, and delete alarm sticky memos</li>
-					<li>create, update, and delete alarm journal memos</li>
-				</ul>
-			</div>
-		</div>
-		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
-			<nav class="tsd-navigation primary">
-				<ul>
-					<li class="globals  ">
-						<a href="globals.html"><em>Globals</em></a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/api.html">api</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/dao.html">dao</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/internal.html">internal</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/model.html">model</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/rest.html">rest</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/root.html">root</a>
-					</li>
-				</ul>
-			</nav>
-			<nav class="tsd-navigation secondary menu-sticky">
-				<ul class="before-current">
-				</ul>
-			</nav>
-		</div>
-	</div>
-</div>
-<footer class="with-border-bottom">
-	<div class="container">
-		<h2>Legend</h2>
-		<div class="tsd-legend-group">
-			<ul class="tsd-legend">
-				<li class="tsd-kind-object-literal"><span class="tsd-kind-icon">Object literal</span></li>
-				<li class="tsd-kind-variable"><span class="tsd-kind-icon">Variable</span></li>
-				<li class="tsd-kind-function"><span class="tsd-kind-icon">Function</span></li>
-			</ul>
-			<ul class="tsd-legend">
-				<li class="tsd-kind-interface"><span class="tsd-kind-icon">Interface</span></li>
-				<li class="tsd-kind-interface tsd-has-type-parameter"><span class="tsd-kind-icon">Interface with type parameter</span></li>
-			</ul>
-			<ul class="tsd-legend">
-				<li class="tsd-kind-class"><span class="tsd-kind-icon">Class</span></li>
-				<li class="tsd-kind-class tsd-has-type-parameter"><span class="tsd-kind-icon">Class with type parameter</span></li>
-			</ul>
-		</div>
-	</div>
-</footer>
-<div class="container tsd-generator">
-	<p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p>
-</div>
-<div class="overlay"></div>
-<script src="assets/js/main.js"></script>
-</body>
-</html>
+<!DOCTYPE html><html class="default"><head><meta charSet="utf-8"/><meta http-equiv="x-ua-compatible" content="IE=edge"/><title>OpenNMS.js - v2.5.0-SNAPSHOT</title><meta name="description" content="Documentation for OpenNMS.js - v2.5.0-SNAPSHOT"/><meta name="viewport" content="width=device-width, initial-scale=1"/><link rel="stylesheet" href="assets/style.css"/><link rel="stylesheet" href="assets/highlight.css"/><script async src="assets/search.js" id="search-script"></script></head><body><script>document.body.classList.add(localStorage.getItem("tsd-theme") || "os")</script><header><div class="tsd-page-toolbar"><div class="container"><div class="table-wrap"><div class="table-cell" id="tsd-search" data-base="."><div class="field"><label for="tsd-search-field" class="tsd-widget search no-caption">Search</label><input type="text" id="tsd-search-field"/></div><ul class="results"><li class="state loading">Preparing search index...</li><li class="state failure">The search index is not available</li></ul><a href="index.html" class="title">OpenNMS.js - v2.5.0-SNAPSHOT</a></div><div class="table-cell" id="tsd-widgets"><div id="tsd-filter"><a href="#" class="tsd-widget options no-caption" data-toggle="options">Options</a><div class="tsd-filter-group"><div class="tsd-select" id="tsd-filter-visibility"><span class="tsd-select-label">All</span><ul class="tsd-select-list"><li data-value="public">Public</li><li data-value="protected">Public/Protected</li><li data-value="private" class="selected">All</li></ul></div> <input type="checkbox" id="tsd-filter-inherited" checked/><label class="tsd-widget" for="tsd-filter-inherited">Inherited</label><input type="checkbox" id="tsd-filter-externals" checked/><label class="tsd-widget" for="tsd-filter-externals">Externals</label></div></div><a href="#" class="tsd-widget menu no-caption" data-toggle="menu">Menu</a></div></div></div></div><div class="tsd-page-title"><div class="container"><h1>OpenNMS.js - v2.5.0-SNAPSHOT </h1></div></div></header><div class="container container-main"><div class="row"><div class="col-8 col-content"><div class="tsd-panel tsd-typography">
+<a href="#opennms-javascript-api-" id="opennms-javascript-api-" style="color: inherit; text-decoration: none;">
+  <h1>OpenNMS Javascript API <a href="https://circleci.com/gh/OpenNMS/opennms-js"><img src="https://circleci.com/gh/OpenNMS/opennms-js.svg?style=svg" alt="CircleCI"></a></h1>
+</a>
+<p>A client API for accessing the OpenNMS network monitoring platform.</p>
+
+<a href="#using-the-opennmsjs-apis-in-your-code" id="using-the-opennmsjs-apis-in-your-code" style="color: inherit; text-decoration: none;">
+  <h2>Using the OpenNMS.js APIs In Your Code</h2>
+</a>
+<p>Information on getting started and how to use the API is in the <a href="https://docs.opennms.com/">OpenNMS Documentation</a>.</p>
+<p>The complete API list is available at <a href="https://opennms.github.io/opennms-js/">opennms.github.io</a>.</p>
+
+<a href="#using-the-opennmsjs-command-line" id="using-the-opennmsjs-command-line" style="color: inherit; text-decoration: none;">
+  <h2>Using the OpenNMS.js Command Line</h2>
+</a>
+<ol>
+<li>install <a href="https://nodejs.org/en/download/">Node.js</a></li>
+<li>run <code>npm install -g opennms</code></li>
+<li>run <code>opennms --help</code> for a list of available commands</li>
+</ol>
+
+<a href="#changes-and-versioning" id="changes-and-versioning" style="color: inherit; text-decoration: none;">
+  <h2>Changes and Versioning</h2>
+</a>
+<p>The CHANGELOG should always contain the complete list of changes between versions, and should always be accessible <a href="https://github.com/OpenNMS/opennms-js/blob/main/CHANGELOG.md">here</a>.</p>
+<p>OpenNMS.js follows <a href="https://semver.org/">semantic versioning</a>.</p>
+
+<a href="#release-notes" id="release-notes" style="color: inherit; text-decoration: none;">
+  <h3>Release Notes</h3>
+</a>
+
+<a href="#241" id="241" style="color: inherit; text-decoration: none;">
+  <h4>2.4.1</h4>
+</a>
+<p>This is just a rerelease to fix an issue with artifact generation.</p>
+
+<a href="#240" id="240" style="color: inherit; text-decoration: none;">
+  <h4>2.4.0</h4>
+</a>
+<p>This release includes a <em>ton</em> of dependency updates, as well as an enhancement to specify whether a remote OpenNMS system supports
+the newer, more efficient, query API for selecting resources.</p>
+
+<a href="#230" id="230" style="color: inherit; text-decoration: none;">
+  <h4>2.3.0</h4>
+</a>
+<p>This release adds support for querying SNMP interfaces, monitored services, and outages.</p>
+
+<a href="#220" id="220" style="color: inherit; text-decoration: none;">
+  <h4>2.2.0</h4>
+</a>
+<p>This release bumps a bunch of dependencies, plus it adds support for the <code>api/v2/ipinterfaces</code> API.</p>
+
+<a href="#210211" id="210211" style="color: inherit; text-decoration: none;">
+  <h4>2.1.0/2.1.1</h4>
+</a>
+<p>This release adds support for some flow APIs coming in OpenNMS Horizon 28, as well as a documentation rework and <em>tons</em> of dependency updates.</p>
+
+<a href="#202" id="202" style="color: inherit; text-decoration: none;">
+  <h4>2.0.2</h4>
+</a>
+<p>Another small release with dependency and documentation updates and a switch (back) to npm rather than yarn.</p>
+
+<a href="#201" id="201" style="color: inherit; text-decoration: none;">
+  <h4>2.0.1</h4>
+</a>
+<p>This is a small release with some dependency updates and a fix for handling of ReST data that is missing a response.</p>
+
+<a href="#200" id="200" style="color: inherit; text-decoration: none;">
+  <h4>2.0.0</h4>
+</a>
+<p>OpenNMS.js 2.0 adds a few new APIs, contains a ton of refactoring and build system updates, and has a few small breaking changes.</p>
+
+<a href="#notable-changes" id="notable-changes" style="color: inherit; text-decoration: none;">
+  <h5>Notable Changes</h5>
+</a>
+<ul>
+<li>updated CLI libraries to fix/improve table output</li>
+<li>better, faster build system to improve generated code</li>
+<li>improved handling of authentication in HTTP implementations</li>
+<li>support for <code>HEAD</code> requests has been added to the HTTP implementations</li>
+<li>a number of metadata objects (notably <code>OnmsServer</code>) support <code>.equals()</code> for comparison now</li>
+<li>property caching on v2 API calls is fixed when interacting with multiple servers/DAOs</li>
+<li>filter API now supports <code>orderBy</code> and <code>order</code> (and the <code>alarms</code> CLI list command supports it)</li>
+<li>HTTP parameters in <code>OnmsHTTPOptions</code> can now have multiple values -- for example a parameter with value <code>[ 1, 2 ]</code> will serialize to <code>&amp;foo=1&amp;foo=2</code></li>
+</ul>
+
+<a href="#breaking-changes" id="breaking-changes" style="color: inherit; text-decoration: none;">
+  <h5>Breaking Changes</h5>
+</a>
+<ul>
+<li>The <code>api/Log</code> module now only exports a single, simplified <code>log</code> object; <code>typescript-logging</code> was overly complicated and not really adding much in the way of value.  Use <code>.setDebug()</code>, <code>.setQuiet()</code>, and <code>.setSilent()</code> to change the logging level instead.</li>
+<li>A number of the TypeScript APIs have been clarified to be explicitly nullable (and/or <code>undefined</code>-able) to make strict null- and type-checking validation pass.</li>
+<li><code>PropertiesCache</code> and its associated interface, <code>ISearchPropertyAccessor</code> are gone.  This only affects you if you have implemented custom DAOs, which is very unlikely.  :)</li>
+<li>The previously deprecated <code>timeout</code> property in <code>AbstractHTTP</code> (and sub-classes) has been removed.  Access the <code>AbstractHTTP.options.timeout</code> property directly.</li>
+<li>The <code>Client</code> no longer keeps a separate copy of the server object.  Instead you should access the <code>http.server</code> sub-property directly.</li>
+<li>A number of API objects are now immutable/read-only to reduce side-effects: <code>OnmsAuthConfig</code>, <code>OnmsEnum</code>, <code>OnmsError</code>, <code>OnmsHTTPOptions</code>, <code>OnmsResult</code>, <code>OnmsServer</code>, <code>Operator</code>, <code>SearchPropertyType</code>, <code>ServerMetadata</code>, <code>TicketerConfig</code>.
+The <code>OnmsHTTPOptions</code> and <code>OnmsServer</code> objects now have builders (use <code>.newBuilder()</code> to create) rather than constructors with a bunch of arguments.</li>
+<li>The <code>id</code> property on <code>OnmsServer</code> is no longer generated, it is computed based on the contents of the server object and should be repeatably equal if the contents are equal.</li>
+</ul>
+
+<a href="#15" id="15" style="color: inherit; text-decoration: none;">
+  <h4>1.5</h4>
+</a>
+<p>This release includes support for some additional flow queries, as well as a few security updates and a fix for CLI formatting.</p>
+
+<a href="#14" id="14" style="color: inherit; text-decoration: none;">
+  <h4>1.4</h4>
+</a>
+<p>This is a small feature release with a few changes targeted primarily to Helm (adding root cause and tags to the situation feedback API support, and support for <code>isAcknowledged</code> queries on alarms).</p>
+
+<a href="#13" id="13" style="color: inherit; text-decoration: none;">
+  <h4>1.3</h4>
+</a>
+<p>This release contains a number of new features and a few bug fixes, including support for correlation alarms and feedback, and additional metadata for Helm 3.</p>
+
+<a href="#12" id="12" style="color: inherit; text-decoration: none;">
+  <h4>1.2</h4>
+</a>
+<p>This is a small release which adds support for a default timeout in <code>GrafanaHTTP</code>, as well as adding <code>X-Requested-With</code> headers to requests (<a href="https://issues.opennms.org/browse/NMS-9783">NMS-9783</a>).</p>
+
+<a href="#11" id="11" style="color: inherit; text-decoration: none;">
+  <h4>1.1</h4>
+</a>
+<p>This release adds support for telemetry (Netflow) APIs which will be introduced in OpenNMS 22.x.
+It also includes a number of build optimizations and updates since 1.0.</p>
+
+<a href="#10" id="10" style="color: inherit; text-decoration: none;">
+  <h4>1.0</h4>
+</a>
+<p>The initial official release of OpenNMS.js.</p>
+<p>OpenNMS.js currently supports a subset of the OpenNMS ReST API:</p>
+<ul>
+<li>query alarms, events, and nodes (including complex queries against OpenNMS Horizon 21+ and Meridian 2017+)</li>
+<li>acknowledge, escalate, and clear alarms</li>
+<li>create, update, and close trouble tickets against an alarm</li>
+<li>create, update, and delete alarm sticky memos</li>
+<li>create, update, and delete alarm journal memos</li>
+</ul>
+</div></div><div class="col-4 col-menu menu-sticky-wrap menu-highlight"><nav class="tsd-navigation primary"><ul><li class="current"><a href="modules.html">Exports</a></li><li class=" tsd-kind-namespace"><a href="modules/API.html">API</a></li><li class=" tsd-kind-namespace"><a href="modules/DAO.html">DAO</a></li><li class=" tsd-kind-namespace"><a href="modules/Model.html">Model</a></li><li class=" tsd-kind-namespace"><a href="modules/Rest.html">Rest</a></li></ul></nav><nav class="tsd-navigation secondary menu-sticky"><ul><li class="tsd-kind-class"><a href="classes/AbstractHTTP.html" class="tsd-kind-icon">AbstractHTTP</a></li><li class="tsd-kind-class"><a href="classes/AlarmDAO.html" class="tsd-kind-icon">AlarmDAO</a></li><li class="tsd-kind-class"><a href="classes/AxiosHTTP.html" class="tsd-kind-icon">AxiosHTTP</a></li><li class="tsd-kind-class"><a href="classes/Clause.html" class="tsd-kind-icon">Clause</a></li><li class="tsd-kind-class"><a href="classes/Client.html" class="tsd-kind-icon">Client</a></li><li class="tsd-kind-class"><a href="classes/Comparator.html" class="tsd-kind-icon">Comparator</a></li><li class="tsd-kind-class"><a href="classes/EventDAO.html" class="tsd-kind-icon">EventDAO</a></li><li class="tsd-kind-class"><a href="classes/Filter.html" class="tsd-kind-icon">Filter</a></li><li class="tsd-kind-class"><a href="classes/FlowDAO.html" class="tsd-kind-icon">FlowDAO</a></li><li class="tsd-kind-class"><a href="classes/GrafanaError.html" class="tsd-kind-icon">Grafana<wbr/>Error</a></li><li class="tsd-kind-class"><a href="classes/GrafanaHTTP.html" class="tsd-kind-icon">GrafanaHTTP</a></li><li class="tsd-kind-class"><a href="classes/IpInterfaceDAO.html" class="tsd-kind-icon">Ip<wbr/>InterfaceDAO</a></li><li class="tsd-kind-class"><a href="classes/JsonTransformer.html" class="tsd-kind-icon">Json<wbr/>Transformer</a></li><li class="tsd-kind-class"><a href="classes/Logger.html" class="tsd-kind-icon">Logger</a></li><li class="tsd-kind-class"><a href="classes/MonitoredServiceDAO.html" class="tsd-kind-icon">Monitored<wbr/>ServiceDAO</a></li><li class="tsd-kind-class"><a href="classes/NestedRestriction.html" class="tsd-kind-icon">Nested<wbr/>Restriction</a></li><li class="tsd-kind-class"><a href="classes/NodeDAO.html" class="tsd-kind-icon">NodeDAO</a></li><li class="tsd-kind-class"><a href="classes/OnmsAlarm.html" class="tsd-kind-icon">Onms<wbr/>Alarm</a></li><li class="tsd-kind-class"><a href="classes/OnmsAlarmSummary.html" class="tsd-kind-icon">Onms<wbr/>Alarm<wbr/>Summary</a></li><li class="tsd-kind-class"><a href="classes/OnmsAlarmType.html" class="tsd-kind-icon">Onms<wbr/>Alarm<wbr/>Type</a></li><li class="tsd-kind-class"><a href="classes/OnmsAuthConfig.html" class="tsd-kind-icon">Onms<wbr/>Auth<wbr/>Config</a></li><li class="tsd-kind-class"><a href="classes/OnmsCategory.html" class="tsd-kind-icon">Onms<wbr/>Category</a></li><li class="tsd-kind-class"><a href="classes/OnmsCollectType.html" class="tsd-kind-icon">Onms<wbr/>Collect<wbr/>Type</a></li><li class="tsd-kind-class"><a href="classes/OnmsError.html" class="tsd-kind-icon">Onms<wbr/>Error</a></li><li class="tsd-kind-class"><a href="classes/OnmsEvent.html" class="tsd-kind-icon">Onms<wbr/>Event</a></li><li class="tsd-kind-class"><a href="classes/OnmsFlowExporter.html" class="tsd-kind-icon">Onms<wbr/>Flow<wbr/>Exporter</a></li><li class="tsd-kind-class"><a href="classes/OnmsFlowExporterSummary.html" class="tsd-kind-icon">Onms<wbr/>Flow<wbr/>Exporter<wbr/>Summary</a></li><li class="tsd-kind-class"><a href="classes/OnmsFlowSeries.html" class="tsd-kind-icon">Onms<wbr/>Flow<wbr/>Series</a></li><li class="tsd-kind-class"><a href="classes/OnmsFlowSeriesColumn.html" class="tsd-kind-icon">Onms<wbr/>Flow<wbr/>Series<wbr/>Column</a></li><li class="tsd-kind-class"><a href="classes/OnmsFlowSnmpInterface.html" class="tsd-kind-icon">Onms<wbr/>Flow<wbr/>Snmp<wbr/>Interface</a></li><li class="tsd-kind-class"><a href="classes/OnmsFlowTable.html" class="tsd-kind-icon">Onms<wbr/>Flow<wbr/>Table</a></li><li class="tsd-kind-class"><a href="classes/OnmsHTTPOptions.html" class="tsd-kind-icon">OnmsHTTPOptions</a></li><li class="tsd-kind-class"><a href="classes/OnmsHTTPOptionsBuilder.html" class="tsd-kind-icon">OnmsHTTPOptions<wbr/>Builder</a></li><li class="tsd-kind-class"><a href="classes/OnmsIpInterface.html" class="tsd-kind-icon">Onms<wbr/>Ip<wbr/>Interface</a></li><li class="tsd-kind-class"><a href="classes/OnmsManagedType.html" class="tsd-kind-icon">Onms<wbr/>Managed<wbr/>Type</a></li><li class="tsd-kind-class"><a href="classes/OnmsMemo.html" class="tsd-kind-icon">Onms<wbr/>Memo</a></li><li class="tsd-kind-class"><a href="classes/OnmsMonitoredService.html" class="tsd-kind-icon">Onms<wbr/>Monitored<wbr/>Service</a></li><li class="tsd-kind-class"><a href="classes/OnmsNode.html" class="tsd-kind-icon">Onms<wbr/>Node</a></li><li class="tsd-kind-class"><a href="classes/OnmsNodeLabelSource.html" class="tsd-kind-icon">Onms<wbr/>Node<wbr/>Label<wbr/>Source</a></li><li class="tsd-kind-class"><a href="classes/OnmsNodeType.html" class="tsd-kind-icon">Onms<wbr/>Node<wbr/>Type</a></li><li class="tsd-kind-class"><a href="classes/OnmsOutage.html" class="tsd-kind-icon">Onms<wbr/>Outage</a></li><li class="tsd-kind-class"><a href="classes/OnmsParm.html" class="tsd-kind-icon">Onms<wbr/>Parm</a></li><li class="tsd-kind-class"><a href="classes/OnmsPrimaryType.html" class="tsd-kind-icon">Onms<wbr/>Primary<wbr/>Type</a></li><li class="tsd-kind-class tsd-has-type-parameter"><a href="classes/OnmsResult.html" class="tsd-kind-icon">Onms<wbr/>Result</a></li><li class="tsd-kind-class"><a href="classes/OnmsServer.html" class="tsd-kind-icon">Onms<wbr/>Server</a></li><li class="tsd-kind-class"><a href="classes/OnmsServerBuilder.html" class="tsd-kind-icon">Onms<wbr/>Server<wbr/>Builder</a></li><li class="tsd-kind-class"><a href="classes/OnmsServiceStatusType.html" class="tsd-kind-icon">Onms<wbr/>Service<wbr/>Status<wbr/>Type</a></li><li class="tsd-kind-class"><a href="classes/OnmsServiceType.html" class="tsd-kind-icon">Onms<wbr/>Service<wbr/>Type</a></li><li class="tsd-kind-class"><a href="classes/OnmsSeverity.html" class="tsd-kind-icon">Onms<wbr/>Severity</a></li><li class="tsd-kind-class"><a href="classes/OnmsSituationFeedback.html" class="tsd-kind-icon">Onms<wbr/>Situation<wbr/>Feedback</a></li><li class="tsd-kind-class"><a href="classes/OnmsSituationFeedbackType.html" class="tsd-kind-icon">Onms<wbr/>Situation<wbr/>Feedback<wbr/>Type</a></li><li class="tsd-kind-class"><a href="classes/OnmsSnmpInterface.html" class="tsd-kind-icon">Onms<wbr/>Snmp<wbr/>Interface</a></li><li class="tsd-kind-class"><a href="classes/OnmsSnmpStatusType.html" class="tsd-kind-icon">Onms<wbr/>Snmp<wbr/>Status<wbr/>Type</a></li><li class="tsd-kind-class"><a href="classes/OnmsTroubleTicketState.html" class="tsd-kind-icon">Onms<wbr/>Trouble<wbr/>Ticket<wbr/>State</a></li><li class="tsd-kind-class"><a href="classes/OnmsVersion.html" class="tsd-kind-icon">Onms<wbr/>Version</a></li><li class="tsd-kind-class"><a href="classes/Operator.html" class="tsd-kind-icon">Operator</a></li><li class="tsd-kind-class"><a href="classes/Order.html" class="tsd-kind-icon">Order</a></li><li class="tsd-kind-class"><a href="classes/OrderBy.html" class="tsd-kind-icon">Order<wbr/>By</a></li><li class="tsd-kind-class"><a href="classes/OutageDAO.html" class="tsd-kind-icon">OutageDAO</a></li><li class="tsd-kind-class"><a href="classes/PhysAddr.html" class="tsd-kind-icon">Phys<wbr/>Addr</a></li><li class="tsd-kind-class"><a href="classes/Restriction.html" class="tsd-kind-icon">Restriction</a></li><li class="tsd-kind-class"><a href="classes/SearchProperty.html" class="tsd-kind-icon">Search<wbr/>Property</a></li><li class="tsd-kind-class"><a href="classes/SearchPropertyType.html" class="tsd-kind-icon">Search<wbr/>Property<wbr/>Type</a></li><li class="tsd-kind-class"><a href="classes/ServerMetadata.html" class="tsd-kind-icon">Server<wbr/>Metadata</a></li><li class="tsd-kind-class"><a href="classes/ServerType.html" class="tsd-kind-icon">Server<wbr/>Type</a></li><li class="tsd-kind-class"><a href="classes/SituationFeedbackDAO.html" class="tsd-kind-icon">Situation<wbr/>FeedbackDAO</a></li><li class="tsd-kind-class"><a href="classes/SnmpInterfaceDAO.html" class="tsd-kind-icon">Snmp<wbr/>InterfaceDAO</a></li><li class="tsd-kind-class"><a href="classes/TicketerConfig.html" class="tsd-kind-icon">Ticketer<wbr/>Config</a></li><li class="tsd-kind-class"><a href="classes/V1FilterProcessor.html" class="tsd-kind-icon">V1<wbr/>Filter<wbr/>Processor</a></li><li class="tsd-kind-class"><a href="classes/V2FilterProcessor.html" class="tsd-kind-icon">V2<wbr/>Filter<wbr/>Processor</a></li><li class="tsd-kind-class"><a href="classes/XmlTransformer.html" class="tsd-kind-icon">Xml<wbr/>Transformer</a></li><li class="tsd-kind-interface"><a href="interfaces/IFilterProcessor.html" class="tsd-kind-icon">IFilter<wbr/>Processor</a></li><li class="tsd-kind-interface"><a href="interfaces/IFilterVisitor.html" class="tsd-kind-icon">IFilter<wbr/>Visitor</a></li><li class="tsd-kind-interface"><a href="interfaces/IHasHTTP.html" class="tsd-kind-icon">IHasHTTP</a></li><li class="tsd-kind-interface"><a href="interfaces/IHasUrlValue.html" class="tsd-kind-icon">IHas<wbr/>Url<wbr/>Value</a></li><li class="tsd-kind-interface tsd-has-type-parameter"><a href="interfaces/IHash.html" class="tsd-kind-icon">IHash</a></li><li class="tsd-kind-interface"><a href="interfaces/IOnmsHTTP.html" class="tsd-kind-icon">IOnmsHTTP</a></li><li class="tsd-kind-interface"><a href="interfaces/ITopNOptions.html" class="tsd-kind-icon">ITopNOptions</a></li><li class="tsd-kind-interface"><a href="interfaces/IValueProvider.html" class="tsd-kind-icon">IValue<wbr/>Provider</a></li><li class="tsd-kind-variable"><a href="modules.html#AlarmTypes" class="tsd-kind-icon">Alarm<wbr/>Types</a></li><li class="tsd-kind-variable"><a href="modules.html#CollectTypes" class="tsd-kind-icon">Collect<wbr/>Types</a></li><li class="tsd-kind-variable"><a href="modules.html#Comparators" class="tsd-kind-icon">Comparators</a></li><li class="tsd-kind-variable"><a href="modules.html#FeedbackTypes" class="tsd-kind-icon">Feedback<wbr/>Types</a></li><li class="tsd-kind-variable"><a href="modules.html#ManagedTypes" class="tsd-kind-icon">Managed<wbr/>Types</a></li><li class="tsd-kind-variable"><a href="modules.html#NodeLabelSources" class="tsd-kind-icon">Node<wbr/>Label<wbr/>Sources</a></li><li class="tsd-kind-variable"><a href="modules.html#NodeTypes" class="tsd-kind-icon">Node<wbr/>Types</a></li><li class="tsd-kind-variable"><a href="modules.html#Operators" class="tsd-kind-icon">Operators</a></li><li class="tsd-kind-variable"><a href="modules.html#Orders" class="tsd-kind-icon">Orders</a></li><li class="tsd-kind-variable"><a href="modules.html#PrimaryTypes" class="tsd-kind-icon">Primary<wbr/>Types</a></li><li class="tsd-kind-variable"><a href="modules.html#SearchPropertyTypes" class="tsd-kind-icon">Search<wbr/>Property<wbr/>Types</a></li><li class="tsd-kind-variable"><a href="modules.html#ServerTypes" class="tsd-kind-icon">Server<wbr/>Types</a></li><li class="tsd-kind-variable"><a href="modules.html#ServiceStatusTypes" class="tsd-kind-icon">Service<wbr/>Status<wbr/>Types</a></li><li class="tsd-kind-variable"><a href="modules.html#Severities" class="tsd-kind-icon">Severities</a></li><li class="tsd-kind-variable"><a href="modules.html#SnmpStatusTypes" class="tsd-kind-icon">Snmp<wbr/>Status<wbr/>Types</a></li><li class="tsd-kind-variable"><a href="modules.html#TroubleTicketStates" class="tsd-kind-icon">Trouble<wbr/>Ticket<wbr/>States</a></li><li class="tsd-kind-variable"><a href="modules.html#log" class="tsd-kind-icon">log</a></li></ul></nav></div></div></div><footer class="with-border-bottom"><div class="container"><h2>Legend</h2><div class="tsd-legend-group"><ul class="tsd-legend"><li class="tsd-kind-constructor tsd-parent-kind-class"><span class="tsd-kind-icon">Constructor</span></li><li class="tsd-kind-property tsd-parent-kind-class"><span class="tsd-kind-icon">Property</span></li><li class="tsd-kind-method tsd-parent-kind-class"><span class="tsd-kind-icon">Method</span></li><li class="tsd-kind-accessor tsd-parent-kind-class"><span class="tsd-kind-icon">Accessor</span></li></ul><ul class="tsd-legend"><li class="tsd-kind-constructor tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited constructor</span></li><li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited property</span></li><li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited method</span></li><li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited accessor</span></li></ul><ul class="tsd-legend"><li class="tsd-kind-property tsd-parent-kind-interface"><span class="tsd-kind-icon">Property</span></li><li class="tsd-kind-method tsd-parent-kind-interface"><span class="tsd-kind-icon">Method</span></li></ul><ul class="tsd-legend"><li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private property</span></li><li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private method</span></li></ul><ul class="tsd-legend"><li class="tsd-kind-property tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static property</span></li><li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static method</span></li></ul><ul class="tsd-legend"><li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected method</span></li></ul></div><h2>Settings</h2><p>Theme <select id="theme"><option value="os">OS</option><option value="light">Light</option><option value="dark">Dark</option></select></p></div></footer><div class="container tsd-generator"><p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p></div><div class="overlay"></div><script src="assets/main.js"></script></body></html>

@@ -67928,11 +67928,223 @@ __webpack_require__.r(__webpack_exports__);
 
 // EXPORTS
 __webpack_require__.d(__webpack_exports__, {
-  "API": () => (/* binding */ API),
+  "API": () => (/* reexport */ api_namespaceObject),
+  "AUTH_PROP": () => (/* reexport */ AUTH_PROP),
+  "AbstractHTTP": () => (/* reexport */ AbstractHTTP),
+  "AlarmDAO": () => (/* reexport */ AlarmDAO),
+  "AlarmTypes": () => (/* reexport */ AlarmTypes),
+  "AxiosHTTP": () => (/* reexport */ AxiosHTTP),
+  "Categories": () => (/* reexport */ Categories),
+  "Clause": () => (/* reexport */ Clause),
   "Client": () => (/* reexport */ Client),
-  "DAO": () => (/* binding */ DAO),
-  "Model": () => (/* binding */ Model),
-  "Rest": () => (/* binding */ Rest)
+  "CollectTypes": () => (/* reexport */ CollectTypes),
+  "Comparator": () => (/* reexport */ Comparator),
+  "Comparators": () => (/* reexport */ Comparators),
+  "DAO": () => (/* reexport */ dao_namespaceObject),
+  "DEFAULT_TIMEOUT": () => (/* reexport */ DEFAULT_TIMEOUT),
+  "EventDAO": () => (/* reexport */ EventDAO),
+  "FeedbackTypes": () => (/* reexport */ FeedbackTypes),
+  "Filter": () => (/* reexport */ Filter),
+  "FlowDAO": () => (/* reexport */ FlowDAO),
+  "GrafanaError": () => (/* reexport */ GrafanaError),
+  "GrafanaHTTP": () => (/* reexport */ GrafanaHTTP),
+  "IpInterfaceDAO": () => (/* reexport */ IpInterfaceDAO),
+  "JsonTransformer": () => (/* reexport */ JsonTransformer),
+  "Logger": () => (/* reexport */ Logger),
+  "ManagedTypes": () => (/* reexport */ ManagedTypes),
+  "Model": () => (/* reexport */ model_namespaceObject),
+  "MonitoredServiceDAO": () => (/* reexport */ MonitoredServiceDAO),
+  "NestedRestriction": () => (/* reexport */ NestedRestriction),
+  "NodeDAO": () => (/* reexport */ NodeDAO),
+  "NodeLabelSources": () => (/* reexport */ NodeLabelSources),
+  "NodeTypes": () => (/* reexport */ NodeTypes),
+  "OPTIONS_PROP": () => (/* reexport */ OPTIONS_PROP),
+  "OnmsAlarm": () => (/* reexport */ OnmsAlarm),
+  "OnmsAlarmSummary": () => (/* reexport */ OnmsAlarmSummary),
+  "OnmsAlarmType": () => (/* reexport */ OnmsAlarmType),
+  "OnmsAuthConfig": () => (/* reexport */ OnmsAuthConfig),
+  "OnmsCategory": () => (/* reexport */ OnmsCategory),
+  "OnmsCollectType": () => (/* reexport */ OnmsCollectType),
+  "OnmsError": () => (/* reexport */ OnmsError),
+  "OnmsEvent": () => (/* reexport */ OnmsEvent),
+  "OnmsFlowExporter": () => (/* reexport */ OnmsFlowExporter),
+  "OnmsFlowExporterSummary": () => (/* reexport */ OnmsFlowExporterSummary),
+  "OnmsFlowSeries": () => (/* reexport */ OnmsFlowSeries),
+  "OnmsFlowSeriesColumn": () => (/* reexport */ OnmsFlowSeriesColumn),
+  "OnmsFlowSnmpInterface": () => (/* reexport */ OnmsFlowSnmpInterface),
+  "OnmsFlowTable": () => (/* reexport */ OnmsFlowTable),
+  "OnmsHTTPOptions": () => (/* reexport */ OnmsHTTPOptions),
+  "OnmsHTTPOptionsBuilder": () => (/* reexport */ OnmsHTTPOptionsBuilder),
+  "OnmsIpInterface": () => (/* reexport */ OnmsIpInterface),
+  "OnmsManagedType": () => (/* reexport */ OnmsManagedType),
+  "OnmsMemo": () => (/* reexport */ OnmsMemo),
+  "OnmsMonitoredService": () => (/* reexport */ OnmsMonitoredService),
+  "OnmsNode": () => (/* reexport */ OnmsNode),
+  "OnmsNodeLabelSource": () => (/* reexport */ OnmsNodeLabelSource),
+  "OnmsNodeType": () => (/* reexport */ OnmsNodeType),
+  "OnmsOutage": () => (/* reexport */ OnmsOutage),
+  "OnmsParm": () => (/* reexport */ OnmsParm),
+  "OnmsPrimaryType": () => (/* reexport */ OnmsPrimaryType),
+  "OnmsResult": () => (/* reexport */ OnmsResult),
+  "OnmsServer": () => (/* reexport */ OnmsServer),
+  "OnmsServerBuilder": () => (/* reexport */ OnmsServerBuilder),
+  "OnmsServiceStatusType": () => (/* reexport */ OnmsServiceStatusType),
+  "OnmsServiceType": () => (/* reexport */ OnmsServiceType),
+  "OnmsSeverity": () => (/* reexport */ OnmsSeverity),
+  "OnmsSituationFeedback": () => (/* reexport */ OnmsSituationFeedback),
+  "OnmsSituationFeedbackType": () => (/* reexport */ OnmsSituationFeedbackType),
+  "OnmsSnmpInterface": () => (/* reexport */ OnmsSnmpInterface),
+  "OnmsSnmpStatusType": () => (/* reexport */ OnmsSnmpStatusType),
+  "OnmsTroubleTicketState": () => (/* reexport */ OnmsTroubleTicketState),
+  "OnmsVersion": () => (/* reexport */ OnmsVersion),
+  "Operator": () => (/* reexport */ Operator),
+  "Operators": () => (/* reexport */ Operators),
+  "Order": () => (/* reexport */ Order),
+  "OrderBy": () => (/* reexport */ OrderBy),
+  "Orders": () => (/* reexport */ Orders),
+  "OutageDAO": () => (/* reexport */ OutageDAO),
+  "PhysAddr": () => (/* reexport */ PhysAddr),
+  "PrimaryTypes": () => (/* reexport */ PrimaryTypes),
+  "Rest": () => (/* reexport */ rest_namespaceObject),
+  "Restriction": () => (/* reexport */ Restriction),
+  "SearchProperty": () => (/* reexport */ SearchProperty),
+  "SearchPropertyType": () => (/* reexport */ SearchPropertyType),
+  "SearchPropertyTypes": () => (/* reexport */ SearchPropertyTypes),
+  "ServerMetadata": () => (/* reexport */ ServerMetadata),
+  "ServerType": () => (/* reexport */ ServerType),
+  "ServerTypes": () => (/* reexport */ ServerTypes),
+  "ServiceStatusTypes": () => (/* reexport */ ServiceStatusTypes),
+  "ServiceTypes": () => (/* reexport */ ServiceTypes),
+  "Severities": () => (/* reexport */ Severities),
+  "SituationFeedbackDAO": () => (/* reexport */ SituationFeedbackDAO),
+  "SnmpInterfaceDAO": () => (/* reexport */ SnmpInterfaceDAO),
+  "SnmpStatusTypes": () => (/* reexport */ SnmpStatusTypes),
+  "TIMEOUT_PROP": () => (/* reexport */ TIMEOUT_PROP),
+  "TicketerConfig": () => (/* reexport */ TicketerConfig),
+  "TroubleTicketStates": () => (/* reexport */ TroubleTicketStates),
+  "V1FilterProcessor": () => (/* reexport */ V1FilterProcessor),
+  "V2FilterProcessor": () => (/* reexport */ V2FilterProcessor),
+  "XmlTransformer": () => (/* reexport */ XmlTransformer),
+  "addParameter": () => (/* reexport */ addParameter),
+  "log": () => (/* reexport */ log)
+});
+
+// NAMESPACE OBJECT: ./src/api/index.ts
+var api_namespaceObject = {};
+__webpack_require__.r(api_namespaceObject);
+__webpack_require__.d(api_namespaceObject, {
+  "AUTH_PROP": () => (AUTH_PROP),
+  "Clause": () => (Clause),
+  "Comparator": () => (Comparator),
+  "Comparators": () => (Comparators),
+  "DEFAULT_TIMEOUT": () => (DEFAULT_TIMEOUT),
+  "Filter": () => (Filter),
+  "Logger": () => (Logger),
+  "NestedRestriction": () => (NestedRestriction),
+  "OnmsAuthConfig": () => (OnmsAuthConfig),
+  "OnmsError": () => (OnmsError),
+  "OnmsHTTPOptions": () => (OnmsHTTPOptions),
+  "OnmsHTTPOptionsBuilder": () => (OnmsHTTPOptionsBuilder),
+  "OnmsResult": () => (OnmsResult),
+  "OnmsServer": () => (OnmsServer),
+  "OnmsServerBuilder": () => (OnmsServerBuilder),
+  "OnmsVersion": () => (OnmsVersion),
+  "Operator": () => (Operator),
+  "Operators": () => (Operators),
+  "Order": () => (Order),
+  "OrderBy": () => (OrderBy),
+  "Orders": () => (Orders),
+  "Restriction": () => (Restriction),
+  "SearchProperty": () => (SearchProperty),
+  "SearchPropertyType": () => (SearchPropertyType),
+  "SearchPropertyTypes": () => (SearchPropertyTypes),
+  "ServerMetadata": () => (ServerMetadata),
+  "ServerType": () => (ServerType),
+  "ServerTypes": () => (ServerTypes),
+  "TIMEOUT_PROP": () => (TIMEOUT_PROP),
+  "TicketerConfig": () => (TicketerConfig),
+  "addParameter": () => (addParameter),
+  "log": () => (log)
+});
+
+// NAMESPACE OBJECT: ./src/dao/index.ts
+var dao_namespaceObject = {};
+__webpack_require__.r(dao_namespaceObject);
+__webpack_require__.d(dao_namespaceObject, {
+  "AlarmDAO": () => (AlarmDAO),
+  "EventDAO": () => (EventDAO),
+  "FlowDAO": () => (FlowDAO),
+  "IpInterfaceDAO": () => (IpInterfaceDAO),
+  "MonitoredServiceDAO": () => (MonitoredServiceDAO),
+  "NodeDAO": () => (NodeDAO),
+  "OutageDAO": () => (OutageDAO),
+  "SituationFeedbackDAO": () => (SituationFeedbackDAO),
+  "SnmpInterfaceDAO": () => (SnmpInterfaceDAO),
+  "V1FilterProcessor": () => (V1FilterProcessor),
+  "V2FilterProcessor": () => (V2FilterProcessor)
+});
+
+// NAMESPACE OBJECT: ./src/model/index.ts
+var model_namespaceObject = {};
+__webpack_require__.r(model_namespaceObject);
+__webpack_require__.d(model_namespaceObject, {
+  "AlarmTypes": () => (AlarmTypes),
+  "Categories": () => (Categories),
+  "CollectTypes": () => (CollectTypes),
+  "FeedbackTypes": () => (FeedbackTypes),
+  "ManagedTypes": () => (ManagedTypes),
+  "NodeLabelSources": () => (NodeLabelSources),
+  "NodeTypes": () => (NodeTypes),
+  "OnmsAlarm": () => (OnmsAlarm),
+  "OnmsAlarmSummary": () => (OnmsAlarmSummary),
+  "OnmsAlarmType": () => (OnmsAlarmType),
+  "OnmsCategory": () => (OnmsCategory),
+  "OnmsCollectType": () => (OnmsCollectType),
+  "OnmsEvent": () => (OnmsEvent),
+  "OnmsFlowExporter": () => (OnmsFlowExporter),
+  "OnmsFlowExporterSummary": () => (OnmsFlowExporterSummary),
+  "OnmsFlowSeries": () => (OnmsFlowSeries),
+  "OnmsFlowSeriesColumn": () => (OnmsFlowSeriesColumn),
+  "OnmsFlowSnmpInterface": () => (OnmsFlowSnmpInterface),
+  "OnmsFlowTable": () => (OnmsFlowTable),
+  "OnmsIpInterface": () => (OnmsIpInterface),
+  "OnmsManagedType": () => (OnmsManagedType),
+  "OnmsMemo": () => (OnmsMemo),
+  "OnmsMonitoredService": () => (OnmsMonitoredService),
+  "OnmsNode": () => (OnmsNode),
+  "OnmsNodeLabelSource": () => (OnmsNodeLabelSource),
+  "OnmsNodeType": () => (OnmsNodeType),
+  "OnmsOutage": () => (OnmsOutage),
+  "OnmsParm": () => (OnmsParm),
+  "OnmsPrimaryType": () => (OnmsPrimaryType),
+  "OnmsServiceStatusType": () => (OnmsServiceStatusType),
+  "OnmsServiceType": () => (OnmsServiceType),
+  "OnmsSeverity": () => (OnmsSeverity),
+  "OnmsSituationFeedback": () => (OnmsSituationFeedback),
+  "OnmsSituationFeedbackType": () => (OnmsSituationFeedbackType),
+  "OnmsSnmpInterface": () => (OnmsSnmpInterface),
+  "OnmsSnmpStatusType": () => (OnmsSnmpStatusType),
+  "OnmsTroubleTicketState": () => (OnmsTroubleTicketState),
+  "PhysAddr": () => (PhysAddr),
+  "PrimaryTypes": () => (PrimaryTypes),
+  "ServiceStatusTypes": () => (ServiceStatusTypes),
+  "ServiceTypes": () => (ServiceTypes),
+  "Severities": () => (Severities),
+  "SnmpStatusTypes": () => (SnmpStatusTypes),
+  "TroubleTicketStates": () => (TroubleTicketStates)
+});
+
+// NAMESPACE OBJECT: ./src/rest/index.ts
+var rest_namespaceObject = {};
+__webpack_require__.r(rest_namespaceObject);
+__webpack_require__.d(rest_namespaceObject, {
+  "AbstractHTTP": () => (AbstractHTTP),
+  "AxiosHTTP": () => (AxiosHTTP),
+  "GrafanaError": () => (GrafanaError),
+  "GrafanaHTTP": () => (GrafanaHTTP),
+  "JsonTransformer": () => (JsonTransformer),
+  "OPTIONS_PROP": () => (OPTIONS_PROP),
+  "XmlTransformer": () => (XmlTransformer)
 });
 
 // EXTERNAL MODULE: ./node_modules/@babel/runtime-corejs3/core-js-stable/object/freeze.js
@@ -67942,14 +68154,55 @@ var freeze_default = /*#__PURE__*/__webpack_require__.n(freeze);
 var stable = __webpack_require__("./node_modules/core-js/stable/index.js");
 // EXTERNAL MODULE: ./node_modules/regenerator-runtime/runtime.js
 var runtime = __webpack_require__("./node_modules/regenerator-runtime/runtime.js");
+// EXTERNAL MODULE: ./node_modules/@babel/runtime-corejs3/core-js-stable/array/is-array.js
+var is_array = __webpack_require__("./node_modules/@babel/runtime-corejs3/core-js-stable/array/is-array.js");
+var is_array_default = /*#__PURE__*/__webpack_require__.n(is_array);
+// EXTERNAL MODULE: ./node_modules/@babel/runtime-corejs3/core-js-stable/instance/index-of.js
+var index_of = __webpack_require__("./node_modules/@babel/runtime-corejs3/core-js-stable/instance/index-of.js");
+var index_of_default = /*#__PURE__*/__webpack_require__.n(index_of);
+;// CONCATENATED MODULE: ./src/api/IFilterProcessor.ts
+
+
+
+/**
+ * Interface that represents a processor to convert a [[Filter]] into a set of HTTP parameters.
+ * @interface
+ * @category Filtering
+ */
+
+/**
+ * A utility method to be used by IFilterProcessor to handle multi-value parameters.
+ * @category Filtering
+ * @hidden
+ */
+var addParameter = function addParameter(hash, key, value) {
+  // if it doesn't exist, go ahead and set it as a scalar string
+  if (!hash[key]) {
+    hash[key] = String(value);
+    return;
+  } // if we already have multiple values, add the new one if it's unique
+
+
+  if (is_array_default()(hash[key])) {
+    var _context;
+
+    if (index_of_default()(_context = hash[key]).call(_context, value) === -1) {
+      hash[key].push(String(value));
+    }
+
+    return;
+  } // otherwise, the param is not already an array, but it should be (assuming the new value is unique)
+
+
+  if (hash[key] !== String(value)) {
+    hash[key] = [hash[key], String(value)];
+  }
+};
 // EXTERNAL MODULE: ./node_modules/@babel/runtime-corejs3/core-js-stable/object/define-property.js
 var define_property = __webpack_require__("./node_modules/@babel/runtime-corejs3/core-js-stable/object/define-property.js");
 var define_property_default = /*#__PURE__*/__webpack_require__.n(define_property);
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.object.to-string.js
 var es_object_to_string = __webpack_require__("./node_modules/core-js/modules/es.object.to-string.js");
-// EXTERNAL MODULE: ./node_modules/@babel/runtime-corejs3/core-js-stable/instance/index-of.js
-var index_of = __webpack_require__("./node_modules/@babel/runtime-corejs3/core-js-stable/instance/index-of.js");
-var index_of_default = /*#__PURE__*/__webpack_require__.n(index_of);
 // EXTERNAL MODULE: ./node_modules/@babel/runtime-corejs3/core-js-stable/object/set-prototype-of.js
 var set_prototype_of = __webpack_require__("./node_modules/@babel/runtime-corejs3/core-js-stable/object/set-prototype-of.js");
 var set_prototype_of_default = /*#__PURE__*/__webpack_require__.n(set_prototype_of);
@@ -68126,7 +68379,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { define_property_de
 
 /**
  * Represents a filter comparator.
- * @category Filtering API
+ * @category Filtering
  */
 
 var Operator = /*#__PURE__*/function (_OnmsEnum) {
@@ -68187,11 +68440,8 @@ var Operators = {
   /** OR (at least one must match) */
   OR: new Operator(2, 'OR')
 };
-/** @hidden */
 
-var frozen = freeze_default()(Operators);
-
-
+freeze_default()(Operators);
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.regexp.exec.js
 var es_regexp_exec = __webpack_require__("./node_modules/core-js/modules/es.regexp.exec.js");
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.string.match.js
@@ -68245,7 +68495,7 @@ function Comparator_defineProperty(obj, key, value) { if (key in obj) { define_p
 
 /**
  * Represents a filter comparator.
- * @category Filtering API
+ * @category Filtering
  */
 
 var Comparator = /*#__PURE__*/function (_OnmsEnum) {
@@ -68306,7 +68556,7 @@ var Comparator = /*#__PURE__*/function (_OnmsEnum) {
 
 /**
  * Contains constant instances of all available comparators.
- * @category Filtering API
+ * @category Filtering
  */
 
 var Comparators = {
@@ -68350,11 +68600,8 @@ var Comparators = {
   */
 
 };
-/** @hidden */
 
-var Comparator_frozen = freeze_default()(Comparators);
-
-
+freeze_default()(Comparators);
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.string.bold.js
 var es_string_bold = __webpack_require__("./node_modules/core-js/modules/es.string.bold.js");
 // EXTERNAL MODULE: ./node_modules/chalk/source/index.js
@@ -68377,7 +68624,6 @@ function Log_defineProperty(obj, key, value) { if (key in obj) { define_property
 /**
  * Simple logger used for both CLI and browser use.
  * @category Internal
- * @namespace API
  */
 
 var Logger = /*#__PURE__*/function () {
@@ -68542,7 +68788,7 @@ var Logger = /*#__PURE__*/function () {
  * import {log} from 'api/Logger';
  * ```
  *
- * @category API
+ * @category Internal
  */
 
 var log = new Logger();
@@ -68569,7 +68815,7 @@ var namePattern = /^(.*?)\s+(eq|ne|ilike|like|gt|lt|ge|le|null|isnull|notnull)\s
 var symbolPattern = /^(\w+?)\s*(\=\=|\=|\!\=|\>\=|\<\=|\>|\<)\s*(\w+?)$/;
 /**
  * A query restriction.
- * @category Filtering API
+ * @category Filtering
  */
 
 var Restriction = /*#__PURE__*/function () {
@@ -68599,7 +68845,7 @@ var Restriction = /*#__PURE__*/function () {
         log.warn('Restriction.fromString: unable to match comparator: ' + stringify_default()(restriction.comparator));
       }
 
-      return new Restriction(restriction.attribute, comparator || Comparator_frozen.EQ, restriction.value);
+      return new Restriction(restriction.attribute, comparator || Comparators.EQ, restriction.value);
     }
     /**
      * Convert a filter string into a restriction.
@@ -68652,7 +68898,7 @@ function NestedRestriction_createClass(Constructor, protoProps, staticProps) { i
 
 /**
  * Nested query restrictions.
- * @category Filtering API
+ * @category Filtering
  */
 var NestedRestriction = /*#__PURE__*/function () {
   function NestedRestriction() {
@@ -68670,14 +68916,14 @@ var NestedRestriction = /*#__PURE__*/function () {
   NestedRestriction_createClass(NestedRestriction, [{
     key: "withOrRestriction",
     value: function withOrRestriction(restriction) {
-      return this.withClause(new Clause(restriction, frozen.OR));
+      return this.withClause(new Clause(restriction, Operators.OR));
     }
     /** Adds an additional restriction using the logical AND operator. */
 
   }, {
     key: "withAndRestriction",
     value: function withAndRestriction(restriction) {
-      return this.withClause(new Clause(restriction, frozen.AND));
+      return this.withClause(new Clause(restriction, Operators.AND));
     }
     /** Adds an additional clause. */
 
@@ -68728,7 +68974,7 @@ function Clause_createClass(Constructor, protoProps, staticProps) { if (protoPro
 
 /**
  * A restriction and boolean operator pair.
- * @category Filtering API
+ * @category Filtering
  */
 
 var Clause = /*#__PURE__*/function () {
@@ -68808,7 +69054,7 @@ function OrderBy_getPrototypeOf(o) { OrderBy_getPrototypeOf = (set_prototype_of_
 
 /**
  * Represents a sort order.
- * @category Filtering API
+ * @category Filtering
  */
 
 var Order = /*#__PURE__*/function (_OnmsEnum) {
@@ -68854,18 +69100,22 @@ var Order = /*#__PURE__*/function (_OnmsEnum) {
 
   return Order;
 }(OnmsEnum);
+/**
+ * Constant references to all OrderBy types.
+ * @category Filtering
+ */
+
 var Orders = {
   ASC: new Order('ASC', 'ASC'),
   DESC: new Order('DESC', 'DESC')
 };
 
-var OrderBy_frozen = freeze_default()(Orders);
-
-
+freeze_default()(Orders);
 /**
  * Column ordering.
- * @category Filtering API
+ * @category Filtering
  */
+
 
 var OrderBy = /*#__PURE__*/function () {
   function OrderBy(attribute, order) {
@@ -68946,7 +69196,7 @@ function Filter_defineProperty(obj, key, value) { if (key in obj) { define_prope
 
 /**
  * A query filter for DAOs.
- * @category Filtering API
+ * @category Filtering
  */
 
 var Filter = /*#__PURE__*/function (_NestedRestriction) {
@@ -69023,7 +69273,7 @@ function OnmsAuthConfig_createClass(Constructor, protoProps, staticProps) { if (
 
 /**
  * Represents server authentication config.
- * @category Rest API
+ * @category Client
  */
 var OnmsAuthConfig = /*#__PURE__*/function () {
   /** The password to authenticate with. */
@@ -69196,9 +69446,6 @@ var OnmsError = /*#__PURE__*/function (_Error) {
 // EXTERNAL MODULE: ./node_modules/@babel/runtime-corejs3/core-js-stable/symbol/for.js
 var symbol_for = __webpack_require__("./node_modules/@babel/runtime-corejs3/core-js-stable/symbol/for.js");
 var for_default = /*#__PURE__*/__webpack_require__.n(symbol_for);
-// EXTERNAL MODULE: ./node_modules/@babel/runtime-corejs3/core-js-stable/array/is-array.js
-var is_array = __webpack_require__("./node_modules/@babel/runtime-corejs3/core-js-stable/array/is-array.js");
-var is_array_default = /*#__PURE__*/__webpack_require__.n(is_array);
 // EXTERNAL MODULE: ./node_modules/@babel/runtime-corejs3/core-js-stable/object/assign.js
 var object_assign = __webpack_require__("./node_modules/@babel/runtime-corejs3/core-js-stable/object/assign.js");
 var assign_default = /*#__PURE__*/__webpack_require__.n(object_assign);
@@ -69410,7 +69657,7 @@ var isString = function isString(v) {
 };
 /**
  * A builder for [[OnmsHTTPOptions]].  Create a new one with [[OnmsHTTPOptions.newBuilder]].
- * @category Rest API
+ * @category Rest
  */
 // tslint:disable:completed-docs variable-name whitespace
 
@@ -69686,7 +69933,7 @@ var OnmsHTTPOptionsBuilder = /*#__PURE__*/function () {
 
 /**
  * Options to be used when making HTTP ReST calls.
- * @category Rest API
+ * @category Rest
  */
 
 var OnmsHTTPOptions = /*#__PURE__*/function () {
@@ -69784,7 +70031,7 @@ function OnmsResult_createClass(Constructor, protoProps, staticProps) { if (prot
 
 /**
  * An [[IOnmsHTTP]] query result.
- * @category Rest API
+ * @category Rest
  */
 var OnmsResult = /*#__PURE__*/function () {
   /**
@@ -69867,7 +70114,7 @@ function ServerType_getPrototypeOf(o) { ServerType_getPrototypeOf = (set_prototy
 
 /**
  * Represents an OpenNMS server type.
- * @category Rest API
+ * @category Rest
  */
 
 var ServerType = /*#__PURE__*/function (_OnmsEnum) {
@@ -69895,11 +70142,8 @@ var ServerTypes = {
   /** OpenNMS Meridian */
   MERIDIAN: new ServerType(2, 'MERIDIAN')
 };
-/** @hidden */
 
-var ServerType_frozen = freeze_default()(ServerTypes);
-
-
+freeze_default()(ServerTypes);
 // EXTERNAL MODULE: ./node_modules/object-hash/dist/object_hash.js
 var object_hash = __webpack_require__("./node_modules/object-hash/dist/object_hash.js");
 ;// CONCATENATED MODULE: ./src/api/OnmsServer.ts
@@ -69925,7 +70169,7 @@ var URI = __webpack_require__("./node_modules/urijs/src/URI.js");
 
 /**
  * A builder for [[OnmsServer]].  Create a new one with [[OnmsServer.newBuilder]].
- * @category Rest API
+ * @category Rest
  */
 // tslint:disable:completed-docs variable-name whitespace
 
@@ -70033,7 +70277,7 @@ var OnmsServerBuilder = /*#__PURE__*/function () {
 
 /**
  * Represents a remote OpenNMS server.
- * @category Rest API
+ * @category Rest
  */
 
 var OnmsServer = /*#__PURE__*/function () {
@@ -70137,7 +70381,7 @@ var OnmsServer = /*#__PURE__*/function () {
     key: "toString",
     value: function toString() {
       if (this.metadata) {
-        return 'OpenNMS ' + (this.metadata.type === ServerType_frozen.MERIDIAN ? 'Meridian' : 'Horizon') + ' ' + this.metadata.version.displayVersion + ' at ' + (this.host || this.url);
+        return 'OpenNMS ' + (this.metadata.type === ServerTypes.MERIDIAN ? 'Meridian' : 'Horizon') + ' ' + this.metadata.version.displayVersion + ' at ' + (this.host || this.url);
       } else {
         return 'OpenNMS at ' + (this.host || this.url);
       }
@@ -70173,7 +70417,7 @@ function OnmsVersion_createClass(Constructor, protoProps, staticProps) { if (pro
 
 /**
  * An OpenNMS version.
- * @category Rest API
+ * @category Rest
  */
 
 var OnmsVersion = /*#__PURE__*/function () {
@@ -70308,7 +70552,7 @@ function SearchProperty_createClass(Constructor, protoProps, staticProps) { if (
 
 /**
  * Represents a query search property.
- * @category Rest API
+ * @category Rest
  */
 var SearchProperty = /*#__PURE__*/function () {
   /** the search property ID */
@@ -70405,7 +70649,7 @@ function SearchPropertyType_getPrototypeOf(o) { SearchPropertyType_getPrototypeO
 
 /**
  * Represents a search property type.
- * @category Rest API
+ * @category Rest
  */
 
 var SearchPropertyType = /*#__PURE__*/function (_OnmsEnum) {
@@ -70456,12 +70700,12 @@ var SearchPropertyType = /*#__PURE__*/function (_OnmsEnum) {
 }(OnmsEnum);
 /** @hidden */
 
-var StringComparators = [Comparator_frozen.EQ, Comparator_frozen.NE];
+var StringComparators = [Comparators.EQ, Comparators.NE];
 /** @hidden */
 
-var NumberComparators = [Comparator_frozen.EQ, Comparator_frozen.NE, Comparator_frozen.GE, Comparator_frozen.GT, Comparator_frozen.LE, Comparator_frozen.LT];
+var NumberComparators = [Comparators.EQ, Comparators.NE, Comparators.GE, Comparators.GT, Comparators.LE, Comparators.LT];
 /**
- * Contains constant instances of all search property types.
+ * Constant references to all search property types.
  * @category Model
  */
 
@@ -70473,11 +70717,8 @@ var SearchPropertyTypes = {
   STRING: new SearchPropertyType('STRING', 'string', StringComparators),
   TIMESTAMP: new SearchPropertyType('TIMESTAMP', 'date and time', NumberComparators)
 };
-/** @hidden */
 
-var SearchPropertyType_frozen = freeze_default()(SearchPropertyTypes);
-
-
+freeze_default()(SearchPropertyTypes);
 ;// CONCATENATED MODULE: ./src/api/ServerMetadata.ts
 
 
@@ -70494,7 +70735,7 @@ function ServerMetadata_createClass(Constructor, protoProps, staticProps) { if (
 
 /**
  * A class that represents the capabilities an OpenNMS server has and other information about it.
- * @category Rest API
+ * @category Rest
  */
 var ServerMetadata = /*#__PURE__*/function () {
   /** The version of the server. */
@@ -70518,7 +70759,7 @@ var ServerMetadata = /*#__PURE__*/function () {
       this.version = new OnmsVersion(version || '0.0.0');
     }
 
-    this.type = type || ServerType_frozen.HORIZON;
+    this.type = type || ServerTypes.HORIZON;
     this.ticketerConfig = ticketerConfig;
   }
   /** Can you ack alarms through ReST? */
@@ -70534,7 +70775,7 @@ var ServerMetadata = /*#__PURE__*/function () {
   }, {
     key: "flows",
     value: function flows() {
-      if (this.type && this.type === ServerType_frozen.MERIDIAN) {
+      if (this.type && this.type === ServerTypes.MERIDIAN) {
         return this.version.ge('2019.0.0');
       } else {
         return this.version.ge('22.0.0');
@@ -70545,7 +70786,7 @@ var ServerMetadata = /*#__PURE__*/function () {
   }, {
     key: "graphs",
     value: function graphs() {
-      if (this.type && this.type === ServerType_frozen.MERIDIAN) {
+      if (this.type && this.type === ServerTypes.MERIDIAN) {
         return this.version.ge('2016.1.0');
       } else {
         return this.version.ge('16.0.0');
@@ -70570,7 +70811,7 @@ var ServerMetadata = /*#__PURE__*/function () {
   }, {
     key: "useJson",
     value: function useJson() {
-      if (this.type && this.type === ServerType_frozen.MERIDIAN) {
+      if (this.type && this.type === ServerTypes.MERIDIAN) {
         return this.version.ge('2017.0.0');
       } else {
         return this.version.ge('19.0.0');
@@ -70581,7 +70822,7 @@ var ServerMetadata = /*#__PURE__*/function () {
   }, {
     key: "situations",
     value: function situations() {
-      if (this.type && this.type === ServerType_frozen.MERIDIAN) {
+      if (this.type && this.type === ServerTypes.MERIDIAN) {
         return this.version.ge('2019.0.0');
       } else {
         return this.version.ge('23.0.0');
@@ -70592,7 +70833,7 @@ var ServerMetadata = /*#__PURE__*/function () {
   }, {
     key: "ticketer",
     value: function ticketer() {
-      if (this.type && this.type === ServerType_frozen.MERIDIAN) {
+      if (this.type && this.type === ServerTypes.MERIDIAN) {
         return this.version.ge('2017.0.0');
       } else {
         return this.version.ge('21.0.0');
@@ -70603,7 +70844,7 @@ var ServerMetadata = /*#__PURE__*/function () {
   }, {
     key: "apiVersion",
     value: function apiVersion() {
-      if (this.type && this.type === ServerType_frozen.MERIDIAN) {
+      if (this.type && this.type === ServerTypes.MERIDIAN) {
         return this.version.ge('2017.1.0') ? 2 : 1;
       } else {
         return this.version.ge('20.1.0') ? 2 : 1;
@@ -70614,7 +70855,7 @@ var ServerMetadata = /*#__PURE__*/function () {
   }, {
     key: "enhancedFlows",
     value: function enhancedFlows() {
-      if (this.type && this.type === ServerType_frozen.MERIDIAN) {
+      if (this.type && this.type === ServerTypes.MERIDIAN) {
         return this.version.ge('2019.0.0');
       } else {
         return this.version.ge('25.0.0');
@@ -70625,7 +70866,7 @@ var ServerMetadata = /*#__PURE__*/function () {
   }, {
     key: "tos",
     value: function tos() {
-      if (this.type && this.type === ServerType_frozen.MERIDIAN) {
+      if (this.type && this.type === ServerTypes.MERIDIAN) {
         return this.version.ge('2022.0.0');
       } else {
         return this.version.ge('28.0.0');
@@ -70636,7 +70877,7 @@ var ServerMetadata = /*#__PURE__*/function () {
   }, {
     key: "ipInterfaceRest",
     value: function ipInterfaceRest() {
-      if (this.type === ServerType_frozen.MERIDIAN) {
+      if (this.type === ServerTypes.MERIDIAN) {
         return this.version.ge('2022.0.0');
       } else {
         return this.version.ge('29.0.0');
@@ -70647,7 +70888,7 @@ var ServerMetadata = /*#__PURE__*/function () {
   }, {
     key: "selectPartialResources",
     value: function selectPartialResources() {
-      if (this.type === ServerType_frozen.MERIDIAN) {
+      if (this.type === ServerTypes.MERIDIAN) {
         return this.version.ge('2022.0.0');
       } else {
         return this.version.ge('29.0.5');
@@ -70661,7 +70902,7 @@ var ServerMetadata = /*#__PURE__*/function () {
       return {
         version: this.version.toString(),
         apiVersion: this.apiVersion(),
-        type: this.type === ServerType_frozen.MERIDIAN ? 'Meridian' : 'Horizon',
+        type: this.type === ServerTypes.MERIDIAN ? 'Meridian' : 'Horizon',
         ackAlarms: this.ackAlarms(),
         enhancedFlows: this.enhancedFlows(),
         flows: this.flows(),
@@ -70725,7 +70966,7 @@ function TicketerConfig_createClass(Constructor, protoProps, staticProps) { if (
 
 /**
  * States the current ticket configuration.
- * @category Rest API
+ * @category Client
  */
 var TicketerConfig = /*#__PURE__*/function () {
   /** The name of the ticketer plugin currently in use. */
@@ -70760,6 +71001,37 @@ var TicketerConfig = /*#__PURE__*/function () {
 
   return TicketerConfig;
 }();
+;// CONCATENATED MODULE: ./src/api/index.ts
+// API interfaces
+
+
+
+
+ // API concrete classes
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ // export this explicitly so that OnmsHTTPOptions can reference it in docs
+
+
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.symbol.js
 var es_symbol = __webpack_require__("./node_modules/core-js/modules/es.symbol.js");
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.symbol.description.js
@@ -70790,43 +71062,6 @@ var web_dom_collections_iterator = __webpack_require__("./node_modules/core-js/m
 // EXTERNAL MODULE: ./node_modules/@babel/runtime-corejs3/core-js-stable/instance/values.js
 var values = __webpack_require__("./node_modules/@babel/runtime-corejs3/core-js-stable/instance/values.js");
 var values_default = /*#__PURE__*/__webpack_require__.n(values);
-;// CONCATENATED MODULE: ./src/api/IFilterProcessor.ts
-
-
-
-/**
- * Interface that represents a processor to convert a [[Filter]] into a set of HTTP parameters.
- * @interface
- * @category Filtering API
- */
-
-/**
- * A utility method to be used by IFilterProcessor to handle multi-value parameters.
- * @category Filtering API
- */
-var addParameter = function addParameter(hash, key, value) {
-  // if it doesn't exist, go ahead and set it as a scalar string
-  if (!hash[key]) {
-    hash[key] = String(value);
-    return;
-  } // if we already have multiple values, add the new one if it's unique
-
-
-  if (is_array_default()(hash[key])) {
-    var _context;
-
-    if (index_of_default()(_context = hash[key]).call(_context, value) === -1) {
-      hash[key].push(String(value));
-    }
-
-    return;
-  } // otherwise, the param is not already an array, but it should be (assuming the new value is unique)
-
-
-  if (hash[key] !== String(value)) {
-    hash[key] = [hash[key], String(value)];
-  }
-};
 ;// CONCATENATED MODULE: ./src/dao/V1FilterProcessor.ts
 
 
@@ -70862,7 +71097,7 @@ function V1FilterProcessor_createClass(Constructor, protoProps, staticProps) { i
 
 /** @hidden */
 
-var nonExclusiveComparators = [Comparator_frozen.NULL, Comparator_frozen.NOTNULL];
+var nonExclusiveComparators = [Comparators.NULL, Comparators.NOTNULL];
 /** @hidden */
 
 var isExclusive = function isExclusive(comparator) {
@@ -70870,7 +71105,7 @@ var isExclusive = function isExclusive(comparator) {
 };
 /**
  * Converts a [[Filter]] into ReSTv1 parameters.
- * @category Filtering API
+ * @category Filtering
  */
 
 
@@ -70901,7 +71136,7 @@ var V1FilterProcessor = /*#__PURE__*/function () {
         for (_iterator.s(); !(_step = _iterator.n()).done;) {
           var clause = _step.value;
 
-          if (clause.operator !== frozen.OR) {
+          if (clause.operator !== Operators.OR) {
             throw new OnmsError('V1 only supports OR operators!');
           }
 
@@ -70912,13 +71147,13 @@ var V1FilterProcessor = /*#__PURE__*/function () {
           var restriction = clause.restriction;
 
           switch (restriction.comparator) {
-            case Comparator_frozen.NULL:
+            case Comparators.NULL:
               {
                 addParameter(ret, restriction.attribute, 'null');
                 break;
               }
 
-            case Comparator_frozen.NOTNULL:
+            case Comparators.NOTNULL:
               {
                 addParameter(ret, restriction.attribute, 'notnull');
                 break;
@@ -71031,7 +71266,7 @@ function V2FilterProcessor_defineProperty(obj, key, value) { if (key in obj) { d
 
 /**
  * Converts a [[Filter]] into ReSTv2 FIQL parameters.
- * @category Filtering API
+ * @category Filtering
  */
 
 var V2FilterProcessor = /*#__PURE__*/function () {
@@ -71110,30 +71345,30 @@ var V2FilterProcessor = /*#__PURE__*/function () {
     key: "toFIQLComparator",
     value: function toFIQLComparator(comparator) {
       switch (comparator) {
-        case Comparator_frozen.EQ:
-        case Comparator_frozen.NULL:
+        case Comparators.EQ:
+        case Comparators.NULL:
           return '==';
 
-        case Comparator_frozen.NE:
-        case Comparator_frozen.NOTNULL:
+        case Comparators.NE:
+        case Comparators.NOTNULL:
           return '!=';
 
-        case Comparator_frozen.GT:
+        case Comparators.GT:
           return '=gt=';
 
-        case Comparator_frozen.LT:
+        case Comparators.LT:
           return '=lt=';
 
-        case Comparator_frozen.GE:
+        case Comparators.GE:
           return '=ge=';
 
-        case Comparator_frozen.LE:
+        case Comparators.LE:
           return '=le=';
 
-        case Comparator_frozen.LIKE:
+        case Comparators.LIKE:
           return '==';
 
-        case Comparator_frozen.ILIKE:
+        case Comparators.ILIKE:
         default:
           throw new OnmsError('Unsupported comparator type: ' + comparator);
       }
@@ -71159,15 +71394,15 @@ var V2FilterProcessor = /*#__PURE__*/function () {
     key: "toFIQLValue",
     value: function toFIQLValue(restriction) {
       switch (restriction.comparator) {
-        case Comparator_frozen.NULL:
-        case Comparator_frozen.NOTNULL:
+        case Comparators.NULL:
+        case Comparators.NOTNULL:
           return restriction.value === undefined ? V2FilterProcessor.NULL_VALUE : encodeURIComponent(restriction.value);
 
         default:
           if (restriction.value === 'null' || restriction.value === void 0) {
             var property = this.getProperty(restriction.attribute);
 
-            if (property && property.type === SearchPropertyType_frozen.TIMESTAMP) {
+            if (property && property.type === SearchPropertyTypes.TIMESTAMP) {
               return V2FilterProcessor.NULL_DATE_ENCODED;
             }
 
@@ -71183,10 +71418,10 @@ var V2FilterProcessor = /*#__PURE__*/function () {
     key: "toFIQLOperator",
     value: function toFIQLOperator(operator) {
       switch (operator) {
-        case frozen.AND:
+        case Operators.AND:
           return ';';
 
-        case frozen.OR:
+        case Operators.OR:
           return ',';
 
         default:
@@ -72220,11 +72455,8 @@ var Severities = {
   MAJOR: new OnmsSeverity(6, 'MAJOR'),
   CRITICAL: new OnmsSeverity(7, 'CRITICAL')
 };
-/** @hidden */
 
-var OnmsSeverity_frozen = freeze_default()(Severities);
-
-
+freeze_default()(Severities);
 ;// CONCATENATED MODULE: ./src/model/OnmsEvent.ts
 function OnmsEvent_createForOfIteratorHelper(o, allowArrayLike) { var it = typeof (symbol_default()) !== "undefined" && get_iterator_method_default()(o) || o["@@iterator"]; if (!it) { if (is_array_default()(o) || (it = OnmsEvent_unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
 
@@ -72776,11 +73008,8 @@ var AlarmTypes = {
   /** No Possible Resolution */
   3: new OnmsAlarmType(3, 'no possible resolution')
 };
-/** @hidden */
 
-var OnmsAlarmType_frozen = freeze_default()(AlarmTypes);
-
-
+freeze_default()(AlarmTypes);
 ;// CONCATENATED MODULE: ./src/model/OnmsTroubleTicketState.ts
 function OnmsTroubleTicketState_typeof(obj) { "@babel/helpers - typeof"; return OnmsTroubleTicketState_typeof = "function" == typeof (symbol_default()) && "symbol" == typeof (iterator_default()) ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof (symbol_default()) && obj.constructor === (symbol_default()) && obj !== (symbol_default()).prototype ? "symbol" : typeof obj; }, OnmsTroubleTicketState_typeof(obj); }
 
@@ -72906,11 +73135,8 @@ var TroubleTicketStates = {
   /** An attempt to mark the ticket canceled in the remote helpdesk system has failed */
   CANCEL_FAILED: new OnmsTroubleTicketState(13, 'CANCEL_FAILED')
 };
-/** @hidden */
 
-var OnmsTroubleTicketState_frozen = freeze_default()(TroubleTicketStates);
-
-
+freeze_default()(TroubleTicketStates);
 ;// CONCATENATED MODULE: ./src/model/OnmsMemo.ts
 
 
@@ -73803,11 +74029,11 @@ var AlarmDAO = /*#__PURE__*/function (_AbstractDAO) {
                         var value = String(restriction.value).toLowerCase() === 'true';
                         restriction.attribute = 'alarmAckTime';
 
-                        if (restriction.comparator.label === Comparator_frozen.NE.label) {
+                        if (restriction.comparator.label === Comparators.NE.label) {
                           value = !value;
                         }
 
-                        restriction.comparator = value ? Comparator_frozen.NOTNULL : Comparator_frozen.NULL;
+                        restriction.comparator = value ? Comparators.NOTNULL : Comparators.NULL;
                         restriction.value = undefined;
                       }
                     }
@@ -75458,11 +75684,8 @@ var ManagedTypes = {
   /** Interface should only be polled remotely */
   REMOTE_ONLY: new OnmsManagedType('X', 'REMOTE_ONLY')
 };
-/** @hidden */
 
-var OnmsManagedType_frozen = freeze_default()(ManagedTypes);
-
-
+freeze_default()(ManagedTypes);
 ;// CONCATENATED MODULE: ./src/model/OnmsPrimaryType.ts
 function OnmsPrimaryType_typeof(obj) { "@babel/helpers - typeof"; return OnmsPrimaryType_typeof = "function" == typeof (symbol_default()) && "symbol" == typeof (iterator_default()) ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof (symbol_default()) && obj.constructor === (symbol_default()) && obj !== (symbol_default()).prototype ? "symbol" : typeof obj; }, OnmsPrimaryType_typeof(obj); }
 
@@ -75562,11 +75785,8 @@ var PrimaryTypes = {
   /** SNMP interface is not eligible for collection */
   NOT_ELIGIBLE: new OnmsPrimaryType('N', 'NOT_ELIGIBLE')
 };
-/** @hidden */
 
-var OnmsPrimaryType_frozen = freeze_default()(PrimaryTypes);
-
-
+freeze_default()(PrimaryTypes);
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.date.to-json.js
 var es_date_to_json = __webpack_require__("./node_modules/core-js/modules/es.date.to-json.js");
 // EXTERNAL MODULE: ./node_modules/core-js/modules/web.url.to-json.js
@@ -75673,11 +75893,8 @@ var CollectTypes = {
   /** User has forced collection to be disabled */
   FORCE_DO_NOT_COLLECT: new OnmsCollectType('UN', 'FORCE_DO_NOT_COLLECT')
 };
-/** @hidden */
 
-var OnmsCollectType_frozen = freeze_default()(CollectTypes);
-
-
+freeze_default()(CollectTypes);
 ;// CONCATENATED MODULE: ./src/model/OnmsSnmpStatusType.ts
 function OnmsSnmpStatusType_typeof(obj) { "@babel/helpers - typeof"; return OnmsSnmpStatusType_typeof = "function" == typeof (symbol_default()) && "symbol" == typeof (iterator_default()) ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof (symbol_default()) && obj.constructor === (symbol_default()) && obj !== (symbol_default()).prototype ? "symbol" : typeof obj; }, OnmsSnmpStatusType_typeof(obj); }
 
@@ -75770,11 +75987,8 @@ var SnmpStatusTypes = {
   /** Device is in "testing" mode */
   3: new OnmsSnmpStatusType(3, 'TESTING')
 };
-/** @hidden */
 
-var OnmsSnmpStatusType_frozen = freeze_default()(SnmpStatusTypes);
-
-
+freeze_default()(SnmpStatusTypes);
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.string.replace.js
 var es_string_replace = __webpack_require__("./node_modules/core-js/modules/es.string.replace.js");
 ;// CONCATENATED MODULE: ./src/model/PhysAddr.ts
@@ -76391,11 +76605,8 @@ var ServiceStatusTypes = {
   /** Service should only be monitored from remote locations */
   REMOTELY_MONITORED: new OnmsServiceStatusType('X', 'REMOTELY_MONITORED')
 };
-/** @hidden */
 
-var OnmsServiceStatusType_frozen = freeze_default()(ServiceStatusTypes);
-
-
+freeze_default()(ServiceStatusTypes);
 ;// CONCATENATED MODULE: ./src/model/OnmsMonitoredService.ts
 
 
@@ -76814,11 +77025,8 @@ var NodeLabelSources = {
   /** Node label source is unknown */
   UNKNOWN: new OnmsNodeLabelSource(' ', 'UNKNOWN')
 };
-/** @hidden */
 
-var OnmsNodeLabelSource_frozen = freeze_default()(NodeLabelSources);
-
-
+freeze_default()(NodeLabelSources);
 ;// CONCATENATED MODULE: ./src/model/OnmsNodeType.ts
 function OnmsNodeType_typeof(obj) { "@babel/helpers - typeof"; return OnmsNodeType_typeof = "function" == typeof (symbol_default()) && "symbol" == typeof (iterator_default()) ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof (symbol_default()) && obj.constructor === (symbol_default()) && obj !== (symbol_default()).prototype ? "symbol" : typeof obj; }, OnmsNodeType_typeof(obj); }
 
@@ -76911,11 +77119,8 @@ var NodeTypes = {
   /** Node state is unknown */
   UNKNOWN: new OnmsNodeType(' ', 'UNKNOWN')
 };
-/** @hidden */
 
-var OnmsNodeType_frozen = freeze_default()(NodeTypes);
-
-
+freeze_default()(NodeTypes);
 ;// CONCATENATED MODULE: ./src/model/OnmsNode.ts
 
 
@@ -77912,11 +78117,8 @@ var FeedbackTypes = {
   /** Alarm was incorrectly ommitted */
   FALSE_NEGATIVE: new OnmsSituationFeedbackType('FALSE_NEGATIVE', 'FALSE_NEGATIVE')
 };
-/** @hidden */
 
-var OnmsSituationFeedbackType_frozen = freeze_default()(FeedbackTypes);
-
-
+freeze_default()(FeedbackTypes);
 ;// CONCATENATED MODULE: ./src/dao/SituationFeedbackDAO.ts
 
 
@@ -78413,6 +78615,19 @@ var SnmpInterfaceDAO = /*#__PURE__*/function (_AbstractDAO) {
 
   return SnmpInterfaceDAO;
 }(AbstractDAO);
+;// CONCATENATED MODULE: ./src/dao/index.ts
+
+
+
+
+
+
+
+
+
+
+
+
 ;// CONCATENATED MODULE: ./src/model/OnmsAlarmSummary.ts
 
 
@@ -78456,11 +78671,38 @@ var OnmsAlarmSummary = /*#__PURE__*/function () {
 
   return OnmsAlarmSummary;
 }();
-// EXTERNAL MODULE: ./node_modules/core-js/modules/es.string.search.js
-var es_string_search = __webpack_require__("./node_modules/core-js/modules/es.string.search.js");
-// EXTERNAL MODULE: ./node_modules/axios/index.js
-var axios = __webpack_require__("./node_modules/axios/index.js");
-var axios_default = /*#__PURE__*/__webpack_require__.n(axios);
+;// CONCATENATED MODULE: ./src/model/index.ts
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ;// CONCATENATED MODULE: ./src/rest/XmlTransformer.ts
 
 
@@ -78495,7 +78737,7 @@ var xmlParser = new X2JS({
 });
 /**
  * Helper class to transform any xml string to a javascript object.
- * @category Rest API
+ * @category Rest
  */
 
 var XmlTransformer = /*#__PURE__*/function () {
@@ -78538,7 +78780,7 @@ function JsonTransformer_createClass(Constructor, protoProps, staticProps) { if 
 
 /**
  * Helper to transform a json string to an json object.
- * @category Rest API
+ * @category Rest
  */
 
 var JsonTransformer = /*#__PURE__*/function () {
@@ -78605,7 +78847,7 @@ var jsonTransformer = new JsonTransformer();
 var OPTIONS_PROP = for_default()('options');
 /**
  * Abstract implementation of the OnmsHTTP interface meant to be extended by a concrete class.
- * @category Rest API
+ * @category Rest
  * @implements IOnmsHTTP
  */
 
@@ -78848,6 +79090,11 @@ var AbstractHTTP = /*#__PURE__*/function () {
 
   return AbstractHTTP;
 }();
+// EXTERNAL MODULE: ./node_modules/core-js/modules/es.string.search.js
+var es_string_search = __webpack_require__("./node_modules/core-js/modules/es.string.search.js");
+// EXTERNAL MODULE: ./node_modules/axios/index.js
+var axios = __webpack_require__("./node_modules/axios/index.js");
+var axios_default = /*#__PURE__*/__webpack_require__.n(axios);
 ;// CONCATENATED MODULE: ./src/rest/AxiosHTTP.ts
 function AxiosHTTP_typeof(obj) { "@babel/helpers - typeof"; return AxiosHTTP_typeof = "function" == typeof (symbol_default()) && "symbol" == typeof (iterator_default()) ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof (symbol_default()) && obj.constructor === (symbol_default()) && obj !== (symbol_default()).prototype ? "symbol" : typeof obj; }, AxiosHTTP_typeof(obj); }
 
@@ -78941,7 +79188,7 @@ var parseParams = function parseParams(params) {
 };
 /**
  * Implementation of the [[IOnmsHTTP]] interface using Axios: https://github.com/mzabriskie/axios
- * @category Rest Implementation
+ * @category Rest
  * @implements IOnmsHTTP
  */
 
@@ -79274,7 +79521,7 @@ function GrafanaError_getPrototypeOf(o) { GrafanaError_getPrototypeOf = (set_pro
 
 /**
  * A Grafana error object.
- * @category Rest API
+ * @category Rest
  */
 
 var GrafanaError = /*#__PURE__*/function (_OnmsError) {
@@ -79354,7 +79601,7 @@ function GrafanaHTTP_getPrototypeOf(o) { GrafanaHTTP_getPrototypeOf = (set_proto
 
 /**
  * Implementation of the [[IOnmsHTTP]] interface for Grafana.
- * @category Rest Implementation
+ * @category Rest
  * @implements IOnmsHTTP
  */
 
@@ -79569,6 +79816,16 @@ var GrafanaHTTP = /*#__PURE__*/function (_AbstractHTTP) {
 
   return GrafanaHTTP;
 }(AbstractHTTP);
+;// CONCATENATED MODULE: ./src/rest/index.ts
+// HTTP implementations
+
+
+ // response transformers
+
+
+ // misc
+
+
 ;// CONCATENATED MODULE: ./src/Client.ts
 
 
@@ -79608,7 +79865,7 @@ function Client_defineProperty(obj, key, value) { if (key in obj) { define_prope
 
 /**
  * The OpenNMS client.  This is the primary interface to OpenNMS servers.
- * @category Rest API
+ * @category Rest
  */
 
 var Client = /*#__PURE__*/function () {
@@ -79864,11 +80121,11 @@ var Client = /*#__PURE__*/function () {
               case 9:
                 response = _context3.sent;
                 version = new OnmsVersion(response.data.version, response.data.displayVersion);
-                type = ServerType_frozen.HORIZON;
+                type = ServerTypes.HORIZON;
 
                 if (response.data.packageName) {
                   if (response.data.packageName.toLowerCase() === 'meridian') {
-                    type = ServerType_frozen.MERIDIAN;
+                    type = ServerTypes.MERIDIAN;
                   }
                 }
 
@@ -79919,162 +80176,17 @@ Client_defineProperty(Client, "defaultHttp", AxiosHTTP);
 
 
 
+freeze_default()(api_namespaceObject);
 
+freeze_default()(dao_namespaceObject);
 
+freeze_default()(model_namespaceObject);
 
+freeze_default()(rest_namespaceObject);
+/**
+ * @category Namespace
+ */
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/* tslint:disable:object-literal-sort-keys */
-
-/** @hidden */
-
-var API = freeze_default()({
-  Clause: Clause,
-  Comparator: Comparator,
-  Comparators: Comparator_frozen,
-  Filter: Filter,
-  NestedRestriction: NestedRestriction,
-  OnmsAuthConfig: OnmsAuthConfig,
-  OnmsError: OnmsError,
-  OnmsHTTPOptions: OnmsHTTPOptions,
-  OnmsResult: OnmsResult,
-  OnmsServer: OnmsServer,
-  OnmsVersion: OnmsVersion,
-  Operator: Operator,
-  Operators: frozen,
-  OrderBy: OrderBy,
-  Order: Order,
-  Orders: OrderBy_frozen,
-  Restriction: Restriction,
-  SearchProperty: SearchProperty,
-  SearchPropertyType: SearchPropertyType,
-  SearchPropertyTypes: SearchPropertyType_frozen,
-  ServerMetadata: ServerMetadata,
-  ServerType: ServerType,
-  ServerTypes: ServerType_frozen,
-  TicketerConfig: TicketerConfig
-});
-/** @hidden */
-
-
-var DAO = freeze_default()({
-  AlarmDAO: AlarmDAO,
-  EventDAO: EventDAO,
-  FlowDAO: FlowDAO,
-  IpInterfaceDAO: IpInterfaceDAO,
-  MonitoredServiceDAO: MonitoredServiceDAO,
-  NodeDAO: NodeDAO,
-  OutageDAO: OutageDAO,
-  SituationFeedbackDAO: SituationFeedbackDAO,
-  SnmpInterfaceDAO: SnmpInterfaceDAO,
-  V1FilterProcessor: V1FilterProcessor,
-  V2FilterProcessor: V2FilterProcessor
-});
-/** @hidden */
-
-
-var Model = freeze_default()({
-  AlarmTypes: OnmsAlarmType_frozen,
-  OnmsAlarm: OnmsAlarm,
-  OnmsAlarmSummary: OnmsAlarmSummary,
-  OnmsAlarmType: OnmsAlarmType,
-  OnmsCategory: OnmsCategory,
-  Categories: Categories,
-  OnmsCollectType: OnmsCollectType,
-  CollectTypes: OnmsCollectType_frozen,
-  OnmsEvent: OnmsEvent,
-  OnmsFlowSeries: OnmsFlowSeries,
-  OnmsFlowSeriesColumn: OnmsFlowSeriesColumn,
-  OnmsFlowExporter: OnmsFlowExporter,
-  OnmsFlowExporterSummary: OnmsFlowExporterSummary,
-  OnmsFlowSnmpInterface: OnmsFlowSnmpInterface,
-  OnmsFlowTable: OnmsFlowTable,
-  OnmsIpInterface: OnmsIpInterface,
-  OnmsManagedType: OnmsManagedType,
-  ManagedTypes: OnmsManagedType_frozen,
-  OnmsMemo: OnmsMemo,
-  OnmsMonitoredService: OnmsMonitoredService,
-  OnmsNode: OnmsNode,
-  OnmsNodeLabelSource: OnmsNodeLabelSource,
-  NodeLabelSources: OnmsNodeLabelSource_frozen,
-  OnmsNodeType: OnmsNodeType,
-  NodeTypes: OnmsNodeType_frozen,
-  OnmsParm: OnmsParm,
-  OnmsPrimaryType: OnmsPrimaryType,
-  PrimaryTypes: OnmsPrimaryType_frozen,
-  OnmsServiceStatusType: OnmsServiceStatusType,
-  ServiceStatusTypes: OnmsServiceStatusType_frozen,
-  OnmsServiceType: OnmsServiceType,
-  ServiceTypes: ServiceTypes,
-  OnmsSeverity: OnmsSeverity,
-  Severities: OnmsSeverity_frozen,
-  OnmsSituationFeedback: OnmsSituationFeedback,
-  OnmsSituationFeedbackType: OnmsSituationFeedbackType,
-  FeedbackTypes: OnmsSituationFeedbackType_frozen,
-  OnmsSnmpInterface: OnmsSnmpInterface,
-  OnmsSnmpStatusType: OnmsSnmpStatusType,
-  SnmpStatusTypes: OnmsSnmpStatusType_frozen,
-  OnmsTroubleTicketState: OnmsTroubleTicketState,
-  TroubleTicketStates: OnmsTroubleTicketState_frozen,
-  PhysAddr: PhysAddr
-});
-/** @hidden */
-
-
-var Rest = freeze_default()({
-  AxiosHTTP: AxiosHTTP,
-  GrafanaHTTP: GrafanaHTTP
-});
-/* tslint:enable:object-literal-sort-keys */
-
-/** @hidden */
 
 
 
