@@ -72,7 +72,7 @@ jobs:
       - branch-management/merge-branch:
           committer_email: "cicd-system@opennms.com"
           committer_name: "CI/CD System"
-          from: develop
+          from: "<< pipeline.git.revision >>"
           to: main
       - build-dist
       - run:
