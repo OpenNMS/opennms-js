@@ -3619,11 +3619,13 @@ var parseHeaders = __webpack_require__("./node_modules/axios/lib/helpers/parseHe
 
 var isURLSameOrigin = __webpack_require__("./node_modules/axios/lib/helpers/isURLSameOrigin.js");
 
-var createError = __webpack_require__("./node_modules/axios/lib/core/createError.js");
-
 var transitionalDefaults = __webpack_require__("./node_modules/axios/lib/defaults/transitional.js");
 
-var Cancel = __webpack_require__("./node_modules/axios/lib/cancel/Cancel.js");
+var AxiosError = __webpack_require__("./node_modules/axios/lib/core/AxiosError.js");
+
+var CanceledError = __webpack_require__("./node_modules/axios/lib/cancel/CanceledError.js");
+
+var parseProtocol = __webpack_require__("./node_modules/axios/lib/helpers/parseProtocol.js");
 
 module.exports = function xhrAdapter(config) {
   return new Promise(function dispatchXhrRequest(resolve, reject) {
@@ -3642,7 +3644,7 @@ module.exports = function xhrAdapter(config) {
       }
     }
 
-    if (utils.isFormData(requestData)) {
+    if (utils.isFormData(requestData) && utils.isStandardBrowserEnv()) {
       delete requestHeaders['Content-Type']; // Let the browser set it
     }
 
@@ -3716,7 +3718,7 @@ module.exports = function xhrAdapter(config) {
         return;
       }
 
-      reject(createError('Request aborted', config, 'ECONNABORTED', request)); // Clean up request
+      reject(new AxiosError('Request aborted', AxiosError.ECONNABORTED, config, request)); // Clean up request
 
       request = null;
     }; // Handle low level network errors
@@ -3725,7 +3727,7 @@ module.exports = function xhrAdapter(config) {
     request.onerror = function handleError() {
       // Real errors are hidden from us by the browser
       // onerror should only fire if it's a network error
-      reject(createError('Network Error', config, null, request)); // Clean up request
+      reject(new AxiosError('Network Error', AxiosError.ERR_NETWORK, config, request, request)); // Clean up request
 
       request = null;
     }; // Handle timeout
@@ -3739,7 +3741,7 @@ module.exports = function xhrAdapter(config) {
         timeoutErrorMessage = config.timeoutErrorMessage;
       }
 
-      reject(createError(timeoutErrorMessage, config, transitional.clarifyTimeoutError ? 'ETIMEDOUT' : 'ECONNABORTED', request)); // Clean up request
+      reject(new AxiosError(timeoutErrorMessage, transitional.clarifyTimeoutError ? AxiosError.ETIMEDOUT : AxiosError.ECONNABORTED, config, request)); // Clean up request
 
       request = null;
     }; // Add xsrf header
@@ -3797,7 +3799,7 @@ module.exports = function xhrAdapter(config) {
           return;
         }
 
-        reject(!cancel || cancel && cancel.type ? new Cancel('canceled') : cancel);
+        reject(!cancel || cancel && cancel.type ? new CanceledError() : cancel);
         request.abort();
         request = null;
       };
@@ -3811,6 +3813,13 @@ module.exports = function xhrAdapter(config) {
 
     if (!requestData) {
       requestData = null;
+    }
+
+    var protocol = parseProtocol(fullPath);
+
+    if (protocol && ['http', 'https', 'file'].indexOf(protocol) === -1) {
+      reject(new AxiosError('Unsupported protocol ' + protocol + ':', AxiosError.ERR_BAD_REQUEST, config));
+      return;
     } // Send the request
 
 
@@ -3863,10 +3872,15 @@ var axios = createInstance(defaults); // Expose Axios class to allow class inher
 
 axios.Axios = Axios; // Expose Cancel & CancelToken
 
-axios.Cancel = __webpack_require__("./node_modules/axios/lib/cancel/Cancel.js");
+axios.CanceledError = __webpack_require__("./node_modules/axios/lib/cancel/CanceledError.js");
 axios.CancelToken = __webpack_require__("./node_modules/axios/lib/cancel/CancelToken.js");
 axios.isCancel = __webpack_require__("./node_modules/axios/lib/cancel/isCancel.js");
-axios.VERSION = (__webpack_require__("./node_modules/axios/lib/env/data.js").version); // Expose all/spread
+axios.VERSION = (__webpack_require__("./node_modules/axios/lib/env/data.js").version);
+axios.toFormData = __webpack_require__("./node_modules/axios/lib/helpers/toFormData.js"); // Expose AxiosError class
+
+axios.AxiosError = __webpack_require__("./node_modules/axios/lib/core/AxiosError.js"); // alias for CanceledError for backward compatibility
+
+axios.Cancel = axios.CanceledError; // Expose all/spread
 
 axios.all = function all(promises) {
   return Promise.all(promises);
@@ -3881,38 +3895,13 @@ module.exports["default"] = axios;
 
 /***/ }),
 
-/***/ "./node_modules/axios/lib/cancel/Cancel.js":
-/***/ ((module) => {
-
-"use strict";
-
-/**
- * A `Cancel` is an object that is thrown when an operation is canceled.
- *
- * @class
- * @param {string=} message The message.
- */
-
-function Cancel(message) {
-  this.message = message;
-}
-
-Cancel.prototype.toString = function toString() {
-  return 'Cancel' + (this.message ? ': ' + this.message : '');
-};
-
-Cancel.prototype.__CANCEL__ = true;
-module.exports = Cancel;
-
-/***/ }),
-
 /***/ "./node_modules/axios/lib/cancel/CancelToken.js":
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
 
 
-var Cancel = __webpack_require__("./node_modules/axios/lib/cancel/Cancel.js");
+var CanceledError = __webpack_require__("./node_modules/axios/lib/cancel/CanceledError.js");
 /**
  * A `CancelToken` is an object that can be used to request cancellation of an operation.
  *
@@ -3966,12 +3955,12 @@ function CancelToken(executor) {
       return;
     }
 
-    token.reason = new Cancel(message);
+    token.reason = new CanceledError(message);
     resolvePromise(token.reason);
   });
 }
 /**
- * Throws a `Cancel` if cancellation has been requested.
+ * Throws a `CanceledError` if cancellation has been requested.
  */
 
 
@@ -4034,6 +4023,36 @@ module.exports = CancelToken;
 
 /***/ }),
 
+/***/ "./node_modules/axios/lib/cancel/CanceledError.js":
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+
+
+var AxiosError = __webpack_require__("./node_modules/axios/lib/core/AxiosError.js");
+
+var utils = __webpack_require__("./node_modules/axios/lib/utils.js");
+/**
+ * A `CanceledError` is an object that is thrown when an operation is canceled.
+ *
+ * @class
+ * @param {string=} message The message.
+ */
+
+
+function CanceledError(message) {
+  // eslint-disable-next-line no-eq-null,eqeqeq
+  AxiosError.call(this, message == null ? 'canceled' : message, AxiosError.ERR_CANCELED);
+  this.name = 'CanceledError';
+}
+
+utils.inherits(CanceledError, AxiosError, {
+  __CANCEL__: true
+});
+module.exports = CanceledError;
+
+/***/ }),
+
 /***/ "./node_modules/axios/lib/cancel/isCancel.js":
 /***/ ((module) => {
 
@@ -4061,6 +4080,8 @@ var InterceptorManager = __webpack_require__("./node_modules/axios/lib/core/Inte
 var dispatchRequest = __webpack_require__("./node_modules/axios/lib/core/dispatchRequest.js");
 
 var mergeConfig = __webpack_require__("./node_modules/axios/lib/core/mergeConfig.js");
+
+var buildFullPath = __webpack_require__("./node_modules/axios/lib/core/buildFullPath.js");
 
 var validator = __webpack_require__("./node_modules/axios/lib/helpers/validator.js");
 
@@ -4174,7 +4195,8 @@ Axios.prototype.request = function request(configOrUrl, config) {
 
 Axios.prototype.getUri = function getUri(config) {
   config = mergeConfig(this.defaults, config);
-  return buildURL(config.url, config.params, config.paramsSerializer).replace(/^\?/, '');
+  var fullPath = buildFullPath(config.baseURL, config.url);
+  return buildURL(fullPath, config.params, config.paramsSerializer);
 }; // Provide aliases for supported request methods
 
 
@@ -4190,15 +4212,101 @@ utils.forEach(['delete', 'get', 'head', 'options'], function forEachMethodNoData
 });
 utils.forEach(['post', 'put', 'patch'], function forEachMethodWithData(method) {
   /*eslint func-names:0*/
-  Axios.prototype[method] = function (url, data, config) {
-    return this.request(mergeConfig(config || {}, {
-      method: method,
-      url: url,
-      data: data
-    }));
-  };
+  function generateHTTPMethod(isForm) {
+    return function httpMethod(url, data, config) {
+      return this.request(mergeConfig(config || {}, {
+        method: method,
+        headers: isForm ? {
+          'Content-Type': 'multipart/form-data'
+        } : {},
+        url: url,
+        data: data
+      }));
+    };
+  }
+
+  Axios.prototype[method] = generateHTTPMethod();
+  Axios.prototype[method + 'Form'] = generateHTTPMethod(true);
 });
 module.exports = Axios;
+
+/***/ }),
+
+/***/ "./node_modules/axios/lib/core/AxiosError.js":
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+
+
+var utils = __webpack_require__("./node_modules/axios/lib/utils.js");
+/**
+ * Create an Error with the specified message, config, error code, request and response.
+ *
+ * @param {string} message The error message.
+ * @param {string} [code] The error code (for example, 'ECONNABORTED').
+ * @param {Object} [config] The config.
+ * @param {Object} [request] The request.
+ * @param {Object} [response] The response.
+ * @returns {Error} The created error.
+ */
+
+
+function AxiosError(message, code, config, request, response) {
+  Error.call(this);
+  this.message = message;
+  this.name = 'AxiosError';
+  code && (this.code = code);
+  config && (this.config = config);
+  request && (this.request = request);
+  response && (this.response = response);
+}
+
+utils.inherits(AxiosError, Error, {
+  toJSON: function toJSON() {
+    return {
+      // Standard
+      message: this.message,
+      name: this.name,
+      // Microsoft
+      description: this.description,
+      number: this.number,
+      // Mozilla
+      fileName: this.fileName,
+      lineNumber: this.lineNumber,
+      columnNumber: this.columnNumber,
+      stack: this.stack,
+      // Axios
+      config: this.config,
+      code: this.code,
+      status: this.response && this.response.status ? this.response.status : null
+    };
+  }
+});
+var prototype = AxiosError.prototype;
+var descriptors = {};
+['ERR_BAD_OPTION_VALUE', 'ERR_BAD_OPTION', 'ECONNABORTED', 'ETIMEDOUT', 'ERR_NETWORK', 'ERR_FR_TOO_MANY_REDIRECTS', 'ERR_DEPRECATED', 'ERR_BAD_RESPONSE', 'ERR_BAD_REQUEST', 'ERR_CANCELED' // eslint-disable-next-line func-names
+].forEach(function (code) {
+  descriptors[code] = {
+    value: code
+  };
+});
+Object.defineProperties(AxiosError, descriptors);
+Object.defineProperty(prototype, 'isAxiosError', {
+  value: true
+}); // eslint-disable-next-line func-names
+
+AxiosError.from = function (error, code, config, request, response, customProps) {
+  var axiosError = Object.create(prototype);
+  utils.toFlatObject(error, axiosError, function filter(obj) {
+    return obj !== Error.prototype;
+  });
+  AxiosError.call(axiosError, error.message, code, config, request, response);
+  axiosError.name = error.name;
+  customProps && Object.assign(axiosError, customProps);
+  return axiosError;
+};
+
+module.exports = AxiosError;
 
 /***/ }),
 
@@ -4296,32 +4404,6 @@ module.exports = function buildFullPath(baseURL, requestedURL) {
 
 /***/ }),
 
-/***/ "./node_modules/axios/lib/core/createError.js":
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
-
-"use strict";
-
-
-var enhanceError = __webpack_require__("./node_modules/axios/lib/core/enhanceError.js");
-/**
- * Create an Error with the specified message, config, error code, request and response.
- *
- * @param {string} message The error message.
- * @param {Object} config The config.
- * @param {string} [code] The error code (for example, 'ECONNABORTED').
- * @param {Object} [request] The request.
- * @param {Object} [response] The response.
- * @returns {Error} The created error.
- */
-
-
-module.exports = function createError(message, config, code, request, response) {
-  var error = new Error(message);
-  return enhanceError(error, config, code, request, response);
-};
-
-/***/ }),
-
 /***/ "./node_modules/axios/lib/core/dispatchRequest.js":
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
@@ -4336,9 +4418,9 @@ var isCancel = __webpack_require__("./node_modules/axios/lib/cancel/isCancel.js"
 
 var defaults = __webpack_require__("./node_modules/axios/lib/defaults/index.js");
 
-var Cancel = __webpack_require__("./node_modules/axios/lib/cancel/Cancel.js");
+var CanceledError = __webpack_require__("./node_modules/axios/lib/cancel/CanceledError.js");
 /**
- * Throws a `Cancel` if cancellation has been requested.
+ * Throws a `CanceledError` if cancellation has been requested.
  */
 
 
@@ -4348,7 +4430,7 @@ function throwIfCancellationRequested(config) {
   }
 
   if (config.signal && config.signal.aborted) {
-    throw new Cancel('canceled');
+    throw new CanceledError();
   }
 }
 /**
@@ -4387,58 +4469,6 @@ module.exports = function dispatchRequest(config) {
 
     return Promise.reject(reason);
   });
-};
-
-/***/ }),
-
-/***/ "./node_modules/axios/lib/core/enhanceError.js":
-/***/ ((module) => {
-
-"use strict";
-
-/**
- * Update an Error with the specified config, error code, and response.
- *
- * @param {Error} error The error to update.
- * @param {Object} config The config.
- * @param {string} [code] The error code (for example, 'ECONNABORTED').
- * @param {Object} [request] The request.
- * @param {Object} [response] The response.
- * @returns {Error} The error.
- */
-
-module.exports = function enhanceError(error, config, code, request, response) {
-  error.config = config;
-
-  if (code) {
-    error.code = code;
-  }
-
-  error.request = request;
-  error.response = response;
-  error.isAxiosError = true;
-
-  error.toJSON = function toJSON() {
-    return {
-      // Standard
-      message: this.message,
-      name: this.name,
-      // Microsoft
-      description: this.description,
-      number: this.number,
-      // Mozilla
-      fileName: this.fileName,
-      lineNumber: this.lineNumber,
-      columnNumber: this.columnNumber,
-      stack: this.stack,
-      // Axios
-      config: this.config,
-      code: this.code,
-      status: this.response && this.response.status ? this.response.status : null
-    };
-  };
-
-  return error;
 };
 
 /***/ }),
@@ -4531,6 +4561,7 @@ module.exports = function mergeConfig(config1, config2) {
     'decompress': defaultToConfig2,
     'maxContentLength': defaultToConfig2,
     'maxBodyLength': defaultToConfig2,
+    'beforeRedirect': defaultToConfig2,
     'transport': defaultToConfig2,
     'httpAgent': defaultToConfig2,
     'httpsAgent': defaultToConfig2,
@@ -4555,7 +4586,7 @@ module.exports = function mergeConfig(config1, config2) {
 "use strict";
 
 
-var createError = __webpack_require__("./node_modules/axios/lib/core/createError.js");
+var AxiosError = __webpack_require__("./node_modules/axios/lib/core/AxiosError.js");
 /**
  * Resolve or reject a Promise based on response status.
  *
@@ -4571,7 +4602,7 @@ module.exports = function settle(resolve, reject, response) {
   if (!response.status || !validateStatus || validateStatus(response.status)) {
     resolve(response);
   } else {
-    reject(createError('Request failed with status code ' + response.status, response.config, null, response.request, response));
+    reject(new AxiosError('Request failed with status code ' + response.status, [AxiosError.ERR_BAD_REQUEST, AxiosError.ERR_BAD_RESPONSE][Math.floor(response.status / 100) - 4], response.config, response.request, response));
   }
 };
 
@@ -4618,9 +4649,11 @@ var utils = __webpack_require__("./node_modules/axios/lib/utils.js");
 
 var normalizeHeaderName = __webpack_require__("./node_modules/axios/lib/helpers/normalizeHeaderName.js");
 
-var enhanceError = __webpack_require__("./node_modules/axios/lib/core/enhanceError.js");
+var AxiosError = __webpack_require__("./node_modules/axios/lib/core/AxiosError.js");
 
 var transitionalDefaults = __webpack_require__("./node_modules/axios/lib/defaults/transitional.js");
+
+var toFormData = __webpack_require__("./node_modules/axios/lib/helpers/toFormData.js");
 
 var DEFAULT_CONTENT_TYPE = {
   'Content-Type': 'application/x-www-form-urlencoded'
@@ -4681,7 +4714,17 @@ var defaults = {
       return data.toString();
     }
 
-    if (utils.isObject(data) || headers && headers['Content-Type'] === 'application/json') {
+    var isObjectPayload = utils.isObject(data);
+    var contentType = headers && headers['Content-Type'];
+    var isFileList;
+
+    if ((isFileList = utils.isFileList(data)) || isObjectPayload && contentType === 'multipart/form-data') {
+      var _FormData = this.env && this.env.FormData;
+
+      return toFormData(isFileList ? {
+        'files[]': data
+      } : data, _FormData && new _FormData());
+    } else if (isObjectPayload || contentType === 'application/json') {
       setContentTypeIfUnset(headers, 'application/json');
       return stringifySafely(data);
     }
@@ -4700,7 +4743,7 @@ var defaults = {
       } catch (e) {
         if (strictJSONParsing) {
           if (e.name === 'SyntaxError') {
-            throw enhanceError(e, this, 'E_JSON_PARSE');
+            throw AxiosError.from(e, AxiosError.ERR_BAD_RESPONSE, this, null, this.response);
           }
 
           throw e;
@@ -4720,6 +4763,9 @@ var defaults = {
   xsrfHeaderName: 'X-XSRF-TOKEN',
   maxContentLength: -1,
   maxBodyLength: -1,
+  env: {
+    FormData: __webpack_require__("./node_modules/axios/lib/helpers/null.js")
+  },
   validateStatus: function validateStatus(status) {
     return status >= 200 && status < 300;
   },
@@ -4757,7 +4803,7 @@ module.exports = {
 /***/ ((module) => {
 
 module.exports = {
-  "version": "0.26.1"
+  "version": "0.27.2"
 };
 
 /***/ }),
@@ -5054,6 +5100,14 @@ module.exports = function normalizeHeaderName(headers, normalizedName) {
 
 /***/ }),
 
+/***/ "./node_modules/axios/lib/helpers/null.js":
+/***/ ((module) => {
+
+// eslint-disable-next-line strict
+module.exports = null;
+
+/***/ }),
+
 /***/ "./node_modules/axios/lib/helpers/parseHeaders.js":
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
@@ -5111,6 +5165,19 @@ module.exports = function parseHeaders(headers) {
 
 /***/ }),
 
+/***/ "./node_modules/axios/lib/helpers/parseProtocol.js":
+/***/ ((module) => {
+
+"use strict";
+
+
+module.exports = function parseProtocol(url) {
+  var match = /^([-+\w]{1,25})(:?\/\/|:)/.exec(url);
+  return match && match[1] || '';
+};
+
+/***/ }),
+
 /***/ "./node_modules/axios/lib/helpers/spread.js":
 /***/ ((module) => {
 
@@ -5145,6 +5212,81 @@ module.exports = function spread(callback) {
 
 /***/ }),
 
+/***/ "./node_modules/axios/lib/helpers/toFormData.js":
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+
+
+var utils = __webpack_require__("./node_modules/axios/lib/utils.js");
+/**
+ * Convert a data object to FormData
+ * @param {Object} obj
+ * @param {?Object} [formData]
+ * @returns {Object}
+ **/
+
+
+function toFormData(obj, formData) {
+  // eslint-disable-next-line no-param-reassign
+  formData = formData || new FormData();
+  var stack = [];
+
+  function convertValue(value) {
+    if (value === null) return '';
+
+    if (utils.isDate(value)) {
+      return value.toISOString();
+    }
+
+    if (utils.isArrayBuffer(value) || utils.isTypedArray(value)) {
+      return typeof Blob === 'function' ? new Blob([value]) : Buffer.from(value);
+    }
+
+    return value;
+  }
+
+  function build(data, parentKey) {
+    if (utils.isPlainObject(data) || utils.isArray(data)) {
+      if (stack.indexOf(data) !== -1) {
+        throw Error('Circular reference detected in ' + parentKey);
+      }
+
+      stack.push(data);
+      utils.forEach(data, function each(value, key) {
+        if (utils.isUndefined(value)) return;
+        var fullKey = parentKey ? parentKey + '.' + key : key;
+        var arr;
+
+        if (value && !parentKey && typeof value === 'object') {
+          if (utils.endsWith(key, '{}')) {
+            // eslint-disable-next-line no-param-reassign
+            value = JSON.stringify(value);
+          } else if (utils.endsWith(key, '[]') && (arr = utils.toArray(value))) {
+            // eslint-disable-next-line func-names
+            arr.forEach(function (el) {
+              !utils.isUndefined(el) && formData.append(fullKey, convertValue(el));
+            });
+            return;
+          }
+        }
+
+        build(value, fullKey);
+      });
+      stack.pop();
+    } else {
+      formData.append(parentKey, convertValue(data));
+    }
+  }
+
+  build(obj);
+  return formData;
+}
+
+module.exports = toFormData;
+
+/***/ }),
+
 /***/ "./node_modules/axios/lib/helpers/validator.js":
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
@@ -5152,6 +5294,8 @@ module.exports = function spread(callback) {
 
 
 var VERSION = (__webpack_require__("./node_modules/axios/lib/env/data.js").version);
+
+var AxiosError = __webpack_require__("./node_modules/axios/lib/core/AxiosError.js");
 
 var validators = {}; // eslint-disable-next-line func-names
 
@@ -5177,7 +5321,7 @@ validators.transitional = function transitional(validator, version, message) {
 
   return function (value, opt, opts) {
     if (validator === false) {
-      throw new Error(formatMessage(opt, ' has been removed' + (version ? ' in ' + version : '')));
+      throw new AxiosError(formatMessage(opt, ' has been removed' + (version ? ' in ' + version : '')), AxiosError.ERR_DEPRECATED);
     }
 
     if (version && !deprecatedWarnings[opt]) {
@@ -5199,7 +5343,7 @@ validators.transitional = function transitional(validator, version, message) {
 
 function assertOptions(options, schema, allowUnknown) {
   if (typeof options !== 'object') {
-    throw new TypeError('options must be an object');
+    throw new AxiosError('options must be an object', AxiosError.ERR_BAD_OPTION_VALUE);
   }
 
   var keys = Object.keys(options);
@@ -5214,14 +5358,14 @@ function assertOptions(options, schema, allowUnknown) {
       var result = value === undefined || validator(value, opt, options);
 
       if (result !== true) {
-        throw new TypeError('option ' + opt + ' must be ' + result);
+        throw new AxiosError('option ' + opt + ' must be ' + result, AxiosError.ERR_BAD_OPTION_VALUE);
       }
 
       continue;
     }
 
     if (allowUnknown !== true) {
-      throw Error('Unknown option ' + opt);
+      throw new AxiosError('Unknown option ' + opt, AxiosError.ERR_BAD_OPTION);
     }
   }
 }
@@ -5242,13 +5386,29 @@ module.exports = {
 var bind = __webpack_require__("./node_modules/axios/lib/helpers/bind.js"); // utils is a library of generic helper functions non-specific to axios
 
 
-var toString = Object.prototype.toString;
+var toString = Object.prototype.toString; // eslint-disable-next-line func-names
+
+var kindOf = function (cache) {
+  // eslint-disable-next-line func-names
+  return function (thing) {
+    var str = toString.call(thing);
+    return cache[str] || (cache[str] = str.slice(8, -1).toLowerCase());
+  };
+}(Object.create(null));
+
+function kindOfTest(type) {
+  type = type.toLowerCase();
+  return function isKindOf(thing) {
+    return kindOf(thing) === type;
+  };
+}
 /**
  * Determine if a value is an Array
  *
  * @param {Object} val The value to test
  * @returns {boolean} True if value is an Array, otherwise false
  */
+
 
 function isArray(val) {
   return Array.isArray(val);
@@ -5278,32 +5438,19 @@ function isBuffer(val) {
 /**
  * Determine if a value is an ArrayBuffer
  *
+ * @function
  * @param {Object} val The value to test
  * @returns {boolean} True if value is an ArrayBuffer, otherwise false
  */
 
 
-function isArrayBuffer(val) {
-  return toString.call(val) === '[object ArrayBuffer]';
-}
-/**
- * Determine if a value is a FormData
- *
- * @param {Object} val The value to test
- * @returns {boolean} True if value is an FormData, otherwise false
- */
-
-
-function isFormData(val) {
-  return toString.call(val) === '[object FormData]';
-}
+var isArrayBuffer = kindOfTest('ArrayBuffer');
 /**
  * Determine if a value is a view on an ArrayBuffer
  *
  * @param {Object} val The value to test
  * @returns {boolean} True if value is a view on an ArrayBuffer, otherwise false
  */
-
 
 function isArrayBufferView(val) {
   var result;
@@ -5358,7 +5505,7 @@ function isObject(val) {
 
 
 function isPlainObject(val) {
-  if (toString.call(val) !== '[object Object]') {
+  if (kindOf(val) !== 'object') {
     return false;
   }
 
@@ -5368,43 +5515,46 @@ function isPlainObject(val) {
 /**
  * Determine if a value is a Date
  *
+ * @function
  * @param {Object} val The value to test
  * @returns {boolean} True if value is a Date, otherwise false
  */
 
 
-function isDate(val) {
-  return toString.call(val) === '[object Date]';
-}
+var isDate = kindOfTest('Date');
 /**
  * Determine if a value is a File
  *
+ * @function
  * @param {Object} val The value to test
  * @returns {boolean} True if value is a File, otherwise false
  */
 
-
-function isFile(val) {
-  return toString.call(val) === '[object File]';
-}
+var isFile = kindOfTest('File');
 /**
  * Determine if a value is a Blob
  *
+ * @function
  * @param {Object} val The value to test
  * @returns {boolean} True if value is a Blob, otherwise false
  */
 
+var isBlob = kindOfTest('Blob');
+/**
+ * Determine if a value is a FileList
+ *
+ * @function
+ * @param {Object} val The value to test
+ * @returns {boolean} True if value is a File, otherwise false
+ */
 
-function isBlob(val) {
-  return toString.call(val) === '[object Blob]';
-}
+var isFileList = kindOfTest('FileList');
 /**
  * Determine if a value is a Function
  *
  * @param {Object} val The value to test
  * @returns {boolean} True if value is a Function, otherwise false
  */
-
 
 function isFunction(val) {
   return toString.call(val) === '[object Function]';
@@ -5421,23 +5571,32 @@ function isStream(val) {
   return isObject(val) && isFunction(val.pipe);
 }
 /**
- * Determine if a value is a URLSearchParams object
+ * Determine if a value is a FormData
  *
+ * @param {Object} thing The value to test
+ * @returns {boolean} True if value is an FormData, otherwise false
+ */
+
+
+function isFormData(thing) {
+  var pattern = '[object FormData]';
+  return thing && (typeof FormData === 'function' && thing instanceof FormData || toString.call(thing) === pattern || isFunction(thing.toString) && thing.toString() === pattern);
+}
+/**
+ * Determine if a value is a URLSearchParams object
+ * @function
  * @param {Object} val The value to test
  * @returns {boolean} True if value is a URLSearchParams object, otherwise false
  */
 
 
-function isURLSearchParams(val) {
-  return toString.call(val) === '[object URLSearchParams]';
-}
+var isURLSearchParams = kindOfTest('URLSearchParams');
 /**
  * Trim excess whitespace off the beginning and end of a string
  *
  * @param {String} str The String to trim
  * @returns {String} The String freed of excess whitespace
  */
-
 
 function trim(str) {
   return str.trim ? str.trim() : str.replace(/^\s+|\s+$/g, '');
@@ -5583,6 +5742,101 @@ function stripBOM(content) {
 
   return content;
 }
+/**
+ * Inherit the prototype methods from one constructor into another
+ * @param {function} constructor
+ * @param {function} superConstructor
+ * @param {object} [props]
+ * @param {object} [descriptors]
+ */
+
+
+function inherits(constructor, superConstructor, props, descriptors) {
+  constructor.prototype = Object.create(superConstructor.prototype, descriptors);
+  constructor.prototype.constructor = constructor;
+  props && Object.assign(constructor.prototype, props);
+}
+/**
+ * Resolve object with deep prototype chain to a flat object
+ * @param {Object} sourceObj source object
+ * @param {Object} [destObj]
+ * @param {Function} [filter]
+ * @returns {Object}
+ */
+
+
+function toFlatObject(sourceObj, destObj, filter) {
+  var props;
+  var i;
+  var prop;
+  var merged = {};
+  destObj = destObj || {};
+
+  do {
+    props = Object.getOwnPropertyNames(sourceObj);
+    i = props.length;
+
+    while (i-- > 0) {
+      prop = props[i];
+
+      if (!merged[prop]) {
+        destObj[prop] = sourceObj[prop];
+        merged[prop] = true;
+      }
+    }
+
+    sourceObj = Object.getPrototypeOf(sourceObj);
+  } while (sourceObj && (!filter || filter(sourceObj, destObj)) && sourceObj !== Object.prototype);
+
+  return destObj;
+}
+/*
+ * determines whether a string ends with the characters of a specified string
+ * @param {String} str
+ * @param {String} searchString
+ * @param {Number} [position= 0]
+ * @returns {boolean}
+ */
+
+
+function endsWith(str, searchString, position) {
+  str = String(str);
+
+  if (position === undefined || position > str.length) {
+    position = str.length;
+  }
+
+  position -= searchString.length;
+  var lastIndex = str.indexOf(searchString, position);
+  return lastIndex !== -1 && lastIndex === position;
+}
+/**
+ * Returns new array from array like object
+ * @param {*} [thing]
+ * @returns {Array}
+ */
+
+
+function toArray(thing) {
+  if (!thing) return null;
+  var i = thing.length;
+  if (isUndefined(i)) return null;
+  var arr = new Array(i);
+
+  while (i-- > 0) {
+    arr[i] = thing[i];
+  }
+
+  return arr;
+} // eslint-disable-next-line func-names
+
+
+var isTypedArray = function (TypedArray) {
+  // eslint-disable-next-line func-names
+  return function (thing) {
+    return TypedArray && thing instanceof TypedArray;
+  };
+}(typeof Uint8Array !== 'undefined' && Object.getPrototypeOf(Uint8Array));
 
 module.exports = {
   isArray: isArray,
@@ -5606,7 +5860,15 @@ module.exports = {
   merge: merge,
   extend: extend,
   trim: trim,
-  stripBOM: stripBOM
+  stripBOM: stripBOM,
+  inherits: inherits,
+  toFlatObject: toFlatObject,
+  kindOf: kindOf,
+  kindOfTest: kindOfTest,
+  endsWith: endsWith,
+  toArray: toArray,
+  isTypedArray: isTypedArray,
+  isFileList: isFileList
 };
 
 /***/ }),
@@ -15368,7 +15630,7 @@ var tryToString = __webpack_require__("./node_modules/core-js/internals/try-to-s
 
 var createNonEnumerableProperty = __webpack_require__("./node_modules/core-js/internals/create-non-enumerable-property.js");
 
-var redefine = __webpack_require__("./node_modules/core-js/internals/redefine.js");
+var defineBuiltIn = __webpack_require__("./node_modules/core-js/internals/define-built-in.js");
 
 var defineProperty = (__webpack_require__("./node_modules/core-js/internals/object-define-property.js").f);
 
@@ -15452,7 +15714,7 @@ var exportTypedArrayMethod = function (KEY, property, forced, options) {
   }
 
   if (!TypedArrayPrototype[KEY] || forced) {
-    redefine(TypedArrayPrototype, KEY, forced ? property : NATIVE_ARRAY_BUFFER_VIEWS && Int8ArrayPrototype[KEY] || property, options);
+    defineBuiltIn(TypedArrayPrototype, KEY, forced ? property : NATIVE_ARRAY_BUFFER_VIEWS && Int8ArrayPrototype[KEY] || property, options);
   }
 };
 
@@ -15473,7 +15735,7 @@ var exportTypedArrayStaticMethod = function (KEY, property, forced) {
     if (!TypedArray[KEY] || forced) {
       // V8 ~ Chrome 49-50 `%TypedArray%` methods are non-writable non-configurable
       try {
-        return redefine(TypedArray, KEY, forced ? property : NATIVE_ARRAY_BUFFER_VIEWS && TypedArray[KEY] || property);
+        return defineBuiltIn(TypedArray, KEY, forced ? property : NATIVE_ARRAY_BUFFER_VIEWS && TypedArray[KEY] || property);
       } catch (error) {
         /* empty */
       }
@@ -15484,7 +15746,7 @@ var exportTypedArrayStaticMethod = function (KEY, property, forced) {
     TypedArrayConstructor = global[ARRAY];
 
     if (TypedArrayConstructor && (!TypedArrayConstructor[KEY] || forced)) {
-      redefine(TypedArrayConstructor, KEY, property);
+      defineBuiltIn(TypedArrayConstructor, KEY, property);
     }
   }
 };
@@ -15572,7 +15834,7 @@ var FunctionName = __webpack_require__("./node_modules/core-js/internals/functio
 
 var createNonEnumerableProperty = __webpack_require__("./node_modules/core-js/internals/create-non-enumerable-property.js");
 
-var redefineAll = __webpack_require__("./node_modules/core-js/internals/redefine-all.js");
+var defineBuiltIns = __webpack_require__("./node_modules/core-js/internals/define-built-ins.js");
 
 var fails = __webpack_require__("./node_modules/core-js/internals/fails.js");
 
@@ -15720,7 +15982,7 @@ if (!NATIVE_ARRAY_BUFFER) {
     addGetter($DataView, 'byteOffset');
   }
 
-  redefineAll(DataViewPrototype, {
+  defineBuiltIns(DataViewPrototype, {
     getInt8: function getInt8(byteOffset) {
       return get(this, 1, byteOffset)[0] << 24 >> 24;
     },
@@ -15839,7 +16101,7 @@ if (!NATIVE_ARRAY_BUFFER) {
   var $setInt8 = uncurryThis(DataViewPrototype.setInt8);
   testView.setInt8(0, 2147483648);
   testView.setInt8(1, 2147483649);
-  if (testView.getInt8(0) || !testView.getInt8(1)) redefineAll(DataViewPrototype, {
+  if (testView.getInt8(0) || !testView.getInt8(1)) defineBuiltIns(DataViewPrototype, {
     setInt8: function setInt8(byteOffset, value) {
       $setInt8(this, byteOffset, value << 24 >> 24);
     },
@@ -16649,7 +16911,7 @@ var defineProperty = (__webpack_require__("./node_modules/core-js/internals/obje
 
 var create = __webpack_require__("./node_modules/core-js/internals/object-create.js");
 
-var redefineAll = __webpack_require__("./node_modules/core-js/internals/redefine-all.js");
+var defineBuiltIns = __webpack_require__("./node_modules/core-js/internals/define-built-ins.js");
 
 var bind = __webpack_require__("./node_modules/core-js/internals/function-bind-context.js");
 
@@ -16727,7 +16989,7 @@ module.exports = {
       }
     };
 
-    redefineAll(Prototype, {
+    defineBuiltIns(Prototype, {
       // `{ Map, Set }.prototype.clear()` methods
       // https://tc39.es/ecma262/#sec-map.prototype.clear
       // https://tc39.es/ecma262/#sec-set.prototype.clear
@@ -16792,7 +17054,7 @@ module.exports = {
         return !!getEntry(this, key);
       }
     });
-    redefineAll(Prototype, IS_MAP ? {
+    defineBuiltIns(Prototype, IS_MAP ? {
       // `Map.prototype.get(key)` method
       // https://tc39.es/ecma262/#sec-map.prototype.get
       get: function get(key) {
@@ -16887,7 +17149,7 @@ module.exports = {
 
 var uncurryThis = __webpack_require__("./node_modules/core-js/internals/function-uncurry-this.js");
 
-var redefineAll = __webpack_require__("./node_modules/core-js/internals/redefine-all.js");
+var defineBuiltIns = __webpack_require__("./node_modules/core-js/internals/define-built-ins.js");
 
 var getWeakData = (__webpack_require__("./node_modules/core-js/internals/internal-metadata.js").getWeakData);
 
@@ -16970,7 +17232,7 @@ module.exports = {
       return that;
     };
 
-    redefineAll(Prototype, {
+    defineBuiltIns(Prototype, {
       // `{ WeakMap, WeakSet }.prototype.delete(key)` methods
       // https://tc39.es/ecma262/#sec-weakmap.prototype.delete
       // https://tc39.es/ecma262/#sec-weakset.prototype.delete
@@ -16992,7 +17254,7 @@ module.exports = {
         return data && hasOwn(data, state.id);
       }
     });
-    redefineAll(Prototype, IS_MAP ? {
+    defineBuiltIns(Prototype, IS_MAP ? {
       // `WeakMap.prototype.get(key)` method
       // https://tc39.es/ecma262/#sec-weakmap.prototype.get
       get: function get(key) {
@@ -17036,7 +17298,7 @@ var uncurryThis = __webpack_require__("./node_modules/core-js/internals/function
 
 var isForced = __webpack_require__("./node_modules/core-js/internals/is-forced.js");
 
-var redefine = __webpack_require__("./node_modules/core-js/internals/redefine.js");
+var defineBuiltIn = __webpack_require__("./node_modules/core-js/internals/define-built-in.js");
 
 var InternalMetadataModule = __webpack_require__("./node_modules/core-js/internals/internal-metadata.js");
 
@@ -17067,7 +17329,7 @@ module.exports = function (CONSTRUCTOR_NAME, wrapper, common) {
 
   var fixMethod = function (KEY) {
     var uncurriedNativeMethod = uncurryThis(NativePrototype[KEY]);
-    redefine(NativePrototype, KEY, KEY == 'add' ? function add(value) {
+    defineBuiltIn(NativePrototype, KEY, KEY == 'add' ? function add(value) {
       uncurriedNativeMethod(this, value === 0 ? 0 : value);
       return this;
     } : KEY == 'delete' ? function (key) {
@@ -17142,6 +17404,7 @@ module.exports = function (CONSTRUCTOR_NAME, wrapper, common) {
   exported[CONSTRUCTOR_NAME] = Constructor;
   $({
     global: true,
+    constructor: true,
     forced: Constructor != NativeConstructor
   }, exported);
   setToStringTag(Constructor, CONSTRUCTOR_NAME);
@@ -17393,6 +17656,73 @@ module.exports = function (hint) {
 
 /***/ }),
 
+/***/ "./node_modules/core-js/internals/define-built-in-accessor.js":
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+var makeBuiltIn = __webpack_require__("./node_modules/core-js/internals/make-built-in.js");
+
+var defineProperty = __webpack_require__("./node_modules/core-js/internals/object-define-property.js");
+
+module.exports = function (target, name, descriptor) {
+  if (descriptor.get) makeBuiltIn(descriptor.get, name, {
+    getter: true
+  });
+  if (descriptor.set) makeBuiltIn(descriptor.set, name, {
+    setter: true
+  });
+  return defineProperty.f(target, name, descriptor);
+};
+
+/***/ }),
+
+/***/ "./node_modules/core-js/internals/define-built-in.js":
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+var global = __webpack_require__("./node_modules/core-js/internals/global.js");
+
+var isCallable = __webpack_require__("./node_modules/core-js/internals/is-callable.js");
+
+var createNonEnumerableProperty = __webpack_require__("./node_modules/core-js/internals/create-non-enumerable-property.js");
+
+var makeBuiltIn = __webpack_require__("./node_modules/core-js/internals/make-built-in.js");
+
+var setGlobal = __webpack_require__("./node_modules/core-js/internals/set-global.js");
+
+module.exports = function (O, key, value, options) {
+  var unsafe = options ? !!options.unsafe : false;
+  var simple = options ? !!options.enumerable : false;
+  var noTargetGet = options ? !!options.noTargetGet : false;
+  var name = options && options.name !== undefined ? options.name : key;
+  if (isCallable(value)) makeBuiltIn(value, name, options);
+
+  if (O === global) {
+    if (simple) O[key] = value;else setGlobal(key, value);
+    return O;
+  } else if (!unsafe) {
+    delete O[key];
+  } else if (!noTargetGet && O[key]) {
+    simple = true;
+  }
+
+  if (simple) O[key] = value;else createNonEnumerableProperty(O, key, value);
+  return O;
+};
+
+/***/ }),
+
+/***/ "./node_modules/core-js/internals/define-built-ins.js":
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+var defineBuiltIn = __webpack_require__("./node_modules/core-js/internals/define-built-in.js");
+
+module.exports = function (target, src, options) {
+  for (var key in src) defineBuiltIn(target, key, src[key], options);
+
+  return target;
+};
+
+/***/ }),
+
 /***/ "./node_modules/core-js/internals/define-iterator.js":
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
@@ -17419,7 +17749,7 @@ var setToStringTag = __webpack_require__("./node_modules/core-js/internals/set-t
 
 var createNonEnumerableProperty = __webpack_require__("./node_modules/core-js/internals/create-non-enumerable-property.js");
 
-var redefine = __webpack_require__("./node_modules/core-js/internals/redefine.js");
+var defineBuiltIn = __webpack_require__("./node_modules/core-js/internals/define-built-in.js");
 
 var wellKnownSymbol = __webpack_require__("./node_modules/core-js/internals/well-known-symbol.js");
 
@@ -17485,7 +17815,7 @@ module.exports = function (Iterable, NAME, IteratorConstructor, next, DEFAULT, I
         if (setPrototypeOf) {
           setPrototypeOf(CurrentIteratorPrototype, IteratorPrototype);
         } else if (!isCallable(CurrentIteratorPrototype[ITERATOR])) {
-          redefine(CurrentIteratorPrototype, ITERATOR, returnThis);
+          defineBuiltIn(CurrentIteratorPrototype, ITERATOR, returnThis);
         }
       } // Set @@toStringTag to native iterators
 
@@ -17517,7 +17847,7 @@ module.exports = function (Iterable, NAME, IteratorConstructor, next, DEFAULT, I
     };
     if (FORCED) for (KEY in methods) {
       if (BUGGY_SAFARI_ITERATORS || INCORRECT_VALUES_NAME || !(KEY in IterablePrototype)) {
-        redefine(IterablePrototype, KEY, methods[KEY]);
+        defineBuiltIn(IterablePrototype, KEY, methods[KEY]);
       }
     } else $({
       target: NAME,
@@ -17528,7 +17858,7 @@ module.exports = function (Iterable, NAME, IteratorConstructor, next, DEFAULT, I
 
 
   if ((!IS_PURE || FORCED) && IterablePrototype[ITERATOR] !== defaultIterator) {
-    redefine(IterablePrototype, ITERATOR, defaultIterator, {
+    defineBuiltIn(IterablePrototype, ITERATOR, defaultIterator, {
       name: DEFAULT
     });
   }
@@ -17978,7 +18308,7 @@ var getOwnPropertyDescriptor = (__webpack_require__("./node_modules/core-js/inte
 
 var createNonEnumerableProperty = __webpack_require__("./node_modules/core-js/internals/create-non-enumerable-property.js");
 
-var redefine = __webpack_require__("./node_modules/core-js/internals/redefine.js");
+var defineBuiltIn = __webpack_require__("./node_modules/core-js/internals/define-built-in.js");
 
 var setGlobal = __webpack_require__("./node_modules/core-js/internals/set-global.js");
 
@@ -18034,10 +18364,9 @@ module.exports = function (options, source) {
 
     if (options.sham || targetProperty && targetProperty.sham) {
       createNonEnumerableProperty(sourceProperty, 'sham', true);
-    } // extend global
+    }
 
-
-    redefine(target, key, sourceProperty, options);
+    defineBuiltIn(target, key, sourceProperty, options);
   }
 };
 
@@ -18066,7 +18395,7 @@ __webpack_require__("./node_modules/core-js/modules/es.regexp.exec.js");
 
 var uncurryThis = __webpack_require__("./node_modules/core-js/internals/function-uncurry-this.js");
 
-var redefine = __webpack_require__("./node_modules/core-js/internals/redefine.js");
+var defineBuiltIn = __webpack_require__("./node_modules/core-js/internals/define-built-in.js");
 
 var regexpExec = __webpack_require__("./node_modules/core-js/internals/regexp-exec.js");
 
@@ -18149,8 +18478,8 @@ module.exports = function (KEY, exec, FORCED, SHAM) {
         done: false
       };
     });
-    redefine(String.prototype, KEY, methods[0]);
-    redefine(RegExpPrototype, SYMBOL, methods[1]);
+    defineBuiltIn(String.prototype, KEY, methods[0]);
+    defineBuiltIn(RegExpPrototype, SYMBOL, methods[1]);
   }
 
   if (SHAM) createNonEnumerableProperty(RegExpPrototype[SYMBOL], 'sham', true);
@@ -19390,7 +19719,7 @@ var create = __webpack_require__("./node_modules/core-js/internals/object-create
 
 var getPrototypeOf = __webpack_require__("./node_modules/core-js/internals/object-get-prototype-of.js");
 
-var redefine = __webpack_require__("./node_modules/core-js/internals/redefine.js");
+var defineBuiltIn = __webpack_require__("./node_modules/core-js/internals/define-built-in.js");
 
 var wellKnownSymbol = __webpack_require__("./node_modules/core-js/internals/well-known-symbol.js");
 
@@ -19421,7 +19750,7 @@ if (NEW_ITERATOR_PROTOTYPE) IteratorPrototype = {};else if (IS_PURE) IteratorPro
 // https://tc39.es/ecma262/#sec-%iteratorprototype%-@@iterator
 
 if (!isCallable(IteratorPrototype[ITERATOR])) {
-  redefine(IteratorPrototype, ITERATOR, function () {
+  defineBuiltIn(IteratorPrototype, ITERATOR, function () {
     return this;
   });
 }
@@ -19450,6 +19779,84 @@ var toLength = __webpack_require__("./node_modules/core-js/internals/to-length.j
 module.exports = function (obj) {
   return toLength(obj.length);
 };
+
+/***/ }),
+
+/***/ "./node_modules/core-js/internals/make-built-in.js":
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+var fails = __webpack_require__("./node_modules/core-js/internals/fails.js");
+
+var isCallable = __webpack_require__("./node_modules/core-js/internals/is-callable.js");
+
+var hasOwn = __webpack_require__("./node_modules/core-js/internals/has-own-property.js");
+
+var DESCRIPTORS = __webpack_require__("./node_modules/core-js/internals/descriptors.js");
+
+var CONFIGURABLE_FUNCTION_NAME = (__webpack_require__("./node_modules/core-js/internals/function-name.js").CONFIGURABLE);
+
+var inspectSource = __webpack_require__("./node_modules/core-js/internals/inspect-source.js");
+
+var InternalStateModule = __webpack_require__("./node_modules/core-js/internals/internal-state.js");
+
+var enforceInternalState = InternalStateModule.enforce;
+var getInternalState = InternalStateModule.get; // eslint-disable-next-line es-x/no-object-defineproperty -- safe
+
+var defineProperty = Object.defineProperty;
+var CONFIGURABLE_LENGTH = DESCRIPTORS && !fails(function () {
+  return defineProperty(function () {
+    /* empty */
+  }, 'length', {
+    value: 8
+  }).length !== 8;
+});
+var TEMPLATE = String(String).split('String');
+
+var makeBuiltIn = module.exports = function (value, name, options) {
+  if (String(name).slice(0, 7) === 'Symbol(') {
+    name = '[' + String(name).replace(/^Symbol\(([^)]*)\)/, '$1') + ']';
+  }
+
+  if (options && options.getter) name = 'get ' + name;
+  if (options && options.setter) name = 'set ' + name;
+
+  if (!hasOwn(value, 'name') || CONFIGURABLE_FUNCTION_NAME && value.name !== name) {
+    defineProperty(value, 'name', {
+      value: name,
+      configurable: true
+    });
+  }
+
+  if (CONFIGURABLE_LENGTH && options && hasOwn(options, 'arity') && value.length !== options.arity) {
+    defineProperty(value, 'length', {
+      value: options.arity
+    });
+  }
+
+  if (options && hasOwn(options, 'constructor') && options.constructor) {
+    if (DESCRIPTORS) try {
+      defineProperty(value, 'prototype', {
+        writable: false
+      });
+    } catch (error) {
+      /* empty */
+    }
+  } else value.prototype = undefined;
+
+  var state = enforceInternalState(value);
+
+  if (!hasOwn(state, 'source')) {
+    state.source = TEMPLATE.join(typeof name == 'string' ? name : '');
+  }
+
+  return value;
+}; // add fake Function#toString for correct work wrapped methods / constructors with methods like LoDash isNative
+// eslint-disable-next-line no-extend-native -- required
+
+
+Function.prototype.toString = makeBuiltIn(function toString() {
+  return isCallable(this) && getInternalState(this).source || inspectSource(this);
+}, 'toString');
 
 /***/ }),
 
@@ -20745,80 +21152,6 @@ module.exports = Queue;
 
 /***/ }),
 
-/***/ "./node_modules/core-js/internals/redefine-all.js":
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
-
-var redefine = __webpack_require__("./node_modules/core-js/internals/redefine.js");
-
-module.exports = function (target, src, options) {
-  for (var key in src) redefine(target, key, src[key], options);
-
-  return target;
-};
-
-/***/ }),
-
-/***/ "./node_modules/core-js/internals/redefine.js":
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
-
-var global = __webpack_require__("./node_modules/core-js/internals/global.js");
-
-var isCallable = __webpack_require__("./node_modules/core-js/internals/is-callable.js");
-
-var hasOwn = __webpack_require__("./node_modules/core-js/internals/has-own-property.js");
-
-var createNonEnumerableProperty = __webpack_require__("./node_modules/core-js/internals/create-non-enumerable-property.js");
-
-var setGlobal = __webpack_require__("./node_modules/core-js/internals/set-global.js");
-
-var inspectSource = __webpack_require__("./node_modules/core-js/internals/inspect-source.js");
-
-var InternalStateModule = __webpack_require__("./node_modules/core-js/internals/internal-state.js");
-
-var CONFIGURABLE_FUNCTION_NAME = (__webpack_require__("./node_modules/core-js/internals/function-name.js").CONFIGURABLE);
-
-var getInternalState = InternalStateModule.get;
-var enforceInternalState = InternalStateModule.enforce;
-var TEMPLATE = String(String).split('String');
-(module.exports = function (O, key, value, options) {
-  var unsafe = options ? !!options.unsafe : false;
-  var simple = options ? !!options.enumerable : false;
-  var noTargetGet = options ? !!options.noTargetGet : false;
-  var name = options && options.name !== undefined ? options.name : key;
-  var state;
-
-  if (isCallable(value)) {
-    if (String(name).slice(0, 7) === 'Symbol(') {
-      name = '[' + String(name).replace(/^Symbol\(([^)]*)\)/, '$1') + ']';
-    }
-
-    if (!hasOwn(value, 'name') || CONFIGURABLE_FUNCTION_NAME && value.name !== name) {
-      createNonEnumerableProperty(value, 'name', name);
-    }
-
-    state = enforceInternalState(value);
-
-    if (!state.source) {
-      state.source = TEMPLATE.join(typeof name == 'string' ? name : '');
-    }
-  }
-
-  if (O === global) {
-    if (simple) O[key] = value;else setGlobal(key, value);
-    return;
-  } else if (!unsafe) {
-    delete O[key];
-  } else if (!noTargetGet && O[key]) {
-    simple = true;
-  }
-
-  if (simple) O[key] = value;else createNonEnumerableProperty(O, key, value); // add fake Function#toString for correct work wrapped methods / constructors with methods like LoDash isNative
-})(Function.prototype, 'toString', function toString() {
-  return isCallable(this) && getInternalState(this).source || inspectSource(this);
-});
-
-/***/ }),
-
 /***/ "./node_modules/core-js/internals/regexp-exec-abstract.js":
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
@@ -21290,10 +21623,10 @@ var store = __webpack_require__("./node_modules/core-js/internals/shared-store.j
 (module.exports = function (key, value) {
   return store[key] || (store[key] = value !== undefined ? value : {});
 })('versions', []).push({
-  version: '3.22.2',
+  version: '3.22.5',
   mode: IS_PURE ? 'pure' : 'global',
   copyright: '© 2014-2022 Denis Pushkarev (zloirock.ru)',
-  license: 'https://github.com/zloirock/core-js/blob/v3.22.2/LICENSE',
+  license: 'https://github.com/zloirock/core-js/blob/v3.22.5/LICENSE',
   source: 'https://github.com/zloirock/core-js'
 });
 
@@ -21774,7 +22107,7 @@ var getBuiltIn = __webpack_require__("./node_modules/core-js/internals/get-built
 
 var wellKnownSymbol = __webpack_require__("./node_modules/core-js/internals/well-known-symbol.js");
 
-var redefine = __webpack_require__("./node_modules/core-js/internals/redefine.js");
+var defineBuiltIn = __webpack_require__("./node_modules/core-js/internals/define-built-in.js");
 
 module.exports = function () {
   var Symbol = getBuiltIn('Symbol');
@@ -21786,8 +22119,10 @@ module.exports = function () {
     // `Symbol.prototype[@@toPrimitive]` method
     // https://tc39.es/ecma262/#sec-symbol.prototype-@@toprimitive
     // eslint-disable-next-line no-unused-vars -- required for .length
-    redefine(SymbolPrototype, TO_PRIMITIVE, function (hint) {
+    defineBuiltIn(SymbolPrototype, TO_PRIMITIVE, function (hint) {
       return call(valueOf, this);
+    }, {
+      arity: 1
     });
   }
 };
@@ -22439,10 +22774,12 @@ if (DESCRIPTORS) {
       createNonEnumerableProperty(TypedArrayConstructorPrototype, TYPED_ARRAY_TAG, CONSTRUCTOR_NAME);
     }
 
+    var FORCED = TypedArrayConstructor != NativeTypedArrayConstructor;
     exported[CONSTRUCTOR_NAME] = TypedArrayConstructor;
     $({
       global: true,
-      forced: TypedArrayConstructor != NativeTypedArrayConstructor,
+      constructor: true,
+      forced: FORCED,
       sham: !NATIVE_ARRAY_BUFFER_VIEWS
     }, exported);
 
@@ -22802,6 +23139,8 @@ var FORCED = !fails(function () {
 
 $({
   global: true,
+  constructor: true,
+  arity: 2,
   forced: FORCED
 }, {
   AggregateError: wrapErrorConstructorWithCause(AGGREGATE_ERROR, function (init) {
@@ -22890,7 +23229,9 @@ var AggregateErrorPrototype = $AggregateError.prototype = create(Error.prototype
 // https://tc39.es/ecma262/#sec-aggregate-error-constructor
 
 $({
-  global: true
+  global: true,
+  constructor: true,
+  arity: 2
 }, {
   AggregateError: $AggregateError
 });
@@ -22926,6 +23267,7 @@ var NativeArrayBuffer = global[ARRAY_BUFFER]; // `ArrayBuffer` constructor
 
 $({
   global: true,
+  constructor: true,
   forced: NativeArrayBuffer !== ArrayBuffer
 }, {
   ArrayBuffer: ArrayBuffer
@@ -23107,6 +23449,7 @@ var FORCED = !IS_CONCAT_SPREADABLE_SUPPORT || !SPECIES_SUPPORT; // `Array.protot
 $({
   target: 'Array',
   proto: true,
+  arity: 1,
   forced: FORCED
 }, {
   // eslint-disable-next-line no-unused-vars -- required for `.length`
@@ -23447,13 +23790,20 @@ var $ = __webpack_require__("./node_modules/core-js/internals/export.js");
 
 var $includes = (__webpack_require__("./node_modules/core-js/internals/array-includes.js").includes);
 
-var addToUnscopables = __webpack_require__("./node_modules/core-js/internals/add-to-unscopables.js"); // `Array.prototype.includes` method
-// https://tc39.es/ecma262/#sec-array.prototype.includes
+var fails = __webpack_require__("./node_modules/core-js/internals/fails.js");
 
+var addToUnscopables = __webpack_require__("./node_modules/core-js/internals/add-to-unscopables.js"); // FF99+ bug
+
+
+var BROKEN_ON_SPARSE = fails(function () {
+  return !Array(1).includes();
+}); // `Array.prototype.includes` method
+// https://tc39.es/ecma262/#sec-array.prototype.includes
 
 $({
   target: 'Array',
-  proto: true
+  proto: true,
+  forced: BROKEN_ON_SPARSE
 }, {
   includes: function includes(el
   /* , fromIndex = 0 */
@@ -24235,6 +24585,7 @@ var NATIVE_ARRAY_BUFFER = __webpack_require__("./node_modules/core-js/internals/
 
 $({
   global: true,
+  constructor: true,
   forced: !NATIVE_ARRAY_BUFFER
 }, {
   DataView: ArrayBufferModule.DataView
@@ -24399,6 +24750,7 @@ var FORCED = fails(function () {
 $({
   target: 'Date',
   proto: true,
+  arity: 1,
   forced: FORCED
 }, {
   // eslint-disable-next-line no-unused-vars -- required for `.length`
@@ -24416,7 +24768,7 @@ $({
 
 var hasOwn = __webpack_require__("./node_modules/core-js/internals/has-own-property.js");
 
-var redefine = __webpack_require__("./node_modules/core-js/internals/redefine.js");
+var defineBuiltIn = __webpack_require__("./node_modules/core-js/internals/define-built-in.js");
 
 var dateToPrimitive = __webpack_require__("./node_modules/core-js/internals/date-to-primitive.js");
 
@@ -24427,7 +24779,7 @@ var DatePrototype = Date.prototype; // `Date.prototype[@@toPrimitive]` method
 // https://tc39.es/ecma262/#sec-date.prototype-@@toprimitive
 
 if (!hasOwn(DatePrototype, TO_PRIMITIVE)) {
-  redefine(DatePrototype, TO_PRIMITIVE, dateToPrimitive);
+  defineBuiltIn(DatePrototype, TO_PRIMITIVE, dateToPrimitive);
 }
 
 /***/ }),
@@ -24438,7 +24790,7 @@ if (!hasOwn(DatePrototype, TO_PRIMITIVE)) {
 // TODO: Remove from `core-js@4`
 var uncurryThis = __webpack_require__("./node_modules/core-js/internals/function-uncurry-this.js");
 
-var redefine = __webpack_require__("./node_modules/core-js/internals/redefine.js");
+var defineBuiltIn = __webpack_require__("./node_modules/core-js/internals/define-built-in.js");
 
 var DatePrototype = Date.prototype;
 var INVALID_DATE = 'Invalid Date';
@@ -24448,7 +24800,7 @@ var getTime = uncurryThis(DatePrototype.getTime); // `Date.prototype.toString` m
 // https://tc39.es/ecma262/#sec-date.prototype.tostring
 
 if (String(new Date(NaN)) != INVALID_DATE) {
-  redefine(DatePrototype, TO_STRING, function toString() {
+  defineBuiltIn(DatePrototype, TO_STRING, function toString() {
     var value = getTime(this); // eslint-disable-next-line no-self-compare -- NaN check
 
     return value === value ? un$DateToString(this) : INVALID_DATE;
@@ -24480,6 +24832,8 @@ var exportGlobalErrorCauseWrapper = function (ERROR_NAME, wrapper) {
   O[ERROR_NAME] = wrapErrorConstructorWithCause(ERROR_NAME, wrapper, FORCED);
   $({
     global: true,
+    constructor: true,
+    arity: 1,
     forced: FORCED
   }, O);
 };
@@ -24491,6 +24845,8 @@ var exportWebAssemblyErrorCauseWrapper = function (ERROR_NAME, wrapper) {
     $({
       target: WEB_ASSEMBLY,
       stat: true,
+      constructor: true,
+      arity: 1,
       forced: FORCED
     }, O);
   }
@@ -24553,7 +24909,7 @@ exportWebAssemblyErrorCauseWrapper('RuntimeError', function (init) {
 /***/ "./node_modules/core-js/modules/es.error.to-string.js":
 /***/ ((__unused_webpack_module, __unused_webpack_exports, __webpack_require__) => {
 
-var redefine = __webpack_require__("./node_modules/core-js/internals/redefine.js");
+var defineBuiltIn = __webpack_require__("./node_modules/core-js/internals/define-built-in.js");
 
 var errorToString = __webpack_require__("./node_modules/core-js/internals/error-to-string.js");
 
@@ -24561,7 +24917,7 @@ var ErrorPrototype = Error.prototype; // `Error.prototype.toString` method fix
 // https://tc39.es/ecma262/#sec-error.prototype.tostring
 
 if (ErrorPrototype.toString !== errorToString) {
-  redefine(ErrorPrototype, 'toString', errorToString);
+  defineBuiltIn(ErrorPrototype, 'toString', errorToString);
 }
 
 /***/ }),
@@ -24663,13 +25019,15 @@ var getPrototypeOf = __webpack_require__("./node_modules/core-js/internals/objec
 
 var wellKnownSymbol = __webpack_require__("./node_modules/core-js/internals/well-known-symbol.js");
 
+var makeBuiltIn = __webpack_require__("./node_modules/core-js/internals/make-built-in.js");
+
 var HAS_INSTANCE = wellKnownSymbol('hasInstance');
 var FunctionPrototype = Function.prototype; // `Function.prototype[@@hasInstance]` method
 // https://tc39.es/ecma262/#sec-function.prototype-@@hasinstance
 
 if (!(HAS_INSTANCE in FunctionPrototype)) {
   definePropertyModule.f(FunctionPrototype, HAS_INSTANCE, {
-    value: function (O) {
+    value: makeBuiltIn(function (O) {
       if (!isCallable(this) || !isObject(O)) return false;
       var P = this.prototype;
       if (!isObject(P)) return O instanceof this; // for environment w/o native `@@hasInstance` logic enough `instanceof`, but add this:
@@ -24677,7 +25035,7 @@ if (!(HAS_INSTANCE in FunctionPrototype)) {
       while (O = getPrototypeOf(O)) if (P === O) return true;
 
       return false;
-    }
+    }, HAS_INSTANCE)
   });
 }
 
@@ -24813,6 +25171,7 @@ if ($stringify) {
   $({
     target: 'JSON',
     stat: true,
+    arity: 3,
     forced: WRONG_SYMBOLS_CONVERSION || ILL_FORMED_UNICODE
   }, {
     // eslint-disable-next-line no-unused-vars -- required for `.length`
@@ -25070,6 +25429,7 @@ var BUGGY = !!$hypot && $hypot(Infinity, NaN) !== Infinity; // `Math.hypot` meth
 $({
   target: 'Math',
   stat: true,
+  arity: 2,
   forced: BUGGY
 }, {
   // eslint-disable-next-line no-unused-vars -- required for `.length`
@@ -25304,7 +25664,7 @@ var uncurryThis = __webpack_require__("./node_modules/core-js/internals/function
 
 var isForced = __webpack_require__("./node_modules/core-js/internals/is-forced.js");
 
-var redefine = __webpack_require__("./node_modules/core-js/internals/redefine.js");
+var defineBuiltIn = __webpack_require__("./node_modules/core-js/internals/define-built-in.js");
 
 var hasOwn = __webpack_require__("./node_modules/core-js/internals/has-own-property.js");
 
@@ -25415,7 +25775,9 @@ if (isForced(NUMBER, !NativeNumber(' 0o1') || !NativeNumber('0b1') || NativeNumb
 
   NumberWrapper.prototype = NumberPrototype;
   NumberPrototype.constructor = NumberWrapper;
-  redefine(global, NUMBER, NumberWrapper);
+  defineBuiltIn(global, NUMBER, NumberWrapper, {
+    constructor: true
+  });
 }
 
 /***/ }),
@@ -25914,6 +26276,7 @@ var assign = __webpack_require__("./node_modules/core-js/internals/object-assign
 $({
   target: 'Object',
   stat: true,
+  arity: 2,
   forced: Object.assign !== assign
 }, {
   assign: assign
@@ -26633,14 +26996,14 @@ $({
 
 var TO_STRING_TAG_SUPPORT = __webpack_require__("./node_modules/core-js/internals/to-string-tag-support.js");
 
-var redefine = __webpack_require__("./node_modules/core-js/internals/redefine.js");
+var defineBuiltIn = __webpack_require__("./node_modules/core-js/internals/define-built-in.js");
 
 var toString = __webpack_require__("./node_modules/core-js/internals/object-to-string.js"); // `Object.prototype.toString` method
 // https://tc39.es/ecma262/#sec-object.prototype.tostring
 
 
 if (!TO_STRING_TAG_SUPPORT) {
-  redefine(Object.prototype, 'toString', toString, {
+  defineBuiltIn(Object.prototype, 'toString', toString, {
     unsafe: true
   });
 }
@@ -26906,7 +27269,7 @@ var getBuiltIn = __webpack_require__("./node_modules/core-js/internals/get-built
 
 var isCallable = __webpack_require__("./node_modules/core-js/internals/is-callable.js");
 
-var redefine = __webpack_require__("./node_modules/core-js/internals/redefine.js");
+var defineBuiltIn = __webpack_require__("./node_modules/core-js/internals/define-built-in.js");
 
 var NativePromisePrototype = NativePromiseConstructor && NativePromiseConstructor.prototype; // `Promise.prototype.catch` method
 // https://tc39.es/ecma262/#sec-promise.prototype.catch
@@ -26926,7 +27289,7 @@ if (!IS_PURE && isCallable(NativePromiseConstructor)) {
   var method = getBuiltIn('Promise').prototype['catch'];
 
   if (NativePromisePrototype['catch'] !== method) {
-    redefine(NativePromisePrototype, 'catch', method, {
+    defineBuiltIn(NativePromisePrototype, 'catch', method, {
       unsafe: true
     });
   }
@@ -26950,9 +27313,7 @@ var global = __webpack_require__("./node_modules/core-js/internals/global.js");
 
 var call = __webpack_require__("./node_modules/core-js/internals/function-call.js");
 
-var redefine = __webpack_require__("./node_modules/core-js/internals/redefine.js");
-
-var redefineAll = __webpack_require__("./node_modules/core-js/internals/redefine-all.js");
+var defineBuiltIn = __webpack_require__("./node_modules/core-js/internals/define-built-in.js");
 
 var setPrototypeOf = __webpack_require__("./node_modules/core-js/internals/object-set-prototype-of.js");
 
@@ -27199,24 +27560,21 @@ if (FORCED_PROMISE_CONSTRUCTOR) {
       state: PENDING,
       value: undefined
     });
-  };
+  }; // `Promise.prototype.then` method
+  // https://tc39.es/ecma262/#sec-promise.prototype.then
 
-  Internal.prototype = redefineAll(PromisePrototype, {
-    // `Promise.prototype.then` method
-    // https://tc39.es/ecma262/#sec-promise.prototype.then
-    // eslint-disable-next-line unicorn/no-thenable -- safe
-    then: function then(onFulfilled, onRejected) {
-      var state = getInternalPromiseState(this);
-      var reaction = newPromiseCapability(speciesConstructor(this, PromiseConstructor));
-      state.parent = true;
-      reaction.ok = isCallable(onFulfilled) ? onFulfilled : true;
-      reaction.fail = isCallable(onRejected) && onRejected;
-      reaction.domain = IS_NODE ? process.domain : undefined;
-      if (state.state == PENDING) state.reactions.add(reaction);else microtask(function () {
-        callReaction(reaction, state);
-      });
-      return reaction.promise;
-    }
+
+  Internal.prototype = defineBuiltIn(PromisePrototype, 'then', function then(onFulfilled, onRejected) {
+    var state = getInternalPromiseState(this);
+    var reaction = newPromiseCapability(speciesConstructor(this, PromiseConstructor));
+    state.parent = true;
+    reaction.ok = isCallable(onFulfilled) ? onFulfilled : true;
+    reaction.fail = isCallable(onRejected) && onRejected;
+    reaction.domain = IS_NODE ? process.domain : undefined;
+    if (state.state == PENDING) state.reactions.add(reaction);else microtask(function () {
+      callReaction(reaction, state);
+    });
+    return reaction.promise;
   });
 
   OwnPromiseCapability = function () {
@@ -27236,7 +27594,7 @@ if (FORCED_PROMISE_CONSTRUCTOR) {
 
     if (!NATIVE_PROMISE_SUBCLASSING) {
       // make `Promise#then` return a polyfilled `Promise` for native promise-based APIs
-      redefine(NativePromisePrototype, 'then', function then(onFulfilled, onRejected) {
+      defineBuiltIn(NativePromisePrototype, 'then', function then(onFulfilled, onRejected) {
         var that = this;
         return new PromiseConstructor(function (resolve, reject) {
           call(nativeThen, that, resolve, reject);
@@ -27262,6 +27620,7 @@ if (FORCED_PROMISE_CONSTRUCTOR) {
 
 $({
   global: true,
+  constructor: true,
   wrap: true,
   forced: FORCED_PROMISE_CONSTRUCTOR
 }, {
@@ -27294,7 +27653,7 @@ var speciesConstructor = __webpack_require__("./node_modules/core-js/internals/s
 
 var promiseResolve = __webpack_require__("./node_modules/core-js/internals/promise-resolve.js");
 
-var redefine = __webpack_require__("./node_modules/core-js/internals/redefine.js");
+var defineBuiltIn = __webpack_require__("./node_modules/core-js/internals/define-built-in.js");
 
 var NativePromisePrototype = NativePromiseConstructor && NativePromiseConstructor.prototype; // Safari bug https://bugs.webkit.org/show_bug.cgi?id=200829
 
@@ -27335,7 +27694,7 @@ if (!IS_PURE && isCallable(NativePromiseConstructor)) {
   var method = getBuiltIn('Promise').prototype['finally'];
 
   if (NativePromisePrototype['finally'] !== method) {
-    redefine(NativePromisePrototype, 'finally', method, {
+    defineBuiltIn(NativePromisePrototype, 'finally', method, {
       unsafe: true
     });
   }
@@ -28008,7 +28367,7 @@ var stickyHelpers = __webpack_require__("./node_modules/core-js/internals/regexp
 
 var proxyAccessor = __webpack_require__("./node_modules/core-js/internals/proxy-accessor.js");
 
-var redefine = __webpack_require__("./node_modules/core-js/internals/redefine.js");
+var defineBuiltIn = __webpack_require__("./node_modules/core-js/internals/define-built-in.js");
 
 var fails = __webpack_require__("./node_modules/core-js/internals/fails.js");
 
@@ -28201,7 +28560,9 @@ if (isForced('RegExp', BASE_FORCED)) {
 
   RegExpPrototype.constructor = RegExpWrapper;
   RegExpWrapper.prototype = RegExpPrototype;
-  redefine(global, 'RegExp', RegExpWrapper);
+  defineBuiltIn(global, 'RegExp', RegExpWrapper, {
+    constructor: true
+  });
 } // https://tc39.es/ecma262/#sec-get-regexp-@@species
 
 
@@ -28220,7 +28581,7 @@ var UNSUPPORTED_DOT_ALL = __webpack_require__("./node_modules/core-js/internals/
 
 var classof = __webpack_require__("./node_modules/core-js/internals/classof-raw.js");
 
-var defineProperty = (__webpack_require__("./node_modules/core-js/internals/object-define-property.js").f);
+var defineBuiltInAccessor = __webpack_require__("./node_modules/core-js/internals/define-built-in-accessor.js");
 
 var getInternalState = (__webpack_require__("./node_modules/core-js/internals/internal-state.js").get);
 
@@ -28229,9 +28590,9 @@ var TypeError = global.TypeError; // `RegExp.prototype.dotAll` getter
 // https://tc39.es/ecma262/#sec-get-regexp.prototype.dotall
 
 if (DESCRIPTORS && UNSUPPORTED_DOT_ALL) {
-  defineProperty(RegExpPrototype, 'dotAll', {
+  defineBuiltInAccessor(RegExpPrototype, 'dotAll', {
     configurable: true,
-    get: function () {
+    get: function dotAll() {
       if (this === RegExpPrototype) return undefined; // We can't use InternalStateModule.getterFor because
       // we don't add metadata for regexps created by a literal.
 
@@ -28273,7 +28634,7 @@ $({
 
 var DESCRIPTORS = __webpack_require__("./node_modules/core-js/internals/descriptors.js");
 
-var objectDefinePropertyModule = __webpack_require__("./node_modules/core-js/internals/object-define-property.js");
+var defineBuiltInAccessor = __webpack_require__("./node_modules/core-js/internals/define-built-in-accessor.js");
 
 var regExpFlags = __webpack_require__("./node_modules/core-js/internals/regexp-flags.js");
 
@@ -28289,7 +28650,7 @@ var FORCED = DESCRIPTORS && fails(function () {
 }); // `RegExp.prototype.flags` getter
 // https://tc39.es/ecma262/#sec-get-regexp.prototype.flags
 
-if (FORCED) objectDefinePropertyModule.f(RegExpPrototype, 'flags', {
+if (FORCED) defineBuiltInAccessor(RegExpPrototype, 'flags', {
   configurable: true,
   get: regExpFlags
 });
@@ -28307,7 +28668,7 @@ var MISSED_STICKY = (__webpack_require__("./node_modules/core-js/internals/regex
 
 var classof = __webpack_require__("./node_modules/core-js/internals/classof-raw.js");
 
-var defineProperty = (__webpack_require__("./node_modules/core-js/internals/object-define-property.js").f);
+var defineBuiltInAccessor = __webpack_require__("./node_modules/core-js/internals/define-built-in-accessor.js");
 
 var getInternalState = (__webpack_require__("./node_modules/core-js/internals/internal-state.js").get);
 
@@ -28316,9 +28677,9 @@ var TypeError = global.TypeError; // `RegExp.prototype.sticky` getter
 // https://tc39.es/ecma262/#sec-get-regexp.prototype.sticky
 
 if (DESCRIPTORS && MISSED_STICKY) {
-  defineProperty(RegExpPrototype, 'sticky', {
+  defineBuiltInAccessor(RegExpPrototype, 'sticky', {
     configurable: true,
-    get: function () {
+    get: function sticky() {
       if (this === RegExpPrototype) return undefined; // We can't use InternalStateModule.getterFor because
       // we don't add metadata for regexps created by a literal.
 
@@ -28397,7 +28758,7 @@ $({
 
 var PROPER_FUNCTION_NAME = (__webpack_require__("./node_modules/core-js/internals/function-name.js").PROPER);
 
-var redefine = __webpack_require__("./node_modules/core-js/internals/redefine.js");
+var defineBuiltIn = __webpack_require__("./node_modules/core-js/internals/define-built-in.js");
 
 var anObject = __webpack_require__("./node_modules/core-js/internals/an-object.js");
 
@@ -28421,7 +28782,7 @@ var INCORRECT_NAME = PROPER_FUNCTION_NAME && n$ToString.name != TO_STRING; // `R
 // https://tc39.es/ecma262/#sec-regexp.prototype.tostring
 
 if (NOT_GENERIC || INCORRECT_NAME) {
-  redefine(RegExp.prototype, TO_STRING, function toString() {
+  defineBuiltIn(RegExp.prototype, TO_STRING, function toString() {
     var R = anObject(this);
     var pattern = $toString(R.source);
     var flags = $toString(getRegExpFlags(R));
@@ -28786,6 +29147,7 @@ var INCORRECT_LENGTH = !!$fromCodePoint && $fromCodePoint.length != 1; // `Strin
 $({
   target: 'String',
   stat: true,
+  arity: 1,
   forced: INCORRECT_LENGTH
 }, {
   // eslint-disable-next-line no-unused-vars -- required for `.length`
@@ -28972,7 +29334,7 @@ var getRegExpFlags = __webpack_require__("./node_modules/core-js/internals/regex
 
 var getMethod = __webpack_require__("./node_modules/core-js/internals/get-method.js");
 
-var redefine = __webpack_require__("./node_modules/core-js/internals/redefine.js");
+var defineBuiltIn = __webpack_require__("./node_modules/core-js/internals/define-built-in.js");
 
 var fails = __webpack_require__("./node_modules/core-js/internals/fails.js");
 
@@ -29079,7 +29441,7 @@ $({
     return IS_PURE ? call($matchAll, rx, S) : rx[MATCH_ALL](S);
   }
 });
-IS_PURE || MATCH_ALL in RegExpPrototype || redefine(RegExpPrototype, MATCH_ALL, $matchAll);
+IS_PURE || MATCH_ALL in RegExpPrototype || defineBuiltIn(RegExpPrototype, MATCH_ALL, $matchAll);
 
 /***/ }),
 
@@ -30112,7 +30474,7 @@ var definePropertiesModule = __webpack_require__("./node_modules/core-js/interna
 
 var propertyIsEnumerableModule = __webpack_require__("./node_modules/core-js/internals/object-property-is-enumerable.js");
 
-var redefine = __webpack_require__("./node_modules/core-js/internals/redefine.js");
+var defineBuiltIn = __webpack_require__("./node_modules/core-js/internals/define-built-in.js");
 
 var shared = __webpack_require__("./node_modules/core-js/internals/shared.js");
 
@@ -30286,10 +30648,10 @@ if (!NATIVE_SYMBOL) {
   };
 
   SymbolPrototype = $Symbol[PROTOTYPE];
-  redefine(SymbolPrototype, 'toString', function toString() {
+  defineBuiltIn(SymbolPrototype, 'toString', function toString() {
     return getInternalState(this).tag;
   });
-  redefine($Symbol, 'withoutSetter', function (description) {
+  defineBuiltIn($Symbol, 'withoutSetter', function (description) {
     return wrap(uid(description), description);
   });
   propertyIsEnumerableModule.f = $propertyIsEnumerable;
@@ -30313,7 +30675,7 @@ if (!NATIVE_SYMBOL) {
     });
 
     if (!IS_PURE) {
-      redefine(ObjectPrototype, 'propertyIsEnumerable', $propertyIsEnumerable, {
+      defineBuiltIn(ObjectPrototype, 'propertyIsEnumerable', $propertyIsEnumerable, {
         unsafe: true
       });
     }
@@ -30322,6 +30684,7 @@ if (!NATIVE_SYMBOL) {
 
 $({
   global: true,
+  constructor: true,
   wrap: true,
   forced: !NATIVE_SYMBOL,
   sham: !NATIVE_SYMBOL
@@ -30445,6 +30808,7 @@ NativeSymbol().description !== undefined)) {
   });
   $({
     global: true,
+    constructor: true,
     forced: true
   }, {
     Symbol: SymbolWrapper
@@ -31674,7 +32038,7 @@ var global = __webpack_require__("./node_modules/core-js/internals/global.js");
 
 var uncurryThis = __webpack_require__("./node_modules/core-js/internals/function-uncurry-this.js");
 
-var redefineAll = __webpack_require__("./node_modules/core-js/internals/redefine-all.js");
+var defineBuiltIns = __webpack_require__("./node_modules/core-js/internals/define-built-ins.js");
 
 var InternalMetadataModule = __webpack_require__("./node_modules/core-js/internals/internal-metadata.js");
 
@@ -31713,7 +32077,7 @@ if (NATIVE_WEAK_MAP && IS_IE11) {
   var nativeHas = uncurryThis(WeakMapPrototype.has);
   var nativeGet = uncurryThis(WeakMapPrototype.get);
   var nativeSet = uncurryThis(WeakMapPrototype.set);
-  redefineAll(WeakMapPrototype, {
+  defineBuiltIns(WeakMapPrototype, {
     'delete': function (key) {
       if (isObject(key) && !isExtensible(key)) {
         var state = enforceInternalState(this);
@@ -32050,9 +32414,9 @@ var createPropertyDescriptor = __webpack_require__("./node_modules/core-js/inter
 
 var defineProperty = (__webpack_require__("./node_modules/core-js/internals/object-define-property.js").f);
 
-var defineProperties = (__webpack_require__("./node_modules/core-js/internals/object-define-properties.js").f);
+var defineBuiltIn = __webpack_require__("./node_modules/core-js/internals/define-built-in.js");
 
-var redefine = __webpack_require__("./node_modules/core-js/internals/redefine.js");
+var defineBuiltInAccessor = __webpack_require__("./node_modules/core-js/internals/define-built-in-accessor.js");
 
 var hasOwn = __webpack_require__("./node_modules/core-js/internals/has-own-property.js");
 
@@ -32141,11 +32505,12 @@ var getterFor = function (key) {
   });
 };
 
-if (DESCRIPTORS) defineProperties(DOMExceptionPrototype, {
-  name: getterFor('name'),
-  message: getterFor('message'),
-  code: getterFor('code')
-});
+if (DESCRIPTORS) {
+  defineBuiltInAccessor(DOMExceptionPrototype, 'code', getterFor('code'));
+  defineBuiltInAccessor(DOMExceptionPrototype, 'message', getterFor('message'));
+  defineBuiltInAccessor(DOMExceptionPrototype, 'name', getterFor('name'));
+}
+
 defineProperty(DOMExceptionPrototype, 'constructor', createPropertyDescriptor(1, $DOMException)); // FF36- DOMException is a function, but can't be constructed
 
 var INCORRECT_CONSTRUCTOR = fails(function () {
@@ -32166,6 +32531,7 @@ var FORCED_CONSTRUCTOR = IS_PURE ? INCORRECT_TO_STRING || INCORRECT_CODE || MISS
 
 $({
   global: true,
+  constructor: true,
   forced: FORCED_CONSTRUCTOR
 }, {
   DOMException: FORCED_CONSTRUCTOR ? $DOMException : NativeDOMException
@@ -32174,11 +32540,11 @@ var PolyfilledDOMException = getBuiltIn(DOM_EXCEPTION);
 var PolyfilledDOMExceptionPrototype = PolyfilledDOMException.prototype;
 
 if (INCORRECT_TO_STRING && (IS_PURE || NativeDOMException === PolyfilledDOMException)) {
-  redefine(PolyfilledDOMExceptionPrototype, 'toString', errorToString);
+  defineBuiltIn(PolyfilledDOMExceptionPrototype, 'toString', errorToString);
 }
 
 if (INCORRECT_CODE && DESCRIPTORS && NativeDOMException === PolyfilledDOMException) {
-  defineProperty(PolyfilledDOMExceptionPrototype, 'code', createGetterDescriptor(function () {
+  defineBuiltInAccessor(PolyfilledDOMExceptionPrototype, 'code', createGetterDescriptor(function () {
     return codeFor(anObject(this).name);
   }));
 }
@@ -32252,6 +32618,7 @@ var FORCED_CONSTRUCTOR = ERROR_HAS_STACK && !DOM_EXCEPTION_HAS_STACK; // `DOMExc
 
 $({
   global: true,
+  constructor: true,
   forced: IS_PURE || FORCED_CONSTRUCTOR
 }, {
   // TODO: fix export logic
@@ -32480,31 +32847,46 @@ var checkBasicSemantic = function (structuredCloneImplementation) {
     var number = structuredCloneImplementation(Object(7));
     return set2 == set1 || !set2.has(7) || typeof number != 'object' || number != 7;
   }) && structuredCloneImplementation;
+};
+
+var checkErrorsCloning = function (structuredCloneImplementation) {
+  return !fails(function () {
+    var error = new Error();
+    var test = structuredCloneImplementation({
+      a: error,
+      b: error
+    });
+    return !(test && test.a === test.b && test.a instanceof Error);
+  });
 }; // https://github.com/whatwg/html/pull/5749
 
 
-var checkNewErrorsSemantic = function (structuredCloneImplementation) {
+var checkNewErrorsCloningSemantic = function (structuredCloneImplementation) {
   return !fails(function () {
     var test = structuredCloneImplementation(new global.AggregateError([1], PERFORMANCE_MARK, {
       cause: 3
     }));
     return test.name != 'AggregateError' || test.errors[0] != 1 || test.message != PERFORMANCE_MARK || test.cause != 3;
-  }) && structuredCloneImplementation;
-}; // FF94+, Safari TP134+, Chrome Canary 98+, NodeJS 17.0+, Deno 1.13+
-// current FF and Safari implementations can't clone errors
+  });
+}; // FF94+, Safari 15.4+, Chrome 98+, NodeJS 17.0+, Deno 1.13+
+// FF and Safari implementations can't clone errors
 // https://bugzilla.mozilla.org/show_bug.cgi?id=1556604
+// Chrome <103 returns `null` if cloned object contains multiple references to one error
+// https://bugs.chromium.org/p/v8/issues/detail?id=12542
 // no one of current implementations supports new (html/5749) error cloning semantic
 
 
 var nativeStructuredClone = global.structuredClone;
-var FORCED_REPLACEMENT = IS_PURE || !checkNewErrorsSemantic(nativeStructuredClone); // Chrome 82+, Safari 14.1+, Deno 1.11+
+var FORCED_REPLACEMENT = IS_PURE || !checkErrorsCloning(nativeStructuredClone) || !checkNewErrorsCloningSemantic(nativeStructuredClone); // Chrome 82+, Safari 14.1+, Deno 1.11+
 // Chrome 78-81 implementation swaps `.name` and `.message` of cloned `DOMException`
+// Chrome returns `null` if cloned object contains multiple references to one error
 // Safari 14.1 implementation doesn't clone some `RegExp` flags, so requires a workaround
-// current Safari implementation can't clone errors
+// Safari implementation can't clone errors
 // Deno 1.2-1.10 implementations too naive
-// NodeJS 16.0+ does not have `PerformanceMark` constructor, structured cloning implementation
-//   from `performance.mark` is too naive and can't clone, for example, `RegExp` or some boxed primitives
-//   https://github.com/nodejs/node/issues/40840
+// NodeJS 16.0+ does not have `PerformanceMark` constructor
+// NodeJS <17.2 structured cloning implementation from `performance.mark` is too naive
+// and can't clone, for example, `RegExp` or some boxed primitives
+// https://github.com/nodejs/node/issues/40840
 // no one of current implementations supports new (html/5749) error cloning semantic
 
 var structuredCloneFromMark = !nativeStructuredClone && checkBasicSemantic(function (value) {
@@ -32988,9 +33370,9 @@ var DESCRIPTORS = __webpack_require__("./node_modules/core-js/internals/descript
 
 var USE_NATIVE_URL = __webpack_require__("./node_modules/core-js/internals/native-url.js");
 
-var redefine = __webpack_require__("./node_modules/core-js/internals/redefine.js");
+var defineBuiltIn = __webpack_require__("./node_modules/core-js/internals/define-built-in.js");
 
-var redefineAll = __webpack_require__("./node_modules/core-js/internals/redefine-all.js");
+var defineBuiltIns = __webpack_require__("./node_modules/core-js/internals/define-built-ins.js");
 
 var setToStringTag = __webpack_require__("./node_modules/core-js/internals/set-to-string-tag.js");
 
@@ -33217,7 +33599,7 @@ URLSearchParams() {
 };
 
 var URLSearchParamsPrototype = URLSearchParamsConstructor.prototype;
-redefineAll(URLSearchParamsPrototype, {
+defineBuiltIns(URLSearchParamsPrototype, {
   // `URLSearchParams.prototype.append` method
   // https://url.spec.whatwg.org/#dom-urlsearchparams-append
   append: function append(name, value) {
@@ -33355,12 +33737,12 @@ redefineAll(URLSearchParamsPrototype, {
   enumerable: true
 }); // `URLSearchParams.prototype[@@iterator]` method
 
-redefine(URLSearchParamsPrototype, ITERATOR, URLSearchParamsPrototype.entries, {
+defineBuiltIn(URLSearchParamsPrototype, ITERATOR, URLSearchParamsPrototype.entries, {
   name: 'entries'
 }); // `URLSearchParams.prototype.toString` method
 // https://url.spec.whatwg.org/#urlsearchparams-stringification-behavior
 
-redefine(URLSearchParamsPrototype, 'toString', function toString() {
+defineBuiltIn(URLSearchParamsPrototype, 'toString', function toString() {
   return getInternalParamsState(this).serialize();
 }, {
   enumerable: true
@@ -33368,6 +33750,7 @@ redefine(URLSearchParamsPrototype, 'toString', function toString() {
 setToStringTag(URLSearchParamsConstructor, URL_SEARCH_PARAMS);
 $({
   global: true,
+  constructor: true,
   forced: !USE_NATIVE_URL
 }, {
   URLSearchParams: URLSearchParamsConstructor
@@ -33426,8 +33809,9 @@ if (!USE_NATIVE_URL && isCallable(Headers)) {
     RequestConstructor.prototype = RequestPrototype;
     $({
       global: true,
-      forced: true,
-      noTargetGet: true
+      constructor: true,
+      noTargetGet: true,
+      forced: true
     }, {
       Request: RequestConstructor
     });
@@ -33469,9 +33853,9 @@ var bind = __webpack_require__("./node_modules/core-js/internals/function-bind-c
 
 var uncurryThis = __webpack_require__("./node_modules/core-js/internals/function-uncurry-this.js");
 
-var defineProperties = (__webpack_require__("./node_modules/core-js/internals/object-define-properties.js").f);
+var defineBuiltIn = __webpack_require__("./node_modules/core-js/internals/define-built-in.js");
 
-var redefine = __webpack_require__("./node_modules/core-js/internals/redefine.js");
+var defineBuiltInAccessor = __webpack_require__("./node_modules/core-js/internals/define-built-in-accessor.js");
 
 var anInstance = __webpack_require__("./node_modules/core-js/internals/an-instance.js");
 
@@ -34525,56 +34909,54 @@ var accessorDescriptor = function (getter, setter) {
 };
 
 if (DESCRIPTORS) {
-  defineProperties(URLPrototype, {
-    // `URL.prototype.href` accessors pair
-    // https://url.spec.whatwg.org/#dom-url-href
-    href: accessorDescriptor('serialize', 'setHref'),
-    // `URL.prototype.origin` getter
-    // https://url.spec.whatwg.org/#dom-url-origin
-    origin: accessorDescriptor('getOrigin'),
-    // `URL.prototype.protocol` accessors pair
-    // https://url.spec.whatwg.org/#dom-url-protocol
-    protocol: accessorDescriptor('getProtocol', 'setProtocol'),
-    // `URL.prototype.username` accessors pair
-    // https://url.spec.whatwg.org/#dom-url-username
-    username: accessorDescriptor('getUsername', 'setUsername'),
-    // `URL.prototype.password` accessors pair
-    // https://url.spec.whatwg.org/#dom-url-password
-    password: accessorDescriptor('getPassword', 'setPassword'),
-    // `URL.prototype.host` accessors pair
-    // https://url.spec.whatwg.org/#dom-url-host
-    host: accessorDescriptor('getHost', 'setHost'),
-    // `URL.prototype.hostname` accessors pair
-    // https://url.spec.whatwg.org/#dom-url-hostname
-    hostname: accessorDescriptor('getHostname', 'setHostname'),
-    // `URL.prototype.port` accessors pair
-    // https://url.spec.whatwg.org/#dom-url-port
-    port: accessorDescriptor('getPort', 'setPort'),
-    // `URL.prototype.pathname` accessors pair
-    // https://url.spec.whatwg.org/#dom-url-pathname
-    pathname: accessorDescriptor('getPathname', 'setPathname'),
-    // `URL.prototype.search` accessors pair
-    // https://url.spec.whatwg.org/#dom-url-search
-    search: accessorDescriptor('getSearch', 'setSearch'),
-    // `URL.prototype.searchParams` getter
-    // https://url.spec.whatwg.org/#dom-url-searchparams
-    searchParams: accessorDescriptor('getSearchParams'),
-    // `URL.prototype.hash` accessors pair
-    // https://url.spec.whatwg.org/#dom-url-hash
-    hash: accessorDescriptor('getHash', 'setHash')
-  });
+  // `URL.prototype.href` accessors pair
+  // https://url.spec.whatwg.org/#dom-url-href
+  defineBuiltInAccessor(URLPrototype, 'href', accessorDescriptor('serialize', 'setHref')); // `URL.prototype.origin` getter
+  // https://url.spec.whatwg.org/#dom-url-origin
+
+  defineBuiltInAccessor(URLPrototype, 'origin', accessorDescriptor('getOrigin')); // `URL.prototype.protocol` accessors pair
+  // https://url.spec.whatwg.org/#dom-url-protocol
+
+  defineBuiltInAccessor(URLPrototype, 'protocol', accessorDescriptor('getProtocol', 'setProtocol')); // `URL.prototype.username` accessors pair
+  // https://url.spec.whatwg.org/#dom-url-username
+
+  defineBuiltInAccessor(URLPrototype, 'username', accessorDescriptor('getUsername', 'setUsername')); // `URL.prototype.password` accessors pair
+  // https://url.spec.whatwg.org/#dom-url-password
+
+  defineBuiltInAccessor(URLPrototype, 'password', accessorDescriptor('getPassword', 'setPassword')); // `URL.prototype.host` accessors pair
+  // https://url.spec.whatwg.org/#dom-url-host
+
+  defineBuiltInAccessor(URLPrototype, 'host', accessorDescriptor('getHost', 'setHost')); // `URL.prototype.hostname` accessors pair
+  // https://url.spec.whatwg.org/#dom-url-hostname
+
+  defineBuiltInAccessor(URLPrototype, 'hostname', accessorDescriptor('getHostname', 'setHostname')); // `URL.prototype.port` accessors pair
+  // https://url.spec.whatwg.org/#dom-url-port
+
+  defineBuiltInAccessor(URLPrototype, 'port', accessorDescriptor('getPort', 'setPort')); // `URL.prototype.pathname` accessors pair
+  // https://url.spec.whatwg.org/#dom-url-pathname
+
+  defineBuiltInAccessor(URLPrototype, 'pathname', accessorDescriptor('getPathname', 'setPathname')); // `URL.prototype.search` accessors pair
+  // https://url.spec.whatwg.org/#dom-url-search
+
+  defineBuiltInAccessor(URLPrototype, 'search', accessorDescriptor('getSearch', 'setSearch')); // `URL.prototype.searchParams` getter
+  // https://url.spec.whatwg.org/#dom-url-searchparams
+
+  defineBuiltInAccessor(URLPrototype, 'searchParams', accessorDescriptor('getSearchParams')); // `URL.prototype.hash` accessors pair
+  // https://url.spec.whatwg.org/#dom-url-hash
+
+  defineBuiltInAccessor(URLPrototype, 'hash', accessorDescriptor('getHash', 'setHash'));
 } // `URL.prototype.toJSON` method
 // https://url.spec.whatwg.org/#dom-url-tojson
 
 
-redefine(URLPrototype, 'toJSON', function toJSON() {
+defineBuiltIn(URLPrototype, 'toJSON', function toJSON() {
   return getInternalURLState(this).serialize();
 }, {
   enumerable: true
 }); // `URL.prototype.toString` method
 // https://url.spec.whatwg.org/#URL-stringification-behavior
 
-redefine(URLPrototype, 'toString', function toString() {
+defineBuiltIn(URLPrototype, 'toString', function toString() {
   return getInternalURLState(this).serialize();
 }, {
   enumerable: true
@@ -34585,15 +34967,16 @@ if (NativeURL) {
   var nativeRevokeObjectURL = NativeURL.revokeObjectURL; // `URL.createObjectURL` method
   // https://developer.mozilla.org/en-US/docs/Web/API/URL/createObjectURL
 
-  if (nativeCreateObjectURL) redefine(URLConstructor, 'createObjectURL', bind(nativeCreateObjectURL, NativeURL)); // `URL.revokeObjectURL` method
+  if (nativeCreateObjectURL) defineBuiltIn(URLConstructor, 'createObjectURL', bind(nativeCreateObjectURL, NativeURL)); // `URL.revokeObjectURL` method
   // https://developer.mozilla.org/en-US/docs/Web/API/URL/revokeObjectURL
 
-  if (nativeRevokeObjectURL) redefine(URLConstructor, 'revokeObjectURL', bind(nativeRevokeObjectURL, NativeURL));
+  if (nativeRevokeObjectURL) defineBuiltIn(URLConstructor, 'revokeObjectURL', bind(nativeRevokeObjectURL, NativeURL));
 }
 
 setToStringTag(URLConstructor, 'URL');
 $({
   global: true,
+  constructor: true,
   forced: !USE_NATIVE_URL,
   sham: !DESCRIPTORS
 }, {
