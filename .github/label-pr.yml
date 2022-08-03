@@ -1,0 +1,6 @@
+- regExp: "^docs/.*$"
+  labels: ["docs"]
+- regExp: "docs-src/.*$"
+  labels: ["docs"]
+- regExp: "^.*\\.adoc$"
+  labels: ["docs"]
