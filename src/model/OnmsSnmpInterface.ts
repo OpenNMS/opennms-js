@@ -57,6 +57,9 @@ export class OnmsSnmpInterface implements IHasUrlValue {
   /** the last time the SNMP interface was polled */
   public lastSnmpPoll?: Moment;
 
+  /** The node associated to this snmpInterface */
+  public nodeId?: number;
+
   /** @inheritdoc */
   public get urlValue() {
     return String(this.id);
@@ -82,6 +85,7 @@ export class OnmsSnmpInterface implements IHasUrlValue {
     iface.collect = OnmsCollectType.forId(data.collectFlag);
     iface.poll = data.poll;
     iface.lastSnmpPoll = Util.toDate(data.lastSnmpPoll);
+    iface.nodeId = Util.toNumber(data.nodeId);
 
     if (data.physAddr) {
       iface.physAddr = new PhysAddr(data.physAddr);
@@ -107,6 +111,7 @@ export class OnmsSnmpInterface implements IHasUrlValue {
       poll: this.poll,
       lastSnmpPoll: this.lastSnmpPoll?.toJSON(),
       physAddr: this.physAddr?.urlValue,
+      nodeId: this.nodeId
     }
   }
 }
