@@ -22,7 +22,7 @@ export class MockHTTP30 extends AbstractMockHTTP {
         return this.okJsonFile('./30.0.0/get/api/v2/snmpinterfaces.properties.json');
       } 
       case 'api/v2/snmpinterfaces?limit=1000&_s=ifName%3D%3Dsome-test':{
-        return this.okJsonFile('./30.0.0/get/api/v2/snmpInterfaces.filtered.json');
+        return this.okJsonFile('./30.0.0/get/api/v2/snmpinterfaces.filtered.json');
       }    
 
     }
