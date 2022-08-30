@@ -76977,6 +76977,8 @@ var OnmsSnmpInterface = /*#__PURE__*/function () {
 
     /** the last time the SNMP interface was polled */
 
+    /** The node associated to this snmpInterface */
+
     /** @inheritdoc */
     function get() {
       return String(this.id);
@@ -77007,7 +77009,8 @@ var OnmsSnmpInterface = /*#__PURE__*/function () {
         collect: (_this$collect = this.collect) === null || _this$collect === void 0 ? void 0 : _this$collect.toJSON(),
         poll: this.poll,
         lastSnmpPoll: (_this$lastSnmpPoll = this.lastSnmpPoll) === null || _this$lastSnmpPoll === void 0 ? void 0 : _this$lastSnmpPoll.toJSON(),
-        physAddr: (_this$physAddr = this.physAddr) === null || _this$physAddr === void 0 ? void 0 : _this$physAddr.urlValue
+        physAddr: (_this$physAddr = this.physAddr) === null || _this$physAddr === void 0 ? void 0 : _this$physAddr.urlValue,
+        nodeId: this.nodeId
       };
     }
   }], [{
@@ -77027,6 +77030,7 @@ var OnmsSnmpInterface = /*#__PURE__*/function () {
       iface.collect = OnmsCollectType.forId(data.collectFlag);
       iface.poll = data.poll;
       iface.lastSnmpPoll = Util.toDate(data.lastSnmpPoll);
+      iface.nodeId = Util.toNumber(data.nodeId);
 
       if (data.physAddr) {
         iface.physAddr = new PhysAddr(data.physAddr);

@@ -1,0 +1,753 @@
+{
+	"totalCount": 104,
+	"count": 104,
+	"offset": 0,
+	"searchProperty": [
+		{
+			"id": "id",
+			"name": "ID",
+			"type": "INTEGER",
+			"orderBy": true,
+			"iplike": false
+		},
+		{
+			"id": "ifAdminStatus",
+			"name": "Admin Status",
+			"type": "INTEGER",
+			"orderBy": true,
+			"iplike": false
+		},
+		{
+			"id": "ifAlias",
+			"name": "Interface Alias",
+			"type": "STRING",
+			"orderBy": true,
+			"iplike": false
+		},
+		{
+			"id": "ifDescr",
+			"name": "Interface Description",
+			"type": "STRING",
+			"orderBy": true,
+			"iplike": false
+		},
+		{
+			"id": "ifIndex",
+			"name": "Interface Index",
+			"type": "INTEGER",
+			"orderBy": true,
+			"iplike": false
+		},
+		{
+			"id": "ifName",
+			"name": "Interface Name",
+			"type": "STRING",
+			"orderBy": true,
+			"iplike": false
+		},
+		{
+			"id": "ifOperStatus",
+			"name": "Operational Status",
+			"type": "INTEGER",
+			"orderBy": true,
+			"iplike": false
+		},
+		{
+			"id": "ifSpeed",
+			"name": "Interface Speed (Bits per second)",
+			"type": "LONG",
+			"orderBy": true,
+			"iplike": false
+		},
+		{
+			"id": "ifType",
+			"name": "Interface Type",
+			"type": "INTEGER",
+			"orderBy": true,
+			"iplike": false
+		},
+		{
+			"id": "lastCapsdPoll",
+			"name": "Last Provisioning Scan",
+			"type": "TIMESTAMP",
+			"orderBy": true,
+			"iplike": false
+		},
+		{
+			"id": "lastEgressFlow",
+			"name": "Last Egress Flow",
+			"type": "TIMESTAMP",
+			"orderBy": true,
+			"iplike": false
+		},
+		{
+			"id": "lastIngressFlow",
+			"name": "Last Ingress Flow",
+			"type": "TIMESTAMP",
+			"orderBy": true,
+			"iplike": false
+		},
+		{
+			"id": "lastSnmpPoll",
+			"name": "Last SNMP Interface Poll",
+			"type": "TIMESTAMP",
+			"orderBy": true,
+			"iplike": false
+		},
+		{
+			"id": "node.createTime",
+			"name": "Node: Creation Time",
+			"type": "TIMESTAMP",
+			"orderBy": true,
+			"iplike": false
+		},
+		{
+			"id": "node.foreignId",
+			"name": "Node: Foreign ID",
+			"type": "STRING",
+			"orderBy": true,
+			"iplike": false
+		},
+		{
+			"id": "node.foreignSource",
+			"name": "Node: Foreign Source",
+			"type": "STRING",
+			"orderBy": true,
+			"iplike": false
+		},
+		{
+			"id": "node.id",
+			"name": "Node: ID",
+			"type": "INTEGER",
+			"orderBy": true,
+			"iplike": false
+		},
+		{
+			"id": "node.label",
+			"name": "Node: Label",
+			"type": "STRING",
+			"orderBy": true,
+			"iplike": false
+		},
+		{
+			"id": "node.labelSource",
+			"name": "Node: Label Source",
+			"type": "STRING",
+			"orderBy": true,
+			"iplike": false,
+			"values": {
+				"A": "IP Address",
+				"H": "Hostname",
+				"N": "NetBIOS",
+				"S": "SNMP sysName",
+				" ": "Unknown",
+				"U": "User-Defined"
+			}
+		},
+		{
+			"id": "node.lastCapsdPoll",
+			"name": "Node: Last Provisioning Scan",
+			"type": "TIMESTAMP",
+			"orderBy": true,
+			"iplike": false
+		},
+		{
+			"id": "node.lastEgressFlow",
+			"name": "Node: Last Egress Flow",
+			"type": "TIMESTAMP",
+			"orderBy": true,
+			"iplike": false
+		},
+		{
+			"id": "node.lastIngressFlow",
+			"name": "Node: Last Ingress Flow",
+			"type": "TIMESTAMP",
+			"orderBy": true,
+			"iplike": false
+		},
+		{
+			"id": "node.netBiosDomain",
+			"name": "Node: Windows NetBIOS Domain",
+			"type": "STRING",
+			"orderBy": true,
+			"iplike": false
+		},
+		{
+			"id": "node.netBiosName",
+			"name": "Node: Windows NetBIOS Name",
+			"type": "STRING",
+			"orderBy": true,
+			"iplike": false
+		},
+		{
+			"id": "node.operatingSystem",
+			"name": "Node: Operating System",
+			"type": "STRING",
+			"orderBy": true,
+			"iplike": false
+		},
+		{
+			"id": "node.sysContact",
+			"name": "Node: SNMP sysContact",
+			"type": "STRING",
+			"orderBy": true,
+			"iplike": false
+		},
+		{
+			"id": "node.sysDescription",
+			"name": "Node: SNMP sysDescription",
+			"type": "STRING",
+			"orderBy": true,
+			"iplike": false
+		},
+		{
+			"id": "node.sysLocation",
+			"name": "Node: SNMP sysLocation",
+			"type": "STRING",
+			"orderBy": true,
+			"iplike": false
+		},
+		{
+			"id": "node.sysName",
+			"name": "Node: SNMP sysName",
+			"type": "STRING",
+			"orderBy": true,
+			"iplike": false
+		},
+		{
+			"id": "node.sysObjectId",
+			"name": "Node: SNMP sysObjectId",
+			"type": "STRING",
+			"orderBy": true,
+			"iplike": false
+		},
+		{
+			"id": "node.type",
+			"name": "Node: Type",
+			"type": "STRING",
+			"orderBy": true,
+			"iplike": false,
+			"values": {
+				"A": "Active",
+				"D": "Deleted",
+				" ": "Unknown"
+			}
+		},
+		{
+			"id": "ipInterface.id",
+			"name": "IP Interface: ID",
+			"type": "INTEGER",
+			"orderBy": true,
+			"iplike": false
+		},
+		{
+			"id": "ipInterface.ipAddress",
+			"name": "IP Interface: IP Address",
+			"type": "IP_ADDRESS",
+			"orderBy": true,
+			"iplike": false
+		},
+		{
+			"id": "ipInterface.ipHostName",
+			"name": "IP Interface: Hostname",
+			"type": "STRING",
+			"orderBy": true,
+			"iplike": false
+		},
+		{
+			"id": "ipInterface.ipLastCapsdPoll",
+			"name": "IP Interface: Last Provisioning Scan",
+			"type": "TIMESTAMP",
+			"orderBy": true,
+			"iplike": false
+		},
+		{
+			"id": "ipInterface.isManaged",
+			"name": "IP Interface: Management Status",
+			"type": "STRING",
+			"orderBy": true,
+			"iplike": false
+		},
+		{
+			"id": "ipInterface.netMask",
+			"name": "IP Interface: Network Mask",
+			"type": "IP_ADDRESS",
+			"orderBy": true,
+			"iplike": false
+		},
+		{
+			"id": "ipInterface.snmpPrimary",
+			"name": "IP Interface: Primary SNMP Interface Status",
+			"type": "STRING",
+			"orderBy": true,
+			"iplike": false,
+			"values": {
+				"P": "P",
+				"S": "S",
+				"N": "N"
+			}
+		},
+		{
+			"id": "assetRecord.additionalhardware",
+			"name": "Asset: Additional Hardware",
+			"type": "STRING",
+			"orderBy": true,
+			"iplike": false
+		},
+		{
+			"id": "assetRecord.admin",
+			"name": "Asset: Admin",
+			"type": "STRING",
+			"orderBy": true,
+			"iplike": false
+		},
+		{
+			"id": "assetRecord.assetNumber",
+			"name": "Asset: Asset Number",
+			"type": "STRING",
+			"orderBy": true,
+			"iplike": false
+		},
+		{
+			"id": "assetRecord.autoenable",
+			"name": "Asset: Auto-enable",
+			"type": "STRING",
+			"orderBy": true,
+			"iplike": false
+		},
+		{
+			"id": "assetRecord.building",
+			"name": "Asset: Building",
+			"type": "STRING",
+			"orderBy": true,
+			"iplike": false
+		},
+		{
+			"id": "assetRecord.category",
+			"name": "Asset: Category",
+			"type": "STRING",
+			"orderBy": true,
+			"iplike": false
+		},
+		{
+			"id": "assetRecord.circuitId",
+			"name": "Asset: Circuit ID",
+			"type": "STRING",
+			"orderBy": true,
+			"iplike": false
+		},
+		{
+			"id": "assetRecord.comment",
+			"name": "Asset: Comment",
+			"type": "STRING",
+			"orderBy": true,
+			"iplike": false
+		},
+		{
+			"id": "assetRecord.connection",
+			"name": "Asset: Connection",
+			"type": "STRING",
+			"orderBy": true,
+			"iplike": false
+		},
+		{
+			"id": "assetRecord.cpu",
+			"name": "Asset: CPU",
+			"type": "STRING",
+			"orderBy": true,
+			"iplike": false
+		},
+		{
+			"id": "assetRecord.dateInstalled",
+			"name": "Asset: Date Installed",
+			"type": "STRING",
+			"orderBy": true,
+			"iplike": false
+		},
+		{
+			"id": "assetRecord.department",
+			"name": "Asset: Department",
+			"type": "STRING",
+			"orderBy": true,
+			"iplike": false
+		},
+		{
+			"id": "assetRecord.description",
+			"name": "Asset: Description",
+			"type": "STRING",
+			"orderBy": true,
+			"iplike": false
+		},
+		{
+			"id": "assetRecord.displayCategory",
+			"name": "Asset: Display Category",
+			"type": "STRING",
+			"orderBy": true,
+			"iplike": false
+		},
+		{
+			"id": "assetRecord.division",
+			"name": "Asset: Division",
+			"type": "STRING",
+			"orderBy": true,
+			"iplike": false
+		},
+		{
+			"id": "assetRecord.enable",
+			"name": "Asset: Enable",
+			"type": "STRING",
+			"orderBy": true,
+			"iplike": false
+		},
+		{
+			"id": "assetRecord.floor",
+			"name": "Asset: Floor",
+			"type": "STRING",
+			"orderBy": true,
+			"iplike": false
+		},
+		{
+			"id": "assetRecord.hdd1",
+			"name": "Asset: HDD 1",
+			"type": "STRING",
+			"orderBy": true,
+			"iplike": false
+		},
+		{
+			"id": "assetRecord.hdd2",
+			"name": "Asset: HDD 2",
+			"type": "STRING",
+			"orderBy": true,
+			"iplike": false
+		},
+		{
+			"id": "assetRecord.hdd3",
+			"name": "Asset: HDD 3",
+			"type": "STRING",
+			"orderBy": true,
+			"iplike": false
+		},
+		{
+			"id": "assetRecord.hdd4",
+			"name": "Asset: HDD 4",
+			"type": "STRING",
+			"orderBy": true,
+			"iplike": false
+		},
+		{
+			"id": "assetRecord.hdd5",
+			"name": "Asset: HDD 5",
+			"type": "STRING",
+			"orderBy": true,
+			"iplike": false
+		},
+		{
+			"id": "assetRecord.hdd6",
+			"name": "Asset: HDD 6",
+			"type": "STRING",
+			"orderBy": true,
+			"iplike": false
+		},
+		{
+			"id": "assetRecord.id",
+			"name": "Asset: ID",
+			"type": "INTEGER",
+			"orderBy": true,
+			"iplike": false
+		},
+		{
+			"id": "assetRecord.inputpower",
+			"name": "Asset: Input Power",
+			"type": "STRING",
+			"orderBy": true,
+			"iplike": false
+		},
+		{
+			"id": "assetRecord.lastModifiedBy",
+			"name": "Asset: Last Modified By",
+			"type": "STRING",
+			"orderBy": true,
+			"iplike": false
+		},
+		{
+			"id": "assetRecord.lastModifiedDate",
+			"name": "Asset: Last Modified Date",
+			"type": "TIMESTAMP",
+			"orderBy": true,
+			"iplike": false
+		},
+		{
+			"id": "assetRecord.lease",
+			"name": "Asset: Lease",
+			"type": "STRING",
+			"orderBy": true,
+			"iplike": false
+		},
+		{
+			"id": "assetRecord.leaseExpires",
+			"name": "Asset: Lease Expires",
+			"type": "STRING",
+			"orderBy": true,
+			"iplike": false
+		},
+		{
+			"id": "assetRecord.maintContractExpiration",
+			"name": "Asset: Maintenance Contract Expiration",
+			"type": "STRING",
+			"orderBy": true,
+			"iplike": false
+		},
+		{
+			"id": "assetRecord.maintcontract",
+			"name": "Asset: Maintenance Contract",
+			"type": "STRING",
+			"orderBy": true,
+			"iplike": false
+		},
+		{
+			"id": "assetRecord.managedObjectInstance",
+			"name": "Asset: Managed Object Instance",
+			"type": "STRING",
+			"orderBy": true,
+			"iplike": false
+		},
+		{
+			"id": "assetRecord.managedObjectType",
+			"name": "Asset: Managed Object Type",
+			"type": "STRING",
+			"orderBy": true,
+			"iplike": false
+		},
+		{
+			"id": "assetRecord.manufacturer",
+			"name": "Asset: Manufacturer",
+			"type": "STRING",
+			"orderBy": true,
+			"iplike": false
+		},
+		{
+			"id": "assetRecord.modelNumber",
+			"name": "Asset: Model Number",
+			"type": "STRING",
+			"orderBy": true,
+			"iplike": false
+		},
+		{
+			"id": "assetRecord.notifyCategory",
+			"name": "Asset: Notify Category",
+			"type": "STRING",
+			"orderBy": true,
+			"iplike": false
+		},
+		{
+			"id": "assetRecord.numpowersupplies",
+			"name": "Asset: Number of Power Supplies",
+			"type": "STRING",
+			"orderBy": true,
+			"iplike": false
+		},
+		{
+			"id": "assetRecord.operatingSystem",
+			"name": "Asset: Operating System",
+			"type": "STRING",
+			"orderBy": true,
+			"iplike": false
+		},
+		{
+			"id": "assetRecord.password",
+			"name": "Asset: Password",
+			"type": "STRING",
+			"orderBy": true,
+			"iplike": false
+		},
+		{
+			"id": "assetRecord.pollerCategory",
+			"name": "Asset: Poller Category",
+			"type": "STRING",
+			"orderBy": true,
+			"iplike": false
+		},
+		{
+			"id": "assetRecord.port",
+			"name": "Asset: Port",
+			"type": "STRING",
+			"orderBy": true,
+			"iplike": false
+		},
+		{
+			"id": "assetRecord.rack",
+			"name": "Asset: Rack",
+			"type": "STRING",
+			"orderBy": true,
+			"iplike": false
+		},
+		{
+			"id": "assetRecord.rackunitheight",
+			"name": "Asset: Rack Unit Height",
+			"type": "STRING",
+			"orderBy": true,
+			"iplike": false
+		},
+		{
+			"id": "assetRecord.ram",
+			"name": "Asset: RAM",
+			"type": "STRING",
+			"orderBy": true,
+			"iplike": false
+		},
+		{
+			"id": "assetRecord.region",
+			"name": "Asset: Region",
+			"type": "STRING",
+			"orderBy": true,
+			"iplike": false
+		},
+		{
+			"id": "assetRecord.room",
+			"name": "Asset: Room",
+			"type": "STRING",
+			"orderBy": true,
+			"iplike": false
+		},
+		{
+			"id": "assetRecord.serialNumber",
+			"name": "Asset: Serial Number",
+			"type": "STRING",
+			"orderBy": true,
+			"iplike": false
+		},
+		{
+			"id": "assetRecord.slot",
+			"name": "Asset: Slot",
+			"type": "STRING",
+			"orderBy": true,
+			"iplike": false
+		},
+		{
+			"id": "assetRecord.snmpcommunity",
+			"name": "Asset: SNMP Community",
+			"type": "STRING",
+			"orderBy": true,
+			"iplike": false
+		},
+		{
+			"id": "assetRecord.storagectrl",
+			"name": "Asset: Storage Controller",
+			"type": "STRING",
+			"orderBy": true,
+			"iplike": false
+		},
+		{
+			"id": "assetRecord.supportPhone",
+			"name": "Asset: Support Phone",
+			"type": "STRING",
+			"orderBy": true,
+			"iplike": false
+		},
+		{
+			"id": "assetRecord.thresholdCategory",
+			"name": "Asset: Threshold Category",
+			"type": "STRING",
+			"orderBy": true,
+			"iplike": false
+		},
+		{
+			"id": "assetRecord.username",
+			"name": "Asset: Username",
+			"type": "STRING",
+			"orderBy": true,
+			"iplike": false
+		},
+		{
+			"id": "assetRecord.vendor",
+			"name": "Asset: Vendor",
+			"type": "STRING",
+			"orderBy": true,
+			"iplike": false
+		},
+		{
+			"id": "assetRecord.vendorAssetNumber",
+			"name": "Asset: Vendor Asset Number",
+			"type": "STRING",
+			"orderBy": true,
+			"iplike": false
+		},
+		{
+			"id": "assetRecord.vendorFax",
+			"name": "Asset: Vendor Fax",
+			"type": "STRING",
+			"orderBy": true,
+			"iplike": false
+		},
+		{
+			"id": "assetRecord.vendorPhone",
+			"name": "Asset: Vendor Phone",
+			"type": "STRING",
+			"orderBy": true,
+			"iplike": false
+		},
+		{
+			"id": "category.description",
+			"name": "Category: Description",
+			"type": "STRING",
+			"orderBy": false,
+			"iplike": false
+		},
+		{
+			"id": "category.id",
+			"name": "Category: ID",
+			"type": "INTEGER",
+			"orderBy": false,
+			"iplike": false
+		},
+		{
+			"id": "category.name",
+			"name": "Category: Name",
+			"type": "STRING",
+			"orderBy": false,
+			"iplike": false
+		},
+		{
+			"id": "location.geolocation",
+			"name": "Location: Geographic Address",
+			"type": "STRING",
+			"orderBy": true,
+			"iplike": false
+		},
+		{
+			"id": "location.latitude",
+			"name": "Location: Latitude",
+			"type": "FLOAT",
+			"orderBy": true,
+			"iplike": false
+		},
+		{
+			"id": "location.locationName",
+			"name": "Location: ID",
+			"type": "STRING",
+			"orderBy": true,
+			"iplike": false
+		},
+		{
+			"id": "location.longitude",
+			"name": "Location: Longitude",
+			"type": "FLOAT",
+			"orderBy": true,
+			"iplike": false
+		},
+		{
+			"id": "location.monitoringArea",
+			"name": "Location: Monitoring Area",
+			"type": "STRING",
+			"orderBy": true,
+			"iplike": false
+		},
+		{
+			"id": "location.priority",
+			"name": "Location: UI Priority",
+			"type": "INTEGER",
+			"orderBy": true,
+			"iplike": false
+		}
+	]
+}
