@@ -7829,6 +7829,17 @@ module.exports = path.Map;
 
 /***/ }),
 
+/***/ "./node_modules/core-js-pure/es/number/parse-int.js":
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+__webpack_require__("./node_modules/core-js-pure/modules/es.number.parse-int.js");
+
+var path = __webpack_require__("./node_modules/core-js-pure/internals/path.js");
+
+module.exports = path.Number.parseInt;
+
+/***/ }),
+
 /***/ "./node_modules/core-js-pure/es/object/assign.js":
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
@@ -13163,6 +13174,26 @@ __webpack_require__("./node_modules/core-js-pure/modules/es.map.constructor.js")
 
 /***/ }),
 
+/***/ "./node_modules/core-js-pure/modules/es.number.parse-int.js":
+/***/ ((__unused_webpack_module, __unused_webpack_exports, __webpack_require__) => {
+
+var $ = __webpack_require__("./node_modules/core-js-pure/internals/export.js");
+
+var parseInt = __webpack_require__("./node_modules/core-js-pure/internals/number-parse-int.js"); // `Number.parseInt` method
+// https://tc39.es/ecma262/#sec-number.parseint
+// eslint-disable-next-line es-x/no-number-parseint -- required for testing
+
+
+$({
+  target: 'Number',
+  stat: true,
+  forced: Number.parseInt != parseInt
+}, {
+  parseInt: parseInt
+});
+
+/***/ }),
+
 /***/ "./node_modules/core-js-pure/modules/es.object.assign.js":
 /***/ ((__unused_webpack_module, __unused_webpack_exports, __webpack_require__) => {
 
@@ -15163,6 +15194,15 @@ module.exports = parent;
 var parent = __webpack_require__("./node_modules/core-js-pure/es/map/index.js");
 
 __webpack_require__("./node_modules/core-js-pure/modules/web.dom-collections.iterator.js");
+
+module.exports = parent;
+
+/***/ }),
+
+/***/ "./node_modules/core-js-pure/stable/number/parse-int.js":
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+var parent = __webpack_require__("./node_modules/core-js-pure/es/number/parse-int.js");
 
 module.exports = parent;
 
@@ -68699,6 +68739,13 @@ module.exports = __webpack_require__("./node_modules/core-js-pure/stable/map/ind
 
 /***/ }),
 
+/***/ "./node_modules/@babel/runtime-corejs3/core-js-stable/number/parse-int.js":
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+module.exports = __webpack_require__("./node_modules/core-js-pure/stable/number/parse-int.js");
+
+/***/ }),
+
 /***/ "./node_modules/@babel/runtime-corejs3/core-js-stable/object/assign.js":
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
@@ -69211,7 +69258,11 @@ var iterator_default = /*#__PURE__*/__webpack_require__.n(iterator);
 // EXTERNAL MODULE: ./node_modules/@babel/runtime-corejs3/core-js-stable/instance/slice.js
 var slice = __webpack_require__("./node_modules/@babel/runtime-corejs3/core-js-stable/instance/slice.js");
 var slice_default = /*#__PURE__*/__webpack_require__.n(slice);
+// EXTERNAL MODULE: ./node_modules/@babel/runtime-corejs3/core-js-stable/number/parse-int.js
+var parse_int = __webpack_require__("./node_modules/@babel/runtime-corejs3/core-js-stable/number/parse-int.js");
+var parse_int_default = /*#__PURE__*/__webpack_require__.n(parse_int);
 ;// CONCATENATED MODULE: ./src/internal/OnmsEnum.ts
+
 
 
 
@@ -69294,7 +69345,7 @@ var OnmsEnum = /*#__PURE__*/function () {
 /** @hidden */
 
 function OnmsEnum_forId(collection, id) {
-  if (id) {
+  if (id || !isNaN(id) && parse_int_default()(id, 10) >= 0) {
     for (var type in collection) {
       if (collection.hasOwnProperty(type)) {
         var collectionId = collection[type].id;
@@ -70438,8 +70489,8 @@ var for_default = /*#__PURE__*/__webpack_require__.n(symbol_for);
 var object_assign = __webpack_require__("./node_modules/@babel/runtime-corejs3/core-js-stable/object/assign.js");
 var assign_default = /*#__PURE__*/__webpack_require__.n(object_assign);
 // EXTERNAL MODULE: ./node_modules/@babel/runtime-corejs3/core-js-stable/parse-int.js
-var parse_int = __webpack_require__("./node_modules/@babel/runtime-corejs3/core-js-stable/parse-int.js");
-var parse_int_default = /*#__PURE__*/__webpack_require__.n(parse_int);
+var core_js_stable_parse_int = __webpack_require__("./node_modules/@babel/runtime-corejs3/core-js-stable/parse-int.js");
+var core_js_stable_parse_int_default = /*#__PURE__*/__webpack_require__.n(core_js_stable_parse_int);
 // EXTERNAL MODULE: ./node_modules/ip-address/dist/cjs/ip-address.js
 var ip_address = __webpack_require__("./node_modules/ip-address/dist/cjs/ip-address.js");
 ;// CONCATENATED MODULE: ./src/internal/Util.ts
@@ -70600,7 +70651,7 @@ var Util = /*#__PURE__*/function () {
   }, {
     key: "toNumber",
     value: function toNumber(from) {
-      var ret = parse_int_default()(from, 10);
+      var ret = core_js_stable_parse_int_default()(from, 10);
 
       return isNaN(ret) ? undefined : ret;
     }
@@ -72657,9 +72708,9 @@ var BaseDAO = /*#__PURE__*/function () {
       if (typeof data === 'number') {
         count = data;
       } else if (data.count !== undefined) {
-        count = parse_int_default()(data.count, 10);
+        count = core_js_stable_parse_int_default()(data.count, 10);
       } else if (data.totalCount !== undefined) {
-        count = parse_int_default()(data.totalCount, 10);
+        count = core_js_stable_parse_int_default()(data.totalCount, 10);
       } else {
         if (status === 204) {
           log.debug('data is missing count and totalCount properties');
@@ -73278,7 +73329,7 @@ var OnmsParm = /*#__PURE__*/function () {
         case 'Int32':
         case 'Int64':
         case 'TimeTicks':
-          return parse_int_default()(this.type, 10);
+          return core_js_stable_parse_int_default()(this.type, 10);
         // other types
 
         case 'Null':

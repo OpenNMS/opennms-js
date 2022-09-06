@@ -9418,6 +9418,17 @@ module.exports = path.Map;
 
 /***/ }),
 
+/***/ "./node_modules/core-js-pure/es/number/parse-int.js":
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+__webpack_require__("./node_modules/core-js-pure/modules/es.number.parse-int.js");
+
+var path = __webpack_require__("./node_modules/core-js-pure/internals/path.js");
+
+module.exports = path.Number.parseInt;
+
+/***/ }),
+
 /***/ "./node_modules/core-js-pure/es/object/assign.js":
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
@@ -14951,6 +14962,26 @@ __webpack_require__("./node_modules/core-js-pure/modules/es.map.constructor.js")
 
 /***/ }),
 
+/***/ "./node_modules/core-js-pure/modules/es.number.parse-int.js":
+/***/ ((__unused_webpack_module, __unused_webpack_exports, __webpack_require__) => {
+
+var $ = __webpack_require__("./node_modules/core-js-pure/internals/export.js");
+
+var parseInt = __webpack_require__("./node_modules/core-js-pure/internals/number-parse-int.js"); // `Number.parseInt` method
+// https://tc39.es/ecma262/#sec-number.parseint
+// eslint-disable-next-line es-x/no-number-parseint -- required for testing
+
+
+$({
+  target: 'Number',
+  stat: true,
+  forced: Number.parseInt != parseInt
+}, {
+  parseInt: parseInt
+});
+
+/***/ }),
+
 /***/ "./node_modules/core-js-pure/modules/es.object.assign.js":
 /***/ ((__unused_webpack_module, __unused_webpack_exports, __webpack_require__) => {
 
@@ -17058,6 +17089,15 @@ module.exports = parent;
 var parent = __webpack_require__("./node_modules/core-js-pure/es/map/index.js");
 
 __webpack_require__("./node_modules/core-js-pure/modules/web.dom-collections.iterator.js");
+
+module.exports = parent;
+
+/***/ }),
+
+/***/ "./node_modules/core-js-pure/stable/number/parse-int.js":
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+var parent = __webpack_require__("./node_modules/core-js-pure/es/number/parse-int.js");
 
 module.exports = parent;
 
@@ -92707,16 +92747,19 @@ var OrderBy = /*#__PURE__*/function () {
 /* harmony export */ });
 /* harmony import */ var _node_modules_babel_runtime_corejs3_core_js_stable_instance_slice__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("./node_modules/@babel/runtime-corejs3/core-js-stable/instance/slice.js");
 /* harmony import */ var _node_modules_babel_runtime_corejs3_core_js_stable_instance_slice__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_babel_runtime_corejs3_core_js_stable_instance_slice__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _node_modules_babel_runtime_corejs3_core_js_stable_object_define_property__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("./node_modules/@babel/runtime-corejs3/core-js-stable/object/define-property.js");
-/* harmony import */ var _node_modules_babel_runtime_corejs3_core_js_stable_object_define_property__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_node_modules_babel_runtime_corejs3_core_js_stable_object_define_property__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _node_modules_babel_runtime_corejs3_core_js_stable_number_parse_int__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("./node_modules/@babel/runtime-corejs3/core-js-stable/number/parse-int.js");
+/* harmony import */ var _node_modules_babel_runtime_corejs3_core_js_stable_number_parse_int__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_node_modules_babel_runtime_corejs3_core_js_stable_number_parse_int__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _node_modules_babel_runtime_corejs3_core_js_stable_object_define_property__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__("./node_modules/@babel/runtime-corejs3/core-js-stable/object/define-property.js");
+/* harmony import */ var _node_modules_babel_runtime_corejs3_core_js_stable_object_define_property__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_node_modules_babel_runtime_corejs3_core_js_stable_object_define_property__WEBPACK_IMPORTED_MODULE_2__);
+
 
 
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; _node_modules_babel_runtime_corejs3_core_js_stable_object_define_property__WEBPACK_IMPORTED_MODULE_1___default()(target, descriptor.key, descriptor); } }
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; _node_modules_babel_runtime_corejs3_core_js_stable_object_define_property__WEBPACK_IMPORTED_MODULE_2___default()(target, descriptor.key, descriptor); } }
 
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); _node_modules_babel_runtime_corejs3_core_js_stable_object_define_property__WEBPACK_IMPORTED_MODULE_1___default()(Constructor, "prototype", { writable: false }); return Constructor; }
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); _node_modules_babel_runtime_corejs3_core_js_stable_object_define_property__WEBPACK_IMPORTED_MODULE_2___default()(Constructor, "prototype", { writable: false }); return Constructor; }
 
 /**
  * Represents an enumerated type.
@@ -92791,7 +92834,7 @@ var OnmsEnum = /*#__PURE__*/function () {
 /** @hidden */
 
 function forId(collection, id) {
-  if (id) {
+  if (id || !isNaN(id) && _node_modules_babel_runtime_corejs3_core_js_stable_number_parse_int__WEBPACK_IMPORTED_MODULE_1___default()(id, 10) >= 0) {
     for (var type in collection) {
       if (collection.hasOwnProperty(type)) {
         var collectionId = collection[type].id;
@@ -93361,6 +93404,13 @@ module.exports = __webpack_require__("./node_modules/core-js-pure/stable/json/st
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 module.exports = __webpack_require__("./node_modules/core-js-pure/stable/map/index.js");
+
+/***/ }),
+
+/***/ "./node_modules/@babel/runtime-corejs3/core-js-stable/number/parse-int.js":
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+module.exports = __webpack_require__("./node_modules/core-js-pure/stable/number/parse-int.js");
 
 /***/ }),
 
