@@ -52,7 +52,7 @@ export class OnmsEnum<T> {
 /** convenience function for implementing id-based lookup in enums */
 /** @hidden */
 export function forId(collection: any, id?: any) {
-  if (id) {
+  if (id || (!isNaN(id) && Number.parseInt(id, 10) >= 0)) {
     for (const type in collection) {
       if (collection.hasOwnProperty(type)) {
         const collectionId = collection[type].id;
