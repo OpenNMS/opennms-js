@@ -22,6 +22,11 @@ OpenNMS.js follows [semantic versioning](https://semver.org/).
 
 ### Release Notes
 
+#### 2.5.0
+
+OpenNMS.js 2.5.0 contains a bunch of dependency updates including a move to core-js v3 for compatibility, as well as a few build system cleanups,
+fixes for querying SNMP interfaces by node ID and a query fix for 0-indexed enums.
+
 #### 2.4.1
 
 This is just a rerelease to fix an issue with artifact generation.
