@@ -22,6 +22,11 @@ OpenNMS.js follows [semantic versioning](https://semver.org/).
 
 ### Release Notes
 
+#### 2.5.1
+
+2.5.1 is a small release with just dependency updates, most notably moment.js and moment-timezone, plus
+minor bumps to Grafana dependencies.
+
 #### 2.5.0
 
 OpenNMS.js 2.5.0 contains a bunch of dependency updates including a move to core-js v3 for compatibility, as well as a few build system cleanups,
