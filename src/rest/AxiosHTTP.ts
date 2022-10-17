@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {AxiosStatic, AxiosInstance, AxiosResponse, AxiosRequestConfig} from 'axios';
+import { AxiosStatic, AxiosInstance, AxiosRequestConfig } from 'axios';
 import cloneDeep from 'lodash/cloneDeep';
 
 /** @hidden */
@@ -13,33 +13,6 @@ import {OnmsResult} from '../api/OnmsResult';
 import {OnmsServer} from '../api/OnmsServer';
 
 import {log} from '../api/Log';
-
-/**
- * By default, Axios turns `key` in multi-value parameters into
- * `key[]`.  We need to implement an alternate parameter processor
- * to leave it as just the key name.  See
- * https://github.com/axios/axios/issues/604#issuecomment-420135579
- * for details.
- *
- * @hidden
- */
-const parseParams = (params: { [key: string]: string|string[] }) => {
-  const keys = Object.keys(params);
-  let options = '';
-
-  keys.forEach((key) => {
-    if (Array.isArray(params[key])) {
-      const value = params[key] as string[];
-      value.forEach((element) => {
-        options += `${key}=${element}&`;
-      });
-    } else {
-      options += `${key}=${params[key]}&`;
-    }
-  });
-
-  return options ? options.slice(0, -1) : options;
-};
 
 /**
  * Implementation of the [[IOnmsHTTP]] interface using Axios: https://github.com/mzabriskie/axios
@@ -255,7 +228,11 @@ export class AxiosHTTP extends AbstractHTTP {
       throw new OnmsError('Unhandled "Accept" header: ' + type);
     }
 
-    ret.paramsSerializer = (params) => parseParams(params);
+    /*
+     * This tells Axios to turn multi-value parameters into key=value1&key=value2.
+     * See: https://github.com/axios/axios/issues/5058#issuecomment-1272229926
+     */
+    ret.paramsSerializer = { indexes: null };
 
     if (allOptions.parameters) {
       ret.params = cloneDeep(allOptions.parameters);
