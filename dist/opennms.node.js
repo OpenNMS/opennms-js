@@ -63300,6 +63300,11 @@ var runtime = function (exports) {
 
   var Op = Object.prototype;
   var hasOwn = Op.hasOwnProperty;
+
+  var defineProperty = Object.defineProperty || function (obj, key, desc) {
+    obj[key] = desc.value;
+  };
+
   var undefined; // More compressible than void 0.
 
   var $Symbol = typeof Symbol === "function" ? Symbol : {};
@@ -63333,7 +63338,9 @@ var runtime = function (exports) {
     var context = new Context(tryLocsList || []); // The ._invoke method unifies the implementations of the .next,
     // .throw, and .return methods.
 
-    generator._invoke = makeInvokeMethod(innerFn, self, context);
+    defineProperty(generator, "_invoke", {
+      value: makeInvokeMethod(innerFn, self, context)
+    });
     return generator;
   }
 
@@ -63396,8 +63403,14 @@ var runtime = function (exports) {
 
   var Gp = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(IteratorPrototype);
   GeneratorFunction.prototype = GeneratorFunctionPrototype;
-  define(Gp, "constructor", GeneratorFunctionPrototype);
-  define(GeneratorFunctionPrototype, "constructor", GeneratorFunction);
+  defineProperty(Gp, "constructor", {
+    value: GeneratorFunctionPrototype,
+    configurable: true
+  });
+  defineProperty(GeneratorFunctionPrototype, "constructor", {
+    value: GeneratorFunction,
+    configurable: true
+  });
   GeneratorFunction.displayName = define(GeneratorFunctionPrototype, toStringTagSymbol, "GeneratorFunction"); // Helper for defining the .next, .throw, and .return methods of the
   // Iterator interface in terms of a single ._invoke method.
 
@@ -63498,7 +63511,9 @@ var runtime = function (exports) {
     // .throw, and .return (see defineIteratorMethods).
 
 
-    this._invoke = enqueue;
+    defineProperty(this, "_invoke", {
+      value: enqueue
+    });
   }
 
   defineIteratorMethods(AsyncIterator.prototype);
@@ -63723,7 +63738,8 @@ var runtime = function (exports) {
     this.reset(true);
   }
 
-  exports.keys = function (object) {
+  exports.keys = function (val) {
+    var object = Object(val);
     var keys = [];
 
     for (var key in object) {
@@ -68080,7 +68096,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   "use strict"; // We return a constructor that can be used to make X2JS instances.
 
   return function X2JS(config) {
-    var VERSION = "3.4.0";
+    var VERSION = "3.4.4";
     config = config || {};
 
     function initConfigDefaults() {
