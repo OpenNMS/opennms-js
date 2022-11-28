@@ -61566,15 +61566,21 @@ module.exports = (flag, argv = process.argv) => {
 /***/ }),
 
 /***/ "./node_modules/table/dist/src/alignSpanningCell.js":
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
 
 
+var __importDefault = this && this.__importDefault || function (mod) {
+  return mod && mod.__esModule ? mod : {
+    "default": mod
+  };
+};
 Object.defineProperty(exports, "__esModule", ({
   value: true
 }));
 exports.alignVerticalRangeContent = exports.wrapRangeContent = void 0;
+const string_width_1 = __importDefault(__webpack_require__("./node_modules/string-width/index.js"));
 const alignString_1 = __webpack_require__("./node_modules/table/dist/src/alignString.js");
 const mapDataUsingRowHeights_1 = __webpack_require__("./node_modules/table/dist/src/mapDataUsingRowHeights.js");
 const padTableData_1 = __webpack_require__("./node_modules/table/dist/src/padTableData.js");
@@ -61624,7 +61630,7 @@ const alignVerticalRangeContent = (range, content, context) => {
   const availableRangeHeight = totalCellHeight + totalBorderHeight - hiddenHorizontalBorderCount;
   return (0, mapDataUsingRowHeights_1.padCellVertically)(content, availableRangeHeight, verticalAlignment).map(line => {
     if (line.length === 0) {
-      return ' '.repeat(content[0].length);
+      return ' '.repeat((0, string_width_1.default)(content[0]));
     }
     return line;
   });
