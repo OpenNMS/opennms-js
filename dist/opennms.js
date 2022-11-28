@@ -18,6 +18,38 @@ return /******/ (() => { // webpackBootstrap
 
 
 /**
+ * Ponyfill for `Array.prototype.find` which is only available in ES6 runtimes.
+ *
+ * Works with anything that has a `length` property and index access properties, including NodeList.
+ *
+ * @template {unknown} T
+ * @param {Array<T> | ({length:number, [number]: T})} list
+ * @param {function (item: T, index: number, list:Array<T> | ({length:number, [number]: T})):boolean} predicate
+ * @param {Partial<Pick<ArrayConstructor['prototype'], 'find'>>?} ac `Array.prototype` by default,
+ * 				allows injecting a custom implementation in tests
+ * @returns {T | undefined}
+ *
+ * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/find
+ * @see https://tc39.es/ecma262/multipage/indexed-collections.html#sec-array.prototype.find
+ */
+function find(list, predicate, ac) {
+  if (ac === undefined) {
+    ac = Array.prototype;
+  }
+  if (list && typeof ac.find === 'function') {
+    return ac.find.call(list, predicate);
+  }
+  for (var i = 0; i < list.length; i++) {
+    if (Object.prototype.hasOwnProperty.call(list, i)) {
+      var item = list[i];
+      if (predicate.call(undefined, item, i, list)) {
+        return item;
+      }
+    }
+  }
+}
+
+/**
  * "Shallow freezes" an object to render it immutable.
  * Uses `Object.freeze` if available,
  * otherwise the immutability is only in the type.
@@ -172,6 +204,7 @@ var NAMESPACE = freeze({
   XMLNS: 'http://www.w3.org/2000/xmlns/'
 });
 exports.assign = assign;
+exports.find = find;
 exports.freeze = freeze;
 exports.MIME_TYPE = MIME_TYPE;
 exports.NAMESPACE = NAMESPACE;
@@ -502,6 +535,7 @@ exports.DOMParser = DOMParser;
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 var conventions = __webpack_require__("./node_modules/@xmldom/xmldom/lib/conventions.js");
+var find = conventions.find;
 var NAMESPACE = conventions.NAMESPACE;
 
 /**
@@ -665,10 +699,10 @@ NodeList.prototype = {
   /**
    * Returns the indexth item in the collection. If index is greater than or equal to the number of nodes in the list, this returns null.
    * @standard level1
-   * @param index  unsigned long 
+   * @param index  unsigned long
    *   Index into the collection.
    * @return Node
-   * 	The node at the indexth position in the NodeList, or null if that is not a valid index. 
+   * 	The node at the indexth position in the NodeList, or null if that is not a valid index.
    */
   item: function (index) {
     return this[index] || null;
@@ -678,6 +712,22 @@ NodeList.prototype = {
       serializeToString(this[i], buf, isHTML, nodeFilter);
     }
     return buf.join('');
+  },
+  /**
+   * @private
+   * @param {function (Node):boolean} predicate
+   * @returns {Node[]}
+   */
+  filter: function (predicate) {
+    return Array.prototype.filter.call(this, predicate);
+  },
+  /**
+   * @private
+   * @param {Node} item
+   * @returns {number}
+   */
+  indexOf: function (item) {
+    return Array.prototype.indexOf.call(this, item);
   }
 };
 function LiveNodeList(node, refresh) {
@@ -710,7 +760,7 @@ _extends(LiveNodeList, NodeList);
  * but this is simply to allow convenient enumeration of the contents of a NamedNodeMap,
  * and does not imply that the DOM specifies an order to these Nodes.
  * NamedNodeMap objects in the DOM are live.
- * used for attributes or DocumentType entities 
+ * used for attributes or DocumentType entities
  */
 function NamedNodeMap() {}
 ;
@@ -754,7 +804,7 @@ function _removeNamedNode(el, list, attr) {
       }
     }
   } else {
-    throw DOMException(NOT_FOUND_ERR, new Error(el.tagName + '@' + attr));
+    throw new DOMException(NOT_FOUND_ERR, new Error(el.tagName + '@' + attr));
   }
 }
 NamedNodeMap.prototype = {
@@ -944,12 +994,12 @@ Node.prototype = {
   localName: null,
   // Modified in DOM Level 2:
   insertBefore: function (newChild, refChild) {
-    //raises 
+    //raises
     return _insertBefore(this, newChild, refChild);
   },
   replaceChild: function (newChild, oldChild) {
-    //raises 
-    this.insertBefore(newChild, oldChild);
+    //raises
+    _insertBefore(this, newChild, oldChild, assertPreReplacementValidityInDocument);
     if (oldChild) {
       this.removeChild(oldChild);
     }
@@ -1061,7 +1111,9 @@ function _visitNode(node, callback) {
     } while (node = node.nextSibling);
   }
 }
-function Document() {}
+function Document() {
+  this.ownerDocument = this;
+}
 function _onAddAttribute(doc, el, newAttr) {
   doc && doc._inc++;
   var ns = newAttr.namespaceURI;
@@ -1142,46 +1194,293 @@ function _removeChild(parentNode, child) {
   _onUpdateChild(parentNode.ownerDocument, parentNode);
   return child;
 }
+
 /**
- * preformance key(refChild == null)
+ * Returns `true` if `node` can be a parent for insertion.
+ * @param {Node} node
+ * @returns {boolean}
  */
-function _insertBefore(parentNode, newChild, nextChild) {
-  var cp = newChild.parentNode;
+function hasValidParentNodeType(node) {
+  return node && (node.nodeType === Node.DOCUMENT_NODE || node.nodeType === Node.DOCUMENT_FRAGMENT_NODE || node.nodeType === Node.ELEMENT_NODE);
+}
+
+/**
+ * Returns `true` if `node` can be inserted according to it's `nodeType`.
+ * @param {Node} node
+ * @returns {boolean}
+ */
+function hasInsertableNodeType(node) {
+  return node && (isElementNode(node) || isTextNode(node) || isDocTypeNode(node) || node.nodeType === Node.DOCUMENT_FRAGMENT_NODE || node.nodeType === Node.COMMENT_NODE || node.nodeType === Node.PROCESSING_INSTRUCTION_NODE);
+}
+
+/**
+ * Returns true if `node` is a DOCTYPE node
+ * @param {Node} node
+ * @returns {boolean}
+ */
+function isDocTypeNode(node) {
+  return node && node.nodeType === Node.DOCUMENT_TYPE_NODE;
+}
+
+/**
+ * Returns true if the node is an element
+ * @param {Node} node
+ * @returns {boolean}
+ */
+function isElementNode(node) {
+  return node && node.nodeType === Node.ELEMENT_NODE;
+}
+/**
+ * Returns true if `node` is a text node
+ * @param {Node} node
+ * @returns {boolean}
+ */
+function isTextNode(node) {
+  return node && node.nodeType === Node.TEXT_NODE;
+}
+
+/**
+ * Check if en element node can be inserted before `child`, or at the end if child is falsy,
+ * according to the presence and position of a doctype node on the same level.
+ *
+ * @param {Document} doc The document node
+ * @param {Node} child the node that would become the nextSibling if the element would be inserted
+ * @returns {boolean} `true` if an element can be inserted before child
+ * @private
+ * https://dom.spec.whatwg.org/#concept-node-ensure-pre-insertion-validity
+ */
+function isElementInsertionPossible(doc, child) {
+  var parentChildNodes = doc.childNodes || [];
+  if (find(parentChildNodes, isElementNode) || isDocTypeNode(child)) {
+    return false;
+  }
+  var docTypeNode = find(parentChildNodes, isDocTypeNode);
+  return !(child && docTypeNode && parentChildNodes.indexOf(docTypeNode) > parentChildNodes.indexOf(child));
+}
+
+/**
+ * Check if en element node can be inserted before `child`, or at the end if child is falsy,
+ * according to the presence and position of a doctype node on the same level.
+ *
+ * @param {Node} doc The document node
+ * @param {Node} child the node that would become the nextSibling if the element would be inserted
+ * @returns {boolean} `true` if an element can be inserted before child
+ * @private
+ * https://dom.spec.whatwg.org/#concept-node-ensure-pre-insertion-validity
+ */
+function isElementReplacementPossible(doc, child) {
+  var parentChildNodes = doc.childNodes || [];
+  function hasElementChildThatIsNotChild(node) {
+    return isElementNode(node) && node !== child;
+  }
+  if (find(parentChildNodes, hasElementChildThatIsNotChild)) {
+    return false;
+  }
+  var docTypeNode = find(parentChildNodes, isDocTypeNode);
+  return !(child && docTypeNode && parentChildNodes.indexOf(docTypeNode) > parentChildNodes.indexOf(child));
+}
+
+/**
+ * @private
+ * Steps 1-5 of the checks before inserting and before replacing a child are the same.
+ *
+ * @param {Node} parent the parent node to insert `node` into
+ * @param {Node} node the node to insert
+ * @param {Node=} child the node that should become the `nextSibling` of `node`
+ * @returns {Node}
+ * @throws DOMException for several node combinations that would create a DOM that is not well-formed.
+ * @throws DOMException if `child` is provided but is not a child of `parent`.
+ * @see https://dom.spec.whatwg.org/#concept-node-ensure-pre-insertion-validity
+ * @see https://dom.spec.whatwg.org/#concept-node-replace
+ */
+function assertPreInsertionValidity1to5(parent, node, child) {
+  // 1. If `parent` is not a Document, DocumentFragment, or Element node, then throw a "HierarchyRequestError" DOMException.
+  if (!hasValidParentNodeType(parent)) {
+    throw new DOMException(HIERARCHY_REQUEST_ERR, 'Unexpected parent node type ' + parent.nodeType);
+  }
+  // 2. If `node` is a host-including inclusive ancestor of `parent`, then throw a "HierarchyRequestError" DOMException.
+  // not implemented!
+  // 3. If `child` is non-null and its parent is not `parent`, then throw a "NotFoundError" DOMException.
+  if (child && child.parentNode !== parent) {
+    throw new DOMException(NOT_FOUND_ERR, 'child not in parent');
+  }
+  if (
+  // 4. If `node` is not a DocumentFragment, DocumentType, Element, or CharacterData node, then throw a "HierarchyRequestError" DOMException.
+  !hasInsertableNodeType(node) ||
+  // 5. If either `node` is a Text node and `parent` is a document,
+  // the sax parser currently adds top level text nodes, this will be fixed in 0.9.0
+  // || (node.nodeType === Node.TEXT_NODE && parent.nodeType === Node.DOCUMENT_NODE)
+  // or `node` is a doctype and `parent` is not a document, then throw a "HierarchyRequestError" DOMException.
+  isDocTypeNode(node) && parent.nodeType !== Node.DOCUMENT_NODE) {
+    throw new DOMException(HIERARCHY_REQUEST_ERR, 'Unexpected node type ' + node.nodeType + ' for parent node type ' + parent.nodeType);
+  }
+}
+
+/**
+ * @private
+ * Step 6 of the checks before inserting and before replacing a child are different.
+ *
+ * @param {Document} parent the parent node to insert `node` into
+ * @param {Node} node the node to insert
+ * @param {Node | undefined} child the node that should become the `nextSibling` of `node`
+ * @returns {Node}
+ * @throws DOMException for several node combinations that would create a DOM that is not well-formed.
+ * @throws DOMException if `child` is provided but is not a child of `parent`.
+ * @see https://dom.spec.whatwg.org/#concept-node-ensure-pre-insertion-validity
+ * @see https://dom.spec.whatwg.org/#concept-node-replace
+ */
+function assertPreInsertionValidityInDocument(parent, node, child) {
+  var parentChildNodes = parent.childNodes || [];
+  var nodeChildNodes = node.childNodes || [];
+
+  // DocumentFragment
+  if (node.nodeType === Node.DOCUMENT_FRAGMENT_NODE) {
+    var nodeChildElements = nodeChildNodes.filter(isElementNode);
+    // If node has more than one element child or has a Text node child.
+    if (nodeChildElements.length > 1 || find(nodeChildNodes, isTextNode)) {
+      throw new DOMException(HIERARCHY_REQUEST_ERR, 'More than one element or text in fragment');
+    }
+    // Otherwise, if `node` has one element child and either `parent` has an element child,
+    // `child` is a doctype, or `child` is non-null and a doctype is following `child`.
+    if (nodeChildElements.length === 1 && !isElementInsertionPossible(parent, child)) {
+      throw new DOMException(HIERARCHY_REQUEST_ERR, 'Element in fragment can not be inserted before doctype');
+    }
+  }
+  // Element
+  if (isElementNode(node)) {
+    // `parent` has an element child, `child` is a doctype,
+    // or `child` is non-null and a doctype is following `child`.
+    if (!isElementInsertionPossible(parent, child)) {
+      throw new DOMException(HIERARCHY_REQUEST_ERR, 'Only one element can be added and only after doctype');
+    }
+  }
+  // DocumentType
+  if (isDocTypeNode(node)) {
+    // `parent` has a doctype child,
+    if (find(parentChildNodes, isDocTypeNode)) {
+      throw new DOMException(HIERARCHY_REQUEST_ERR, 'Only one doctype is allowed');
+    }
+    var parentElementChild = find(parentChildNodes, isElementNode);
+    // `child` is non-null and an element is preceding `child`,
+    if (child && parentChildNodes.indexOf(parentElementChild) < parentChildNodes.indexOf(child)) {
+      throw new DOMException(HIERARCHY_REQUEST_ERR, 'Doctype can only be inserted before an element');
+    }
+    // or `child` is null and `parent` has an element child.
+    if (!child && parentElementChild) {
+      throw new DOMException(HIERARCHY_REQUEST_ERR, 'Doctype can not be appended since element is present');
+    }
+  }
+}
+
+/**
+ * @private
+ * Step 6 of the checks before inserting and before replacing a child are different.
+ *
+ * @param {Document} parent the parent node to insert `node` into
+ * @param {Node} node the node to insert
+ * @param {Node | undefined} child the node that should become the `nextSibling` of `node`
+ * @returns {Node}
+ * @throws DOMException for several node combinations that would create a DOM that is not well-formed.
+ * @throws DOMException if `child` is provided but is not a child of `parent`.
+ * @see https://dom.spec.whatwg.org/#concept-node-ensure-pre-insertion-validity
+ * @see https://dom.spec.whatwg.org/#concept-node-replace
+ */
+function assertPreReplacementValidityInDocument(parent, node, child) {
+  var parentChildNodes = parent.childNodes || [];
+  var nodeChildNodes = node.childNodes || [];
+
+  // DocumentFragment
+  if (node.nodeType === Node.DOCUMENT_FRAGMENT_NODE) {
+    var nodeChildElements = nodeChildNodes.filter(isElementNode);
+    // If `node` has more than one element child or has a Text node child.
+    if (nodeChildElements.length > 1 || find(nodeChildNodes, isTextNode)) {
+      throw new DOMException(HIERARCHY_REQUEST_ERR, 'More than one element or text in fragment');
+    }
+    // Otherwise, if `node` has one element child and either `parent` has an element child that is not `child` or a doctype is following `child`.
+    if (nodeChildElements.length === 1 && !isElementReplacementPossible(parent, child)) {
+      throw new DOMException(HIERARCHY_REQUEST_ERR, 'Element in fragment can not be inserted before doctype');
+    }
+  }
+  // Element
+  if (isElementNode(node)) {
+    // `parent` has an element child that is not `child` or a doctype is following `child`.
+    if (!isElementReplacementPossible(parent, child)) {
+      throw new DOMException(HIERARCHY_REQUEST_ERR, 'Only one element can be added and only after doctype');
+    }
+  }
+  // DocumentType
+  if (isDocTypeNode(node)) {
+    function hasDoctypeChildThatIsNotChild(node) {
+      return isDocTypeNode(node) && node !== child;
+    }
+
+    // `parent` has a doctype child that is not `child`,
+    if (find(parentChildNodes, hasDoctypeChildThatIsNotChild)) {
+      throw new DOMException(HIERARCHY_REQUEST_ERR, 'Only one doctype is allowed');
+    }
+    var parentElementChild = find(parentChildNodes, isElementNode);
+    // or an element is preceding `child`.
+    if (child && parentChildNodes.indexOf(parentElementChild) < parentChildNodes.indexOf(child)) {
+      throw new DOMException(HIERARCHY_REQUEST_ERR, 'Doctype can only be inserted before an element');
+    }
+  }
+}
+
+/**
+ * @private
+ * @param {Node} parent the parent node to insert `node` into
+ * @param {Node} node the node to insert
+ * @param {Node=} child the node that should become the `nextSibling` of `node`
+ * @returns {Node}
+ * @throws DOMException for several node combinations that would create a DOM that is not well-formed.
+ * @throws DOMException if `child` is provided but is not a child of `parent`.
+ * @see https://dom.spec.whatwg.org/#concept-node-ensure-pre-insertion-validity
+ */
+function _insertBefore(parent, node, child, _inDocumentAssertion) {
+  // To ensure pre-insertion validity of a node into a parent before a child, run these steps:
+  assertPreInsertionValidity1to5(parent, node, child);
+
+  // If parent is a document, and any of the statements below, switched on the interface node implements,
+  // are true, then throw a "HierarchyRequestError" DOMException.
+  if (parent.nodeType === Node.DOCUMENT_NODE) {
+    (_inDocumentAssertion || assertPreInsertionValidityInDocument)(parent, node, child);
+  }
+  var cp = node.parentNode;
   if (cp) {
-    cp.removeChild(newChild); //remove and update
+    cp.removeChild(node); //remove and update
   }
 
-  if (newChild.nodeType === DOCUMENT_FRAGMENT_NODE) {
-    var newFirst = newChild.firstChild;
+  if (node.nodeType === DOCUMENT_FRAGMENT_NODE) {
+    var newFirst = node.firstChild;
     if (newFirst == null) {
-      return newChild;
+      return node;
     }
-    var newLast = newChild.lastChild;
+    var newLast = node.lastChild;
   } else {
-    newFirst = newLast = newChild;
+    newFirst = newLast = node;
   }
-  var pre = nextChild ? nextChild.previousSibling : parentNode.lastChild;
+  var pre = child ? child.previousSibling : parent.lastChild;
   newFirst.previousSibling = pre;
-  newLast.nextSibling = nextChild;
+  newLast.nextSibling = child;
   if (pre) {
     pre.nextSibling = newFirst;
   } else {
-    parentNode.firstChild = newFirst;
+    parent.firstChild = newFirst;
   }
-  if (nextChild == null) {
-    parentNode.lastChild = newLast;
+  if (child == null) {
+    parent.lastChild = newLast;
   } else {
-    nextChild.previousSibling = newLast;
+    child.previousSibling = newLast;
   }
   do {
-    newFirst.parentNode = parentNode;
+    newFirst.parentNode = parent;
   } while (newFirst !== newLast && (newFirst = newFirst.nextSibling));
-  _onUpdateChild(parentNode.ownerDocument || parentNode, parentNode);
-  //console.log(parentNode.lastChild.nextSibling == null)
-  if (newChild.nodeType == DOCUMENT_FRAGMENT_NODE) {
-    newChild.firstChild = newChild.lastChild = null;
+  _onUpdateChild(parent.ownerDocument || parent, parent);
+  //console.log(parent.lastChild.nextSibling == null)
+  if (node.nodeType == DOCUMENT_FRAGMENT_NODE) {
+    node.firstChild = node.lastChild = null;
   }
-  return newChild;
+  return node;
 }
 
 /**
@@ -1235,16 +1534,29 @@ Document.prototype = {
       }
       return newChild;
     }
-    if (this.documentElement == null && newChild.nodeType == ELEMENT_NODE) {
+    _insertBefore(this, newChild, refChild);
+    newChild.ownerDocument = this;
+    if (this.documentElement === null && newChild.nodeType === ELEMENT_NODE) {
       this.documentElement = newChild;
     }
-    return _insertBefore(this, newChild, refChild), newChild.ownerDocument = this, newChild;
+    return newChild;
   },
   removeChild: function (oldChild) {
     if (this.documentElement == oldChild) {
       this.documentElement = null;
     }
     return _removeChild(this, oldChild);
+  },
+  replaceChild: function (newChild, oldChild) {
+    //raises
+    _insertBefore(this, newChild, oldChild, assertPreReplacementValidityInDocument);
+    newChild.ownerDocument = this;
+    if (oldChild) {
+      this.removeChild(oldChild);
+    }
+    if (isElementNode(newChild)) {
+      this.documentElement = newChild;
+    }
   },
   // Introduced in DOM Level 2:
   importNode: function (importedNode, deep) {
@@ -1740,7 +2052,7 @@ function serializeToString(node, buf, isHTML, nodeFilter, visibleNamespaces) {
         serializeToString(attr, buf, isHTML, nodeFilter, visibleNamespaces);
       }
 
-      // add namespace for current node		
+      // add namespace for current node
       if (nodeName === prefixedNodeName && needNamespaceDefine(node, isHTML, visibleNamespaces)) {
         var prefix = node.prefix || '';
         var uri = node.namespaceURI;
@@ -12558,9 +12870,9 @@ module.exports = function (exec, SKIP_CLOSING) {
 /***/ "./node_modules/core-js/internals/classof-raw.js":
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
-var uncurryThisRaw = __webpack_require__("./node_modules/core-js/internals/function-uncurry-this-raw.js");
-var toString = uncurryThisRaw({}.toString);
-var stringSlice = uncurryThisRaw(''.slice);
+var uncurryThis = __webpack_require__("./node_modules/core-js/internals/function-uncurry-this.js");
+var toString = uncurryThis({}.toString);
+var stringSlice = uncurryThis(''.slice);
 module.exports = function (it) {
   return stringSlice(toString(it), 8, -1);
 };
@@ -13859,7 +14171,7 @@ module.exports = function (exec) {
 
 // TODO: Remove from `core-js@4` since it's moved to entry points
 __webpack_require__("./node_modules/core-js/modules/es.regexp.exec.js");
-var uncurryThis = __webpack_require__("./node_modules/core-js/internals/function-uncurry-this.js");
+var uncurryThis = __webpack_require__("./node_modules/core-js/internals/function-uncurry-this-clause.js");
 var defineBuiltIn = __webpack_require__("./node_modules/core-js/internals/define-built-in.js");
 var regexpExec = __webpack_require__("./node_modules/core-js/internals/regexp-exec.js");
 var fails = __webpack_require__("./node_modules/core-js/internals/fails.js");
@@ -14001,7 +14313,7 @@ module.exports = typeof Reflect == 'object' && Reflect.apply || (NATIVE_BIND ? c
 /***/ "./node_modules/core-js/internals/function-bind-context.js":
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
-var uncurryThis = __webpack_require__("./node_modules/core-js/internals/function-uncurry-this.js");
+var uncurryThis = __webpack_require__("./node_modules/core-js/internals/function-uncurry-this-clause.js");
 var aCallable = __webpack_require__("./node_modules/core-js/internals/a-callable.js");
 var NATIVE_BIND = __webpack_require__("./node_modules/core-js/internals/function-bind-native.js");
 var bind = uncurryThis(uncurryThis.bind);
@@ -14102,17 +14414,16 @@ module.exports = {
 
 /***/ }),
 
-/***/ "./node_modules/core-js/internals/function-uncurry-this-raw.js":
+/***/ "./node_modules/core-js/internals/function-uncurry-this-clause.js":
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
-var NATIVE_BIND = __webpack_require__("./node_modules/core-js/internals/function-bind-native.js");
-var FunctionPrototype = Function.prototype;
-var call = FunctionPrototype.call;
-var uncurryThisWithBind = NATIVE_BIND && FunctionPrototype.bind.bind(call, call);
+var classofRaw = __webpack_require__("./node_modules/core-js/internals/classof-raw.js");
+var uncurryThis = __webpack_require__("./node_modules/core-js/internals/function-uncurry-this.js");
 module.exports = function (fn) {
-  return NATIVE_BIND ? uncurryThisWithBind(fn) : function () {
-    return call.apply(fn, arguments);
-  };
+  // Nashorn bug:
+  //   https://github.com/zloirock/core-js/issues/1128
+  //   https://github.com/zloirock/core-js/issues/1130
+  if (classofRaw(fn) === 'Function') return uncurryThis(fn);
 };
 
 /***/ }),
@@ -14120,13 +14431,14 @@ module.exports = function (fn) {
 /***/ "./node_modules/core-js/internals/function-uncurry-this.js":
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
-var classofRaw = __webpack_require__("./node_modules/core-js/internals/classof-raw.js");
-var uncurryThisRaw = __webpack_require__("./node_modules/core-js/internals/function-uncurry-this-raw.js");
-module.exports = function (fn) {
-  // Nashorn bug:
-  //   https://github.com/zloirock/core-js/issues/1128
-  //   https://github.com/zloirock/core-js/issues/1130
-  if (classofRaw(fn) === 'Function') return uncurryThisRaw(fn);
+var NATIVE_BIND = __webpack_require__("./node_modules/core-js/internals/function-bind-native.js");
+var FunctionPrototype = Function.prototype;
+var call = FunctionPrototype.call;
+var uncurryThisWithBind = NATIVE_BIND && FunctionPrototype.bind.bind(call, call);
+module.exports = NATIVE_BIND ? uncurryThisWithBind : function (fn) {
+  return function () {
+    return call.apply(fn, arguments);
+  };
 };
 
 /***/ }),
@@ -16727,10 +17039,10 @@ var store = __webpack_require__("./node_modules/core-js/internals/shared-store.j
 (module.exports = function (key, value) {
   return store[key] || (store[key] = value !== undefined ? value : {});
 })('versions', []).push({
-  version: '3.25.5',
+  version: '3.26.1',
   mode: IS_PURE ? 'pure' : 'global',
   copyright: '© 2014-2022 Denis Pushkarev (zloirock.ru)',
-  license: 'https://github.com/zloirock/core-js/blob/v3.25.5/LICENSE',
+  license: 'https://github.com/zloirock/core-js/blob/v3.26.1/LICENSE',
   source: 'https://github.com/zloirock/core-js'
 });
 
@@ -18249,7 +18561,7 @@ $({
 
 
 var $ = __webpack_require__("./node_modules/core-js/internals/export.js");
-var uncurryThis = __webpack_require__("./node_modules/core-js/internals/function-uncurry-this.js");
+var uncurryThis = __webpack_require__("./node_modules/core-js/internals/function-uncurry-this-clause.js");
 var fails = __webpack_require__("./node_modules/core-js/internals/fails.js");
 var ArrayBufferModule = __webpack_require__("./node_modules/core-js/internals/array-buffer.js");
 var anObject = __webpack_require__("./node_modules/core-js/internals/an-object.js");
@@ -18753,7 +19065,7 @@ addToUnscopables('includes');
 
 /* eslint-disable es/no-array-prototype-indexof -- required for testing */
 var $ = __webpack_require__("./node_modules/core-js/internals/export.js");
-var uncurryThis = __webpack_require__("./node_modules/core-js/internals/function-uncurry-this.js");
+var uncurryThis = __webpack_require__("./node_modules/core-js/internals/function-uncurry-this-clause.js");
 var $indexOf = (__webpack_require__("./node_modules/core-js/internals/array-includes.js").indexOf);
 var arrayMethodIsStrict = __webpack_require__("./node_modules/core-js/internals/array-method-is-strict.js");
 var nativeIndexOf = uncurryThis([].indexOf);
@@ -23491,7 +23803,7 @@ $({
 
 
 var $ = __webpack_require__("./node_modules/core-js/internals/export.js");
-var uncurryThis = __webpack_require__("./node_modules/core-js/internals/function-uncurry-this.js");
+var uncurryThis = __webpack_require__("./node_modules/core-js/internals/function-uncurry-this-clause.js");
 var getOwnPropertyDescriptor = (__webpack_require__("./node_modules/core-js/internals/object-get-own-property-descriptor.js").f);
 var toLength = __webpack_require__("./node_modules/core-js/internals/to-length.js");
 var toString = __webpack_require__("./node_modules/core-js/internals/to-string.js");
@@ -23766,7 +24078,7 @@ $({
 /* eslint-disable es/no-string-prototype-matchall -- safe */
 var $ = __webpack_require__("./node_modules/core-js/internals/export.js");
 var call = __webpack_require__("./node_modules/core-js/internals/function-call.js");
-var uncurryThis = __webpack_require__("./node_modules/core-js/internals/function-uncurry-this.js");
+var uncurryThis = __webpack_require__("./node_modules/core-js/internals/function-uncurry-this-clause.js");
 var createIteratorConstructor = __webpack_require__("./node_modules/core-js/internals/iterator-create-constructor.js");
 var createIterResultObject = __webpack_require__("./node_modules/core-js/internals/create-iter-result-object.js");
 var requireObjectCoercible = __webpack_require__("./node_modules/core-js/internals/require-object-coercible.js");
@@ -24444,7 +24756,7 @@ fixRegExpWellKnownSymbolLogic('split', function (SPLIT, nativeSplit, maybeCallNa
 
 
 var $ = __webpack_require__("./node_modules/core-js/internals/export.js");
-var uncurryThis = __webpack_require__("./node_modules/core-js/internals/function-uncurry-this.js");
+var uncurryThis = __webpack_require__("./node_modules/core-js/internals/function-uncurry-this-clause.js");
 var getOwnPropertyDescriptor = (__webpack_require__("./node_modules/core-js/internals/object-get-own-property-descriptor.js").f);
 var toLength = __webpack_require__("./node_modules/core-js/internals/to-length.js");
 var toString = __webpack_require__("./node_modules/core-js/internals/to-string.js");
@@ -25926,7 +26238,7 @@ exportTypedArrayMethod('some', function some(callbackfn /* , thisArg */) {
 
 
 var global = __webpack_require__("./node_modules/core-js/internals/global.js");
-var uncurryThis = __webpack_require__("./node_modules/core-js/internals/function-uncurry-this.js");
+var uncurryThis = __webpack_require__("./node_modules/core-js/internals/function-uncurry-this-clause.js");
 var fails = __webpack_require__("./node_modules/core-js/internals/fails.js");
 var aCallable = __webpack_require__("./node_modules/core-js/internals/a-callable.js");
 var internalSort = __webpack_require__("./node_modules/core-js/internals/array-sort.js");
@@ -26760,6 +27072,58 @@ $({
     microtask(domain ? domain.bind(fn) : fn);
   }
 });
+
+/***/ }),
+
+/***/ "./node_modules/core-js/modules/web.self.js":
+/***/ ((__unused_webpack_module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+
+
+var $ = __webpack_require__("./node_modules/core-js/internals/export.js");
+var global = __webpack_require__("./node_modules/core-js/internals/global.js");
+var defineBuiltInAccessor = __webpack_require__("./node_modules/core-js/internals/define-built-in-accessor.js");
+var DESCRIPTORS = __webpack_require__("./node_modules/core-js/internals/descriptors.js");
+var $TypeError = TypeError;
+// eslint-disable-next-line es/no-object-defineproperty -- safe
+var defineProperty = Object.defineProperty;
+var INCORRECT_VALUE = global.self !== global;
+
+// `self` getter
+// https://html.spec.whatwg.org/multipage/window-object.html#dom-self
+try {
+  if (DESCRIPTORS) {
+    // eslint-disable-next-line es/no-object-getownpropertydescriptor -- safe
+    var descriptor = Object.getOwnPropertyDescriptor(global, 'self');
+    // some engines have `self`, but with incorrect descriptor
+    // https://github.com/denoland/deno/issues/15765
+    if (INCORRECT_VALUE || !descriptor || !descriptor.get || !descriptor.enumerable) {
+      defineBuiltInAccessor(global, 'self', {
+        get: function self() {
+          return global;
+        },
+        set: function self(value) {
+          if (this !== global) throw $TypeError('Illegal invocation');
+          defineProperty(global, 'self', {
+            value: value,
+            writable: true,
+            configurable: true,
+            enumerable: true
+          });
+        },
+        configurable: true,
+        enumerable: true
+      });
+    }
+  } else $({
+    global: true,
+    simple: true,
+    forced: INCORRECT_VALUE
+  }, {
+    self: global
+  });
+} catch (error) {/* empty */}
 
 /***/ }),
 
@@ -29026,6 +29390,7 @@ __webpack_require__("./node_modules/core-js/modules/web.dom-exception.stack.js")
 __webpack_require__("./node_modules/core-js/modules/web.dom-exception.to-string-tag.js");
 __webpack_require__("./node_modules/core-js/modules/web.immediate.js");
 __webpack_require__("./node_modules/core-js/modules/web.queue-microtask.js");
+__webpack_require__("./node_modules/core-js/modules/web.self.js");
 __webpack_require__("./node_modules/core-js/modules/web.structured-clone.js");
 __webpack_require__("./node_modules/core-js/modules/web.timers.js");
 __webpack_require__("./node_modules/core-js/modules/web.url.js");
