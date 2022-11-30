@@ -54982,27 +54982,30 @@ var runtime = function (exports) {
   // delegate iterator, or by modifying context.method and context.arg,
   // setting context.delegate to null, and returning the ContinueSentinel.
   function maybeInvokeDelegate(delegate, context) {
-    var method = delegate.iterator[context.method];
+    var methodName = context.method;
+    var method = delegate.iterator[methodName];
     if (method === undefined) {
       // A .throw or .return when the delegate iterator has no .throw
-      // method always terminates the yield* loop.
+      // method, or a missing .next mehtod, always terminate the
+      // yield* loop.
       context.delegate = null;
-      if (context.method === "throw") {
-        // Note: ["return"] must be used for ES3 parsing compatibility.
-        if (delegate.iterator["return"]) {
-          // If the delegate iterator has a return method, give it a
-          // chance to clean up.
-          context.method = "return";
-          context.arg = undefined;
-          maybeInvokeDelegate(delegate, context);
-          if (context.method === "throw") {
-            // If maybeInvokeDelegate(context) changed context.method from
-            // "return" to "throw", let that override the TypeError below.
-            return ContinueSentinel;
-          }
+
+      // Note: ["return"] must be used for ES3 parsing compatibility.
+      if (methodName === "throw" && delegate.iterator["return"]) {
+        // If the delegate iterator has a return method, give it a
+        // chance to clean up.
+        context.method = "return";
+        context.arg = undefined;
+        maybeInvokeDelegate(delegate, context);
+        if (context.method === "throw") {
+          // If maybeInvokeDelegate(context) changed context.method from
+          // "return" to "throw", let that override the TypeError below.
+          return ContinueSentinel;
         }
+      }
+      if (methodName !== "return") {
         context.method = "throw";
-        context.arg = new TypeError("The iterator does not provide a 'throw' method");
+        context.arg = new TypeError("The iterator does not provide a '" + methodName + "' method");
       }
       return ContinueSentinel;
     }
@@ -59855,7 +59858,7 @@ __webpack_require__.r(__webpack_exports__);
 
 // EXPORTS
 __webpack_require__.d(__webpack_exports__, {
-  "default": () => (/* binding */ xhrAdapter)
+  "default": () => (/* binding */ xhr)
 });
 
 // EXTERNAL MODULE: ./node_modules/axios/lib/utils.js
@@ -59884,14 +59887,14 @@ function settle(resolve, reject, response) {
     reject(new AxiosError/* default */.Z('Request failed with status code ' + response.status, [AxiosError/* default.ERR_BAD_REQUEST */.Z.ERR_BAD_REQUEST, AxiosError/* default.ERR_BAD_RESPONSE */.Z.ERR_BAD_RESPONSE][Math.floor(response.status / 100) - 4], response.config, response.request, response));
   }
 }
-// EXTERNAL MODULE: ./node_modules/axios/lib/platform/index.js + 3 modules
-var platform = __webpack_require__("./node_modules/axios/lib/platform/index.js");
+// EXTERNAL MODULE: ./node_modules/axios/lib/platform/browser/index.js + 2 modules
+var browser = __webpack_require__("./node_modules/axios/lib/platform/browser/index.js");
 ;// CONCATENATED MODULE: ./node_modules/axios/lib/helpers/cookies.js
 
 
 
 
-/* harmony default export */ const cookies = (platform/* default.isStandardBrowserEnv */.Z.isStandardBrowserEnv ?
+/* harmony default export */ const cookies = (browser/* default.isStandardBrowserEnv */.Z.isStandardBrowserEnv ?
 // Standard browser envs support document.cookie
 function standardBrowserEnv() {
   return {
@@ -59940,7 +59943,7 @@ var buildFullPath = __webpack_require__("./node_modules/axios/lib/core/buildFull
 
 
 
-/* harmony default export */ const isURLSameOrigin = (platform/* default.isStandardBrowserEnv */.Z.isStandardBrowserEnv ?
+/* harmony default export */ const isURLSameOrigin = (browser/* default.isStandardBrowserEnv */.Z.isStandardBrowserEnv ?
 // Standard browser envs have full support of the APIs needed to test
 // whether the request URL is of the same origin as current location.
 function standardBrowserEnv() {
@@ -60082,13 +60085,15 @@ function progressEventReducer(listener, isDownloadStream) {
       progress: total ? loaded / total : undefined,
       bytes: progressBytes,
       rate: rate ? rate : undefined,
-      estimated: rate && total && inRange ? (total - loaded) / rate : undefined
+      estimated: rate && total && inRange ? (total - loaded) / rate : undefined,
+      event: e
     };
     data[isDownloadStream ? 'download' : 'upload'] = true;
     listener(data);
   };
 }
-function xhrAdapter(config) {
+const isXHRAdapterSupported = typeof XMLHttpRequest !== 'undefined';
+/* harmony default export */ const xhr = (isXHRAdapterSupported && function (config) {
   return new Promise(function dispatchXhrRequest(resolve, reject) {
     let requestData = config.data;
     const requestHeaders = AxiosHeaders/* default.from */.Z.from(config.headers).normalize();
@@ -60102,7 +60107,7 @@ function xhrAdapter(config) {
         config.signal.removeEventListener('abort', onCanceled);
       }
     }
-    if (utils/* default.isFormData */.Z.isFormData(requestData) && platform/* default.isStandardBrowserEnv */.Z.isStandardBrowserEnv) {
+    if (utils/* default.isFormData */.Z.isFormData(requestData) && browser/* default.isStandardBrowserEnv */.Z.isStandardBrowserEnv) {
       requestHeaders.setContentType(false); // Let the browser set it
     }
 
@@ -60205,7 +60210,7 @@ function xhrAdapter(config) {
     // Add xsrf header
     // This is only done if running in a standard browser environment.
     // Specifically not if we're in a web worker, or react-native.
-    if (platform/* default.isStandardBrowserEnv */.Z.isStandardBrowserEnv) {
+    if (browser/* default.isStandardBrowserEnv */.Z.isStandardBrowserEnv) {
       // Add xsrf header
       const xsrfValue = (config.withCredentials || isURLSameOrigin(fullPath)) && config.xsrfCookieName && cookies.read(config.xsrfCookieName);
       if (xsrfValue) {
@@ -60259,7 +60264,7 @@ function xhrAdapter(config) {
       }
     }
     const protocol = parseProtocol(fullPath);
-    if (protocol && platform/* default.protocols.indexOf */.Z.protocols.indexOf(protocol) === -1) {
+    if (protocol && browser/* default.protocols.indexOf */.Z.protocols.indexOf(protocol) === -1) {
       reject(new AxiosError/* default */.Z('Unsupported protocol ' + protocol + ':', AxiosError/* default.ERR_BAD_REQUEST */.Z.ERR_BAD_REQUEST, config));
       return;
     }
@@ -60267,7 +60272,7 @@ function xhrAdapter(config) {
     // Send the request
     request.send(requestData || null);
   });
-}
+});
 
 /***/ }),
 
@@ -60358,7 +60363,7 @@ _utils_js__WEBPACK_IMPORTED_MODULE_0__/* ["default"].inherits */ .Z.inherits(Axi
       columnNumber: this.columnNumber,
       stack: this.stack,
       // Axios
-      config: this.config,
+      config: _utils_js__WEBPACK_IMPORTED_MODULE_0__/* ["default"].toJSONObject */ .Z.toJSONObject(this.config),
       code: this.code,
       status: this.response && this.response.status ? this.response.status : null
     };
@@ -60461,7 +60466,6 @@ const ignoreDuplicateOf = utils/* default.toObjectSet */.Z.toObjectSet(['age', '
 
 
 const $internals = Symbol('internals');
-const $defaults = Symbol('defaults');
 function normalizeHeader(header) {
   return header && String(header).trim().toLowerCase();
 }
@@ -60479,6 +60483,9 @@ function parseTokens(str) {
     tokens[match[1]] = match[2];
   }
   return tokens;
+}
+function isValidHeaderName(str) {
+  return /^[-_a-zA-Z]+$/.test(str.trim());
 }
 function matchHeaderValue(context, value, header, filter) {
   if (utils/* default.isFunction */.Z.isFunction(filter)) {
@@ -60508,82 +60515,69 @@ function buildAccessors(obj, header) {
     });
   });
 }
-function findKey(obj, key) {
-  key = key.toLowerCase();
-  const keys = Object.keys(obj);
-  let i = keys.length;
-  let _key;
-  while (i-- > 0) {
-    _key = keys[i];
-    if (key === _key.toLowerCase()) {
-      return _key;
-    }
+class AxiosHeaders {
+  constructor(headers) {
+    headers && this.set(headers);
   }
-  return null;
-}
-function AxiosHeaders(headers, defaults) {
-  headers && this.set(headers);
-  this[$defaults] = defaults || null;
-}
-Object.assign(AxiosHeaders.prototype, {
-  set: function (header, valueOrRewrite, rewrite) {
+  set(header, valueOrRewrite, rewrite) {
     const self = this;
     function setHeader(_value, _header, _rewrite) {
       const lHeader = normalizeHeader(_header);
       if (!lHeader) {
         throw new Error('header name must be a non-empty string');
       }
-      const key = findKey(self, lHeader);
-      if (key && _rewrite !== true && (self[key] === false || _rewrite === false)) {
-        return;
+      const key = utils/* default.findKey */.Z.findKey(self, lHeader);
+      if (!key || self[key] === undefined || _rewrite === true || _rewrite === undefined && self[key] !== false) {
+        self[key || _header] = normalizeValue(_value);
       }
-      self[key || _header] = normalizeValue(_value);
     }
-    if (utils/* default.isPlainObject */.Z.isPlainObject(header)) {
-      utils/* default.forEach */.Z.forEach(header, (_value, _header) => {
-        setHeader(_value, _header, valueOrRewrite);
-      });
+    const setHeaders = (headers, _rewrite) => utils/* default.forEach */.Z.forEach(headers, (_value, _header) => setHeader(_value, _header, _rewrite));
+    if (utils/* default.isPlainObject */.Z.isPlainObject(header) || header instanceof this.constructor) {
+      setHeaders(header, valueOrRewrite);
+    } else if (utils/* default.isString */.Z.isString(header) && (header = header.trim()) && !isValidHeaderName(header)) {
+      setHeaders(parseHeaders(header), valueOrRewrite);
     } else {
-      setHeader(valueOrRewrite, header, rewrite);
+      header != null && setHeader(valueOrRewrite, header, rewrite);
     }
     return this;
-  },
-  get: function (header, parser) {
-    header = normalizeHeader(header);
-    if (!header) return undefined;
-    const key = findKey(this, header);
-    if (key) {
-      const value = this[key];
-      if (!parser) {
-        return value;
-      }
-      if (parser === true) {
-        return parseTokens(value);
-      }
-      if (utils/* default.isFunction */.Z.isFunction(parser)) {
-        return parser.call(this, value, key);
-      }
-      if (utils/* default.isRegExp */.Z.isRegExp(parser)) {
-        return parser.exec(value);
-      }
-      throw new TypeError('parser must be boolean|regexp|function');
-    }
-  },
-  has: function (header, matcher) {
+  }
+  get(header, parser) {
     header = normalizeHeader(header);
     if (header) {
-      const key = findKey(this, header);
+      const key = utils/* default.findKey */.Z.findKey(this, header);
+      if (key) {
+        const value = this[key];
+        if (!parser) {
+          return value;
+        }
+        if (parser === true) {
+          return parseTokens(value);
+        }
+        if (utils/* default.isFunction */.Z.isFunction(parser)) {
+          return parser.call(this, value, key);
+        }
+        if (utils/* default.isRegExp */.Z.isRegExp(parser)) {
+          return parser.exec(value);
+        }
+        throw new TypeError('parser must be boolean|regexp|function');
+      }
+    }
+  }
+  has(header, matcher) {
+    header = normalizeHeader(header);
+    if (header) {
+      const key = utils/* default.findKey */.Z.findKey(this, header);
       return !!(key && (!matcher || matchHeaderValue(this, this[key], key, matcher)));
     }
     return false;
-  },
-  delete: function (header, matcher) {
+  }
+  delete(header, matcher) {
     const self = this;
     let deleted = false;
     function deleteHeader(_header) {
       _header = normalizeHeader(_header);
       if (_header) {
-        const key = findKey(self, _header);
+        const key = utils/* default.findKey */.Z.findKey(self, _header);
         if (key && (!matcher || matchHeaderValue(self, self[key], key, matcher))) {
           delete self[key];
           deleted = true;
@@ -60596,15 +60590,15 @@ Object.assign(AxiosHeaders.prototype, {
       deleteHeader(header);
     }
     return deleted;
-  },
-  clear: function () {
+  }
+  clear() {
     return Object.keys(this).forEach(this.delete.bind(this));
-  },
-  normalize: function (format) {
+  }
+  normalize(format) {
     const self = this;
     const headers = {};
     utils/* default.forEach */.Z.forEach(this, (value, header) => {
-      const key = findKey(headers, header);
+      const key = utils/* default.findKey */.Z.findKey(headers, header);
       if (key) {
         self[key] = normalizeValue(value);
         delete self[header];
@@ -60618,24 +60612,35 @@ Object.assign(AxiosHeaders.prototype, {
       headers[normalized] = true;
     });
     return this;
-  },
-  toJSON: function (asStrings) {
+  }
+  concat(...targets) {
+    return this.constructor.concat(this, ...targets);
+  }
+  toJSON(asStrings) {
     const obj = Object.create(null);
-    utils/* default.forEach */.Z.forEach(Object.assign({}, this[$defaults] || null, this), (value, header) => {
-      if (value == null || value === false) return;
-      obj[header] = asStrings && utils/* default.isArray */.Z.isArray(value) ? value.join(', ') : value;
+    utils/* default.forEach */.Z.forEach(this, (value, header) => {
+      value != null && value !== false && (obj[header] = asStrings && utils/* default.isArray */.Z.isArray(value) ? value.join(', ') : value);
     });
     return obj;
   }
-});
-Object.assign(AxiosHeaders, {
-  from: function (thing) {
-    if (utils/* default.isString */.Z.isString(thing)) {
-      return new this(parseHeaders(thing));
-    }
+  [Symbol.iterator]() {
+    return Object.entries(this.toJSON())[Symbol.iterator]();
+  }
+  toString() {
+    return Object.entries(this.toJSON()).map(([header, value]) => header + ': ' + value).join('\n');
+  }
+  get [Symbol.toStringTag]() {
+    return 'AxiosHeaders';
+  }
+  static from(thing) {
     return thing instanceof this ? thing : new this(thing);
-  },
-  accessor: function (header) {
+  }
+  static concat(first, ...targets) {
+    const computed = new this(first);
+    targets.forEach(target => computed.set(target));
+    return computed;
+  }
+  static accessor(header) {
     const internals = this[$internals] = this[$internals] = {
       accessors: {}
     };
@@ -60651,7 +60656,7 @@ Object.assign(AxiosHeaders, {
     utils/* default.isArray */.Z.isArray(header) ? header.forEach(defineAccessor) : defineAccessor(header);
     return this;
   }
-});
+}
 AxiosHeaders.accessor(['Content-Type', 'Content-Length', 'Accept', 'Accept-Encoding', 'User-Agent']);
 utils/* default.freezeMethods */.Z.freezeMethods(AxiosHeaders.prototype);
 utils/* default.freezeMethods */.Z.freezeMethods(AxiosHeaders);
@@ -60881,6 +60886,19 @@ function buildURL(url, params, options) {
 
 /***/ }),
 
+/***/ "./node_modules/axios/lib/helpers/null.js":
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+// eslint-disable-next-line strict
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (null);
+
+/***/ }),
+
 /***/ "./node_modules/axios/lib/helpers/toFormData.js":
 /***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
 
@@ -61101,14 +61119,14 @@ function toFormData(obj, formData, options) {
 
 /***/ }),
 
-/***/ "./node_modules/axios/lib/platform/index.js":
+/***/ "./node_modules/axios/lib/platform/browser/index.js":
 /***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 
 // EXPORTS
 __webpack_require__.d(__webpack_exports__, {
-  "Z": () => (/* reexport */ browser)
+  "Z": () => (/* binding */ browser)
 });
 
 // EXTERNAL MODULE: ./node_modules/axios/lib/helpers/AxiosURLSearchParams.js
@@ -61160,9 +61178,6 @@ const isStandardBrowserEnv = (() => {
   isStandardBrowserEnv,
   protocols: ['http', 'https', 'file', 'blob', 'url', 'data']
 });
-;// CONCATENATED MODULE: ./node_modules/axios/lib/platform/index.js
-
-
 
 /***/ }),
 
@@ -61399,7 +61414,7 @@ const trim = str => str.trim ? str.trim() : str.replace(/^[\s\uFEFF\xA0]+|[\s\uF
  * @param {Function} fn The callback to invoke for each item
  *
  * @param {Boolean} [allOwnKeys = false]
- * @returns {void}
+ * @returns {any}
  */
 function forEach(obj, fn, {
   allOwnKeys = false
@@ -61432,6 +61447,21 @@ function forEach(obj, fn, {
     }
   }
 }
+function findKey(obj, key) {
+  key = key.toLowerCase();
+  const keys = Object.keys(obj);
+  let i = keys.length;
+  let _key;
+  while (i-- > 0) {
+    _key = keys[i];
+    if (key === _key.toLowerCase()) {
+      return _key;
+    }
+  }
+  return null;
+}
+const _global = typeof self === "undefined" ? typeof global === "undefined" ? undefined : global : self;
+const isContextDefined = context => !isUndefined(context) && context !== _global;
 
 /**
  * Accepts varargs expecting each argument to be an object, then
@@ -61453,16 +61483,20 @@ function forEach(obj, fn, {
  */
 function merge( /* obj1, obj2, obj3, ... */
 ) {
+  const {
+    caseless
+  } = isContextDefined(this) && this || {};
   const result = {};
   const assignValue = (val, key) => {
-    if (isPlainObject(result[key]) && isPlainObject(val)) {
-      result[key] = merge(result[key], val);
+    const targetKey = caseless && findKey(result, key) || key;
+    if (isPlainObject(result[targetKey]) && isPlainObject(val)) {
+      result[targetKey] = merge(result[targetKey], val);
     } else if (isPlainObject(val)) {
-      result[key] = merge({}, val);
+      result[targetKey] = merge({}, val);
     } else if (isArray(val)) {
-      result[key] = val.slice();
+      result[targetKey] = val.slice();
     } else {
-      result[key] = val;
+      result[targetKey] = val;
     }
   };
   for (let i = 0, l = arguments.length; i < l; i++) {
@@ -61688,6 +61722,10 @@ const reduceDescriptors = (obj, reducer) => {
 
 const freezeMethods = obj => {
   reduceDescriptors(obj, (descriptor, name) => {
+    // skip restricted props in strict mode
+    if (isFunction(obj) && ['arguments', 'caller', 'callee'].indexOf(name) !== -1) {
+      return false;
+    }
     const value = obj[name];
     if (!isFunction(value)) return;
     descriptor.enumerable = false;
@@ -61697,7 +61735,7 @@ const freezeMethods = obj => {
     }
     if (!descriptor.set) {
       descriptor.set = () => {
-        throw Error('Can not read-only method \'' + name + '\'');
+        throw Error('Can not rewrite read-only method \'' + name + '\'');
       };
     }
   });
@@ -61716,6 +61754,28 @@ const noop = () => {};
 const toFiniteNumber = (value, defaultValue) => {
   value = +value;
   return Number.isFinite(value) ? value : defaultValue;
+};
+const toJSONObject = obj => {
+  const stack = new Array(10);
+  const visit = (source, i) => {
+    if (isObject(source)) {
+      if (stack.indexOf(source) >= 0) {
+        return;
+      }
+      if (!('toJSON' in source)) {
+        stack[i] = source;
+        const target = isArray(source) ? [] : {};
+        forEach(source, (value, key) => {
+          const reducedValue = visit(value, i + 1);
+          !isUndefined(reducedValue) && (target[key] = reducedValue);
+        });
+        stack[i] = undefined;
+        return target;
+      }
+    }
+    return source;
+  };
+  return visit(obj, 0);
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   isArray,
@@ -61760,7 +61820,11 @@ const toFiniteNumber = (value, defaultValue) => {
   toObjectSet,
   toCamelCase,
   noop,
-  toFiniteNumber
+  toFiniteNumber,
+  findKey,
+  global: _global,
+  isContextDefined,
+  toJSONObject
 });
 
 /***/ })
@@ -71893,8 +71957,8 @@ var AxiosError = __webpack_require__("./node_modules/axios/lib/core/AxiosError.j
 var transitional = __webpack_require__("./node_modules/axios/lib/defaults/transitional.js");
 // EXTERNAL MODULE: ./node_modules/axios/lib/helpers/toFormData.js + 1 modules
 var toFormData = __webpack_require__("./node_modules/axios/lib/helpers/toFormData.js");
-// EXTERNAL MODULE: ./node_modules/axios/lib/platform/index.js + 3 modules
-var platform = __webpack_require__("./node_modules/axios/lib/platform/index.js");
+// EXTERNAL MODULE: ./node_modules/axios/lib/platform/browser/index.js + 2 modules
+var browser = __webpack_require__("./node_modules/axios/lib/platform/browser/index.js");
 ;// CONCATENATED MODULE: ./node_modules/axios/lib/helpers/toURLEncodedForm.js
 
 
@@ -71902,9 +71966,9 @@ var platform = __webpack_require__("./node_modules/axios/lib/platform/index.js")
 
 
 function toURLEncodedForm(data, options) {
-  return (0,toFormData/* default */.Z)(data, new platform/* default.classes.URLSearchParams */.Z.classes.URLSearchParams(), Object.assign({
+  return (0,toFormData/* default */.Z)(data, new browser/* default.classes.URLSearchParams */.Z.classes.URLSearchParams(), Object.assign({
     visitor: function (value, key, path, helpers) {
-      if (platform/* default.isNode */.Z.isNode && utils/* default.isBuffer */.Z.isBuffer(value)) {
+      if (browser/* default.isNode */.Z.isNode && utils/* default.isBuffer */.Z.isBuffer(value)) {
         this.append(key, value.toString('base64'));
         return false;
       }
@@ -71994,32 +72058,6 @@ function formDataToJSON(formData) {
   return null;
 }
 /* harmony default export */ const helpers_formDataToJSON = (formDataToJSON);
-// EXTERNAL MODULE: ./node_modules/axios/lib/adapters/xhr.js + 5 modules
-var xhr = __webpack_require__("./node_modules/axios/lib/adapters/xhr.js");
-;// CONCATENATED MODULE: ./node_modules/axios/lib/adapters/index.js
-
-
-
-const adapters = {
-  http: xhr["default"],
-  xhr: xhr["default"]
-};
-/* harmony default export */ const lib_adapters = ({
-  getAdapter: nameOrAdapter => {
-    if (utils/* default.isString */.Z.isString(nameOrAdapter)) {
-      const adapter = adapters[nameOrAdapter];
-      if (!nameOrAdapter) {
-        throw Error(utils/* default.hasOwnProp */.Z.hasOwnProp(nameOrAdapter) ? `Adapter '${nameOrAdapter}' is not available in the build` : `Can not resolve adapter '${nameOrAdapter}'`);
-      }
-      return adapter;
-    }
-    if (!utils/* default.isFunction */.Z.isFunction(nameOrAdapter)) {
-      throw new TypeError('adapter is not a function');
-    }
-    return nameOrAdapter;
-  },
-  adapters
-});
 ;// CONCATENATED MODULE: ./node_modules/axios/lib/defaults/index.js
 
 
@@ -72030,28 +72068,9 @@ const adapters = {
 
 
 
-
 const DEFAULT_CONTENT_TYPE = {
-  'Content-Type': 'application/x-www-form-urlencoded'
+  'Content-Type': undefined
 };
-
-/**
- * If the browser has an XMLHttpRequest object, use the XHR adapter, otherwise use the HTTP
- * adapter
- *
- * @returns {Function}
- */
-function getDefaultAdapter() {
-  let adapter;
-  if (typeof XMLHttpRequest !== 'undefined') {
-    // For browsers use XHR adapter
-    adapter = lib_adapters.getAdapter('xhr');
-  } else if (typeof process !== 'undefined' && utils/* default.kindOf */.Z.kindOf(process) === 'process') {
-    // For node use HTTP adapter
-    adapter = lib_adapters.getAdapter('http');
-  }
-  return adapter;
-}
 
 /**
  * It takes a string, tries to parse it, and if it fails, it returns the stringified version
@@ -72078,7 +72097,7 @@ function stringifySafely(rawValue, parser, encoder) {
 }
 const defaults = {
   transitional: transitional/* default */.Z,
-  adapter: getDefaultAdapter(),
+  adapter: ['xhr', 'http'],
   transformRequest: [function transformRequest(data, headers) {
     const contentType = headers.getContentType() || '';
     const hasJSONContentType = contentType.indexOf('application/json') > -1;
@@ -72151,8 +72170,8 @@ const defaults = {
   maxContentLength: -1,
   maxBodyLength: -1,
   env: {
-    FormData: platform/* default.classes.FormData */.Z.classes.FormData,
-    Blob: platform/* default.classes.Blob */.Z.classes.Blob
+    FormData: browser/* default.classes.FormData */.Z.classes.FormData,
+    Blob: browser/* default.classes.Blob */.Z.classes.Blob
   },
   validateStatus: function validateStatus(status) {
     return status >= 200 && status < 300;
@@ -72206,7 +72225,62 @@ function isCancel(value) {
 }
 // EXTERNAL MODULE: ./node_modules/axios/lib/cancel/CanceledError.js
 var CanceledError = __webpack_require__("./node_modules/axios/lib/cancel/CanceledError.js");
+// EXTERNAL MODULE: ./node_modules/axios/lib/helpers/null.js
+var helpers_null = __webpack_require__("./node_modules/axios/lib/helpers/null.js");
+// EXTERNAL MODULE: ./node_modules/axios/lib/adapters/xhr.js + 5 modules
+var xhr = __webpack_require__("./node_modules/axios/lib/adapters/xhr.js");
+;// CONCATENATED MODULE: ./node_modules/axios/lib/adapters/adapters.js
+
+
+
+
+const knownAdapters = {
+  http: helpers_null["default"],
+  xhr: xhr["default"]
+};
+utils/* default.forEach */.Z.forEach(knownAdapters, (fn, value) => {
+  if (fn) {
+    try {
+      Object.defineProperty(fn, 'name', {
+        value
+      });
+    } catch (e) {
+      // eslint-disable-next-line no-empty
+    }
+    Object.defineProperty(fn, 'adapterName', {
+      value
+    });
+  }
+});
+/* harmony default export */ const adapters = ({
+  getAdapter: adapters => {
+    adapters = utils/* default.isArray */.Z.isArray(adapters) ? adapters : [adapters];
+    const {
+      length
+    } = adapters;
+    let nameOrAdapter;
+    let adapter;
+    for (let i = 0; i < length; i++) {
+      nameOrAdapter = adapters[i];
+      if (adapter = utils/* default.isString */.Z.isString(nameOrAdapter) ? knownAdapters[nameOrAdapter.toLowerCase()] : nameOrAdapter) {
+        break;
+      }
+    }
+    if (!adapter) {
+      if (adapter === false) {
+        throw new AxiosError/* default */.Z(`Adapter ${nameOrAdapter} is not supported by the environment`, 'ERR_NOT_SUPPORT');
+      }
+      throw new Error(utils/* default.hasOwnProp */.Z.hasOwnProp(knownAdapters, nameOrAdapter) ? `Adapter '${nameOrAdapter}' is not available in the build` : `Unknown adapter '${nameOrAdapter}'`);
+    }
+    if (!utils/* default.isFunction */.Z.isFunction(adapter)) {
+      throw new TypeError('adapter is not a function');
+    }
+    return adapter;
+  },
+  adapters: knownAdapters
+});
 ;// CONCATENATED MODULE: ./node_modules/axios/lib/core/dispatchRequest.js
+
 
 
 
@@ -72244,7 +72318,10 @@ function dispatchRequest(config) {
 
   // Transform request data
   config.data = transformData.call(config, config.transformRequest);
-  const adapter = config.adapter || lib_defaults.adapter;
+  if (['post', 'put', 'patch'].indexOf(config.method) !== -1) {
+    config.headers.setContentType('application/x-www-form-urlencoded', false);
+  }
+  const adapter = adapters.getAdapter(config.adapter || lib_defaults.adapter);
   return adapter(config).then(function onAdapterResolution(response) {
     throwIfCancellationRequested(config);
 
@@ -72270,6 +72347,8 @@ function dispatchRequest(config) {
 
 
 
+const headersToObject = thing => thing instanceof AxiosHeaders/* default */.Z ? thing.toJSON() : thing;
+
 /**
  * Config-specific merge-function which creates a new config-object
  * by merging two configuration objects together.
@@ -72283,9 +72362,11 @@ function mergeConfig(config1, config2) {
   // eslint-disable-next-line no-param-reassign
   config2 = config2 || {};
   const config = {};
-  function getMergedValue(target, source) {
+  function getMergedValue(target, source, caseless) {
     if (utils/* default.isPlainObject */.Z.isPlainObject(target) && utils/* default.isPlainObject */.Z.isPlainObject(source)) {
-      return utils/* default.merge */.Z.merge(target, source);
+      return utils/* default.merge.call */.Z.merge.call({
+        caseless
+      }, target, source);
     } else if (utils/* default.isPlainObject */.Z.isPlainObject(source)) {
       return utils/* default.merge */.Z.merge({}, source);
     } else if (utils/* default.isArray */.Z.isArray(source)) {
@@ -72295,70 +72376,71 @@ function mergeConfig(config1, config2) {
   }
 
   // eslint-disable-next-line consistent-return
-  function mergeDeepProperties(prop) {
-    if (!utils/* default.isUndefined */.Z.isUndefined(config2[prop])) {
-      return getMergedValue(config1[prop], config2[prop]);
-    } else if (!utils/* default.isUndefined */.Z.isUndefined(config1[prop])) {
-      return getMergedValue(undefined, config1[prop]);
+  function mergeDeepProperties(a, b, caseless) {
+    if (!utils/* default.isUndefined */.Z.isUndefined(b)) {
+      return getMergedValue(a, b, caseless);
+    } else if (!utils/* default.isUndefined */.Z.isUndefined(a)) {
+      return getMergedValue(undefined, a, caseless);
     }
   }
 
   // eslint-disable-next-line consistent-return
-  function valueFromConfig2(prop) {
-    if (!utils/* default.isUndefined */.Z.isUndefined(config2[prop])) {
-      return getMergedValue(undefined, config2[prop]);
+  function valueFromConfig2(a, b) {
+    if (!utils/* default.isUndefined */.Z.isUndefined(b)) {
+      return getMergedValue(undefined, b);
     }
   }
 
   // eslint-disable-next-line consistent-return
-  function defaultToConfig2(prop) {
-    if (!utils/* default.isUndefined */.Z.isUndefined(config2[prop])) {
-      return getMergedValue(undefined, config2[prop]);
-    } else if (!utils/* default.isUndefined */.Z.isUndefined(config1[prop])) {
-      return getMergedValue(undefined, config1[prop]);
+  function defaultToConfig2(a, b) {
+    if (!utils/* default.isUndefined */.Z.isUndefined(b)) {
+      return getMergedValue(undefined, b);
+    } else if (!utils/* default.isUndefined */.Z.isUndefined(a)) {
+      return getMergedValue(undefined, a);
     }
   }
 
   // eslint-disable-next-line consistent-return
-  function mergeDirectKeys(prop) {
+  function mergeDirectKeys(a, b, prop) {
     if (prop in config2) {
-      return getMergedValue(config1[prop], config2[prop]);
+      return getMergedValue(a, b);
     } else if (prop in config1) {
-      return getMergedValue(undefined, config1[prop]);
+      return getMergedValue(undefined, a);
     }
   }
   const mergeMap = {
-    'url': valueFromConfig2,
-    'method': valueFromConfig2,
-    'data': valueFromConfig2,
-    'baseURL': defaultToConfig2,
-    'transformRequest': defaultToConfig2,
-    'transformResponse': defaultToConfig2,
-    'paramsSerializer': defaultToConfig2,
-    'timeout': defaultToConfig2,
-    'timeoutMessage': defaultToConfig2,
-    'withCredentials': defaultToConfig2,
-    'adapter': defaultToConfig2,
-    'responseType': defaultToConfig2,
-    'xsrfCookieName': defaultToConfig2,
-    'xsrfHeaderName': defaultToConfig2,
-    'onUploadProgress': defaultToConfig2,
-    'onDownloadProgress': defaultToConfig2,
-    'decompress': defaultToConfig2,
-    'maxContentLength': defaultToConfig2,
-    'maxBodyLength': defaultToConfig2,
-    'beforeRedirect': defaultToConfig2,
-    'transport': defaultToConfig2,
-    'httpAgent': defaultToConfig2,
-    'httpsAgent': defaultToConfig2,
-    'cancelToken': defaultToConfig2,
-    'socketPath': defaultToConfig2,
-    'responseEncoding': defaultToConfig2,
-    'validateStatus': mergeDirectKeys
+    url: valueFromConfig2,
+    method: valueFromConfig2,
+    data: valueFromConfig2,
+    baseURL: defaultToConfig2,
+    transformRequest: defaultToConfig2,
+    transformResponse: defaultToConfig2,
+    paramsSerializer: defaultToConfig2,
+    timeout: defaultToConfig2,
+    timeoutMessage: defaultToConfig2,
+    withCredentials: defaultToConfig2,
+    adapter: defaultToConfig2,
+    responseType: defaultToConfig2,
+    xsrfCookieName: defaultToConfig2,
+    xsrfHeaderName: defaultToConfig2,
+    onUploadProgress: defaultToConfig2,
+    onDownloadProgress: defaultToConfig2,
+    decompress: defaultToConfig2,
+    maxContentLength: defaultToConfig2,
+    maxBodyLength: defaultToConfig2,
+    beforeRedirect: defaultToConfig2,
+    transport: defaultToConfig2,
+    httpAgent: defaultToConfig2,
+    httpsAgent: defaultToConfig2,
+    cancelToken: defaultToConfig2,
+    socketPath: defaultToConfig2,
+    responseEncoding: defaultToConfig2,
+    validateStatus: mergeDirectKeys,
+    headers: (a, b) => mergeDeepProperties(headersToObject(a), headersToObject(b), true)
   };
   utils/* default.forEach */.Z.forEach(Object.keys(config1).concat(Object.keys(config2)), function computeConfigValue(prop) {
     const merge = mergeMap[prop] || mergeDeepProperties;
-    const configValue = merge(prop);
+    const configValue = merge(config1[prop], config2[prop], prop);
     utils/* default.isUndefined */.Z.isUndefined(configValue) && merge !== mergeDirectKeys || (config[prop] = configValue);
   });
   return config;
@@ -72366,7 +72448,7 @@ function mergeConfig(config1, config2) {
 // EXTERNAL MODULE: ./node_modules/axios/lib/core/buildFullPath.js + 2 modules
 var buildFullPath = __webpack_require__("./node_modules/axios/lib/core/buildFullPath.js");
 ;// CONCATENATED MODULE: ./node_modules/axios/lib/env/data.js
-const VERSION = "1.1.3";
+const VERSION = "1.2.0";
 ;// CONCATENATED MODULE: ./node_modules/axios/lib/helpers/validator.js
 
 
@@ -72495,7 +72577,8 @@ class Axios {
     config = mergeConfig(this.defaults, config);
     const {
       transitional,
-      paramsSerializer
+      paramsSerializer,
+      headers
     } = config;
     if (transitional !== undefined) {
       validator.assertOptions(transitional, {
@@ -72513,13 +72596,14 @@ class Axios {
 
     // Set config.method
     config.method = (config.method || this.defaults.method || 'get').toLowerCase();
+    let contextHeaders;
 
     // Flatten headers
-    const defaultHeaders = config.headers && utils/* default.merge */.Z.merge(config.headers.common, config.headers[config.method]);
-    defaultHeaders && utils/* default.forEach */.Z.forEach(['delete', 'get', 'head', 'post', 'put', 'patch', 'common'], function cleanHeaderConfig(method) {
-      delete config.headers[method];
+    contextHeaders = headers && utils/* default.merge */.Z.merge(headers.common, headers[config.method]);
+    contextHeaders && utils/* default.forEach */.Z.forEach(['delete', 'get', 'head', 'post', 'put', 'patch', 'common'], method => {
+      delete headers[method];
     });
-    config.headers = new AxiosHeaders/* default */.Z(config.headers, defaultHeaders);
+    config.headers = AxiosHeaders/* default.concat */.Z.concat(contextHeaders, headers);
 
     // filter out skipped interceptors
     const requestInterceptorChain = [];
@@ -72784,6 +72868,7 @@ function isAxiosError(payload) {
 
 
 
+
 /**
  * Create an instance of Axios
  *
@@ -72839,30 +72924,12 @@ axios.spread = spread;
 
 // Expose isAxiosError
 axios.isAxiosError = isAxiosError;
-axios.formToJSON = thing => {
-  return helpers_formDataToJSON(utils/* default.isHTMLForm */.Z.isHTMLForm(thing) ? new FormData(thing) : thing);
-};
+axios.AxiosHeaders = AxiosHeaders/* default */.Z;
+axios.formToJSON = thing => helpers_formDataToJSON(utils/* default.isHTMLForm */.Z.isHTMLForm(thing) ? new FormData(thing) : thing);
+axios.default = axios;
+
+// this module should only have a default export
 /* harmony default export */ const lib_axios = (axios);
-;// CONCATENATED MODULE: ./node_modules/axios/index.js
-
-
-// Keep top-level export same with static properties
-// so that it can keep same with es module or cjs
-const {
-  Axios: axios_Axios,
-  AxiosError: axios_AxiosError,
-  CanceledError: axios_CanceledError,
-  isCancel: axios_isCancel,
-  CancelToken: axios_CancelToken,
-  VERSION: axios_VERSION,
-  all: axios_all,
-  Cancel,
-  isAxiosError: axios_isAxiosError,
-  spread: axios_spread,
-  toFormData: axios_toFormData
-} = lib_axios;
-/* harmony default export */ const node_modules_axios = (lib_axios);
-
 ;// CONCATENATED MODULE: ./src/rest/AxiosHTTP.ts
 function AxiosHTTP_typeof(obj) { "@babel/helpers - typeof"; return AxiosHTTP_typeof = "function" == typeof (symbol_default()) && "symbol" == typeof (iterator_default()) ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof (symbol_default()) && obj.constructor === (symbol_default()) && obj !== (symbol_default()).prototype ? "symbol" : typeof obj; }, AxiosHTTP_typeof(obj); }
 
@@ -72938,7 +73005,7 @@ var AxiosHTTP = /*#__PURE__*/function (_AbstractHTTP) {
     var timeout = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 10000;
     AxiosHTTP_classCallCheck(this, AxiosHTTP);
     _this = _super.call(this, server, timeout);
-    _this.axiosImpl = axiosImpl || node_modules_axios;
+    _this.axiosImpl = axiosImpl || lib_axios;
     return _this;
   }
 
@@ -73162,7 +73229,7 @@ var AxiosHTTP = /*#__PURE__*/function (_AbstractHTTP) {
         if (typeof XMLHttpRequest !== 'undefined') {
           axiosOpts.adapter = __webpack_require__("./node_modules/axios/lib/adapters/xhr.js");
         } else if (typeof process !== 'undefined') {
-          axiosOpts.adapter = __webpack_require__("./node_modules/axios/lib/adapters/xhr.js");
+          axiosOpts.adapter = __webpack_require__("./node_modules/axios/lib/helpers/null.js");
         }
         this.axiosObj = this.axiosImpl.create(axiosOpts);
       }
