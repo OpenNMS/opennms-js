@@ -150,7 +150,7 @@ export class OnmsServer {
     this.url = serverBuilder.url;
     this.auth = serverBuilder.auth || null;
     this.metadata = serverBuilder.metadata || null;
-    this.id = MD5([this.name, this.url, this.auth, this.metadata]);
+    this.id = MD5(JSON.stringify([this.name, this.url, this.auth, this.metadata]));
   }
 
   /**
