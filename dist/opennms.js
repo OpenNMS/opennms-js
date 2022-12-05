@@ -63961,6 +63961,7 @@ function OnmsServer_typeof(obj) { "@babel/helpers - typeof"; return OnmsServer_t
 
 
 
+
 function OnmsServer_classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 function OnmsServer_defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; define_property_default()(target, OnmsServer_toPropertyKey(descriptor.key), descriptor); } }
 function OnmsServer_createClass(Constructor, protoProps, staticProps) { if (protoProps) OnmsServer_defineProperties(Constructor.prototype, protoProps); if (staticProps) OnmsServer_defineProperties(Constructor, staticProps); define_property_default()(Constructor, "prototype", { writable: false }); return Constructor; }
@@ -64108,7 +64109,7 @@ var OnmsServer = /*#__PURE__*/function () {
     this.url = serverBuilder.url;
     this.auth = serverBuilder.auth || null;
     this.metadata = serverBuilder.metadata || null;
-    this.id = (0,object_hash.MD5)([this.name, this.url, this.auth, this.metadata]);
+    this.id = (0,object_hash.MD5)(stringify_default()([this.name, this.url, this.auth, this.metadata]));
   }
 
   /**
