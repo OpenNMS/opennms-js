@@ -63135,6 +63135,10 @@ var external_events_ = __webpack_require__("events");
 
 
 
+const zlibOptions = {
+  flush: external_zlib_namespaceObject.constants.Z_SYNC_FLUSH,
+  finishFlush: external_zlib_namespaceObject.constants.Z_SYNC_FLUSH
+};
 const isBrotliSupported = utils/* default.isFunction */.Z.isFunction(external_zlib_namespaceObject.createBrotliDecompress);
 const {
   http: httpFollow,
@@ -63335,7 +63339,7 @@ const isHttpAdapterSupported = typeof process !== 'undefined' && utils/* default
         return reject(new AxiosError/* default */.Z('Request body larger than maxBodyLength limit', AxiosError/* default.ERR_BAD_REQUEST */.Z.ERR_BAD_REQUEST, config));
       }
     }
-    const contentLength = +headers.getContentLength();
+    const contentLength = utils/* default.toFiniteNumber */.Z.toFiniteNumber(headers.getContentLength());
     if (utils/* default.isArray */.Z.isArray(maxRate)) {
       maxUploadRate = maxRate[0];
       maxDownloadRate = maxRate[1];
@@ -63349,7 +63353,7 @@ const isHttpAdapterSupported = typeof process !== 'undefined' && utils/* default
         });
       }
       data = external_stream_.pipeline([data, new helpers_AxiosTransformStream({
-        length: utils/* default.toFiniteNumber */.Z.toFiniteNumber(contentLength),
+        length: contentLength,
         maxRate: utils/* default.toFiniteNumber */.Z.toFiniteNumber(maxUploadRate)
       })], utils/* default.noop */.Z.noop);
       onUploadProgress && data.on('progress', progress => {
@@ -63382,7 +63386,7 @@ const isHttpAdapterSupported = typeof process !== 'undefined' && utils/* default
       customErr.exists = true;
       return reject(customErr);
     }
-    headers.set('Accept-Encoding', 'gzip, deflate, br', false);
+    headers.set('Accept-Encoding', 'gzip, compress, deflate' + (isBrotliSupported ? ', br' : ''), false);
     const options = {
       path,
       method: method,
@@ -63447,17 +63451,17 @@ const isHttpAdapterSupported = typeof process !== 'undefined' && utils/* default
         streams.push(transformStream);
       }
 
-      // uncompress the response body transparently if required
+      // decompress the response body transparently if required
       let responseStream = res;
 
       // return the last request in case of redirects
       const lastRequest = res.req || req;
 
       // if decompress disabled we should not decompress
-      if (config.decompress !== false) {
+      if (config.decompress !== false && res.headers['content-encoding']) {
         // if no content, but headers still say that it is encoded,
         // remove the header not confuse downstream operations
-        if ((!responseLength || res.statusCode === 204) && res.headers['content-encoding']) {
+        if (method === 'HEAD' || res.statusCode === 204) {
           delete res.headers['content-encoding'];
         }
         switch (res.headers['content-encoding']) {
@@ -63466,14 +63470,14 @@ const isHttpAdapterSupported = typeof process !== 'undefined' && utils/* default
           case 'compress':
           case 'deflate':
             // add the unzipper to the body stream processing pipeline
-            streams.push(external_zlib_namespaceObject.createUnzip());
+            streams.push(external_zlib_namespaceObject.createUnzip(zlibOptions));
 
             // remove the content-encoding in order to not confuse downstream operations
             delete res.headers['content-encoding'];
             break;
           case 'br':
             if (isBrotliSupported) {
-              streams.push(external_zlib_namespaceObject.createBrotliDecompress());
+              streams.push(external_zlib_namespaceObject.createBrotliDecompress(zlibOptions));
               delete res.headers['content-encoding'];
             }
         }
@@ -63805,7 +63809,7 @@ const isXHRAdapterSupported = typeof XMLHttpRequest !== 'undefined';
         config.signal.removeEventListener('abort', onCanceled);
       }
     }
-    if (utils/* default.isFormData */.Z.isFormData(requestData) && node/* default.isStandardBrowserEnv */.Z.isStandardBrowserEnv) {
+    if (utils/* default.isFormData */.Z.isFormData(requestData) && (node/* default.isStandardBrowserEnv */.Z.isStandardBrowserEnv || node/* default.isStandardBrowserWebWorkerEnv */.Z.isStandardBrowserWebWorkerEnv)) {
       requestHeaders.setContentType(false); // Let the browser set it
     }
 
@@ -64483,7 +64487,7 @@ function settle(resolve, reject, response) {
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "q": () => (/* binding */ VERSION)
 /* harmony export */ });
-const VERSION = "1.2.0";
+const VERSION = "1.2.1";
 
 /***/ }),
 
@@ -75664,7 +75668,7 @@ function throwIfCancellationRequested(config) {
     config.cancelToken.throwIfRequested();
   }
   if (config.signal && config.signal.aborted) {
-    throw new CanceledError/* default */.Z();
+    throw new CanceledError/* default */.Z(null, config);
   }
 }
 
@@ -76287,6 +76291,9 @@ axios.spread = spread;
 
 // Expose isAxiosError
 axios.isAxiosError = isAxiosError;
+
+// Expose mergeConfig
+axios.mergeConfig = mergeConfig;
 axios.AxiosHeaders = AxiosHeaders/* default */.Z;
 axios.formToJSON = thing => helpers_formDataToJSON(utils/* default.isHTMLForm */.Z.isHTMLForm(thing) ? new FormData(thing) : thing);
 axios.default = axios;
