@@ -60107,7 +60107,7 @@ const isXHRAdapterSupported = typeof XMLHttpRequest !== 'undefined';
         config.signal.removeEventListener('abort', onCanceled);
       }
     }
-    if (utils/* default.isFormData */.Z.isFormData(requestData) && browser/* default.isStandardBrowserEnv */.Z.isStandardBrowserEnv) {
+    if (utils/* default.isFormData */.Z.isFormData(requestData) && (browser/* default.isStandardBrowserEnv */.Z.isStandardBrowserEnv || browser/* default.isStandardBrowserWebWorkerEnv */.Z.isStandardBrowserWebWorkerEnv)) {
       requestHeaders.setContentType(false); // Let the browser set it
     }
 
@@ -61168,6 +61168,19 @@ const isStandardBrowserEnv = (() => {
   }
   return typeof window !== 'undefined' && typeof document !== 'undefined';
 })();
+
+/**
+ * Determine if we're running in a standard browser webWorker environment
+ *
+ * Although the `isStandardBrowserEnv` method indicates that
+ * `allows axios to run in a web worker`, the WebWorker will still be
+ * filtered out due to its judgment standard
+ * `typeof window !== 'undefined' && typeof document !== 'undefined'`.
+ * This leads to a problem when axios post `FormData` in webWorker
+ */
+const isStandardBrowserWebWorkerEnv = (() => {
+  return typeof WorkerGlobalScope !== 'undefined' && self instanceof WorkerGlobalScope && typeof self.importScripts === 'function';
+})();
 /* harmony default export */ const browser = ({
   isBrowser: true,
   classes: {
@@ -61176,6 +61189,7 @@ const isStandardBrowserEnv = (() => {
     Blob
   },
   isStandardBrowserEnv,
+  isStandardBrowserWebWorkerEnv,
   protocols: ['http', 'https', 'file', 'blob', 'url', 'data']
 });
 
@@ -72302,7 +72316,7 @@ function throwIfCancellationRequested(config) {
     config.cancelToken.throwIfRequested();
   }
   if (config.signal && config.signal.aborted) {
-    throw new CanceledError/* default */.Z();
+    throw new CanceledError/* default */.Z(null, config);
   }
 }
 
@@ -72449,7 +72463,7 @@ function mergeConfig(config1, config2) {
 // EXTERNAL MODULE: ./node_modules/axios/lib/core/buildFullPath.js + 2 modules
 var buildFullPath = __webpack_require__("./node_modules/axios/lib/core/buildFullPath.js");
 ;// CONCATENATED MODULE: ./node_modules/axios/lib/env/data.js
-const VERSION = "1.2.0";
+const VERSION = "1.2.1";
 ;// CONCATENATED MODULE: ./node_modules/axios/lib/helpers/validator.js
 
 
@@ -72925,6 +72939,9 @@ axios.spread = spread;
 
 // Expose isAxiosError
 axios.isAxiosError = isAxiosError;
+
+// Expose mergeConfig
+axios.mergeConfig = mergeConfig;
 axios.AxiosHeaders = AxiosHeaders/* default */.Z;
 axios.formToJSON = thing => helpers_formDataToJSON(utils/* default.isHTMLForm */.Z.isHTMLForm(thing) ? new FormData(thing) : thing);
 axios.default = axios;
