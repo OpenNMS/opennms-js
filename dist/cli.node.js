@@ -15005,6 +15005,7 @@ module.exports = !fails(function () {
 var documentAll = typeof document == 'object' && document.all;
 
 // https://tc39.es/ecma262/#sec-IsHTMLDDA-internal-slot
+// eslint-disable-next-line unicorn/no-typeof-undefined -- required for testing
 var IS_HTMLDDA = typeof documentAll == 'undefined' && documentAll !== undefined;
 module.exports = {
   all: documentAll,
@@ -15240,6 +15241,14 @@ module.exports = !!firefox && +firefox[1];
 var IS_DENO = __webpack_require__("./node_modules/core-js/internals/engine-is-deno.js");
 var IS_NODE = __webpack_require__("./node_modules/core-js/internals/engine-is-node.js");
 module.exports = !IS_DENO && !IS_NODE && typeof window == 'object' && typeof document == 'object';
+
+/***/ }),
+
+/***/ "./node_modules/core-js/internals/engine-is-bun.js":
+/***/ ((module) => {
+
+/* global Bun -- Deno case */
+module.exports = typeof Bun == 'function' && Bun && typeof Bun.version == 'string';
 
 /***/ }),
 
@@ -16921,6 +16930,25 @@ Function.prototype.toString = makeBuiltIn(function toString() {
 
 /***/ }),
 
+/***/ "./node_modules/core-js/internals/map-helpers.js":
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+var uncurryThis = __webpack_require__("./node_modules/core-js/internals/function-uncurry-this.js");
+
+// eslint-disable-next-line es/no-map -- safe
+var MapPrototype = Map.prototype;
+module.exports = {
+  // eslint-disable-next-line es/no-map -- safe
+  Map: Map,
+  set: uncurryThis(MapPrototype.set),
+  get: uncurryThis(MapPrototype.get),
+  has: uncurryThis(MapPrototype.has),
+  remove: uncurryThis(MapPrototype['delete']),
+  proto: MapPrototype
+};
+
+/***/ }),
+
 /***/ "./node_modules/core-js/internals/math-expm1.js":
 /***/ ((module) => {
 
@@ -18264,34 +18292,57 @@ module.exports = Object.is || function is(x, y) {
 /***/ "./node_modules/core-js/internals/schedulers-fix.js":
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
+"use strict";
+
+
 var global = __webpack_require__("./node_modules/core-js/internals/global.js");
 var apply = __webpack_require__("./node_modules/core-js/internals/function-apply.js");
 var isCallable = __webpack_require__("./node_modules/core-js/internals/is-callable.js");
-var userAgent = __webpack_require__("./node_modules/core-js/internals/engine-user-agent.js");
+var ENGINE_IS_BUN = __webpack_require__("./node_modules/core-js/internals/engine-is-bun.js");
+var USER_AGENT = __webpack_require__("./node_modules/core-js/internals/engine-user-agent.js");
 var arraySlice = __webpack_require__("./node_modules/core-js/internals/array-slice.js");
 var validateArgumentsLength = __webpack_require__("./node_modules/core-js/internals/validate-arguments-length.js");
-var MSIE = /MSIE .\./.test(userAgent); // <- dirty ie9- check
 var Function = global.Function;
-var wrap = function (scheduler) {
-  return MSIE ? function (handler, timeout /* , ...arguments */) {
-    var boundArgs = validateArgumentsLength(arguments.length, 1) > 2;
+// dirty IE9- and Bun 0.3.0- checks
+var WRAP = /MSIE .\./.test(USER_AGENT) || ENGINE_IS_BUN && function () {
+  var version = global.Bun.version.split('.');
+  return version.length < 3 || version[0] == 0 && (version[1] < 3 || version[1] == 3 && version[2] == 0);
+}();
+
+// IE9- / Bun 0.3.0- setTimeout / setInterval / setImmediate additional parameters fix
+// https://html.spec.whatwg.org/multipage/timers-and-user-prompts.html#timers
+// https://github.com/oven-sh/bun/issues/1633
+module.exports = function (scheduler, hasTimeArg) {
+  var firstParamIndex = hasTimeArg ? 2 : 1;
+  return WRAP ? function (handler, timeout /* , ...arguments */) {
+    var boundArgs = validateArgumentsLength(arguments.length, 1) > firstParamIndex;
     var fn = isCallable(handler) ? handler : Function(handler);
-    var args = boundArgs ? arraySlice(arguments, 2) : undefined;
-    return scheduler(boundArgs ? function () {
-      apply(fn, this, args);
-    } : fn, timeout);
+    var params = boundArgs ? arraySlice(arguments, firstParamIndex) : [];
+    var callback = boundArgs ? function () {
+      apply(fn, this, params);
+    } : fn;
+    return hasTimeArg ? scheduler(callback, timeout) : scheduler(callback);
   } : scheduler;
 };
 
-// ie9- setTimeout & setInterval additional parameters fix
-// https://html.spec.whatwg.org/multipage/timers-and-user-prompts.html#timers
+/***/ }),
+
+/***/ "./node_modules/core-js/internals/set-helpers.js":
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+var uncurryThis = __webpack_require__("./node_modules/core-js/internals/function-uncurry-this.js");
+
+// eslint-disable-next-line es/no-set -- safe
+var SetPrototype = Set.prototype;
 module.exports = {
-  // `setTimeout` method
-  // https://html.spec.whatwg.org/multipage/timers-and-user-prompts.html#dom-settimeout
-  setTimeout: wrap(global.setTimeout),
-  // `setInterval` method
-  // https://html.spec.whatwg.org/multipage/timers-and-user-prompts.html#dom-setinterval
-  setInterval: wrap(global.setInterval)
+  // eslint-disable-next-line es/no-set -- safe
+  Set: Set,
+  add: uncurryThis(SetPrototype.add),
+  has: uncurryThis(SetPrototype.has),
+  remove: uncurryThis(SetPrototype['delete']),
+  proto: SetPrototype,
+  $has: SetPrototype.has,
+  $keys: SetPrototype.keys
 };
 
 /***/ }),
@@ -18372,10 +18423,10 @@ var store = __webpack_require__("./node_modules/core-js/internals/shared-store.j
 (module.exports = function (key, value) {
   return store[key] || (store[key] = value !== undefined ? value : {});
 })('versions', []).push({
-  version: '3.26.1',
+  version: '3.27.1',
   mode: IS_PURE ? 'pure' : 'global',
   copyright: '© 2014-2022 Denis Pushkarev (zloirock.ru)',
-  license: 'https://github.com/zloirock/core-js/blob/v3.26.1/LICENSE',
+  license: 'https://github.com/zloirock/core-js/blob/v3.27.1/LICENSE',
   source: 'https://github.com/zloirock/core-js'
 });
 
@@ -22156,11 +22207,13 @@ $({
 "use strict";
 
 
+var $ = __webpack_require__("./node_modules/core-js/internals/export.js");
+var IS_PURE = __webpack_require__("./node_modules/core-js/internals/is-pure.js");
 var DESCRIPTORS = __webpack_require__("./node_modules/core-js/internals/descriptors.js");
 var global = __webpack_require__("./node_modules/core-js/internals/global.js");
+var path = __webpack_require__("./node_modules/core-js/internals/path.js");
 var uncurryThis = __webpack_require__("./node_modules/core-js/internals/function-uncurry-this.js");
 var isForced = __webpack_require__("./node_modules/core-js/internals/is-forced.js");
-var defineBuiltIn = __webpack_require__("./node_modules/core-js/internals/define-built-in.js");
 var hasOwn = __webpack_require__("./node_modules/core-js/internals/has-own-property.js");
 var inheritIfRequired = __webpack_require__("./node_modules/core-js/internals/inherit-if-required.js");
 var isPrototypeOf = __webpack_require__("./node_modules/core-js/internals/object-is-prototype-of.js");
@@ -22174,9 +22227,10 @@ var thisNumberValue = __webpack_require__("./node_modules/core-js/internals/this
 var trim = (__webpack_require__("./node_modules/core-js/internals/string-trim.js").trim);
 var NUMBER = 'Number';
 var NativeNumber = global[NUMBER];
+var PureNumberNamespace = path[NUMBER];
 var NumberPrototype = NativeNumber.prototype;
 var TypeError = global.TypeError;
-var arraySlice = uncurryThis(''.slice);
+var stringSlice = uncurryThis(''.slice);
 var charCodeAt = uncurryThis(''.charCodeAt);
 
 // `ToNumeric` abstract operation
@@ -22215,7 +22269,7 @@ var toNumber = function (argument) {
         default:
           return +it;
       }
-      digits = arraySlice(it, 2);
+      digits = stringSlice(it, 2);
       length = digits.length;
       for (index = 0; index < length; index++) {
         code = charCodeAt(digits, index);
@@ -22228,35 +22282,47 @@ var toNumber = function (argument) {
   }
   return +it;
 };
+var FORCED = isForced(NUMBER, !NativeNumber(' 0o1') || !NativeNumber('0b1') || NativeNumber('+0x1'));
+var calledWithNew = function (dummy) {
+  // includes check on 1..constructor(foo) case
+  return isPrototypeOf(NumberPrototype, dummy) && fails(function () {
+    thisNumberValue(dummy);
+  });
+};
 
 // `Number` constructor
 // https://tc39.es/ecma262/#sec-number-constructor
-if (isForced(NUMBER, !NativeNumber(' 0o1') || !NativeNumber('0b1') || NativeNumber('+0x1'))) {
-  var NumberWrapper = function Number(value) {
-    var n = arguments.length < 1 ? 0 : NativeNumber(toNumeric(value));
-    var dummy = this;
-    // check on 1..constructor(foo) case
-    return isPrototypeOf(NumberPrototype, dummy) && fails(function () {
-      thisNumberValue(dummy);
-    }) ? inheritIfRequired(Object(n), dummy, NumberWrapper) : n;
-  };
-  for (var keys = DESCRIPTORS ? getOwnPropertyNames(NativeNumber) : (
+var NumberWrapper = function Number(value) {
+  var n = arguments.length < 1 ? 0 : NativeNumber(toNumeric(value));
+  return calledWithNew(this) ? inheritIfRequired(Object(n), this, NumberWrapper) : n;
+};
+NumberWrapper.prototype = NumberPrototype;
+if (FORCED && !IS_PURE) NumberPrototype.constructor = NumberWrapper;
+$({
+  global: true,
+  constructor: true,
+  wrap: true,
+  forced: FORCED
+}, {
+  Number: NumberWrapper
+});
+
+// Use `internal/copy-constructor-properties` helper in `core-js@4`
+var copyConstructorProperties = function (target, source) {
+  for (var keys = DESCRIPTORS ? getOwnPropertyNames(source) : (
     // ES3:
     'MAX_VALUE,MIN_VALUE,NaN,NEGATIVE_INFINITY,POSITIVE_INFINITY,' +
     // ES2015 (in case, if modules with ES2015 Number statics required before):
     'EPSILON,MAX_SAFE_INTEGER,MIN_SAFE_INTEGER,isFinite,isInteger,isNaN,isSafeInteger,parseFloat,parseInt,' +
     // ESNext
     'fromString,range').split(','), j = 0, key; keys.length > j; j++) {
-    if (hasOwn(NativeNumber, key = keys[j]) && !hasOwn(NumberWrapper, key)) {
-      defineProperty(NumberWrapper, key, getOwnPropertyDescriptor(NativeNumber, key));
+    if (hasOwn(source, key = keys[j]) && !hasOwn(target, key)) {
+      defineProperty(target, key, getOwnPropertyDescriptor(source, key));
     }
   }
-  NumberWrapper.prototype = NumberPrototype;
-  NumberPrototype.constructor = NumberWrapper;
-  defineBuiltIn(global, NUMBER, NumberWrapper, {
-    constructor: true
-  });
-}
+};
+if (IS_PURE && PureNumberNamespace) copyConstructorProperties(path[NUMBER], PureNumberNamespace);
+if (FORCED || IS_PURE) copyConstructorProperties(path[NUMBER], NativeNumber);
 
 /***/ }),
 
@@ -27842,6 +27908,7 @@ $({
 "use strict";
 
 
+var FREEZING = __webpack_require__("./node_modules/core-js/internals/freezing.js");
 var global = __webpack_require__("./node_modules/core-js/internals/global.js");
 var uncurryThis = __webpack_require__("./node_modules/core-js/internals/function-uncurry-this.js");
 var defineBuiltIns = __webpack_require__("./node_modules/core-js/internals/define-built-ins.js");
@@ -27849,9 +27916,24 @@ var InternalMetadataModule = __webpack_require__("./node_modules/core-js/interna
 var collection = __webpack_require__("./node_modules/core-js/internals/collection.js");
 var collectionWeak = __webpack_require__("./node_modules/core-js/internals/collection-weak.js");
 var isObject = __webpack_require__("./node_modules/core-js/internals/is-object.js");
-var isExtensible = __webpack_require__("./node_modules/core-js/internals/object-is-extensible.js");
 var enforceInternalState = (__webpack_require__("./node_modules/core-js/internals/internal-state.js").enforce);
+var fails = __webpack_require__("./node_modules/core-js/internals/fails.js");
 var NATIVE_WEAK_MAP = __webpack_require__("./node_modules/core-js/internals/weak-map-basic-detection.js");
+var $Object = Object;
+// eslint-disable-next-line es/no-array-isarray -- safe
+var isArray = Array.isArray;
+// eslint-disable-next-line es/no-object-isextensible -- safe
+var isExtensible = $Object.isExtensible;
+// eslint-disable-next-line es/no-object-isfrozen -- safe
+var isFrozen = $Object.isFrozen;
+// eslint-disable-next-line es/no-object-issealed -- safe
+var isSealed = $Object.isSealed;
+// eslint-disable-next-line es/no-object-freeze -- safe
+var freeze = $Object.freeze;
+// eslint-disable-next-line es/no-object-seal -- safe
+var seal = $Object.seal;
+var FROZEN = {};
+var SEALED = {};
 var IS_IE11 = !global.ActiveXObject && 'ActiveXObject' in global;
 var InternalWeakMap;
 var wrapper = function (init) {
@@ -27863,18 +27945,27 @@ var wrapper = function (init) {
 // `WeakMap` constructor
 // https://tc39.es/ecma262/#sec-weakmap-constructor
 var $WeakMap = collection('WeakMap', wrapper, collectionWeak);
+var WeakMapPrototype = $WeakMap.prototype;
+var nativeSet = uncurryThis(WeakMapPrototype.set);
+
+// Chakra Edge bug: adding frozen arrays to WeakMap unfreeze them
+var hasMSEdgeFreezingBug = function () {
+  return FREEZING && fails(function () {
+    var frozenArray = freeze([]);
+    nativeSet(new $WeakMap(), frozenArray, 1);
+    return !isFrozen(frozenArray);
+  });
+};
 
 // IE11 WeakMap frozen keys fix
 // We can't use feature detection because it crash some old IE builds
 // https://github.com/zloirock/core-js/issues/485
-if (NATIVE_WEAK_MAP && IS_IE11) {
+if (NATIVE_WEAK_MAP) if (IS_IE11) {
   InternalWeakMap = collectionWeak.getConstructor(wrapper, 'WeakMap', true);
   InternalMetadataModule.enable();
-  var WeakMapPrototype = $WeakMap.prototype;
   var nativeDelete = uncurryThis(WeakMapPrototype['delete']);
   var nativeHas = uncurryThis(WeakMapPrototype.has);
   var nativeGet = uncurryThis(WeakMapPrototype.get);
-  var nativeSet = uncurryThis(WeakMapPrototype.set);
   defineBuiltIns(WeakMapPrototype, {
     'delete': function (key) {
       if (isObject(key) && !isExtensible(key)) {
@@ -27906,6 +27997,20 @@ if (NATIVE_WEAK_MAP && IS_IE11) {
         if (!state.frozen) state.frozen = new InternalWeakMap();
         nativeHas(this, key) ? nativeSet(this, key, value) : state.frozen.set(key, value);
       } else nativeSet(this, key, value);
+      return this;
+    }
+  });
+  // Chakra Edge frozen keys fix
+} else if (hasMSEdgeFreezingBug()) {
+  defineBuiltIns(WeakMapPrototype, {
+    set: function set(key, value) {
+      var arrayIntegrityLevel;
+      if (isArray(key)) {
+        if (isFrozen(key)) arrayIntegrityLevel = FROZEN;else if (isSealed(key)) arrayIntegrityLevel = SEALED;
+      }
+      nativeSet(this, key, value);
+      if (arrayIntegrityLevel == FROZEN) freeze(key);
+      if (arrayIntegrityLevel == SEALED) seal(key);
       return this;
     }
   });
@@ -28465,7 +28570,11 @@ try {
 
 var $ = __webpack_require__("./node_modules/core-js/internals/export.js");
 var global = __webpack_require__("./node_modules/core-js/internals/global.js");
-var setImmediate = (__webpack_require__("./node_modules/core-js/internals/task.js").set);
+var setTask = (__webpack_require__("./node_modules/core-js/internals/task.js").set);
+var schedulersFix = __webpack_require__("./node_modules/core-js/internals/schedulers-fix.js");
+
+// https://github.com/oven-sh/bun/issues/1633
+var setImmediate = global.setImmediate ? schedulersFix(setTask, false) : setTask;
 
 // `setImmediate` method
 // http://w3c.github.io/setImmediate/#si-setImmediate
@@ -28485,9 +28594,10 @@ $({
 
 var $ = __webpack_require__("./node_modules/core-js/internals/export.js");
 var global = __webpack_require__("./node_modules/core-js/internals/global.js");
-var setInterval = (__webpack_require__("./node_modules/core-js/internals/schedulers-fix.js").setInterval);
+var schedulersFix = __webpack_require__("./node_modules/core-js/internals/schedulers-fix.js");
+var setInterval = schedulersFix(global.setInterval, true);
 
-// ie9- setInterval additional parameters fix
+// Bun / IE9- setInterval additional parameters fix
 // https://html.spec.whatwg.org/multipage/timers-and-user-prompts.html#dom-setinterval
 $({
   global: true,
@@ -28504,9 +28614,10 @@ $({
 
 var $ = __webpack_require__("./node_modules/core-js/internals/export.js");
 var global = __webpack_require__("./node_modules/core-js/internals/global.js");
-var setTimeout = (__webpack_require__("./node_modules/core-js/internals/schedulers-fix.js").setTimeout);
+var schedulersFix = __webpack_require__("./node_modules/core-js/internals/schedulers-fix.js");
+var setTimeout = schedulersFix(global.setTimeout, true);
 
-// ie9- setTimeout additional parameters fix
+// Bun / IE9- setTimeout additional parameters fix
 // https://html.spec.whatwg.org/multipage/timers-and-user-prompts.html#dom-settimeout
 $({
   global: true,
@@ -28542,12 +28653,15 @@ var createNonEnumerableProperty = __webpack_require__("./node_modules/core-js/in
 var lengthOfArrayLike = __webpack_require__("./node_modules/core-js/internals/length-of-array-like.js");
 var validateArgumentsLength = __webpack_require__("./node_modules/core-js/internals/validate-arguments-length.js");
 var getRegExpFlags = __webpack_require__("./node_modules/core-js/internals/regexp-get-flags.js");
+var MapHelpers = __webpack_require__("./node_modules/core-js/internals/map-helpers.js");
+var SetHelpers = __webpack_require__("./node_modules/core-js/internals/set-helpers.js");
 var ERROR_STACK_INSTALLABLE = __webpack_require__("./node_modules/core-js/internals/error-stack-installable.js");
 var V8 = __webpack_require__("./node_modules/core-js/internals/engine-v8-version.js");
 var IS_BROWSER = __webpack_require__("./node_modules/core-js/internals/engine-is-browser.js");
 var IS_DENO = __webpack_require__("./node_modules/core-js/internals/engine-is-deno.js");
 var IS_NODE = __webpack_require__("./node_modules/core-js/internals/engine-is-node.js");
 var Object = global.Object;
+var Array = global.Array;
 var Date = global.Date;
 var Error = global.Error;
 var EvalError = global.EvalError;
@@ -28562,13 +28676,12 @@ var CompileError = WebAssembly && WebAssembly.CompileError || Error;
 var LinkError = WebAssembly && WebAssembly.LinkError || Error;
 var RuntimeError = WebAssembly && WebAssembly.RuntimeError || Error;
 var DOMException = getBuiltin('DOMException');
-var Set = getBuiltin('Set');
-var Map = getBuiltin('Map');
-var MapPrototype = Map.prototype;
-var mapHas = uncurryThis(MapPrototype.has);
-var mapGet = uncurryThis(MapPrototype.get);
-var mapSet = uncurryThis(MapPrototype.set);
-var setAdd = uncurryThis(Set.prototype.add);
+var Map = MapHelpers.Map;
+var mapHas = MapHelpers.has;
+var mapGet = MapHelpers.get;
+var mapSet = MapHelpers.set;
+var Set = SetHelpers.Set;
+var setAdd = SetHelpers.add;
 var objectKeys = getBuiltin('Object', 'keys');
 var push = uncurryThis([].push);
 var thisBooleanValue = uncurryThis(true.valueOf);
@@ -28668,7 +28781,7 @@ var structuredCloneInternal = function (value, map) {
   var C, name, cloned, dataTransfer, i, length, keys, key, source, target;
   switch (type) {
     case 'Array':
-      cloned = [];
+      cloned = Array(lengthOfArrayLike(value));
       deep = true;
       break;
     case 'Object':
@@ -83606,6 +83719,25 @@ Expecting one of '${allowedValues.join("', '")}'`);
   }
 
   /**
+    * Get source of option value. See also .optsWithGlobals().
+    * Expected values are default | config | env | cli | implied
+    *
+    * @param {string} key
+    * @return {string}
+    */
+
+  getOptionValueSourceWithGlobals(key) {
+    // global overwrites local, like optsWithGlobals
+    let source;
+    getCommandAndParents(this).forEach(cmd => {
+      if (cmd.getOptionValueSource(key) !== undefined) {
+        source = cmd.getOptionValueSource(key);
+      }
+    });
+    return source;
+  }
+
+  /**
    * Get user arguments from implied or explicit arguments.
    * Side-effects: set _scriptPath if args included script. Used for default program name, and subcommand searches.
    *
@@ -84999,6 +85131,7 @@ class Help {
     this.helpWidth = undefined;
     this.sortSubcommands = false;
     this.sortOptions = false;
+    this.showGlobalOptions = false;
   }
 
   /**
@@ -85028,6 +85161,21 @@ class Help {
   }
 
   /**
+   * Compare options for sort.
+   *
+   * @param {Option} a
+   * @param {Option} b
+   * @returns number
+   */
+  compareOptions(a, b) {
+    const getSortKey = option => {
+      // WYSIWYG for order displayed in help. Short used for comparison if present. No special handling for negated.
+      return option.short ? option.short.replace(/^-/, '') : option.long.replace(/^--/, '');
+    };
+    return getSortKey(a).localeCompare(getSortKey(b));
+  }
+
+  /**
    * Get an array of the visible options. Includes a placeholder for the implicit help option, if there is one.
    *
    * @param {Command} cmd
@@ -85051,15 +85199,29 @@ class Help {
       visibleOptions.push(helpOption);
     }
     if (this.sortOptions) {
-      const getSortKey = option => {
-        // WYSIWYG for order displayed in help with short before long, no special handling for negated.
-        return option.short ? option.short.replace(/^-/, '') : option.long.replace(/^--/, '');
-      };
-      visibleOptions.sort((a, b) => {
-        return getSortKey(a).localeCompare(getSortKey(b));
-      });
+      visibleOptions.sort(this.compareOptions);
     }
     return visibleOptions;
+  }
+
+  /**
+   * Get an array of the visible global options. (Not including help.)
+   *
+   * @param {Command} cmd
+   * @returns {Option[]}
+   */
+
+  visibleGlobalOptions(cmd) {
+    if (!this.showGlobalOptions) return [];
+    const globalOptions = [];
+    for (let parentCmd = cmd.parent; parentCmd; parentCmd = parentCmd.parent) {
+      const visibleOptions = parentCmd.options.filter(option => !option.hidden);
+      globalOptions.push(...visibleOptions);
+    }
+    if (this.sortOptions) {
+      globalOptions.sort(this.compareOptions);
+    }
+    return globalOptions;
   }
 
   /**
@@ -85150,6 +85312,20 @@ class Help {
   }
 
   /**
+   * Get the longest global option term length.
+   *
+   * @param {Command} cmd
+   * @param {Help} helper
+   * @returns {number}
+   */
+
+  longestGlobalOptionTermLength(cmd, helper) {
+    return helper.visibleGlobalOptions(cmd).reduce((max, option) => {
+      return Math.max(max, helper.optionTerm(option).length);
+    }, 0);
+  }
+
+  /**
    * Get the longest argument term length.
    *
    * @param {Command} cmd
@@ -85197,7 +85373,7 @@ class Help {
 
   /**
    * Get the subcommand summary to show in the list of subcommands.
-   * (Fallback to description for backwards compatiblity.)
+   * (Fallback to description for backwards compatibility.)
    *
    * @param {Command} cmd
    * @returns {string}
@@ -85318,6 +85494,14 @@ class Help {
     if (optionList.length > 0) {
       output = output.concat(['Options:', formatList(optionList), '']);
     }
+    if (this.showGlobalOptions) {
+      const globalOptionList = helper.visibleGlobalOptions(cmd).map(option => {
+        return formatItem(helper.optionTerm(option), helper.optionDescription(option));
+      });
+      if (globalOptionList.length > 0) {
+        output = output.concat(['Global Options:', formatList(globalOptionList), '']);
+      }
+    }
 
     // Commands
     const commandList = helper.visibleCommands(cmd).map(cmd => {
@@ -85338,7 +85522,7 @@ class Help {
    */
 
   padWidth(cmd, helper) {
-    return Math.max(helper.longestOptionTermLength(cmd, helper), helper.longestSubcommandTermLength(cmd, helper), helper.longestArgumentTermLength(cmd, helper));
+    return Math.max(helper.longestOptionTermLength(cmd, helper), helper.longestGlobalOptionTermLength(cmd, helper), helper.longestSubcommandTermLength(cmd, helper), helper.longestArgumentTermLength(cmd, helper));
   }
 
   /**
