@@ -62,7 +62,7 @@ export class AxiosHTTP extends AbstractHTTP {
     return this.getImpl(options).request(opts).then((response) => {
       let type;
       if (response.headers && response.headers['Content-Type']) {
-        type = response.headers['Content-Type'];
+        type = response.headers['Content-Type'] as string;
       }
       return OnmsResult.ok(this.getData(response), undefined, response.status, type);
     }).catch((err) => {
@@ -87,7 +87,7 @@ export class AxiosHTTP extends AbstractHTTP {
     return this.getImpl(options).request(opts).then((response) => {
       let type;
       if (response.headers && response.headers['Content-Type']) {
-        type = response.headers['Content-Type'];
+        type = response.headers['Content-Type'] as string;
       }
       return OnmsResult.ok(this.getData(response), undefined, response.status, type);
     }).catch((err) => {
@@ -113,7 +113,7 @@ export class AxiosHTTP extends AbstractHTTP {
     return this.getImpl(options).request(opts).then((response) => {
       let type;
       if (response.headers && response.headers['Content-Type']) {
-        type = response.headers['Content-Type'];
+        type = response.headers['Content-Type'] as string;
       }
       return OnmsResult.ok(this.getData(response), undefined, response.status, type);
     }).catch((err) => {
@@ -138,7 +138,7 @@ export class AxiosHTTP extends AbstractHTTP {
     return this.getImpl(options).request(opts).then((response) => {
       let type;
       if (response.headers && response.headers['Content-Type']) {
-        type = response.headers['Content-Type'];
+        type = response.headers['Content-Type'] as string;
       }
       return OnmsResult.ok(this.getData(response), undefined, response.status, type);
     }).catch((err) => {
@@ -163,7 +163,7 @@ export class AxiosHTTP extends AbstractHTTP {
     return this.getImpl(options).request(opts).then((response) => {
         let type;
         if (response.headers && response.headers['Content-Type']) {
-            type = response.headers['Content-Type'];
+            type = response.headers['Content-Type'] as string;
         }
         return OnmsResult.ok(this.getData(response), undefined, response.status, type);
     }).catch((err) => {
