@@ -36,7 +36,6 @@ commands:
       - run:
           name: Install Dependencies
           command: npm ci
-      - save-node-cache
       - run:
           name: Run merge build
           no_output_timeout: 20m
