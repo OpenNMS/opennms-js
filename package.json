@@ -96,7 +96,7 @@
     "x2js": "^3.4.2"
   },
   "scripts": {
-    "changelog": "standard-changelog -i CHANGELOG.md -s -r 1",
+    "changelog": "standard-changelog -i CHANGELOG.md -s -f",
     "build": "webpack --mode production --env production",
     "dev": "webpack --mode=development --progress",
     "dist": "npm run lint && npm run test && npm run build && npm run docs",
