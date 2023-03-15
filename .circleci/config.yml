@@ -4,7 +4,7 @@ orbs:
   branch-management: opennms/branch-management@2.3.0
 
 commands:
-  build-dist:
+  restore-node-cache:
     steps:
       - restore_cache:
           name: Restore Package Cache
@@ -12,18 +12,35 @@ commands:
             - npm-cache-v1-{{ .Branch }}-{{ checksum "package-lock.json" }}
             - npm-cache-v1-{{ .Branch }}
             - npm-cache-v1-
-      - run:
-          name: Install Dependencies
-          command: npm ci
+  save-node-cache:
+    steps:
       - save_cache:
           name: Save Package Cache
           key: npm-cache-v1-{{ .Branch }}-{{ checksum "package-lock.json" }}
           paths:
             - ~/.npm
+  build-dist:
+    steps:
+      - restore-node-cache
+      - run:
+          name: Install Dependencies
+          command: npm ci
+      - save-node-cache
       - run:
           name: Run dist build
           no_output_timeout: 20m
           command: npm run dist
+  build-merge:
+    steps:
+      - restore-node-cache
+      - run:
+          name: Install Dependencies
+          command: npm ci
+      - save-node-cache
+      - run:
+          name: Run merge build
+          no_output_timeout: 20m
+          command: npm run build && npm run docs
 
 jobs:
   build:
@@ -33,13 +50,8 @@ jobs:
       - checkout
       - build-dist
       - run:
-          name: Run tests
-          no_output_timeout: 20m
-          command: npm run lint && npm run test
-      - run:
-          name: Build documentation
+          name: pack API documentation
           command: |
-            npm run docs
             pushd dist/docs
             zip -9 -r ../../build/api.zip .
       - store_artifacts:
@@ -74,7 +86,7 @@ jobs:
           committer_name: "CI/CD System"
           from: develop
           to: main
-      - build-dist
+      - build-merge
       - run:
           name: "Commit Changes"
           command: |
