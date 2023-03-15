@@ -29,7 +29,7 @@ commands:
       - run:
           name: Run dist build
           no_output_timeout: 20m
-          command: npm run dist
+          command: npm run full
   build-merge:
     steps:
       - restore-node-cache
@@ -39,7 +39,7 @@ commands:
       - run:
           name: Run merge build
           no_output_timeout: 20m
-          command: npm run build && npm run docs
+          command: npm run merge
 
 jobs:
   build:

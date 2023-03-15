@@ -97,9 +97,10 @@
   },
   "scripts": {
     "changelog": "standard-changelog -i CHANGELOG.md -s -f",
+    "update-browserslist": "npx --yes browserslist@latest --update-db",
     "build": "webpack --mode production --env production",
     "dev": "webpack --mode=development --progress",
-    "dist": "npm run lint && npm run test && npm run build && npm run docs",
+    "dist": "npm run lint && npm run test && npm run update-browserslist && npm run build && npm run docs",
     "api": "typedoc",
     "docs": "npm run api && antora --stacktrace generate local-site.yml",
     "watch": "webpack --progress --watch",
@@ -110,6 +111,8 @@
     "cli": "ts-node src/CLI.ts",
     "docker-build": "npm ci && npm run dist && npm run changelog && ./fix-ownership.sh",
     "docker": "docker run --rm --name opennms-js -v `pwd`:/build -w /build node:carbon npm run docker-build",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "full": "npm run dist",
+    "merge": "npm run update-browserslist && npm run build && npm run docs && npm run changelog"
   }
 }
