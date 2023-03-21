@@ -1,5 +1,5 @@
 name: opennms-js
-version: '2.5.2-SNAPSHOT'
+version: '2.5.5'
 title: OpenNMS.js
 nav:
   - modules/ROOT/nav.adoc
