@@ -2908,7 +2908,9 @@ function parseElementStartPart(source, start, el, currentNSMap, entityReplacer, 
             el.closed = true;
           case S_ATTR_NOQUOT_VALUE:
           case S_ATTR:
+            break;
           case S_ATTR_SPACE:
+            el.closed = true;
             break;
           //case S_EQ:
           default:
@@ -71046,6 +71048,10 @@ var Restriction = /*#__PURE__*/function () {
     }
 
     /** The model attribute (name, id, etc.) to query. */
+
+    /** The comparator to use when querying. */
+
+    /** The value to compare the attribute property to. */
   }]);
   return Restriction;
 }();
@@ -71163,6 +71169,8 @@ var Clause = /*#__PURE__*/function () {
     }
 
     /** The associated restriction. */
+
+    /** The boolean operator to apply. */
   }]);
   return Clause;
 }();
@@ -71440,8 +71448,7 @@ function Util_toPrimitive(input, hint) { if (Util_typeof(input) !== "object" || 
 
 
 
-/** @hidden */
-// tslint:disable-next-line
+/** @hidden */ // tslint:disable-next-line
 var moment = __webpack_require__("./node_modules/moment/moment.js");
 
 /** @hidden */
@@ -71623,6 +71630,8 @@ var isString = function isString(v) {
  */
 // tslint:disable:completed-docs variable-name whitespace
 var OnmsHTTPOptionsBuilder = /*#__PURE__*/function () {
+  /** @hidden */
+
   /** @hidden */
 
   /** @hidden */
@@ -71879,6 +71888,22 @@ var OnmsHTTPOptionsBuilder = /*#__PURE__*/function () {
  * @category Rest
  */
 var OnmsHTTPOptions = /*#__PURE__*/function () {
+  /** HTTP data to be passed when POSTing */
+
+  /**
+   * The default timeout associated with these options.
+   *
+   * This is a trick for making sure serialization to JSON happens properly
+   * without exposing internals.
+   */
+
+  /**
+   * The default authentication credentials associated with these options.
+   *
+   * This is a trick for making sure serialization to JSON happens properly
+   * without exposing internals.
+   */
+
   /**
    * Construct a new OnmsHTTPOptions object.
    * @constructor
@@ -72004,6 +72029,12 @@ var OnmsResult = /*#__PURE__*/function () {
     }
 
     /** The data, if any. */
+
+    /** The request type, if any. */
+
+    /** The status message associated with this result. */
+
+    /** The response code associated with this result. */
   }]);
   return OnmsResult;
 }();
@@ -72305,6 +72336,14 @@ var OnmsServer = /*#__PURE__*/function () {
     }
 
     /** A unique identifier for this server. */
+
+    /** An optional name associated with this server. */
+
+    /** The base URL to the server. */
+
+    /** The authorization configuration associated with the server. */
+
+    /** The capabilities of the server */
   }]);
   return OnmsServer;
 }();
@@ -73152,6 +73191,8 @@ var V2FilterProcessor = /*#__PURE__*/function () {
    * @hidden
    */
 
+  /** The accessor for Properties */
+
   function V2FilterProcessor(searchProperties) {
     V2FilterProcessor_classCallCheck(this, V2FilterProcessor);
     this.searchProperties = searchProperties;
@@ -73348,7 +73389,6 @@ var BaseDAO_moment = __webpack_require__("./node_modules/moment/moment.js");
 
 /** @hidden */
 // tslint:disable-next-line
-
 
 
 /**
@@ -74104,6 +74144,8 @@ var OnmsServiceType = /*#__PURE__*/function () {
     }
 
     /** The service ID. */
+
+    /** The service name. */
   }]);
   return OnmsServiceType;
 }();
@@ -78081,6 +78123,8 @@ var OnmsCategory = /*#__PURE__*/function () {
     }
 
     /** The service ID. */
+
+    /** The service name. */
   }]);
   return OnmsCategory;
 }();
@@ -82053,7 +82097,9 @@ var Client = /*#__PURE__*/function () {
         return _getMetadata.apply(this, arguments);
       }
       return getMetadata;
-    }() /** The default OnmsHTTP implementation to be used when making requests */
+    }()
+    /** The default OnmsHTTP implementation to be used when making requests */
+    /** the OnmsHTTP implementation that will be used when making requests */
   }]);
   return Client;
 }();
@@ -82136,6 +82182,21 @@ var Logger = /*#__PURE__*/function () {
   _createClass(Logger, [{
     key: "clear",
     value:
+    /**
+     * Whether debugging is enabled.
+     * @hidden
+     */
+
+    /**
+     * Whether quiet (error-only) is enabled.
+     * @hidden
+     */
+
+    /**
+     * Whether silent (no output) is enabled.
+     * @hidden
+     */
+
     /**
      * Clear the console.
      */
@@ -82444,6 +82505,8 @@ var OrderBy = /*#__PURE__*/function () {
     }
 
     /** the attribute to order by */
+
+    /** the order to sort */
   }]);
   return OrderBy;
 }();
