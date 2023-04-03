@@ -1,6 +1,6 @@
 docs:
-- docs/*
-- docs/**/*
-- docs-src/*
-- docs-src/**/*
-- **/*.adoc
+- "docs/*"
+- "docs/**/*"
+- "docs-src/*"
+- "docs-src/**/*"
+- "**/*.adoc"
