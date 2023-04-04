@@ -18460,9 +18460,7 @@ module.exports = {
   add: uncurryThis(SetPrototype.add),
   has: uncurryThis(SetPrototype.has),
   remove: uncurryThis(SetPrototype['delete']),
-  proto: SetPrototype,
-  $has: SetPrototype.has,
-  $keys: SetPrototype.keys
+  proto: SetPrototype
 };
 
 /***/ }),
@@ -18542,10 +18540,10 @@ var store = __webpack_require__("./node_modules/core-js/internals/shared-store.j
 (module.exports = function (key, value) {
   return store[key] || (store[key] = value !== undefined ? value : {});
 })('versions', []).push({
-  version: '3.29.1',
+  version: '3.30.0',
   mode: IS_PURE ? 'pure' : 'global',
   copyright: '© 2014-2023 Denis Pushkarev (zloirock.ru)',
-  license: 'https://github.com/zloirock/core-js/blob/v3.29.1/LICENSE',
+  license: 'https://github.com/zloirock/core-js/blob/v3.30.0/LICENSE',
   source: 'https://github.com/zloirock/core-js'
 });
 
@@ -20325,6 +20323,7 @@ var FIND_INDEX = 'findIndex';
 var SKIPS_HOLES = true;
 
 // Shouldn't skip holes
+// eslint-disable-next-line es/no-array-prototype-findindex -- testing
 if (FIND_INDEX in []) Array(1)[FIND_INDEX](function () {
   SKIPS_HOLES = false;
 });
@@ -20407,6 +20406,7 @@ var FIND = 'find';
 var SKIPS_HOLES = true;
 
 // Shouldn't skip holes
+// eslint-disable-next-line es/no-array-prototype-find -- testing
 if (FIND in []) Array(1)[FIND](function () {
   SKIPS_HOLES = false;
 });
@@ -29972,6 +29972,35 @@ if (DESCRIPTORS && !('size' in URLSearchParamsPrototype)) {
 
 /***/ }),
 
+/***/ "./node_modules/core-js/modules/web.url.can-parse.js":
+/***/ ((__unused_webpack_module, __unused_webpack_exports, __webpack_require__) => {
+
+var $ = __webpack_require__("./node_modules/core-js/internals/export.js");
+var getBuiltIn = __webpack_require__("./node_modules/core-js/internals/get-built-in.js");
+var validateArgumentsLength = __webpack_require__("./node_modules/core-js/internals/validate-arguments-length.js");
+var toString = __webpack_require__("./node_modules/core-js/internals/to-string.js");
+var URL = getBuiltIn('URL');
+
+// `URL.canParse` method
+// https://url.spec.whatwg.org/#dom-url-canparse
+$({
+  target: 'URL',
+  stat: true
+}, {
+  canParse: function canParse(url) {
+    var length = validateArgumentsLength(arguments.length, 1);
+    var urlString = toString(url);
+    var base = length < 2 || arguments[1] === undefined ? undefined : toString(arguments[1]);
+    try {
+      return !!new URL(urlString, base);
+    } catch (error) {
+      return false;
+    }
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/core-js/modules/web.url.constructor.js":
 /***/ ((__unused_webpack_module, __unused_webpack_exports, __webpack_require__) => {
 
@@ -31274,6 +31303,7 @@ __webpack_require__("./node_modules/core-js/modules/web.self.js");
 __webpack_require__("./node_modules/core-js/modules/web.structured-clone.js");
 __webpack_require__("./node_modules/core-js/modules/web.timers.js");
 __webpack_require__("./node_modules/core-js/modules/web.url.js");
+__webpack_require__("./node_modules/core-js/modules/web.url.can-parse.js");
 __webpack_require__("./node_modules/core-js/modules/web.url.to-json.js");
 __webpack_require__("./node_modules/core-js/modules/web.url-search-params.js");
 __webpack_require__("./node_modules/core-js/modules/web.url-search-params.size.js");
