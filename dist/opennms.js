@@ -61054,9 +61054,7 @@ function parseTokens(str) {
   }
   return tokens;
 }
-function isValidHeaderName(str) {
-  return /^[-_a-zA-Z]+$/.test(str.trim());
-}
+const isValidHeaderName = str => /^[-_a-zA-Z0-9^`|~,!#$%&'*+.]+$/.test(str.trim());
 function matchHeaderValue(context, value, header, filter, isHeaderNameFilter) {
   if (utils/* default.isFunction */.Z.isFunction(filter)) {
     return filter.call(this, value, header);
@@ -73027,7 +73025,7 @@ function mergeConfig(config1, config2) {
 // EXTERNAL MODULE: ./node_modules/axios/lib/core/buildFullPath.js + 2 modules
 var buildFullPath = __webpack_require__("./node_modules/axios/lib/core/buildFullPath.js");
 ;// CONCATENATED MODULE: ./node_modules/axios/lib/env/data.js
-const VERSION = "1.3.4";
+const VERSION = "1.3.5";
 ;// CONCATENATED MODULE: ./node_modules/axios/lib/helpers/validator.js
 
 
@@ -73166,11 +73164,17 @@ class Axios {
         clarifyTimeoutError: Axios_validators.transitional(Axios_validators.boolean)
       }, false);
     }
-    if (paramsSerializer !== undefined) {
-      validator.assertOptions(paramsSerializer, {
-        encode: Axios_validators.function,
-        serialize: Axios_validators.function
-      }, true);
+    if (paramsSerializer != null) {
+      if (utils/* default.isFunction */.Z.isFunction(paramsSerializer)) {
+        config.paramsSerializer = {
+          serialize: paramsSerializer
+        };
+      } else {
+        validator.assertOptions(paramsSerializer, {
+          encode: Axios_validators.function,
+          serialize: Axios_validators.function
+        }, true);
+      }
     }
 
     // Set config.method
