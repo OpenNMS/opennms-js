@@ -80676,11 +80676,17 @@ class Axios {
         clarifyTimeoutError: Axios_validators.transitional(Axios_validators.boolean)
       }, false);
     }
-    if (paramsSerializer !== undefined) {
-      validator.assertOptions(paramsSerializer, {
-        encode: Axios_validators.function,
-        serialize: Axios_validators.function
-      }, true);
+    if (paramsSerializer != null) {
+      if (utils/* default.isFunction */.Z.isFunction(paramsSerializer)) {
+        config.paramsSerializer = {
+          serialize: paramsSerializer
+        };
+      } else {
+        validator.assertOptions(paramsSerializer, {
+          encode: Axios_validators.function,
+          serialize: Axios_validators.function
+        }, true);
+      }
     }
 
     // Set config.method
@@ -88037,9 +88043,7 @@ function parseTokens(str) {
   }
   return tokens;
 }
-function isValidHeaderName(str) {
-  return /^[-_a-zA-Z]+$/.test(str.trim());
-}
+const isValidHeaderName = str => /^[-_a-zA-Z0-9^`|~,!#$%&'*+.]+$/.test(str.trim());
 function matchHeaderValue(context, value, header, filter, isHeaderNameFilter) {
   if (utils/* default.isFunction */.Z.isFunction(filter)) {
     return filter.call(this, value, header);
@@ -88351,7 +88355,7 @@ function settle(resolve, reject, response) {
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "q": () => (/* binding */ VERSION)
 /* harmony export */ });
-const VERSION = "1.3.4";
+const VERSION = "1.3.5";
 
 /***/ }),
 
