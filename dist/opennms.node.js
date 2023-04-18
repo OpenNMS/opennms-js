@@ -18219,10 +18219,10 @@ var store = __webpack_require__("./node_modules/core-js/internals/shared-store.j
 (module.exports = function (key, value) {
   return store[key] || (store[key] = value !== undefined ? value : {});
 })('versions', []).push({
-  version: '3.30.0',
+  version: '3.30.1',
   mode: IS_PURE ? 'pure' : 'global',
   copyright: '© 2014-2023 Denis Pushkarev (zloirock.ru)',
-  license: 'https://github.com/zloirock/core-js/blob/v3.30.0/LICENSE',
+  license: 'https://github.com/zloirock/core-js/blob/v3.30.1/LICENSE',
   source: 'https://github.com/zloirock/core-js'
 });
 
@@ -29656,15 +29656,23 @@ if (DESCRIPTORS && !('size' in URLSearchParamsPrototype)) {
 
 var $ = __webpack_require__("./node_modules/core-js/internals/export.js");
 var getBuiltIn = __webpack_require__("./node_modules/core-js/internals/get-built-in.js");
+var fails = __webpack_require__("./node_modules/core-js/internals/fails.js");
 var validateArgumentsLength = __webpack_require__("./node_modules/core-js/internals/validate-arguments-length.js");
 var toString = __webpack_require__("./node_modules/core-js/internals/to-string.js");
+var USE_NATIVE_URL = __webpack_require__("./node_modules/core-js/internals/url-constructor-detection.js");
 var URL = getBuiltIn('URL');
+
+// https://github.com/nodejs/node/issues/47505
+var THROWS_WITHOUT_ARGUMENTS = USE_NATIVE_URL && fails(function () {
+  URL.canParse();
+});
 
 // `URL.canParse` method
 // https://url.spec.whatwg.org/#dom-url-canparse
 $({
   target: 'URL',
-  stat: true
+  stat: true,
+  forced: !THROWS_WITHOUT_ARGUMENTS
 }, {
   canParse: function canParse(url) {
     var length = validateArgumentsLength(arguments.length, 1);
