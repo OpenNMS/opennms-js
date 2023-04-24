@@ -61969,8 +61969,10 @@ const isStream = val => isObject(val) && isFunction(val.pipe);
  * @returns {boolean} True if value is an FormData, otherwise false
  */
 const isFormData = thing => {
-  const pattern = '[object FormData]';
-  return thing && (typeof FormData === 'function' && thing instanceof FormData || toString.call(thing) === pattern || isFunction(thing.toString) && thing.toString() === pattern);
+  let kind;
+  return thing && (typeof FormData === 'function' && thing instanceof FormData || isFunction(thing.append) && ((kind = kindOf(thing)) === 'formdata' ||
+  // detect form-data instance
+  kind === 'object' && isFunction(thing.toString) && thing.toString() === '[object FormData]'));
 };
 
 /**
@@ -73033,7 +73035,7 @@ function mergeConfig(config1, config2) {
 // EXTERNAL MODULE: ./node_modules/axios/lib/core/buildFullPath.js + 2 modules
 var buildFullPath = __webpack_require__("./node_modules/axios/lib/core/buildFullPath.js");
 ;// CONCATENATED MODULE: ./node_modules/axios/lib/env/data.js
-const VERSION = "1.3.5";
+const VERSION = "1.3.6";
 ;// CONCATENATED MODULE: ./node_modules/axios/lib/helpers/validator.js
 
 

@@ -65286,7 +65286,7 @@ function settle(resolve, reject, response) {
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "q": () => (/* binding */ VERSION)
 /* harmony export */ });
-const VERSION = "1.3.5";
+const VERSION = "1.3.6";
 
 /***/ }),
 
@@ -65939,8 +65939,10 @@ const isStream = val => isObject(val) && isFunction(val.pipe);
  * @returns {boolean} True if value is an FormData, otherwise false
  */
 const isFormData = thing => {
-  const pattern = '[object FormData]';
-  return thing && (typeof FormData === 'function' && thing instanceof FormData || toString.call(thing) === pattern || isFunction(thing.toString) && thing.toString() === pattern);
+  let kind;
+  return thing && (typeof FormData === 'function' && thing instanceof FormData || isFunction(thing.append) && ((kind = kindOf(thing)) === 'formdata' ||
+  // detect form-data instance
+  kind === 'object' && isFunction(thing.toString) && thing.toString() === '[object FormData]'));
 };
 
 /**
