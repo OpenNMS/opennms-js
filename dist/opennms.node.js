@@ -63847,7 +63847,23 @@ class ZlibHeaderTransformStream extends external_stream_.Transform {
   }
 }
 /* harmony default export */ const helpers_ZlibHeaderTransformStream = (ZlibHeaderTransformStream);
+;// CONCATENATED MODULE: ./node_modules/axios/lib/helpers/callbackify.js
+
+const callbackify = (fn, reducer) => {
+  return utils/* default.isAsyncFn */.Z.isAsyncFn(fn) ? function (...args) {
+    const cb = args.pop();
+    fn.apply(this, args).then(value => {
+      try {
+        reducer ? cb(null, ...reducer(value)) : cb(null, value);
+      } catch (err) {
+        cb(err);
+      }
+    }, cb);
+  } : fn;
+};
+/* harmony default export */ const helpers_callbackify = (callbackify);
 ;// CONCATENATED MODULE: ./node_modules/axios/lib/adapters/http.js
+
 
 
 
@@ -63984,7 +64000,9 @@ const wrapAsync = asyncExecutor => {
 /* harmony default export */ const http = (isHttpAdapterSupported && function httpAdapter(config) {
   return wrapAsync(async function dispatchHttpRequest(resolve, reject, onDone) {
     let {
-      data
+      data,
+      lookup,
+      family
     } = config;
     const {
       responseType,
@@ -63994,6 +64012,16 @@ const wrapAsync = asyncExecutor => {
     let isDone;
     let rejected = false;
     let req;
+    if (lookup && utils/* default.isAsyncFn */.Z.isAsyncFn(lookup)) {
+      lookup = helpers_callbackify(lookup, entry => {
+        if (utils/* default.isString */.Z.isString(entry)) {
+          entry = [entry, entry.indexOf('.') < 0 ? 6 : 4];
+        } else if (!utils/* default.isArray */.Z.isArray(entry)) {
+          throw new TypeError('lookup async function must return an array [ip: string, family: number]]');
+        }
+        return entry;
+      });
+    }
 
     // temporary internal emitter until the AxiosRequest class will be implemented
     const emitter = new external_events_();
@@ -64175,6 +64203,8 @@ const wrapAsync = asyncExecutor => {
       },
       auth,
       protocol,
+      family,
+      lookup,
       beforeRedirect: dispatchBeforeRedirect,
       beforeRedirects: {}
     };
@@ -64597,8 +64627,12 @@ const isXHRAdapterSupported = typeof XMLHttpRequest !== 'undefined';
         config.signal.removeEventListener('abort', onCanceled);
       }
     }
-    if (utils/* default.isFormData */.Z.isFormData(requestData) && (node/* default.isStandardBrowserEnv */.Z.isStandardBrowserEnv || node/* default.isStandardBrowserWebWorkerEnv */.Z.isStandardBrowserWebWorkerEnv)) {
-      requestHeaders.setContentType(false); // Let the browser set it
+    if (utils/* default.isFormData */.Z.isFormData(requestData)) {
+      if (node/* default.isStandardBrowserEnv */.Z.isStandardBrowserEnv || node/* default.isStandardBrowserWebWorkerEnv */.Z.isStandardBrowserWebWorkerEnv) {
+        requestHeaders.setContentType(false); // Let the browser set it
+      } else {
+        requestHeaders.setContentType('multipart/form-data;', false); // mobile/desktop app frameworks
+      }
     }
 
     let request = new XMLHttpRequest();
@@ -65286,7 +65320,7 @@ function settle(resolve, reject, response) {
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "q": () => (/* binding */ VERSION)
 /* harmony export */ });
-const VERSION = "1.3.6";
+const VERSION = "1.4.0";
 
 /***/ }),
 
@@ -66371,6 +66405,8 @@ const toJSONObject = obj => {
   };
   return visit(obj, 0);
 };
+const isAsyncFn = kindOfTest('AsyncFunction');
+const isThenable = thing => thing && (isObject(thing) || isFunction(thing)) && isFunction(thing.then) && isFunction(thing.catch);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   isArray,
   isArrayBuffer,
@@ -66421,7 +66457,9 @@ const toJSONObject = obj => {
   ALPHABET,
   generateString,
   isSpecCompliantForm,
-  toJSONObject
+  toJSONObject,
+  isAsyncFn,
+  isThenable
 });
 
 /***/ }),
@@ -76359,7 +76397,7 @@ function isCancel(value) {
 }
 // EXTERNAL MODULE: ./node_modules/axios/lib/cancel/CanceledError.js
 var CanceledError = __webpack_require__("./node_modules/axios/lib/cancel/CanceledError.js");
-// EXTERNAL MODULE: ./node_modules/axios/lib/adapters/http.js + 7 modules
+// EXTERNAL MODULE: ./node_modules/axios/lib/adapters/http.js + 8 modules
 var http = __webpack_require__("./node_modules/axios/lib/adapters/http.js");
 // EXTERNAL MODULE: ./node_modules/axios/lib/adapters/xhr.js + 2 modules
 var xhr = __webpack_require__("./node_modules/axios/lib/adapters/xhr.js");
@@ -76572,7 +76610,7 @@ function mergeConfig(config1, config2) {
     validateStatus: mergeDirectKeys,
     headers: (a, b) => mergeDeepProperties(headersToObject(a), headersToObject(b), true)
   };
-  utils/* default.forEach */.Z.forEach(Object.keys(config1).concat(Object.keys(config2)), function computeConfigValue(prop) {
+  utils/* default.forEach */.Z.forEach(Object.keys(Object.assign({}, config1, config2)), function computeConfigValue(prop) {
     const merge = mergeMap[prop] || mergeDeepProperties;
     const configValue = merge(config1[prop], config2[prop], prop);
     utils/* default.isUndefined */.Z.isUndefined(configValue) && merge !== mergeDirectKeys || (config[prop] = configValue);

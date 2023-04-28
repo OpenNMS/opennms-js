@@ -60685,8 +60685,12 @@ const isXHRAdapterSupported = typeof XMLHttpRequest !== 'undefined';
         config.signal.removeEventListener('abort', onCanceled);
       }
     }
-    if (utils/* default.isFormData */.Z.isFormData(requestData) && (browser/* default.isStandardBrowserEnv */.Z.isStandardBrowserEnv || browser/* default.isStandardBrowserWebWorkerEnv */.Z.isStandardBrowserWebWorkerEnv)) {
-      requestHeaders.setContentType(false); // Let the browser set it
+    if (utils/* default.isFormData */.Z.isFormData(requestData)) {
+      if (browser/* default.isStandardBrowserEnv */.Z.isStandardBrowserEnv || browser/* default.isStandardBrowserWebWorkerEnv */.Z.isStandardBrowserWebWorkerEnv) {
+        requestHeaders.setContentType(false); // Let the browser set it
+      } else {
+        requestHeaders.setContentType('multipart/form-data;', false); // mobile/desktop app frameworks
+      }
     }
 
     let request = new XMLHttpRequest();
@@ -62401,6 +62405,8 @@ const toJSONObject = obj => {
   };
   return visit(obj, 0);
 };
+const isAsyncFn = kindOfTest('AsyncFunction');
+const isThenable = thing => thing && (isObject(thing) || isFunction(thing)) && isFunction(thing.then) && isFunction(thing.catch);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   isArray,
   isArrayBuffer,
@@ -62451,7 +62457,9 @@ const toJSONObject = obj => {
   ALPHABET,
   generateString,
   isSpecCompliantForm,
-  toJSONObject
+  toJSONObject,
+  isAsyncFn,
+  isThenable
 });
 
 /***/ })
@@ -73025,7 +73033,7 @@ function mergeConfig(config1, config2) {
     validateStatus: mergeDirectKeys,
     headers: (a, b) => mergeDeepProperties(headersToObject(a), headersToObject(b), true)
   };
-  utils/* default.forEach */.Z.forEach(Object.keys(config1).concat(Object.keys(config2)), function computeConfigValue(prop) {
+  utils/* default.forEach */.Z.forEach(Object.keys(Object.assign({}, config1, config2)), function computeConfigValue(prop) {
     const merge = mergeMap[prop] || mergeDeepProperties;
     const configValue = merge(config1[prop], config2[prop], prop);
     utils/* default.isUndefined */.Z.isUndefined(configValue) && merge !== mergeDirectKeys || (config[prop] = configValue);
@@ -73035,7 +73043,7 @@ function mergeConfig(config1, config2) {
 // EXTERNAL MODULE: ./node_modules/axios/lib/core/buildFullPath.js + 2 modules
 var buildFullPath = __webpack_require__("./node_modules/axios/lib/core/buildFullPath.js");
 ;// CONCATENATED MODULE: ./node_modules/axios/lib/env/data.js
-const VERSION = "1.3.6";
+const VERSION = "1.4.0";
 ;// CONCATENATED MODULE: ./node_modules/axios/lib/helpers/validator.js
 
 
