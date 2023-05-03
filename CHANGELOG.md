@@ -1,6 +1,11 @@
 ## [2.5.6-SNAPSHOT](https://github.com/OpenNMS/opennms-js/compare/v2.5.5...v2.5.6-SNAPSHOT) (2023-05-03)
 
 
+### Bug Fixes
+
+* **deps-dev:** repair overly-messed-with antora deps ([4eef88e](https://github.com/OpenNMS/opennms-js/commit/4eef88ed37aed43aa6eee41fbf737bd7a92c66c8))
+
+
 
 ## [2.5.5](https://github.com/OpenNMS/opennms-js/compare/v2.5.4...v2.5.5) (2023-03-21)
 
