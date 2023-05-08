@@ -16028,7 +16028,7 @@ module.exports = function (matched, str, position, captures, namedCaptures, repl
 /***/ }),
 
 /***/ "./node_modules/core-js/internals/global.js":
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
 var check = function (it) {
   return it && it.Math == Math && it;
@@ -16043,7 +16043,7 @@ check(typeof self == 'object' && self) || check(typeof __webpack_require__.g == 
 // eslint-disable-next-line no-new-func -- fallback
 function () {
   return this;
-}() || Function('return this')();
+}() || this || Function('return this')();
 
 /***/ }),
 
@@ -18540,10 +18540,10 @@ var store = __webpack_require__("./node_modules/core-js/internals/shared-store.j
 (module.exports = function (key, value) {
   return store[key] || (store[key] = value !== undefined ? value : {});
 })('versions', []).push({
-  version: '3.30.1',
+  version: '3.30.2',
   mode: IS_PURE ? 'pure' : 'global',
   copyright: '© 2014-2023 Denis Pushkarev (zloirock.ru)',
-  license: 'https://github.com/zloirock/core-js/blob/v3.30.1/LICENSE',
+  license: 'https://github.com/zloirock/core-js/blob/v3.30.2/LICENSE',
   source: 'https://github.com/zloirock/core-js'
 });
 
@@ -18986,13 +18986,17 @@ module.exports = !!structuredClone && !fails(function () {
 /* eslint-disable es/no-symbol -- required for testing */
 var V8_VERSION = __webpack_require__("./node_modules/core-js/internals/engine-v8-version.js");
 var fails = __webpack_require__("./node_modules/core-js/internals/fails.js");
+var global = __webpack_require__("./node_modules/core-js/internals/global.js");
+var $String = global.String;
 
 // eslint-disable-next-line es/no-object-getownpropertysymbols -- required for testing
 module.exports = !!Object.getOwnPropertySymbols && !fails(function () {
   var symbol = Symbol();
   // Chrome 38 Symbol has incorrect toString conversion
   // `get-own-property-symbols` polyfill symbols converted to object are not Symbol instances
-  return !String(symbol) || !(Object(symbol) instanceof Symbol) ||
+  // nb: Do not call `String` directly to avoid this being optimized out to `symbol+''` which will,
+  // of course, fail.
+  return !$String(symbol) || !(Object(symbol) instanceof Symbol) ||
   // Chrome 38-40 symbols are not inherited from DOM collections prototypes to instances
   !Symbol.sham && V8_VERSION && V8_VERSION < 41;
 });
@@ -29142,6 +29146,10 @@ var throwUncloneable = function (type) {
 var throwUnpolyfillable = function (type, action) {
   throw new DOMException((action || 'Cloning') + ' of ' + type + ' cannot be properly polyfilled in this engine', DATA_CLONE_ERROR);
 };
+var tryNativeRestrictedStructuredClone = function (value, type) {
+  if (!nativeRestrictedStructuredClone) throwUnpolyfillable(type);
+  return nativeRestrictedStructuredClone(value);
+};
 var createDataTransfer = function () {
   var dataTransfer;
   try {
@@ -29251,10 +29259,19 @@ var structuredCloneInternal = function (value, map) {
       try {
         cloned = new DOMQuad(structuredCloneInternal(value.p1, map), structuredCloneInternal(value.p2, map), structuredCloneInternal(value.p3, map), structuredCloneInternal(value.p4, map));
       } catch (error) {
-        if (nativeRestrictedStructuredClone) {
-          cloned = nativeRestrictedStructuredClone(value);
-        } else throwUnpolyfillable(type);
+        cloned = tryNativeRestrictedStructuredClone(value, type);
       }
+      break;
+    case 'File':
+      if (nativeRestrictedStructuredClone) try {
+        cloned = nativeRestrictedStructuredClone(value);
+        // NodeJS 20.0.0 bug, https://github.com/nodejs/node/issues/47612
+        if (classof(cloned) !== type) cloned = undefined;
+      } catch (error) {/* empty */}
+      if (!cloned) try {
+        cloned = new File([value], value.name, value);
+      } catch (error) {/* empty */}
+      if (!cloned) throwUnpolyfillable(type);
       break;
     case 'FileList':
       dataTransfer = createDataTransfer();
@@ -29263,9 +29280,7 @@ var structuredCloneInternal = function (value, map) {
           dataTransfer.items.add(structuredCloneInternal(value[i], map));
         }
         cloned = dataTransfer.files;
-      } else if (nativeRestrictedStructuredClone) {
-        cloned = nativeRestrictedStructuredClone(value);
-      } else throwUnpolyfillable(type);
+      } else cloned = tryNativeRestrictedStructuredClone(value, type);
       break;
     case 'ImageData':
       // Safari 9 ImageData is a constructor, but typeof ImageData is 'object'
@@ -29274,9 +29289,7 @@ var structuredCloneInternal = function (value, map) {
           colorSpace: value.colorSpace
         });
       } catch (error) {
-        if (nativeRestrictedStructuredClone) {
-          cloned = nativeRestrictedStructuredClone(value);
-        } else throwUnpolyfillable(type);
+        cloned = tryNativeRestrictedStructuredClone(value, type);
       }
       break;
     default:
@@ -29369,13 +29382,6 @@ var structuredCloneInternal = function (value, map) {
             cloned = value.clone();
           } catch (error) {
             throwUncloneable(type);
-          }
-          break;
-        case 'File':
-          try {
-            cloned = new File([value], value.name, value);
-          } catch (error) {
-            throwUnpolyfillable(type);
           }
           break;
         case 'CropTarget':
@@ -29984,6 +29990,7 @@ var USE_NATIVE_URL = __webpack_require__("./node_modules/core-js/internals/url-c
 var URL = getBuiltIn('URL');
 
 // https://github.com/nodejs/node/issues/47505
+// https://github.com/denoland/deno/issues/18893
 var THROWS_WITHOUT_ARGUMENTS = USE_NATIVE_URL && fails(function () {
   URL.canParse();
 });
