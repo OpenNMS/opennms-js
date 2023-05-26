@@ -71624,16 +71624,6 @@ var isString = function isString(v) {
 var OnmsHTTPOptionsBuilder = /*#__PURE__*/function () {
   /** @hidden */
 
-  /** @hidden */
-
-  /** @hidden */
-
-  /** @hidden */
-
-  /** @hidden */
-
-  /** @hidden */
-
   /**
    * Construct a new builder from an existing options object, if provided.
    *
@@ -71642,7 +71632,12 @@ var OnmsHTTPOptionsBuilder = /*#__PURE__*/function () {
    */
   function OnmsHTTPOptionsBuilder(options) {
     OnmsHTTPOptions_classCallCheck(this, OnmsHTTPOptionsBuilder);
+    /** @hidden */
+    /** @hidden */
+    /** @hidden */
+    /** @hidden */
     OnmsHTTPOptions_defineProperty(this, "_headers", {});
+    /** @hidden */
     OnmsHTTPOptions_defineProperty(this, "_parameters", {});
     if (options) {
       this._timeout = options.timeout;
@@ -72994,6 +72989,7 @@ var values_default = /*#__PURE__*/__webpack_require__.n(values);
 
 
 
+
 function V1FilterProcessor_typeof(obj) { "@babel/helpers - typeof"; return V1FilterProcessor_typeof = "function" == typeof (symbol_default()) && "symbol" == typeof (iterator_default()) ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof (symbol_default()) && obj.constructor === (symbol_default()) && obj !== (symbol_default()).prototype ? "symbol" : typeof obj; }, V1FilterProcessor_typeof(obj); }
 function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof (symbol_default()) !== "undefined" && get_iterator_method_default()(o) || o["@@iterator"]; if (!it) { if (is_array_default()(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
 function _unsupportedIterableToArray(o, minLen) { var _context3; if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = slice_default()(_context3 = Object.prototype.toString.call(o)).call(_context3, 8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return from_default()(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
@@ -73135,6 +73131,7 @@ function V2FilterProcessor_typeof(obj) { "@babel/helpers - typeof"; return V2Fil
 
 
 
+
 function V2FilterProcessor_createForOfIteratorHelper(o, allowArrayLike) { var it = typeof (symbol_default()) !== "undefined" && get_iterator_method_default()(o) || o["@@iterator"]; if (!it) { if (is_array_default()(o) || (it = V2FilterProcessor_unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
 function V2FilterProcessor_unsupportedIterableToArray(o, minLen) { var _context4; if (!o) return; if (typeof o === "string") return V2FilterProcessor_arrayLikeToArray(o, minLen); var n = slice_default()(_context4 = Object.prototype.toString.call(o)).call(_context4, 8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return from_default()(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return V2FilterProcessor_arrayLikeToArray(o, minLen); }
 function V2FilterProcessor_arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
@@ -73169,18 +73166,6 @@ function V2FilterProcessor_toPrimitive(input, hint) { if (V2FilterProcessor_type
  * @category Filtering
  */
 var V2FilterProcessor = /*#__PURE__*/function () {
-  /** Constant used to represent null values in the V2 API. */
-
-  /** Constant used to represent null dates in the V2 API.
-   *  This must be explicitly set as the restriction value when using
-   *  either the NULL or NOTNULL comparators on date fields.
-   */
-
-  /**
-   * pre-encoded to avoid running `encodeURIComponent` every time we deal with a null date
-   * @hidden
-   */
-
   /** The accessor for Properties */
 
   function V2FilterProcessor(searchProperties) {
@@ -73354,8 +73339,17 @@ var V2FilterProcessor = /*#__PURE__*/function () {
   }]);
   return V2FilterProcessor;
 }();
+/** Constant used to represent null values in the V2 API. */
 V2FilterProcessor_defineProperty(V2FilterProcessor, "NULL_VALUE", "\0");
+/** Constant used to represent null dates in the V2 API.
+ *  This must be explicitly set as the restriction value when using
+ *  either the NULL or NOTNULL comparators on date fields.
+ */
 V2FilterProcessor_defineProperty(V2FilterProcessor, "NULL_DATE", '1970-01-01T00:00:00.000+0000');
+/**
+ * pre-encoded to avoid running `encodeURIComponent` every time we deal with a null date
+ * @hidden
+ */
 V2FilterProcessor_defineProperty(V2FilterProcessor, "NULL_DATE_ENCODED", encodeURIComponent(V2FilterProcessor.NULL_DATE));
 ;// CONCATENATED MODULE: ./src/dao/BaseDAO.ts
 
@@ -73552,6 +73546,7 @@ var BaseDAO = /*#__PURE__*/function () {
 }();
 ;// CONCATENATED MODULE: ./src/dao/AbstractDAO.ts
 function AbstractDAO_typeof(obj) { "@babel/helpers - typeof"; return AbstractDAO_typeof = "function" == typeof (symbol_default()) && "symbol" == typeof (iterator_default()) ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof (symbol_default()) && obj.constructor === (symbol_default()) && obj !== (symbol_default()).prototype ? "symbol" : typeof obj; }, AbstractDAO_typeof(obj); }
+
 
 
 
@@ -74208,6 +74203,7 @@ function OnmsEvent_typeof(obj) { "@babel/helpers - typeof"; return OnmsEvent_typ
 function OnmsEvent_createForOfIteratorHelper(o, allowArrayLike) { var it = typeof (symbol_default()) !== "undefined" && get_iterator_method_default()(o) || o["@@iterator"]; if (!it) { if (is_array_default()(o) || (it = OnmsEvent_unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
 function OnmsEvent_unsupportedIterableToArray(o, minLen) { var _context; if (!o) return; if (typeof o === "string") return OnmsEvent_arrayLikeToArray(o, minLen); var n = slice_default()(_context = Object.prototype.toString.call(o)).call(_context, 8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return from_default()(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return OnmsEvent_arrayLikeToArray(o, minLen); }
 function OnmsEvent_arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
+
 
 
 
@@ -75887,6 +75883,7 @@ function FlowDAO_arrayLikeToArray(arr, len) { if (len == null || len > arr.lengt
 
 
 
+
 function FlowDAO_regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ FlowDAO_regeneratorRuntime = function _regeneratorRuntime() { return exports; }; var exports = {}, Op = Object.prototype, hasOwn = Op.hasOwnProperty, defineProperty = (define_property_default()) || function (obj, key, desc) { obj[key] = desc.value; }, $Symbol = "function" == typeof (symbol_default()) ? (symbol_default()) : {}, iteratorSymbol = $Symbol.iterator || "@@iterator", asyncIteratorSymbol = $Symbol.asyncIterator || "@@asyncIterator", toStringTagSymbol = $Symbol.toStringTag || "@@toStringTag"; function define(obj, key, value) { return define_property_default()(obj, key, { value: value, enumerable: !0, configurable: !0, writable: !0 }), obj[key]; } try { define({}, ""); } catch (err) { define = function define(obj, key, value) { return obj[key] = value; }; } function wrap(innerFn, outerFn, self, tryLocsList) { var protoGenerator = outerFn && outerFn.prototype instanceof Generator ? outerFn : Generator, generator = create_default()(protoGenerator.prototype), context = new Context(tryLocsList || []); return defineProperty(generator, "_invoke", { value: makeInvokeMethod(innerFn, self, context) }), generator; } function tryCatch(fn, obj, arg) { try { return { type: "normal", arg: fn.call(obj, arg) }; } catch (err) { return { type: "throw", arg: err }; } } exports.wrap = wrap; var ContinueSentinel = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var IteratorPrototype = {}; define(IteratorPrototype, iteratorSymbol, function () { return this; }); var getProto = (get_prototype_of_default()), NativeIteratorPrototype = getProto && getProto(getProto(values([]))); NativeIteratorPrototype && NativeIteratorPrototype !== Op && hasOwn.call(NativeIteratorPrototype, iteratorSymbol) && (IteratorPrototype = NativeIteratorPrototype); var Gp = GeneratorFunctionPrototype.prototype = Generator.prototype = create_default()(IteratorPrototype); function defineIteratorMethods(prototype) { var _context24; for_each_default()(_context24 = ["next", "throw", "return"]).call(_context24, function (method) { define(prototype, method, function (arg) { return this._invoke(method, arg); }); }); } function AsyncIterator(generator, PromiseImpl) { function invoke(method, arg, resolve, reject) { var record = tryCatch(generator[method], generator, arg); if ("throw" !== record.type) { var result = record.arg, value = result.value; return value && "object" == FlowDAO_typeof(value) && hasOwn.call(value, "__await") ? PromiseImpl.resolve(value.__await).then(function (value) { invoke("next", value, resolve, reject); }, function (err) { invoke("throw", err, resolve, reject); }) : PromiseImpl.resolve(value).then(function (unwrapped) { result.value = unwrapped, resolve(result); }, function (error) { return invoke("throw", error, resolve, reject); }); } reject(record.arg); } var previousPromise; defineProperty(this, "_invoke", { value: function value(method, arg) { function callInvokeWithMethodAndArg() { return new PromiseImpl(function (resolve, reject) { invoke(method, arg, resolve, reject); }); } return previousPromise = previousPromise ? previousPromise.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); } }); } function makeInvokeMethod(innerFn, self, context) { var state = "suspendedStart"; return function (method, arg) { if ("executing" === state) throw new Error("Generator is already running"); if ("completed" === state) { if ("throw" === method) throw arg; return doneResult(); } for (context.method = method, context.arg = arg;;) { var delegate = context.delegate; if (delegate) { var delegateResult = maybeInvokeDelegate(delegate, context); if (delegateResult) { if (delegateResult === ContinueSentinel) continue; return delegateResult; } } if ("next" === context.method) context.sent = context._sent = context.arg;else if ("throw" === context.method) { if ("suspendedStart" === state) throw state = "completed", context.arg; context.dispatchException(context.arg); } else "return" === context.method && context.abrupt("return", context.arg); state = "executing"; var record = tryCatch(innerFn, self, context); if ("normal" === record.type) { if (state = context.done ? "completed" : "suspendedYield", record.arg === ContinueSentinel) continue; return { value: record.arg, done: context.done }; } "throw" === record.type && (state = "completed", context.method = "throw", context.arg = record.arg); } }; } function maybeInvokeDelegate(delegate, context) { var methodName = context.method, method = delegate.iterator[methodName]; if (undefined === method) return context.delegate = null, "throw" === methodName && delegate.iterator.return && (context.method = "return", context.arg = undefined, maybeInvokeDelegate(delegate, context), "throw" === context.method) || "return" !== methodName && (context.method = "throw", context.arg = new TypeError("The iterator does not provide a '" + methodName + "' method")), ContinueSentinel; var record = tryCatch(method, delegate.iterator, context.arg); if ("throw" === record.type) return context.method = "throw", context.arg = record.arg, context.delegate = null, ContinueSentinel; var info = record.arg; return info ? info.done ? (context[delegate.resultName] = info.value, context.next = delegate.nextLoc, "return" !== context.method && (context.method = "next", context.arg = undefined), context.delegate = null, ContinueSentinel) : info : (context.method = "throw", context.arg = new TypeError("iterator result is not an object"), context.delegate = null, ContinueSentinel); } function pushTryEntry(locs) { var entry = { tryLoc: locs[0] }; 1 in locs && (entry.catchLoc = locs[1]), 2 in locs && (entry.finallyLoc = locs[2], entry.afterLoc = locs[3]), this.tryEntries.push(entry); } function resetTryEntry(entry) { var record = entry.completion || {}; record.type = "normal", delete record.arg, entry.completion = record; } function Context(tryLocsList) { this.tryEntries = [{ tryLoc: "root" }], for_each_default()(tryLocsList).call(tryLocsList, pushTryEntry, this), this.reset(!0); } function values(iterable) { if (iterable) { var iteratorMethod = iterable[iteratorSymbol]; if (iteratorMethod) return iteratorMethod.call(iterable); if ("function" == typeof iterable.next) return iterable; if (!isNaN(iterable.length)) { var i = -1, next = function next() { for (; ++i < iterable.length;) if (hasOwn.call(iterable, i)) return next.value = iterable[i], next.done = !1, next; return next.value = undefined, next.done = !0, next; }; return next.next = next; } } return { next: doneResult }; } function doneResult() { return { value: undefined, done: !0 }; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, defineProperty(Gp, "constructor", { value: GeneratorFunctionPrototype, configurable: !0 }), defineProperty(GeneratorFunctionPrototype, "constructor", { value: GeneratorFunction, configurable: !0 }), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, toStringTagSymbol, "GeneratorFunction"), exports.isGeneratorFunction = function (genFun) { var ctor = "function" == typeof genFun && genFun.constructor; return !!ctor && (ctor === GeneratorFunction || "GeneratorFunction" === (ctor.displayName || ctor.name)); }, exports.mark = function (genFun) { return (set_prototype_of_default()) ? set_prototype_of_default()(genFun, GeneratorFunctionPrototype) : (genFun.__proto__ = GeneratorFunctionPrototype, define(genFun, toStringTagSymbol, "GeneratorFunction")), genFun.prototype = create_default()(Gp), genFun; }, exports.awrap = function (arg) { return { __await: arg }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, asyncIteratorSymbol, function () { return this; }), exports.AsyncIterator = AsyncIterator, exports.async = function (innerFn, outerFn, self, tryLocsList, PromiseImpl) { void 0 === PromiseImpl && (PromiseImpl = (promise_default())); var iter = new AsyncIterator(wrap(innerFn, outerFn, self, tryLocsList), PromiseImpl); return exports.isGeneratorFunction(outerFn) ? iter : iter.next().then(function (result) { return result.done ? result.value : iter.next(); }); }, defineIteratorMethods(Gp), define(Gp, toStringTagSymbol, "Generator"), define(Gp, iteratorSymbol, function () { return this; }), define(Gp, "toString", function () { return "[object Generator]"; }), exports.keys = function (val) { var object = Object(val), keys = []; for (var key in object) keys.push(key); return reverse_default()(keys).call(keys), function next() { for (; keys.length;) { var key = keys.pop(); if (key in object) return next.value = key, next.done = !1, next; } return next.done = !0, next; }; }, exports.values = values, Context.prototype = { constructor: Context, reset: function reset(skipTempReset) { var _context25; if (this.prev = 0, this.next = 0, this.sent = this._sent = undefined, this.done = !1, this.delegate = null, this.method = "next", this.arg = undefined, for_each_default()(_context25 = this.tryEntries).call(_context25, resetTryEntry), !skipTempReset) for (var name in this) "t" === name.charAt(0) && hasOwn.call(this, name) && !isNaN(+slice_default()(name).call(name, 1)) && (this[name] = undefined); }, stop: function stop() { this.done = !0; var rootRecord = this.tryEntries[0].completion; if ("throw" === rootRecord.type) throw rootRecord.arg; return this.rval; }, dispatchException: function dispatchException(exception) { if (this.done) throw exception; var context = this; function handle(loc, caught) { return record.type = "throw", record.arg = exception, context.next = loc, caught && (context.method = "next", context.arg = undefined), !!caught; } for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i], record = entry.completion; if ("root" === entry.tryLoc) return handle("end"); if (entry.tryLoc <= this.prev) { var hasCatch = hasOwn.call(entry, "catchLoc"), hasFinally = hasOwn.call(entry, "finallyLoc"); if (hasCatch && hasFinally) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } else if (hasCatch) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); } else { if (!hasFinally) throw new Error("try statement without catch or finally"); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } } } }, abrupt: function abrupt(type, arg) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc <= this.prev && hasOwn.call(entry, "finallyLoc") && this.prev < entry.finallyLoc) { var finallyEntry = entry; break; } } finallyEntry && ("break" === type || "continue" === type) && finallyEntry.tryLoc <= arg && arg <= finallyEntry.finallyLoc && (finallyEntry = null); var record = finallyEntry ? finallyEntry.completion : {}; return record.type = type, record.arg = arg, finallyEntry ? (this.method = "next", this.next = finallyEntry.finallyLoc, ContinueSentinel) : this.complete(record); }, complete: function complete(record, afterLoc) { if ("throw" === record.type) throw record.arg; return "break" === record.type || "continue" === record.type ? this.next = record.arg : "return" === record.type ? (this.rval = this.arg = record.arg, this.method = "return", this.next = "end") : "normal" === record.type && afterLoc && (this.next = afterLoc), ContinueSentinel; }, finish: function finish(finallyLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.finallyLoc === finallyLoc) return this.complete(entry.completion, entry.afterLoc), resetTryEntry(entry), ContinueSentinel; } }, catch: function _catch(tryLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc === tryLoc) { var record = entry.completion; if ("throw" === record.type) { var thrown = record.arg; resetTryEntry(entry); } return thrown; } } throw new Error("illegal catch attempt"); }, delegateYield: function delegateYield(iterable, resultName, nextLoc) { return this.delegate = { iterator: values(iterable), resultName: resultName, nextLoc: nextLoc }, "next" === this.method && (this.arg = undefined), ContinueSentinel; } }, exports; }
 function FlowDAO_typeof(obj) { "@babel/helpers - typeof"; return FlowDAO_typeof = "function" == typeof (symbol_default()) && "symbol" == typeof (iterator_default()) ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof (symbol_default()) && obj.constructor === (symbol_default()) && obj !== (symbol_default()).prototype ? "symbol" : typeof obj; }, FlowDAO_typeof(obj); }
 
@@ -77353,6 +77350,7 @@ var OnmsSnmpInterface = /*#__PURE__*/function () {
   return OnmsSnmpInterface;
 }();
 ;// CONCATENATED MODULE: ./src/model/OnmsIpInterface.ts
+
 
 
 
@@ -79617,13 +79615,16 @@ var XmlTransformer = /*#__PURE__*/function () {
   }]);
   return XmlTransformer;
 }();
+// EXTERNAL MODULE: ./node_modules/core-js/modules/es.object.keys.js
+var es_object_keys = __webpack_require__("./node_modules/core-js/modules/es.object.keys.js");
 ;// CONCATENATED MODULE: ./src/rest/JsonTransformer.ts
 
 
 
 
-
 function JsonTransformer_typeof(obj) { "@babel/helpers - typeof"; return JsonTransformer_typeof = "function" == typeof (symbol_default()) && "symbol" == typeof (iterator_default()) ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof (symbol_default()) && obj.constructor === (symbol_default()) && obj !== (symbol_default()).prototype ? "symbol" : typeof obj; }, JsonTransformer_typeof(obj); }
+
+
 function JsonTransformer_classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 function JsonTransformer_defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; define_property_default()(target, JsonTransformer_toPropertyKey(descriptor.key), descriptor); } }
 function JsonTransformer_createClass(Constructor, protoProps, staticProps) { if (protoProps) JsonTransformer_defineProperties(Constructor.prototype, protoProps); if (staticProps) JsonTransformer_defineProperties(Constructor, staticProps); define_property_default()(Constructor, "prototype", { writable: false }); return Constructor; }
@@ -79667,6 +79668,7 @@ var JsonTransformer = /*#__PURE__*/function () {
 }();
 ;// CONCATENATED MODULE: ./src/rest/AbstractHTTP.ts
 function AbstractHTTP_typeof(obj) { "@babel/helpers - typeof"; return AbstractHTTP_typeof = "function" == typeof (symbol_default()) && "symbol" == typeof (iterator_default()) ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof (symbol_default()) && obj.constructor === (symbol_default()) && obj !== (symbol_default()).prototype ? "symbol" : typeof obj; }, AbstractHTTP_typeof(obj); }
+
 
 
 function AbstractHTTP_classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -79734,8 +79736,7 @@ var AbstractHTTP = /*#__PURE__*/function () {
   /** Make an HTTP GET call. This must be implemented by the concrete implementation. */
   AbstractHTTP_createClass(AbstractHTTP, [{
     key: "options",
-    get:
-    /** The default set of HTTP options associated with this ReST client. */
+    get: /** The default set of HTTP options associated with this ReST client. */
     function get() {
       if (this[OPTIONS_PROP]) {
         return this[OPTIONS_PROP];
@@ -81957,9 +81958,7 @@ var Client = /*#__PURE__*/function () {
         return _getMetadata.apply(this, arguments);
       }
       return getMetadata;
-    }()
-    /** The default OnmsHTTP implementation to be used when making requests */
-    /** the OnmsHTTP implementation that will be used when making requests */
+    }() /** The default OnmsHTTP implementation to be used when making requests */
   }]);
   return Client;
 }();
@@ -89635,39 +89634,41 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_corejs3_core_js_stable_array_from__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_corejs3_core_js_stable_array_from__WEBPACK_IMPORTED_MODULE_4__);
 /* harmony import */ var _node_modules_core_js_modules_es_array_join_js__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__("./node_modules/core-js/modules/es.array.join.js");
 /* harmony import */ var _node_modules_core_js_modules_es_array_join_js__WEBPACK_IMPORTED_MODULE_13___default = /*#__PURE__*/__webpack_require__.n(_node_modules_core_js_modules_es_array_join_js__WEBPACK_IMPORTED_MODULE_13__);
-/* harmony import */ var _node_modules_core_js_modules_es_object_to_string_js__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__("./node_modules/core-js/modules/es.object.to-string.js");
-/* harmony import */ var _node_modules_core_js_modules_es_object_to_string_js__WEBPACK_IMPORTED_MODULE_14___default = /*#__PURE__*/__webpack_require__.n(_node_modules_core_js_modules_es_object_to_string_js__WEBPACK_IMPORTED_MODULE_14__);
-/* harmony import */ var _node_modules_core_js_modules_es_symbol_js__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__("./node_modules/core-js/modules/es.symbol.js");
-/* harmony import */ var _node_modules_core_js_modules_es_symbol_js__WEBPACK_IMPORTED_MODULE_15___default = /*#__PURE__*/__webpack_require__.n(_node_modules_core_js_modules_es_symbol_js__WEBPACK_IMPORTED_MODULE_15__);
-/* harmony import */ var _node_modules_core_js_modules_es_symbol_description_js__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__("./node_modules/core-js/modules/es.symbol.description.js");
-/* harmony import */ var _node_modules_core_js_modules_es_symbol_description_js__WEBPACK_IMPORTED_MODULE_16___default = /*#__PURE__*/__webpack_require__.n(_node_modules_core_js_modules_es_symbol_description_js__WEBPACK_IMPORTED_MODULE_16__);
-/* harmony import */ var _node_modules_core_js_modules_es_string_bold_js__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__("./node_modules/core-js/modules/es.string.bold.js");
-/* harmony import */ var _node_modules_core_js_modules_es_string_bold_js__WEBPACK_IMPORTED_MODULE_17___default = /*#__PURE__*/__webpack_require__.n(_node_modules_core_js_modules_es_string_bold_js__WEBPACK_IMPORTED_MODULE_17__);
-/* harmony import */ var _node_modules_core_js_modules_es_regexp_exec_js__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__("./node_modules/core-js/modules/es.regexp.exec.js");
-/* harmony import */ var _node_modules_core_js_modules_es_regexp_exec_js__WEBPACK_IMPORTED_MODULE_18___default = /*#__PURE__*/__webpack_require__.n(_node_modules_core_js_modules_es_regexp_exec_js__WEBPACK_IMPORTED_MODULE_18__);
-/* harmony import */ var _node_modules_core_js_modules_es_string_replace_js__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__("./node_modules/core-js/modules/es.string.replace.js");
-/* harmony import */ var _node_modules_core_js_modules_es_string_replace_js__WEBPACK_IMPORTED_MODULE_19___default = /*#__PURE__*/__webpack_require__.n(_node_modules_core_js_modules_es_string_replace_js__WEBPACK_IMPORTED_MODULE_19__);
-/* harmony import */ var _node_modules_core_js_modules_es_regexp_constructor_js__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__("./node_modules/core-js/modules/es.regexp.constructor.js");
-/* harmony import */ var _node_modules_core_js_modules_es_regexp_constructor_js__WEBPACK_IMPORTED_MODULE_20___default = /*#__PURE__*/__webpack_require__.n(_node_modules_core_js_modules_es_regexp_constructor_js__WEBPACK_IMPORTED_MODULE_20__);
-/* harmony import */ var _node_modules_core_js_modules_es_regexp_to_string_js__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__("./node_modules/core-js/modules/es.regexp.to-string.js");
-/* harmony import */ var _node_modules_core_js_modules_es_regexp_to_string_js__WEBPACK_IMPORTED_MODULE_21___default = /*#__PURE__*/__webpack_require__.n(_node_modules_core_js_modules_es_regexp_to_string_js__WEBPACK_IMPORTED_MODULE_21__);
-/* harmony import */ var core_js_modules_es_function_name_js__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__("./node_modules/core-js/modules/es.function.name.js");
-/* harmony import */ var core_js_modules_es_function_name_js__WEBPACK_IMPORTED_MODULE_22___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_function_name_js__WEBPACK_IMPORTED_MODULE_22__);
-/* harmony import */ var _node_modules_core_js_stable__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__("./node_modules/core-js/stable/index.js");
-/* harmony import */ var _node_modules_core_js_stable__WEBPACK_IMPORTED_MODULE_23___default = /*#__PURE__*/__webpack_require__.n(_node_modules_core_js_stable__WEBPACK_IMPORTED_MODULE_23__);
-/* harmony import */ var _node_modules_regenerator_runtime_runtime__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__("./node_modules/regenerator-runtime/runtime.js");
-/* harmony import */ var _node_modules_regenerator_runtime_runtime__WEBPACK_IMPORTED_MODULE_24___default = /*#__PURE__*/__webpack_require__.n(_node_modules_regenerator_runtime_runtime__WEBPACK_IMPORTED_MODULE_24__);
-/* harmony import */ var _API__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__("./src/API.ts");
-/* harmony import */ var _api_Log__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__("./src/api/Log.ts");
-/* harmony import */ var _node_modules_chalk_source__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__("./node_modules/chalk/source/index.js");
-/* harmony import */ var _node_modules_chalk_source__WEBPACK_IMPORTED_MODULE_27___default = /*#__PURE__*/__webpack_require__.n(_node_modules_chalk_source__WEBPACK_IMPORTED_MODULE_27__);
-/* harmony import */ var _node_modules_lodash_cloneDeep__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__("./node_modules/lodash/cloneDeep.js");
-/* harmony import */ var _node_modules_lodash_cloneDeep__WEBPACK_IMPORTED_MODULE_28___default = /*#__PURE__*/__webpack_require__.n(_node_modules_lodash_cloneDeep__WEBPACK_IMPORTED_MODULE_28__);
-/* harmony import */ var _node_modules_lodash_startCase__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__("./node_modules/lodash/startCase.js");
-/* harmony import */ var _node_modules_lodash_startCase__WEBPACK_IMPORTED_MODULE_29___default = /*#__PURE__*/__webpack_require__.n(_node_modules_lodash_startCase__WEBPACK_IMPORTED_MODULE_29__);
-/* harmony import */ var _node_modules_table_dist_src__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__("./node_modules/table/dist/src/index.js");
-/* harmony import */ var _node_modules_table_dist_src__WEBPACK_IMPORTED_MODULE_30___default = /*#__PURE__*/__webpack_require__.n(_node_modules_table_dist_src__WEBPACK_IMPORTED_MODULE_30__);
-/* harmony import */ var _api_OrderBy__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__("./src/api/OrderBy.ts");
+/* harmony import */ var _node_modules_core_js_modules_es_object_keys_js__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__("./node_modules/core-js/modules/es.object.keys.js");
+/* harmony import */ var _node_modules_core_js_modules_es_object_keys_js__WEBPACK_IMPORTED_MODULE_14___default = /*#__PURE__*/__webpack_require__.n(_node_modules_core_js_modules_es_object_keys_js__WEBPACK_IMPORTED_MODULE_14__);
+/* harmony import */ var _node_modules_core_js_modules_es_object_to_string_js__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__("./node_modules/core-js/modules/es.object.to-string.js");
+/* harmony import */ var _node_modules_core_js_modules_es_object_to_string_js__WEBPACK_IMPORTED_MODULE_15___default = /*#__PURE__*/__webpack_require__.n(_node_modules_core_js_modules_es_object_to_string_js__WEBPACK_IMPORTED_MODULE_15__);
+/* harmony import */ var _node_modules_core_js_modules_es_regexp_to_string_js__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__("./node_modules/core-js/modules/es.regexp.to-string.js");
+/* harmony import */ var _node_modules_core_js_modules_es_regexp_to_string_js__WEBPACK_IMPORTED_MODULE_16___default = /*#__PURE__*/__webpack_require__.n(_node_modules_core_js_modules_es_regexp_to_string_js__WEBPACK_IMPORTED_MODULE_16__);
+/* harmony import */ var _node_modules_core_js_modules_es_symbol_js__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__("./node_modules/core-js/modules/es.symbol.js");
+/* harmony import */ var _node_modules_core_js_modules_es_symbol_js__WEBPACK_IMPORTED_MODULE_17___default = /*#__PURE__*/__webpack_require__.n(_node_modules_core_js_modules_es_symbol_js__WEBPACK_IMPORTED_MODULE_17__);
+/* harmony import */ var _node_modules_core_js_modules_es_symbol_description_js__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__("./node_modules/core-js/modules/es.symbol.description.js");
+/* harmony import */ var _node_modules_core_js_modules_es_symbol_description_js__WEBPACK_IMPORTED_MODULE_18___default = /*#__PURE__*/__webpack_require__.n(_node_modules_core_js_modules_es_symbol_description_js__WEBPACK_IMPORTED_MODULE_18__);
+/* harmony import */ var _node_modules_core_js_modules_es_string_bold_js__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__("./node_modules/core-js/modules/es.string.bold.js");
+/* harmony import */ var _node_modules_core_js_modules_es_string_bold_js__WEBPACK_IMPORTED_MODULE_19___default = /*#__PURE__*/__webpack_require__.n(_node_modules_core_js_modules_es_string_bold_js__WEBPACK_IMPORTED_MODULE_19__);
+/* harmony import */ var _node_modules_core_js_modules_es_regexp_exec_js__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__("./node_modules/core-js/modules/es.regexp.exec.js");
+/* harmony import */ var _node_modules_core_js_modules_es_regexp_exec_js__WEBPACK_IMPORTED_MODULE_20___default = /*#__PURE__*/__webpack_require__.n(_node_modules_core_js_modules_es_regexp_exec_js__WEBPACK_IMPORTED_MODULE_20__);
+/* harmony import */ var _node_modules_core_js_modules_es_string_replace_js__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__("./node_modules/core-js/modules/es.string.replace.js");
+/* harmony import */ var _node_modules_core_js_modules_es_string_replace_js__WEBPACK_IMPORTED_MODULE_21___default = /*#__PURE__*/__webpack_require__.n(_node_modules_core_js_modules_es_string_replace_js__WEBPACK_IMPORTED_MODULE_21__);
+/* harmony import */ var _node_modules_core_js_modules_es_regexp_constructor_js__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__("./node_modules/core-js/modules/es.regexp.constructor.js");
+/* harmony import */ var _node_modules_core_js_modules_es_regexp_constructor_js__WEBPACK_IMPORTED_MODULE_22___default = /*#__PURE__*/__webpack_require__.n(_node_modules_core_js_modules_es_regexp_constructor_js__WEBPACK_IMPORTED_MODULE_22__);
+/* harmony import */ var core_js_modules_es_function_name_js__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__("./node_modules/core-js/modules/es.function.name.js");
+/* harmony import */ var core_js_modules_es_function_name_js__WEBPACK_IMPORTED_MODULE_23___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_function_name_js__WEBPACK_IMPORTED_MODULE_23__);
+/* harmony import */ var _node_modules_core_js_stable__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__("./node_modules/core-js/stable/index.js");
+/* harmony import */ var _node_modules_core_js_stable__WEBPACK_IMPORTED_MODULE_24___default = /*#__PURE__*/__webpack_require__.n(_node_modules_core_js_stable__WEBPACK_IMPORTED_MODULE_24__);
+/* harmony import */ var _node_modules_regenerator_runtime_runtime__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__("./node_modules/regenerator-runtime/runtime.js");
+/* harmony import */ var _node_modules_regenerator_runtime_runtime__WEBPACK_IMPORTED_MODULE_25___default = /*#__PURE__*/__webpack_require__.n(_node_modules_regenerator_runtime_runtime__WEBPACK_IMPORTED_MODULE_25__);
+/* harmony import */ var _API__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__("./src/API.ts");
+/* harmony import */ var _api_Log__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__("./src/api/Log.ts");
+/* harmony import */ var _node_modules_chalk_source__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__("./node_modules/chalk/source/index.js");
+/* harmony import */ var _node_modules_chalk_source__WEBPACK_IMPORTED_MODULE_28___default = /*#__PURE__*/__webpack_require__.n(_node_modules_chalk_source__WEBPACK_IMPORTED_MODULE_28__);
+/* harmony import */ var _node_modules_lodash_cloneDeep__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__("./node_modules/lodash/cloneDeep.js");
+/* harmony import */ var _node_modules_lodash_cloneDeep__WEBPACK_IMPORTED_MODULE_29___default = /*#__PURE__*/__webpack_require__.n(_node_modules_lodash_cloneDeep__WEBPACK_IMPORTED_MODULE_29__);
+/* harmony import */ var _node_modules_lodash_startCase__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__("./node_modules/lodash/startCase.js");
+/* harmony import */ var _node_modules_lodash_startCase__WEBPACK_IMPORTED_MODULE_30___default = /*#__PURE__*/__webpack_require__.n(_node_modules_lodash_startCase__WEBPACK_IMPORTED_MODULE_30__);
+/* harmony import */ var _node_modules_table_dist_src__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__("./node_modules/table/dist/src/index.js");
+/* harmony import */ var _node_modules_table_dist_src__WEBPACK_IMPORTED_MODULE_31___default = /*#__PURE__*/__webpack_require__.n(_node_modules_table_dist_src__WEBPACK_IMPORTED_MODULE_31__);
+/* harmony import */ var _api_OrderBy__WEBPACK_IMPORTED_MODULE_32__ = __webpack_require__("./src/api/OrderBy.ts");
 function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof (_babel_runtime_corejs3_core_js_stable_symbol__WEBPACK_IMPORTED_MODULE_0___default()) !== "undefined" && _babel_runtime_corejs3_core_js_get_iterator_method__WEBPACK_IMPORTED_MODULE_1___default()(o) || o["@@iterator"]; if (!it) { if (_babel_runtime_corejs3_core_js_stable_array_is_array__WEBPACK_IMPORTED_MODULE_2___default()(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
 function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -89675,6 +89676,7 @@ function _unsupportedIterableToArray(o, minLen) { var _context6; if (!o) return;
 function _iterableToArray(iter) { if (typeof (_babel_runtime_corejs3_core_js_stable_symbol__WEBPACK_IMPORTED_MODULE_0___default()) !== "undefined" && _babel_runtime_corejs3_core_js_get_iterator_method__WEBPACK_IMPORTED_MODULE_1___default()(iter) != null || iter["@@iterator"] != null) return _babel_runtime_corejs3_core_js_stable_array_from__WEBPACK_IMPORTED_MODULE_4___default()(iter); }
 function _arrayWithoutHoles(arr) { if (_babel_runtime_corejs3_core_js_stable_array_is_array__WEBPACK_IMPORTED_MODULE_2___default()(arr)) return _arrayLikeToArray(arr); }
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
+
 
 
 
@@ -89723,7 +89725,7 @@ var CLI = function CLI() {
   var homedir = process.env[process.platform === 'win32' ? 'USERPROFILE' : 'HOME'];
   var defaultConfigFile = path.join(homedir, '.opennms-cli.config.json');
   var tableConfig = {
-    border: (0,_node_modules_table_dist_src__WEBPACK_IMPORTED_MODULE_30__.getBorderCharacters)("void"),
+    border: (0,_node_modules_table_dist_src__WEBPACK_IMPORTED_MODULE_31__.getBorderCharacters)("void"),
     columnDefault: {
       paddingLeft: 0,
       paddingRight: 2
@@ -89748,17 +89750,17 @@ var CLI = function CLI() {
   };
   var handleError = function handleError(message, err) {
     var realError = new Error(message);
-    if (err instanceof _API__WEBPACK_IMPORTED_MODULE_25__.API.OnmsResult) {
-      realError = new _API__WEBPACK_IMPORTED_MODULE_25__.API.OnmsError(message + ': ' + err.message, err.code);
+    if (err instanceof _API__WEBPACK_IMPORTED_MODULE_26__.API.OnmsResult) {
+      realError = new _API__WEBPACK_IMPORTED_MODULE_26__.API.OnmsError(message + ': ' + err.message, err.code);
     } else if (err.message) {
-      realError = new _API__WEBPACK_IMPORTED_MODULE_25__.API.OnmsError(message + ': ' + err.message);
+      realError = new _API__WEBPACK_IMPORTED_MODULE_26__.API.OnmsError(message + ': ' + err.message);
     } else if (Object.prototype.toString.call(err) === '[object String]') {
-      realError = new _API__WEBPACK_IMPORTED_MODULE_25__.API.OnmsError(message + ': ' + err);
+      realError = new _API__WEBPACK_IMPORTED_MODULE_26__.API.OnmsError(message + ': ' + err);
     }
     if (program.debug) {
-      _api_Log__WEBPACK_IMPORTED_MODULE_26__/* .log.error */ .c.error(realError.message, realError);
+      _api_Log__WEBPACK_IMPORTED_MODULE_27__/* .log.error */ .c.error(realError.message, realError);
     } else {
-      _api_Log__WEBPACK_IMPORTED_MODULE_26__/* .log.error */ .c.error(realError.message);
+      _api_Log__WEBPACK_IMPORTED_MODULE_27__/* .log.error */ .c.error(realError.message);
     }
     process.exit(1);
   };
@@ -89767,12 +89769,12 @@ var CLI = function CLI() {
 
   // global options
   program.version(version).option('-d, --debug', 'Enable debug output', function () {
-    _api_Log__WEBPACK_IMPORTED_MODULE_26__/* .log.setDebug */ .c.setDebug();
+    _api_Log__WEBPACK_IMPORTED_MODULE_27__/* .log.setDebug */ .c.setDebug();
   }).option('-c, --config <file>', 'Specify a configuration file (default: ~/.opennms-cli.config.json)');
 
   // connect (validate server and save config)
   program.command('connect [url]').description('Connect to an OpenNMS Horizon or Meridian server').option('-u, --username <username>', 'The username to authenticate as (default: admin)').option('-p, --password <password>', 'The password to authenticate with (default: admin)').action(function (url, options) {
-    _api_Log__WEBPACK_IMPORTED_MODULE_26__/* .log.warn */ .c.warn(_node_modules_chalk_source__WEBPACK_IMPORTED_MODULE_27___default().red('WARNING: This command saves your login' + ' information to ~/.opennms-cli.config.json in clear text.'));
+    _api_Log__WEBPACK_IMPORTED_MODULE_27__/* .log.warn */ .c.warn(_node_modules_chalk_source__WEBPACK_IMPORTED_MODULE_28___default().red('WARNING: This command saves your login' + ' information to ~/.opennms-cli.config.json in clear text.'));
     var config = readConfig();
     if (url) {
       // the user is passing a URL, reset the config
@@ -89786,14 +89788,14 @@ var CLI = function CLI() {
     if (options.password) {
       config.password = options.password;
     }
-    var auth = new _API__WEBPACK_IMPORTED_MODULE_25__.API.OnmsAuthConfig(config.username, config.password);
-    var server = _API__WEBPACK_IMPORTED_MODULE_25__.API.OnmsServer.newBuilder(config.url).setName('OpenNMS').setAuth(auth).build();
-    var http = new _API__WEBPACK_IMPORTED_MODULE_25__.Rest.AxiosHTTP(server);
-    return _API__WEBPACK_IMPORTED_MODULE_25__.Client.checkServer(server, http).then(function () {
-      _api_Log__WEBPACK_IMPORTED_MODULE_26__/* .log.info */ .c.info(_node_modules_chalk_source__WEBPACK_IMPORTED_MODULE_27___default().green('Connection succeeded.'));
+    var auth = new _API__WEBPACK_IMPORTED_MODULE_26__.API.OnmsAuthConfig(config.username, config.password);
+    var server = _API__WEBPACK_IMPORTED_MODULE_26__.API.OnmsServer.newBuilder(config.url).setName('OpenNMS').setAuth(auth).build();
+    var http = new _API__WEBPACK_IMPORTED_MODULE_26__.Rest.AxiosHTTP(server);
+    return _API__WEBPACK_IMPORTED_MODULE_26__.Client.checkServer(server, http).then(function () {
+      _api_Log__WEBPACK_IMPORTED_MODULE_27__/* .log.info */ .c.info(_node_modules_chalk_source__WEBPACK_IMPORTED_MODULE_28___default().green('Connection succeeded.'));
       if (!program.config) {
         // don't write the config if a config was passed in
-        _api_Log__WEBPACK_IMPORTED_MODULE_26__/* .log.debug */ .c.debug('Saving configuration to ' + defaultConfigFile);
+        _api_Log__WEBPACK_IMPORTED_MODULE_27__/* .log.debug */ .c.debug('Saving configuration to ' + defaultConfigFile);
         fs.writeFileSync(defaultConfigFile, _node_modules_babel_runtime_corejs3_core_js_stable_json_stringify__WEBPACK_IMPORTED_MODULE_5___default()(config, undefined, 2), {
           mode: 384
         });
@@ -89807,28 +89809,28 @@ var CLI = function CLI() {
   // list server capabilities
   program.command('capabilities').description('List the API capabilities of the OpenNMS server').action(function () {
     var config = readConfig();
-    var auth = new _API__WEBPACK_IMPORTED_MODULE_25__.API.OnmsAuthConfig(config.username, config.password);
-    var server = _API__WEBPACK_IMPORTED_MODULE_25__.API.OnmsServer.newBuilder(config.url).setName('OpenNMS').setAuth(auth).build();
-    var http = new _API__WEBPACK_IMPORTED_MODULE_25__.Rest.AxiosHTTP();
-    return _API__WEBPACK_IMPORTED_MODULE_25__.Client.getMetadata(server, http).then(function (res) {
-      var c = (_node_modules_chalk_source__WEBPACK_IMPORTED_MODULE_27___default().green);
-      if (res.type === _API__WEBPACK_IMPORTED_MODULE_25__.API.ServerTypes.MERIDIAN) {
-        _api_Log__WEBPACK_IMPORTED_MODULE_26__/* .log.log */ .c.log(_node_modules_chalk_source__WEBPACK_IMPORTED_MODULE_27___default().blue('OpenNMS Meridian ' + res.version.displayVersion + ' Capabilities:'));
-        c = (_node_modules_chalk_source__WEBPACK_IMPORTED_MODULE_27___default().blue);
+    var auth = new _API__WEBPACK_IMPORTED_MODULE_26__.API.OnmsAuthConfig(config.username, config.password);
+    var server = _API__WEBPACK_IMPORTED_MODULE_26__.API.OnmsServer.newBuilder(config.url).setName('OpenNMS').setAuth(auth).build();
+    var http = new _API__WEBPACK_IMPORTED_MODULE_26__.Rest.AxiosHTTP();
+    return _API__WEBPACK_IMPORTED_MODULE_26__.Client.getMetadata(server, http).then(function (res) {
+      var c = (_node_modules_chalk_source__WEBPACK_IMPORTED_MODULE_28___default().green);
+      if (res.type === _API__WEBPACK_IMPORTED_MODULE_26__.API.ServerTypes.MERIDIAN) {
+        _api_Log__WEBPACK_IMPORTED_MODULE_27__/* .log.log */ .c.log(_node_modules_chalk_source__WEBPACK_IMPORTED_MODULE_28___default().blue('OpenNMS Meridian ' + res.version.displayVersion + ' Capabilities:'));
+        c = (_node_modules_chalk_source__WEBPACK_IMPORTED_MODULE_28___default().blue);
       } else {
-        _api_Log__WEBPACK_IMPORTED_MODULE_26__/* .log.log */ .c.log(_node_modules_chalk_source__WEBPACK_IMPORTED_MODULE_27___default().green('OpenNMS Horizon ' + res.version.displayVersion + ' Capabilities:'));
+        _api_Log__WEBPACK_IMPORTED_MODULE_27__/* .log.log */ .c.log(_node_modules_chalk_source__WEBPACK_IMPORTED_MODULE_28___default().green('OpenNMS Horizon ' + res.version.displayVersion + ' Capabilities:'));
       }
-      _api_Log__WEBPACK_IMPORTED_MODULE_26__/* .log.log */ .c.log('');
+      _api_Log__WEBPACK_IMPORTED_MODULE_27__/* .log.log */ .c.log('');
       var data = [];
       var caps = res.capabilities();
       for (var cap in caps) {
         if (cap === 'type') {
           continue;
         }
-        data.push([_node_modules_chalk_source__WEBPACK_IMPORTED_MODULE_27___default().bold(_node_modules_lodash_startCase__WEBPACK_IMPORTED_MODULE_29___default()(cap) + ':'), caps[cap]]);
+        data.push([_node_modules_chalk_source__WEBPACK_IMPORTED_MODULE_28___default().bold(_node_modules_lodash_startCase__WEBPACK_IMPORTED_MODULE_30___default()(cap) + ':'), caps[cap]]);
       }
-      _api_Log__WEBPACK_IMPORTED_MODULE_26__/* .log.log */ .c.log((0,_node_modules_table_dist_src__WEBPACK_IMPORTED_MODULE_30__.table)(data, tableConfig));
-      _api_Log__WEBPACK_IMPORTED_MODULE_26__/* .log.log */ .c.log('');
+      _api_Log__WEBPACK_IMPORTED_MODULE_27__/* .log.log */ .c.log((0,_node_modules_table_dist_src__WEBPACK_IMPORTED_MODULE_31__.table)(data, tableConfig));
+      _api_Log__WEBPACK_IMPORTED_MODULE_27__/* .log.log */ .c.log('');
       return res;
     }).catch(function (err) {
       return handleError('Capabilities check failed', err);
@@ -89838,19 +89840,19 @@ var CLI = function CLI() {
   var colorify = function colorify(severity) {
     switch (severity) {
       case 'INDETERMINATE':
-        return _node_modules_chalk_source__WEBPACK_IMPORTED_MODULE_27___default().grey(severity);
+        return _node_modules_chalk_source__WEBPACK_IMPORTED_MODULE_28___default().grey(severity);
       case 'CLEARED':
-        return _node_modules_chalk_source__WEBPACK_IMPORTED_MODULE_27___default().white(severity);
+        return _node_modules_chalk_source__WEBPACK_IMPORTED_MODULE_28___default().white(severity);
       case 'NORMAL':
-        return _node_modules_chalk_source__WEBPACK_IMPORTED_MODULE_27___default().green(severity);
+        return _node_modules_chalk_source__WEBPACK_IMPORTED_MODULE_28___default().green(severity);
       case 'WARNING':
-        return _node_modules_chalk_source__WEBPACK_IMPORTED_MODULE_27___default().magenta(severity);
+        return _node_modules_chalk_source__WEBPACK_IMPORTED_MODULE_28___default().magenta(severity);
       case 'MINOR':
-        return _node_modules_chalk_source__WEBPACK_IMPORTED_MODULE_27___default().yellow(severity);
+        return _node_modules_chalk_source__WEBPACK_IMPORTED_MODULE_28___default().yellow(severity);
       case 'MAJOR':
-        return _node_modules_chalk_source__WEBPACK_IMPORTED_MODULE_27___default().bold.yellow(severity);
+        return _node_modules_chalk_source__WEBPACK_IMPORTED_MODULE_28___default().bold.yellow(severity);
       case 'CRITICAL':
-        return _node_modules_chalk_source__WEBPACK_IMPORTED_MODULE_27___default().bold.red(severity);
+        return _node_modules_chalk_source__WEBPACK_IMPORTED_MODULE_28___default().bold.red(severity);
       default:
         return severity;
     }
@@ -89887,10 +89889,10 @@ var CLI = function CLI() {
   // tslint:disable-next-line:max-line-length
   .description('List current alarms with optional filters (eg: "severity eq MAJOR", "node.label like dns*", "orderBy=lastEventTime")').action(function (filters) {
     var config = readConfig();
-    return new _API__WEBPACK_IMPORTED_MODULE_25__.Client().connect('OpenNMS', config.url, config.username, config.password).then(function (client) {
+    return new _API__WEBPACK_IMPORTED_MODULE_26__.Client().connect('OpenNMS', config.url, config.username, config.password).then(function (client) {
       var _context2;
-      var dao = new _API__WEBPACK_IMPORTED_MODULE_25__.DAO.AlarmDAO(client);
-      var filter = new _API__WEBPACK_IMPORTED_MODULE_25__.API.Filter();
+      var dao = new _API__WEBPACK_IMPORTED_MODULE_26__.DAO.AlarmDAO(client);
+      var filter = new _API__WEBPACK_IMPORTED_MODULE_26__.API.Filter();
       var order;
       var _iterator = _createForOfIteratorHelper(filters),
         _step;
@@ -89898,24 +89900,24 @@ var CLI = function CLI() {
         for (_iterator.s(); !(_step = _iterator.n()).done;) {
           var _context4;
           var f = _step.value;
-          _api_Log__WEBPACK_IMPORTED_MODULE_26__/* .log.debug */ .c.debug('filter=' + f);
+          _api_Log__WEBPACK_IMPORTED_MODULE_27__/* .log.debug */ .c.debug('filter=' + f);
           if (_node_modules_babel_runtime_corejs3_core_js_stable_instance_starts_with__WEBPACK_IMPORTED_MODULE_11___default()(_context4 = f.toLowerCase()).call(_context4, 'orderby')) {
-            var orderBy = _api_OrderBy__WEBPACK_IMPORTED_MODULE_31__/* .OrderBy.fromString */ .d$.fromString(f);
+            var orderBy = _api_OrderBy__WEBPACK_IMPORTED_MODULE_32__/* .OrderBy.fromString */ .d$.fromString(f);
             if (orderBy) {
               filter.withOrderBy(orderBy);
             }
           } else if (_node_modules_babel_runtime_corejs3_core_js_stable_instance_starts_with__WEBPACK_IMPORTED_MODULE_11___default()(f).call(f, 'order')) {
             if (!order) {
-              order = _api_OrderBy__WEBPACK_IMPORTED_MODULE_31__/* .Order.fromString */ .KM.fromString(f);
+              order = _api_OrderBy__WEBPACK_IMPORTED_MODULE_32__/* .Order.fromString */ .KM.fromString(f);
             } else {
-              _api_Log__WEBPACK_IMPORTED_MODULE_26__/* .log.warn */ .c.warn('Only the first order= filter option will be used.');
+              _api_Log__WEBPACK_IMPORTED_MODULE_27__/* .log.warn */ .c.warn('Only the first order= filter option will be used.');
             }
           } else {
-            var parsed = _API__WEBPACK_IMPORTED_MODULE_25__.API.Restriction.fromString(f);
+            var parsed = _API__WEBPACK_IMPORTED_MODULE_26__.API.Restriction.fromString(f);
             if (parsed) {
               filter.withOrRestriction(parsed);
             } else {
-              _api_Log__WEBPACK_IMPORTED_MODULE_26__/* .log.warn */ .c.warn('Unable to parse filter "' + f + '"');
+              _api_Log__WEBPACK_IMPORTED_MODULE_27__/* .log.warn */ .c.warn('Unable to parse filter "' + f + '"');
             }
           }
         }
@@ -89927,20 +89929,20 @@ var CLI = function CLI() {
         _iterator.f();
       }
       filter.orderBy = _node_modules_babel_runtime_corejs3_core_js_stable_instance_map__WEBPACK_IMPORTED_MODULE_6___default()(_context2 = filter.orderBy).call(_context2, function (o) {
-        return new _api_OrderBy__WEBPACK_IMPORTED_MODULE_31__/* .OrderBy */ .d$(o.attribute, order || _api_OrderBy__WEBPACK_IMPORTED_MODULE_31__/* .Orders.DESC */ .We.DESC);
+        return new _api_OrderBy__WEBPACK_IMPORTED_MODULE_32__/* .OrderBy */ .d$(o.attribute, order || _api_OrderBy__WEBPACK_IMPORTED_MODULE_32__/* .Orders.DESC */ .We.DESC);
       });
       return _node_modules_babel_runtime_corejs3_core_js_stable_instance_find__WEBPACK_IMPORTED_MODULE_8___default()(dao).call(dao, filter).then(function (alarms) {
         var _context3;
         if (!alarms || alarms.length === 0) {
-          _api_Log__WEBPACK_IMPORTED_MODULE_26__/* .log.log */ .c.log('No alarms found.');
-          _api_Log__WEBPACK_IMPORTED_MODULE_26__/* .log.log */ .c.log('');
+          _api_Log__WEBPACK_IMPORTED_MODULE_27__/* .log.log */ .c.log('No alarms found.');
+          _api_Log__WEBPACK_IMPORTED_MODULE_27__/* .log.log */ .c.log('');
           return;
         }
         var formatted = formatAlarms(alarms);
-        var alarmTableConfig = _node_modules_lodash_cloneDeep__WEBPACK_IMPORTED_MODULE_28___default()(tableConfig);
+        var alarmTableConfig = _node_modules_lodash_cloneDeep__WEBPACK_IMPORTED_MODULE_29___default()(tableConfig);
         alarmTableConfig.columns = {};
         var data = [_node_modules_babel_runtime_corejs3_core_js_stable_instance_map__WEBPACK_IMPORTED_MODULE_6___default()(_context3 = ['ID', 'Severity', 'Node', 'Count', 'Time', 'Log']).call(_context3, function (header) {
-          return _node_modules_chalk_source__WEBPACK_IMPORTED_MODULE_27___default().bold(header);
+          return _node_modules_chalk_source__WEBPACK_IMPORTED_MODULE_28___default().bold(header);
         })];
         var colWidths = [/* id */
         getMaxWidth(formatted, 'id', 10), /* severity */
@@ -89978,8 +89980,8 @@ var CLI = function CLI() {
         } finally {
           _iterator2.f();
         }
-        _api_Log__WEBPACK_IMPORTED_MODULE_26__/* .log.log */ .c.log((0,_node_modules_table_dist_src__WEBPACK_IMPORTED_MODULE_30__.table)(data, alarmTableConfig));
-        _api_Log__WEBPACK_IMPORTED_MODULE_26__/* .log.log */ .c.log('');
+        _api_Log__WEBPACK_IMPORTED_MODULE_27__/* .log.log */ .c.log((0,_node_modules_table_dist_src__WEBPACK_IMPORTED_MODULE_31__.table)(data, alarmTableConfig));
+        _api_Log__WEBPACK_IMPORTED_MODULE_27__/* .log.log */ .c.log('');
       });
     }).catch(function (err) {
       return handleError('Alarm list failed', err);
@@ -89998,10 +90000,10 @@ var CLI = function CLI() {
     p.action(function (passedId) {
       var id = _node_modules_babel_runtime_corejs3_core_js_stable_parse_int__WEBPACK_IMPORTED_MODULE_12___default()(passedId, 10);
       var config = readConfig();
-      return new _API__WEBPACK_IMPORTED_MODULE_25__.Client().connect('OpenNMS', config.url, config.username, config.password).then(function (client) {
+      return new _API__WEBPACK_IMPORTED_MODULE_26__.Client().connect('OpenNMS', config.url, config.username, config.password).then(function (client) {
         var dao = client.alarms();
         return dao[name](id).then(function () {
-          _api_Log__WEBPACK_IMPORTED_MODULE_26__/* .log.log */ .c.log(_node_modules_chalk_source__WEBPACK_IMPORTED_MODULE_27___default().green('Success!'));
+          _api_Log__WEBPACK_IMPORTED_MODULE_27__/* .log.log */ .c.log(_node_modules_chalk_source__WEBPACK_IMPORTED_MODULE_28___default().green('Success!'));
           return true;
         });
       }).catch(function (err) {
@@ -90014,9 +90016,9 @@ var CLI = function CLI() {
   program.command('acknowledge <id>').alias('ack').description('Acknowledge an alarm').option('-u, --user <user>', 'Which user to acknowledge as (only administrators can do this)').action(function (passedId, options) {
     var id = _node_modules_babel_runtime_corejs3_core_js_stable_parse_int__WEBPACK_IMPORTED_MODULE_12___default()(passedId, 10);
     var config = readConfig();
-    return new _API__WEBPACK_IMPORTED_MODULE_25__.Client().connect('OpenNMS', config.url, config.username, config.password).then(function (client) {
+    return new _API__WEBPACK_IMPORTED_MODULE_26__.Client().connect('OpenNMS', config.url, config.username, config.password).then(function (client) {
       return client.alarms().acknowledge(id, options.user).then(function () {
-        _api_Log__WEBPACK_IMPORTED_MODULE_26__/* .log.log */ .c.log(_node_modules_chalk_source__WEBPACK_IMPORTED_MODULE_27___default().green('Success!'));
+        _api_Log__WEBPACK_IMPORTED_MODULE_27__/* .log.log */ .c.log(_node_modules_chalk_source__WEBPACK_IMPORTED_MODULE_28___default().green('Success!'));
         return true;
       });
     }).catch(function (err) {
@@ -90028,9 +90030,9 @@ var CLI = function CLI() {
   program.command('saveSticky <id>').alias('sticky').description('Create or update the sticky memo associated with the alarm').option('-u, --user <user>', 'Which user to update the memo as (only administrators can do this)').option('-b, --body <body>', 'Memo body').action(function (passedId, options) {
     var id = _node_modules_babel_runtime_corejs3_core_js_stable_parse_int__WEBPACK_IMPORTED_MODULE_12___default()(passedId, 10);
     var config = readConfig();
-    return new _API__WEBPACK_IMPORTED_MODULE_25__.Client().connect('OpenNMS', config.url, config.username, config.password).then(function (client) {
+    return new _API__WEBPACK_IMPORTED_MODULE_26__.Client().connect('OpenNMS', config.url, config.username, config.password).then(function (client) {
       return client.alarms().saveStickyMemo(id, options.body, options.user).then(function () {
-        _api_Log__WEBPACK_IMPORTED_MODULE_26__/* .log.log */ .c.log(_node_modules_chalk_source__WEBPACK_IMPORTED_MODULE_27___default().green('Success!'));
+        _api_Log__WEBPACK_IMPORTED_MODULE_27__/* .log.log */ .c.log(_node_modules_chalk_source__WEBPACK_IMPORTED_MODULE_28___default().green('Success!'));
         return true;
       });
     }).catch(function (err) {
@@ -90042,9 +90044,9 @@ var CLI = function CLI() {
   program.command('saveJournal <id>').alias('journal').description('Create or update the journal memo associated with the alarm').option('-u, --user <user>', 'Which user to update the memo as (only administrators can do this)').option('-b, --body <body>', 'Memo body').action(function (passedId, options) {
     var id = _node_modules_babel_runtime_corejs3_core_js_stable_parse_int__WEBPACK_IMPORTED_MODULE_12___default()(passedId, 10);
     var config = readConfig();
-    return new _API__WEBPACK_IMPORTED_MODULE_25__.Client().connect('OpenNMS', config.url, config.username, config.password).then(function (client) {
+    return new _API__WEBPACK_IMPORTED_MODULE_26__.Client().connect('OpenNMS', config.url, config.username, config.password).then(function (client) {
       return client.alarms().saveJournalMemo(id, options.body, options.user).then(function () {
-        _api_Log__WEBPACK_IMPORTED_MODULE_26__/* .log.log */ .c.log(_node_modules_chalk_source__WEBPACK_IMPORTED_MODULE_27___default().green('Success!'));
+        _api_Log__WEBPACK_IMPORTED_MODULE_27__/* .log.log */ .c.log(_node_modules_chalk_source__WEBPACK_IMPORTED_MODULE_28___default().green('Success!'));
         return true;
       });
     }).catch(function (err) {
@@ -90066,7 +90068,7 @@ var CLI = function CLI() {
   }
 };
 process.on('unhandledRejection', function (reason, p) {
-  _api_Log__WEBPACK_IMPORTED_MODULE_26__/* .log.warn */ .c.warn('Unhandled Rejection at: Promise', p, 'reason:', reason);
+  _api_Log__WEBPACK_IMPORTED_MODULE_27__/* .log.warn */ .c.warn('Unhandled Rejection at: Promise', p, 'reason:', reason);
 });
 CLI();
 })();
