@@ -22,6 +22,26 @@ OpenNMS.js follows [semantic versioning](https://semver.org/).
 
 ### Release Notes
 
+#### 2.5.6
+
+OpenNMS.js v2.5.6 is a minor release with just dependency updates and some internal changes to the CI pipeline.
+
+#### 2.5.5
+
+This release fixes Antora documentation versioning, and includes some minor dependency updates plus a bump to use TypeScript 5.0.
+
+#### 2.5.4
+
+This is a code-identical release to 2.5.3, with some build cleanups under the covers.
+
+#### 2.5.3
+
+This release contains only dependency updates and a very minor compile fix to make TypeScript happy.
+
+#### 2.5.2
+
+This release updates a number of dependencies, notably Axios, which required a few small changes to the AxiosHTTP adapter.
+
 #### 2.5.1
 
 2.5.1 is a small release with just dependency updates, most notably moment.js and moment-timezone, plus
