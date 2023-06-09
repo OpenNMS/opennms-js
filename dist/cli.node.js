@@ -91676,7 +91676,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 /** @hidden */
 var CLI = function CLI() {
   var _context5;
-  var version = "2.5.6-SNAPSHOT" || 0 || 0;
+  var version = "2.5.6" || 0 || 0;
 
   // tslint:disable
   var fs = __webpack_require__("fs");
