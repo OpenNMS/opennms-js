@@ -4,6 +4,7 @@
 ### Bug Fixes
 
 * **deps-dev:** repair overly-messed-with antora deps ([4eef88e](https://github.com/OpenNMS/opennms-js/commit/4eef88ed37aed43aa6eee41fbf737bd7a92c66c8))
+* **deps:** fix typedoc dependency to allow ts 5.1 ([1c0c2d0](https://github.com/OpenNMS/opennms-js/commit/1c0c2d037075b20562f4901802d05adedfeac418))
 
 
 
