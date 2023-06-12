@@ -19848,25 +19848,37 @@ module.exports = Object.setPrototypeOf || ('__proto__' in {} ? function () {
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 var DESCRIPTORS = __webpack_require__("./node_modules/core-js/internals/descriptors.js");
+var fails = __webpack_require__("./node_modules/core-js/internals/fails.js");
 var uncurryThis = __webpack_require__("./node_modules/core-js/internals/function-uncurry-this.js");
+var objectGetPrototypeOf = __webpack_require__("./node_modules/core-js/internals/object-get-prototype-of.js");
 var objectKeys = __webpack_require__("./node_modules/core-js/internals/object-keys.js");
 var toIndexedObject = __webpack_require__("./node_modules/core-js/internals/to-indexed-object.js");
 var $propertyIsEnumerable = (__webpack_require__("./node_modules/core-js/internals/object-property-is-enumerable.js").f);
 var propertyIsEnumerable = uncurryThis($propertyIsEnumerable);
 var push = uncurryThis([].push);
 
+// in some IE versions, `propertyIsEnumerable` returns incorrect result on integer keys
+// of `null` prototype objects
+var IE_BUG = DESCRIPTORS && fails(function () {
+  // eslint-disable-next-line es/no-object-create -- safe
+  var O = Object.create(null);
+  O[2] = 2;
+  return !propertyIsEnumerable(O, 2);
+});
+
 // `Object.{ entries, values }` methods implementation
 var createMethod = function (TO_ENTRIES) {
   return function (it) {
     var O = toIndexedObject(it);
     var keys = objectKeys(O);
+    var IE_WORKAROUND = IE_BUG && objectGetPrototypeOf(O) === null;
     var length = keys.length;
     var i = 0;
     var result = [];
     var key;
     while (length > i) {
       key = keys[i++];
-      if (!DESCRIPTORS || propertyIsEnumerable(O, key)) {
+      if (!DESCRIPTORS || (IE_WORKAROUND ? key in O : propertyIsEnumerable(O, key))) {
         push(result, TO_ENTRIES ? [key, O[key]] : O[key]);
       }
     }
@@ -20503,10 +20515,10 @@ var store = __webpack_require__("./node_modules/core-js/internals/shared-store.j
 (module.exports = function (key, value) {
   return store[key] || (store[key] = value !== undefined ? value : {});
 })('versions', []).push({
-  version: '3.30.2',
+  version: '3.31.0',
   mode: IS_PURE ? 'pure' : 'global',
   copyright: '© 2014-2023 Denis Pushkarev (zloirock.ru)',
-  license: 'https://github.com/zloirock/core-js/blob/v3.30.2/LICENSE',
+  license: 'https://github.com/zloirock/core-js/blob/v3.31.0/LICENSE',
   source: 'https://github.com/zloirock/core-js'
 });
 
@@ -21697,13 +21709,15 @@ module.exports = !fails(function () {
   // eslint-disable-next-line unicorn/relative-url-style -- required for testing
   var url = new URL('b?a=1&b=2&c=3', 'http://a');
   var searchParams = url.searchParams;
+  var searchParams2 = new URLSearchParams('a=1&a=2');
   var result = '';
   url.pathname = 'c%20d';
   searchParams.forEach(function (value, key) {
     searchParams['delete']('b');
     result += key + value;
   });
-  return IS_PURE && !url.toJSON || !searchParams.size && (IS_PURE || !DESCRIPTORS) || !searchParams.sort || url.href !== 'http://a/c%20d?a=1&c=3' || searchParams.get('c') !== '3' || String(new URLSearchParams('?a=1')) !== 'a=1' || !searchParams[ITERATOR]
+  searchParams2['delete']('a', 2);
+  return IS_PURE && (!url.toJSON || !searchParams2.has('a', 1) || searchParams2.has('a', 2)) || !searchParams.size && (IS_PURE || !DESCRIPTORS) || !searchParams.sort || url.href !== 'http://a/c%20d?a=1&c=3' || searchParams.get('c') !== '3' || String(new URLSearchParams('?a=1')) !== 'a=1' || !searchParams[ITERATOR]
   // throws in Edge
   || new URL('https://a@b').username !== 'a' || new URLSearchParams(new URLSearchParams('a=b')).get('a') !== 'b'
   // not punycoded in Edge
@@ -27631,6 +27645,40 @@ $({
 
 /***/ }),
 
+/***/ "./node_modules/core-js/modules/es.string.is-well-formed.js":
+/***/ ((__unused_webpack_module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+
+
+var $ = __webpack_require__("./node_modules/core-js/internals/export.js");
+var uncurryThis = __webpack_require__("./node_modules/core-js/internals/function-uncurry-this.js");
+var requireObjectCoercible = __webpack_require__("./node_modules/core-js/internals/require-object-coercible.js");
+var toString = __webpack_require__("./node_modules/core-js/internals/to-string.js");
+var charCodeAt = uncurryThis(''.charCodeAt);
+
+// `String.prototype.isWellFormed` method
+// https://github.com/tc39/proposal-is-usv-string
+$({
+  target: 'String',
+  proto: true
+}, {
+  isWellFormed: function isWellFormed() {
+    var S = toString(requireObjectCoercible(this));
+    var length = S.length;
+    for (var i = 0; i < length; i++) {
+      var charCode = charCodeAt(S, i);
+      // single UTF-16 code unit
+      if ((charCode & 0xF800) != 0xD800) continue;
+      // unpaired surrogate
+      if (charCode >= 0xDC00 || ++i >= length || (charCodeAt(S, i) & 0xFC00) != 0xDC00) return false;
+    }
+    return true;
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/core-js/modules/es.string.italics.js":
 /***/ ((__unused_webpack_module, __unused_webpack_exports, __webpack_require__) => {
 
@@ -28551,6 +28599,61 @@ $({
 }, {
   sup: function sup() {
     return createHTML(this, 'sup', '', '');
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/core-js/modules/es.string.to-well-formed.js":
+/***/ ((__unused_webpack_module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+
+
+var $ = __webpack_require__("./node_modules/core-js/internals/export.js");
+var call = __webpack_require__("./node_modules/core-js/internals/function-call.js");
+var uncurryThis = __webpack_require__("./node_modules/core-js/internals/function-uncurry-this.js");
+var requireObjectCoercible = __webpack_require__("./node_modules/core-js/internals/require-object-coercible.js");
+var toString = __webpack_require__("./node_modules/core-js/internals/to-string.js");
+var fails = __webpack_require__("./node_modules/core-js/internals/fails.js");
+var $Array = Array;
+var charAt = uncurryThis(''.charAt);
+var charCodeAt = uncurryThis(''.charCodeAt);
+var join = uncurryThis([].join);
+// eslint-disable-next-line es/no-string-prototype-iswellformed-towellformed -- safe
+var $toWellFormed = ''.toWellFormed;
+var REPLACEMENT_CHARACTER = '\uFFFD';
+
+// Safari bug
+var TO_STRING_CONVERSION_BUG = $toWellFormed && fails(function () {
+  return call($toWellFormed, 1) !== '1';
+});
+
+// `String.prototype.toWellFormed` method
+// https://github.com/tc39/proposal-is-usv-string
+$({
+  target: 'String',
+  proto: true,
+  forced: TO_STRING_CONVERSION_BUG
+}, {
+  toWellFormed: function toWellFormed() {
+    var S = toString(requireObjectCoercible(this));
+    if (TO_STRING_CONVERSION_BUG) return call($toWellFormed, S);
+    var length = S.length;
+    var result = $Array(length);
+    for (var i = 0; i < length; i++) {
+      var charCode = charCodeAt(S, i);
+      // single UTF-16 code unit
+      if ((charCode & 0xF800) != 0xD800) result[i] = charAt(S, i);
+      // unpaired surrogate
+      else if (charCode >= 0xDC00 || i + 1 >= length || (charCodeAt(S, i + 1) & 0xFC00) != 0xDC00) result[i] = REPLACEMENT_CHARACTER;
+      // surrogate pair
+      else {
+        result[i] = charAt(S, i);
+        result[++i] = charAt(S, i);
+      }
+    }
+    return join(result, '');
   }
 });
 
@@ -31685,15 +31788,15 @@ var URLSearchParamsConstructor = function URLSearchParams( /* init */
   anInstance(this, URLSearchParamsPrototype);
   var init = arguments.length > 0 ? arguments[0] : undefined;
   var state = setInternalState(this, new URLSearchParamsState(init));
-  if (!DESCRIPTORS) this.length = state.entries.length;
+  if (!DESCRIPTORS) this.size = state.entries.length;
 };
 var URLSearchParamsPrototype = URLSearchParamsConstructor.prototype;
 defineBuiltIns(URLSearchParamsPrototype, {
   // `URLSearchParams.prototype.append` method
   // https://url.spec.whatwg.org/#dom-urlsearchparams-append
   append: function append(name, value) {
-    validateArgumentsLength(arguments.length, 2);
     var state = getInternalParamsState(this);
+    validateArgumentsLength(arguments.length, 2);
     push(state.entries, {
       key: $toString(name),
       value: $toString(value)
@@ -31703,23 +31806,29 @@ defineBuiltIns(URLSearchParamsPrototype, {
   },
   // `URLSearchParams.prototype.delete` method
   // https://url.spec.whatwg.org/#dom-urlsearchparams-delete
-  'delete': function (name) {
-    validateArgumentsLength(arguments.length, 1);
+  'delete': function (name /* , value */) {
     var state = getInternalParamsState(this);
+    var length = validateArgumentsLength(arguments.length, 1);
     var entries = state.entries;
     var key = $toString(name);
+    var $value = length < 2 ? undefined : arguments[1];
+    var value = $value === undefined ? $value : $toString($value);
     var index = 0;
     while (index < entries.length) {
-      if (entries[index].key === key) splice(entries, index, 1);else index++;
+      var entry = entries[index];
+      if (entry.key === key && (value === undefined || entry.value === value)) {
+        splice(entries, index, 1);
+        if (value !== undefined) break;
+      } else index++;
     }
-    if (!DESCRIPTORS) this.length = entries.length;
+    if (!DESCRIPTORS) this.size = entries.length;
     state.updateURL();
   },
   // `URLSearchParams.prototype.get` method
   // https://url.spec.whatwg.org/#dom-urlsearchparams-get
   get: function get(name) {
-    validateArgumentsLength(arguments.length, 1);
     var entries = getInternalParamsState(this).entries;
+    validateArgumentsLength(arguments.length, 1);
     var key = $toString(name);
     var index = 0;
     for (; index < entries.length; index++) {
@@ -31730,8 +31839,8 @@ defineBuiltIns(URLSearchParamsPrototype, {
   // `URLSearchParams.prototype.getAll` method
   // https://url.spec.whatwg.org/#dom-urlsearchparams-getall
   getAll: function getAll(name) {
-    validateArgumentsLength(arguments.length, 1);
     var entries = getInternalParamsState(this).entries;
+    validateArgumentsLength(arguments.length, 1);
     var key = $toString(name);
     var result = [];
     var index = 0;
@@ -31742,21 +31851,24 @@ defineBuiltIns(URLSearchParamsPrototype, {
   },
   // `URLSearchParams.prototype.has` method
   // https://url.spec.whatwg.org/#dom-urlsearchparams-has
-  has: function has(name) {
-    validateArgumentsLength(arguments.length, 1);
+  has: function has(name /* , value */) {
     var entries = getInternalParamsState(this).entries;
+    var length = validateArgumentsLength(arguments.length, 1);
     var key = $toString(name);
+    var $value = length < 2 ? undefined : arguments[1];
+    var value = $value === undefined ? $value : $toString($value);
     var index = 0;
     while (index < entries.length) {
-      if (entries[index++].key === key) return true;
+      var entry = entries[index++];
+      if (entry.key === key && (value === undefined || entry.value === value)) return true;
     }
     return false;
   },
   // `URLSearchParams.prototype.set` method
   // https://url.spec.whatwg.org/#dom-urlsearchparams-set
   set: function set(name, value) {
-    validateArgumentsLength(arguments.length, 1);
     var state = getInternalParamsState(this);
+    validateArgumentsLength(arguments.length, 1);
     var entries = state.entries;
     var found = false;
     var key = $toString(name);
@@ -31776,7 +31888,7 @@ defineBuiltIns(URLSearchParamsPrototype, {
       key: key,
       value: val
     });
-    if (!DESCRIPTORS) this.length = entries.length;
+    if (!DESCRIPTORS) this.size = entries.length;
     state.updateURL();
   },
   // `URLSearchParams.prototype.sort` method
@@ -31900,6 +32012,100 @@ module.exports = {
   URLSearchParams: URLSearchParamsConstructor,
   getState: getInternalParamsState
 };
+
+/***/ }),
+
+/***/ "./node_modules/core-js/modules/web.url-search-params.delete.js":
+/***/ ((__unused_webpack_module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+
+
+var defineBuiltIn = __webpack_require__("./node_modules/core-js/internals/define-built-in.js");
+var uncurryThis = __webpack_require__("./node_modules/core-js/internals/function-uncurry-this.js");
+var toString = __webpack_require__("./node_modules/core-js/internals/to-string.js");
+var validateArgumentsLength = __webpack_require__("./node_modules/core-js/internals/validate-arguments-length.js");
+var $URLSearchParams = URLSearchParams;
+var URLSearchParamsPrototype = $URLSearchParams.prototype;
+var append = uncurryThis(URLSearchParamsPrototype.append);
+var $delete = uncurryThis(URLSearchParamsPrototype['delete']);
+var forEach = uncurryThis(URLSearchParamsPrototype.forEach);
+var push = uncurryThis([].push);
+var params = new $URLSearchParams('a=1&a=2');
+params['delete']('a', 1);
+if (params + '' !== 'a=2') {
+  defineBuiltIn(URLSearchParamsPrototype, 'delete', function (name /* , value */) {
+    var length = arguments.length;
+    var $value = length < 2 ? undefined : arguments[1];
+    if (length && $value === undefined) return $delete(this, name);
+    var entries = [];
+    forEach(this, function (v, k) {
+      // also validates `this`
+      push(entries, {
+        key: k,
+        value: v
+      });
+    });
+    validateArgumentsLength(length, 1);
+    var key = toString(name);
+    var value = toString($value);
+    var index = 0;
+    var dindex = 0;
+    var found = false;
+    var entriesLength = entries.length;
+    var entry;
+    while (index < entriesLength) {
+      entry = entries[index++];
+      if (found || entry.key === key) {
+        found = true;
+        $delete(this, entry.key);
+      } else dindex++;
+    }
+    while (dindex < entriesLength) {
+      entry = entries[dindex++];
+      if (!(entry.key === key && entry.value === value)) append(this, entry.key, entry.value);
+    }
+  }, {
+    enumerable: true,
+    unsafe: true
+  });
+}
+
+/***/ }),
+
+/***/ "./node_modules/core-js/modules/web.url-search-params.has.js":
+/***/ ((__unused_webpack_module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+
+
+var defineBuiltIn = __webpack_require__("./node_modules/core-js/internals/define-built-in.js");
+var uncurryThis = __webpack_require__("./node_modules/core-js/internals/function-uncurry-this.js");
+var toString = __webpack_require__("./node_modules/core-js/internals/to-string.js");
+var validateArgumentsLength = __webpack_require__("./node_modules/core-js/internals/validate-arguments-length.js");
+var $URLSearchParams = URLSearchParams;
+var URLSearchParamsPrototype = $URLSearchParams.prototype;
+var getAll = uncurryThis(URLSearchParamsPrototype.getAll);
+var $has = uncurryThis(URLSearchParamsPrototype.has);
+var params = new $URLSearchParams('a=1');
+if (params.has('a', 2)) {
+  defineBuiltIn(URLSearchParamsPrototype, 'has', function has(name /* , value */) {
+    var length = arguments.length;
+    var $value = length < 2 ? undefined : arguments[1];
+    if (length && $value === undefined) return $has(this, name);
+    var values = getAll(this, name); // also validates `this`
+    validateArgumentsLength(length, 1);
+    var value = toString($value);
+    var index = 0;
+    while (index < values.length) {
+      if (values[index++] === value) return true;
+    }
+    return false;
+  }, {
+    enumerable: true,
+    unsafe: true
+  });
+}
 
 /***/ }),
 
@@ -33196,6 +33402,7 @@ __webpack_require__("./node_modules/core-js/modules/es.string.code-point-at.js")
 __webpack_require__("./node_modules/core-js/modules/es.string.ends-with.js");
 __webpack_require__("./node_modules/core-js/modules/es.string.from-code-point.js");
 __webpack_require__("./node_modules/core-js/modules/es.string.includes.js");
+__webpack_require__("./node_modules/core-js/modules/es.string.is-well-formed.js");
 __webpack_require__("./node_modules/core-js/modules/es.string.iterator.js");
 __webpack_require__("./node_modules/core-js/modules/es.string.match.js");
 __webpack_require__("./node_modules/core-js/modules/es.string.match-all.js");
@@ -33209,6 +33416,7 @@ __webpack_require__("./node_modules/core-js/modules/es.string.search.js");
 __webpack_require__("./node_modules/core-js/modules/es.string.split.js");
 __webpack_require__("./node_modules/core-js/modules/es.string.starts-with.js");
 __webpack_require__("./node_modules/core-js/modules/es.string.substr.js");
+__webpack_require__("./node_modules/core-js/modules/es.string.to-well-formed.js");
 __webpack_require__("./node_modules/core-js/modules/es.string.trim.js");
 __webpack_require__("./node_modules/core-js/modules/es.string.trim-end.js");
 __webpack_require__("./node_modules/core-js/modules/es.string.trim-start.js");
@@ -33284,6 +33492,8 @@ __webpack_require__("./node_modules/core-js/modules/web.url.js");
 __webpack_require__("./node_modules/core-js/modules/web.url.can-parse.js");
 __webpack_require__("./node_modules/core-js/modules/web.url.to-json.js");
 __webpack_require__("./node_modules/core-js/modules/web.url-search-params.js");
+__webpack_require__("./node_modules/core-js/modules/web.url-search-params.delete.js");
+__webpack_require__("./node_modules/core-js/modules/web.url-search-params.has.js");
 __webpack_require__("./node_modules/core-js/modules/web.url-search-params.size.js");
 /* unused reexport */ __webpack_require__("./node_modules/core-js/internals/path.js");
 
