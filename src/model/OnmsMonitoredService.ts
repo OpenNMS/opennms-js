@@ -14,6 +14,7 @@ export class OnmsMonitoredService implements IHasUrlValue {
   /** the service ID */
   public id?: number;
 
+  /** true if the service is down */
   public down?: boolean;
 
   /** the last time the service failed */
