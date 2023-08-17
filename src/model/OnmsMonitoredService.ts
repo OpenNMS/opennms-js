@@ -14,6 +14,8 @@ export class OnmsMonitoredService implements IHasUrlValue {
   /** the service ID */
   public id?: number;
 
+  public down?: boolean;
+
   /** the last time the service failed */
   public lastFail?: Moment;
 
@@ -45,6 +47,7 @@ export class OnmsMonitoredService implements IHasUrlValue {
     const service = new OnmsMonitoredService();
 
     service.id = Util.toNumber(data.id);
+    service.down = data.down;
     service.lastFail = Util.toDate(data.lastFail);
     service.lastGood = Util.toDate(data.lastGood);
 
@@ -57,5 +60,4 @@ export class OnmsMonitoredService implements IHasUrlValue {
 
     return service;
   }
-
 }
