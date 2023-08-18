@@ -77247,6 +77247,8 @@ var OnmsMonitoredService = /*#__PURE__*/function () {
     key: "urlValue",
     get: /** the service ID */
 
+    /** true if the service is down */
+
     /** the last time the service failed */
 
     /** the last time the service passed */
@@ -77273,6 +77275,7 @@ var OnmsMonitoredService = /*#__PURE__*/function () {
     value: function fromData(data) {
       var service = new OnmsMonitoredService();
       service.id = Util.toNumber(data.id);
+      service.down = data.down;
       service.lastFail = Util.toDate(data.lastFail);
       service.lastGood = Util.toDate(data.lastGood);
       if (data.serviceType) {
