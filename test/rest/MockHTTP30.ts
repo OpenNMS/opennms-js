@@ -1,7 +1,7 @@
 import {AbstractMockHTTP} from './AbstractMockHTTP';
 import {OnmsHTTPOptions} from '../../src/api/OnmsHTTPOptions';
 
-/** Mock OpenNMS 28.x HTTP implementation */
+/** Mock OpenNMS 30.x HTTP implementation */
 export class MockHTTP30 extends AbstractMockHTTP {
   /** @inheritdoc */
   public onGet(url: string, options?: OnmsHTTPOptions) {
@@ -24,7 +24,6 @@ export class MockHTTP30 extends AbstractMockHTTP {
       case 'api/v2/snmpinterfaces?limit=1000&_s=ifName%3D%3Dsome-test':{
         return this.okJsonFile('./30.0.0/get/api/v2/snmpinterfaces.filtered.json');
       }    
-
     }
   }
 }

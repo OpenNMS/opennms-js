@@ -1,4 +1,10 @@
-## [2.5.7-SNAPSHOT](https://github.com/OpenNMS/opennms-js/compare/v2.5.6...v2.5.7-SNAPSHOT) (2023-08-14)
+## [2.5.7-SNAPSHOT](https://github.com/OpenNMS/opennms-js/compare/v2.5.6...v2.5.7-SNAPSHOT) (2023-08-18)
+
+
+### Bug Fixes
+
+* add down to monitored services response ([ae8835e](https://github.com/OpenNMS/opennms-js/commit/ae8835edf74b0b54fa331442967439c4a023b94b))
+* document public property ([8bc343d](https://github.com/OpenNMS/opennms-js/commit/8bc343d88818162ada5dd14a3be65d35f4999b31))
 
 
 

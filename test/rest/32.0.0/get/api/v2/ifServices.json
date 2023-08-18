@@ -1,0 +1,167 @@
+{
+  "count": 10,
+  "totalCount": 40,
+  "offset": 0,
+  "service": [
+    {
+      "down": true,
+      "notify": null,
+      "status": "A",
+      "source": null,
+      "qualifier": null,
+      "lastGood": 1651862554301,
+      "lastFail": 1663000042923,
+      "statusLong": "Managed",
+      "ipInterfaceId": 1,
+      "serviceType": {
+        "id": 1,
+        "name": "DeviceConfig-default"
+      },
+      "id": 4
+    },
+    {
+      "down": true,
+      "notify": null,
+      "status": "A",
+      "source": null,
+      "qualifier": null,
+      "lastGood": null,
+      "lastFail": 1663000042923,
+      "statusLong": "Managed",
+      "ipInterfaceId": 2,
+      "serviceType": {
+        "id": 1,
+        "name": "DeviceConfig-default"
+      },
+      "id": 5
+    },
+    {
+      "down": true,
+      "notify": null,
+      "status": "A",
+      "source": null,
+      "qualifier": null,
+      "lastGood": null,
+      "lastFail": 1663000042922,
+      "statusLong": "Managed",
+      "ipInterfaceId": 3,
+      "serviceType": {
+        "id": 2,
+        "name": "DeviceConfig-running"
+      },
+      "id": 6
+    },
+    {
+      "down": false,
+      "notify": null,
+      "status": null,
+      "source": null,
+      "qualifier": null,
+      "lastGood": null,
+      "lastFail": null,
+      "statusLong": null,
+      "ipInterfaceId": 2,
+      "serviceType": {
+        "id": 2,
+        "name": "DeviceConfig-running"
+      },
+      "id": 7
+    },
+    {
+      "down": true,
+      "notify": null,
+      "status": "A",
+      "source": null,
+      "qualifier": null,
+      "lastGood": null,
+      "lastFail": 1663000042922,
+      "statusLong": "Managed",
+      "ipInterfaceId": 4,
+      "serviceType": {
+        "id": 1,
+        "name": "DeviceConfig-default"
+      },
+      "id": 8
+    },
+    {
+      "down": false,
+      "notify": null,
+      "status": "A",
+      "source": null,
+      "qualifier": null,
+      "lastGood": 1663000345039,
+      "lastFail": null,
+      "statusLong": "Managed",
+      "ipInterfaceId": 37,
+      "serviceType": {
+        "id": 3,
+        "name": "ICMP"
+      },
+      "id": 39
+    },
+    {
+      "down": false,
+      "notify": null,
+      "status": "A",
+      "source": null,
+      "qualifier": null,
+      "lastGood": 1663000374044,
+      "lastFail": null,
+      "statusLong": "Managed",
+      "ipInterfaceId": 37,
+      "serviceType": {
+        "id": 4,
+        "name": "OpenNMS-JVM"
+      },
+      "id": 40
+    },
+    {
+      "down": true,
+      "notify": null,
+      "status": "A",
+      "source": null,
+      "qualifier": null,
+      "lastGood": null,
+      "lastFail": 1663000042923,
+      "statusLong": "Managed",
+      "ipInterfaceId": 45,
+      "serviceType": {
+        "id": 1,
+        "name": "DeviceConfig-default"
+      },
+      "id": 46
+    },
+    {
+      "down": true,
+      "notify": null,
+      "status": "A",
+      "source": null,
+      "qualifier": null,
+      "lastGood": 1657655058204,
+      "lastFail": 1663000199402,
+      "statusLong": "Managed",
+      "ipInterfaceId": 48,
+      "serviceType": {
+        "id": 3,
+        "name": "ICMP"
+      },
+      "id": 51
+    },
+    {
+      "down": true,
+      "notify": null,
+      "status": "A",
+      "source": null,
+      "qualifier": null,
+      "lastGood": 1657655051210,
+      "lastFail": 1657655358082,
+      "statusLong": "Managed",
+      "ipInterfaceId": 48,
+      "serviceType": {
+        "id": 5,
+        "name": "SSH"
+      },
+      "id": 52
+    }
+  ]
+}
