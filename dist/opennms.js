@@ -64642,7 +64642,19 @@ class AxiosHeaders {
   }
 }
 AxiosHeaders.accessor(['Content-Type', 'Content-Length', 'Accept', 'Accept-Encoding', 'User-Agent', 'Authorization']);
-utils/* default */.Z.freezeMethods(AxiosHeaders.prototype);
+
+// reserved names hotfix
+utils/* default */.Z.reduceDescriptors(AxiosHeaders.prototype, ({
+  value
+}, key) => {
+  let mapped = key[0].toUpperCase() + key.slice(1); // map `set` => `Set`
+  return {
+    get: () => value,
+    set(headerValue) {
+      this[mapped] = headerValue;
+    }
+  };
+});
 utils/* default */.Z.freezeMethods(AxiosHeaders);
 /* harmony default export */ const core_AxiosHeaders = (AxiosHeaders);
 
@@ -65699,8 +65711,9 @@ const reduceDescriptors = (obj, reducer) => {
   const descriptors = Object.getOwnPropertyDescriptors(obj);
   const reducedDescriptors = {};
   forEach(descriptors, (descriptor, name) => {
-    if (reducer(descriptor, name, obj) !== false) {
-      reducedDescriptors[name] = descriptor;
+    let ret;
+    if ((ret = reducer(descriptor, name, obj)) !== false) {
+      reducedDescriptors[name] = ret || descriptor;
     }
   });
   Object.defineProperties(obj, reducedDescriptors);
@@ -76060,9 +76073,6 @@ function formDataToJSON(formData) {
 
 
 
-const DEFAULT_CONTENT_TYPE = {
-  'Content-Type': undefined
-};
 
 /**
  * It takes a string, tries to parse it, and if it fails, it returns the stringified version
@@ -76089,7 +76099,7 @@ function stringifySafely(rawValue, parser, encoder) {
 }
 const defaults = {
   transitional: transitional/* default */.Z,
-  adapter: ['xhr', 'http'],
+  adapter: browser/* default */.Z.isNode ? 'http' : 'xhr',
   transformRequest: [function transformRequest(data, headers) {
     const contentType = headers.getContentType() || '';
     const hasJSONContentType = contentType.indexOf('application/json') > -1;
@@ -76170,15 +76180,13 @@ const defaults = {
   },
   headers: {
     common: {
-      'Accept': 'application/json, text/plain, */*'
+      'Accept': 'application/json, text/plain, */*',
+      'Content-Type': undefined
     }
   }
 };
-utils/* default */.Z.forEach(['delete', 'get', 'head'], function forEachMethodNoData(method) {
+utils/* default */.Z.forEach(['delete', 'get', 'head', 'post', 'put', 'patch'], method => {
   defaults.headers[method] = {};
-});
-utils/* default */.Z.forEach(['post', 'put', 'patch'], function forEachMethodWithData(method) {
-  defaults.headers[method] = utils/* default */.Z.merge(DEFAULT_CONTENT_TYPE);
 });
 /* harmony default export */ const lib_defaults = (defaults);
 // EXTERNAL MODULE: ./node_modules/axios/lib/core/AxiosHeaders.js + 1 modules
@@ -76440,7 +76448,7 @@ function mergeConfig(config1, config2) {
 // EXTERNAL MODULE: ./node_modules/axios/lib/core/buildFullPath.js + 2 modules
 var buildFullPath = __webpack_require__("./node_modules/axios/lib/core/buildFullPath.js");
 ;// CONCATENATED MODULE: ./node_modules/axios/lib/env/data.js
-const VERSION = "1.4.0";
+const VERSION = "1.5.0";
 ;// CONCATENATED MODULE: ./node_modules/axios/lib/helpers/validator.js
 
 
@@ -76594,11 +76602,10 @@ class Axios {
 
     // Set config.method
     config.method = (config.method || this.defaults.method || 'get').toLowerCase();
-    let contextHeaders;
 
     // Flatten headers
-    contextHeaders = headers && utils/* default */.Z.merge(headers.common, headers[config.method]);
-    contextHeaders && utils/* default */.Z.forEach(['delete', 'get', 'head', 'post', 'put', 'patch', 'common'], method => {
+    let contextHeaders = headers && utils/* default */.Z.merge(headers.common, headers[config.method]);
+    headers && utils/* default */.Z.forEach(['delete', 'get', 'head', 'post', 'put', 'patch', 'common'], method => {
       delete headers[method];
     });
     config.headers = AxiosHeaders/* default */.Z.concat(contextHeaders, headers);
@@ -76938,6 +76945,7 @@ Object.entries(HttpStatusCode).forEach(([key, value]) => {
 
 
 
+
 /**
  * Create an instance of Axios
  *
@@ -76998,6 +77006,7 @@ axios.isAxiosError = isAxiosError;
 axios.mergeConfig = mergeConfig;
 axios.AxiosHeaders = AxiosHeaders/* default */.Z;
 axios.formToJSON = thing => helpers_formDataToJSON(utils/* default */.Z.isHTMLForm(thing) ? new FormData(thing) : thing);
+axios.getAdapter = adapters.getAdapter;
 axios.HttpStatusCode = helpers_HttpStatusCode;
 axios.default = axios;
 
