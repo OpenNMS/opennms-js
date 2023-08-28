@@ -5,9 +5,9 @@ import {API, Rest, DAO, Client} from './API';
 
 import {log} from './api/Log';
 
-import chalk from 'chalk';
 import cloneDeep from 'lodash/cloneDeep';
 import startCase from 'lodash/startCase';
+import pc from 'picocolors';
 import {table, getBorderCharacters} from 'table';
 import { OrderBy, Order, Orders } from './api/OrderBy';
 
@@ -86,8 +86,8 @@ const CLI = () => {
     .option('-u, --username <username>', 'The username to authenticate as (default: admin)')
     .option('-p, --password <password>', 'The password to authenticate with (default: admin)')
     .action((url: string, options: any) => {
-      log.warn(chalk.red('WARNING: This command saves your login'
-        + ' information to ~/.opennms-cli.config.json in clear text.'));
+      log.warn('WARNING: This command saves your login'
+        + ' information to ~/.opennms-cli.config.json in clear text.');
       const config = readConfig();
       if (url) {
         // the user is passing a URL, reset the config
@@ -106,7 +106,7 @@ const CLI = () => {
       const server = API.OnmsServer.newBuilder(config.url).setName('OpenNMS').setAuth(auth).build();
       const http = new Rest.AxiosHTTP(server);
       return Client.checkServer(server, http).then(() => {
-        log.info(chalk.green('Connection succeeded.'));
+        log.info('Connection succeeded.');
         if (!program.config) { // don't write the config if a config was passed in
           log.debug('Saving configuration to ' + defaultConfigFile);
           fs.writeFileSync(defaultConfigFile, JSON.stringify(config, undefined, 2), { mode: 0o600 });
@@ -127,12 +127,12 @@ const CLI = () => {
       const server = API.OnmsServer.newBuilder(config.url).setName('OpenNMS').setAuth(auth).build();
       const http = new Rest.AxiosHTTP();
       return Client.getMetadata(server, http).then((res) => {
-        let c = chalk.green;
+        let c = pc.green;
         if (res.type === API.ServerTypes.MERIDIAN) {
-          log.log(chalk.blue('OpenNMS Meridian ' + res.version.displayVersion + ' Capabilities:'));
-          c = chalk.blue;
+          log.log(pc.blue('OpenNMS Meridian ' + res.version.displayVersion + ' Capabilities:'));
+          c = pc.blue;
         } else {
-          log.log(chalk.green('OpenNMS Horizon ' + res.version.displayVersion + ' Capabilities:'));
+          log.log(pc.green('OpenNMS Horizon ' + res.version.displayVersion + ' Capabilities:'));
         }
         log.log('');
 
@@ -142,7 +142,7 @@ const CLI = () => {
           if (cap === 'type') {
             continue;
           }
-          data.push([chalk.bold(startCase(cap) + ':'), caps[cap]]);
+          data.push([pc.bold(startCase(cap) + ':'), caps[cap]]);
         }
         log.log(table(data, tableConfig));
         log.log('');
@@ -153,24 +153,24 @@ const CLI = () => {
       });
     });
 
-  const alarmHeaders = ['ID', 'Severity', 'Node', 'Count', 'Last', 'Log'];
+  const alarmHeaders = ['ID', 'Severity', 'Node', 'Count', 'Time', 'Log'];
 
   const colorify = (severity: string) => {
     switch (severity) {
-      case 'INDETERMINATE': return chalk.grey(severity);
-      case 'CLEARED': return chalk.white(severity);
-      case 'NORMAL': return chalk.green(severity);
-      case 'WARNING': return chalk.magenta(severity);
-      case 'MINOR': return chalk.yellow(severity);
-      case 'MAJOR': return chalk.bold.yellow(severity);
-      case 'CRITICAL': return chalk.bold.red(severity);
+      case 'INDETERMINATE': return pc.gray(severity);
+      case 'CLEARED': return pc.white(severity);
+      case 'NORMAL': return pc.green(severity);
+      case 'WARNING': return pc.magenta(severity);
+      case 'MINOR': return pc.yellow(severity);
+      case 'MAJOR': return pc.yellow(pc.bold(severity));
+      case 'CRITICAL': return pc.red(pc.bold(severity));
       default: return severity;
     }
   };
 
   const getMaxWidth = (data: any[], prop: string, max: number) => {
     const filtered = data.map((d) => ('' + d[prop]).length);
-    const m = Math.max(...filtered);
+    const m = Math.max(...filtered, prop.length);
     return Math.min(m, max);
   };
 
@@ -251,7 +251,7 @@ const CLI = () => {
           alarmTableConfig.columns = {};
 
           const data = [
-            [ 'ID', 'Severity', 'Node', 'Count', 'Time', 'Log' ].map((header) => chalk.bold(header)),
+            alarmHeaders.map((header) => pc.bold(header)),
           ];
 
           const colWidths = [
@@ -307,7 +307,7 @@ const CLI = () => {
       return new Client().connect('OpenNMS', config.url, config.username, config.password).then((client) => {
         const dao = client.alarms();
         return (dao as any)[name](id).then(() => {
-          log.log(chalk.green('Success!'));
+          log.log(pc.green('Success!'));
           return true;
         });
       }).catch((err) => {
@@ -327,7 +327,7 @@ const CLI = () => {
       const config = readConfig();
       return new Client().connect('OpenNMS', config.url, config.username, config.password).then((client) => {
         return client.alarms().acknowledge(id, options.user).then(() => {
-          log.log(chalk.green('Success!'));
+          log.log(pc.green('Success!'));
           return true;
         });
       }).catch((err) => {
@@ -347,7 +347,7 @@ const CLI = () => {
           const config = readConfig();
           return new Client().connect('OpenNMS', config.url, config.username, config.password).then((client) => {
               return client.alarms().saveStickyMemo(id, options.body, options.user).then(() => {
-                  log.log(chalk.green('Success!'));
+                  log.log(pc.green('Success!'));
                   return true;
               });
           }).catch((err) => {
@@ -367,7 +367,7 @@ const CLI = () => {
           const config = readConfig();
           return new Client().connect('OpenNMS', config.url, config.username, config.password).then((client) => {
               return client.alarms().saveJournalMemo(id, options.body, options.user).then(() => {
-                  log.log(chalk.green('Success!'));
+                  log.log(pc.green('Success!'));
                   return true;
               });
           }).catch((err) => {
