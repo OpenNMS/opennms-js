@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { AxiosStatic, AxiosInstance, AxiosRequestConfig } from 'axios';
+import { AxiosStatic, AxiosInstance, AxiosRequestConfig, getAdapter } from 'axios';
 import cloneDeep from 'lodash/cloneDeep';
 
 /** @hidden */
@@ -266,9 +266,9 @@ export class AxiosHTTP extends AbstractHTTP {
       } as AxiosRequestConfig;
 
       if (typeof XMLHttpRequest !== 'undefined') {
-        axiosOpts.adapter = require('axios/lib/adapters/xhr.js');
+        axiosOpts.adapter = getAdapter('xhr');
       } else if (typeof process !== 'undefined') {
-        axiosOpts.adapter = require('axios/lib/adapters/http.js');
+        axiosOpts.adapter = getAdapter('http');
       }
 
       this.axiosObj = this.axiosImpl.create(axiosOpts);
