@@ -1,6 +1,19 @@
 // tslint:disable:no-empty no-console variable-name
 
-import chalk from 'chalk';
+import pc from 'picocolors';
+
+const arrayToString = (parms: any[]) => {
+  return parms
+           .map(val => {
+             if (val === undefined) {
+               return '';
+             }
+             if (val instanceof String || typeof val === 'string') {
+               return val;
+             }
+             return JSON.stringify(val, null, 2)
+           }).join(' ');
+};
 
 /**
  * Simple logger used for both CLI and browser use.
@@ -41,7 +54,7 @@ export class Logger {
    */
   public log(...parms: any[]) {
     if (!this._silent) {
-      this.impl.log(...parms);
+      this.impl.log(arrayToString(parms));
     }
   }
 
@@ -51,7 +64,7 @@ export class Logger {
    */
   public trace(...parms: any[]) {
     if (this._debug) {
-      this.impl.trace(chalk.gray(...parms));
+      this.impl.trace(pc.gray(arrayToString(parms)));
     }
   }
 
@@ -61,7 +74,7 @@ export class Logger {
    */
   public debug(...parms: any[]) {
     if (this._debug) {
-      this.impl.debug(chalk.gray(...parms));
+      this.impl.debug(pc.gray(arrayToString(parms)));
     }
   }
 
@@ -71,7 +84,7 @@ export class Logger {
    */
   public info(...parms: any[]) {
     if (!this._quiet && !this._silent) {
-      this.impl.info(...parms);
+      this.impl.info(arrayToString(parms));
     }
   }
 
@@ -81,7 +94,7 @@ export class Logger {
    */
   public warn(...parms: any[]) {
     if (!this._quiet && !this._silent) {
-      this.impl.warn(chalk.yellow(...parms));
+      this.impl.warn(pc.yellow(arrayToString(parms)));
     }
   }
 
@@ -91,7 +104,7 @@ export class Logger {
    */
   public error(...parms: any[]) {
     if (!this._silent) {
-      this.impl.error(chalk.red(...parms));
+      this.impl.error(pc.red(arrayToString(parms)));
     }
   }
 
@@ -101,7 +114,7 @@ export class Logger {
    */
   public fatal(...parms: any[]) {
     if (!this._silent) {
-      this.impl.error(chalk.bold.red(...parms));
+      this.impl.error(pc.bold(pc.red(arrayToString(parms))));
     }
   }
 
