@@ -23,7 +23,7 @@ export class OnmsTroubleTicketState extends OnmsEnum<number> implements IHasUrlV
   }
 }
 
-/* tslint:disable:object-literal-sort-keys */
+/* eslint-disable  */
 /**
  * Contains constant instances of all trouble ticket states.
  * @category Model

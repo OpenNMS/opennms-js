@@ -23,7 +23,7 @@ export class OnmsSituationFeedbackType extends OnmsEnum<string> implements IHasU
   }
 }
 
-/* tslint:disable:object-literal-sort-keys */
+/* eslint-disable  */
 /**
  * Contains constant instances of all feedback types.
  * @category Model

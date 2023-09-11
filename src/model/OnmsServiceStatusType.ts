@@ -28,7 +28,7 @@ export class OnmsServiceStatusType extends OnmsEnum<string> implements IHasUrlVa
   }
 }
 
-/* tslint:disable:object-literal-sort-keys */
+/* eslint-disable  */
 /**
  * Contains constant instances of all service status types.
  * @category Model

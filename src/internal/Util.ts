@@ -5,7 +5,7 @@ import {Address4, Address6} from 'ip-address';
 import {Moment} from 'moment';
 
 /** @hidden */
-// tslint:disable-next-line
+// eslint-disable-next-line
 const moment = require('moment');
 
 /** @hidden */

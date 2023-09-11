@@ -28,7 +28,7 @@ export class OnmsManagedType extends OnmsEnum<string> implements IHasUrlValue {
   }
 }
 
-/* tslint:disable:object-literal-sort-keys */
+/* eslint-disable  */
 /**
  * Contains constant instances of all managed types.
  * @category Model

@@ -23,7 +23,7 @@ export class OnmsSnmpStatusType extends OnmsEnum<number> implements IHasUrlValue
   }
 }
 
-/* tslint:disable:object-literal-sort-keys */
+/* eslint-disable  */
 /**
  * Contains constant instances of all SNMP status types.
  * @category Model

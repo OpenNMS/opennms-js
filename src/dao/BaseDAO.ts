@@ -6,11 +6,11 @@ import {OnmsServer} from '../api/OnmsServer';
 import {log} from '../api/Log';
 
 /** @hidden */
-// tslint:disable-next-line
+// eslint-disable-next-line
 const moment = require('moment');
 
 /** @hidden */
-// tslint:disable-next-line
+// eslint-disable-next-line
 import {Moment} from 'moment';
 import { Util } from '../internal/Util';
 

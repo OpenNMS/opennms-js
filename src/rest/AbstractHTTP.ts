@@ -1,4 +1,4 @@
-// tslint:disable-next-line
+// eslint-disable-next-line
 /// <reference path="../../typings/index.d.ts" />
 
 import {IOnmsHTTP} from '../api/IOnmsHTTP';
@@ -190,7 +190,7 @@ export abstract class AbstractHTTP implements IOnmsHTTP {
     return new OnmsError(message, status, options, data);
   }
 
-  /* tslint:disable:member-ordering */
+  /* eslint-disable @typescript-eslint/member-ordering */
 
   /**
    * Attempt to determine an error message from an error response.
