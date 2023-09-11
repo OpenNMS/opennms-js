@@ -62843,7 +62843,7 @@ var Operator = /*#__PURE__*/function (_OnmsEnum) {
   return Operator;
 }(OnmsEnum);
 
-/* tslint:disable:object-literal-sort-keys */
+/* eslint-disable  */
 
 /**
  * Contains constant instances of all operators.
@@ -62945,7 +62945,7 @@ var Comparator = /*#__PURE__*/function (_OnmsEnum) {
   return Comparator;
 }(OnmsEnum);
 
-/* tslint:disable:object-literal-sort-keys */
+/* eslint-disable */
 
 /**
  * Contains constant instances of all available comparators.
@@ -63012,7 +63012,7 @@ function Log_toPrimitive(input, hint) { if (Log_typeof(input) !== "object" || in
 
 
 
-// tslint:disable:no-empty no-console variable-name
+/* eslint-disable no-empty, no-empty-function, @typescript-eslint/no-empty-function, no-console, @typescript-eslint/naming-convention,no-underscore-dangle,id-denylist,id-match */
 
 
 var arrayToString = function arrayToString(parms) {
@@ -63461,7 +63461,7 @@ function OrderBy_possibleConstructorReturn(self, call) { if (call && (OrderBy_ty
 function OrderBy_assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 function OrderBy_isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !(construct_default())) return false; if ((construct_default()).sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(construct_default()(Boolean, [], function () {})); return true; } catch (e) { return false; } }
 function OrderBy_getPrototypeOf(o) { var _context; OrderBy_getPrototypeOf = (set_prototype_of_default()) ? bind_default()(_context = (get_prototype_of_default())).call(_context) : function _getPrototypeOf(o) { return o.__proto__ || get_prototype_of_default()(o); }; return OrderBy_getPrototypeOf(o); }
-// tslint:disable:max-classes-per-file
+/* eslint-disable max-classes-per-file */
 
 
 
@@ -63819,7 +63819,7 @@ function Util_toPrimitive(input, hint) { if (Util_typeof(input) !== "object" || 
 
 
 
-/** @hidden */ // tslint:disable-next-line
+/** @hidden */ // eslint-disable-next-line
 var moment = __webpack_require__("./node_modules/moment/moment.js");
 
 /** @hidden */
@@ -63977,7 +63977,7 @@ function OnmsHTTPOptions_toPrimitive(input, hint) { if (OnmsHTTPOptions_typeof(i
 
 
 
-// tslint:disable:max-classes-per-file
+/* eslint-disable max-classes-per-file */
 
 
 
@@ -63999,7 +63999,7 @@ var isString = function isString(v) {
  * A builder for [[OnmsHTTPOptions]].  Create a new one with [[OnmsHTTPOptions.newBuilder]].
  * @category Rest
  */
-// tslint:disable:completed-docs variable-name whitespace
+/* eslint-disable , @typescript-eslint/naming-convention,no-underscore-dangle,id-denylist,id-match,  */
 var OnmsHTTPOptionsBuilder = /*#__PURE__*/function () {
   /** @hidden */
 
@@ -64247,7 +64247,7 @@ var OnmsHTTPOptionsBuilder = /*#__PURE__*/function () {
   }]);
   return OnmsHTTPOptionsBuilder;
 }();
-// tslint:enable:completed-docs variable-name whitespace
+/* eslint-enable @typescript-eslint/naming-convention, no-underscore-dangle, id-denylist, id-match */
 
 /**
  * Options to be used when making HTTP ReST calls.
@@ -64476,10 +64476,10 @@ function OnmsServer_defineProperties(target, props) { for (var i = 0; i < props.
 function OnmsServer_createClass(Constructor, protoProps, staticProps) { if (protoProps) OnmsServer_defineProperties(Constructor.prototype, protoProps); if (staticProps) OnmsServer_defineProperties(Constructor, staticProps); define_property_default()(Constructor, "prototype", { writable: false }); return Constructor; }
 function OnmsServer_toPropertyKey(arg) { var key = OnmsServer_toPrimitive(arg, "string"); return OnmsServer_typeof(key) === "symbol" ? key : String(key); }
 function OnmsServer_toPrimitive(input, hint) { if (OnmsServer_typeof(input) !== "object" || input === null) return input; var prim = input[(to_primitive_default())]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (OnmsServer_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
-// tslint:disable:max-classes-per-file
+/* eslint-disable max-classes-per-file */
 
 /** @hidden */
-// tslint:disable-next-line
+// eslint-disable-next-line
 var URI = __webpack_require__("./node_modules/urijs/src/URI.js");
 
 
@@ -64488,7 +64488,7 @@ var URI = __webpack_require__("./node_modules/urijs/src/URI.js");
  * A builder for [[OnmsServer]].  Create a new one with [[OnmsServer.newBuilder]].
  * @category Rest
  */
-// tslint:disable:completed-docs variable-name whitespace
+/* eslint-disable , @typescript-eslint/naming-convention,no-underscore-dangle,id-denylist,id-match,  */
 var OnmsServerBuilder = /*#__PURE__*/function () {
   /** @hidden */
 
@@ -64587,7 +64587,7 @@ var OnmsServerBuilder = /*#__PURE__*/function () {
   }]);
   return OnmsServerBuilder;
 }();
-// tslint:enable:completed-docs variable-name whitespace
+/* eslint-enable , @typescript-eslint/naming-convention,no-underscore-dangle,id-denylist,id-match,  */
 
 /**
  * Represents a remote OpenNMS server.
@@ -65744,11 +65744,11 @@ function BaseDAO_toPrimitive(input, hint) { if (BaseDAO_typeof(input) !== "objec
 
 
 /** @hidden */
-// tslint:disable-next-line
+// eslint-disable-next-line
 var BaseDAO_moment = __webpack_require__("./node_modules/moment/moment.js");
 
 /** @hidden */
-// tslint:disable-next-line
+// eslint-disable-next-line
 
 
 /**
@@ -66559,7 +66559,7 @@ var OnmsSeverity = /*#__PURE__*/function (_OnmsEnum) {
   return OnmsSeverity;
 }(OnmsEnum);
 
-/* tslint:disable:object-literal-sort-keys */
+/* eslint-disable  */
 /**
  * Contains constant instances of all severities.
  * @category Model
@@ -67119,7 +67119,7 @@ var OnmsTroubleTicketState = /*#__PURE__*/function (_OnmsEnum) {
   return OnmsTroubleTicketState;
 }(OnmsEnum);
 
-/* tslint:disable:object-literal-sort-keys */
+/* eslint-disable  */
 /**
  * Contains constant instances of all trouble ticket states.
  * @category Model
@@ -68306,7 +68306,7 @@ function FlowDAO_getPrototypeOf(o) { var _context22; FlowDAO_getPrototypeOf = (s
 
 
 /** @hidden */
-// tslint:disable-next-line
+// eslint-disable-next-line
 var FlowDAO_moment = __webpack_require__("./node_modules/moment/moment.js");
 
 /**
@@ -69285,7 +69285,7 @@ var OnmsManagedType = /*#__PURE__*/function (_OnmsEnum) {
   return OnmsManagedType;
 }(OnmsEnum);
 
-/* tslint:disable:object-literal-sort-keys */
+/* eslint-disable  */
 /**
  * Contains constant instances of all managed types.
  * @category Model
@@ -69376,7 +69376,7 @@ var OnmsPrimaryType = /*#__PURE__*/function (_OnmsEnum) {
   return OnmsPrimaryType;
 }(OnmsEnum);
 
-/* tslint:disable:object-literal-sort-keys */
+/* eslint-disable  */
 /**
  * Contains constant instances of all primary SNMP types.
  * @category Model
@@ -69463,7 +69463,7 @@ var OnmsCollectType = /*#__PURE__*/function (_OnmsEnum) {
   return OnmsCollectType;
 }(OnmsEnum);
 
-/* tslint:disable:object-literal-sort-keys */
+/* eslint-disable  */
 /**
  * Contains constant instances of all available collect types.
  * @category Model
@@ -69541,7 +69541,7 @@ var OnmsSnmpStatusType = /*#__PURE__*/function (_OnmsEnum) {
   return OnmsSnmpStatusType;
 }(OnmsEnum);
 
-/* tslint:disable:object-literal-sort-keys */
+/* eslint-disable  */
 /**
  * Contains constant instances of all SNMP status types.
  * @category Model
@@ -70083,7 +70083,7 @@ var OnmsServiceStatusType = /*#__PURE__*/function (_OnmsEnum) {
   return OnmsServiceStatusType;
 }(OnmsEnum);
 
-/* tslint:disable:object-literal-sort-keys */
+/* eslint-disable  */
 /**
  * Contains constant instances of all service status types.
  * @category Model
@@ -70455,7 +70455,7 @@ var OnmsNodeLabelSource = /*#__PURE__*/function (_OnmsEnum) {
   return OnmsNodeLabelSource;
 }(OnmsEnum);
 
-/* tslint:disable:object-literal-sort-keys */
+/* eslint-disable  */
 /**
  * Contains constant instances of all available node label sources.
  * @category Model
@@ -70537,7 +70537,7 @@ var OnmsNodeType = /*#__PURE__*/function (_OnmsEnum) {
   return OnmsNodeType;
 }(OnmsEnum);
 
-/* tslint:disable:object-literal-sort-keys */
+/* eslint-disable  */
 /**
  * Contains constant instances of all node types.
  * @category Model
@@ -71415,7 +71415,7 @@ var OnmsSituationFeedbackType = /*#__PURE__*/function (_OnmsEnum) {
   return OnmsSituationFeedbackType;
 }(OnmsEnum);
 
-/* tslint:disable:object-literal-sort-keys */
+/* eslint-disable  */
 /**
  * Contains constant instances of all feedback types.
  * @category Model
@@ -71947,14 +71947,14 @@ function XmlTransformer_toPrimitive(input, hint) { if (XmlTransformer_typeof(inp
 if (__webpack_require__.g && !__webpack_require__.g.window) {
   __webpack_require__.g.window = {};
   if (!__webpack_require__.g.window.DOMParser) {
-    // tslint:disable-next-line
+    // eslint-disable-next-line
     __webpack_require__.g.window.DOMParser = (__webpack_require__("./node_modules/@xmldom/xmldom/lib/index.js").DOMParser);
   }
 }
 
 
 /** @hidden */
-// tslint:disable-next-line
+// eslint-disable-next-line
 var X2JS = __webpack_require__("./node_modules/x2js/x2js.js");
 
 /** @hidden */
@@ -72062,7 +72062,7 @@ function AbstractHTTP_toPrimitive(input, hint) { if (AbstractHTTP_typeof(input) 
 
 
 
-// tslint:disable-next-line
+// eslint-disable-next-line
 /// <reference path="../../typings/index.d.ts" />
 
 
@@ -72244,7 +72244,7 @@ var AbstractHTTP = /*#__PURE__*/function () {
       return new OnmsError(message, status, options, data);
     }
 
-    /* tslint:disable:member-ordering */
+    /* eslint-disable @typescript-eslint/member-ordering */
 
     /**
      * Attempt to determine an error message from an error response.
@@ -75361,7 +75361,7 @@ function AxiosHTTP_getPrototypeOf(o) { var _context; AxiosHTTP_getPrototypeOf = 
 
 
 /** @hidden */
-// tslint:disable-next-line
+// eslint-disable-next-line
 var AxiosHTTP_URI = __webpack_require__("./node_modules/urijs/src/URI.js");
 
 
