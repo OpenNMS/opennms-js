@@ -23,7 +23,7 @@ export class OnmsNodeLabelSource extends OnmsEnum<string> implements IHasUrlValu
   }
 }
 
-/* tslint:disable:object-literal-sort-keys */
+/* eslint-disable  */
 /**
  * Contains constant instances of all available node label sources.
  * @category Model

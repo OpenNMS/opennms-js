@@ -23,7 +23,7 @@ export class OnmsNodeType extends OnmsEnum<string> implements IHasUrlValue {
   }
 }
 
-/* tslint:disable:object-literal-sort-keys */
+/* eslint-disable  */
 /**
  * Contains constant instances of all node types.
  * @category Model

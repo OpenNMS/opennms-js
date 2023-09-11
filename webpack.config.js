@@ -1,8 +1,9 @@
-var webpack = require('webpack');
-var path = require('path');
-var LodashPlugin = require('lodash-webpack-plugin');
-var TerserPlugin = require('terser-webpack-plugin');
-var pkginfo = require('./package.json');
+const webpack = require('webpack');
+const path = require('path');
+const ESLintPlugin = require('eslint-webpack-plugin');
+const LodashPlugin = require('lodash-webpack-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
+const pkginfo = require('./package.json');
 
 var createVariants = require('parallel-webpack').createVariants;
 
@@ -123,18 +124,6 @@ function createConfig(options) {
     }));
 
     myconf.module.rules.unshift({
-      // run tslint on typescript files before rendering
-      enforce: 'pre',
-      test: /\.tsx?$/,
-      use: [
-        {
-          loader: 'tslint-loader'
-        }
-      ],
-      exclude: [/node_modules/]
-    });
-
-    myconf.module.rules.unshift({
       test: /(\.tsx?)$/,
       use: [
         'cache-loader',
@@ -150,11 +139,13 @@ function createConfig(options) {
       debug: false
     }));
     myconf.plugins.push(new LodashPlugin);
+    myconf.plugins.push(new ESLintPlugin());
     myconf.output.filename += '.min';
   }
 
   myconf.plugins.push(new webpack.DefinePlugin(defs));
   myconf.plugins.push(new webpack.ProvidePlugin({X2JS: 'x2js'}));
+
   myconf.output.filename += '.js';
 
   console.log('webpack config variant: target=' + options.target + ', production=' + (!!options.production));

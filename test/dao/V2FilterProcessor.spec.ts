@@ -15,7 +15,6 @@ import { Clause } from '../../src/api/Clause';
 import { Operators } from '../../src/api/Operator';
 
 describe('V2FilterProcessor', () => {
-  // tslint:disable-next-line:completed-docs
   function toSearch(filter: Filter, processor?: V2FilterProcessor) {
     if (!processor) {
       processor = new V2FilterProcessor();

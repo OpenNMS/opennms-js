@@ -1,4 +1,4 @@
-// tslint:disable:no-empty no-console variable-name
+/* eslint-disable no-empty, no-empty-function, @typescript-eslint/no-empty-function, no-console, @typescript-eslint/naming-convention,no-underscore-dangle,id-denylist,id-match */
 
 import pc from 'picocolors';
 

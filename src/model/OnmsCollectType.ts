@@ -28,7 +28,7 @@ export class OnmsCollectType extends OnmsEnum<string> implements IHasUrlValue {
   }
 }
 
-/* tslint:disable:object-literal-sort-keys */
+/* eslint-disable  */
 /**
  * Contains constant instances of all available collect types.
  * @category Model

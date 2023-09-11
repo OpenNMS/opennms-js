@@ -1,4 +1,4 @@
-// tslint:disable:max-classes-per-file
+/* eslint-disable max-classes-per-file */
 
 import {OnmsAuthConfig} from './OnmsAuthConfig';
 import {OnmsServer} from './OnmsServer';
@@ -24,7 +24,7 @@ const isString = (v?: any) => {
  * A builder for [[OnmsHTTPOptions]].  Create a new one with [[OnmsHTTPOptions.newBuilder]].
  * @category Rest
  */
-// tslint:disable:completed-docs variable-name whitespace
+/* eslint-disable , @typescript-eslint/naming-convention,no-underscore-dangle,id-denylist,id-match,  */
 export class OnmsHTTPOptionsBuilder {
   /** @hidden */
   private _timeout?: number;
@@ -254,7 +254,7 @@ export class OnmsHTTPOptionsBuilder {
     return this;
   }
 }
-// tslint:enable:completed-docs variable-name whitespace
+/* eslint-enable @typescript-eslint/naming-convention, no-underscore-dangle, id-denylist, id-match */
 
 /**
  * Options to be used when making HTTP ReST calls.

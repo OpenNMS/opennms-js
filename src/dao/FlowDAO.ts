@@ -10,7 +10,7 @@ import {OnmsHTTPOptions, OnmsHTTPOptionsBuilder} from '../api/OnmsHTTPOptions';
 import {BaseDAO} from './BaseDAO';
 
 /** @hidden */
-// tslint:disable-next-line
+// eslint-disable-next-line
 const moment = require('moment');
 
 /**

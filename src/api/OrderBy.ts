@@ -1,4 +1,4 @@
-// tslint:disable:max-classes-per-file
+/* eslint-disable max-classes-per-file */
 
 import {forLabel, OnmsEnum} from '../internal/OnmsEnum';
 import {log} from './Log';

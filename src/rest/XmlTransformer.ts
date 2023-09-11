@@ -2,7 +2,7 @@
 if (global && !global.window) {
     (global as any).window = {} as Window;
     if (!(global.window as any).DOMParser) {
-        // tslint:disable-next-line
+        // eslint-disable-next-line
         (global.window as any).DOMParser = require('@xmldom/xmldom').DOMParser;
     }
 }
@@ -10,7 +10,7 @@ if (global && !global.window) {
 import {OnmsError} from '../api/OnmsError';
 
 /** @hidden */
-// tslint:disable-next-line
+// eslint-disable-next-line
 const X2JS = require('x2js');
 
 /** @hidden */

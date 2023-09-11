@@ -1,6 +1,6 @@
 // http://stackoverflow.com/a/8809472
 
-/* tslint:disable:no-bitwise */
+/* eslint-disable no-bitwise */
 
 /**
  * A utility class for generating UUIDs.
