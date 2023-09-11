@@ -32,7 +32,7 @@ export class Comparator extends OnmsEnum<number> {
   }
 }
 
-/* tslint:disable:object-literal-sort-keys */
+/* eslint-disable */
 
 /**
  * Contains constant instances of all available comparators.

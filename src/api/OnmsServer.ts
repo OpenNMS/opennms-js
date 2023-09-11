@@ -1,7 +1,7 @@
-// tslint:disable:max-classes-per-file
+/* eslint-disable max-classes-per-file */
 
 /** @hidden */
-// tslint:disable-next-line
+// eslint-disable-next-line
 const URI = require('urijs');
 
 import {OnmsAuthConfig} from '../api/OnmsAuthConfig';
@@ -14,7 +14,7 @@ import {MD5} from 'object-hash';
  * A builder for [[OnmsServer]].  Create a new one with [[OnmsServer.newBuilder]].
  * @category Rest
  */
-// tslint:disable:completed-docs variable-name whitespace
+/* eslint-disable , @typescript-eslint/naming-convention,no-underscore-dangle,id-denylist,id-match,  */
 export class OnmsServerBuilder {
   /** @hidden */
   private _name?: string;
@@ -97,7 +97,7 @@ export class OnmsServerBuilder {
     return this._metadata;
   }
 }
-// tslint:enable:completed-docs variable-name whitespace
+/* eslint-enable , @typescript-eslint/naming-convention,no-underscore-dangle,id-denylist,id-match,  */
 
 /**
  * Represents a remote OpenNMS server.

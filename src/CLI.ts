@@ -15,12 +15,12 @@ import { OrderBy, Order, Orders } from './api/OrderBy';
 const CLI = () => {
   const version = (global as any).OPENNMS_JS_VERSION || require('../package.json').version || 'unknown';
 
-  // tslint:disable
+  /* eslint-disable */
   const fs = require('fs');
   const htmlToFormattedText = require("html-to-formatted-text");
   const path = require('path');
   const program = require('commander');
-  // tslint:enable
+  /* eslint-enable */
 
   const homedir = process.env[(process.platform === 'win32') ? 'USERPROFILE' : 'HOME'];
   const defaultConfigFile = path.join(homedir, '.opennms-cli.config.json');
@@ -68,7 +68,7 @@ const CLI = () => {
     process.exit(1);
   };
 
-  /* tslint:disable:no-console */
+  /* eslint-disable no-console */
 
   // global options
   program
@@ -201,7 +201,7 @@ const CLI = () => {
   // list current alarms
   program
     .command('alarms [filters...]')
-    // tslint:disable-next-line:max-line-length
+    // eslint-disable-next-line max-len
     .description('List current alarms with optional filters (eg: "severity eq MAJOR", "node.label like dns*", "orderBy=lastEventTime")')
     .action((filters: string[]) => {
       const config = readConfig();

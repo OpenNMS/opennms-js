@@ -22,7 +22,7 @@ export class OnmsSeverity extends OnmsEnum<number> implements IHasUrlValue {
   }
 }
 
-/* tslint:disable:object-literal-sort-keys */
+/* eslint-disable  */
 /**
  * Contains constant instances of all severities.
  * @category Model

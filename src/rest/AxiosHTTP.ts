@@ -3,7 +3,7 @@ import { AxiosStatic, AxiosInstance, AxiosRequestConfig, getAdapter } from 'axio
 import cloneDeep from 'lodash/cloneDeep';
 
 /** @hidden */
-// tslint:disable-next-line
+// eslint-disable-next-line
 const URI = require('urijs');
 
 import {AbstractHTTP} from './AbstractHTTP';
