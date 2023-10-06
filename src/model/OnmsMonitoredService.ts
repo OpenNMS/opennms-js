@@ -1,3 +1,4 @@
+import { IpInterfaceDAO } from './../dao/IpInterfaceDAO';
 import {Moment} from 'moment';
 
 import {IHasUrlValue} from '../api/IHasUrlValue';
@@ -35,6 +36,14 @@ export class OnmsMonitoredService implements IHasUrlValue {
   /** the current status */
   public status?: OnmsServiceStatusType;
 
+  public ipInterfaceId?: number;
+
+  public ipAddress?: string;
+
+  public nodeId?: number;
+
+  public nodeLabel?: string;
+
   /** @inheritdoc */
   public get urlValue() {
     return this.type ? this.type.name : 'null';
@@ -57,6 +66,22 @@ export class OnmsMonitoredService implements IHasUrlValue {
     }
     if (data.status) {
       service.status = OnmsServiceStatusType.forId(data.status);
+    }
+
+    if (data.ipInterfaceId) {
+      service.ipInterfaceId = data.ipInterfaceId;
+    }
+
+    if (data.ipAddress) {
+      service.ipAddress = data.ipAddress;
+    }
+
+    if (data.nodeId) {
+      service.nodeId = data.nodeId;
+    }
+
+    if (data.nodeLabel) {
+      service.nodeLabel = data.nodeLabel;
     }
 
     return service;

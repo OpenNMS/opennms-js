@@ -22,6 +22,9 @@ export class MockHTTP32 extends AbstractMockHTTP {
       case 'api/v2/ifservices/4': {
         return this.okJsonFile('./32.0.0/get/api/v2/4.json');
       } 
+      case 'api/v2/ifservices/99': {
+        return this.okJsonFile('./32.0.0/get/api/v2/99.json');
+      }
     }
   }
 }
