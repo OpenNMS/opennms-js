@@ -72784,6 +72784,18 @@ var OnmsMonitoredService = /*#__PURE__*/function () {
       if (data.status) {
         service.status = OnmsServiceStatusType.forId(data.status);
       }
+      if (data.ipInterfaceId) {
+        service.ipInterfaceId = data.ipInterfaceId;
+      }
+      if (data.ipAddress) {
+        service.ipAddress = data.ipAddress;
+      }
+      if (data.nodeId) {
+        service.nodeId = data.nodeId;
+      }
+      if (data.nodeLabel) {
+        service.nodeLabel = data.nodeLabel;
+      }
       return service;
     }
   }]);
