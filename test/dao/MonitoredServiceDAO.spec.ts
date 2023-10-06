@@ -37,7 +37,7 @@ describe('MonitoredServiceDAO with v2 API', () => {
     });
   });
 
-  it('MonitoredServiceDAO.get(4)', () => {
+  it('MonitoredServiceDAO.get(4), does not have all fields', () => {
     return dao.get(4).then((service: OnmsMonitoredService) => {
       expect(service.id).toEqual(4);
 
@@ -53,6 +53,34 @@ describe('MonitoredServiceDAO with v2 API', () => {
       expect(service.status?.label).toEqual('MANAGED');
 
       expect(service.urlValue).toEqual('DeviceConfig-default');
+
+      expect(service.ipInterfaceId).toEqual(1);
+      expect(service.ipAddress).not.toBeDefined();
+      expect(service.nodeId).not.toBeDefined();
+    });
+  });
+
+  it('MonitoredServiceDAO.get(99), has all fields', () => {
+    return dao.get(99).then((service: OnmsMonitoredService) => {
+      expect(service.id).toEqual(99);
+
+      // Spot check some of the known properties
+      expect(service.down).toBeTruthy();
+      expect(service.lastGood?.valueOf()).toEqual(1651862554301);
+      expect(service.lastFail?.valueOf()).toEqual(1663000042923);
+
+      expect(service.type?.id).toEqual(1);
+      expect(service.type?.name).toEqual('DeviceConfig-default');
+
+      expect(service.status?.id).toEqual('A');
+      expect(service.status?.label).toEqual('MANAGED');
+
+      expect(service.urlValue).toEqual('DeviceConfig-default');
+
+      expect(service.ipInterfaceId).toEqual(101);
+      expect(service.ipAddress).toEqual('192.168.1.119');
+      expect(service.nodeId).toEqual(142);
+      expect(service.nodeLabel).toEqual('node119');
     });
   });
 

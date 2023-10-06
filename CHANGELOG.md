@@ -1,6 +1,11 @@
 ## [2.5.8-SNAPSHOT](https://github.com/OpenNMS/opennms-js/compare/v2.5.7...v2.5.8-SNAPSHOT) (2023-10-06)
 
 
+### Bug Fixes
+
+* add fields to monitored services ([ad3d90d](https://github.com/OpenNMS/opennms-js/commit/ad3d90d8a7c423dd0946fcfb98c7decd68de84f1))
+
+
 
 ## [2.5.6](https://github.com/OpenNMS/opennms-js/compare/v2.5.5...v2.5.6) (2023-06-09)
 
