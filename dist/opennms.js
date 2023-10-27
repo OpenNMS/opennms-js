@@ -74577,7 +74577,8 @@ const isXHRAdapterSupported = typeof XMLHttpRequest !== 'undefined';
     // Specifically not if we're in a web worker, or react-native.
     if (browser.isStandardBrowserEnv) {
       // Add xsrf header
-      const xsrfValue = (config.withCredentials || isURLSameOrigin(fullPath)) && config.xsrfCookieName && cookies.read(config.xsrfCookieName);
+      // regarding CVE-2023-45857 config.withCredentials condition was removed temporarily
+      const xsrfValue = isURLSameOrigin(fullPath) && config.xsrfCookieName && cookies.read(config.xsrfCookieName);
       if (xsrfValue) {
         requestHeaders.set(config.xsrfHeaderName, xsrfValue);
       }
@@ -74863,7 +74864,7 @@ function mergeConfig(config1, config2) {
   return config;
 }
 ;// CONCATENATED MODULE: ./node_modules/axios/lib/env/data.js
-const VERSION = "1.5.1";
+const VERSION = "1.6.0";
 ;// CONCATENATED MODULE: ./node_modules/axios/lib/helpers/validator.js
 
 
