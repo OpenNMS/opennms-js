@@ -71506,47 +71506,6 @@ module.exports = typeof ArrayBuffer != 'undefined' && typeof DataView != 'undefi
 
 /***/ }),
 
-/***/ "./node_modules/core-js/internals/array-buffer-byte-length.js":
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
-
-"use strict";
-
-
-var uncurryThisAccessor = __webpack_require__("./node_modules/core-js/internals/function-uncurry-this-accessor.js");
-var classof = __webpack_require__("./node_modules/core-js/internals/classof-raw.js");
-var $TypeError = TypeError;
-
-// Includes
-// - Perform ? RequireInternalSlot(O, [[ArrayBufferData]]).
-// - If IsSharedArrayBuffer(O) is true, throw a TypeError exception.
-module.exports = uncurryThisAccessor(ArrayBuffer.prototype, 'byteLength', 'get') || function (O) {
-  if (classof(O) !== 'ArrayBuffer') throw new $TypeError('ArrayBuffer expected');
-  return O.byteLength;
-};
-
-/***/ }),
-
-/***/ "./node_modules/core-js/internals/array-buffer-is-detached.js":
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
-
-"use strict";
-
-
-var uncurryThis = __webpack_require__("./node_modules/core-js/internals/function-uncurry-this.js");
-var arrayBufferByteLength = __webpack_require__("./node_modules/core-js/internals/array-buffer-byte-length.js");
-var slice = uncurryThis(ArrayBuffer.prototype.slice);
-module.exports = function (O) {
-  if (arrayBufferByteLength(O) !== 0) return false;
-  try {
-    slice(O, 0, 0);
-    return false;
-  } catch (error) {
-    return true;
-  }
-};
-
-/***/ }),
-
 /***/ "./node_modules/core-js/internals/array-buffer-non-extensible.js":
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
@@ -71564,62 +71523,6 @@ module.exports = fails(function () {
     });
   }
 });
-
-/***/ }),
-
-/***/ "./node_modules/core-js/internals/array-buffer-transfer.js":
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
-
-"use strict";
-
-
-var global = __webpack_require__("./node_modules/core-js/internals/global.js");
-var uncurryThis = __webpack_require__("./node_modules/core-js/internals/function-uncurry-this.js");
-var uncurryThisAccessor = __webpack_require__("./node_modules/core-js/internals/function-uncurry-this-accessor.js");
-var toIndex = __webpack_require__("./node_modules/core-js/internals/to-index.js");
-var isDetached = __webpack_require__("./node_modules/core-js/internals/array-buffer-is-detached.js");
-var arrayBufferByteLength = __webpack_require__("./node_modules/core-js/internals/array-buffer-byte-length.js");
-var detachTransferable = __webpack_require__("./node_modules/core-js/internals/detach-transferable.js");
-var PROPER_STRUCTURED_CLONE_TRANSFER = __webpack_require__("./node_modules/core-js/internals/structured-clone-proper-transfer.js");
-var structuredClone = global.structuredClone;
-var ArrayBuffer = global.ArrayBuffer;
-var DataView = global.DataView;
-var TypeError = global.TypeError;
-var min = Math.min;
-var ArrayBufferPrototype = ArrayBuffer.prototype;
-var DataViewPrototype = DataView.prototype;
-var slice = uncurryThis(ArrayBufferPrototype.slice);
-var isResizable = uncurryThisAccessor(ArrayBufferPrototype, 'resizable', 'get');
-var maxByteLength = uncurryThisAccessor(ArrayBufferPrototype, 'maxByteLength', 'get');
-var getInt8 = uncurryThis(DataViewPrototype.getInt8);
-var setInt8 = uncurryThis(DataViewPrototype.setInt8);
-module.exports = (PROPER_STRUCTURED_CLONE_TRANSFER || detachTransferable) && function (arrayBuffer, newLength, preserveResizability) {
-  var byteLength = arrayBufferByteLength(arrayBuffer);
-  var newByteLength = newLength === undefined ? byteLength : toIndex(newLength);
-  var fixedLength = !isResizable || !isResizable(arrayBuffer);
-  var newBuffer;
-  if (isDetached(arrayBuffer)) throw new TypeError('ArrayBuffer is detached');
-  if (PROPER_STRUCTURED_CLONE_TRANSFER) {
-    arrayBuffer = structuredClone(arrayBuffer, {
-      transfer: [arrayBuffer]
-    });
-    if (byteLength === newByteLength && (preserveResizability || fixedLength)) return arrayBuffer;
-  }
-  if (byteLength >= newByteLength && (!preserveResizability || fixedLength)) {
-    newBuffer = slice(arrayBuffer, 0, newByteLength);
-  } else {
-    var options = preserveResizability && !fixedLength && maxByteLength ? {
-      maxByteLength: maxByteLength(arrayBuffer)
-    } : undefined;
-    newBuffer = new ArrayBuffer(newByteLength, options);
-    var a = new DataView(arrayBuffer);
-    var b = new DataView(newBuffer);
-    var copyLength = min(newByteLength, byteLength);
-    for (var i = 0; i < copyLength; i++) setInt8(b, i, getInt8(a, i));
-  }
-  if (!PROPER_STRUCTURED_CLONE_TRANSFER) detachTransferable(arrayBuffer);
-  return newBuffer;
-};
 
 /***/ }),
 
@@ -74620,7 +74523,9 @@ module.exports = NATIVE_BIND ? uncurryThisWithBind : function (fn) {
 
 var global = __webpack_require__("./node_modules/core-js/internals/global.js");
 module.exports = function (CONSTRUCTOR, METHOD) {
-  return global[CONSTRUCTOR].prototype[METHOD];
+  var Constructor = global[CONSTRUCTOR];
+  var Prototype = Constructor && Constructor.prototype;
+  return Prototype && Prototype[METHOD];
 };
 
 /***/ }),
@@ -75518,6 +75423,25 @@ module.exports = USE_SYMBOL_AS_UID ? function (it) {
 } : function (it) {
   var $Symbol = getBuiltIn('Symbol');
   return isCallable($Symbol) && isPrototypeOf($Symbol.prototype, $Object(it));
+};
+
+/***/ }),
+
+/***/ "./node_modules/core-js/internals/iterate-simple.js":
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+
+
+var call = __webpack_require__("./node_modules/core-js/internals/function-call.js");
+module.exports = function (record, fn, ITERATOR_INSTEAD_OF_RECORD) {
+  var iterator = ITERATOR_INSTEAD_OF_RECORD ? record : record.iterator;
+  var next = record.next;
+  var step, result;
+  while (!(step = call(next, iterator)).done) {
+    result = fn(step.value);
+    if (result !== undefined) return result;
+  }
 };
 
 /***/ }),
@@ -77482,6 +77406,29 @@ module.exports = {
 
 /***/ }),
 
+/***/ "./node_modules/core-js/internals/set-iterate.js":
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+
+
+var uncurryThis = __webpack_require__("./node_modules/core-js/internals/function-uncurry-this.js");
+var iterateSimple = __webpack_require__("./node_modules/core-js/internals/iterate-simple.js");
+var SetHelpers = __webpack_require__("./node_modules/core-js/internals/set-helpers.js");
+var Set = SetHelpers.Set;
+var SetPrototype = SetHelpers.proto;
+var forEach = uncurryThis(SetPrototype.forEach);
+var keys = uncurryThis(SetPrototype.keys);
+var next = keys(new Set()).next;
+module.exports = function (set, fn, interruptible) {
+  return interruptible ? iterateSimple({
+    iterator: keys(set),
+    next: next
+  }, fn) : forEach(set, fn);
+};
+
+/***/ }),
+
 /***/ "./node_modules/core-js/internals/set-species.js":
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
@@ -77569,10 +77516,10 @@ var store = __webpack_require__("./node_modules/core-js/internals/shared-store.j
 (module.exports = function (key, value) {
   return store[key] || (store[key] = value !== undefined ? value : {});
 })('versions', []).push({
-  version: '3.33.1',
+  version: '3.33.2',
   mode: IS_PURE ? 'pure' : 'global',
   copyright: '© 2014-2023 Denis Pushkarev (zloirock.ru)',
-  license: 'https://github.com/zloirock/core-js/blob/v3.33.1/LICENSE',
+  license: 'https://github.com/zloirock/core-js/blob/v3.33.2/LICENSE',
   source: 'https://github.com/zloirock/core-js'
 });
 
@@ -88739,7 +88686,7 @@ $({
 var IS_PURE = __webpack_require__("./node_modules/core-js/internals/is-pure.js");
 var $ = __webpack_require__("./node_modules/core-js/internals/export.js");
 var global = __webpack_require__("./node_modules/core-js/internals/global.js");
-var getBuiltin = __webpack_require__("./node_modules/core-js/internals/get-built-in.js");
+var getBuiltIn = __webpack_require__("./node_modules/core-js/internals/get-built-in.js");
 var uncurryThis = __webpack_require__("./node_modules/core-js/internals/function-uncurry-this.js");
 var fails = __webpack_require__("./node_modules/core-js/internals/fails.js");
 var uid = __webpack_require__("./node_modules/core-js/internals/uid.js");
@@ -88759,32 +88706,25 @@ var validateArgumentsLength = __webpack_require__("./node_modules/core-js/intern
 var getRegExpFlags = __webpack_require__("./node_modules/core-js/internals/regexp-get-flags.js");
 var MapHelpers = __webpack_require__("./node_modules/core-js/internals/map-helpers.js");
 var SetHelpers = __webpack_require__("./node_modules/core-js/internals/set-helpers.js");
-var arrayBufferTransfer = __webpack_require__("./node_modules/core-js/internals/array-buffer-transfer.js");
+var setIterate = __webpack_require__("./node_modules/core-js/internals/set-iterate.js");
+var detachTransferable = __webpack_require__("./node_modules/core-js/internals/detach-transferable.js");
 var ERROR_STACK_INSTALLABLE = __webpack_require__("./node_modules/core-js/internals/error-stack-installable.js");
 var PROPER_STRUCTURED_CLONE_TRANSFER = __webpack_require__("./node_modules/core-js/internals/structured-clone-proper-transfer.js");
 var Object = global.Object;
 var Array = global.Array;
 var Date = global.Date;
 var Error = global.Error;
-var EvalError = global.EvalError;
-var RangeError = global.RangeError;
-var ReferenceError = global.ReferenceError;
-var SyntaxError = global.SyntaxError;
 var TypeError = global.TypeError;
-var URIError = global.URIError;
 var PerformanceMark = global.PerformanceMark;
-var WebAssembly = global.WebAssembly;
-var CompileError = WebAssembly && WebAssembly.CompileError || Error;
-var LinkError = WebAssembly && WebAssembly.LinkError || Error;
-var RuntimeError = WebAssembly && WebAssembly.RuntimeError || Error;
-var DOMException = getBuiltin('DOMException');
+var DOMException = getBuiltIn('DOMException');
 var Map = MapHelpers.Map;
 var mapHas = MapHelpers.has;
 var mapGet = MapHelpers.get;
 var mapSet = MapHelpers.set;
 var Set = SetHelpers.Set;
 var setAdd = SetHelpers.add;
-var objectKeys = getBuiltin('Object', 'keys');
+var setHas = SetHelpers.has;
+var objectKeys = getBuiltIn('Object', 'keys');
 var push = uncurryThis([].push);
 var thisBooleanValue = uncurryThis(true.valueOf);
 var thisNumberValue = uncurryThis(1.0.valueOf);
@@ -88798,7 +88738,7 @@ var checkBasicSemantic = function (structuredCloneImplementation) {
     var set1 = new global.Set([7]);
     var set2 = structuredCloneImplementation(set1);
     var number = structuredCloneImplementation(Object(7));
-    return set2 === set1 || !set2.has(7) || typeof number != 'object' || +number !== 7;
+    return set2 === set1 || !set2.has(7) || !isObject(number) || +number !== 7;
   }) && structuredCloneImplementation;
 };
 var checkErrorsCloning = function (structuredCloneImplementation, $Error) {
@@ -88888,10 +88828,10 @@ var cloneBuffer = function (value, map, $type) {
 
     // `ArrayBuffer#slice` is not available in IE10
     // `ArrayBuffer#slice` and `DataView` are not available in old FF
-    if (!DataView && typeof value.slice != 'function') throwUnpolyfillable('ArrayBuffer');
+    if (!DataView && !isCallable(value.slice)) throwUnpolyfillable('ArrayBuffer');
     // detached buffers throws in `DataView` and `.slice`
     try {
-      if (typeof value.slice == 'function' && !value.resizable) {
+      if (isCallable(value.slice) && !value.resizable) {
         clone = value.slice(0);
       } else {
         length = value.byteLength;
@@ -88919,12 +88859,7 @@ var cloneView = function (value, type, offset, length, map) {
   if (!isObject(C)) throwUnpolyfillable(type);
   return new C(cloneBuffer(value.buffer, map), offset, length);
 };
-var Placeholder = function (object, type, metadata) {
-  this.object = object;
-  this.type = type;
-  this.metadata = metadata;
-};
-var structuredCloneInternal = function (value, map, transferredBuffers) {
+var structuredCloneInternal = function (value, map) {
   if (isSymbol(value)) throwUncloneable('Symbol');
   if (!isObject(value)) return value;
   // effectively preserves circular references
@@ -88955,34 +88890,21 @@ var structuredCloneInternal = function (value, map, transferredBuffers) {
       name = value.name;
       switch (name) {
         case 'AggregateError':
-          cloned = new (getBuiltin('AggregateError'))([]);
+          cloned = new (getBuiltIn(name))([]);
           break;
         case 'EvalError':
-          cloned = new EvalError();
-          break;
         case 'RangeError':
-          cloned = new RangeError();
-          break;
         case 'ReferenceError':
-          cloned = new ReferenceError();
-          break;
+        case 'SuppressedError':
         case 'SyntaxError':
-          cloned = new SyntaxError();
-          break;
         case 'TypeError':
-          cloned = new TypeError();
-          break;
         case 'URIError':
-          cloned = new URIError();
+          cloned = new (getBuiltIn(name))();
           break;
         case 'CompileError':
-          cloned = new CompileError();
-          break;
         case 'LinkError':
-          cloned = new LinkError();
-          break;
         case 'RuntimeError':
-          cloned = new RuntimeError();
+          cloned = new (getBuiltIn('WebAssembly', name))();
           break;
         default:
           cloned = new Error();
@@ -88993,7 +88915,7 @@ var structuredCloneInternal = function (value, map, transferredBuffers) {
       break;
     case 'ArrayBuffer':
     case 'SharedArrayBuffer':
-      cloned = transferredBuffers ? new Placeholder(value, type) : cloneBuffer(value, map, type);
+      cloned = cloneBuffer(value, map, type);
       break;
     case 'DataView':
     case 'Int8Array':
@@ -89009,14 +88931,11 @@ var structuredCloneInternal = function (value, map, transferredBuffers) {
     case 'BigInt64Array':
     case 'BigUint64Array':
       length = type === 'DataView' ? value.byteLength : value.length;
-      cloned = transferredBuffers ? new Placeholder(value, type, {
-        offset: value.byteOffset,
-        length: length
-      }) : cloneView(value, type, value.byteOffset, length, map);
+      cloned = cloneView(value, type, value.byteOffset, length, map);
       break;
     case 'DOMQuad':
       try {
-        cloned = new DOMQuad(structuredCloneInternal(value.p1, map, transferredBuffers), structuredCloneInternal(value.p2, map, transferredBuffers), structuredCloneInternal(value.p3, map, transferredBuffers), structuredCloneInternal(value.p4, map, transferredBuffers));
+        cloned = new DOMQuad(structuredCloneInternal(value.p1, map), structuredCloneInternal(value.p2, map), structuredCloneInternal(value.p3, map), structuredCloneInternal(value.p4, map));
       } catch (error) {
         cloned = tryNativeRestrictedStructuredClone(value, type);
       }
@@ -89036,7 +88955,7 @@ var structuredCloneInternal = function (value, map, transferredBuffers) {
       dataTransfer = createDataTransfer();
       if (dataTransfer) {
         for (i = 0, length = lengthOfArrayLike(value); i < length; i++) {
-          dataTransfer.items.add(structuredCloneInternal(value[i], map, transferredBuffers));
+          dataTransfer.items.add(structuredCloneInternal(value[i], map));
         }
         cloned = dataTransfer.files;
       } else cloned = tryNativeRestrictedStructuredClone(value, type);
@@ -89044,7 +88963,7 @@ var structuredCloneInternal = function (value, map, transferredBuffers) {
     case 'ImageData':
       // Safari 9 ImageData is a constructor, but typeof ImageData is 'object'
       try {
-        cloned = new ImageData(structuredCloneInternal(value.data, map, transferredBuffers), value.width, value.height, {
+        cloned = new ImageData(structuredCloneInternal(value.data, map), value.width, value.height, {
           colorSpace: value.colorSpace
         });
       } catch (error) {
@@ -89137,100 +89056,37 @@ var structuredCloneInternal = function (value, map, transferredBuffers) {
       keys = objectKeys(value);
       for (i = 0, length = lengthOfArrayLike(keys); i < length; i++) {
         key = keys[i];
-        createProperty(cloned, key, structuredCloneInternal(value[key], map, transferredBuffers));
+        createProperty(cloned, key, structuredCloneInternal(value[key], map));
       }
       break;
     case 'Map':
       value.forEach(function (v, k) {
-        mapSet(cloned, structuredCloneInternal(k, map, transferredBuffers), structuredCloneInternal(v, map, transferredBuffers));
+        mapSet(cloned, structuredCloneInternal(k, map), structuredCloneInternal(v, map));
       });
       break;
     case 'Set':
       value.forEach(function (v) {
-        setAdd(cloned, structuredCloneInternal(v, map, transferredBuffers));
+        setAdd(cloned, structuredCloneInternal(v, map));
       });
       break;
     case 'Error':
-      createNonEnumerableProperty(cloned, 'message', structuredCloneInternal(value.message, map, transferredBuffers));
+      createNonEnumerableProperty(cloned, 'message', structuredCloneInternal(value.message, map));
       if (hasOwn(value, 'cause')) {
-        createNonEnumerableProperty(cloned, 'cause', structuredCloneInternal(value.cause, map, transferredBuffers));
+        createNonEnumerableProperty(cloned, 'cause', structuredCloneInternal(value.cause, map));
       }
       if (name === 'AggregateError') {
-        cloned.errors = structuredCloneInternal(value.errors, map, transferredBuffers);
+        cloned.errors = structuredCloneInternal(value.errors, map);
+      } else if (name === 'SuppressedError') {
+        cloned.error = structuredCloneInternal(value.error, map);
+        cloned.suppressed = structuredCloneInternal(value.suppressed, map);
       }
     // break omitted
     case 'DOMException':
       if (ERROR_STACK_INSTALLABLE) {
-        createNonEnumerableProperty(cloned, 'stack', structuredCloneInternal(value.stack, map, transferredBuffers));
+        createNonEnumerableProperty(cloned, 'stack', structuredCloneInternal(value.stack, map));
       }
   }
   return cloned;
-};
-var replacePlaceholders = function (value, map) {
-  if (!isObject(value)) return value;
-  if (mapHas(map, value)) return mapGet(map, value);
-  var type, object, metadata, i, length, keys, key, replacement;
-  if (value instanceof Placeholder) {
-    type = value.type;
-    object = value.object;
-    switch (type) {
-      case 'ArrayBuffer':
-      case 'SharedArrayBuffer':
-        replacement = cloneBuffer(object, map, type);
-        break;
-      case 'DataView':
-      case 'Int8Array':
-      case 'Uint8Array':
-      case 'Uint8ClampedArray':
-      case 'Int16Array':
-      case 'Uint16Array':
-      case 'Int32Array':
-      case 'Uint32Array':
-      case 'Float16Array':
-      case 'Float32Array':
-      case 'Float64Array':
-      case 'BigInt64Array':
-      case 'BigUint64Array':
-        metadata = value.metadata;
-        replacement = cloneView(object, type, metadata.offset, metadata.length, map);
-    }
-  } else switch (classof(value)) {
-    case 'Array':
-    case 'Object':
-      keys = objectKeys(value);
-      for (i = 0, length = lengthOfArrayLike(keys); i < length; i++) {
-        key = keys[i];
-        value[key] = replacePlaceholders(value[key], map);
-      }
-      break;
-    case 'Map':
-      replacement = new Map();
-      value.forEach(function (v, k) {
-        mapSet(replacement, replacePlaceholders(k, map), replacePlaceholders(v, map));
-      });
-      break;
-    case 'Set':
-      replacement = new Set();
-      value.forEach(function (v) {
-        setAdd(replacement, replacePlaceholders(v, map));
-      });
-      break;
-    case 'Error':
-      value.message = replacePlaceholders(value.message, map);
-      if (hasOwn(value, 'cause')) {
-        value.cause = replacePlaceholders(value.cause, map);
-      }
-      if (value.name === 'AggregateError') {
-        value.errors = replacePlaceholders(value.errors, map);
-      }
-    // break omitted
-    case 'DOMException':
-      if (ERROR_STACK_INSTALLABLE) {
-        value.stack = replacePlaceholders(value.stack, map);
-      }
-  }
-  mapSet(map, value, replacement || value);
-  return replacement || value;
 };
 var tryToTransfer = function (rawTransfer, map) {
   if (!isObject(rawTransfer)) throw new TypeError('Transfer option cannot be converted to a sequence');
@@ -89240,16 +89096,18 @@ var tryToTransfer = function (rawTransfer, map) {
   });
   var i = 0;
   var length = lengthOfArrayLike(transfer);
-  var buffers = [];
+  var buffers = new Set();
   var value, type, C, transferred, canvas, context;
   while (i < length) {
     value = transfer[i++];
     type = classof(value);
+    if (type === 'ArrayBuffer' ? setHas(buffers, value) : mapHas(map, value)) {
+      throw new DOMException('Duplicate transferable', DATA_CLONE_ERROR);
+    }
     if (type === 'ArrayBuffer') {
-      push(buffers, value);
+      setAdd(buffers, value);
       continue;
     }
-    if (mapHas(map, value)) throw new DOMException('Duplicate transferable', DATA_CLONE_ERROR);
     if (PROPER_STRUCTURED_CLONE_TRANSFER) {
       transferred = nativeStructuredClone(value, {
         transfer: [value]
@@ -89286,21 +89144,20 @@ var tryToTransfer = function (rawTransfer, map) {
   }
   return buffers;
 };
-var tryToTransferBuffers = function (transfer, map) {
-  var i = 0;
-  var length = lengthOfArrayLike(transfer);
-  var value, transferred;
-  while (i < length) {
-    value = transfer[i++];
-    if (mapHas(map, value)) throw new DOMException('Duplicate transferable', DATA_CLONE_ERROR);
-    if (arrayBufferTransfer) {
-      transferred = arrayBufferTransfer(value, undefined, true);
+var detachBuffers = function (buffers) {
+  setIterate(buffers, function (buffer) {
+    if (PROPER_STRUCTURED_CLONE_TRANSFER) {
+      nativeRestrictedStructuredClone(buffer, {
+        transfer: [buffer]
+      });
+    } else if (isCallable(buffer.transfer)) {
+      buffer.transfer();
+    } else if (detachTransferable) {
+      detachTransferable(buffer);
     } else {
-      if (!isCallable(value.transfer)) throwUnpolyfillable('ArrayBuffer', TRANSFERRING);
-      transferred = value.transfer();
+      throwUnpolyfillable('ArrayBuffer', TRANSFERRING);
     }
-    mapSet(map, value, transferred);
-  }
+  });
 };
 
 // `structuredClone` method
@@ -89314,22 +89171,16 @@ $({
   structuredClone: function structuredClone(value /* , { transfer } */) {
     var options = validateArgumentsLength(arguments.length, 1) > 1 && !isNullOrUndefined(arguments[1]) ? anObject(arguments[1]) : undefined;
     var transfer = options ? options.transfer : undefined;
-    var transferredBuffers = false;
     var map, buffers;
     if (transfer !== undefined) {
       map = new Map();
       buffers = tryToTransfer(transfer, map);
-      transferredBuffers = !!lengthOfArrayLike(buffers);
     }
-    var clone = structuredCloneInternal(value, map, transferredBuffers);
+    var clone = structuredCloneInternal(value, map);
 
-    // since of an issue with cloning views of transferred buffers, we a forced to transfer / clone them in 2 steps
+    // since of an issue with cloning views of transferred buffers, we a forced to detach them later
     // https://github.com/zloirock/core-js/issues/1265
-    if (transferredBuffers) {
-      map = new Map();
-      tryToTransferBuffers(transfer, map);
-      clone = replacePlaceholders(clone, map);
-    }
+    if (buffers) detachBuffers(buffers);
     return clone;
   }
 });
