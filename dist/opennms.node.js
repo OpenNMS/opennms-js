@@ -65600,6 +65600,15 @@ __webpack_require__.d(model_namespaceObject, {
   TroubleTicketStates: () => (TroubleTicketStates)
 });
 
+// NAMESPACE OBJECT: ./node_modules/axios/lib/platform/common/utils.js
+var common_utils_namespaceObject = {};
+__webpack_require__.r(common_utils_namespaceObject);
+__webpack_require__.d(common_utils_namespaceObject, {
+  hasBrowserEnv: () => (hasBrowserEnv),
+  hasStandardBrowserEnv: () => (hasStandardBrowserEnv),
+  hasStandardBrowserWebWorkerEnv: () => (hasStandardBrowserWebWorkerEnv)
+});
+
 // NAMESPACE OBJECT: ./src/rest/index.ts
 var rest_namespaceObject = {};
 __webpack_require__.r(rest_namespaceObject);
@@ -76046,6 +76055,52 @@ var external_url_ = __webpack_require__("url");
   },
   protocols: ['http', 'https', 'file', 'data']
 });
+;// CONCATENATED MODULE: ./node_modules/axios/lib/platform/common/utils.js
+const hasBrowserEnv = typeof window !== 'undefined' && typeof document !== 'undefined';
+
+/**
+ * Determine if we're running in a standard browser environment
+ *
+ * This allows axios to run in a web worker, and react-native.
+ * Both environments support XMLHttpRequest, but not fully standard globals.
+ *
+ * web workers:
+ *  typeof window -> undefined
+ *  typeof document -> undefined
+ *
+ * react-native:
+ *  navigator.product -> 'ReactNative'
+ * nativescript
+ *  navigator.product -> 'NativeScript' or 'NS'
+ *
+ * @returns {boolean}
+ */
+const hasStandardBrowserEnv = (product => {
+  return hasBrowserEnv && ['ReactNative', 'NativeScript', 'NS'].indexOf(product) < 0;
+})(typeof navigator !== 'undefined' && navigator.product);
+
+/**
+ * Determine if we're running in a standard browser webWorker environment
+ *
+ * Although the `isStandardBrowserEnv` method indicates that
+ * `allows axios to run in a web worker`, the WebWorker will still be
+ * filtered out due to its judgment standard
+ * `typeof window !== 'undefined' && typeof document !== 'undefined'`.
+ * This leads to a problem when axios post `FormData` in webWorker
+ */
+const hasStandardBrowserWebWorkerEnv = (() => {
+  return typeof WorkerGlobalScope !== 'undefined' &&
+  // eslint-disable-next-line no-undef
+  self instanceof WorkerGlobalScope && typeof self.importScripts === 'function';
+})();
+
+;// CONCATENATED MODULE: ./node_modules/axios/lib/platform/index.js
+
+
+/* harmony default export */ const platform = ({
+  ...common_utils_namespaceObject,
+  ...node
+});
 ;// CONCATENATED MODULE: ./node_modules/axios/lib/helpers/toURLEncodedForm.js
 
 
@@ -76053,9 +76108,9 @@ var external_url_ = __webpack_require__("url");
 
 
 function toURLEncodedForm(data, options) {
-  return helpers_toFormData(data, new node.classes.URLSearchParams(), Object.assign({
+  return helpers_toFormData(data, new platform.classes.URLSearchParams(), Object.assign({
     visitor: function (value, key, path, helpers) {
-      if (node.isNode && utils.isBuffer(value)) {
+      if (platform.isNode && utils.isBuffer(value)) {
         this.append(key, value.toString('base64'));
         return false;
       }
@@ -76254,8 +76309,8 @@ const defaults = {
   maxContentLength: -1,
   maxBodyLength: -1,
   env: {
-    FormData: node.classes.FormData,
-    Blob: node.classes.Blob
+    FormData: platform.classes.FormData,
+    Blob: platform.classes.Blob
   },
   validateStatus: function validateStatus(status) {
     return status >= 200 && status < 300;
@@ -76685,7 +76740,7 @@ var follow_redirects = __webpack_require__("./node_modules/follow-redirects/inde
 ;// CONCATENATED MODULE: external "zlib"
 const external_zlib_namespaceObject = require("zlib");
 ;// CONCATENATED MODULE: ./node_modules/axios/lib/env/data.js
-const VERSION = "1.6.0";
+const VERSION = "1.6.1";
 ;// CONCATENATED MODULE: ./node_modules/axios/lib/helpers/parseProtocol.js
 
 
@@ -76712,7 +76767,7 @@ const DATA_URL_PATTERN = /^(?:([^;]+);)?(?:[^;]+;)?(base64|),([\s\S]*)$/;
  * @returns {Buffer|Blob}
  */
 function fromDataURI(uri, asBlob, options) {
-  const _Blob = options && options.Blob || node.classes.Blob;
+  const _Blob = options && options.Blob || platform.classes.Blob;
   const protocol = parseProtocol(uri);
   if (asBlob === undefined && _Blob) {
     asBlob = true;
@@ -77158,7 +77213,7 @@ const {
   https: httpsFollow
 } = follow_redirects;
 const isHttps = /https:?/;
-const supportedProtocols = node.protocols.map(protocol => {
+const supportedProtocols = platform.protocols.map(protocol => {
   return protocol + ':';
 });
 
@@ -77710,7 +77765,7 @@ const __setProxy = (/* unused pure expression or super */ null && (setProxy));
 
 
 
-/* harmony default export */ const cookies = (node.isStandardBrowserEnv ?
+/* harmony default export */ const cookies = (platform.hasStandardBrowserEnv ?
 // Standard browser envs support document.cookie
 function standardBrowserEnv() {
   return {
@@ -77755,7 +77810,7 @@ function nonStandardBrowserEnv() {
 
 
 
-/* harmony default export */ const isURLSameOrigin = (node.isStandardBrowserEnv ?
+/* harmony default export */ const isURLSameOrigin = (platform.hasStandardBrowserEnv ?
 // Standard browser envs have full support of the APIs needed to test
 // whether the request URL is of the same origin as current location.
 function standardBrowserEnv() {
@@ -77865,13 +77920,12 @@ const isXHRAdapterSupported = typeof XMLHttpRequest !== 'undefined';
     }
     let contentType;
     if (utils.isFormData(requestData)) {
-      if (node.isStandardBrowserEnv || node.isStandardBrowserWebWorkerEnv) {
+      if (platform.hasStandardBrowserEnv || platform.hasStandardBrowserWebWorkerEnv) {
         requestHeaders.setContentType(false); // Let the browser set it
-      } else if (!requestHeaders.getContentType(/^\s*multipart\/form-data/)) {
-        requestHeaders.setContentType('multipart/form-data'); // mobile/desktop app frameworks
-      } else if (utils.isString(contentType = requestHeaders.getContentType())) {
+      } else if ((contentType = requestHeaders.getContentType()) !== false) {
         // fix semicolon duplication issue for ReactNative FormData implementation
-        requestHeaders.setContentType(contentType.replace(/^\s*(multipart\/form-data);+/, '$1'));
+        const [type, ...tokens] = contentType ? contentType.split(';').map(token => token.trim()).filter(Boolean) : [];
+        requestHeaders.setContentType([type || 'multipart/form-data', ...tokens].join('; '));
       }
     }
     let request = new XMLHttpRequest();
@@ -77973,7 +78027,7 @@ const isXHRAdapterSupported = typeof XMLHttpRequest !== 'undefined';
     // Add xsrf header
     // This is only done if running in a standard browser environment.
     // Specifically not if we're in a web worker, or react-native.
-    if (node.isStandardBrowserEnv) {
+    if (platform.hasStandardBrowserEnv) {
       // Add xsrf header
       // regarding CVE-2023-45857 config.withCredentials condition was removed temporarily
       const xsrfValue = isURLSameOrigin(fullPath) && config.xsrfCookieName && cookies.read(config.xsrfCookieName);
@@ -78028,7 +78082,7 @@ const isXHRAdapterSupported = typeof XMLHttpRequest !== 'undefined';
       }
     }
     const protocol = parseProtocol(fullPath);
-    if (protocol && node.protocols.indexOf(protocol) === -1) {
+    if (protocol && platform.protocols.indexOf(protocol) === -1) {
       reject(new core_AxiosError('Unsupported protocol ' + protocol + ':', core_AxiosError.ERR_BAD_REQUEST, config));
       return;
     }
