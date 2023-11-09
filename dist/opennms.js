@@ -62526,6 +62526,15 @@ __webpack_require__.d(model_namespaceObject, {
   TroubleTicketStates: () => (TroubleTicketStates)
 });
 
+// NAMESPACE OBJECT: ./node_modules/axios/lib/platform/common/utils.js
+var common_utils_namespaceObject = {};
+__webpack_require__.r(common_utils_namespaceObject);
+__webpack_require__.d(common_utils_namespaceObject, {
+  hasBrowserEnv: () => (hasBrowserEnv),
+  hasStandardBrowserEnv: () => (hasStandardBrowserEnv),
+  hasStandardBrowserWebWorkerEnv: () => (hasStandardBrowserWebWorkerEnv)
+});
+
 // NAMESPACE OBJECT: ./src/rest/index.ts
 var rest_namespaceObject = {};
 __webpack_require__.r(rest_namespaceObject);
@@ -73431,6 +73440,17 @@ class InterceptorManager {
 
 
 
+/* harmony default export */ const browser = ({
+  isBrowser: true,
+  classes: {
+    URLSearchParams: classes_URLSearchParams,
+    FormData: classes_FormData,
+    Blob: classes_Blob
+  },
+  protocols: ['http', 'https', 'file', 'blob', 'url', 'data']
+});
+;// CONCATENATED MODULE: ./node_modules/axios/lib/platform/common/utils.js
+const hasBrowserEnv = typeof window !== 'undefined' && typeof document !== 'undefined';
 
 /**
  * Determine if we're running in a standard browser environment
@@ -73449,13 +73469,9 @@ class InterceptorManager {
  *
  * @returns {boolean}
  */
-const isStandardBrowserEnv = (() => {
-  let product;
-  if (typeof navigator !== 'undefined' && ((product = navigator.product) === 'ReactNative' || product === 'NativeScript' || product === 'NS')) {
-    return false;
-  }
-  return typeof window !== 'undefined' && typeof document !== 'undefined';
-})();
+const hasStandardBrowserEnv = (product => {
+  return hasBrowserEnv && ['ReactNative', 'NativeScript', 'NS'].indexOf(product) < 0;
+})(typeof navigator !== 'undefined' && navigator.product);
 
 /**
  * Determine if we're running in a standard browser webWorker environment
@@ -73466,21 +73482,18 @@ const isStandardBrowserEnv = (() => {
  * `typeof window !== 'undefined' && typeof document !== 'undefined'`.
  * This leads to a problem when axios post `FormData` in webWorker
  */
-const isStandardBrowserWebWorkerEnv = (() => {
+const hasStandardBrowserWebWorkerEnv = (() => {
   return typeof WorkerGlobalScope !== 'undefined' &&
   // eslint-disable-next-line no-undef
   self instanceof WorkerGlobalScope && typeof self.importScripts === 'function';
 })();
-/* harmony default export */ const browser = ({
-  isBrowser: true,
-  classes: {
-    URLSearchParams: classes_URLSearchParams,
-    FormData: classes_FormData,
-    Blob: classes_Blob
-  },
-  isStandardBrowserEnv,
-  isStandardBrowserWebWorkerEnv,
-  protocols: ['http', 'https', 'file', 'blob', 'url', 'data']
+
+;// CONCATENATED MODULE: ./node_modules/axios/lib/platform/index.js
+
+
+/* harmony default export */ const platform = ({
+  ...common_utils_namespaceObject,
+  ...browser
 });
 ;// CONCATENATED MODULE: ./node_modules/axios/lib/helpers/toURLEncodedForm.js
 
@@ -73489,9 +73502,9 @@ const isStandardBrowserWebWorkerEnv = (() => {
 
 
 function toURLEncodedForm(data, options) {
-  return helpers_toFormData(data, new browser.classes.URLSearchParams(), Object.assign({
+  return helpers_toFormData(data, new platform.classes.URLSearchParams(), Object.assign({
     visitor: function (value, key, path, helpers) {
-      if (browser.isNode && utils.isBuffer(value)) {
+      if (platform.isNode && utils.isBuffer(value)) {
         this.append(key, value.toString('base64'));
         return false;
       }
@@ -73690,8 +73703,8 @@ const defaults = {
   maxContentLength: -1,
   maxBodyLength: -1,
   env: {
-    FormData: browser.classes.FormData,
-    Blob: browser.classes.Blob
+    FormData: platform.classes.FormData,
+    Blob: platform.classes.Blob
   },
   validateStatus: function validateStatus(status) {
     return status >= 200 && status < 300;
@@ -74061,7 +74074,7 @@ function settle(resolve, reject, response) {
 
 
 
-/* harmony default export */ const cookies = (browser.isStandardBrowserEnv ?
+/* harmony default export */ const cookies = (platform.hasStandardBrowserEnv ?
 // Standard browser envs support document.cookie
 function standardBrowserEnv() {
   return {
@@ -74158,7 +74171,7 @@ function buildFullPath(baseURL, requestedURL) {
 
 
 
-/* harmony default export */ const isURLSameOrigin = (browser.isStandardBrowserEnv ?
+/* harmony default export */ const isURLSameOrigin = (platform.hasStandardBrowserEnv ?
 // Standard browser envs have full support of the APIs needed to test
 // whether the request URL is of the same origin as current location.
 function standardBrowserEnv() {
@@ -74318,13 +74331,12 @@ const isXHRAdapterSupported = typeof XMLHttpRequest !== 'undefined';
     }
     let contentType;
     if (utils.isFormData(requestData)) {
-      if (browser.isStandardBrowserEnv || browser.isStandardBrowserWebWorkerEnv) {
+      if (platform.hasStandardBrowserEnv || platform.hasStandardBrowserWebWorkerEnv) {
         requestHeaders.setContentType(false); // Let the browser set it
-      } else if (!requestHeaders.getContentType(/^\s*multipart\/form-data/)) {
-        requestHeaders.setContentType('multipart/form-data'); // mobile/desktop app frameworks
-      } else if (utils.isString(contentType = requestHeaders.getContentType())) {
+      } else if ((contentType = requestHeaders.getContentType()) !== false) {
         // fix semicolon duplication issue for ReactNative FormData implementation
-        requestHeaders.setContentType(contentType.replace(/^\s*(multipart\/form-data);+/, '$1'));
+        const [type, ...tokens] = contentType ? contentType.split(';').map(token => token.trim()).filter(Boolean) : [];
+        requestHeaders.setContentType([type || 'multipart/form-data', ...tokens].join('; '));
       }
     }
     let request = new XMLHttpRequest();
@@ -74426,7 +74438,7 @@ const isXHRAdapterSupported = typeof XMLHttpRequest !== 'undefined';
     // Add xsrf header
     // This is only done if running in a standard browser environment.
     // Specifically not if we're in a web worker, or react-native.
-    if (browser.isStandardBrowserEnv) {
+    if (platform.hasStandardBrowserEnv) {
       // Add xsrf header
       // regarding CVE-2023-45857 config.withCredentials condition was removed temporarily
       const xsrfValue = isURLSameOrigin(fullPath) && config.xsrfCookieName && cookies.read(config.xsrfCookieName);
@@ -74481,7 +74493,7 @@ const isXHRAdapterSupported = typeof XMLHttpRequest !== 'undefined';
       }
     }
     const protocol = parseProtocol(fullPath);
-    if (protocol && browser.protocols.indexOf(protocol) === -1) {
+    if (protocol && platform.protocols.indexOf(protocol) === -1) {
       reject(new core_AxiosError('Unsupported protocol ' + protocol + ':', core_AxiosError.ERR_BAD_REQUEST, config));
       return;
     }
@@ -74715,7 +74727,7 @@ function mergeConfig(config1, config2) {
   return config;
 }
 ;// CONCATENATED MODULE: ./node_modules/axios/lib/env/data.js
-const VERSION = "1.6.0";
+const VERSION = "1.6.1";
 ;// CONCATENATED MODULE: ./node_modules/axios/lib/helpers/validator.js
 
 
