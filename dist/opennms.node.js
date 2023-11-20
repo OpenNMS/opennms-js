@@ -48012,7 +48012,7 @@ module.exports = !IS_DENO && !IS_NODE && typeof window == 'object' && typeof doc
 "use strict";
 
 
-/* global Bun -- Deno case */
+/* global Bun -- Bun case */
 module.exports = typeof Bun == 'function' && Bun && typeof Bun.version == 'string';
 
 /***/ }),
@@ -48852,11 +48852,11 @@ module.exports =
 // eslint-disable-next-line es/no-global-this -- safe
 check(typeof globalThis == 'object' && globalThis) || check(typeof window == 'object' && window) ||
 // eslint-disable-next-line no-restricted-globals -- safe
-check(typeof self == 'object' && self) || check(typeof __webpack_require__.g == 'object' && __webpack_require__.g) ||
+check(typeof self == 'object' && self) || check(typeof __webpack_require__.g == 'object' && __webpack_require__.g) || check(typeof this == 'object' && this) ||
 // eslint-disable-next-line no-new-func -- fallback
 function () {
   return this;
-}() || this || Function('return this')();
+}() || Function('return this')();
 
 /***/ }),
 
@@ -51657,10 +51657,10 @@ var store = __webpack_require__("./node_modules/core-js/internals/shared-store.j
 (module.exports = function (key, value) {
   return store[key] || (store[key] = value !== undefined ? value : {});
 })('versions', []).push({
-  version: '3.33.2',
+  version: '3.33.3',
   mode: IS_PURE ? 'pure' : 'global',
   copyright: '© 2014-2023 Denis Pushkarev (zloirock.ru)',
-  license: 'https://github.com/zloirock/core-js/blob/v3.33.2/LICENSE',
+  license: 'https://github.com/zloirock/core-js/blob/v3.33.3/LICENSE',
   source: 'https://github.com/zloirock/core-js'
 });
 
@@ -62979,6 +62979,7 @@ var cloneBuffer = function (value, map, $type) {
         options = 'maxByteLength' in value ? {
           maxByteLength: value.maxByteLength
         } : undefined;
+        // eslint-disable-next-line es/no-resizable-and-growable-arraybuffers -- safe
         clone = new ArrayBuffer(length, options);
         source = new DataView(value);
         target = new DataView(clone);
