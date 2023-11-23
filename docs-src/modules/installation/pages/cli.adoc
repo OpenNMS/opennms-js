@@ -1,4 +1,5 @@
 = Getting Started With the CLI Utility
+:description: Learn how to get started with OpenNMS.js, a command-line utility and JavaScript and TypeScript APIs for interacting with Horizon/Meridian servers.
 
 == Installation
 

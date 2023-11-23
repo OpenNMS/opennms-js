@@ -1,4 +1,5 @@
 = OpenNMS.js API Basics
+:description: Learn OpenNMS.js basics like importing code and connecting to a server with this command-line utility that interacts with Horizon/Meridian.
 
 == Importing the Code
 

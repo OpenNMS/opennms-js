@@ -1,4 +1,5 @@
 = Using OpenNMS.js
+:description: Learn how to use OpenNMS.js basics, a command-line utility that interacts with Horizon/Meridian.
 
 == Development and Production Branches
 
