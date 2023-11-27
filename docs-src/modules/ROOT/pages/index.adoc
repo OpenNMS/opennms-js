@@ -3,6 +3,7 @@
 
 [[welcome-index]]
 = {page-component-title} {page-version} Documentation
+:description: Overview of OpenNMS.js documentation, a command-line utility and JavaScript and TypeScript APIs for interacting with Horizon/Meridian servers.
 
 :data-uri:
 :icons:
