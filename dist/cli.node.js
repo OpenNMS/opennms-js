@@ -412,7 +412,6 @@ DOMHandler.prototype = {
         this.doc.appendChild(charNode);
         //process xml
       }
-
       this.locator && position(this.locator, charNode);
     }
   },
@@ -1456,7 +1455,6 @@ function _insertBefore(parent, node, child, _inDocumentAssertion) {
   if (cp) {
     cp.removeChild(node); //remove and update
   }
-
   if (node.nodeType === DOCUMENT_FRAGMENT_NODE) {
     var newFirst = node.firstChild;
     if (newFirst == null) {
@@ -1926,7 +1924,6 @@ function nodeSerializeToString(isHtml, nodeFilter) {
       ];
     }
   }
-
   serializeToString(this, buf, isHtml, nodeFilter, visibleNamespaces);
   //console.log('###',this.nodeType,uri,prefix,buf.join(''))
   return buf.join('');
@@ -1989,7 +1986,6 @@ function serializeToString(node, buf, isHTML, nodeFilter, visibleNamespaces) {
     }
     //buf.sort.apply(attrs, attributeSorter);
   }
-
   switch (node.nodeType) {
     case ELEMENT_NODE:
       var attrs = node.attributes;
@@ -2187,11 +2183,9 @@ function importNode(doc, node, deep) {
     //can not hit in level3
     //default:throw e;
   }
-
   if (!node2) {
     node2 = node.cloneNode(false); //false
   }
-
   node2.ownerDocument = doc;
   node2.parentNode = null;
   if (deep) {
@@ -4589,7 +4583,6 @@ function parse(source, defaultNSMapCopy, entityMap, domBuilder, errorHandler) {
       locator.lineNumber++;
       //console.log('line++:',locator,startPos,endPos)
     }
-
     locator.columnNumber = p - lineStart + 1;
   }
   var lineStart = 0;
@@ -4758,7 +4751,6 @@ function parseElementStartPart(source, start, el, currentNSMap, entityReplacer, 
           //fatalError: equal must after attrName or space after attrName
           throw new Error('attribute equal must after attrName'); // No known test case
         }
-
         break;
       case '\'':
       case '"':
@@ -4789,7 +4781,6 @@ function parseElementStartPart(source, start, el, currentNSMap, entityReplacer, 
           //fatalError: no equal before
           throw new Error('attribute value must after "="'); // No known test case
         }
-
         break;
       case '/':
         switch (s) {
@@ -4811,7 +4802,6 @@ function parseElementStartPart(source, start, el, currentNSMap, entityReplacer, 
             throw new Error("attribute invalid close char('/')");
           // No known test case
         }
-
         break;
       case '':
         //end document
@@ -4953,7 +4943,6 @@ function appendElement(el, domBuilder, currentNSMap) {
         _copy(currentNSMap, currentNSMap = {});
         //console.log(currentNSMap,1)
       }
-
       currentNSMap[nsPrefix] = localNSMap[nsPrefix] = value;
       a.uri = NAMESPACE.XMLNS;
       domBuilder.startPrefixMapping(nsPrefix, value);
@@ -4975,7 +4964,6 @@ function appendElement(el, domBuilder, currentNSMap) {
       }
     }
   }
-
   var nsp = tagName.indexOf(':');
   if (nsp > 0) {
     prefix = el.prefix = tagName.slice(0, nsp);
@@ -5024,7 +5012,6 @@ function parseHtmlSpecialContent(source, elStartEnd, tagName, entityReplacer, do
       //}
     }
   }
-
   return elStartEnd + 1;
 }
 function fixSelfClosed(source, elStartEnd, tagName, closeMap) {
@@ -5042,7 +5029,6 @@ function fixSelfClosed(source, elStartEnd, tagName, closeMap) {
   return pos < elStartEnd;
   //}
 }
-
 function _copy(source, target) {
   for (var n in source) {
     if (Object.prototype.hasOwnProperty.call(source, n)) {
@@ -5164,7 +5150,6 @@ ElementAttributes.prototype = {
   //	getType:function(uri,localName){}
   //	getType:function(i){},
 };
-
 function split(source, start) {
   var match;
   var buf = [];
@@ -6100,7 +6085,6 @@ CombinedStream.prototype._getNext = function () {
     this._pendingNext = true;
     return; // defer call
   }
-
   this._insideLoop = true;
   try {
     do {
@@ -7010,7 +6994,6 @@ var createMethod = function (TYPE) {
         }
       }
     }
-
     return IS_FIND_INDEX ? -1 : IS_SOME || IS_EVERY ? IS_EVERY : target;
   };
 };
@@ -8577,7 +8560,6 @@ var setMetadata = function (it) {
     }
   });
 };
-
 var fastKey = function (it, create) {
   // return a primitive with prefix
   if (!isObject(it)) return typeof it == 'symbol' ? it : (typeof it == 'string' ? 'S' : 'P') + it;
@@ -13764,7 +13746,6 @@ function setup(env) {
       hash = (hash << 5) - hash + namespace.charCodeAt(i);
       hash |= 0; // Convert to 32bit integer
     }
-
     return createDebug.colors[Math.abs(hash) % createDebug.colors.length];
   }
   createDebug.selectColor = selectColor;
@@ -18413,7 +18394,6 @@ module.exports["default"] = isFullwidthCodePoint;
     //rng_seed_int(window.screenX);
     //rng_seed_int(window.screenY);
   }
-
   function rng_get_byte() {
     if (rng_state == null) {
       rng_seed_time();
@@ -23342,14 +23322,12 @@ function populateMaps(extensions, types) {
     ordinal: function (number) {
       return number + (number === 1 || number === 8 || number >= 20 ? 'ste' : 'de'); // Thanks to Joris Röling : https://github.com/jjupiter
     },
-
     week: {
       dow: 1,
       // Maandag is die eerste dag van die week.
       doy: 4 // Die week wat die 4de Januarie bevat is die eerste week van die jaar.
     }
   });
-
   return af;
 });
 
@@ -23454,7 +23432,6 @@ function populateMaps(extensions, types) {
       doy: 4 // The week that contains Jan 4th is the first week of the year.
     }
   });
-
   return arDz;
 });
 
@@ -23519,7 +23496,6 @@ function populateMaps(extensions, types) {
       doy: 12 // The week that contains Jan 12th is the first week of the year.
     }
   });
-
   return arKw;
 });
 
@@ -23637,7 +23613,6 @@ function populateMaps(extensions, types) {
       doy: 12 // The week that contains Jan 12th is the first week of the year.
     }
   });
-
   return arLy;
 });
 
@@ -23703,7 +23678,6 @@ function populateMaps(extensions, types) {
       doy: 4 // The week that contains Jan 4th is the first week of the year.
     }
   });
-
   return arMa;
 });
 
@@ -23813,7 +23787,6 @@ function populateMaps(extensions, types) {
       doy: 6 // The week that contains Jan 6th is the first week of the year.
     }
   });
-
   return arSa;
 });
 
@@ -23878,7 +23851,6 @@ function populateMaps(extensions, types) {
       doy: 4 // The week that contains Jan 4th is the first week of the year.
     }
   });
-
   return arTn;
 });
 
@@ -24012,7 +23984,6 @@ function populateMaps(extensions, types) {
       doy: 12 // The week that contains Jan 12th is the first week of the year.
     }
   });
-
   return ar;
 });
 
@@ -24123,7 +24094,6 @@ function populateMaps(extensions, types) {
       doy: 7 // The week that contains Jan 7th is the first week of the year.
     }
   });
-
   return az;
 });
 
@@ -24260,7 +24230,6 @@ function populateMaps(extensions, types) {
       doy: 7 // The week that contains Jan 7th is the first week of the year.
     }
   });
-
   return be;
 });
 
@@ -24358,7 +24327,6 @@ function populateMaps(extensions, types) {
       doy: 7 // The week that contains Jan 7th is the first week of the year.
     }
   });
-
   return bg;
 });
 
@@ -24422,7 +24390,6 @@ function populateMaps(extensions, types) {
       doy: 4 // The week that contains Jan 4th is the first week of the year.
     }
   });
-
   return bm;
 });
 
@@ -24556,7 +24523,6 @@ function populateMaps(extensions, types) {
       doy: 6 // The week that contains Jan 6th is the first week of the year.
     }
   });
-
   return bnBd;
 });
 
@@ -24678,7 +24644,6 @@ function populateMaps(extensions, types) {
       doy: 6 // The week that contains Jan 6th is the first week of the year.
     }
   });
-
   return bn;
 });
 
@@ -24802,7 +24767,6 @@ function populateMaps(extensions, types) {
       doy: 6 // The week that contains Jan 6th is the first week of the year.
     }
   });
-
   return bo;
 });
 
@@ -24931,7 +24895,6 @@ function populateMaps(extensions, types) {
       // Monday is the first day of the week.
       doy: 4 // The week that contains Jan 4th is the first week of the year.
     },
-
     meridiemParse: /a.m.|g.m./,
     // goude merenn | a-raok merenn
     isPM: function (token) {
@@ -25097,7 +25060,6 @@ function populateMaps(extensions, types) {
       doy: 7 // The week that contains Jan 7th is the first week of the year.
     }
   });
-
   return bs;
 });
 
@@ -25188,7 +25150,6 @@ function populateMaps(extensions, types) {
       doy: 4 // The week that contains Jan 4th is the first week of the year.
     }
   });
-
   return ca;
 });
 
@@ -25372,7 +25333,6 @@ function populateMaps(extensions, types) {
       doy: 4 // The week that contains Jan 4th is the first week of the year.
     }
   });
-
   return cs;
 });
 
@@ -25441,7 +25401,6 @@ function populateMaps(extensions, types) {
       doy: 7 // The week that contains Jan 7th is the first week of the year.
     }
   });
-
   return cv;
 });
 
@@ -25511,7 +25470,6 @@ function populateMaps(extensions, types) {
         // 1af to 10fed
         'eg', 'fed', 'eg', 'eg', 'fed', 'eg', 'eg', 'fed', 'eg', 'fed' // 11eg to 20fed
         ];
-
       if (b > 20) {
         if (b === 40 || b === 50 || b === 60 || b === 80 || b === 100) {
           output = 'fed'; // not 30ain, 70ain or 90ain
@@ -25529,7 +25487,6 @@ function populateMaps(extensions, types) {
       doy: 4 // The week that contains Jan 4th is the first week of the year.
     }
   });
-
   return cy;
 });
 
@@ -25595,7 +25552,6 @@ function populateMaps(extensions, types) {
       doy: 4 // The week that contains Jan 4th is the first week of the year.
     }
   });
-
   return da;
 });
 
@@ -25682,7 +25638,6 @@ function populateMaps(extensions, types) {
       doy: 4 // The week that contains Jan 4th is the first week of the year.
     }
   });
-
   return deAt;
 });
 
@@ -25766,7 +25721,6 @@ function populateMaps(extensions, types) {
       doy: 4 // The week that contains Jan 4th is the first week of the year.
     }
   });
-
   return deCh;
 });
 
@@ -25852,7 +25806,6 @@ function populateMaps(extensions, types) {
       doy: 4 // The week that contains Jan 4th is the first week of the year.
     }
   });
-
   return de;
 });
 
@@ -25935,7 +25888,6 @@ function populateMaps(extensions, types) {
       doy: 12 // The week that contains Jan 12th is the first week of the year.
     }
   });
-
   return dv;
 });
 
@@ -26041,7 +25993,6 @@ function populateMaps(extensions, types) {
       doy: 4 // The week that contains Jan 4st is the first week of the year.
     }
   });
-
   return el;
 });
 
@@ -26111,7 +26062,6 @@ function populateMaps(extensions, types) {
       doy: 4 // The week that contains Jan 4th is the first week of the year.
     }
   });
-
   return enAu;
 });
 
@@ -26245,7 +26195,6 @@ function populateMaps(extensions, types) {
       doy: 4 // The week that contains Jan 4th is the first week of the year.
     }
   });
-
   return enGb;
 });
 
@@ -26315,7 +26264,6 @@ function populateMaps(extensions, types) {
       doy: 4 // The week that contains Jan 4th is the first week of the year.
     }
   });
-
   return enIe;
 });
 
@@ -26449,7 +26397,6 @@ function populateMaps(extensions, types) {
       doy: 6 // The week that contains Jan 1st is the first week of the year.
     }
   });
-
   return enIn;
 });
 
@@ -26519,7 +26466,6 @@ function populateMaps(extensions, types) {
       doy: 4 // The week that contains Jan 4th is the first week of the year.
     }
   });
-
   return enNz;
 });
 
@@ -26589,7 +26535,6 @@ function populateMaps(extensions, types) {
       doy: 4 // The week that contains Jan 4th is the first week of the year.
     }
   });
-
   return enSg;
 });
 
@@ -26671,7 +26616,6 @@ function populateMaps(extensions, types) {
       doy: 7 // The week that contains Jan 7th is the first week of the year.
     }
   });
-
   return eo;
 });
 
@@ -26768,7 +26712,6 @@ function populateMaps(extensions, types) {
       doy: 4 // The week that contains Jan 4th is the first week of the year.
     }
   });
-
   return esDo;
 });
 
@@ -26865,7 +26808,6 @@ function populateMaps(extensions, types) {
       // Sunday is the first day of the week.
       doy: 4 // The week that contains Jan 4th is the first week of the year.
     },
-
     invalidDate: 'Fecha inválida'
   });
   return esMx;
@@ -26966,7 +26908,6 @@ function populateMaps(extensions, types) {
       doy: 6 // The week that contains Jan 6th is the first week of the year.
     }
   });
-
   return esUs;
 });
 
@@ -27063,7 +27004,6 @@ function populateMaps(extensions, types) {
       // Monday is the first day of the week.
       doy: 4 // The week that contains Jan 4th is the first week of the year.
     },
-
     invalidDate: 'Fecha inválida'
   });
   return es;
@@ -27151,7 +27091,6 @@ function populateMaps(extensions, types) {
       doy: 4 // The week that contains Jan 4th is the first week of the year.
     }
   });
-
   return et;
 });
 
@@ -27223,7 +27162,6 @@ function populateMaps(extensions, types) {
       doy: 7 // The week that contains Jan 7th is the first week of the year.
     }
   });
-
   return eu;
 });
 
@@ -27335,7 +27273,6 @@ function populateMaps(extensions, types) {
       doy: 12 // The week that contains Jan 12th is the first week of the year.
     }
   });
-
   return fa;
 });
 
@@ -27447,7 +27384,6 @@ function populateMaps(extensions, types) {
       doy: 4 // The week that contains Jan 4th is the first week of the year.
     }
   });
-
   return fi;
 });
 
@@ -27516,7 +27452,6 @@ function populateMaps(extensions, types) {
       doy: 4 // The week that contains Jan 4th is the first week of the year.
     }
   });
-
   return fil;
 });
 
@@ -27583,7 +27518,6 @@ function populateMaps(extensions, types) {
       doy: 4 // The week that contains Jan 4th is the first week of the year.
     }
   });
-
   return fo;
 });
 
@@ -27745,7 +27679,6 @@ function populateMaps(extensions, types) {
       doy: 4 // The week that contains Jan 4th is the first week of the year.
     }
   });
-
   return frCh;
 });
 
@@ -27846,7 +27779,6 @@ function populateMaps(extensions, types) {
       doy: 4 // The week that contains Jan 4th is the first week of the year.
     }
   });
-
   return fr;
 });
 
@@ -27926,7 +27858,6 @@ function populateMaps(extensions, types) {
       doy: 4 // The week that contains Jan 4th is the first week of the year.
     }
   });
-
   return fy;
 });
 
@@ -28001,7 +27932,6 @@ function populateMaps(extensions, types) {
       doy: 4 // The week that contains Jan 4th is the first week of the year.
     }
   });
-
   return ga;
 });
 
@@ -28076,7 +28006,6 @@ function populateMaps(extensions, types) {
       doy: 4 // The week that contains Jan 4th is the first week of the year.
     }
   });
-
   return gd;
 });
 
@@ -28159,7 +28088,6 @@ function populateMaps(extensions, types) {
       doy: 4 // The week that contains Jan 4th is the first week of the year.
     }
   });
-
   return gl;
 });
 
@@ -28262,7 +28190,6 @@ function populateMaps(extensions, types) {
       // Sunday is the first day of the week
       doy: 3 // The week that contains Jan 4th is the first week of the year (7 + 0 - 4)
     },
-
     meridiemParse: /राती|सकाळीं|दनपारां|सांजे/,
     meridiemHour: function (hour, meridiem) {
       if (hour === 12) {
@@ -28394,7 +28321,6 @@ function populateMaps(extensions, types) {
       // Sunday is the first day of the week
       doy: 3 // The week that contains Jan 4th is the first week of the year (7 + 0 - 4)
     },
-
     meridiemParse: /rati|sokallim|donparam|sanje/,
     meridiemHour: function (hour, meridiem) {
       if (hour === 12) {
@@ -28552,7 +28478,6 @@ function populateMaps(extensions, types) {
       doy: 6 // The week that contains Jan 6th is the first week of the year.
     }
   });
-
   return gu;
 });
 
@@ -28795,7 +28720,6 @@ function populateMaps(extensions, types) {
       doy: 6 // The week that contains Jan 6th is the first week of the year.
     }
   });
-
   return hi;
 });
 
@@ -28955,7 +28879,6 @@ function populateMaps(extensions, types) {
       doy: 7 // The week that contains Jan 7th is the first week of the year.
     }
   });
-
   return hr;
 });
 
@@ -29072,7 +28995,6 @@ function populateMaps(extensions, types) {
       doy: 4 // The week that contains Jan 4th is the first week of the year.
     }
   });
-
   return hu;
 });
 
@@ -29173,7 +29095,6 @@ function populateMaps(extensions, types) {
       doy: 7 // The week that contains Jan 7th is the first week of the year.
     }
   });
-
   return hyAm;
 });
 
@@ -29262,7 +29183,6 @@ function populateMaps(extensions, types) {
       doy: 6 // The week that contains Jan 6th is the first week of the year.
     }
   });
-
   return id;
 });
 
@@ -29399,7 +29319,6 @@ function populateMaps(extensions, types) {
       doy: 4 // The week that contains Jan 4th is the first week of the year.
     }
   });
-
   return is;
 });
 
@@ -29474,7 +29393,6 @@ function populateMaps(extensions, types) {
       doy: 4 // The week that contains Jan 4th is the first week of the year.
     }
   });
-
   return itCh;
 });
 
@@ -29559,7 +29477,6 @@ function populateMaps(extensions, types) {
       doy: 4 // The week that contains Jan 4th is the first week of the year.
     }
   });
-
   return it;
 });
 
@@ -29799,7 +29716,6 @@ function populateMaps(extensions, types) {
       doy: 7 // The week that contains Jan 7th is the first week of the year.
     }
   });
-
   return jv;
 });
 
@@ -29982,7 +29898,6 @@ function populateMaps(extensions, types) {
       doy: 7 // The week that contains Jan 7th is the first week of the year.
     }
   });
-
   return kk;
 });
 
@@ -30094,7 +30009,6 @@ function populateMaps(extensions, types) {
       doy: 4 // The week that contains Jan 4th is the first week of the year.
     }
   });
-
   return km;
 });
 
@@ -30225,7 +30139,6 @@ function populateMaps(extensions, types) {
       doy: 6 // The week that contains Jan 6th is the first week of the year.
     }
   });
-
   return kn;
 });
 
@@ -30422,7 +30335,6 @@ function populateMaps(extensions, types) {
       doy: 12 // The week that contains Jan 12th is the first week of the year.
     }
   });
-
   return ku;
 });
 
@@ -30514,7 +30426,6 @@ function populateMaps(extensions, types) {
       doy: 7 // The week that contains Jan 7th is the first week of the year.
     }
   });
-
   return ky;
 });
 
@@ -30657,7 +30568,6 @@ function populateMaps(extensions, types) {
       doy: 4 // The week that contains Jan 4th is the first week of the year.
     }
   });
-
   return lb;
 });
 
@@ -30855,7 +30765,6 @@ function populateMaps(extensions, types) {
       doy: 4 // The week that contains Jan 4th is the first week of the year.
     }
   });
-
   return lt;
 });
 
@@ -30958,7 +30867,6 @@ function populateMaps(extensions, types) {
       doy: 4 // The week that contains Jan 4th is the first week of the year.
     }
   });
-
   return lv;
 });
 
@@ -31067,7 +30975,6 @@ function populateMaps(extensions, types) {
       doy: 7 // The week that contains Jan 7th is the first week of the year.
     }
   });
-
   return me;
 });
 
@@ -31137,7 +31044,6 @@ function populateMaps(extensions, types) {
       doy: 4 // The week that contains Jan 4th is the first week of the year.
     }
   });
-
   return mi;
 });
 
@@ -31234,7 +31140,6 @@ function populateMaps(extensions, types) {
       doy: 7 // The week that contains Jan 7th is the first week of the year.
     }
   });
-
   return mk;
 });
 
@@ -31631,7 +31536,6 @@ function populateMaps(extensions, types) {
       doy: 6 // The week that contains Jan 6th is the first week of the year.
     }
   });
-
   return mr;
 });
 
@@ -31720,7 +31624,6 @@ function populateMaps(extensions, types) {
       doy: 7 // The week that contains Jan 7th is the first week of the year.
     }
   });
-
   return msMy;
 });
 
@@ -31808,7 +31711,6 @@ function populateMaps(extensions, types) {
       doy: 7 // The week that contains Jan 7th is the first week of the year.
     }
   });
-
   return ms;
 });
 
@@ -31874,7 +31776,6 @@ function populateMaps(extensions, types) {
       doy: 4 // The week that contains Jan 4th is the first week of the year.
     }
   });
-
   return mt;
 });
 
@@ -31974,7 +31875,6 @@ function populateMaps(extensions, types) {
       doy: 4 // The week that contains Jan 4th is the first week of the year.
     }
   });
-
   return my;
 });
 
@@ -32046,7 +31946,6 @@ function populateMaps(extensions, types) {
       doy: 4 // The week that contains Jan 4th is the first week of the year.
     }
   });
-
   return nb;
 });
 
@@ -32174,7 +32073,6 @@ function populateMaps(extensions, types) {
       doy: 6 // The week that contains Jan 6th is the first week of the year.
     }
   });
-
   return ne;
 });
 
@@ -32263,7 +32161,6 @@ function populateMaps(extensions, types) {
       doy: 4 // The week that contains Jan 4th is the first week of the year.
     }
   });
-
   return nlBe;
 });
 
@@ -32354,7 +32251,6 @@ function populateMaps(extensions, types) {
       doy: 4 // The week that contains Jan 4th is the first week of the year.
     }
   });
-
   return nl;
 });
 
@@ -32425,7 +32321,6 @@ function populateMaps(extensions, types) {
       doy: 4 // The week that contains Jan 4th is the first week of the year.
     }
   });
-
   return nn;
 });
 
@@ -32634,7 +32529,6 @@ function populateMaps(extensions, types) {
       doy: 6 // The week that contains Jan 6th is the first week of the year.
     }
   });
-
   return paIn;
 });
 
@@ -32764,7 +32658,6 @@ function populateMaps(extensions, types) {
       doy: 4 // The week that contains Jan 4th is the first week of the year.
     }
   });
-
   return pl;
 });
 
@@ -32808,7 +32701,6 @@ function populateMaps(extensions, types) {
         return this.day() === 0 || this.day() === 6 ? '[Último] dddd [às] LT' // Saturday + Sunday
         : '[Última] dddd [às] LT'; // Monday - Friday
       },
-
       sameElse: 'L'
     },
     relativeTime: {
@@ -32874,7 +32766,6 @@ function populateMaps(extensions, types) {
         return this.day() === 0 || this.day() === 6 ? '[Último] dddd [às] LT' // Saturday + Sunday
         : '[Última] dddd [às] LT'; // Monday - Friday
       },
-
       sameElse: 'L'
     },
     relativeTime: {
@@ -32903,7 +32794,6 @@ function populateMaps(extensions, types) {
       doy: 4 // The week that contains Jan 4th is the first week of the year.
     }
   });
-
   return pt;
 });
 
@@ -32988,7 +32878,6 @@ function populateMaps(extensions, types) {
       doy: 7 // The week that contains Jan 7th is the first week of the year.
     }
   });
-
   return ro;
 });
 
@@ -33176,7 +33065,6 @@ function populateMaps(extensions, types) {
       doy: 4 // The week that contains Jan 4th is the first week of the year.
     }
   });
-
   return ru;
 });
 
@@ -33258,7 +33146,6 @@ function populateMaps(extensions, types) {
       doy: 4 // The week that contains Jan 4th is the first week of the year.
     }
   });
-
   return sd;
 });
 
@@ -33324,7 +33211,6 @@ function populateMaps(extensions, types) {
       doy: 4 // The week that contains Jan 4th is the first week of the year.
     }
   });
-
   return se;
 });
 
@@ -33568,7 +33454,6 @@ function populateMaps(extensions, types) {
       doy: 4 // The week that contains Jan 4th is the first week of the year.
     }
   });
-
   return sk;
 });
 
@@ -33745,7 +33630,6 @@ function populateMaps(extensions, types) {
       doy: 7 // The week that contains Jan 7th is the first week of the year.
     }
   });
-
   return sl;
 });
 
@@ -33821,7 +33705,6 @@ function populateMaps(extensions, types) {
       doy: 4 // The week that contains Jan 4th is the first week of the year.
     }
   });
-
   return sq;
 });
 
@@ -33944,7 +33827,6 @@ function populateMaps(extensions, types) {
       doy: 7 // The week that contains Jan 1st is the first week of the year.
     }
   });
-
   return srCyrl;
 });
 
@@ -34067,7 +33949,6 @@ function populateMaps(extensions, types) {
       doy: 7 // The week that contains Jan 7th is the first week of the year.
     }
   });
-
   return sr;
 });
 
@@ -34161,7 +34042,6 @@ function populateMaps(extensions, types) {
       doy: 4 // The week that contains Jan 4th is the first week of the year.
     }
   });
-
   return ss;
 });
 
@@ -34233,7 +34113,6 @@ function populateMaps(extensions, types) {
       doy: 4 // The week that contains Jan 4th is the first week of the year.
     }
   });
-
   return sv;
 });
 
@@ -34298,7 +34177,6 @@ function populateMaps(extensions, types) {
       doy: 7 // The week that contains Jan 7th is the first week of the year.
     }
   });
-
   return sw;
 });
 
@@ -34433,7 +34311,6 @@ function populateMaps(extensions, types) {
       doy: 6 // The week that contains Jan 6th is the first week of the year.
     }
   });
-
   return ta;
 });
 
@@ -34528,7 +34405,6 @@ function populateMaps(extensions, types) {
       doy: 6 // The week that contains Jan 6th is the first week of the year.
     }
   });
-
   return te;
 });
 
@@ -34600,7 +34476,6 @@ function populateMaps(extensions, types) {
       doy: 4 // The week that contains Jan 4th is the first week of the year.
     }
   });
-
   return tet;
 });
 
@@ -34724,7 +34599,6 @@ function populateMaps(extensions, types) {
       doy: 7 // The week that contains Jan 1th is the first week of the year.
     }
   });
-
   return tg;
 });
 
@@ -34899,7 +34773,6 @@ function populateMaps(extensions, types) {
       doy: 7 // The week that contains Jan 7th is the first week of the year.
     }
   });
-
   return tk;
 });
 
@@ -34967,7 +34840,6 @@ function populateMaps(extensions, types) {
       doy: 4 // The week that contains Jan 4th is the first week of the year.
     }
   });
-
   return tlPh;
 });
 
@@ -35078,7 +34950,6 @@ function populateMaps(extensions, types) {
       doy: 4 // The week that contains Jan 4th is the first week of the year.
     }
   });
-
   return tlh;
 });
 
@@ -35194,7 +35065,6 @@ function populateMaps(extensions, types) {
       doy: 7 // The week that contains Jan 7th is the first week of the year.
     }
   });
-
   return tr;
 });
 
@@ -35275,7 +35145,6 @@ function populateMaps(extensions, types) {
       doy: 4 // The week that contains Jan 4th is the first week of the year.
     }
   });
-
   function processRelativeTime(number, withoutSuffix, key, isFuture) {
     var format = {
       s: ['viensas secunds', "'iensas secunds"],
@@ -35356,7 +35225,6 @@ function populateMaps(extensions, types) {
       doy: 12 // The week that contains Jan 12th is the first week of the year.
     }
   });
-
   return tzmLatn;
 });
 
@@ -35420,7 +35288,6 @@ function populateMaps(extensions, types) {
       doy: 12 // The week that contains Jan 12th is the first week of the year.
     }
   });
-
   return tzm;
 });
 
@@ -35534,7 +35401,6 @@ function populateMaps(extensions, types) {
       doy: 7 // The week that contains Jan 1st is the first week of the year.
     }
   });
-
   return ugCn;
 });
 
@@ -35687,7 +35553,6 @@ function populateMaps(extensions, types) {
       doy: 7 // The week that contains Jan 7th is the first week of the year.
     }
   });
-
   return uk;
 });
 
@@ -35770,7 +35635,6 @@ function populateMaps(extensions, types) {
       doy: 4 // The week that contains Jan 4th is the first week of the year.
     }
   });
-
   return ur;
 });
 
@@ -35834,7 +35698,6 @@ function populateMaps(extensions, types) {
       doy: 7 // The week that contains Jan 7th is the first week of the year.
     }
   });
-
   return uzLatn;
 });
 
@@ -35898,7 +35761,6 @@ function populateMaps(extensions, types) {
       doy: 7 // The week that contains Jan 4th is the first week of the year.
     }
   });
-
   return uz;
 });
 
@@ -35986,7 +35848,6 @@ function populateMaps(extensions, types) {
       doy: 4 // The week that contains Jan 4th is the first week of the year.
     }
   });
-
   return vi;
 });
 
@@ -36057,7 +35918,6 @@ function populateMaps(extensions, types) {
       doy: 4 // The week that contains Jan 4th is the first week of the year.
     }
   });
-
   return xPseudo;
 });
 
@@ -36123,7 +35983,6 @@ function populateMaps(extensions, types) {
       doy: 4 // The week that contains Jan 4th is the first week of the year.
     }
   });
-
   return yo;
 });
 
@@ -36254,7 +36113,6 @@ function populateMaps(extensions, types) {
       doy: 4 // The week that contains Jan 4th is the first week of the year.
     }
   });
-
   return zhCn;
 });
 
@@ -37745,7 +37603,6 @@ function populateMaps(extensions, types) {
     // Sunday is the first day of the week.
     doy: 6 // The week that contains Jan 6th is the first week of the year.
   };
-
   function localeFirstDayOfWeek() {
     return this._week.dow;
   }
@@ -38286,7 +38143,6 @@ function populateMaps(extensions, types) {
         locales[name] = null; // null means not found
       }
     }
-
     return locales[name];
   }
 
@@ -39077,7 +38933,6 @@ function populateMaps(extensions, types) {
         if (unitHasDecimal) {
           return false; // only allow non-integers for smallest unit
         }
-
         if (parseFloat(m[ordering[i]]) !== toInt(m[ordering[i]])) {
           unitHasDecimal = true;
         }
@@ -41113,7 +40968,6 @@ function populateMaps(extensions, types) {
     // <input type="week" />
     MONTH: 'YYYY-MM' // <input type="month" />
   };
-
   return hooks;
 });
 
@@ -41313,7 +41167,6 @@ function typeHasher(options, writeTo, context) {
       } else {
         objType = objType[1]; // take only the class name
       }
-
       objType = objType.toLowerCase();
       var objectNumber = null;
       if ((objectNumber = context.indexOf(object)) >= 0) {
@@ -41673,7 +41526,6 @@ function getProxyForUrl(url) {
   if (typeof hostname !== 'string' || !hostname || typeof proto !== 'string') {
     return ''; // Don't proxy URLs without a valid scheme or host.
   }
-
   proto = proto.split(':', 1)[0];
   // Stripping ports in this way instead of using parsedUrl.hostname to make
   // sure that the brackets around IPv6 addresses are kept.
@@ -41682,7 +41534,6 @@ function getProxyForUrl(url) {
   if (!shouldProxy(hostname, port)) {
     return ''; // Don't proxy URLs that match NO_PROXY.
   }
-
   var proxy = getEnv('npm_config_' + proto + '_proxy') || getEnv(proto + '_proxy') || getEnv('npm_config_proxy') || getEnv('all_proxy');
   if (proxy && proxy.indexOf('://') === -1) {
     // Missing scheme in proxy, default to the requested URL's scheme.
@@ -41704,23 +41555,19 @@ function shouldProxy(hostname, port) {
   if (!NO_PROXY) {
     return true; // Always proxy if NO_PROXY is not set.
   }
-
   if (NO_PROXY === '*') {
     return false; // Never proxy if wildcard is set.
   }
-
   return NO_PROXY.split(/[,\s]/).every(function (proxy) {
     if (!proxy) {
       return true; // Skip zero-length hosts.
     }
-
     var parsedProxy = proxy.match(/^(.+):(\d+)$/);
     var parsedProxyHostname = parsedProxy ? parsedProxy[1] : proxy;
     var parsedProxyPort = parsedProxy ? parseInt(parsedProxy[2]) : 0;
     if (parsedProxyPort && parsedProxyPort !== port) {
       return true; // Skip if ports don't match.
     }
-
     if (!/^[.*]/.test(parsedProxyHostname)) {
       // No wildcards, so stop proxying if there is an exact match.
       return hostname !== parsedProxyHostname;
@@ -44125,7 +43972,6 @@ function supportsColor(haveStream, streamIsTTY) {
       // No default
     }
   }
-
   if (/-256(color)?$/i.test(env.TERM)) {
     return 2;
   }
@@ -44483,7 +44329,6 @@ const calculateRowHeights = (rows, config) => {
       }
       // otherwise, just depend on other sibling cell heights in the row
     });
-
     rowHeights.push(rowHeight);
   }
   return rowHeights;
@@ -52999,7 +52844,6 @@ var Comparators = {
   SQL: new Comparator(16, 'SQL'),
   */
 };
-
 freeze_default()(Comparators);
 // EXTERNAL MODULE: ./src/api/Log.ts
 var Log = __webpack_require__("./src/api/Log.ts");
@@ -53480,7 +53324,8 @@ function Util_toPrimitive(input, hint) { if (Util_typeof(input) !== "object" || 
 
 
 
-/** @hidden */ // eslint-disable-next-line
+/** @hidden */
+// eslint-disable-next-line
 var moment = __webpack_require__("./node_modules/moment/moment.js");
 
 /** @hidden */
@@ -54564,7 +54409,7 @@ var SearchProperty = /*#__PURE__*/function () {
    */
   SearchProperty_createClass(SearchProperty, [{
     key: "findValues",
-    value: function () {
+    value: (function () {
       var _findValues = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(options) {
         return _regeneratorRuntime().wrap(function _callee$(_context) {
           while (1) switch (_context.prev = _context.next) {
@@ -54584,7 +54429,7 @@ var SearchProperty = /*#__PURE__*/function () {
         return _findValues.apply(this, arguments);
       }
       return findValues;
-    }()
+    }())
   }]);
   return SearchProperty;
 }();
@@ -55417,6 +55262,7 @@ var BaseDAO_moment = __webpack_require__("./node_modules/moment/moment.js");
 // eslint-disable-next-line
 
 
+
 /**
  * A base DAO useful for subclassing to create real DAOs.  This differs from
  * the [[AbstractDAO]] in that it doesn't have a "default" interface for
@@ -55667,7 +55513,7 @@ var AbstractDAO = /*#__PURE__*/function (_BaseDAO) {
   }
   AbstractDAO_createClass(AbstractDAO, [{
     key: "getFilterProcessor",
-    value:
+    value: (
     /** A local cache of v2 DAO properties (`api/v2/DAO/properties`) */
     /**
      * Returns the Promise for a [[IFilterProcessor]].
@@ -55705,9 +55551,10 @@ var AbstractDAO = /*#__PURE__*/function (_BaseDAO) {
      * Retrieve a model object.
      * @param id - the ID of the object
      */
+    )
   }, {
     key: "searchProperties",
-    value:
+    value: (
     /**
      * Get the list properties that can be used in queries.
      * @version ReST v2
@@ -55737,9 +55584,10 @@ var AbstractDAO = /*#__PURE__*/function (_BaseDAO) {
      *
      * @param id The id to search the property by.
      */
+    )
   }, {
     key: "searchProperty",
-    value: function () {
+    value: (function () {
       var _searchProperty = AbstractDAO_asyncToGenerator( /*#__PURE__*/AbstractDAO_regeneratorRuntime().mark(function _callee3(id) {
         var cache;
         return AbstractDAO_regeneratorRuntime().wrap(function _callee3$(_context3) {
@@ -55768,9 +55616,10 @@ var AbstractDAO = /*#__PURE__*/function (_BaseDAO) {
      *
      * @return the cache for this dao. It is created if it does not exist.
      */
+    )
   }, {
     key: "getPropertiesCache",
-    value: function () {
+    value: (function () {
       var _getPropertiesCache = AbstractDAO_asyncToGenerator( /*#__PURE__*/AbstractDAO_regeneratorRuntime().mark(function _callee4() {
         var _this = this;
         var opts, result;
@@ -55818,9 +55667,10 @@ var AbstractDAO = /*#__PURE__*/function (_BaseDAO) {
      * @param options Some additional options. May be implementer dependent, such as limit, or value restrictions
      * @returns {Promise<any>} A promise containing the values.
      */
+    )
   }, {
     key: "findValues",
-    value: function () {
+    value: (function () {
       var _findValues = AbstractDAO_asyncToGenerator( /*#__PURE__*/AbstractDAO_regeneratorRuntime().mark(function _callee5(propertyId, options) {
         var _ref, _ref2, property, defaultOptions, path, opts, result;
         return AbstractDAO_regeneratorRuntime().wrap(function _callee5$(_context5) {
@@ -55858,7 +55708,7 @@ var AbstractDAO = /*#__PURE__*/function (_BaseDAO) {
         return _findValues.apply(this, arguments);
       }
       return findValues;
-    }() /** @inheritdoc */
+    }() /** @inheritdoc */)
   }, {
     key: "onSetServer",
     value: function onSetServer(server) {
@@ -55954,7 +55804,7 @@ var AbstractDAO = /*#__PURE__*/function (_BaseDAO) {
      */
   }, {
     key: "getOptions",
-    value: function () {
+    value: (function () {
       var _getOptions = AbstractDAO_asyncToGenerator( /*#__PURE__*/AbstractDAO_regeneratorRuntime().mark(function _callee6(filter) {
         var builder, processor;
         return AbstractDAO_regeneratorRuntime().wrap(function _callee6$(_context8) {
@@ -55994,6 +55844,7 @@ var AbstractDAO = /*#__PURE__*/function (_BaseDAO) {
      * Generate a [[SearchProperty]] from the given dictionary.
      * @hidden
      */
+    )
   }, {
     key: "toSearchProperty",
     value: function toSearchProperty(data) {
@@ -56436,7 +56287,7 @@ var EventDAO = /*#__PURE__*/function (_AbstractDAO) {
   /** Get an event, given the event's ID. */
   EventDAO_createClass(EventDAO, [{
     key: "get",
-    value: function () {
+    value: (function () {
       var _get = EventDAO_asyncToGenerator( /*#__PURE__*/EventDAO_regeneratorRuntime().mark(function _callee(id) {
         var _this = this;
         return EventDAO_regeneratorRuntime().wrap(function _callee$(_context) {
@@ -56461,10 +56312,10 @@ var EventDAO = /*#__PURE__*/function (_AbstractDAO) {
         return _get.apply(this, arguments);
       }
       return get;
-    }() /** Get an event, given a filter. */
+    }() /** Get an event, given a filter. */)
   }, {
     key: "find",
-    value: function () {
+    value: (function () {
       var _find = EventDAO_asyncToGenerator( /*#__PURE__*/EventDAO_regeneratorRuntime().mark(function _callee2(filter) {
         var _this2 = this;
         return EventDAO_regeneratorRuntime().wrap(function _callee2$(_context2) {
@@ -56514,6 +56365,7 @@ var EventDAO = /*#__PURE__*/function (_AbstractDAO) {
      * Create an event object from a JSON object.
      * @hidden
      */
+    )
   }, {
     key: "fromData",
     value: function fromData(data) {
@@ -56932,7 +56784,7 @@ var AlarmDAO = /*#__PURE__*/function (_AbstractDAO) {
    */
   AlarmDAO_createClass(AlarmDAO, [{
     key: "get",
-    value: function () {
+    value: (function () {
       var _get2 = AlarmDAO_asyncToGenerator( /*#__PURE__*/AlarmDAO_regeneratorRuntime().mark(function _callee(id) {
         var _this2 = this;
         return AlarmDAO_regeneratorRuntime().wrap(function _callee$(_context) {
@@ -56965,9 +56817,10 @@ var AlarmDAO = /*#__PURE__*/function (_AbstractDAO) {
      * @param {Filter} filter - The filter to use when querying.
      * @return An array of [[OnmsAlarm]] objects.
      */
+    )
   }, {
     key: "find",
-    value: function () {
+    value: (function () {
       var _find = AlarmDAO_asyncToGenerator( /*#__PURE__*/AlarmDAO_regeneratorRuntime().mark(function _callee2(filter) {
         var _this3 = this;
         return AlarmDAO_regeneratorRuntime().wrap(function _callee2$(_context2) {
@@ -57013,6 +56866,7 @@ var AlarmDAO = /*#__PURE__*/function (_AbstractDAO) {
      * @param result the HTTP Request result.
      * @returns An array of [[OnmsAlarm]] objects.
      */
+    )
   }, {
     key: "getData",
     value: function getData(result) {
@@ -57042,7 +56896,7 @@ var AlarmDAO = /*#__PURE__*/function (_AbstractDAO) {
      */
   }, {
     key: "acknowledge",
-    value: function () {
+    value: (function () {
       var _acknowledge = AlarmDAO_asyncToGenerator( /*#__PURE__*/AlarmDAO_regeneratorRuntime().mark(function _callee3(alarm, user) {
         var alarmId, parameters;
         return AlarmDAO_regeneratorRuntime().wrap(function _callee3$(_context3) {
@@ -57072,9 +56926,10 @@ var AlarmDAO = /*#__PURE__*/function (_AbstractDAO) {
      * @version ReST v1+
      * @param {number|OnmsAlarm} alarm - The [[OnmsAlarm]] or alarm ID.
      */
+    )
   }, {
     key: "unacknowledge",
-    value: function () {
+    value: (function () {
       var _unacknowledge = AlarmDAO_asyncToGenerator( /*#__PURE__*/AlarmDAO_regeneratorRuntime().mark(function _callee4(alarm, user) {
         var alarmId, parameters;
         return AlarmDAO_regeneratorRuntime().wrap(function _callee4$(_context4) {
@@ -57104,9 +56959,10 @@ var AlarmDAO = /*#__PURE__*/function (_AbstractDAO) {
      * @version ReST v1+
      * @param {number|OnsmAlarm} alarm - The [[OnmsAlarm]] or alarm ID.
      */
+    )
   }, {
     key: "escalate",
-    value: function () {
+    value: (function () {
       var _escalate = AlarmDAO_asyncToGenerator( /*#__PURE__*/AlarmDAO_regeneratorRuntime().mark(function _callee5(alarm) {
         var alarmId, parameters;
         return AlarmDAO_regeneratorRuntime().wrap(function _callee5$(_context5) {
@@ -57133,9 +56989,10 @@ var AlarmDAO = /*#__PURE__*/function (_AbstractDAO) {
      * @version ReST v1+
      * @param {number|OnmsAlarm} alarm - The [[OnmsAlarm]] or alarm ID.
      */
+    )
   }, {
     key: "clear",
-    value: function () {
+    value: (function () {
       var _clear = AlarmDAO_asyncToGenerator( /*#__PURE__*/AlarmDAO_regeneratorRuntime().mark(function _callee6(alarm) {
         var alarmId, parameters;
         return AlarmDAO_regeneratorRuntime().wrap(function _callee6$(_context6) {
@@ -57163,9 +57020,10 @@ var AlarmDAO = /*#__PURE__*/function (_AbstractDAO) {
      * @param {number|OnmsAlarm} alarm - The [[OnmsAlarm]] or alarm ID.
      * @param {string} ticketId - The ticket ID.
      */
+    )
   }, {
     key: "setTTicketId",
-    value: function () {
+    value: (function () {
       var _setTTicketId = AlarmDAO_asyncToGenerator( /*#__PURE__*/AlarmDAO_regeneratorRuntime().mark(function _callee7(alarm, ticketId) {
         var alarmId, parameters;
         return AlarmDAO_regeneratorRuntime().wrap(function _callee7$(_context7) {
@@ -57193,9 +57051,10 @@ var AlarmDAO = /*#__PURE__*/function (_AbstractDAO) {
      * @param {number|OnmsAlarm} alarm - The [[OnmsAlarm]] or alarm ID.
      * @param {string} state - The ticket state.
      */
+    )
   }, {
     key: "setTTicketState",
-    value: function () {
+    value: (function () {
       var _setTTicketState = AlarmDAO_asyncToGenerator( /*#__PURE__*/AlarmDAO_regeneratorRuntime().mark(function _callee8(alarm, state) {
         var alarmId, parameters;
         return AlarmDAO_regeneratorRuntime().wrap(function _callee8$(_context8) {
@@ -57222,9 +57081,10 @@ var AlarmDAO = /*#__PURE__*/function (_AbstractDAO) {
      * @version ReST v2
      * @param {number|OnmsAlarm} alarm - The [[OnmsAlarm]] or alarm ID.
      */
+    )
   }, {
     key: "createTicket",
-    value: function () {
+    value: (function () {
       var _createTicket = AlarmDAO_asyncToGenerator( /*#__PURE__*/AlarmDAO_regeneratorRuntime().mark(function _callee9(alarm) {
         var alarmId, builder;
         return AlarmDAO_regeneratorRuntime().wrap(function _callee9$(_context9) {
@@ -57258,9 +57118,10 @@ var AlarmDAO = /*#__PURE__*/function (_AbstractDAO) {
      * @version ReST v2
      * @param {number|OnmsAlarm} alarm - The [[OnmsAlarm]] or alarm ID.
      */
+    )
   }, {
     key: "triggerTicketUpdate",
-    value: function () {
+    value: (function () {
       var _triggerTicketUpdate = AlarmDAO_asyncToGenerator( /*#__PURE__*/AlarmDAO_regeneratorRuntime().mark(function _callee10(alarm) {
         var alarmId, builder;
         return AlarmDAO_regeneratorRuntime().wrap(function _callee10$(_context10) {
@@ -57294,9 +57155,10 @@ var AlarmDAO = /*#__PURE__*/function (_AbstractDAO) {
      * @version ReST v2
      * @param {number|OnmsAlarm} alarm - The [[OnmsAlarm]] or alarm ID.
      */
+    )
   }, {
     key: "closeTicket",
-    value: function () {
+    value: (function () {
       var _closeTicket = AlarmDAO_asyncToGenerator( /*#__PURE__*/AlarmDAO_regeneratorRuntime().mark(function _callee11(alarm) {
         var alarmId, builder;
         return AlarmDAO_regeneratorRuntime().wrap(function _callee11$(_context11) {
@@ -57333,9 +57195,10 @@ var AlarmDAO = /*#__PURE__*/function (_AbstractDAO) {
      * @param {string=} user - The user to update the memo as.
      *                  (Only administrators have the right to do this.)
      */
+    )
   }, {
     key: "saveStickyMemo",
-    value: function () {
+    value: (function () {
       var _saveStickyMemo = AlarmDAO_asyncToGenerator( /*#__PURE__*/AlarmDAO_regeneratorRuntime().mark(function _callee12(alarm, body, user) {
         return AlarmDAO_regeneratorRuntime().wrap(function _callee12$(_context12) {
           while (1) switch (_context12.prev = _context12.next) {
@@ -57361,9 +57224,10 @@ var AlarmDAO = /*#__PURE__*/function (_AbstractDAO) {
      * @param {string=} user - The user to update the memo as.
      *                  (Only administrators have the right to do this.)
      */
+    )
   }, {
     key: "saveJournalMemo",
-    value: function () {
+    value: (function () {
       var _saveJournalMemo = AlarmDAO_asyncToGenerator( /*#__PURE__*/AlarmDAO_regeneratorRuntime().mark(function _callee13(alarm, body, user) {
         return AlarmDAO_regeneratorRuntime().wrap(function _callee13$(_context13) {
           while (1) switch (_context13.prev = _context13.next) {
@@ -57386,9 +57250,10 @@ var AlarmDAO = /*#__PURE__*/function (_AbstractDAO) {
      * @version ReST v2
      * @param {number|OnmsAlarm} alarm - The [[OnmsAlarm]] or alarm ID.
      */
+    )
   }, {
     key: "deleteStickyMemo",
-    value: function () {
+    value: (function () {
       var _deleteStickyMemo = AlarmDAO_asyncToGenerator( /*#__PURE__*/AlarmDAO_regeneratorRuntime().mark(function _callee14(alarm) {
         return AlarmDAO_regeneratorRuntime().wrap(function _callee14$(_context14) {
           while (1) switch (_context14.prev = _context14.next) {
@@ -57411,9 +57276,10 @@ var AlarmDAO = /*#__PURE__*/function (_AbstractDAO) {
      * @version ReST v2
      * @param {number|OnmsAlarm} alarm - The [[OnmsAlarm]] or alarm ID.
      */
+    )
   }, {
     key: "deleteJournalMemo",
-    value: function () {
+    value: (function () {
       var _deleteJournalMemo = AlarmDAO_asyncToGenerator( /*#__PURE__*/AlarmDAO_regeneratorRuntime().mark(function _callee15(alarm) {
         return AlarmDAO_regeneratorRuntime().wrap(function _callee15$(_context15) {
           while (1) switch (_context15.prev = _context15.next) {
@@ -57434,6 +57300,7 @@ var AlarmDAO = /*#__PURE__*/function (_AbstractDAO) {
      * Generate an alarm object from the given dictionary.
      * @hidden
      */
+    )
   }, {
     key: "fromData",
     value: function fromData(data) {
@@ -57550,7 +57417,7 @@ var AlarmDAO = /*#__PURE__*/function (_AbstractDAO) {
      */
   }, {
     key: "getOptions",
-    value: function () {
+    value: (function () {
       var _getOptions = AlarmDAO_asyncToGenerator( /*#__PURE__*/AlarmDAO_regeneratorRuntime().mark(function _callee16(filter) {
         var _this4 = this;
         return AlarmDAO_regeneratorRuntime().wrap(function _callee16$(_context16) {
@@ -57593,9 +57460,10 @@ var AlarmDAO = /*#__PURE__*/function (_AbstractDAO) {
      * Call a PUT request in the format the alarm ack API expects.
      * @hidden
      */
+    )
   }, {
     key: "put",
-    value: function () {
+    value: (function () {
       var _put = AlarmDAO_asyncToGenerator( /*#__PURE__*/AlarmDAO_regeneratorRuntime().mark(function _callee17(url) {
         var parameters,
           builder,
@@ -57629,9 +57497,10 @@ var AlarmDAO = /*#__PURE__*/function (_AbstractDAO) {
      * Call a DELETE request in the format the alarm ack API expects.
      * @hidden
      */
+    )
   }, {
     key: "httpDelete",
-    value: function () {
+    value: (function () {
       var _httpDelete = AlarmDAO_asyncToGenerator( /*#__PURE__*/AlarmDAO_regeneratorRuntime().mark(function _callee18(url) {
         var parameters,
           builder,
@@ -57665,6 +57534,7 @@ var AlarmDAO = /*#__PURE__*/function (_AbstractDAO) {
      * Get the path to the alarms endpoint for the appropriate API version.
      * @hidden
      */
+    )
   }, {
     key: "pathToAlarmsEndpoint",
     value: function pathToAlarmsEndpoint() {
@@ -57677,7 +57547,7 @@ var AlarmDAO = /*#__PURE__*/function (_AbstractDAO) {
      */
   }, {
     key: "saveMemo",
-    value: function () {
+    value: (function () {
       var _saveMemo = AlarmDAO_asyncToGenerator( /*#__PURE__*/AlarmDAO_regeneratorRuntime().mark(function _callee19(type, alarm, body, user) {
         var alarmId, parameters;
         return AlarmDAO_regeneratorRuntime().wrap(function _callee19$(_context19) {
@@ -57711,9 +57581,10 @@ var AlarmDAO = /*#__PURE__*/function (_AbstractDAO) {
      * Delete a journal or sticky memo
      * @hidden
      */
+    )
   }, {
     key: "deleteMemo",
-    value: function () {
+    value: (function () {
       var _deleteMemo = AlarmDAO_asyncToGenerator( /*#__PURE__*/AlarmDAO_regeneratorRuntime().mark(function _callee20(type, alarm) {
         var alarmId;
         return AlarmDAO_regeneratorRuntime().wrap(function _callee20$(_context20) {
@@ -57744,6 +57615,7 @@ var AlarmDAO = /*#__PURE__*/function (_AbstractDAO) {
      * @param {number|OnmsAlarm} alarm - The [[OnmsAlarm]] or alarm ID.
      * @returns {URL} URL on the associated OpenNMS server for the alarm details page.
      */
+    )
   }, {
     key: "getDetailsPage",
     value: function getDetailsPage(alarm) {
@@ -57988,7 +57860,7 @@ var FlowDAO = /*#__PURE__*/function (_BaseDAO) {
   }
   FlowDAO_createClass(FlowDAO, [{
     key: "getExporters",
-    value:
+    value: (
     /**
      * Get a summary of the nodes that have exported flows.
      * @param limit - maximum number of exporters to return (those with the most flows will be returned
@@ -58043,9 +57915,10 @@ var FlowDAO = /*#__PURE__*/function (_BaseDAO) {
      * @param start - the start of the timespan to query (defaults to 4 hours ago)
      * @param end - the end of the timespan to query (defaults to now)
      */
+    )
   }, {
     key: "getExporter",
-    value: function () {
+    value: (function () {
       var _getExporter = FlowDAO_asyncToGenerator( /*#__PURE__*/FlowDAO_regeneratorRuntime().mark(function _callee2(criteria, limit, start, end) {
         var builder, result;
         return FlowDAO_regeneratorRuntime().wrap(function _callee2$(_context3) {
@@ -58075,9 +57948,10 @@ var FlowDAO = /*#__PURE__*/function (_BaseDAO) {
      * @param start - the start of the timespan to query (defaults to 4 hours ago)
      * @param end - the end of the timespan to query (defaults to now)
      */
+    )
   }, {
     key: "getDscpValues",
-    value: function () {
+    value: (function () {
       var _getDscpValues = FlowDAO_asyncToGenerator( /*#__PURE__*/FlowDAO_regeneratorRuntime().mark(function _callee3(exporterNodeCriteria, ifIndex, start, end) {
         var builder, result;
         return FlowDAO_regeneratorRuntime().wrap(function _callee3$(_context4) {
@@ -58111,9 +57985,10 @@ var FlowDAO = /*#__PURE__*/function (_BaseDAO) {
      * @param ifIndex - filter for flows that came through this SNMP interface
      * @param dscp - filter for flows with this Dscp value
      */
+    )
   }, {
     key: "getSummaryForDscps",
-    value: function () {
+    value: (function () {
       var _getSummaryForDscps = FlowDAO_asyncToGenerator( /*#__PURE__*/FlowDAO_regeneratorRuntime().mark(function _callee4(start, end, exporterNodeCriteria, ifIndex, dscp) {
         var builder, result;
         return FlowDAO_regeneratorRuntime().wrap(function _callee4$(_context5) {
@@ -58148,9 +58023,10 @@ var FlowDAO = /*#__PURE__*/function (_BaseDAO) {
      * @param ifIndex - filter for flows that came through this SNMP interface
      * @param dscp - filter for flows with this Dscp value
      */
+    )
   }, {
     key: "getSeriesForDscps",
-    value: function () {
+    value: (function () {
       var _getSeriesForDscps = FlowDAO_asyncToGenerator( /*#__PURE__*/FlowDAO_regeneratorRuntime().mark(function _callee5(start, end, step, exporterNodeCriteria, ifIndex, dscp) {
         var builder, result;
         return FlowDAO_regeneratorRuntime().wrap(function _callee5$(_context6) {
@@ -58183,9 +58059,10 @@ var FlowDAO = /*#__PURE__*/function (_BaseDAO) {
      * @param ifIndex - filter for flows that came through this SNMP interface
      * @param dscp - filter for flows with this Dscp value
      */
+    )
   }, {
     key: "getApplications",
-    value: function () {
+    value: (function () {
       var _getApplications = FlowDAO_asyncToGenerator( /*#__PURE__*/FlowDAO_regeneratorRuntime().mark(function _callee6(prefix, start, end, exporterNodeCriteria, ifIndex, dscp) {
         var builder, result;
         return FlowDAO_regeneratorRuntime().wrap(function _callee6$(_context7) {
@@ -58219,9 +58096,10 @@ var FlowDAO = /*#__PURE__*/function (_BaseDAO) {
      * @param ifIndex - filter for flows that came through this SNMP interface
      * @param dscp - filter for flows with this Dscp value
      */
+    )
   }, {
     key: "getSummaryForTopNApplications",
-    value: function () {
+    value: (function () {
       var _getSummaryForTopNApplications = FlowDAO_asyncToGenerator( /*#__PURE__*/FlowDAO_regeneratorRuntime().mark(function _callee7(N, start, end, includeOther, exporterNodeCriteria, ifIndex, dscp) {
         var builder, result;
         return FlowDAO_regeneratorRuntime().wrap(function _callee7$(_context8) {
@@ -58255,9 +58133,10 @@ var FlowDAO = /*#__PURE__*/function (_BaseDAO) {
      * @param ifIndex - filter for flows that came through this SNMP interface
      * @param dscp - filter for flows with this Dscp value
      */
+    )
   }, {
     key: "getSummaryForApplications",
-    value: function () {
+    value: (function () {
       var _getSummaryForApplications = FlowDAO_asyncToGenerator( /*#__PURE__*/FlowDAO_regeneratorRuntime().mark(function _callee8(applications, start, end, includeOther, exporterNodeCriteria, ifIndex, dscp) {
         var builder, result;
         return FlowDAO_regeneratorRuntime().wrap(function _callee8$(_context9) {
@@ -58298,9 +58177,10 @@ var FlowDAO = /*#__PURE__*/function (_BaseDAO) {
      * @param ifIndex - filter for flows that came through this SNMP interface
      * @param dscp - filter for flows with this Dscp value
      */
+    )
   }, {
     key: "getSeriesForTopNApplications",
-    value: function () {
+    value: (function () {
       var _getSeriesForTopNApplications = FlowDAO_asyncToGenerator( /*#__PURE__*/FlowDAO_regeneratorRuntime().mark(function _callee9(N, start, end, step, includeOther, exporterNodeCriteria, ifIndex, dscp) {
         var builder, result;
         return FlowDAO_regeneratorRuntime().wrap(function _callee9$(_context10) {
@@ -58335,9 +58215,10 @@ var FlowDAO = /*#__PURE__*/function (_BaseDAO) {
      * @param ifIndex - filter for flows that came through this SNMP interface
      * @param dscp - filter for flows with this Dscp value
      */
+    )
   }, {
     key: "getSeriesForApplications",
-    value: function () {
+    value: (function () {
       var _getSeriesForApplications = FlowDAO_asyncToGenerator( /*#__PURE__*/FlowDAO_regeneratorRuntime().mark(function _callee10(applications, start, end, step, includeOther, exporterNodeCriteria, ifIndex, dscp) {
         var builder, result;
         return FlowDAO_regeneratorRuntime().wrap(function _callee10$(_context11) {
@@ -58376,9 +58257,10 @@ var FlowDAO = /*#__PURE__*/function (_BaseDAO) {
      * @param ifIndex - filter for flows that came through this SNMP interface
      * @param dscp - filter for flows with this Dscp value
      */
+    )
   }, {
     key: "getSummaryForTopNConversations",
-    value: function () {
+    value: (function () {
       var _getSummaryForTopNConversations = FlowDAO_asyncToGenerator( /*#__PURE__*/FlowDAO_regeneratorRuntime().mark(function _callee11(NOptions, start, end, exporterNodeCriteria, ifIndex, dscp) {
         var builder, _i, _Object$keys, key, result;
         return FlowDAO_regeneratorRuntime().wrap(function _callee11$(_context12) {
@@ -58420,9 +58302,10 @@ var FlowDAO = /*#__PURE__*/function (_BaseDAO) {
      * @param ifIndex - filter for flows that came through this SNMP interface
      * @param dscp - filter for flows with this Dscp value
      */
+    )
   }, {
     key: "getSummaryForConversations",
-    value: function () {
+    value: (function () {
       var _getSummaryForConversations = FlowDAO_asyncToGenerator( /*#__PURE__*/FlowDAO_regeneratorRuntime().mark(function _callee12(conversations, start, end, includeOther, exporterNodeCriteria, ifIndex, dscp) {
         var builder, result;
         return FlowDAO_regeneratorRuntime().wrap(function _callee12$(_context13) {
@@ -58462,9 +58345,10 @@ var FlowDAO = /*#__PURE__*/function (_BaseDAO) {
      * @param ifIndex - filter for flows that came through this SNMP interface
      * @param dscp - filter for flows with this Dscp value
      */
+    )
   }, {
     key: "getSeriesForTopNConversations",
-    value: function () {
+    value: (function () {
       var _getSeriesForTopNConversations = FlowDAO_asyncToGenerator( /*#__PURE__*/FlowDAO_regeneratorRuntime().mark(function _callee13(NOptions, start, end, step, exporterNodeCriteria, ifIndex, dscp) {
         var builder, _i2, _Object$keys3, key, result;
         return FlowDAO_regeneratorRuntime().wrap(function _callee13$(_context14) {
@@ -58507,9 +58391,10 @@ var FlowDAO = /*#__PURE__*/function (_BaseDAO) {
      * @param ifIndex - filter for flows that came through this SNMP interface
      * @param dscp - filter for flows with this Dscp value
      */
+    )
   }, {
     key: "getSeriesForConversations",
-    value: function () {
+    value: (function () {
       var _getSeriesForConversations = FlowDAO_asyncToGenerator( /*#__PURE__*/FlowDAO_regeneratorRuntime().mark(function _callee14(conversations, start, end, step, includeOther, exporterNodeCriteria, ifIndex, dscp, ecn) {
         var builder, result;
         return FlowDAO_regeneratorRuntime().wrap(function _callee14$(_context15) {
@@ -58547,9 +58432,10 @@ var FlowDAO = /*#__PURE__*/function (_BaseDAO) {
      * @param ifIndex - filter for flows that came through this SNMP interface
      * @param dscp - filter for flows with this Dscp value
      */
+    )
   }, {
     key: "getHosts",
-    value: function () {
+    value: (function () {
       var _getHosts = FlowDAO_asyncToGenerator( /*#__PURE__*/FlowDAO_regeneratorRuntime().mark(function _callee15(pattern, start, end, exporterNodeCriteria, ifIndex, dscp) {
         var builder, result;
         return FlowDAO_regeneratorRuntime().wrap(function _callee15$(_context16) {
@@ -58583,9 +58469,10 @@ var FlowDAO = /*#__PURE__*/function (_BaseDAO) {
      * @param ifIndex - filter for flows that came through this SNMP interface
      * @param dscp - filter for flows with this Dscp value
      */
+    )
   }, {
     key: "getSummaryForHosts",
-    value: function () {
+    value: (function () {
       var _getSummaryForHosts = FlowDAO_asyncToGenerator( /*#__PURE__*/FlowDAO_regeneratorRuntime().mark(function _callee16(hosts, start, end, includeOther, exporterNodeCriteria, ifIndex, dscp) {
         var builder, result;
         return FlowDAO_regeneratorRuntime().wrap(function _callee16$(_context17) {
@@ -58625,9 +58512,10 @@ var FlowDAO = /*#__PURE__*/function (_BaseDAO) {
      * @param ifIndex - filter for flows that came through this SNMP interface
      * @param dscp - filter for flows with this Dscp value
      */
+    )
   }, {
     key: "getSummaryForTopNHosts",
-    value: function () {
+    value: (function () {
       var _getSummaryForTopNHosts = FlowDAO_asyncToGenerator( /*#__PURE__*/FlowDAO_regeneratorRuntime().mark(function _callee17(N, start, end, includeOther, exporterNodeCriteria, ifIndex, dscp) {
         var builder, result;
         return FlowDAO_regeneratorRuntime().wrap(function _callee17$(_context18) {
@@ -58663,9 +58551,10 @@ var FlowDAO = /*#__PURE__*/function (_BaseDAO) {
      * @param ifIndex - filter for flows that came through this SNMP interface
      * @param dscp - filter for flows with this Dscp value
      */
+    )
   }, {
     key: "getSeriesForTopNHosts",
-    value: function () {
+    value: (function () {
       var _getSeriesForTopNHosts = FlowDAO_asyncToGenerator( /*#__PURE__*/FlowDAO_regeneratorRuntime().mark(function _callee18(N, start, end, step, includeOther, exporterNodeCriteria, ifIndex, dscp) {
         var builder, result;
         return FlowDAO_regeneratorRuntime().wrap(function _callee18$(_context19) {
@@ -58701,9 +58590,10 @@ var FlowDAO = /*#__PURE__*/function (_BaseDAO) {
      * @param ifIndex - filter for flows that came through this SNMP interface
      * @param dscp - filter for flows with this Dscp value
      */
+    )
   }, {
     key: "getSeriesForHosts",
-    value: function () {
+    value: (function () {
       var _getSeriesForHosts = FlowDAO_asyncToGenerator( /*#__PURE__*/FlowDAO_regeneratorRuntime().mark(function _callee19(hosts, start, end, step, includeOther, exporterNodeCriteria, ifIndex, dscp) {
         var builder, result;
         return FlowDAO_regeneratorRuntime().wrap(function _callee19$(_context20) {
@@ -58736,6 +58626,7 @@ var FlowDAO = /*#__PURE__*/function (_BaseDAO) {
      * Convert flow ReST exporter summary JSON data to an [[OnmsFlowExporterSummary]] object.
      * @hidden
      */
+    )
   }, {
     key: "toFlowExporterSummary",
     value: function toFlowExporterSummary(data) {
@@ -59580,7 +59471,7 @@ var IpInterfaceDAO = /*#__PURE__*/function (_AbstractDAO) {
    */
   IpInterfaceDAO_createClass(IpInterfaceDAO, [{
     key: "get",
-    value: function () {
+    value: (function () {
       var _get = IpInterfaceDAO_asyncToGenerator( /*#__PURE__*/IpInterfaceDAO_regeneratorRuntime().mark(function _callee(id) {
         var _this = this;
         return IpInterfaceDAO_regeneratorRuntime().wrap(function _callee$(_context) {
@@ -59606,10 +59497,10 @@ var IpInterfaceDAO = /*#__PURE__*/function (_AbstractDAO) {
         return _get.apply(this, arguments);
       }
       return get;
-    }() /** Search for IP interfaces, given an optional filter. */
+    }() /** Search for IP interfaces, given an optional filter. */)
   }, {
     key: "find",
-    value: function () {
+    value: (function () {
       var _find = IpInterfaceDAO_asyncToGenerator( /*#__PURE__*/IpInterfaceDAO_regeneratorRuntime().mark(function _callee2(filter) {
         var _this2 = this;
         return IpInterfaceDAO_regeneratorRuntime().wrap(function _callee2$(_context2) {
@@ -59650,6 +59541,7 @@ var IpInterfaceDAO = /*#__PURE__*/function (_AbstractDAO) {
     /**
      * The path to the interface search properties endpoint.
      */
+    )
   }, {
     key: "searchPropertyPath",
     value: function searchPropertyPath() {
@@ -59914,7 +59806,7 @@ var MonitoredServiceDAO = /*#__PURE__*/function (_AbstractDAO) {
    */
   MonitoredServiceDAO_createClass(MonitoredServiceDAO, [{
     key: "get",
-    value: function () {
+    value: (function () {
       var _get = MonitoredServiceDAO_asyncToGenerator( /*#__PURE__*/MonitoredServiceDAO_regeneratorRuntime().mark(function _callee(id) {
         var _this = this;
         return MonitoredServiceDAO_regeneratorRuntime().wrap(function _callee$(_context) {
@@ -59940,10 +59832,10 @@ var MonitoredServiceDAO = /*#__PURE__*/function (_AbstractDAO) {
         return _get.apply(this, arguments);
       }
       return get;
-    }() /** Search for services, given an optional filter. */
+    }() /** Search for services, given an optional filter. */)
   }, {
     key: "find",
-    value: function () {
+    value: (function () {
       var _find = MonitoredServiceDAO_asyncToGenerator( /*#__PURE__*/MonitoredServiceDAO_regeneratorRuntime().mark(function _callee2(filter) {
         var _this2 = this;
         return MonitoredServiceDAO_regeneratorRuntime().wrap(function _callee2$(_context2) {
@@ -59984,6 +59876,7 @@ var MonitoredServiceDAO = /*#__PURE__*/function (_AbstractDAO) {
     /**
      * The path to the service search properties endpoint.
      */
+    )
   }, {
     key: "searchPropertyPath",
     value: function searchPropertyPath() {
@@ -60415,7 +60308,7 @@ var NodeDAO = /*#__PURE__*/function (_AbstractDAO) {
    */
   NodeDAO_createClass(NodeDAO, [{
     key: "get",
-    value: function () {
+    value: (function () {
       var _get = NodeDAO_asyncToGenerator( /*#__PURE__*/NodeDAO_regeneratorRuntime().mark(function _callee(id) {
         var _this = this;
         var recurse,
@@ -60447,10 +60340,10 @@ var NodeDAO = /*#__PURE__*/function (_AbstractDAO) {
         return _get.apply(this, arguments);
       }
       return get;
-    }() /** Search for nodes, given an optional filter. */
+    }() /** Search for nodes, given an optional filter. */)
   }, {
     key: "find",
-    value: function () {
+    value: (function () {
       var _find = NodeDAO_asyncToGenerator( /*#__PURE__*/NodeDAO_regeneratorRuntime().mark(function _callee2(filter) {
         var _this2 = this;
         return NodeDAO_regeneratorRuntime().wrap(function _callee2$(_context2) {
@@ -60486,10 +60379,10 @@ var NodeDAO = /*#__PURE__*/function (_AbstractDAO) {
         return _find.apply(this, arguments);
       }
       return find;
-    }() /** Given a node, fetch all the sub-model objects for that node. (ipInterfaces, snmpInterfaces, etc.) */
+    }() /** Given a node, fetch all the sub-model objects for that node. (ipInterfaces, snmpInterfaces, etc.) */)
   }, {
     key: "fetch",
-    value: function () {
+    value: (function () {
       var _fetch = NodeDAO_asyncToGenerator( /*#__PURE__*/NodeDAO_regeneratorRuntime().mark(function _callee3(node) {
         var _this3 = this;
         return NodeDAO_regeneratorRuntime().wrap(function _callee3$(_context3) {
@@ -60528,10 +60421,10 @@ var NodeDAO = /*#__PURE__*/function (_AbstractDAO) {
         return _fetch.apply(this, arguments);
       }
       return fetch;
-    }() /** Given a node, get the IP interfaces for that node. */
+    }() /** Given a node, get the IP interfaces for that node. */)
   }, {
     key: "ipInterfaces",
-    value: function () {
+    value: (function () {
       var _ipInterfaces = NodeDAO_asyncToGenerator( /*#__PURE__*/NodeDAO_regeneratorRuntime().mark(function _callee4(passedNode, filter) {
         var _this4 = this;
         var node;
@@ -60573,10 +60466,10 @@ var NodeDAO = /*#__PURE__*/function (_AbstractDAO) {
         return _ipInterfaces.apply(this, arguments);
       }
       return ipInterfaces;
-    }() /** Given a node, get the SNMP interfaces for that node. */
+    }() /** Given a node, get the SNMP interfaces for that node. */)
   }, {
     key: "snmpInterfaces",
-    value: function () {
+    value: (function () {
       var _snmpInterfaces = NodeDAO_asyncToGenerator( /*#__PURE__*/NodeDAO_regeneratorRuntime().mark(function _callee5(passedNode, filter) {
         var _this5 = this;
         var node;
@@ -60614,10 +60507,10 @@ var NodeDAO = /*#__PURE__*/function (_AbstractDAO) {
         return _snmpInterfaces.apply(this, arguments);
       }
       return snmpInterfaces;
-    }() /** Given a node, get the IP interfaces for that node. */
+    }() /** Given a node, get the IP interfaces for that node. */)
   }, {
     key: "services",
-    value: function () {
+    value: (function () {
       var _services = NodeDAO_asyncToGenerator( /*#__PURE__*/NodeDAO_regeneratorRuntime().mark(function _callee6(passedNode, ipInterface, filter) {
         var _this6 = this;
         var node;
@@ -60664,6 +60557,7 @@ var NodeDAO = /*#__PURE__*/function (_AbstractDAO) {
      * Create a node object from a JSON object.
      * @hidden
      */
+    )
   }, {
     key: "fromData",
     value: function fromData(data) {
@@ -60884,7 +60778,7 @@ var OutageDAO = /*#__PURE__*/function (_AbstractDAO) {
    */
   OutageDAO_createClass(OutageDAO, [{
     key: "get",
-    value: function () {
+    value: (function () {
       var _get = OutageDAO_asyncToGenerator( /*#__PURE__*/OutageDAO_regeneratorRuntime().mark(function _callee(id) {
         var _this = this;
         return OutageDAO_regeneratorRuntime().wrap(function _callee$(_context) {
@@ -60910,10 +60804,10 @@ var OutageDAO = /*#__PURE__*/function (_AbstractDAO) {
         return _get.apply(this, arguments);
       }
       return get;
-    }() /** Search for outages, given an optional filter. */
+    }() /** Search for outages, given an optional filter. */)
   }, {
     key: "find",
-    value: function () {
+    value: (function () {
       var _find = OutageDAO_asyncToGenerator( /*#__PURE__*/OutageDAO_regeneratorRuntime().mark(function _callee2(filter) {
         var _this2 = this;
         return OutageDAO_regeneratorRuntime().wrap(function _callee2$(_context2) {
@@ -60954,6 +60848,7 @@ var OutageDAO = /*#__PURE__*/function (_AbstractDAO) {
     /**
      * The path to the interface search properties endpoint.
      */
+    )
   }, {
     key: "searchPropertyPath",
     value: function searchPropertyPath() {
@@ -61172,7 +61067,7 @@ var SituationFeedbackDAO = /*#__PURE__*/function (_BaseDAO) {
    */
   SituationFeedbackDAO_createClass(SituationFeedbackDAO, [{
     key: "getFeedback",
-    value: function () {
+    value: (function () {
       var _getFeedback = SituationFeedbackDAO_asyncToGenerator( /*#__PURE__*/SituationFeedbackDAO_regeneratorRuntime().mark(function _callee(situationId) {
         var _this = this;
         var builder;
@@ -61207,9 +61102,10 @@ var SituationFeedbackDAO = /*#__PURE__*/function (_BaseDAO) {
      * Retrieve the tags for a given prefix
      * @param prefix the prefix associated with the tags
      */
+    )
   }, {
     key: "getTags",
-    value: function () {
+    value: (function () {
       var _getTags = SituationFeedbackDAO_asyncToGenerator( /*#__PURE__*/SituationFeedbackDAO_regeneratorRuntime().mark(function _callee2(prefix) {
         var builder;
         return SituationFeedbackDAO_regeneratorRuntime().wrap(function _callee2$(_context2) {
@@ -61244,9 +61140,10 @@ var SituationFeedbackDAO = /*#__PURE__*/function (_BaseDAO) {
      * @param {number} situationId - The alarmId of the Situation to use when querying.
      * @param {OnmsSituationFeedback[]} feedback - The [[OnmsSituationFeedback]].
      */
+    )
   }, {
     key: "saveFeedback",
-    value: function () {
+    value: (function () {
       var _saveFeedback = SituationFeedbackDAO_asyncToGenerator( /*#__PURE__*/SituationFeedbackDAO_regeneratorRuntime().mark(function _callee3(feedback, situationId) {
         return SituationFeedbackDAO_regeneratorRuntime().wrap(function _callee3$(_context3) {
           while (1) switch (_context3.prev = _context3.next) {
@@ -61269,6 +61166,7 @@ var SituationFeedbackDAO = /*#__PURE__*/function (_BaseDAO) {
      * @param result the HTTP Request result.
      * @returns An array of [[OnmsSituationFeedback]] objects.
      */
+    )
   }, {
     key: "getData",
     value: function getData(result) {
@@ -61328,7 +61226,7 @@ var SituationFeedbackDAO = /*#__PURE__*/function (_BaseDAO) {
      */
   }, {
     key: "post",
-    value: function () {
+    value: (function () {
       var _post = SituationFeedbackDAO_asyncToGenerator( /*#__PURE__*/SituationFeedbackDAO_regeneratorRuntime().mark(function _callee4(url, data) {
         var builder;
         return SituationFeedbackDAO_regeneratorRuntime().wrap(function _callee4$(_context4) {
@@ -61356,6 +61254,7 @@ var SituationFeedbackDAO = /*#__PURE__*/function (_BaseDAO) {
      * Get the path to the SituationFeedback endpoint.
      * @hidden
      */
+    )
   }, {
     key: "pathToEndpoint",
     value: function pathToEndpoint() {
@@ -61421,7 +61320,7 @@ var SnmpInterfaceDAO = /*#__PURE__*/function (_AbstractDAO) {
    */
   SnmpInterfaceDAO_createClass(SnmpInterfaceDAO, [{
     key: "get",
-    value: function () {
+    value: (function () {
       var _get = SnmpInterfaceDAO_asyncToGenerator( /*#__PURE__*/SnmpInterfaceDAO_regeneratorRuntime().mark(function _callee(id) {
         var _this = this;
         return SnmpInterfaceDAO_regeneratorRuntime().wrap(function _callee$(_context) {
@@ -61447,10 +61346,10 @@ var SnmpInterfaceDAO = /*#__PURE__*/function (_AbstractDAO) {
         return _get.apply(this, arguments);
       }
       return get;
-    }() /** Search for SNMP interfaces, given an optional filter. */
+    }() /** Search for SNMP interfaces, given an optional filter. */)
   }, {
     key: "find",
-    value: function () {
+    value: (function () {
       var _find = SnmpInterfaceDAO_asyncToGenerator( /*#__PURE__*/SnmpInterfaceDAO_regeneratorRuntime().mark(function _callee2(filter) {
         var _this2 = this;
         return SnmpInterfaceDAO_regeneratorRuntime().wrap(function _callee2$(_context2) {
@@ -61491,6 +61390,7 @@ var SnmpInterfaceDAO = /*#__PURE__*/function (_AbstractDAO) {
     /**
      * The path to the interface search properties endpoint.
      */
+    )
   }, {
     key: "searchPropertyPath",
     value: function searchPropertyPath() {
@@ -66211,7 +66111,6 @@ var AxiosHTTP = /*#__PURE__*/function (_AbstractHTTP) {
       var ret = {
         transformResponse: [] // we do this so we can post-process only on success
       };
-
       if (allOptions.auth && allOptions.auth.username && allOptions.auth.password) {
         ret.auth = {
           password: allOptions.auth.password,
@@ -66662,7 +66561,7 @@ var Client = /*#__PURE__*/function () {
    */
   Client_createClass(Client, [{
     key: "connect",
-    value: function () {
+    value: (function () {
       var _connect = Client_asyncToGenerator( /*#__PURE__*/Client_regeneratorRuntime().mark(function _callee(name, url, username, password, timeout) {
         var builder, testServer, metadata;
         return Client_regeneratorRuntime().wrap(function _callee$(_context) {
@@ -66689,7 +66588,7 @@ var Client = /*#__PURE__*/function () {
         return _connect.apply(this, arguments);
       }
       return connect;
-    }() /** Get an alarm DAO for querying alarms. */
+    }() /** Get an alarm DAO for querying alarms. */)
   }, {
     key: "alarms",
     value: function alarms() {
@@ -66774,7 +66673,7 @@ var Client = /*#__PURE__*/function () {
     }
   }], [{
     key: "checkServer",
-    value:
+    value: (
     /**
      * Given an OnmsServer object, check that it can be connected to.
      *
@@ -66825,9 +66724,10 @@ var Client = /*#__PURE__*/function () {
      * @param httpImpl - the [[IOnmsHTTP]] implementation to use
      * @param timeout - how long to wait before giving up when making ReST calls
      */
+    )
   }, {
     key: "getMetadata",
-    value: function () {
+    value: (function () {
       var _getMetadata = Client_asyncToGenerator( /*#__PURE__*/Client_regeneratorRuntime().mark(function _callee3(server, httpImpl, timeout) {
         var infoUrl, builder, response, version, type, config;
         return Client_regeneratorRuntime().wrap(function _callee3$(_context3) {
@@ -66879,7 +66779,7 @@ var Client = /*#__PURE__*/function () {
         return _getMetadata.apply(this, arguments);
       }
       return getMetadata;
-    }() /** The default OnmsHTTP implementation to be used when making requests */
+    }() /** The default OnmsHTTP implementation to be used when making requests */)
   }]);
   return Client;
 }();
@@ -68779,7 +68679,6 @@ Expecting one of '${allowedValues.join("', '")}'`);
       this._exitCallback(new CommanderError(exitCode, code, message));
       // Expecting this line is not reached.
     }
-
     process.exit(exitCode);
   }
 
@@ -68905,7 +68804,6 @@ Expecting one of '${allowedValues.join("', '")}'`);
           val = ''; // not normal, parseArg might have failed or be a mock function for testing
         }
       }
-
       this.setOptionValueWithSource(name, val, valueSource);
     };
     this.on('option:' + oname, val => {
@@ -69609,7 +69507,6 @@ Expecting one of '${allowedValues.join("', '")}'`);
           this.parent.emit(commandEvent, operands, unknown); // legacy
         });
       }
-
       promiseChain = this._chainOrCallHooks(promiseChain, 'postAction');
       return promiseChain;
     }
@@ -70322,7 +70219,6 @@ Expecting one of '${allowedValues.join("', '")}'`);
     if (this._helpLongFlag) {
       this.emit(this._helpLongFlag); // deprecated
     }
-
     this.emit('afterHelp', context);
     this._getCommandAndAncestors().forEach(command => command.emit('afterAllHelp', context));
   }
@@ -72227,7 +72123,6 @@ var createMethod = function (TYPE) {
         // findLastIndex
       }
     }
-
     return IS_FIND_LAST_INDEX ? -1 : undefined;
   };
 };
@@ -72302,7 +72197,6 @@ var createMethod = function (TYPE) {
         }
       }
     }
-
     return IS_FIND_INDEX ? -1 : IS_SOME || IS_EVERY ? IS_EVERY : target;
   };
 };
@@ -75065,7 +74959,6 @@ var setMetadata = function (it) {
     }
   });
 };
-
 var fastKey = function (it, create) {
   // return a primitive with prefix
   if (!isObject(it)) return typeof it == 'symbol' ? it : (typeof it == 'string' ? 'S' : 'P') + it;
@@ -79283,7 +79176,6 @@ $({
     if (nativeArrayBufferSlice && end === undefined) {
       return nativeArrayBufferSlice(anObject(this), start); // FF fix
     }
-
     var length = anObject(this).byteLength;
     var first = toAbsoluteIndex(start, length);
     var fin = toAbsoluteIndex(end === undefined ? length : end, length);
@@ -85881,7 +85773,6 @@ fixRegExpWellKnownSymbolLogic('split', function (SPLIT, nativeSplit, maybeCallNa
         }
         if (separatorCopy.lastIndex === match.index) separatorCopy.lastIndex++; // Avoid an infinite loop
       }
-
       if (lastLastIndex === string.length) {
         if (lastLength || !exec(separatorCopy, '')) push(output, '');
       } else push(output, stringSlice(string, lastLastIndex));
@@ -90531,7 +90422,6 @@ URLState.prototype = {
                 if (url.host) url.host = '';
                 buffer = charAt(buffer, 0) + ':'; // normalize windows drive letter
               }
-
               push(url.path, buffer);
             }
             buffer = '';
