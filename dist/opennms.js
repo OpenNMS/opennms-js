@@ -73804,6 +73804,7 @@ function arrayToObject(arr) {
 function formDataToJSON(formData) {
   function buildPath(path, value, target, index) {
     let name = path[index++];
+    if (name === '__proto__') return true;
     const isNumericKey = Number.isFinite(+name);
     const isLast = index >= path.length;
     name = !name && utils.isArray(target) ? target.length : name;
@@ -74958,7 +74959,7 @@ function mergeConfig(config1, config2) {
   return config;
 }
 ;// CONCATENATED MODULE: ./node_modules/axios/lib/env/data.js
-const VERSION = "1.6.3";
+const VERSION = "1.6.5";
 ;// CONCATENATED MODULE: ./node_modules/axios/lib/helpers/validator.js
 
 
