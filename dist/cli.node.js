@@ -91668,7 +91668,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 /** @hidden */
 var CLI = function CLI() {
   var _context5;
-  var version = "2.5.9" || 0 || 0;
+  var version = "2.5.10-SNAPSHOT" || 0 || 0;
 
   /* eslint-disable */
   var fs = __webpack_require__("fs");
