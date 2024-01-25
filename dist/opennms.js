@@ -75232,7 +75232,7 @@ function mergeConfig(config1, config2) {
   return config;
 }
 ;// CONCATENATED MODULE: ./node_modules/axios/lib/env/data.js
-const VERSION = "1.6.5";
+const VERSION = "1.6.6";
 ;// CONCATENATED MODULE: ./node_modules/axios/lib/helpers/validator.js
 
 
@@ -75349,7 +75349,26 @@ class Axios {
    *
    * @returns {Promise} The Promise to be fulfilled
    */
-  request(configOrUrl, config) {
+  async request(configOrUrl, config) {
+    try {
+      return await this._request(configOrUrl, config);
+    } catch (err) {
+      const dummy = {};
+      if (Error.captureStackTrace) {
+        Error.captureStackTrace(dummy);
+      } else {
+        dummy.stack = new Error().stack;
+      }
+      // slice off the Error: ... line
+      dummy.stack = dummy.stack.replace(/^.+\n/, '');
+      // match without the 2 top stack lines
+      if (!err.stack.endsWith(dummy.stack.replace(/^.+\n.+\n/, ''))) {
+        err.stack += '\n' + dummy.stack;
+      }
+      throw err;
+    }
+  }
+  _request(configOrUrl, config) {
     /*eslint no-param-reassign:0*/
     // Allow for axios('example/url'[, config]) a la fetch API
     if (typeof configOrUrl === 'string') {
