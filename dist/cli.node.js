@@ -52907,8 +52907,6 @@ var symbol_default = /*#__PURE__*/__webpack_require__.n(symbol);
 // EXTERNAL MODULE: ./node_modules/@babel/runtime-corejs3/core-js-stable/symbol/iterator.js
 var iterator = __webpack_require__("./node_modules/@babel/runtime-corejs3/core-js-stable/symbol/iterator.js");
 var iterator_default = /*#__PURE__*/__webpack_require__.n(iterator);
-// EXTERNAL MODULE: ./node_modules/core-js/modules/es.object.to-string.js
-var es_object_to_string = __webpack_require__("./node_modules/core-js/modules/es.object.to-string.js");
 // EXTERNAL MODULE: ./node_modules/@babel/runtime-corejs3/core-js-stable/object/set-prototype-of.js
 var set_prototype_of = __webpack_require__("./node_modules/@babel/runtime-corejs3/core-js-stable/object/set-prototype-of.js");
 var set_prototype_of_default = /*#__PURE__*/__webpack_require__.n(set_prototype_of);
@@ -52928,7 +52926,6 @@ var construct_default = /*#__PURE__*/__webpack_require__.n(construct);
 var OnmsEnum = __webpack_require__("./src/internal/OnmsEnum.ts");
 ;// CONCATENATED MODULE: ./src/api/Operator.ts
 
-
 function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof (symbol_default()) && "symbol" == typeof (iterator_default()) ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof (symbol_default()) && o.constructor === (symbol_default()) && o !== (symbol_default()).prototype ? "symbol" : typeof o; }, _typeof(o); }
 
 
@@ -52944,21 +52941,9 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; define_property_default()(target, _toPropertyKey(descriptor.key), descriptor); } }
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); define_property_default()(Constructor, "prototype", { writable: false }); return Constructor; }
-function _callSuper(_this, derived, args) {
-  function isNativeReflectConstruct() {
-    if (typeof Reflect === "undefined" || !(construct_default())) return false;
-    if ((construct_default()).sham) return false;
-    if (typeof Proxy === "function") return true;
-    try {
-      return !Boolean.prototype.valueOf.call(construct_default()(Boolean, [], function () {}));
-    } catch (e) {
-      return false;
-    }
-  }
-  derived = _getPrototypeOf(derived);
-  return _possibleConstructorReturn(_this, isNativeReflectConstruct() ? construct_default()(derived, args || [], _getPrototypeOf(_this).constructor) : derived.apply(_this, args));
-}
+function _callSuper(t, o, e) { return o = _getPrototypeOf(o), _possibleConstructorReturn(t, _isNativeReflectConstruct() ? construct_default()(o, e || [], _getPrototypeOf(t).constructor) : o.apply(t, e)); }
 function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return _assertThisInitialized(self); }
+function _isNativeReflectConstruct() { try { var t = !Boolean.prototype.valueOf.call(construct_default()(Boolean, [], function () {})); } catch (t) {} return (_isNativeReflectConstruct = function _isNativeReflectConstruct() { return !!t; })(); }
 function _getPrototypeOf(o) { var _context3; _getPrototypeOf = (set_prototype_of_default()) ? bind_default()(_context3 = (get_prototype_of_default())).call(_context3) : function _getPrototypeOf(o) { return o.__proto__ || get_prototype_of_default()(o); }; return _getPrototypeOf(o); }
 function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = create_default()(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); define_property_default()(subClass, "prototype", { writable: false }); if (superClass) _setPrototypeOf(subClass, superClass); }
@@ -53032,7 +53017,6 @@ var keys = __webpack_require__("./node_modules/@babel/runtime-corejs3/core-js-st
 var keys_default = /*#__PURE__*/__webpack_require__.n(keys);
 ;// CONCATENATED MODULE: ./src/api/Comparator.ts
 
-
 function Comparator_typeof(o) { "@babel/helpers - typeof"; return Comparator_typeof = "function" == typeof (symbol_default()) && "symbol" == typeof (iterator_default()) ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof (symbol_default()) && o.constructor === (symbol_default()) && o !== (symbol_default()).prototype ? "symbol" : typeof o; }, Comparator_typeof(o); }
 
 
@@ -53049,21 +53033,9 @@ function Comparator_typeof(o) { "@babel/helpers - typeof"; return Comparator_typ
 function Comparator_classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 function Comparator_defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; define_property_default()(target, Comparator_toPropertyKey(descriptor.key), descriptor); } }
 function Comparator_createClass(Constructor, protoProps, staticProps) { if (protoProps) Comparator_defineProperties(Constructor.prototype, protoProps); if (staticProps) Comparator_defineProperties(Constructor, staticProps); define_property_default()(Constructor, "prototype", { writable: false }); return Constructor; }
-function Comparator_callSuper(_this, derived, args) {
-  function isNativeReflectConstruct() {
-    if (typeof Reflect === "undefined" || !(construct_default())) return false;
-    if ((construct_default()).sham) return false;
-    if (typeof Proxy === "function") return true;
-    try {
-      return !Boolean.prototype.valueOf.call(construct_default()(Boolean, [], function () {}));
-    } catch (e) {
-      return false;
-    }
-  }
-  derived = Comparator_getPrototypeOf(derived);
-  return Comparator_possibleConstructorReturn(_this, isNativeReflectConstruct() ? construct_default()(derived, args || [], Comparator_getPrototypeOf(_this).constructor) : derived.apply(_this, args));
-}
+function Comparator_callSuper(t, o, e) { return o = Comparator_getPrototypeOf(o), Comparator_possibleConstructorReturn(t, Comparator_isNativeReflectConstruct() ? construct_default()(o, e || [], Comparator_getPrototypeOf(t).constructor) : o.apply(t, e)); }
 function Comparator_possibleConstructorReturn(self, call) { if (call && (Comparator_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return Comparator_assertThisInitialized(self); }
+function Comparator_isNativeReflectConstruct() { try { var t = !Boolean.prototype.valueOf.call(construct_default()(Boolean, [], function () {})); } catch (t) {} return (Comparator_isNativeReflectConstruct = function _isNativeReflectConstruct() { return !!t; })(); }
 function Comparator_getPrototypeOf(o) { var _context3; Comparator_getPrototypeOf = (set_prototype_of_default()) ? bind_default()(_context3 = (get_prototype_of_default())).call(_context3) : function _getPrototypeOf(o) { return o.__proto__ || get_prototype_of_default()(o); }; return Comparator_getPrototypeOf(o); }
 function Comparator_assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 function Comparator_inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = create_default()(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); define_property_default()(subClass, "prototype", { writable: false }); if (superClass) Comparator_setPrototypeOf(subClass, superClass); }
@@ -53371,7 +53343,6 @@ var map_default = /*#__PURE__*/__webpack_require__.n(map);
 var OrderBy = __webpack_require__("./src/api/OrderBy.ts");
 ;// CONCATENATED MODULE: ./src/api/Filter.ts
 
-
 function Filter_typeof(o) { "@babel/helpers - typeof"; return Filter_typeof = "function" == typeof (symbol_default()) && "symbol" == typeof (iterator_default()) ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof (symbol_default()) && o.constructor === (symbol_default()) && o !== (symbol_default()).prototype ? "symbol" : typeof o; }, Filter_typeof(o); }
 
 
@@ -53387,21 +53358,9 @@ function Filter_typeof(o) { "@babel/helpers - typeof"; return Filter_typeof = "f
 function Filter_classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 function Filter_defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; define_property_default()(target, Filter_toPropertyKey(descriptor.key), descriptor); } }
 function Filter_createClass(Constructor, protoProps, staticProps) { if (protoProps) Filter_defineProperties(Constructor.prototype, protoProps); if (staticProps) Filter_defineProperties(Constructor, staticProps); define_property_default()(Constructor, "prototype", { writable: false }); return Constructor; }
-function Filter_callSuper(_this, derived, args) {
-  function isNativeReflectConstruct() {
-    if (typeof Reflect === "undefined" || !(construct_default())) return false;
-    if ((construct_default()).sham) return false;
-    if (typeof Proxy === "function") return true;
-    try {
-      return !Boolean.prototype.valueOf.call(construct_default()(Boolean, [], function () {}));
-    } catch (e) {
-      return false;
-    }
-  }
-  derived = Filter_getPrototypeOf(derived);
-  return Filter_possibleConstructorReturn(_this, isNativeReflectConstruct() ? construct_default()(derived, args || [], Filter_getPrototypeOf(_this).constructor) : derived.apply(_this, args));
-}
+function Filter_callSuper(t, o, e) { return o = Filter_getPrototypeOf(o), Filter_possibleConstructorReturn(t, Filter_isNativeReflectConstruct() ? construct_default()(o, e || [], Filter_getPrototypeOf(t).constructor) : o.apply(t, e)); }
 function Filter_possibleConstructorReturn(self, call) { if (call && (Filter_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return Filter_assertThisInitialized(self); }
+function Filter_isNativeReflectConstruct() { try { var t = !Boolean.prototype.valueOf.call(construct_default()(Boolean, [], function () {})); } catch (t) {} return (Filter_isNativeReflectConstruct = function _isNativeReflectConstruct() { return !!t; })(); }
 function Filter_getPrototypeOf(o) { var _context4; Filter_getPrototypeOf = (set_prototype_of_default()) ? bind_default()(_context4 = (get_prototype_of_default())).call(_context4) : function _getPrototypeOf(o) { return o.__proto__ || get_prototype_of_default()(o); }; return Filter_getPrototypeOf(o); }
 function Filter_assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 function Filter_inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = create_default()(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); define_property_default()(subClass, "prototype", { writable: false }); if (superClass) Filter_setPrototypeOf(subClass, superClass); }
@@ -53518,6 +53477,8 @@ var core_js_stable_map = __webpack_require__("./node_modules/@babel/runtime-core
 var core_js_stable_map_default = /*#__PURE__*/__webpack_require__.n(core_js_stable_map);
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.function.name.js
 var es_function_name = __webpack_require__("./node_modules/core-js/modules/es.function.name.js");
+// EXTERNAL MODULE: ./node_modules/core-js/modules/es.object.to-string.js
+var es_object_to_string = __webpack_require__("./node_modules/core-js/modules/es.object.to-string.js");
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.regexp.to-string.js
 var es_regexp_to_string = __webpack_require__("./node_modules/core-js/modules/es.regexp.to-string.js");
 ;// CONCATENATED MODULE: ./src/api/OnmsError.ts
@@ -53542,26 +53503,13 @@ function OnmsError_defineProperties(target, props) { for (var i = 0; i < props.l
 function OnmsError_createClass(Constructor, protoProps, staticProps) { if (protoProps) OnmsError_defineProperties(Constructor.prototype, protoProps); if (staticProps) OnmsError_defineProperties(Constructor, staticProps); define_property_default()(Constructor, "prototype", { writable: false }); return Constructor; }
 function OnmsError_toPropertyKey(t) { var i = OnmsError_toPrimitive(t, "string"); return "symbol" == OnmsError_typeof(i) ? i : String(i); }
 function OnmsError_toPrimitive(t, r) { if ("object" != OnmsError_typeof(t) || !t) return t; var e = t[(to_primitive_default())]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != OnmsError_typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
-function OnmsError_callSuper(_this, derived, args) {
-  function isNativeReflectConstruct() {
-    if (typeof Reflect === "undefined" || !(construct_default())) return false;
-    if ((construct_default()).sham) return false;
-    if (typeof Proxy === "function") return true;
-    try {
-      return !Boolean.prototype.valueOf.call(construct_default()(Boolean, [], function () {}));
-    } catch (e) {
-      return false;
-    }
-  }
-  derived = OnmsError_getPrototypeOf(derived);
-  return OnmsError_possibleConstructorReturn(_this, isNativeReflectConstruct() ? construct_default()(derived, args || [], OnmsError_getPrototypeOf(_this).constructor) : derived.apply(_this, args));
-}
+function OnmsError_callSuper(t, o, e) { return o = OnmsError_getPrototypeOf(o), OnmsError_possibleConstructorReturn(t, OnmsError_isNativeReflectConstruct() ? construct_default()(o, e || [], OnmsError_getPrototypeOf(t).constructor) : o.apply(t, e)); }
 function OnmsError_possibleConstructorReturn(self, call) { if (call && (OnmsError_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return OnmsError_assertThisInitialized(self); }
 function OnmsError_assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 function OnmsError_inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = create_default()(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); define_property_default()(subClass, "prototype", { writable: false }); if (superClass) OnmsError_setPrototypeOf(subClass, superClass); }
 function _wrapNativeSuper(Class) { var _cache = typeof (core_js_stable_map_default()) === "function" ? new (core_js_stable_map_default())() : undefined; _wrapNativeSuper = function _wrapNativeSuper(Class) { if (Class === null || !_isNativeFunction(Class)) return Class; if (typeof Class !== "function") { throw new TypeError("Super expression must either be null or a function"); } if (typeof _cache !== "undefined") { if (_cache.has(Class)) return _cache.get(Class); _cache.set(Class, Wrapper); } function Wrapper() { return _construct(Class, arguments, OnmsError_getPrototypeOf(this).constructor); } Wrapper.prototype = create_default()(Class.prototype, { constructor: { value: Wrapper, enumerable: false, writable: true, configurable: true } }); return OnmsError_setPrototypeOf(Wrapper, Class); }; return _wrapNativeSuper(Class); }
-function _construct(Parent, args, Class) { if (_isNativeReflectConstruct()) { var _context4; _construct = bind_default()(_context4 = (construct_default())).call(_context4); } else { _construct = function _construct(Parent, args, Class) { var a = [null]; a.push.apply(a, args); var Constructor = bind_default()(Function).apply(Parent, a); var instance = new Constructor(); if (Class) OnmsError_setPrototypeOf(instance, Class.prototype); return instance; }; } return _construct.apply(null, arguments); }
-function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !(construct_default())) return false; if ((construct_default()).sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(construct_default()(Boolean, [], function () {})); return true; } catch (e) { return false; } }
+function _construct(t, e, r) { if (OnmsError_isNativeReflectConstruct()) return construct_default().apply(null, arguments); var o = [null]; o.push.apply(o, e); var p = new (bind_default()(t).apply(t, o))(); return r && OnmsError_setPrototypeOf(p, r.prototype), p; }
+function OnmsError_isNativeReflectConstruct() { try { var t = !Boolean.prototype.valueOf.call(construct_default()(Boolean, [], function () {})); } catch (t) {} return (OnmsError_isNativeReflectConstruct = function _isNativeReflectConstruct() { return !!t; })(); }
 function _isNativeFunction(fn) { try { var _context3; return index_of_default()(_context3 = Function.toString.call(fn)).call(_context3, "[native code]") !== -1; } catch (e) { return typeof fn === "function"; } }
 function OnmsError_setPrototypeOf(o, p) { var _context2; OnmsError_setPrototypeOf = (set_prototype_of_default()) ? bind_default()(_context2 = (set_prototype_of_default())).call(_context2) : function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return OnmsError_setPrototypeOf(o, p); }
 function OnmsError_getPrototypeOf(o) { var _context; OnmsError_getPrototypeOf = (set_prototype_of_default()) ? bind_default()(_context = (get_prototype_of_default())).call(_context) : function _getPrototypeOf(o) { return o.__proto__ || get_prototype_of_default()(o); }; return OnmsError_getPrototypeOf(o); }
@@ -54246,7 +54194,6 @@ var OnmsResult = /*#__PURE__*/function () {
 }();
 ;// CONCATENATED MODULE: ./src/api/ServerType.ts
 
-
 function ServerType_typeof(o) { "@babel/helpers - typeof"; return ServerType_typeof = "function" == typeof (symbol_default()) && "symbol" == typeof (iterator_default()) ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof (symbol_default()) && o.constructor === (symbol_default()) && o !== (symbol_default()).prototype ? "symbol" : typeof o; }, ServerType_typeof(o); }
 
 
@@ -54263,22 +54210,10 @@ function ServerType_createClass(Constructor, protoProps, staticProps) { if (prot
 function ServerType_toPropertyKey(t) { var i = ServerType_toPrimitive(t, "string"); return "symbol" == ServerType_typeof(i) ? i : String(i); }
 function ServerType_toPrimitive(t, r) { if ("object" != ServerType_typeof(t) || !t) return t; var e = t[(to_primitive_default())]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != ServerType_typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 function ServerType_classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-function ServerType_callSuper(_this, derived, args) {
-  function isNativeReflectConstruct() {
-    if (typeof Reflect === "undefined" || !(construct_default())) return false;
-    if ((construct_default()).sham) return false;
-    if (typeof Proxy === "function") return true;
-    try {
-      return !Boolean.prototype.valueOf.call(construct_default()(Boolean, [], function () {}));
-    } catch (e) {
-      return false;
-    }
-  }
-  derived = ServerType_getPrototypeOf(derived);
-  return ServerType_possibleConstructorReturn(_this, isNativeReflectConstruct() ? construct_default()(derived, args || [], ServerType_getPrototypeOf(_this).constructor) : derived.apply(_this, args));
-}
+function ServerType_callSuper(t, o, e) { return o = ServerType_getPrototypeOf(o), ServerType_possibleConstructorReturn(t, ServerType_isNativeReflectConstruct() ? construct_default()(o, e || [], ServerType_getPrototypeOf(t).constructor) : o.apply(t, e)); }
 function ServerType_possibleConstructorReturn(self, call) { if (call && (ServerType_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return ServerType_assertThisInitialized(self); }
 function ServerType_assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+function ServerType_isNativeReflectConstruct() { try { var t = !Boolean.prototype.valueOf.call(construct_default()(Boolean, [], function () {})); } catch (t) {} return (ServerType_isNativeReflectConstruct = function _isNativeReflectConstruct() { return !!t; })(); }
 function ServerType_getPrototypeOf(o) { var _context2; ServerType_getPrototypeOf = (set_prototype_of_default()) ? bind_default()(_context2 = (get_prototype_of_default())).call(_context2) : function _getPrototypeOf(o) { return o.__proto__ || get_prototype_of_default()(o); }; return ServerType_getPrototypeOf(o); }
 function ServerType_inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = create_default()(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); define_property_default()(subClass, "prototype", { writable: false }); if (superClass) ServerType_setPrototypeOf(subClass, superClass); }
 function ServerType_setPrototypeOf(o, p) { var _context; ServerType_setPrototypeOf = (set_prototype_of_default()) ? bind_default()(_context = (set_prototype_of_default())).call(_context) : function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return ServerType_setPrototypeOf(o, p); }
@@ -54780,7 +54715,6 @@ var SearchProperty = /*#__PURE__*/function () {
 }();
 ;// CONCATENATED MODULE: ./src/api/SearchPropertyType.ts
 
-
 function SearchPropertyType_typeof(o) { "@babel/helpers - typeof"; return SearchPropertyType_typeof = "function" == typeof (symbol_default()) && "symbol" == typeof (iterator_default()) ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof (symbol_default()) && o.constructor === (symbol_default()) && o !== (symbol_default()).prototype ? "symbol" : typeof o; }, SearchPropertyType_typeof(o); }
 
 
@@ -54797,22 +54731,10 @@ function SearchPropertyType_defineProperties(target, props) { for (var i = 0; i 
 function SearchPropertyType_createClass(Constructor, protoProps, staticProps) { if (protoProps) SearchPropertyType_defineProperties(Constructor.prototype, protoProps); if (staticProps) SearchPropertyType_defineProperties(Constructor, staticProps); define_property_default()(Constructor, "prototype", { writable: false }); return Constructor; }
 function SearchPropertyType_toPropertyKey(t) { var i = SearchPropertyType_toPrimitive(t, "string"); return "symbol" == SearchPropertyType_typeof(i) ? i : String(i); }
 function SearchPropertyType_toPrimitive(t, r) { if ("object" != SearchPropertyType_typeof(t) || !t) return t; var e = t[(to_primitive_default())]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != SearchPropertyType_typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
-function SearchPropertyType_callSuper(_this, derived, args) {
-  function isNativeReflectConstruct() {
-    if (typeof Reflect === "undefined" || !(construct_default())) return false;
-    if ((construct_default()).sham) return false;
-    if (typeof Proxy === "function") return true;
-    try {
-      return !Boolean.prototype.valueOf.call(construct_default()(Boolean, [], function () {}));
-    } catch (e) {
-      return false;
-    }
-  }
-  derived = SearchPropertyType_getPrototypeOf(derived);
-  return SearchPropertyType_possibleConstructorReturn(_this, isNativeReflectConstruct() ? construct_default()(derived, args || [], SearchPropertyType_getPrototypeOf(_this).constructor) : derived.apply(_this, args));
-}
+function SearchPropertyType_callSuper(t, o, e) { return o = SearchPropertyType_getPrototypeOf(o), SearchPropertyType_possibleConstructorReturn(t, SearchPropertyType_isNativeReflectConstruct() ? construct_default()(o, e || [], SearchPropertyType_getPrototypeOf(t).constructor) : o.apply(t, e)); }
 function SearchPropertyType_possibleConstructorReturn(self, call) { if (call && (SearchPropertyType_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return SearchPropertyType_assertThisInitialized(self); }
 function SearchPropertyType_assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+function SearchPropertyType_isNativeReflectConstruct() { try { var t = !Boolean.prototype.valueOf.call(construct_default()(Boolean, [], function () {})); } catch (t) {} return (SearchPropertyType_isNativeReflectConstruct = function _isNativeReflectConstruct() { return !!t; })(); }
 function SearchPropertyType_getPrototypeOf(o) { var _context2; SearchPropertyType_getPrototypeOf = (set_prototype_of_default()) ? bind_default()(_context2 = (get_prototype_of_default())).call(_context2) : function _getPrototypeOf(o) { return o.__proto__ || get_prototype_of_default()(o); }; return SearchPropertyType_getPrototypeOf(o); }
 function SearchPropertyType_inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = create_default()(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); define_property_default()(subClass, "prototype", { writable: false }); if (superClass) SearchPropertyType_setPrototypeOf(subClass, superClass); }
 function SearchPropertyType_setPrototypeOf(o, p) { var _context; SearchPropertyType_setPrototypeOf = (set_prototype_of_default()) ? bind_default()(_context = (set_prototype_of_default())).call(_context) : function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return SearchPropertyType_setPrototypeOf(o, p); }
@@ -55833,22 +55755,10 @@ function AbstractDAO_defineProperties(target, props) { for (var i = 0; i < props
 function AbstractDAO_createClass(Constructor, protoProps, staticProps) { if (protoProps) AbstractDAO_defineProperties(Constructor.prototype, protoProps); if (staticProps) AbstractDAO_defineProperties(Constructor, staticProps); define_property_default()(Constructor, "prototype", { writable: false }); return Constructor; }
 function AbstractDAO_toPropertyKey(t) { var i = AbstractDAO_toPrimitive(t, "string"); return "symbol" == AbstractDAO_typeof(i) ? i : String(i); }
 function AbstractDAO_toPrimitive(t, r) { if ("object" != AbstractDAO_typeof(t) || !t) return t; var e = t[(to_primitive_default())]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != AbstractDAO_typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
-function AbstractDAO_callSuper(_this, derived, args) {
-  function isNativeReflectConstruct() {
-    if (typeof Reflect === "undefined" || !(construct_default())) return false;
-    if ((construct_default()).sham) return false;
-    if (typeof Proxy === "function") return true;
-    try {
-      return !Boolean.prototype.valueOf.call(construct_default()(Boolean, [], function () {}));
-    } catch (e) {
-      return false;
-    }
-  }
-  derived = AbstractDAO_getPrototypeOf(derived);
-  return AbstractDAO_possibleConstructorReturn(_this, isNativeReflectConstruct() ? construct_default()(derived, args || [], AbstractDAO_getPrototypeOf(_this).constructor) : derived.apply(_this, args));
-}
+function AbstractDAO_callSuper(t, o, e) { return o = AbstractDAO_getPrototypeOf(o), AbstractDAO_possibleConstructorReturn(t, AbstractDAO_isNativeReflectConstruct() ? construct_default()(o, e || [], AbstractDAO_getPrototypeOf(t).constructor) : o.apply(t, e)); }
 function AbstractDAO_possibleConstructorReturn(self, call) { if (call && (AbstractDAO_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return AbstractDAO_assertThisInitialized(self); }
 function AbstractDAO_assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+function AbstractDAO_isNativeReflectConstruct() { try { var t = !Boolean.prototype.valueOf.call(construct_default()(Boolean, [], function () {})); } catch (t) {} return (AbstractDAO_isNativeReflectConstruct = function _isNativeReflectConstruct() { return !!t; })(); }
 function AbstractDAO_getPrototypeOf(o) { var _context10; AbstractDAO_getPrototypeOf = (set_prototype_of_default()) ? bind_default()(_context10 = (get_prototype_of_default())).call(_context10) : function _getPrototypeOf(o) { return o.__proto__ || get_prototype_of_default()(o); }; return AbstractDAO_getPrototypeOf(o); }
 function AbstractDAO_inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = create_default()(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); define_property_default()(subClass, "prototype", { writable: false }); if (superClass) AbstractDAO_setPrototypeOf(subClass, superClass); }
 function AbstractDAO_setPrototypeOf(o, p) { var _context9; AbstractDAO_setPrototypeOf = (set_prototype_of_default()) ? bind_default()(_context9 = (set_prototype_of_default())).call(_context9) : function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return AbstractDAO_setPrototypeOf(o, p); }
@@ -55988,7 +55898,7 @@ var AbstractDAO = /*#__PURE__*/function (_BaseDAO) {
     key: "getPropertiesCache",
     value: (function () {
       var _getPropertiesCache = AbstractDAO_asyncToGenerator( /*#__PURE__*/AbstractDAO_regeneratorRuntime().mark(function _callee4() {
-        var _this2 = this;
+        var _this = this;
         var opts, result;
         return AbstractDAO_regeneratorRuntime().wrap(function _callee4$(_context4) {
           while (1) switch (_context4.prev = _context4.next) {
@@ -56012,7 +55922,7 @@ var AbstractDAO = /*#__PURE__*/function (_BaseDAO) {
             case 8:
               result = _context4.sent;
               this.propertiesCache = this.parseResultList(result, 'searchProperty', this.searchPropertyPath(), function (prop) {
-                return _this2.toSearchProperty(prop);
+                return _this.toSearchProperty(prop);
               });
             case 10:
               return _context4.abrupt("return", this.propertiesCache);
@@ -56384,7 +56294,6 @@ var OnmsServiceType = /*#__PURE__*/function () {
 }();
 ;// CONCATENATED MODULE: ./src/model/OnmsSeverity.ts
 
-
 function OnmsSeverity_typeof(o) { "@babel/helpers - typeof"; return OnmsSeverity_typeof = "function" == typeof (symbol_default()) && "symbol" == typeof (iterator_default()) ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof (symbol_default()) && o.constructor === (symbol_default()) && o !== (symbol_default()).prototype ? "symbol" : typeof o; }, OnmsSeverity_typeof(o); }
 
 
@@ -56401,22 +56310,10 @@ function OnmsSeverity_defineProperties(target, props) { for (var i = 0; i < prop
 function OnmsSeverity_createClass(Constructor, protoProps, staticProps) { if (protoProps) OnmsSeverity_defineProperties(Constructor.prototype, protoProps); if (staticProps) OnmsSeverity_defineProperties(Constructor, staticProps); define_property_default()(Constructor, "prototype", { writable: false }); return Constructor; }
 function OnmsSeverity_toPropertyKey(t) { var i = OnmsSeverity_toPrimitive(t, "string"); return "symbol" == OnmsSeverity_typeof(i) ? i : String(i); }
 function OnmsSeverity_toPrimitive(t, r) { if ("object" != OnmsSeverity_typeof(t) || !t) return t; var e = t[(to_primitive_default())]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != OnmsSeverity_typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
-function OnmsSeverity_callSuper(_this, derived, args) {
-  function isNativeReflectConstruct() {
-    if (typeof Reflect === "undefined" || !(construct_default())) return false;
-    if ((construct_default()).sham) return false;
-    if (typeof Proxy === "function") return true;
-    try {
-      return !Boolean.prototype.valueOf.call(construct_default()(Boolean, [], function () {}));
-    } catch (e) {
-      return false;
-    }
-  }
-  derived = OnmsSeverity_getPrototypeOf(derived);
-  return OnmsSeverity_possibleConstructorReturn(_this, isNativeReflectConstruct() ? construct_default()(derived, args || [], OnmsSeverity_getPrototypeOf(_this).constructor) : derived.apply(_this, args));
-}
+function OnmsSeverity_callSuper(t, o, e) { return o = OnmsSeverity_getPrototypeOf(o), OnmsSeverity_possibleConstructorReturn(t, OnmsSeverity_isNativeReflectConstruct() ? construct_default()(o, e || [], OnmsSeverity_getPrototypeOf(t).constructor) : o.apply(t, e)); }
 function OnmsSeverity_possibleConstructorReturn(self, call) { if (call && (OnmsSeverity_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return OnmsSeverity_assertThisInitialized(self); }
 function OnmsSeverity_assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+function OnmsSeverity_isNativeReflectConstruct() { try { var t = !Boolean.prototype.valueOf.call(construct_default()(Boolean, [], function () {})); } catch (t) {} return (OnmsSeverity_isNativeReflectConstruct = function _isNativeReflectConstruct() { return !!t; })(); }
 function OnmsSeverity_getPrototypeOf(o) { var _context2; OnmsSeverity_getPrototypeOf = (set_prototype_of_default()) ? bind_default()(_context2 = (get_prototype_of_default())).call(_context2) : function _getPrototypeOf(o) { return o.__proto__ || get_prototype_of_default()(o); }; return OnmsSeverity_getPrototypeOf(o); }
 function OnmsSeverity_inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = create_default()(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); define_property_default()(subClass, "prototype", { writable: false }); if (superClass) OnmsSeverity_setPrototypeOf(subClass, superClass); }
 function OnmsSeverity_setPrototypeOf(o, p) { var _context; OnmsSeverity_setPrototypeOf = (set_prototype_of_default()) ? bind_default()(_context = (set_prototype_of_default())).call(_context) : function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return OnmsSeverity_setPrototypeOf(o, p); }
@@ -56638,22 +56535,10 @@ function EventDAO_defineProperties(target, props) { for (var i = 0; i < props.le
 function EventDAO_createClass(Constructor, protoProps, staticProps) { if (protoProps) EventDAO_defineProperties(Constructor.prototype, protoProps); if (staticProps) EventDAO_defineProperties(Constructor, staticProps); define_property_default()(Constructor, "prototype", { writable: false }); return Constructor; }
 function EventDAO_toPropertyKey(t) { var i = EventDAO_toPrimitive(t, "string"); return "symbol" == EventDAO_typeof(i) ? i : String(i); }
 function EventDAO_toPrimitive(t, r) { if ("object" != EventDAO_typeof(t) || !t) return t; var e = t[(to_primitive_default())]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != EventDAO_typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
-function EventDAO_callSuper(_this, derived, args) {
-  function isNativeReflectConstruct() {
-    if (typeof Reflect === "undefined" || !(construct_default())) return false;
-    if ((construct_default()).sham) return false;
-    if (typeof Proxy === "function") return true;
-    try {
-      return !Boolean.prototype.valueOf.call(construct_default()(Boolean, [], function () {}));
-    } catch (e) {
-      return false;
-    }
-  }
-  derived = EventDAO_getPrototypeOf(derived);
-  return EventDAO_possibleConstructorReturn(_this, isNativeReflectConstruct() ? construct_default()(derived, args || [], EventDAO_getPrototypeOf(_this).constructor) : derived.apply(_this, args));
-}
+function EventDAO_callSuper(t, o, e) { return o = EventDAO_getPrototypeOf(o), EventDAO_possibleConstructorReturn(t, EventDAO_isNativeReflectConstruct() ? construct_default()(o, e || [], EventDAO_getPrototypeOf(t).constructor) : o.apply(t, e)); }
 function EventDAO_possibleConstructorReturn(self, call) { if (call && (EventDAO_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return EventDAO_assertThisInitialized(self); }
 function EventDAO_assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+function EventDAO_isNativeReflectConstruct() { try { var t = !Boolean.prototype.valueOf.call(construct_default()(Boolean, [], function () {})); } catch (t) {} return (EventDAO_isNativeReflectConstruct = function _isNativeReflectConstruct() { return !!t; })(); }
 function EventDAO_getPrototypeOf(o) { var _context4; EventDAO_getPrototypeOf = (set_prototype_of_default()) ? bind_default()(_context4 = (get_prototype_of_default())).call(_context4) : function _getPrototypeOf(o) { return o.__proto__ || get_prototype_of_default()(o); }; return EventDAO_getPrototypeOf(o); }
 function EventDAO_inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = create_default()(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); define_property_default()(subClass, "prototype", { writable: false }); if (superClass) EventDAO_setPrototypeOf(subClass, superClass); }
 function EventDAO_setPrototypeOf(o, p) { var _context3; EventDAO_setPrototypeOf = (set_prototype_of_default()) ? bind_default()(_context3 = (set_prototype_of_default())).call(_context3) : function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return EventDAO_setPrototypeOf(o, p); }
@@ -56678,13 +56563,13 @@ var EventDAO = /*#__PURE__*/function (_AbstractDAO) {
     key: "get",
     value: (function () {
       var _get = EventDAO_asyncToGenerator( /*#__PURE__*/EventDAO_regeneratorRuntime().mark(function _callee(id) {
-        var _this2 = this;
+        var _this = this;
         return EventDAO_regeneratorRuntime().wrap(function _callee$(_context) {
           while (1) switch (_context.prev = _context.next) {
             case 0:
               return _context.abrupt("return", this.getOptions().then(function (builder) {
-                return _this2.http.get(_this2.pathToEventsEndpoint() + '/' + id, builder.build()).then(function (result) {
-                  var ev = _this2.fromData(result.data);
+                return _this.http.get(_this.pathToEventsEndpoint() + '/' + id, builder.build()).then(function (result) {
+                  var ev = _this.fromData(result.data);
                   if (!ev) {
                     throw new OnmsError("EventDAO.get id={id} ReST request succeeded, but did not return a valid event.");
                   }
@@ -56706,14 +56591,14 @@ var EventDAO = /*#__PURE__*/function (_AbstractDAO) {
     key: "find",
     value: (function () {
       var _find = EventDAO_asyncToGenerator( /*#__PURE__*/EventDAO_regeneratorRuntime().mark(function _callee2(filter) {
-        var _this3 = this;
+        var _this2 = this;
         return EventDAO_regeneratorRuntime().wrap(function _callee2$(_context2) {
           while (1) switch (_context2.prev = _context2.next) {
             case 0:
               return _context2.abrupt("return", this.getOptions(filter).then(function (builder) {
-                return _this3.http.get(_this3.pathToEventsEndpoint(), builder.build()).then(function (result) {
+                return _this2.http.get(_this2.pathToEventsEndpoint(), builder.build()).then(function (result) {
                   var data = result.data;
-                  if (data !== null && _this3.getCount(data, result.code) > 0 && data.event) {
+                  if (data !== null && _this2.getCount(data, result.code) > 0 && data.event) {
                     data = data.event;
                   } else {
                     data = [];
@@ -56726,7 +56611,7 @@ var EventDAO = /*#__PURE__*/function (_AbstractDAO) {
                     }
                   }
                   var events = map_default()(data).call(data, function (eventData) {
-                    return _this3.fromData(eventData);
+                    return _this2.fromData(eventData);
                   });
                   // ugh, this cast is necessary to make tsc know there's nothing but OnmsEvent objects
                   var ret = filter_default()(events).call(events, function (event) {
@@ -56898,7 +56783,6 @@ var OnmsAlarm = /*#__PURE__*/function () {
 }();
 ;// CONCATENATED MODULE: ./src/model/OnmsAlarmType.ts
 
-
 function OnmsAlarmType_typeof(o) { "@babel/helpers - typeof"; return OnmsAlarmType_typeof = "function" == typeof (symbol_default()) && "symbol" == typeof (iterator_default()) ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof (symbol_default()) && o.constructor === (symbol_default()) && o !== (symbol_default()).prototype ? "symbol" : typeof o; }, OnmsAlarmType_typeof(o); }
 
 
@@ -56915,22 +56799,10 @@ function OnmsAlarmType_defineProperties(target, props) { for (var i = 0; i < pro
 function OnmsAlarmType_createClass(Constructor, protoProps, staticProps) { if (protoProps) OnmsAlarmType_defineProperties(Constructor.prototype, protoProps); if (staticProps) OnmsAlarmType_defineProperties(Constructor, staticProps); define_property_default()(Constructor, "prototype", { writable: false }); return Constructor; }
 function OnmsAlarmType_toPropertyKey(t) { var i = OnmsAlarmType_toPrimitive(t, "string"); return "symbol" == OnmsAlarmType_typeof(i) ? i : String(i); }
 function OnmsAlarmType_toPrimitive(t, r) { if ("object" != OnmsAlarmType_typeof(t) || !t) return t; var e = t[(to_primitive_default())]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != OnmsAlarmType_typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
-function OnmsAlarmType_callSuper(_this, derived, args) {
-  function isNativeReflectConstruct() {
-    if (typeof Reflect === "undefined" || !(construct_default())) return false;
-    if ((construct_default()).sham) return false;
-    if (typeof Proxy === "function") return true;
-    try {
-      return !Boolean.prototype.valueOf.call(construct_default()(Boolean, [], function () {}));
-    } catch (e) {
-      return false;
-    }
-  }
-  derived = OnmsAlarmType_getPrototypeOf(derived);
-  return OnmsAlarmType_possibleConstructorReturn(_this, isNativeReflectConstruct() ? construct_default()(derived, args || [], OnmsAlarmType_getPrototypeOf(_this).constructor) : derived.apply(_this, args));
-}
+function OnmsAlarmType_callSuper(t, o, e) { return o = OnmsAlarmType_getPrototypeOf(o), OnmsAlarmType_possibleConstructorReturn(t, OnmsAlarmType_isNativeReflectConstruct() ? construct_default()(o, e || [], OnmsAlarmType_getPrototypeOf(t).constructor) : o.apply(t, e)); }
 function OnmsAlarmType_possibleConstructorReturn(self, call) { if (call && (OnmsAlarmType_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return OnmsAlarmType_assertThisInitialized(self); }
 function OnmsAlarmType_assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+function OnmsAlarmType_isNativeReflectConstruct() { try { var t = !Boolean.prototype.valueOf.call(construct_default()(Boolean, [], function () {})); } catch (t) {} return (OnmsAlarmType_isNativeReflectConstruct = function _isNativeReflectConstruct() { return !!t; })(); }
 function OnmsAlarmType_getPrototypeOf(o) { var _context2; OnmsAlarmType_getPrototypeOf = (set_prototype_of_default()) ? bind_default()(_context2 = (get_prototype_of_default())).call(_context2) : function _getPrototypeOf(o) { return o.__proto__ || get_prototype_of_default()(o); }; return OnmsAlarmType_getPrototypeOf(o); }
 function OnmsAlarmType_inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = create_default()(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); define_property_default()(subClass, "prototype", { writable: false }); if (superClass) OnmsAlarmType_setPrototypeOf(subClass, superClass); }
 function OnmsAlarmType_setPrototypeOf(o, p) { var _context; OnmsAlarmType_setPrototypeOf = (set_prototype_of_default()) ? bind_default()(_context = (set_prototype_of_default())).call(_context) : function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return OnmsAlarmType_setPrototypeOf(o, p); }
@@ -56977,7 +56849,6 @@ var AlarmTypes = {
 freeze_default()(AlarmTypes);
 ;// CONCATENATED MODULE: ./src/model/OnmsTroubleTicketState.ts
 
-
 function OnmsTroubleTicketState_typeof(o) { "@babel/helpers - typeof"; return OnmsTroubleTicketState_typeof = "function" == typeof (symbol_default()) && "symbol" == typeof (iterator_default()) ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof (symbol_default()) && o.constructor === (symbol_default()) && o !== (symbol_default()).prototype ? "symbol" : typeof o; }, OnmsTroubleTicketState_typeof(o); }
 
 
@@ -56994,22 +56865,10 @@ function OnmsTroubleTicketState_defineProperties(target, props) { for (var i = 0
 function OnmsTroubleTicketState_createClass(Constructor, protoProps, staticProps) { if (protoProps) OnmsTroubleTicketState_defineProperties(Constructor.prototype, protoProps); if (staticProps) OnmsTroubleTicketState_defineProperties(Constructor, staticProps); define_property_default()(Constructor, "prototype", { writable: false }); return Constructor; }
 function OnmsTroubleTicketState_toPropertyKey(t) { var i = OnmsTroubleTicketState_toPrimitive(t, "string"); return "symbol" == OnmsTroubleTicketState_typeof(i) ? i : String(i); }
 function OnmsTroubleTicketState_toPrimitive(t, r) { if ("object" != OnmsTroubleTicketState_typeof(t) || !t) return t; var e = t[(to_primitive_default())]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != OnmsTroubleTicketState_typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
-function OnmsTroubleTicketState_callSuper(_this, derived, args) {
-  function isNativeReflectConstruct() {
-    if (typeof Reflect === "undefined" || !(construct_default())) return false;
-    if ((construct_default()).sham) return false;
-    if (typeof Proxy === "function") return true;
-    try {
-      return !Boolean.prototype.valueOf.call(construct_default()(Boolean, [], function () {}));
-    } catch (e) {
-      return false;
-    }
-  }
-  derived = OnmsTroubleTicketState_getPrototypeOf(derived);
-  return OnmsTroubleTicketState_possibleConstructorReturn(_this, isNativeReflectConstruct() ? construct_default()(derived, args || [], OnmsTroubleTicketState_getPrototypeOf(_this).constructor) : derived.apply(_this, args));
-}
+function OnmsTroubleTicketState_callSuper(t, o, e) { return o = OnmsTroubleTicketState_getPrototypeOf(o), OnmsTroubleTicketState_possibleConstructorReturn(t, OnmsTroubleTicketState_isNativeReflectConstruct() ? construct_default()(o, e || [], OnmsTroubleTicketState_getPrototypeOf(t).constructor) : o.apply(t, e)); }
 function OnmsTroubleTicketState_possibleConstructorReturn(self, call) { if (call && (OnmsTroubleTicketState_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return OnmsTroubleTicketState_assertThisInitialized(self); }
 function OnmsTroubleTicketState_assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+function OnmsTroubleTicketState_isNativeReflectConstruct() { try { var t = !Boolean.prototype.valueOf.call(construct_default()(Boolean, [], function () {})); } catch (t) {} return (OnmsTroubleTicketState_isNativeReflectConstruct = function _isNativeReflectConstruct() { return !!t; })(); }
 function OnmsTroubleTicketState_getPrototypeOf(o) { var _context2; OnmsTroubleTicketState_getPrototypeOf = (set_prototype_of_default()) ? bind_default()(_context2 = (get_prototype_of_default())).call(_context2) : function _getPrototypeOf(o) { return o.__proto__ || get_prototype_of_default()(o); }; return OnmsTroubleTicketState_getPrototypeOf(o); }
 function OnmsTroubleTicketState_inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = create_default()(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); define_property_default()(subClass, "prototype", { writable: false }); if (superClass) OnmsTroubleTicketState_setPrototypeOf(subClass, superClass); }
 function OnmsTroubleTicketState_setPrototypeOf(o, p) { var _context; OnmsTroubleTicketState_setPrototypeOf = (set_prototype_of_default()) ? bind_default()(_context = (set_prototype_of_default())).call(_context) : function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return OnmsTroubleTicketState_setPrototypeOf(o, p); }
@@ -57143,22 +57002,10 @@ function AlarmDAO_defineProperties(target, props) { for (var i = 0; i < props.le
 function AlarmDAO_createClass(Constructor, protoProps, staticProps) { if (protoProps) AlarmDAO_defineProperties(Constructor.prototype, protoProps); if (staticProps) AlarmDAO_defineProperties(Constructor, staticProps); define_property_default()(Constructor, "prototype", { writable: false }); return Constructor; }
 function AlarmDAO_toPropertyKey(t) { var i = AlarmDAO_toPrimitive(t, "string"); return "symbol" == AlarmDAO_typeof(i) ? i : String(i); }
 function AlarmDAO_toPrimitive(t, r) { if ("object" != AlarmDAO_typeof(t) || !t) return t; var e = t[(to_primitive_default())]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != AlarmDAO_typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
-function AlarmDAO_callSuper(_this, derived, args) {
-  function isNativeReflectConstruct() {
-    if (typeof Reflect === "undefined" || !(construct_default())) return false;
-    if ((construct_default()).sham) return false;
-    if (typeof Proxy === "function") return true;
-    try {
-      return !Boolean.prototype.valueOf.call(construct_default()(Boolean, [], function () {}));
-    } catch (e) {
-      return false;
-    }
-  }
-  derived = AlarmDAO_getPrototypeOf(derived);
-  return AlarmDAO_possibleConstructorReturn(_this, isNativeReflectConstruct() ? construct_default()(derived, args || [], AlarmDAO_getPrototypeOf(_this).constructor) : derived.apply(_this, args));
-}
+function AlarmDAO_callSuper(t, o, e) { return o = AlarmDAO_getPrototypeOf(o), AlarmDAO_possibleConstructorReturn(t, AlarmDAO_isNativeReflectConstruct() ? construct_default()(o, e || [], AlarmDAO_getPrototypeOf(t).constructor) : o.apply(t, e)); }
 function AlarmDAO_possibleConstructorReturn(self, call) { if (call && (AlarmDAO_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return AlarmDAO_assertThisInitialized(self); }
 function AlarmDAO_assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+function AlarmDAO_isNativeReflectConstruct() { try { var t = !Boolean.prototype.valueOf.call(construct_default()(Boolean, [], function () {})); } catch (t) {} return (AlarmDAO_isNativeReflectConstruct = function _isNativeReflectConstruct() { return !!t; })(); }
 function _get() { if (typeof Reflect !== "undefined" && (get_default())) { var _context23; _get = bind_default()(_context23 = (get_default())).call(_context23); } else { _get = function _get(target, property, receiver) { var base = _superPropBase(target, property); if (!base) return; var desc = get_own_property_descriptor_default()(base, property); if (desc.get) { return desc.get.call(arguments.length < 3 ? target : receiver); } return desc.value; }; } return _get.apply(this, arguments); }
 function _superPropBase(object, property) { while (!Object.prototype.hasOwnProperty.call(object, property)) { object = AlarmDAO_getPrototypeOf(object); if (object === null) break; } return object; }
 function AlarmDAO_getPrototypeOf(o) { var _context22; AlarmDAO_getPrototypeOf = (set_prototype_of_default()) ? bind_default()(_context22 = (get_prototype_of_default())).call(_context22) : function _getPrototypeOf(o) { return o.__proto__ || get_prototype_of_default()(o); }; return AlarmDAO_getPrototypeOf(o); }
@@ -58150,7 +57997,6 @@ var OnmsFlowSnmpInterface = /*#__PURE__*/OnmsFlowSnmpInterface_createClass(funct
 });
 ;// CONCATENATED MODULE: ./src/model/OnmsFlowExporter.ts
 
-
 function OnmsFlowExporter_typeof(o) { "@babel/helpers - typeof"; return OnmsFlowExporter_typeof = "function" == typeof (symbol_default()) && "symbol" == typeof (iterator_default()) ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof (symbol_default()) && o.constructor === (symbol_default()) && o !== (symbol_default()).prototype ? "symbol" : typeof o; }, OnmsFlowExporter_typeof(o); }
 
 
@@ -58166,22 +58012,10 @@ function OnmsFlowExporter_createClass(Constructor, protoProps, staticProps) { if
 function OnmsFlowExporter_toPropertyKey(t) { var i = OnmsFlowExporter_toPrimitive(t, "string"); return "symbol" == OnmsFlowExporter_typeof(i) ? i : String(i); }
 function OnmsFlowExporter_toPrimitive(t, r) { if ("object" != OnmsFlowExporter_typeof(t) || !t) return t; var e = t[(to_primitive_default())]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != OnmsFlowExporter_typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 function OnmsFlowExporter_classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-function OnmsFlowExporter_callSuper(_this, derived, args) {
-  function isNativeReflectConstruct() {
-    if (typeof Reflect === "undefined" || !(construct_default())) return false;
-    if ((construct_default()).sham) return false;
-    if (typeof Proxy === "function") return true;
-    try {
-      return !Boolean.prototype.valueOf.call(construct_default()(Boolean, [], function () {}));
-    } catch (e) {
-      return false;
-    }
-  }
-  derived = OnmsFlowExporter_getPrototypeOf(derived);
-  return OnmsFlowExporter_possibleConstructorReturn(_this, isNativeReflectConstruct() ? construct_default()(derived, args || [], OnmsFlowExporter_getPrototypeOf(_this).constructor) : derived.apply(_this, args));
-}
+function OnmsFlowExporter_callSuper(t, o, e) { return o = OnmsFlowExporter_getPrototypeOf(o), OnmsFlowExporter_possibleConstructorReturn(t, OnmsFlowExporter_isNativeReflectConstruct() ? construct_default()(o, e || [], OnmsFlowExporter_getPrototypeOf(t).constructor) : o.apply(t, e)); }
 function OnmsFlowExporter_possibleConstructorReturn(self, call) { if (call && (OnmsFlowExporter_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return OnmsFlowExporter_assertThisInitialized(self); }
 function OnmsFlowExporter_assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+function OnmsFlowExporter_isNativeReflectConstruct() { try { var t = !Boolean.prototype.valueOf.call(construct_default()(Boolean, [], function () {})); } catch (t) {} return (OnmsFlowExporter_isNativeReflectConstruct = function _isNativeReflectConstruct() { return !!t; })(); }
 function OnmsFlowExporter_getPrototypeOf(o) { var _context2; OnmsFlowExporter_getPrototypeOf = (set_prototype_of_default()) ? bind_default()(_context2 = (get_prototype_of_default())).call(_context2) : function _getPrototypeOf(o) { return o.__proto__ || get_prototype_of_default()(o); }; return OnmsFlowExporter_getPrototypeOf(o); }
 function OnmsFlowExporter_inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = create_default()(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); define_property_default()(subClass, "prototype", { writable: false }); if (superClass) OnmsFlowExporter_setPrototypeOf(subClass, superClass); }
 function OnmsFlowExporter_setPrototypeOf(o, p) { var _context; OnmsFlowExporter_setPrototypeOf = (set_prototype_of_default()) ? bind_default()(_context = (set_prototype_of_default())).call(_context) : function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return OnmsFlowExporter_setPrototypeOf(o, p); }
@@ -58259,22 +58093,10 @@ function FlowDAO_defineProperties(target, props) { for (var i = 0; i < props.len
 function FlowDAO_createClass(Constructor, protoProps, staticProps) { if (protoProps) FlowDAO_defineProperties(Constructor.prototype, protoProps); if (staticProps) FlowDAO_defineProperties(Constructor, staticProps); define_property_default()(Constructor, "prototype", { writable: false }); return Constructor; }
 function FlowDAO_toPropertyKey(t) { var i = FlowDAO_toPrimitive(t, "string"); return "symbol" == FlowDAO_typeof(i) ? i : String(i); }
 function FlowDAO_toPrimitive(t, r) { if ("object" != FlowDAO_typeof(t) || !t) return t; var e = t[(to_primitive_default())]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != FlowDAO_typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
-function FlowDAO_callSuper(_this, derived, args) {
-  function isNativeReflectConstruct() {
-    if (typeof Reflect === "undefined" || !(construct_default())) return false;
-    if ((construct_default()).sham) return false;
-    if (typeof Proxy === "function") return true;
-    try {
-      return !Boolean.prototype.valueOf.call(construct_default()(Boolean, [], function () {}));
-    } catch (e) {
-      return false;
-    }
-  }
-  derived = FlowDAO_getPrototypeOf(derived);
-  return FlowDAO_possibleConstructorReturn(_this, isNativeReflectConstruct() ? construct_default()(derived, args || [], FlowDAO_getPrototypeOf(_this).constructor) : derived.apply(_this, args));
-}
+function FlowDAO_callSuper(t, o, e) { return o = FlowDAO_getPrototypeOf(o), FlowDAO_possibleConstructorReturn(t, FlowDAO_isNativeReflectConstruct() ? construct_default()(o, e || [], FlowDAO_getPrototypeOf(t).constructor) : o.apply(t, e)); }
 function FlowDAO_possibleConstructorReturn(self, call) { if (call && (FlowDAO_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return FlowDAO_assertThisInitialized(self); }
 function FlowDAO_assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+function FlowDAO_isNativeReflectConstruct() { try { var t = !Boolean.prototype.valueOf.call(construct_default()(Boolean, [], function () {})); } catch (t) {} return (FlowDAO_isNativeReflectConstruct = function _isNativeReflectConstruct() { return !!t; })(); }
 function FlowDAO_getPrototypeOf(o) { var _context23; FlowDAO_getPrototypeOf = (set_prototype_of_default()) ? bind_default()(_context23 = (get_prototype_of_default())).call(_context23) : function _getPrototypeOf(o) { return o.__proto__ || get_prototype_of_default()(o); }; return FlowDAO_getPrototypeOf(o); }
 function FlowDAO_inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = create_default()(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); define_property_default()(subClass, "prototype", { writable: false }); if (superClass) FlowDAO_setPrototypeOf(subClass, superClass); }
 function FlowDAO_setPrototypeOf(o, p) { var _context22; FlowDAO_setPrototypeOf = (set_prototype_of_default()) ? bind_default()(_context22 = (set_prototype_of_default())).call(_context22) : function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return FlowDAO_setPrototypeOf(o, p); }
@@ -58314,7 +58136,7 @@ var FlowDAO = /*#__PURE__*/function (_BaseDAO) {
      */
     function () {
       var _getExporters = FlowDAO_asyncToGenerator( /*#__PURE__*/FlowDAO_regeneratorRuntime().mark(function _callee(limit, start, end) {
-        var _this2 = this;
+        var _this = this;
         var url, builder, result, _context;
         return FlowDAO_regeneratorRuntime().wrap(function _callee$(_context2) {
           while (1) switch (_context2.prev = _context2.next) {
@@ -58336,7 +58158,7 @@ var FlowDAO = /*#__PURE__*/function (_BaseDAO) {
               throw new OnmsError('Expected an array of flow exporter summaries but got "' + FlowDAO_typeof(result) + '" instead.');
             case 8:
               return _context2.abrupt("return", map_default()(_context = result.data).call(_context, function (exporter) {
-                return _this2.toFlowExporterSummary(exporter);
+                return _this.toFlowExporterSummary(exporter);
               }));
             case 9:
               throw new OnmsError('Unexpected response from GET ' + url + ': no result data found.');
@@ -59089,7 +58911,7 @@ var FlowDAO = /*#__PURE__*/function (_BaseDAO) {
   }, {
     key: "toFlowExporter",
     value: function toFlowExporter(data) {
-      var _this3 = this;
+      var _this2 = this;
       var exporter = new OnmsFlowExporter();
       exporter.id = data.id;
       exporter.foreignId = data.foreignId;
@@ -59099,7 +58921,7 @@ var FlowDAO = /*#__PURE__*/function (_BaseDAO) {
       if (data.interface) {
         var _context21;
         exporter.interfaces = map_default()(_context21 = data.interface).call(_context21, function (iff) {
-          return _this3.toInterface(iff);
+          return _this2.toInterface(iff);
         });
       }
       return exporter;
@@ -59219,7 +59041,6 @@ var FlowDAO = /*#__PURE__*/function (_BaseDAO) {
  */
 ;// CONCATENATED MODULE: ./src/model/OnmsManagedType.ts
 
-
 function OnmsManagedType_typeof(o) { "@babel/helpers - typeof"; return OnmsManagedType_typeof = "function" == typeof (symbol_default()) && "symbol" == typeof (iterator_default()) ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof (symbol_default()) && o.constructor === (symbol_default()) && o !== (symbol_default()).prototype ? "symbol" : typeof o; }, OnmsManagedType_typeof(o); }
 
 
@@ -59236,22 +59057,10 @@ function OnmsManagedType_defineProperties(target, props) { for (var i = 0; i < p
 function OnmsManagedType_createClass(Constructor, protoProps, staticProps) { if (protoProps) OnmsManagedType_defineProperties(Constructor.prototype, protoProps); if (staticProps) OnmsManagedType_defineProperties(Constructor, staticProps); define_property_default()(Constructor, "prototype", { writable: false }); return Constructor; }
 function OnmsManagedType_toPropertyKey(t) { var i = OnmsManagedType_toPrimitive(t, "string"); return "symbol" == OnmsManagedType_typeof(i) ? i : String(i); }
 function OnmsManagedType_toPrimitive(t, r) { if ("object" != OnmsManagedType_typeof(t) || !t) return t; var e = t[(to_primitive_default())]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != OnmsManagedType_typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
-function OnmsManagedType_callSuper(_this, derived, args) {
-  function isNativeReflectConstruct() {
-    if (typeof Reflect === "undefined" || !(construct_default())) return false;
-    if ((construct_default()).sham) return false;
-    if (typeof Proxy === "function") return true;
-    try {
-      return !Boolean.prototype.valueOf.call(construct_default()(Boolean, [], function () {}));
-    } catch (e) {
-      return false;
-    }
-  }
-  derived = OnmsManagedType_getPrototypeOf(derived);
-  return OnmsManagedType_possibleConstructorReturn(_this, isNativeReflectConstruct() ? construct_default()(derived, args || [], OnmsManagedType_getPrototypeOf(_this).constructor) : derived.apply(_this, args));
-}
+function OnmsManagedType_callSuper(t, o, e) { return o = OnmsManagedType_getPrototypeOf(o), OnmsManagedType_possibleConstructorReturn(t, OnmsManagedType_isNativeReflectConstruct() ? construct_default()(o, e || [], OnmsManagedType_getPrototypeOf(t).constructor) : o.apply(t, e)); }
 function OnmsManagedType_possibleConstructorReturn(self, call) { if (call && (OnmsManagedType_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return OnmsManagedType_assertThisInitialized(self); }
 function OnmsManagedType_assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+function OnmsManagedType_isNativeReflectConstruct() { try { var t = !Boolean.prototype.valueOf.call(construct_default()(Boolean, [], function () {})); } catch (t) {} return (OnmsManagedType_isNativeReflectConstruct = function _isNativeReflectConstruct() { return !!t; })(); }
 function OnmsManagedType_getPrototypeOf(o) { var _context2; OnmsManagedType_getPrototypeOf = (set_prototype_of_default()) ? bind_default()(_context2 = (get_prototype_of_default())).call(_context2) : function _getPrototypeOf(o) { return o.__proto__ || get_prototype_of_default()(o); }; return OnmsManagedType_getPrototypeOf(o); }
 function OnmsManagedType_inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = create_default()(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); define_property_default()(subClass, "prototype", { writable: false }); if (superClass) OnmsManagedType_setPrototypeOf(subClass, superClass); }
 function OnmsManagedType_setPrototypeOf(o, p) { var _context; OnmsManagedType_setPrototypeOf = (set_prototype_of_default()) ? bind_default()(_context = (set_prototype_of_default())).call(_context) : function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return OnmsManagedType_setPrototypeOf(o, p); }
@@ -59321,7 +59130,6 @@ var ManagedTypes = {
 freeze_default()(ManagedTypes);
 ;// CONCATENATED MODULE: ./src/model/OnmsPrimaryType.ts
 
-
 function OnmsPrimaryType_typeof(o) { "@babel/helpers - typeof"; return OnmsPrimaryType_typeof = "function" == typeof (symbol_default()) && "symbol" == typeof (iterator_default()) ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof (symbol_default()) && o.constructor === (symbol_default()) && o !== (symbol_default()).prototype ? "symbol" : typeof o; }, OnmsPrimaryType_typeof(o); }
 
 
@@ -59338,22 +59146,10 @@ function OnmsPrimaryType_defineProperties(target, props) { for (var i = 0; i < p
 function OnmsPrimaryType_createClass(Constructor, protoProps, staticProps) { if (protoProps) OnmsPrimaryType_defineProperties(Constructor.prototype, protoProps); if (staticProps) OnmsPrimaryType_defineProperties(Constructor, staticProps); define_property_default()(Constructor, "prototype", { writable: false }); return Constructor; }
 function OnmsPrimaryType_toPropertyKey(t) { var i = OnmsPrimaryType_toPrimitive(t, "string"); return "symbol" == OnmsPrimaryType_typeof(i) ? i : String(i); }
 function OnmsPrimaryType_toPrimitive(t, r) { if ("object" != OnmsPrimaryType_typeof(t) || !t) return t; var e = t[(to_primitive_default())]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != OnmsPrimaryType_typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
-function OnmsPrimaryType_callSuper(_this, derived, args) {
-  function isNativeReflectConstruct() {
-    if (typeof Reflect === "undefined" || !(construct_default())) return false;
-    if ((construct_default()).sham) return false;
-    if (typeof Proxy === "function") return true;
-    try {
-      return !Boolean.prototype.valueOf.call(construct_default()(Boolean, [], function () {}));
-    } catch (e) {
-      return false;
-    }
-  }
-  derived = OnmsPrimaryType_getPrototypeOf(derived);
-  return OnmsPrimaryType_possibleConstructorReturn(_this, isNativeReflectConstruct() ? construct_default()(derived, args || [], OnmsPrimaryType_getPrototypeOf(_this).constructor) : derived.apply(_this, args));
-}
+function OnmsPrimaryType_callSuper(t, o, e) { return o = OnmsPrimaryType_getPrototypeOf(o), OnmsPrimaryType_possibleConstructorReturn(t, OnmsPrimaryType_isNativeReflectConstruct() ? construct_default()(o, e || [], OnmsPrimaryType_getPrototypeOf(t).constructor) : o.apply(t, e)); }
 function OnmsPrimaryType_possibleConstructorReturn(self, call) { if (call && (OnmsPrimaryType_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return OnmsPrimaryType_assertThisInitialized(self); }
 function OnmsPrimaryType_assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+function OnmsPrimaryType_isNativeReflectConstruct() { try { var t = !Boolean.prototype.valueOf.call(construct_default()(Boolean, [], function () {})); } catch (t) {} return (OnmsPrimaryType_isNativeReflectConstruct = function _isNativeReflectConstruct() { return !!t; })(); }
 function OnmsPrimaryType_getPrototypeOf(o) { var _context2; OnmsPrimaryType_getPrototypeOf = (set_prototype_of_default()) ? bind_default()(_context2 = (get_prototype_of_default())).call(_context2) : function _getPrototypeOf(o) { return o.__proto__ || get_prototype_of_default()(o); }; return OnmsPrimaryType_getPrototypeOf(o); }
 function OnmsPrimaryType_inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = create_default()(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); define_property_default()(subClass, "prototype", { writable: false }); if (superClass) OnmsPrimaryType_setPrototypeOf(subClass, superClass); }
 function OnmsPrimaryType_setPrototypeOf(o, p) { var _context; OnmsPrimaryType_setPrototypeOf = (set_prototype_of_default()) ? bind_default()(_context = (set_prototype_of_default())).call(_context) : function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return OnmsPrimaryType_setPrototypeOf(o, p); }
@@ -59419,7 +59215,6 @@ var es_date_to_json = __webpack_require__("./node_modules/core-js/modules/es.dat
 var web_url_to_json = __webpack_require__("./node_modules/core-js/modules/web.url.to-json.js");
 ;// CONCATENATED MODULE: ./src/model/OnmsCollectType.ts
 
-
 function OnmsCollectType_typeof(o) { "@babel/helpers - typeof"; return OnmsCollectType_typeof = "function" == typeof (symbol_default()) && "symbol" == typeof (iterator_default()) ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof (symbol_default()) && o.constructor === (symbol_default()) && o !== (symbol_default()).prototype ? "symbol" : typeof o; }, OnmsCollectType_typeof(o); }
 
 
@@ -59436,22 +59231,10 @@ function OnmsCollectType_defineProperties(target, props) { for (var i = 0; i < p
 function OnmsCollectType_createClass(Constructor, protoProps, staticProps) { if (protoProps) OnmsCollectType_defineProperties(Constructor.prototype, protoProps); if (staticProps) OnmsCollectType_defineProperties(Constructor, staticProps); define_property_default()(Constructor, "prototype", { writable: false }); return Constructor; }
 function OnmsCollectType_toPropertyKey(t) { var i = OnmsCollectType_toPrimitive(t, "string"); return "symbol" == OnmsCollectType_typeof(i) ? i : String(i); }
 function OnmsCollectType_toPrimitive(t, r) { if ("object" != OnmsCollectType_typeof(t) || !t) return t; var e = t[(to_primitive_default())]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != OnmsCollectType_typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
-function OnmsCollectType_callSuper(_this, derived, args) {
-  function isNativeReflectConstruct() {
-    if (typeof Reflect === "undefined" || !(construct_default())) return false;
-    if ((construct_default()).sham) return false;
-    if (typeof Proxy === "function") return true;
-    try {
-      return !Boolean.prototype.valueOf.call(construct_default()(Boolean, [], function () {}));
-    } catch (e) {
-      return false;
-    }
-  }
-  derived = OnmsCollectType_getPrototypeOf(derived);
-  return OnmsCollectType_possibleConstructorReturn(_this, isNativeReflectConstruct() ? construct_default()(derived, args || [], OnmsCollectType_getPrototypeOf(_this).constructor) : derived.apply(_this, args));
-}
+function OnmsCollectType_callSuper(t, o, e) { return o = OnmsCollectType_getPrototypeOf(o), OnmsCollectType_possibleConstructorReturn(t, OnmsCollectType_isNativeReflectConstruct() ? construct_default()(o, e || [], OnmsCollectType_getPrototypeOf(t).constructor) : o.apply(t, e)); }
 function OnmsCollectType_possibleConstructorReturn(self, call) { if (call && (OnmsCollectType_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return OnmsCollectType_assertThisInitialized(self); }
 function OnmsCollectType_assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+function OnmsCollectType_isNativeReflectConstruct() { try { var t = !Boolean.prototype.valueOf.call(construct_default()(Boolean, [], function () {})); } catch (t) {} return (OnmsCollectType_isNativeReflectConstruct = function _isNativeReflectConstruct() { return !!t; })(); }
 function OnmsCollectType_getPrototypeOf(o) { var _context2; OnmsCollectType_getPrototypeOf = (set_prototype_of_default()) ? bind_default()(_context2 = (get_prototype_of_default())).call(_context2) : function _getPrototypeOf(o) { return o.__proto__ || get_prototype_of_default()(o); }; return OnmsCollectType_getPrototypeOf(o); }
 function OnmsCollectType_inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = create_default()(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); define_property_default()(subClass, "prototype", { writable: false }); if (superClass) OnmsCollectType_setPrototypeOf(subClass, superClass); }
 function OnmsCollectType_setPrototypeOf(o, p) { var _context; OnmsCollectType_setPrototypeOf = (set_prototype_of_default()) ? bind_default()(_context = (set_prototype_of_default())).call(_context) : function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return OnmsCollectType_setPrototypeOf(o, p); }
@@ -59515,7 +59298,6 @@ var CollectTypes = {
 freeze_default()(CollectTypes);
 ;// CONCATENATED MODULE: ./src/model/OnmsSnmpStatusType.ts
 
-
 function OnmsSnmpStatusType_typeof(o) { "@babel/helpers - typeof"; return OnmsSnmpStatusType_typeof = "function" == typeof (symbol_default()) && "symbol" == typeof (iterator_default()) ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof (symbol_default()) && o.constructor === (symbol_default()) && o !== (symbol_default()).prototype ? "symbol" : typeof o; }, OnmsSnmpStatusType_typeof(o); }
 
 
@@ -59532,22 +59314,10 @@ function OnmsSnmpStatusType_defineProperties(target, props) { for (var i = 0; i 
 function OnmsSnmpStatusType_createClass(Constructor, protoProps, staticProps) { if (protoProps) OnmsSnmpStatusType_defineProperties(Constructor.prototype, protoProps); if (staticProps) OnmsSnmpStatusType_defineProperties(Constructor, staticProps); define_property_default()(Constructor, "prototype", { writable: false }); return Constructor; }
 function OnmsSnmpStatusType_toPropertyKey(t) { var i = OnmsSnmpStatusType_toPrimitive(t, "string"); return "symbol" == OnmsSnmpStatusType_typeof(i) ? i : String(i); }
 function OnmsSnmpStatusType_toPrimitive(t, r) { if ("object" != OnmsSnmpStatusType_typeof(t) || !t) return t; var e = t[(to_primitive_default())]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != OnmsSnmpStatusType_typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
-function OnmsSnmpStatusType_callSuper(_this, derived, args) {
-  function isNativeReflectConstruct() {
-    if (typeof Reflect === "undefined" || !(construct_default())) return false;
-    if ((construct_default()).sham) return false;
-    if (typeof Proxy === "function") return true;
-    try {
-      return !Boolean.prototype.valueOf.call(construct_default()(Boolean, [], function () {}));
-    } catch (e) {
-      return false;
-    }
-  }
-  derived = OnmsSnmpStatusType_getPrototypeOf(derived);
-  return OnmsSnmpStatusType_possibleConstructorReturn(_this, isNativeReflectConstruct() ? construct_default()(derived, args || [], OnmsSnmpStatusType_getPrototypeOf(_this).constructor) : derived.apply(_this, args));
-}
+function OnmsSnmpStatusType_callSuper(t, o, e) { return o = OnmsSnmpStatusType_getPrototypeOf(o), OnmsSnmpStatusType_possibleConstructorReturn(t, OnmsSnmpStatusType_isNativeReflectConstruct() ? construct_default()(o, e || [], OnmsSnmpStatusType_getPrototypeOf(t).constructor) : o.apply(t, e)); }
 function OnmsSnmpStatusType_possibleConstructorReturn(self, call) { if (call && (OnmsSnmpStatusType_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return OnmsSnmpStatusType_assertThisInitialized(self); }
 function OnmsSnmpStatusType_assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+function OnmsSnmpStatusType_isNativeReflectConstruct() { try { var t = !Boolean.prototype.valueOf.call(construct_default()(Boolean, [], function () {})); } catch (t) {} return (OnmsSnmpStatusType_isNativeReflectConstruct = function _isNativeReflectConstruct() { return !!t; })(); }
 function OnmsSnmpStatusType_getPrototypeOf(o) { var _context2; OnmsSnmpStatusType_getPrototypeOf = (set_prototype_of_default()) ? bind_default()(_context2 = (get_prototype_of_default())).call(_context2) : function _getPrototypeOf(o) { return o.__proto__ || get_prototype_of_default()(o); }; return OnmsSnmpStatusType_getPrototypeOf(o); }
 function OnmsSnmpStatusType_inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = create_default()(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); define_property_default()(subClass, "prototype", { writable: false }); if (superClass) OnmsSnmpStatusType_setPrototypeOf(subClass, superClass); }
 function OnmsSnmpStatusType_setPrototypeOf(o, p) { var _context; OnmsSnmpStatusType_setPrototypeOf = (set_prototype_of_default()) ? bind_default()(_context = (set_prototype_of_default())).call(_context) : function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return OnmsSnmpStatusType_setPrototypeOf(o, p); }
@@ -59929,22 +59699,10 @@ function IpInterfaceDAO_defineProperties(target, props) { for (var i = 0; i < pr
 function IpInterfaceDAO_createClass(Constructor, protoProps, staticProps) { if (protoProps) IpInterfaceDAO_defineProperties(Constructor.prototype, protoProps); if (staticProps) IpInterfaceDAO_defineProperties(Constructor, staticProps); define_property_default()(Constructor, "prototype", { writable: false }); return Constructor; }
 function IpInterfaceDAO_toPropertyKey(t) { var i = IpInterfaceDAO_toPrimitive(t, "string"); return "symbol" == IpInterfaceDAO_typeof(i) ? i : String(i); }
 function IpInterfaceDAO_toPrimitive(t, r) { if ("object" != IpInterfaceDAO_typeof(t) || !t) return t; var e = t[(to_primitive_default())]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != IpInterfaceDAO_typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
-function IpInterfaceDAO_callSuper(_this, derived, args) {
-  function isNativeReflectConstruct() {
-    if (typeof Reflect === "undefined" || !(construct_default())) return false;
-    if ((construct_default()).sham) return false;
-    if (typeof Proxy === "function") return true;
-    try {
-      return !Boolean.prototype.valueOf.call(construct_default()(Boolean, [], function () {}));
-    } catch (e) {
-      return false;
-    }
-  }
-  derived = IpInterfaceDAO_getPrototypeOf(derived);
-  return IpInterfaceDAO_possibleConstructorReturn(_this, isNativeReflectConstruct() ? construct_default()(derived, args || [], IpInterfaceDAO_getPrototypeOf(_this).constructor) : derived.apply(_this, args));
-}
+function IpInterfaceDAO_callSuper(t, o, e) { return o = IpInterfaceDAO_getPrototypeOf(o), IpInterfaceDAO_possibleConstructorReturn(t, IpInterfaceDAO_isNativeReflectConstruct() ? construct_default()(o, e || [], IpInterfaceDAO_getPrototypeOf(t).constructor) : o.apply(t, e)); }
 function IpInterfaceDAO_possibleConstructorReturn(self, call) { if (call && (IpInterfaceDAO_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return IpInterfaceDAO_assertThisInitialized(self); }
 function IpInterfaceDAO_assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+function IpInterfaceDAO_isNativeReflectConstruct() { try { var t = !Boolean.prototype.valueOf.call(construct_default()(Boolean, [], function () {})); } catch (t) {} return (IpInterfaceDAO_isNativeReflectConstruct = function _isNativeReflectConstruct() { return !!t; })(); }
 function IpInterfaceDAO_getPrototypeOf(o) { var _context4; IpInterfaceDAO_getPrototypeOf = (set_prototype_of_default()) ? bind_default()(_context4 = (get_prototype_of_default())).call(_context4) : function _getPrototypeOf(o) { return o.__proto__ || get_prototype_of_default()(o); }; return IpInterfaceDAO_getPrototypeOf(o); }
 function IpInterfaceDAO_inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = create_default()(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); define_property_default()(subClass, "prototype", { writable: false }); if (superClass) IpInterfaceDAO_setPrototypeOf(subClass, superClass); }
 function IpInterfaceDAO_setPrototypeOf(o, p) { var _context3; IpInterfaceDAO_setPrototypeOf = (set_prototype_of_default()) ? bind_default()(_context3 = (set_prototype_of_default())).call(_context3) : function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return IpInterfaceDAO_setPrototypeOf(o, p); }
@@ -59972,13 +59730,13 @@ var IpInterfaceDAO = /*#__PURE__*/function (_AbstractDAO) {
     key: "get",
     value: (function () {
       var _get = IpInterfaceDAO_asyncToGenerator( /*#__PURE__*/IpInterfaceDAO_regeneratorRuntime().mark(function _callee(id) {
-        var _this2 = this;
+        var _this = this;
         return IpInterfaceDAO_regeneratorRuntime().wrap(function _callee$(_context) {
           while (1) switch (_context.prev = _context.next) {
             case 0:
               this.assertV2();
               return _context.abrupt("return", this.getOptions().then(function (builder) {
-                return _this2.http.get(_this2.getRoot() + '/' + id, builder.build()).then(function (result) {
+                return _this.http.get(_this.getRoot() + '/' + id, builder.build()).then(function (result) {
                   var node = OnmsIpInterface.fromData(result.data);
                   if (!node) {
                     throw new OnmsError("IpInterfaceDAO.get id={id} ReST request succeeded, but did not return a valid node.");
@@ -60001,15 +59759,15 @@ var IpInterfaceDAO = /*#__PURE__*/function (_AbstractDAO) {
     key: "find",
     value: (function () {
       var _find = IpInterfaceDAO_asyncToGenerator( /*#__PURE__*/IpInterfaceDAO_regeneratorRuntime().mark(function _callee2(filter) {
-        var _this3 = this;
+        var _this2 = this;
         return IpInterfaceDAO_regeneratorRuntime().wrap(function _callee2$(_context2) {
           while (1) switch (_context2.prev = _context2.next) {
             case 0:
               this.assertV2();
               return _context2.abrupt("return", this.getOptions(filter).then(function (builder) {
-                return _this3.http.get(_this3.getRoot(), builder.build()).then(function (result) {
+                return _this2.http.get(_this2.getRoot(), builder.build()).then(function (result) {
                   var data = result.data;
-                  if (data !== null && _this3.getCount(data, result.code) > 0 && data.ipInterface) {
+                  if (data !== null && _this2.getCount(data, result.code) > 0 && data.ipInterface) {
                     data = data.ipInterface;
                   } else {
                     data = [];
@@ -60073,7 +59831,6 @@ var IpInterfaceDAO = /*#__PURE__*/function (_AbstractDAO) {
 }(AbstractDAO);
 ;// CONCATENATED MODULE: ./src/model/OnmsServiceStatusType.ts
 
-
 function OnmsServiceStatusType_typeof(o) { "@babel/helpers - typeof"; return OnmsServiceStatusType_typeof = "function" == typeof (symbol_default()) && "symbol" == typeof (iterator_default()) ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof (symbol_default()) && o.constructor === (symbol_default()) && o !== (symbol_default()).prototype ? "symbol" : typeof o; }, OnmsServiceStatusType_typeof(o); }
 
 
@@ -60090,22 +59847,10 @@ function OnmsServiceStatusType_defineProperties(target, props) { for (var i = 0;
 function OnmsServiceStatusType_createClass(Constructor, protoProps, staticProps) { if (protoProps) OnmsServiceStatusType_defineProperties(Constructor.prototype, protoProps); if (staticProps) OnmsServiceStatusType_defineProperties(Constructor, staticProps); define_property_default()(Constructor, "prototype", { writable: false }); return Constructor; }
 function OnmsServiceStatusType_toPropertyKey(t) { var i = OnmsServiceStatusType_toPrimitive(t, "string"); return "symbol" == OnmsServiceStatusType_typeof(i) ? i : String(i); }
 function OnmsServiceStatusType_toPrimitive(t, r) { if ("object" != OnmsServiceStatusType_typeof(t) || !t) return t; var e = t[(to_primitive_default())]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != OnmsServiceStatusType_typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
-function OnmsServiceStatusType_callSuper(_this, derived, args) {
-  function isNativeReflectConstruct() {
-    if (typeof Reflect === "undefined" || !(construct_default())) return false;
-    if ((construct_default()).sham) return false;
-    if (typeof Proxy === "function") return true;
-    try {
-      return !Boolean.prototype.valueOf.call(construct_default()(Boolean, [], function () {}));
-    } catch (e) {
-      return false;
-    }
-  }
-  derived = OnmsServiceStatusType_getPrototypeOf(derived);
-  return OnmsServiceStatusType_possibleConstructorReturn(_this, isNativeReflectConstruct() ? construct_default()(derived, args || [], OnmsServiceStatusType_getPrototypeOf(_this).constructor) : derived.apply(_this, args));
-}
+function OnmsServiceStatusType_callSuper(t, o, e) { return o = OnmsServiceStatusType_getPrototypeOf(o), OnmsServiceStatusType_possibleConstructorReturn(t, OnmsServiceStatusType_isNativeReflectConstruct() ? construct_default()(o, e || [], OnmsServiceStatusType_getPrototypeOf(t).constructor) : o.apply(t, e)); }
 function OnmsServiceStatusType_possibleConstructorReturn(self, call) { if (call && (OnmsServiceStatusType_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return OnmsServiceStatusType_assertThisInitialized(self); }
 function OnmsServiceStatusType_assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+function OnmsServiceStatusType_isNativeReflectConstruct() { try { var t = !Boolean.prototype.valueOf.call(construct_default()(Boolean, [], function () {})); } catch (t) {} return (OnmsServiceStatusType_isNativeReflectConstruct = function _isNativeReflectConstruct() { return !!t; })(); }
 function OnmsServiceStatusType_getPrototypeOf(o) { var _context2; OnmsServiceStatusType_getPrototypeOf = (set_prototype_of_default()) ? bind_default()(_context2 = (get_prototype_of_default())).call(_context2) : function _getPrototypeOf(o) { return o.__proto__ || get_prototype_of_default()(o); }; return OnmsServiceStatusType_getPrototypeOf(o); }
 function OnmsServiceStatusType_inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = create_default()(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); define_property_default()(subClass, "prototype", { writable: false }); if (superClass) OnmsServiceStatusType_setPrototypeOf(subClass, superClass); }
 function OnmsServiceStatusType_setPrototypeOf(o, p) { var _context; OnmsServiceStatusType_setPrototypeOf = (set_prototype_of_default()) ? bind_default()(_context = (set_prototype_of_default())).call(_context) : function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return OnmsServiceStatusType_setPrototypeOf(o, p); }
@@ -60286,22 +60031,10 @@ function MonitoredServiceDAO_defineProperties(target, props) { for (var i = 0; i
 function MonitoredServiceDAO_createClass(Constructor, protoProps, staticProps) { if (protoProps) MonitoredServiceDAO_defineProperties(Constructor.prototype, protoProps); if (staticProps) MonitoredServiceDAO_defineProperties(Constructor, staticProps); define_property_default()(Constructor, "prototype", { writable: false }); return Constructor; }
 function MonitoredServiceDAO_toPropertyKey(t) { var i = MonitoredServiceDAO_toPrimitive(t, "string"); return "symbol" == MonitoredServiceDAO_typeof(i) ? i : String(i); }
 function MonitoredServiceDAO_toPrimitive(t, r) { if ("object" != MonitoredServiceDAO_typeof(t) || !t) return t; var e = t[(to_primitive_default())]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != MonitoredServiceDAO_typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
-function MonitoredServiceDAO_callSuper(_this, derived, args) {
-  function isNativeReflectConstruct() {
-    if (typeof Reflect === "undefined" || !(construct_default())) return false;
-    if ((construct_default()).sham) return false;
-    if (typeof Proxy === "function") return true;
-    try {
-      return !Boolean.prototype.valueOf.call(construct_default()(Boolean, [], function () {}));
-    } catch (e) {
-      return false;
-    }
-  }
-  derived = MonitoredServiceDAO_getPrototypeOf(derived);
-  return MonitoredServiceDAO_possibleConstructorReturn(_this, isNativeReflectConstruct() ? construct_default()(derived, args || [], MonitoredServiceDAO_getPrototypeOf(_this).constructor) : derived.apply(_this, args));
-}
+function MonitoredServiceDAO_callSuper(t, o, e) { return o = MonitoredServiceDAO_getPrototypeOf(o), MonitoredServiceDAO_possibleConstructorReturn(t, MonitoredServiceDAO_isNativeReflectConstruct() ? construct_default()(o, e || [], MonitoredServiceDAO_getPrototypeOf(t).constructor) : o.apply(t, e)); }
 function MonitoredServiceDAO_possibleConstructorReturn(self, call) { if (call && (MonitoredServiceDAO_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return MonitoredServiceDAO_assertThisInitialized(self); }
 function MonitoredServiceDAO_assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+function MonitoredServiceDAO_isNativeReflectConstruct() { try { var t = !Boolean.prototype.valueOf.call(construct_default()(Boolean, [], function () {})); } catch (t) {} return (MonitoredServiceDAO_isNativeReflectConstruct = function _isNativeReflectConstruct() { return !!t; })(); }
 function MonitoredServiceDAO_getPrototypeOf(o) { var _context4; MonitoredServiceDAO_getPrototypeOf = (set_prototype_of_default()) ? bind_default()(_context4 = (get_prototype_of_default())).call(_context4) : function _getPrototypeOf(o) { return o.__proto__ || get_prototype_of_default()(o); }; return MonitoredServiceDAO_getPrototypeOf(o); }
 function MonitoredServiceDAO_inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = create_default()(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); define_property_default()(subClass, "prototype", { writable: false }); if (superClass) MonitoredServiceDAO_setPrototypeOf(subClass, superClass); }
 function MonitoredServiceDAO_setPrototypeOf(o, p) { var _context3; MonitoredServiceDAO_setPrototypeOf = (set_prototype_of_default()) ? bind_default()(_context3 = (set_prototype_of_default())).call(_context3) : function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return MonitoredServiceDAO_setPrototypeOf(o, p); }
@@ -60329,13 +60062,13 @@ var MonitoredServiceDAO = /*#__PURE__*/function (_AbstractDAO) {
     key: "get",
     value: (function () {
       var _get = MonitoredServiceDAO_asyncToGenerator( /*#__PURE__*/MonitoredServiceDAO_regeneratorRuntime().mark(function _callee(id) {
-        var _this2 = this;
+        var _this = this;
         return MonitoredServiceDAO_regeneratorRuntime().wrap(function _callee$(_context) {
           while (1) switch (_context.prev = _context.next) {
             case 0:
               this.assertV2();
               return _context.abrupt("return", this.getOptions().then(function (builder) {
-                return _this2.http.get(_this2.getRoot() + '/' + id, builder.build()).then(function (result) {
+                return _this.http.get(_this.getRoot() + '/' + id, builder.build()).then(function (result) {
                   var node = OnmsMonitoredService.fromData(result.data);
                   if (!node) {
                     throw new OnmsError("MonitoredServiceDAO.get id={id} ReST request succeeded, but did not return a valid node.");
@@ -60358,15 +60091,15 @@ var MonitoredServiceDAO = /*#__PURE__*/function (_AbstractDAO) {
     key: "find",
     value: (function () {
       var _find = MonitoredServiceDAO_asyncToGenerator( /*#__PURE__*/MonitoredServiceDAO_regeneratorRuntime().mark(function _callee2(filter) {
-        var _this3 = this;
+        var _this2 = this;
         return MonitoredServiceDAO_regeneratorRuntime().wrap(function _callee2$(_context2) {
           while (1) switch (_context2.prev = _context2.next) {
             case 0:
               this.assertV2();
               return _context2.abrupt("return", this.getOptions(filter).then(function (builder) {
-                return _this3.http.get(_this3.getRoot(), builder.build()).then(function (result) {
+                return _this2.http.get(_this2.getRoot(), builder.build()).then(function (result) {
                   var data = result.data;
-                  if (data !== null && _this3.getCount(data, result.code) > 0 && data.service) {
+                  if (data !== null && _this2.getCount(data, result.code) > 0 && data.service) {
                     data = data.service;
                   } else {
                     data = [];
@@ -60487,7 +60220,6 @@ var OnmsCategory = /*#__PURE__*/function () {
 }();
 ;// CONCATENATED MODULE: ./src/model/OnmsNodeLabelSource.ts
 
-
 function OnmsNodeLabelSource_typeof(o) { "@babel/helpers - typeof"; return OnmsNodeLabelSource_typeof = "function" == typeof (symbol_default()) && "symbol" == typeof (iterator_default()) ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof (symbol_default()) && o.constructor === (symbol_default()) && o !== (symbol_default()).prototype ? "symbol" : typeof o; }, OnmsNodeLabelSource_typeof(o); }
 
 
@@ -60504,22 +60236,10 @@ function OnmsNodeLabelSource_defineProperties(target, props) { for (var i = 0; i
 function OnmsNodeLabelSource_createClass(Constructor, protoProps, staticProps) { if (protoProps) OnmsNodeLabelSource_defineProperties(Constructor.prototype, protoProps); if (staticProps) OnmsNodeLabelSource_defineProperties(Constructor, staticProps); define_property_default()(Constructor, "prototype", { writable: false }); return Constructor; }
 function OnmsNodeLabelSource_toPropertyKey(t) { var i = OnmsNodeLabelSource_toPrimitive(t, "string"); return "symbol" == OnmsNodeLabelSource_typeof(i) ? i : String(i); }
 function OnmsNodeLabelSource_toPrimitive(t, r) { if ("object" != OnmsNodeLabelSource_typeof(t) || !t) return t; var e = t[(to_primitive_default())]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != OnmsNodeLabelSource_typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
-function OnmsNodeLabelSource_callSuper(_this, derived, args) {
-  function isNativeReflectConstruct() {
-    if (typeof Reflect === "undefined" || !(construct_default())) return false;
-    if ((construct_default()).sham) return false;
-    if (typeof Proxy === "function") return true;
-    try {
-      return !Boolean.prototype.valueOf.call(construct_default()(Boolean, [], function () {}));
-    } catch (e) {
-      return false;
-    }
-  }
-  derived = OnmsNodeLabelSource_getPrototypeOf(derived);
-  return OnmsNodeLabelSource_possibleConstructorReturn(_this, isNativeReflectConstruct() ? construct_default()(derived, args || [], OnmsNodeLabelSource_getPrototypeOf(_this).constructor) : derived.apply(_this, args));
-}
+function OnmsNodeLabelSource_callSuper(t, o, e) { return o = OnmsNodeLabelSource_getPrototypeOf(o), OnmsNodeLabelSource_possibleConstructorReturn(t, OnmsNodeLabelSource_isNativeReflectConstruct() ? construct_default()(o, e || [], OnmsNodeLabelSource_getPrototypeOf(t).constructor) : o.apply(t, e)); }
 function OnmsNodeLabelSource_possibleConstructorReturn(self, call) { if (call && (OnmsNodeLabelSource_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return OnmsNodeLabelSource_assertThisInitialized(self); }
 function OnmsNodeLabelSource_assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+function OnmsNodeLabelSource_isNativeReflectConstruct() { try { var t = !Boolean.prototype.valueOf.call(construct_default()(Boolean, [], function () {})); } catch (t) {} return (OnmsNodeLabelSource_isNativeReflectConstruct = function _isNativeReflectConstruct() { return !!t; })(); }
 function OnmsNodeLabelSource_getPrototypeOf(o) { var _context2; OnmsNodeLabelSource_getPrototypeOf = (set_prototype_of_default()) ? bind_default()(_context2 = (get_prototype_of_default())).call(_context2) : function _getPrototypeOf(o) { return o.__proto__ || get_prototype_of_default()(o); }; return OnmsNodeLabelSource_getPrototypeOf(o); }
 function OnmsNodeLabelSource_inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = create_default()(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); define_property_default()(subClass, "prototype", { writable: false }); if (superClass) OnmsNodeLabelSource_setPrototypeOf(subClass, superClass); }
 function OnmsNodeLabelSource_setPrototypeOf(o, p) { var _context; OnmsNodeLabelSource_setPrototypeOf = (set_prototype_of_default()) ? bind_default()(_context = (set_prototype_of_default())).call(_context) : function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return OnmsNodeLabelSource_setPrototypeOf(o, p); }
@@ -60580,7 +60300,6 @@ var NodeLabelSources = {
 freeze_default()(NodeLabelSources);
 ;// CONCATENATED MODULE: ./src/model/OnmsNodeType.ts
 
-
 function OnmsNodeType_typeof(o) { "@babel/helpers - typeof"; return OnmsNodeType_typeof = "function" == typeof (symbol_default()) && "symbol" == typeof (iterator_default()) ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof (symbol_default()) && o.constructor === (symbol_default()) && o !== (symbol_default()).prototype ? "symbol" : typeof o; }, OnmsNodeType_typeof(o); }
 
 
@@ -60597,22 +60316,10 @@ function OnmsNodeType_defineProperties(target, props) { for (var i = 0; i < prop
 function OnmsNodeType_createClass(Constructor, protoProps, staticProps) { if (protoProps) OnmsNodeType_defineProperties(Constructor.prototype, protoProps); if (staticProps) OnmsNodeType_defineProperties(Constructor, staticProps); define_property_default()(Constructor, "prototype", { writable: false }); return Constructor; }
 function OnmsNodeType_toPropertyKey(t) { var i = OnmsNodeType_toPrimitive(t, "string"); return "symbol" == OnmsNodeType_typeof(i) ? i : String(i); }
 function OnmsNodeType_toPrimitive(t, r) { if ("object" != OnmsNodeType_typeof(t) || !t) return t; var e = t[(to_primitive_default())]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != OnmsNodeType_typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
-function OnmsNodeType_callSuper(_this, derived, args) {
-  function isNativeReflectConstruct() {
-    if (typeof Reflect === "undefined" || !(construct_default())) return false;
-    if ((construct_default()).sham) return false;
-    if (typeof Proxy === "function") return true;
-    try {
-      return !Boolean.prototype.valueOf.call(construct_default()(Boolean, [], function () {}));
-    } catch (e) {
-      return false;
-    }
-  }
-  derived = OnmsNodeType_getPrototypeOf(derived);
-  return OnmsNodeType_possibleConstructorReturn(_this, isNativeReflectConstruct() ? construct_default()(derived, args || [], OnmsNodeType_getPrototypeOf(_this).constructor) : derived.apply(_this, args));
-}
+function OnmsNodeType_callSuper(t, o, e) { return o = OnmsNodeType_getPrototypeOf(o), OnmsNodeType_possibleConstructorReturn(t, OnmsNodeType_isNativeReflectConstruct() ? construct_default()(o, e || [], OnmsNodeType_getPrototypeOf(t).constructor) : o.apply(t, e)); }
 function OnmsNodeType_possibleConstructorReturn(self, call) { if (call && (OnmsNodeType_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return OnmsNodeType_assertThisInitialized(self); }
 function OnmsNodeType_assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+function OnmsNodeType_isNativeReflectConstruct() { try { var t = !Boolean.prototype.valueOf.call(construct_default()(Boolean, [], function () {})); } catch (t) {} return (OnmsNodeType_isNativeReflectConstruct = function _isNativeReflectConstruct() { return !!t; })(); }
 function OnmsNodeType_getPrototypeOf(o) { var _context2; OnmsNodeType_getPrototypeOf = (set_prototype_of_default()) ? bind_default()(_context2 = (get_prototype_of_default())).call(_context2) : function _getPrototypeOf(o) { return o.__proto__ || get_prototype_of_default()(o); }; return OnmsNodeType_getPrototypeOf(o); }
 function OnmsNodeType_inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = create_default()(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); define_property_default()(subClass, "prototype", { writable: false }); if (superClass) OnmsNodeType_setPrototypeOf(subClass, superClass); }
 function OnmsNodeType_setPrototypeOf(o, p) { var _context; OnmsNodeType_setPrototypeOf = (set_prototype_of_default()) ? bind_default()(_context = (set_prototype_of_default())).call(_context) : function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return OnmsNodeType_setPrototypeOf(o, p); }
@@ -60817,22 +60524,10 @@ function NodeDAO_defineProperties(target, props) { for (var i = 0; i < props.len
 function NodeDAO_createClass(Constructor, protoProps, staticProps) { if (protoProps) NodeDAO_defineProperties(Constructor.prototype, protoProps); if (staticProps) NodeDAO_defineProperties(Constructor, staticProps); define_property_default()(Constructor, "prototype", { writable: false }); return Constructor; }
 function NodeDAO_toPropertyKey(t) { var i = NodeDAO_toPrimitive(t, "string"); return "symbol" == NodeDAO_typeof(i) ? i : String(i); }
 function NodeDAO_toPrimitive(t, r) { if ("object" != NodeDAO_typeof(t) || !t) return t; var e = t[(to_primitive_default())]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != NodeDAO_typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
-function NodeDAO_callSuper(_this, derived, args) {
-  function isNativeReflectConstruct() {
-    if (typeof Reflect === "undefined" || !(construct_default())) return false;
-    if ((construct_default()).sham) return false;
-    if (typeof Proxy === "function") return true;
-    try {
-      return !Boolean.prototype.valueOf.call(construct_default()(Boolean, [], function () {}));
-    } catch (e) {
-      return false;
-    }
-  }
-  derived = NodeDAO_getPrototypeOf(derived);
-  return NodeDAO_possibleConstructorReturn(_this, isNativeReflectConstruct() ? construct_default()(derived, args || [], NodeDAO_getPrototypeOf(_this).constructor) : derived.apply(_this, args));
-}
+function NodeDAO_callSuper(t, o, e) { return o = NodeDAO_getPrototypeOf(o), NodeDAO_possibleConstructorReturn(t, NodeDAO_isNativeReflectConstruct() ? construct_default()(o, e || [], NodeDAO_getPrototypeOf(t).constructor) : o.apply(t, e)); }
 function NodeDAO_possibleConstructorReturn(self, call) { if (call && (NodeDAO_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return NodeDAO_assertThisInitialized(self); }
 function NodeDAO_assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+function NodeDAO_isNativeReflectConstruct() { try { var t = !Boolean.prototype.valueOf.call(construct_default()(Boolean, [], function () {})); } catch (t) {} return (NodeDAO_isNativeReflectConstruct = function _isNativeReflectConstruct() { return !!t; })(); }
 function NodeDAO_getPrototypeOf(o) { var _context8; NodeDAO_getPrototypeOf = (set_prototype_of_default()) ? bind_default()(_context8 = (get_prototype_of_default())).call(_context8) : function _getPrototypeOf(o) { return o.__proto__ || get_prototype_of_default()(o); }; return NodeDAO_getPrototypeOf(o); }
 function NodeDAO_inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = create_default()(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); define_property_default()(subClass, "prototype", { writable: false }); if (superClass) NodeDAO_setPrototypeOf(subClass, superClass); }
 function NodeDAO_setPrototypeOf(o, p) { var _context7; NodeDAO_setPrototypeOf = (set_prototype_of_default()) ? bind_default()(_context7 = (set_prototype_of_default())).call(_context7) : function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return NodeDAO_setPrototypeOf(o, p); }
@@ -60864,7 +60559,7 @@ var NodeDAO = /*#__PURE__*/function (_AbstractDAO) {
     key: "get",
     value: (function () {
       var _get = NodeDAO_asyncToGenerator( /*#__PURE__*/NodeDAO_regeneratorRuntime().mark(function _callee(id) {
-        var _this2 = this;
+        var _this = this;
         var recurse,
           _args = arguments;
         return NodeDAO_regeneratorRuntime().wrap(function _callee$(_context) {
@@ -60872,13 +60567,13 @@ var NodeDAO = /*#__PURE__*/function (_AbstractDAO) {
             case 0:
               recurse = _args.length > 1 && _args[1] !== undefined ? _args[1] : false;
               return _context.abrupt("return", this.getOptions().then(function (builder) {
-                return _this2.http.get(_this2.pathToNodesEndpoint() + '/' + id, builder.build()).then(function (result) {
-                  var node = _this2.fromData(result.data);
+                return _this.http.get(_this.pathToNodesEndpoint() + '/' + id, builder.build()).then(function (result) {
+                  var node = _this.fromData(result.data);
                   if (!node) {
                     throw new OnmsError("NodeDAO.get id={id} ReST request succeeded, but did not return a valid node.");
                   }
                   if (recurse) {
-                    return _this2.fetch(node);
+                    return _this.fetch(node);
                   } else {
                     return node;
                   }
@@ -60899,14 +60594,14 @@ var NodeDAO = /*#__PURE__*/function (_AbstractDAO) {
     key: "find",
     value: (function () {
       var _find = NodeDAO_asyncToGenerator( /*#__PURE__*/NodeDAO_regeneratorRuntime().mark(function _callee2(filter) {
-        var _this3 = this;
+        var _this2 = this;
         return NodeDAO_regeneratorRuntime().wrap(function _callee2$(_context2) {
           while (1) switch (_context2.prev = _context2.next) {
             case 0:
               return _context2.abrupt("return", this.getOptions(filter).then(function (builder) {
-                return _this3.http.get(_this3.pathToNodesEndpoint(), builder.build()).then(function (result) {
+                return _this2.http.get(_this2.pathToNodesEndpoint(), builder.build()).then(function (result) {
                   var data = result.data;
-                  if (data !== null && _this3.getCount(data, result.code) > 0 && data.node) {
+                  if (data !== null && _this2.getCount(data, result.code) > 0 && data.node) {
                     data = data.node;
                   } else {
                     data = [];
@@ -60919,7 +60614,7 @@ var NodeDAO = /*#__PURE__*/function (_AbstractDAO) {
                     }
                   }
                   return map_default()(data).call(data, function (nodeData) {
-                    return _this3.fromData(nodeData);
+                    return _this2.fromData(nodeData);
                   });
                 });
               }));
@@ -60938,7 +60633,7 @@ var NodeDAO = /*#__PURE__*/function (_AbstractDAO) {
     key: "fetch",
     value: (function () {
       var _fetch = NodeDAO_asyncToGenerator( /*#__PURE__*/NodeDAO_regeneratorRuntime().mark(function _callee3(node) {
-        var _this4 = this;
+        var _this3 = this;
         return NodeDAO_regeneratorRuntime().wrap(function _callee3$(_context3) {
           while (1) switch (_context3.prev = _context3.next) {
             case 0:
@@ -60947,13 +60642,13 @@ var NodeDAO = /*#__PURE__*/function (_AbstractDAO) {
                 for_each_default()(si).call(si, function (iface) {
                   iface.node = node;
                 });
-                return _this4.ipInterfaces(node).then(function (ifaces) {
+                return _this3.ipInterfaces(node).then(function (ifaces) {
                   node.ipInterfaces = ifaces;
                   for_each_default()(ifaces).call(ifaces, function (iface) {
                     iface.node = node;
                   });
                   return promise_default().all(map_default()(ifaces).call(ifaces, function (iface) {
-                    return _this4.services(node, iface).then(function (services) {
+                    return _this3.services(node, iface).then(function (services) {
                       iface.services = services;
                       for_each_default()(services).call(services, function (service) {
                         service.node = node;
@@ -60980,7 +60675,7 @@ var NodeDAO = /*#__PURE__*/function (_AbstractDAO) {
     key: "ipInterfaces",
     value: (function () {
       var _ipInterfaces = NodeDAO_asyncToGenerator( /*#__PURE__*/NodeDAO_regeneratorRuntime().mark(function _callee4(passedNode, filter) {
-        var _this5 = this;
+        var _this4 = this;
         var node;
         return NodeDAO_regeneratorRuntime().wrap(function _callee4$(_context4) {
           while (1) switch (_context4.prev = _context4.next) {
@@ -60991,9 +60686,9 @@ var NodeDAO = /*#__PURE__*/function (_AbstractDAO) {
                 node = String(passedNode);
               }
               return _context4.abrupt("return", this.getOptions(filter).then(function (builder) {
-                return _this5.http.get(_this5.pathToNodesEndpoint() + '/' + node + '/ipinterfaces', builder.build()).then(function (result) {
+                return _this4.http.get(_this4.pathToNodesEndpoint() + '/' + node + '/ipinterfaces', builder.build()).then(function (result) {
                   var data = result.data;
-                  if (_this5.getCount(data, result.code) > 0 && data.ipInterface) {
+                  if (_this4.getCount(data, result.code) > 0 && data.ipInterface) {
                     data = data.ipInterface;
                   } else {
                     data = [];
@@ -61006,7 +60701,7 @@ var NodeDAO = /*#__PURE__*/function (_AbstractDAO) {
                     }
                   }
                   return map_default()(data).call(data, function (ifaceData) {
-                    return _this5.fromIpInterfaceData(ifaceData);
+                    return _this4.fromIpInterfaceData(ifaceData);
                   });
                 });
               }));
@@ -61025,16 +60720,16 @@ var NodeDAO = /*#__PURE__*/function (_AbstractDAO) {
     key: "snmpInterfaces",
     value: (function () {
       var _snmpInterfaces = NodeDAO_asyncToGenerator( /*#__PURE__*/NodeDAO_regeneratorRuntime().mark(function _callee5(passedNode, filter) {
-        var _this6 = this;
+        var _this5 = this;
         var node;
         return NodeDAO_regeneratorRuntime().wrap(function _callee5$(_context5) {
           while (1) switch (_context5.prev = _context5.next) {
             case 0:
               node = String(this.getNodeId(passedNode));
               return _context5.abrupt("return", this.getOptions(filter).then(function (builder) {
-                return _this6.http.get(_this6.pathToNodesEndpoint() + '/' + node + '/snmpinterfaces', builder.build()).then(function (result) {
+                return _this5.http.get(_this5.pathToNodesEndpoint() + '/' + node + '/snmpinterfaces', builder.build()).then(function (result) {
                   var data = result.data;
-                  if (_this6.getCount(data, result.code) > 0 && data.snmpInterface) {
+                  if (_this5.getCount(data, result.code) > 0 && data.snmpInterface) {
                     data = data.snmpInterface;
                   } else {
                     data = [];
@@ -61047,7 +60742,7 @@ var NodeDAO = /*#__PURE__*/function (_AbstractDAO) {
                     }
                   }
                   return map_default()(data).call(data, function (ifaceData) {
-                    return _this6.fromSnmpData(ifaceData);
+                    return _this5.fromSnmpData(ifaceData);
                   });
                 });
               }));
@@ -61066,7 +60761,7 @@ var NodeDAO = /*#__PURE__*/function (_AbstractDAO) {
     key: "services",
     value: (function () {
       var _services = NodeDAO_asyncToGenerator( /*#__PURE__*/NodeDAO_regeneratorRuntime().mark(function _callee6(passedNode, ipInterface, filter) {
-        var _this7 = this;
+        var _this6 = this;
         var node;
         return NodeDAO_regeneratorRuntime().wrap(function _callee6$(_context6) {
           while (1) switch (_context6.prev = _context6.next) {
@@ -61076,10 +60771,10 @@ var NodeDAO = /*#__PURE__*/function (_AbstractDAO) {
                 if (ipInterface instanceof OnmsIpInterface && ipInterface.ipAddress) {
                   ipInterface = ipInterface.ipAddress.address;
                 }
-                var url = _this7.pathToNodesEndpoint() + '/' + node + '/ipinterfaces/' + ipInterface + '/services';
-                return _this7.http.get(url, builder.build()).then(function (result) {
+                var url = _this6.pathToNodesEndpoint() + '/' + node + '/ipinterfaces/' + ipInterface + '/services';
+                return _this6.http.get(url, builder.build()).then(function (result) {
                   var data = result.data;
-                  if (_this7.getCount(data, result.code) > 0 && data.service) {
+                  if (_this6.getCount(data, result.code) > 0 && data.service) {
                     data = data.service;
                   } else {
                     data = [];
@@ -61092,7 +60787,7 @@ var NodeDAO = /*#__PURE__*/function (_AbstractDAO) {
                     }
                   }
                   return map_default()(data).call(data, function (ifaceData) {
-                    return _this7.fromServiceData(ifaceData);
+                    return _this6.fromServiceData(ifaceData);
                   });
                 });
               }));
@@ -61302,22 +60997,10 @@ function OutageDAO_defineProperties(target, props) { for (var i = 0; i < props.l
 function OutageDAO_createClass(Constructor, protoProps, staticProps) { if (protoProps) OutageDAO_defineProperties(Constructor.prototype, protoProps); if (staticProps) OutageDAO_defineProperties(Constructor, staticProps); define_property_default()(Constructor, "prototype", { writable: false }); return Constructor; }
 function OutageDAO_toPropertyKey(t) { var i = OutageDAO_toPrimitive(t, "string"); return "symbol" == OutageDAO_typeof(i) ? i : String(i); }
 function OutageDAO_toPrimitive(t, r) { if ("object" != OutageDAO_typeof(t) || !t) return t; var e = t[(to_primitive_default())]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != OutageDAO_typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
-function OutageDAO_callSuper(_this, derived, args) {
-  function isNativeReflectConstruct() {
-    if (typeof Reflect === "undefined" || !(construct_default())) return false;
-    if ((construct_default()).sham) return false;
-    if (typeof Proxy === "function") return true;
-    try {
-      return !Boolean.prototype.valueOf.call(construct_default()(Boolean, [], function () {}));
-    } catch (e) {
-      return false;
-    }
-  }
-  derived = OutageDAO_getPrototypeOf(derived);
-  return OutageDAO_possibleConstructorReturn(_this, isNativeReflectConstruct() ? construct_default()(derived, args || [], OutageDAO_getPrototypeOf(_this).constructor) : derived.apply(_this, args));
-}
+function OutageDAO_callSuper(t, o, e) { return o = OutageDAO_getPrototypeOf(o), OutageDAO_possibleConstructorReturn(t, OutageDAO_isNativeReflectConstruct() ? construct_default()(o, e || [], OutageDAO_getPrototypeOf(t).constructor) : o.apply(t, e)); }
 function OutageDAO_possibleConstructorReturn(self, call) { if (call && (OutageDAO_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return OutageDAO_assertThisInitialized(self); }
 function OutageDAO_assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+function OutageDAO_isNativeReflectConstruct() { try { var t = !Boolean.prototype.valueOf.call(construct_default()(Boolean, [], function () {})); } catch (t) {} return (OutageDAO_isNativeReflectConstruct = function _isNativeReflectConstruct() { return !!t; })(); }
 function OutageDAO_getPrototypeOf(o) { var _context4; OutageDAO_getPrototypeOf = (set_prototype_of_default()) ? bind_default()(_context4 = (get_prototype_of_default())).call(_context4) : function _getPrototypeOf(o) { return o.__proto__ || get_prototype_of_default()(o); }; return OutageDAO_getPrototypeOf(o); }
 function OutageDAO_inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = create_default()(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); define_property_default()(subClass, "prototype", { writable: false }); if (superClass) OutageDAO_setPrototypeOf(subClass, superClass); }
 function OutageDAO_setPrototypeOf(o, p) { var _context3; OutageDAO_setPrototypeOf = (set_prototype_of_default()) ? bind_default()(_context3 = (set_prototype_of_default())).call(_context3) : function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return OutageDAO_setPrototypeOf(o, p); }
@@ -61345,13 +61028,13 @@ var OutageDAO = /*#__PURE__*/function (_AbstractDAO) {
     key: "get",
     value: (function () {
       var _get = OutageDAO_asyncToGenerator( /*#__PURE__*/OutageDAO_regeneratorRuntime().mark(function _callee(id) {
-        var _this2 = this;
+        var _this = this;
         return OutageDAO_regeneratorRuntime().wrap(function _callee$(_context) {
           while (1) switch (_context.prev = _context.next) {
             case 0:
               this.assertV2();
               return _context.abrupt("return", this.getOptions().then(function (builder) {
-                return _this2.http.get(_this2.getRoot() + '/' + id, builder.build()).then(function (result) {
+                return _this.http.get(_this.getRoot() + '/' + id, builder.build()).then(function (result) {
                   var node = OnmsOutage.fromData(result.data);
                   if (!node) {
                     throw new OnmsError("OutageDAO.get id={id} ReST request succeeded, but did not return a valid node.");
@@ -61374,15 +61057,15 @@ var OutageDAO = /*#__PURE__*/function (_AbstractDAO) {
     key: "find",
     value: (function () {
       var _find = OutageDAO_asyncToGenerator( /*#__PURE__*/OutageDAO_regeneratorRuntime().mark(function _callee2(filter) {
-        var _this3 = this;
+        var _this2 = this;
         return OutageDAO_regeneratorRuntime().wrap(function _callee2$(_context2) {
           while (1) switch (_context2.prev = _context2.next) {
             case 0:
               this.assertV2();
               return _context2.abrupt("return", this.getOptions(filter).then(function (builder) {
-                return _this3.http.get(_this3.getRoot(), builder.build()).then(function (result) {
+                return _this2.http.get(_this2.getRoot(), builder.build()).then(function (result) {
                   var data = result.data;
-                  if (data !== null && _this3.getCount(data, result.code) > 0 && data.outage) {
+                  if (data !== null && _this2.getCount(data, result.code) > 0 && data.outage) {
                     data = data.outage;
                   } else {
                     data = [];
@@ -61493,7 +61176,6 @@ var OnmsSituationFeedback = /*#__PURE__*/function () {
 }();
 ;// CONCATENATED MODULE: ./src/model/OnmsSituationFeedbackType.ts
 
-
 function OnmsSituationFeedbackType_typeof(o) { "@babel/helpers - typeof"; return OnmsSituationFeedbackType_typeof = "function" == typeof (symbol_default()) && "symbol" == typeof (iterator_default()) ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof (symbol_default()) && o.constructor === (symbol_default()) && o !== (symbol_default()).prototype ? "symbol" : typeof o; }, OnmsSituationFeedbackType_typeof(o); }
 
 
@@ -61510,22 +61192,10 @@ function OnmsSituationFeedbackType_defineProperties(target, props) { for (var i 
 function OnmsSituationFeedbackType_createClass(Constructor, protoProps, staticProps) { if (protoProps) OnmsSituationFeedbackType_defineProperties(Constructor.prototype, protoProps); if (staticProps) OnmsSituationFeedbackType_defineProperties(Constructor, staticProps); define_property_default()(Constructor, "prototype", { writable: false }); return Constructor; }
 function OnmsSituationFeedbackType_toPropertyKey(t) { var i = OnmsSituationFeedbackType_toPrimitive(t, "string"); return "symbol" == OnmsSituationFeedbackType_typeof(i) ? i : String(i); }
 function OnmsSituationFeedbackType_toPrimitive(t, r) { if ("object" != OnmsSituationFeedbackType_typeof(t) || !t) return t; var e = t[(to_primitive_default())]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != OnmsSituationFeedbackType_typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
-function OnmsSituationFeedbackType_callSuper(_this, derived, args) {
-  function isNativeReflectConstruct() {
-    if (typeof Reflect === "undefined" || !(construct_default())) return false;
-    if ((construct_default()).sham) return false;
-    if (typeof Proxy === "function") return true;
-    try {
-      return !Boolean.prototype.valueOf.call(construct_default()(Boolean, [], function () {}));
-    } catch (e) {
-      return false;
-    }
-  }
-  derived = OnmsSituationFeedbackType_getPrototypeOf(derived);
-  return OnmsSituationFeedbackType_possibleConstructorReturn(_this, isNativeReflectConstruct() ? construct_default()(derived, args || [], OnmsSituationFeedbackType_getPrototypeOf(_this).constructor) : derived.apply(_this, args));
-}
+function OnmsSituationFeedbackType_callSuper(t, o, e) { return o = OnmsSituationFeedbackType_getPrototypeOf(o), OnmsSituationFeedbackType_possibleConstructorReturn(t, OnmsSituationFeedbackType_isNativeReflectConstruct() ? construct_default()(o, e || [], OnmsSituationFeedbackType_getPrototypeOf(t).constructor) : o.apply(t, e)); }
 function OnmsSituationFeedbackType_possibleConstructorReturn(self, call) { if (call && (OnmsSituationFeedbackType_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return OnmsSituationFeedbackType_assertThisInitialized(self); }
 function OnmsSituationFeedbackType_assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+function OnmsSituationFeedbackType_isNativeReflectConstruct() { try { var t = !Boolean.prototype.valueOf.call(construct_default()(Boolean, [], function () {})); } catch (t) {} return (OnmsSituationFeedbackType_isNativeReflectConstruct = function _isNativeReflectConstruct() { return !!t; })(); }
 function OnmsSituationFeedbackType_getPrototypeOf(o) { var _context2; OnmsSituationFeedbackType_getPrototypeOf = (set_prototype_of_default()) ? bind_default()(_context2 = (get_prototype_of_default())).call(_context2) : function _getPrototypeOf(o) { return o.__proto__ || get_prototype_of_default()(o); }; return OnmsSituationFeedbackType_getPrototypeOf(o); }
 function OnmsSituationFeedbackType_inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = create_default()(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); define_property_default()(subClass, "prototype", { writable: false }); if (superClass) OnmsSituationFeedbackType_setPrototypeOf(subClass, superClass); }
 function OnmsSituationFeedbackType_setPrototypeOf(o, p) { var _context; OnmsSituationFeedbackType_setPrototypeOf = (set_prototype_of_default()) ? bind_default()(_context = (set_prototype_of_default())).call(_context) : function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return OnmsSituationFeedbackType_setPrototypeOf(o, p); }
@@ -61609,22 +61279,10 @@ function SituationFeedbackDAO_defineProperties(target, props) { for (var i = 0; 
 function SituationFeedbackDAO_createClass(Constructor, protoProps, staticProps) { if (protoProps) SituationFeedbackDAO_defineProperties(Constructor.prototype, protoProps); if (staticProps) SituationFeedbackDAO_defineProperties(Constructor, staticProps); define_property_default()(Constructor, "prototype", { writable: false }); return Constructor; }
 function SituationFeedbackDAO_toPropertyKey(t) { var i = SituationFeedbackDAO_toPrimitive(t, "string"); return "symbol" == SituationFeedbackDAO_typeof(i) ? i : String(i); }
 function SituationFeedbackDAO_toPrimitive(t, r) { if ("object" != SituationFeedbackDAO_typeof(t) || !t) return t; var e = t[(to_primitive_default())]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != SituationFeedbackDAO_typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
-function SituationFeedbackDAO_callSuper(_this, derived, args) {
-  function isNativeReflectConstruct() {
-    if (typeof Reflect === "undefined" || !(construct_default())) return false;
-    if ((construct_default()).sham) return false;
-    if (typeof Proxy === "function") return true;
-    try {
-      return !Boolean.prototype.valueOf.call(construct_default()(Boolean, [], function () {}));
-    } catch (e) {
-      return false;
-    }
-  }
-  derived = SituationFeedbackDAO_getPrototypeOf(derived);
-  return SituationFeedbackDAO_possibleConstructorReturn(_this, isNativeReflectConstruct() ? construct_default()(derived, args || [], SituationFeedbackDAO_getPrototypeOf(_this).constructor) : derived.apply(_this, args));
-}
+function SituationFeedbackDAO_callSuper(t, o, e) { return o = SituationFeedbackDAO_getPrototypeOf(o), SituationFeedbackDAO_possibleConstructorReturn(t, SituationFeedbackDAO_isNativeReflectConstruct() ? construct_default()(o, e || [], SituationFeedbackDAO_getPrototypeOf(t).constructor) : o.apply(t, e)); }
 function SituationFeedbackDAO_possibleConstructorReturn(self, call) { if (call && (SituationFeedbackDAO_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return SituationFeedbackDAO_assertThisInitialized(self); }
 function SituationFeedbackDAO_assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+function SituationFeedbackDAO_isNativeReflectConstruct() { try { var t = !Boolean.prototype.valueOf.call(construct_default()(Boolean, [], function () {})); } catch (t) {} return (SituationFeedbackDAO_isNativeReflectConstruct = function _isNativeReflectConstruct() { return !!t; })(); }
 function SituationFeedbackDAO_getPrototypeOf(o) { var _context6; SituationFeedbackDAO_getPrototypeOf = (set_prototype_of_default()) ? bind_default()(_context6 = (get_prototype_of_default())).call(_context6) : function _getPrototypeOf(o) { return o.__proto__ || get_prototype_of_default()(o); }; return SituationFeedbackDAO_getPrototypeOf(o); }
 function SituationFeedbackDAO_inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = create_default()(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); define_property_default()(subClass, "prototype", { writable: false }); if (superClass) SituationFeedbackDAO_setPrototypeOf(subClass, superClass); }
 function SituationFeedbackDAO_setPrototypeOf(o, p) { var _context5; SituationFeedbackDAO_setPrototypeOf = (set_prototype_of_default()) ? bind_default()(_context5 = (set_prototype_of_default())).call(_context5) : function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return SituationFeedbackDAO_setPrototypeOf(o, p); }
@@ -61656,14 +61314,14 @@ var SituationFeedbackDAO = /*#__PURE__*/function (_BaseDAO) {
     key: "getFeedback",
     value: (function () {
       var _getFeedback = SituationFeedbackDAO_asyncToGenerator( /*#__PURE__*/SituationFeedbackDAO_regeneratorRuntime().mark(function _callee(situationId) {
-        var _this2 = this;
+        var _this = this;
         var builder;
         return SituationFeedbackDAO_regeneratorRuntime().wrap(function _callee$(_context) {
           while (1) switch (_context.prev = _context.next) {
             case 0:
               builder = OnmsHTTPOptions.newBuilder().setHeader('Accept', 'application/json');
               return _context.abrupt("return", this.http.get(this.pathToEndpoint() + '/' + situationId, builder.build()).then(function (result) {
-                var data = _this2.getData(result);
+                var data = _this.getData(result);
                 if (!is_array_default()(data)) {
                   if (!data) {
                     return [];
@@ -61671,7 +61329,7 @@ var SituationFeedbackDAO = /*#__PURE__*/function (_BaseDAO) {
                   throw new OnmsError('Expected an array of feedback but got "' + SituationFeedbackDAO_typeof(data) + '" instead.');
                 }
                 return map_default()(data).call(data, function (feedbackData) {
-                  return _this2.fromData(feedbackData);
+                  return _this.fromData(feedbackData);
                 });
               }));
             case 2:
@@ -61878,22 +61536,10 @@ function SnmpInterfaceDAO_defineProperties(target, props) { for (var i = 0; i < 
 function SnmpInterfaceDAO_createClass(Constructor, protoProps, staticProps) { if (protoProps) SnmpInterfaceDAO_defineProperties(Constructor.prototype, protoProps); if (staticProps) SnmpInterfaceDAO_defineProperties(Constructor, staticProps); define_property_default()(Constructor, "prototype", { writable: false }); return Constructor; }
 function SnmpInterfaceDAO_toPropertyKey(t) { var i = SnmpInterfaceDAO_toPrimitive(t, "string"); return "symbol" == SnmpInterfaceDAO_typeof(i) ? i : String(i); }
 function SnmpInterfaceDAO_toPrimitive(t, r) { if ("object" != SnmpInterfaceDAO_typeof(t) || !t) return t; var e = t[(to_primitive_default())]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != SnmpInterfaceDAO_typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
-function SnmpInterfaceDAO_callSuper(_this, derived, args) {
-  function isNativeReflectConstruct() {
-    if (typeof Reflect === "undefined" || !(construct_default())) return false;
-    if ((construct_default()).sham) return false;
-    if (typeof Proxy === "function") return true;
-    try {
-      return !Boolean.prototype.valueOf.call(construct_default()(Boolean, [], function () {}));
-    } catch (e) {
-      return false;
-    }
-  }
-  derived = SnmpInterfaceDAO_getPrototypeOf(derived);
-  return SnmpInterfaceDAO_possibleConstructorReturn(_this, isNativeReflectConstruct() ? construct_default()(derived, args || [], SnmpInterfaceDAO_getPrototypeOf(_this).constructor) : derived.apply(_this, args));
-}
+function SnmpInterfaceDAO_callSuper(t, o, e) { return o = SnmpInterfaceDAO_getPrototypeOf(o), SnmpInterfaceDAO_possibleConstructorReturn(t, SnmpInterfaceDAO_isNativeReflectConstruct() ? construct_default()(o, e || [], SnmpInterfaceDAO_getPrototypeOf(t).constructor) : o.apply(t, e)); }
 function SnmpInterfaceDAO_possibleConstructorReturn(self, call) { if (call && (SnmpInterfaceDAO_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return SnmpInterfaceDAO_assertThisInitialized(self); }
 function SnmpInterfaceDAO_assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+function SnmpInterfaceDAO_isNativeReflectConstruct() { try { var t = !Boolean.prototype.valueOf.call(construct_default()(Boolean, [], function () {})); } catch (t) {} return (SnmpInterfaceDAO_isNativeReflectConstruct = function _isNativeReflectConstruct() { return !!t; })(); }
 function SnmpInterfaceDAO_getPrototypeOf(o) { var _context4; SnmpInterfaceDAO_getPrototypeOf = (set_prototype_of_default()) ? bind_default()(_context4 = (get_prototype_of_default())).call(_context4) : function _getPrototypeOf(o) { return o.__proto__ || get_prototype_of_default()(o); }; return SnmpInterfaceDAO_getPrototypeOf(o); }
 function SnmpInterfaceDAO_inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = create_default()(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); define_property_default()(subClass, "prototype", { writable: false }); if (superClass) SnmpInterfaceDAO_setPrototypeOf(subClass, superClass); }
 function SnmpInterfaceDAO_setPrototypeOf(o, p) { var _context3; SnmpInterfaceDAO_setPrototypeOf = (set_prototype_of_default()) ? bind_default()(_context3 = (set_prototype_of_default())).call(_context3) : function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return SnmpInterfaceDAO_setPrototypeOf(o, p); }
@@ -61920,13 +61566,13 @@ var SnmpInterfaceDAO = /*#__PURE__*/function (_AbstractDAO) {
     key: "get",
     value: (function () {
       var _get = SnmpInterfaceDAO_asyncToGenerator( /*#__PURE__*/SnmpInterfaceDAO_regeneratorRuntime().mark(function _callee(id) {
-        var _this2 = this;
+        var _this = this;
         return SnmpInterfaceDAO_regeneratorRuntime().wrap(function _callee$(_context) {
           while (1) switch (_context.prev = _context.next) {
             case 0:
               this.assertV2();
               return _context.abrupt("return", this.getOptions().then(function (builder) {
-                return _this2.http.get(_this2.getRoot() + '/' + id, builder.build()).then(function (result) {
+                return _this.http.get(_this.getRoot() + '/' + id, builder.build()).then(function (result) {
                   var node = OnmsSnmpInterface.fromData(result.data);
                   if (!node) {
                     throw new OnmsError("SnmpInterfaceDAO.get id={id} ReST request succeeded, but did not return a valid node.");
@@ -61949,15 +61595,15 @@ var SnmpInterfaceDAO = /*#__PURE__*/function (_AbstractDAO) {
     key: "find",
     value: (function () {
       var _find = SnmpInterfaceDAO_asyncToGenerator( /*#__PURE__*/SnmpInterfaceDAO_regeneratorRuntime().mark(function _callee2(filter) {
-        var _this3 = this;
+        var _this2 = this;
         return SnmpInterfaceDAO_regeneratorRuntime().wrap(function _callee2$(_context2) {
           while (1) switch (_context2.prev = _context2.next) {
             case 0:
               this.assertV2();
               return _context2.abrupt("return", this.getOptions(filter).then(function (builder) {
-                return _this3.http.get(_this3.getRoot(), builder.build()).then(function (result) {
+                return _this2.http.get(_this2.getRoot(), builder.build()).then(function (result) {
                   var data = result.data;
-                  if (data !== null && _this3.getCount(data, result.code) > 0 && data.snmpInterface) {
+                  if (data !== null && _this2.getCount(data, result.code) > 0 && data.snmpInterface) {
                     data = data.snmpInterface;
                   } else {
                     data = [];
@@ -66526,22 +66172,10 @@ function AxiosHTTP_defineProperties(target, props) { for (var i = 0; i < props.l
 function AxiosHTTP_createClass(Constructor, protoProps, staticProps) { if (protoProps) AxiosHTTP_defineProperties(Constructor.prototype, protoProps); if (staticProps) AxiosHTTP_defineProperties(Constructor, staticProps); define_property_default()(Constructor, "prototype", { writable: false }); return Constructor; }
 function AxiosHTTP_toPropertyKey(t) { var i = AxiosHTTP_toPrimitive(t, "string"); return "symbol" == AxiosHTTP_typeof(i) ? i : String(i); }
 function AxiosHTTP_toPrimitive(t, r) { if ("object" != AxiosHTTP_typeof(t) || !t) return t; var e = t[(to_primitive_default())]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != AxiosHTTP_typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
-function AxiosHTTP_callSuper(_this, derived, args) {
-  function isNativeReflectConstruct() {
-    if (typeof Reflect === "undefined" || !(construct_default())) return false;
-    if ((construct_default()).sham) return false;
-    if (typeof Proxy === "function") return true;
-    try {
-      return !Boolean.prototype.valueOf.call(construct_default()(Boolean, [], function () {}));
-    } catch (e) {
-      return false;
-    }
-  }
-  derived = AxiosHTTP_getPrototypeOf(derived);
-  return AxiosHTTP_possibleConstructorReturn(_this, isNativeReflectConstruct() ? construct_default()(derived, args || [], AxiosHTTP_getPrototypeOf(_this).constructor) : derived.apply(_this, args));
-}
+function AxiosHTTP_callSuper(t, o, e) { return o = AxiosHTTP_getPrototypeOf(o), AxiosHTTP_possibleConstructorReturn(t, AxiosHTTP_isNativeReflectConstruct() ? construct_default()(o, e || [], AxiosHTTP_getPrototypeOf(t).constructor) : o.apply(t, e)); }
 function AxiosHTTP_possibleConstructorReturn(self, call) { if (call && (AxiosHTTP_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return AxiosHTTP_assertThisInitialized(self); }
 function AxiosHTTP_assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+function AxiosHTTP_isNativeReflectConstruct() { try { var t = !Boolean.prototype.valueOf.call(construct_default()(Boolean, [], function () {})); } catch (t) {} return (AxiosHTTP_isNativeReflectConstruct = function _isNativeReflectConstruct() { return !!t; })(); }
 function AxiosHTTP_get() { if (typeof Reflect !== "undefined" && (get_default())) { var _context3; AxiosHTTP_get = bind_default()(_context3 = (get_default())).call(_context3); } else { AxiosHTTP_get = function _get(target, property, receiver) { var base = AxiosHTTP_superPropBase(target, property); if (!base) return; var desc = get_own_property_descriptor_default()(base, property); if (desc.get) { return desc.get.call(arguments.length < 3 ? target : receiver); } return desc.value; }; } return AxiosHTTP_get.apply(this, arguments); }
 function AxiosHTTP_superPropBase(object, property) { while (!Object.prototype.hasOwnProperty.call(object, property)) { object = AxiosHTTP_getPrototypeOf(object); if (object === null) break; } return object; }
 function AxiosHTTP_getPrototypeOf(o) { var _context2; AxiosHTTP_getPrototypeOf = (set_prototype_of_default()) ? bind_default()(_context2 = (get_prototype_of_default())).call(_context2) : function _getPrototypeOf(o) { return o.__proto__ || get_prototype_of_default()(o); }; return AxiosHTTP_getPrototypeOf(o); }
@@ -66823,7 +66457,6 @@ var AxiosHTTP = /*#__PURE__*/function (_AbstractHTTP) {
 }(AbstractHTTP);
 ;// CONCATENATED MODULE: ./src/rest/GrafanaError.ts
 
-
 function GrafanaError_typeof(o) { "@babel/helpers - typeof"; return GrafanaError_typeof = "function" == typeof (symbol_default()) && "symbol" == typeof (iterator_default()) ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof (symbol_default()) && o.constructor === (symbol_default()) && o !== (symbol_default()).prototype ? "symbol" : typeof o; }, GrafanaError_typeof(o); }
 
 
@@ -66839,22 +66472,10 @@ function GrafanaError_createClass(Constructor, protoProps, staticProps) { if (pr
 function GrafanaError_toPropertyKey(t) { var i = GrafanaError_toPrimitive(t, "string"); return "symbol" == GrafanaError_typeof(i) ? i : String(i); }
 function GrafanaError_toPrimitive(t, r) { if ("object" != GrafanaError_typeof(t) || !t) return t; var e = t[(to_primitive_default())]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != GrafanaError_typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 function GrafanaError_classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-function GrafanaError_callSuper(_this, derived, args) {
-  function isNativeReflectConstruct() {
-    if (typeof Reflect === "undefined" || !(construct_default())) return false;
-    if ((construct_default()).sham) return false;
-    if (typeof Proxy === "function") return true;
-    try {
-      return !Boolean.prototype.valueOf.call(construct_default()(Boolean, [], function () {}));
-    } catch (e) {
-      return false;
-    }
-  }
-  derived = GrafanaError_getPrototypeOf(derived);
-  return GrafanaError_possibleConstructorReturn(_this, isNativeReflectConstruct() ? construct_default()(derived, args || [], GrafanaError_getPrototypeOf(_this).constructor) : derived.apply(_this, args));
-}
+function GrafanaError_callSuper(t, o, e) { return o = GrafanaError_getPrototypeOf(o), GrafanaError_possibleConstructorReturn(t, GrafanaError_isNativeReflectConstruct() ? construct_default()(o, e || [], GrafanaError_getPrototypeOf(t).constructor) : o.apply(t, e)); }
 function GrafanaError_possibleConstructorReturn(self, call) { if (call && (GrafanaError_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return GrafanaError_assertThisInitialized(self); }
 function GrafanaError_assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+function GrafanaError_isNativeReflectConstruct() { try { var t = !Boolean.prototype.valueOf.call(construct_default()(Boolean, [], function () {})); } catch (t) {} return (GrafanaError_isNativeReflectConstruct = function _isNativeReflectConstruct() { return !!t; })(); }
 function GrafanaError_getPrototypeOf(o) { var _context2; GrafanaError_getPrototypeOf = (set_prototype_of_default()) ? bind_default()(_context2 = (get_prototype_of_default())).call(_context2) : function _getPrototypeOf(o) { return o.__proto__ || get_prototype_of_default()(o); }; return GrafanaError_getPrototypeOf(o); }
 function GrafanaError_inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = create_default()(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); define_property_default()(subClass, "prototype", { writable: false }); if (superClass) GrafanaError_setPrototypeOf(subClass, superClass); }
 function GrafanaError_setPrototypeOf(o, p) { var _context; GrafanaError_setPrototypeOf = (set_prototype_of_default()) ? bind_default()(_context = (set_prototype_of_default())).call(_context) : function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return GrafanaError_setPrototypeOf(o, p); }
@@ -66894,7 +66515,6 @@ var node_modules_btoa = __webpack_require__("./node_modules/btoa/index.js");
 var btoa_default = /*#__PURE__*/__webpack_require__.n(node_modules_btoa);
 ;// CONCATENATED MODULE: ./src/rest/GrafanaHTTP.ts
 
-
 function GrafanaHTTP_typeof(o) { "@babel/helpers - typeof"; return GrafanaHTTP_typeof = "function" == typeof (symbol_default()) && "symbol" == typeof (iterator_default()) ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof (symbol_default()) && o.constructor === (symbol_default()) && o !== (symbol_default()).prototype ? "symbol" : typeof o; }, GrafanaHTTP_typeof(o); }
 
 
@@ -66911,22 +66531,10 @@ function GrafanaHTTP_defineProperties(target, props) { for (var i = 0; i < props
 function GrafanaHTTP_createClass(Constructor, protoProps, staticProps) { if (protoProps) GrafanaHTTP_defineProperties(Constructor.prototype, protoProps); if (staticProps) GrafanaHTTP_defineProperties(Constructor, staticProps); define_property_default()(Constructor, "prototype", { writable: false }); return Constructor; }
 function GrafanaHTTP_toPropertyKey(t) { var i = GrafanaHTTP_toPrimitive(t, "string"); return "symbol" == GrafanaHTTP_typeof(i) ? i : String(i); }
 function GrafanaHTTP_toPrimitive(t, r) { if ("object" != GrafanaHTTP_typeof(t) || !t) return t; var e = t[(to_primitive_default())]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != GrafanaHTTP_typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
-function GrafanaHTTP_callSuper(_this, derived, args) {
-  function isNativeReflectConstruct() {
-    if (typeof Reflect === "undefined" || !(construct_default())) return false;
-    if ((construct_default()).sham) return false;
-    if (typeof Proxy === "function") return true;
-    try {
-      return !Boolean.prototype.valueOf.call(construct_default()(Boolean, [], function () {}));
-    } catch (e) {
-      return false;
-    }
-  }
-  derived = GrafanaHTTP_getPrototypeOf(derived);
-  return GrafanaHTTP_possibleConstructorReturn(_this, isNativeReflectConstruct() ? construct_default()(derived, args || [], GrafanaHTTP_getPrototypeOf(_this).constructor) : derived.apply(_this, args));
-}
+function GrafanaHTTP_callSuper(t, o, e) { return o = GrafanaHTTP_getPrototypeOf(o), GrafanaHTTP_possibleConstructorReturn(t, GrafanaHTTP_isNativeReflectConstruct() ? construct_default()(o, e || [], GrafanaHTTP_getPrototypeOf(t).constructor) : o.apply(t, e)); }
 function GrafanaHTTP_possibleConstructorReturn(self, call) { if (call && (GrafanaHTTP_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return GrafanaHTTP_assertThisInitialized(self); }
 function GrafanaHTTP_assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+function GrafanaHTTP_isNativeReflectConstruct() { try { var t = !Boolean.prototype.valueOf.call(construct_default()(Boolean, [], function () {})); } catch (t) {} return (GrafanaHTTP_isNativeReflectConstruct = function _isNativeReflectConstruct() { return !!t; })(); }
 function GrafanaHTTP_getPrototypeOf(o) { var _context2; GrafanaHTTP_getPrototypeOf = (set_prototype_of_default()) ? bind_default()(_context2 = (get_prototype_of_default())).call(_context2) : function _getPrototypeOf(o) { return o.__proto__ || get_prototype_of_default()(o); }; return GrafanaHTTP_getPrototypeOf(o); }
 function GrafanaHTTP_inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = create_default()(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); define_property_default()(subClass, "prototype", { writable: false }); if (superClass) GrafanaHTTP_setPrototypeOf(subClass, superClass); }
 function GrafanaHTTP_setPrototypeOf(o, p) { var _context; GrafanaHTTP_setPrototypeOf = (set_prototype_of_default()) ? bind_default()(_context = (set_prototype_of_default())).call(_context) : function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return GrafanaHTTP_setPrototypeOf(o, p); }
@@ -67753,16 +67361,13 @@ var log = new Logger();
 /* harmony import */ var _babel_runtime_corejs3_core_js_stable_symbol_iterator__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_corejs3_core_js_stable_symbol_iterator__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var core_js_modules_es_number_constructor_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__("./node_modules/core-js/modules/es.number.constructor.js");
 /* harmony import */ var core_js_modules_es_number_constructor_js__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_number_constructor_js__WEBPACK_IMPORTED_MODULE_10__);
-/* harmony import */ var core_js_modules_es_object_to_string_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__("./node_modules/core-js/modules/es.object.to-string.js");
-/* harmony import */ var core_js_modules_es_object_to_string_js__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_object_to_string_js__WEBPACK_IMPORTED_MODULE_11__);
-/* harmony import */ var _node_modules_core_js_modules_es_regexp_exec_js__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__("./node_modules/core-js/modules/es.regexp.exec.js");
-/* harmony import */ var _node_modules_core_js_modules_es_regexp_exec_js__WEBPACK_IMPORTED_MODULE_12___default = /*#__PURE__*/__webpack_require__.n(_node_modules_core_js_modules_es_regexp_exec_js__WEBPACK_IMPORTED_MODULE_12__);
-/* harmony import */ var _node_modules_core_js_modules_es_string_split_js__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__("./node_modules/core-js/modules/es.string.split.js");
-/* harmony import */ var _node_modules_core_js_modules_es_string_split_js__WEBPACK_IMPORTED_MODULE_13___default = /*#__PURE__*/__webpack_require__.n(_node_modules_core_js_modules_es_string_split_js__WEBPACK_IMPORTED_MODULE_13__);
-/* harmony import */ var _internal_OnmsEnum__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__("./src/internal/OnmsEnum.ts");
-/* harmony import */ var _Log__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__("./src/api/Log.ts");
+/* harmony import */ var _node_modules_core_js_modules_es_regexp_exec_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__("./node_modules/core-js/modules/es.regexp.exec.js");
+/* harmony import */ var _node_modules_core_js_modules_es_regexp_exec_js__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(_node_modules_core_js_modules_es_regexp_exec_js__WEBPACK_IMPORTED_MODULE_11__);
+/* harmony import */ var _node_modules_core_js_modules_es_string_split_js__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__("./node_modules/core-js/modules/es.string.split.js");
+/* harmony import */ var _node_modules_core_js_modules_es_string_split_js__WEBPACK_IMPORTED_MODULE_12___default = /*#__PURE__*/__webpack_require__.n(_node_modules_core_js_modules_es_string_split_js__WEBPACK_IMPORTED_MODULE_12__);
+/* harmony import */ var _internal_OnmsEnum__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__("./src/internal/OnmsEnum.ts");
+/* harmony import */ var _Log__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__("./src/api/Log.ts");
 function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof (_babel_runtime_corejs3_core_js_stable_symbol__WEBPACK_IMPORTED_MODULE_0___default()) && "symbol" == typeof (_babel_runtime_corejs3_core_js_stable_symbol_iterator__WEBPACK_IMPORTED_MODULE_1___default()) ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof (_babel_runtime_corejs3_core_js_stable_symbol__WEBPACK_IMPORTED_MODULE_0___default()) && o.constructor === (_babel_runtime_corejs3_core_js_stable_symbol__WEBPACK_IMPORTED_MODULE_0___default()) && o !== (_babel_runtime_corejs3_core_js_stable_symbol__WEBPACK_IMPORTED_MODULE_0___default().prototype) ? "symbol" : typeof o; }, _typeof(o); }
-
 
 
 
@@ -67781,22 +67386,10 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); _babel_runtime_corejs3_core_js_stable_object_define_property__WEBPACK_IMPORTED_MODULE_6___default()(Constructor, "prototype", { writable: false }); return Constructor; }
 function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : String(i); }
 function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[(_babel_runtime_corejs3_core_js_stable_symbol_to_primitive__WEBPACK_IMPORTED_MODULE_9___default())]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
-function _callSuper(_this, derived, args) {
-  function isNativeReflectConstruct() {
-    if (typeof Reflect === "undefined" || !(_babel_runtime_corejs3_core_js_stable_reflect_construct__WEBPACK_IMPORTED_MODULE_8___default())) return false;
-    if ((_babel_runtime_corejs3_core_js_stable_reflect_construct__WEBPACK_IMPORTED_MODULE_8___default().sham)) return false;
-    if (typeof Proxy === "function") return true;
-    try {
-      return !Boolean.prototype.valueOf.call(_babel_runtime_corejs3_core_js_stable_reflect_construct__WEBPACK_IMPORTED_MODULE_8___default()(Boolean, [], function () {}));
-    } catch (e) {
-      return false;
-    }
-  }
-  derived = _getPrototypeOf(derived);
-  return _possibleConstructorReturn(_this, isNativeReflectConstruct() ? _babel_runtime_corejs3_core_js_stable_reflect_construct__WEBPACK_IMPORTED_MODULE_8___default()(derived, args || [], _getPrototypeOf(_this).constructor) : derived.apply(_this, args));
-}
+function _callSuper(t, o, e) { return o = _getPrototypeOf(o), _possibleConstructorReturn(t, _isNativeReflectConstruct() ? _babel_runtime_corejs3_core_js_stable_reflect_construct__WEBPACK_IMPORTED_MODULE_8___default()(o, e || [], _getPrototypeOf(t).constructor) : o.apply(t, e)); }
 function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return _assertThisInitialized(self); }
 function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+function _isNativeReflectConstruct() { try { var t = !Boolean.prototype.valueOf.call(_babel_runtime_corejs3_core_js_stable_reflect_construct__WEBPACK_IMPORTED_MODULE_8___default()(Boolean, [], function () {})); } catch (t) {} return (_isNativeReflectConstruct = function _isNativeReflectConstruct() { return !!t; })(); }
 function _getPrototypeOf(o) { var _context2; _getPrototypeOf = (_node_modules_babel_runtime_corejs3_core_js_stable_object_set_prototype_of__WEBPACK_IMPORTED_MODULE_3___default()) ? _node_modules_babel_runtime_corejs3_core_js_stable_instance_bind__WEBPACK_IMPORTED_MODULE_4___default()(_context2 = (_babel_runtime_corejs3_core_js_stable_object_get_prototype_of__WEBPACK_IMPORTED_MODULE_7___default())).call(_context2) : function _getPrototypeOf(o) { return o.__proto__ || _babel_runtime_corejs3_core_js_stable_object_get_prototype_of__WEBPACK_IMPORTED_MODULE_7___default()(o); }; return _getPrototypeOf(o); }
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = _babel_runtime_corejs3_core_js_stable_object_create__WEBPACK_IMPORTED_MODULE_5___default()(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); _babel_runtime_corejs3_core_js_stable_object_define_property__WEBPACK_IMPORTED_MODULE_6___default()(subClass, "prototype", { writable: false }); if (superClass) _setPrototypeOf(subClass, superClass); }
 function _setPrototypeOf(o, p) { var _context; _setPrototypeOf = (_node_modules_babel_runtime_corejs3_core_js_stable_object_set_prototype_of__WEBPACK_IMPORTED_MODULE_3___default()) ? _node_modules_babel_runtime_corejs3_core_js_stable_instance_bind__WEBPACK_IMPORTED_MODULE_4___default()(_context = (_node_modules_babel_runtime_corejs3_core_js_stable_object_set_prototype_of__WEBPACK_IMPORTED_MODULE_3___default())).call(_context) : function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
@@ -67825,7 +67418,7 @@ var Order = /*#__PURE__*/function (_OnmsEnum) {
     key: "forLabel",
     value: /** Given a label ('ASC', 'DESC'), return the corresponding order. */
     function forLabel(label) {
-      return (0,_internal_OnmsEnum__WEBPACK_IMPORTED_MODULE_14__/* .forLabel */ .mT)(Orders, label);
+      return (0,_internal_OnmsEnum__WEBPACK_IMPORTED_MODULE_13__/* .forLabel */ .mT)(Orders, label);
     }
 
     /** given an order spec (`order=DESC`), return an [[Order]] object */
@@ -67834,14 +67427,14 @@ var Order = /*#__PURE__*/function (_OnmsEnum) {
     value: function fromString(order) {
       var chunks = order.split(/\s*=\s*/);
       if (chunks.length !== 2 || chunks[0].toLowerCase() !== 'order') {
-        _Log__WEBPACK_IMPORTED_MODULE_15__/* .log */ .c.warn('Order.fromString(' + order + '): invalid format. expected: "order=DESC|ASC" or "order DESC|ASC"');
+        _Log__WEBPACK_IMPORTED_MODULE_14__/* .log */ .c.warn('Order.fromString(' + order + '): invalid format. expected: "order=DESC|ASC" or "order DESC|ASC"');
         return undefined;
       }
       return Order.forLabel(chunks[1]);
     }
   }]);
   return Order;
-}(_internal_OnmsEnum__WEBPACK_IMPORTED_MODULE_14__/* .OnmsEnum */ .qn);
+}(_internal_OnmsEnum__WEBPACK_IMPORTED_MODULE_13__/* .OnmsEnum */ .qn);
 
 /**
  * Constant references to all OrderBy types.
@@ -67879,7 +67472,7 @@ var OrderBy = /*#__PURE__*/function () {
     value: function fromString(order) {
       var chunks = order.split(/\s*=\s*/);
       if (chunks.length !== 2 || chunks[0].toLowerCase() !== 'orderby') {
-        _Log__WEBPACK_IMPORTED_MODULE_15__/* .log */ .c.warn('OrderBy.fromString(' + order + '): invalid format. expected: "orderBy=foo" or "orderBy foo"');
+        _Log__WEBPACK_IMPORTED_MODULE_14__/* .log */ .c.warn('OrderBy.fromString(' + order + '): invalid format. expected: "orderBy=foo" or "orderBy foo"');
         return undefined;
       }
       return new OrderBy(chunks[1]);
