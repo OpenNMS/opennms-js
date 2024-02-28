@@ -13,7 +13,48 @@ updates:
       include: "scope"
     schedule:
       interval: "daily"
+    groups:
+      docs:
+        patterns:
+          - "*antora*"
+          - "typedoc"
+        update-types:
+          - "minor"
+          - "patch"
+      babel-and-eslint:
+        patterns:
+          - "*babel*"
+          - "*eslint*"
+        update-types:
+          - "minor"
+          - "patch"
+      commits:
+        patterns:
+          - "*commitlint*"
+          - "*changelog*"
+        update-types:
+          - "minor"
+          - "patch"
+      jest:
+        patterns:
+          - "*jest*"
+        update-types:
+          - "minor"
+          - "patch"
+      typescript:
+        patterns:
+          - "ts-*"
+          - "*typescript*"
+        update-types:
+          - "minor"
+          - "patch"
+      webpack:
+        patterns:
+          - "*webpack*"
+          - "*-loader"
+        update-types:
+          - "minor"
+          - "patch"
     ignore:
       - dependency-name: "@types/lodash"
       - dependency-name: "@types/node"
-
