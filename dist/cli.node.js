@@ -14322,7 +14322,7 @@ try {
 }
 
 // URL fields to preserve in copy operations
-var preservedUrlFields = ["auth", "host", "hostname", "href", "path", "pathname", "port", "protocol", "query", "search"];
+var preservedUrlFields = ["auth", "host", "hostname", "href", "path", "pathname", "port", "protocol", "query", "search", "hash"];
 
 // Create handlers that pass events from native requests
 var events = ["abort", "aborted", "connect", "error", "socket", "timeout"];
@@ -14726,7 +14726,7 @@ RedirectableRequest.prototype._processResponse = function (response) {
   // Drop confidential headers when redirecting to a less secure protocol
   // or to a different domain that is not a superdomain
   if (redirectUrl.protocol !== currentUrlParts.protocol && redirectUrl.protocol !== "https:" || redirectUrl.host !== currentHost && !isSubdomain(redirectUrl.host, currentHost)) {
-    removeMatchingHeaders(/^(?:authorization|cookie)$/i, this._options.headers);
+    removeMatchingHeaders(/^(?:(?:proxy-)?authorization|cookie)$/i, this._options.headers);
   }
 
   // Evaluate the beforeRedirect callback
@@ -55299,7 +55299,7 @@ var es_array_join = __webpack_require__("./node_modules/core-js/modules/es.array
 
 
 
-var _class;
+var _V2FilterProcessor;
 function V2FilterProcessor_typeof(o) { "@babel/helpers - typeof"; return V2FilterProcessor_typeof = "function" == typeof (symbol_default()) && "symbol" == typeof (iterator_default()) ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof (symbol_default()) && o.constructor === (symbol_default()) && o !== (symbol_default()).prototype ? "symbol" : typeof o; }, V2FilterProcessor_typeof(o); }
 
 
@@ -55503,7 +55503,7 @@ var V2FilterProcessor = /*#__PURE__*/function () {
   }]);
   return V2FilterProcessor;
 }();
-_class = V2FilterProcessor;
+_V2FilterProcessor = V2FilterProcessor;
 /** Constant used to represent null values in the V2 API. */
 V2FilterProcessor_defineProperty(V2FilterProcessor, "NULL_VALUE", "\0");
 /** Constant used to represent null dates in the V2 API.
@@ -55515,7 +55515,7 @@ V2FilterProcessor_defineProperty(V2FilterProcessor, "NULL_DATE", '1970-01-01T00:
  * pre-encoded to avoid running `encodeURIComponent` every time we deal with a null date
  * @hidden
  */
-V2FilterProcessor_defineProperty(V2FilterProcessor, "NULL_DATE_ENCODED", encodeURIComponent(_class.NULL_DATE));
+V2FilterProcessor_defineProperty(V2FilterProcessor, "NULL_DATE_ENCODED", encodeURIComponent(_V2FilterProcessor.NULL_DATE));
 ;// CONCATENATED MODULE: ./src/dao/BaseDAO.ts
 
 function BaseDAO_typeof(o) { "@babel/helpers - typeof"; return BaseDAO_typeof = "function" == typeof (symbol_default()) && "symbol" == typeof (iterator_default()) ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof (symbol_default()) && o.constructor === (symbol_default()) && o !== (symbol_default()).prototype ? "symbol" : typeof o; }, BaseDAO_typeof(o); }
