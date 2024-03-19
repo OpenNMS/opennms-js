@@ -62949,7 +62949,7 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; define_property_default()(target, _toPropertyKey(descriptor.key), descriptor); } }
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); define_property_default()(Constructor, "prototype", { writable: false }); return Constructor; }
-function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : String(i); }
+function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
 function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[(to_primitive_default())]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 /**
  * Represents an enumerated type.
@@ -62964,7 +62964,7 @@ var OnmsEnum = /*#__PURE__*/function () {
   }
 
   /** convert this enum to a string suitable for display */
-  _createClass(OnmsEnum, [{
+  return _createClass(OnmsEnum, [{
     key: "id",
     get: /** the internal index/id */
 
@@ -63012,7 +63012,6 @@ var OnmsEnum = /*#__PURE__*/function () {
       };
     }
   }]);
-  return OnmsEnum;
 }();
 
 /** convenience function for implementing id-based lookup in enums */
@@ -63065,13 +63064,13 @@ function Operator_defineProperties(target, props) { for (var i = 0; i < props.le
 function Operator_createClass(Constructor, protoProps, staticProps) { if (protoProps) Operator_defineProperties(Constructor.prototype, protoProps); if (staticProps) Operator_defineProperties(Constructor, staticProps); define_property_default()(Constructor, "prototype", { writable: false }); return Constructor; }
 function _callSuper(t, o, e) { return o = _getPrototypeOf(o), _possibleConstructorReturn(t, _isNativeReflectConstruct() ? construct_default()(o, e || [], _getPrototypeOf(t).constructor) : o.apply(t, e)); }
 function _possibleConstructorReturn(self, call) { if (call && (Operator_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return _assertThisInitialized(self); }
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 function _isNativeReflectConstruct() { try { var t = !Boolean.prototype.valueOf.call(construct_default()(Boolean, [], function () {})); } catch (t) {} return (_isNativeReflectConstruct = function _isNativeReflectConstruct() { return !!t; })(); }
 function _getPrototypeOf(o) { var _context3; _getPrototypeOf = (set_prototype_of_default()) ? bind_default()(_context3 = (get_prototype_of_default())).call(_context3) : function _getPrototypeOf(o) { return o.__proto__ || get_prototype_of_default()(o); }; return _getPrototypeOf(o); }
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = create_default()(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); define_property_default()(subClass, "prototype", { writable: false }); if (superClass) _setPrototypeOf(subClass, superClass); }
 function _setPrototypeOf(o, p) { var _context2; _setPrototypeOf = (set_prototype_of_default()) ? bind_default()(_context2 = (set_prototype_of_default())).call(_context2) : function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 function _defineProperty(obj, key, value) { key = Operator_toPropertyKey(key); if (key in obj) { define_property_default()(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-function Operator_toPropertyKey(t) { var i = Operator_toPrimitive(t, "string"); return "symbol" == Operator_typeof(i) ? i : String(i); }
+function Operator_toPropertyKey(t) { var i = Operator_toPrimitive(t, "string"); return "symbol" == Operator_typeof(i) ? i : i + ""; }
 function Operator_toPrimitive(t, r) { if ("object" != Operator_typeof(t) || !t) return t; var e = t[(to_primitive_default())]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != Operator_typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 
 
@@ -63080,13 +63079,12 @@ function Operator_toPrimitive(t, r) { if ("object" != Operator_typeof(t) || !t) 
  * @category Filtering
  */
 var Operator = /*#__PURE__*/function (_OnmsEnum) {
-  _inherits(Operator, _OnmsEnum);
   function Operator(id, label) {
     var _this;
     Operator_classCallCheck(this, Operator);
     _this = _callSuper(this, Operator, [id, label]);
     /** Aliases for the command-line. */
-    _defineProperty(_assertThisInitialized(_this), "aliases", []);
+    _defineProperty(_this, "aliases", []);
     for (var _len = arguments.length, aliases = new Array(_len > 2 ? _len - 2 : 0), _key = 2; _key < _len; _key++) {
       aliases[_key - 2] = arguments[_key];
     }
@@ -63095,7 +63093,8 @@ var Operator = /*#__PURE__*/function (_OnmsEnum) {
   }
 
   /** Whether this comparator matches the given comparator string. */
-  Operator_createClass(Operator, [{
+  _inherits(Operator, _OnmsEnum);
+  return Operator_createClass(Operator, [{
     key: "matches",
     value: function matches(comparator) {
       var _context;
@@ -63108,7 +63107,6 @@ var Operator = /*#__PURE__*/function (_OnmsEnum) {
       return OnmsEnum_forLabel(Operators, label);
     }
   }]);
-  return Operator;
 }(OnmsEnum);
 
 /* eslint-disable  */
@@ -63157,13 +63155,13 @@ function Comparator_defineProperties(target, props) { for (var i = 0; i < props.
 function Comparator_createClass(Constructor, protoProps, staticProps) { if (protoProps) Comparator_defineProperties(Constructor.prototype, protoProps); if (staticProps) Comparator_defineProperties(Constructor, staticProps); define_property_default()(Constructor, "prototype", { writable: false }); return Constructor; }
 function Comparator_callSuper(t, o, e) { return o = Comparator_getPrototypeOf(o), Comparator_possibleConstructorReturn(t, Comparator_isNativeReflectConstruct() ? construct_default()(o, e || [], Comparator_getPrototypeOf(t).constructor) : o.apply(t, e)); }
 function Comparator_possibleConstructorReturn(self, call) { if (call && (Comparator_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return Comparator_assertThisInitialized(self); }
+function Comparator_assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 function Comparator_isNativeReflectConstruct() { try { var t = !Boolean.prototype.valueOf.call(construct_default()(Boolean, [], function () {})); } catch (t) {} return (Comparator_isNativeReflectConstruct = function _isNativeReflectConstruct() { return !!t; })(); }
 function Comparator_getPrototypeOf(o) { var _context3; Comparator_getPrototypeOf = (set_prototype_of_default()) ? bind_default()(_context3 = (get_prototype_of_default())).call(_context3) : function _getPrototypeOf(o) { return o.__proto__ || get_prototype_of_default()(o); }; return Comparator_getPrototypeOf(o); }
-function Comparator_assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 function Comparator_inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = create_default()(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); define_property_default()(subClass, "prototype", { writable: false }); if (superClass) Comparator_setPrototypeOf(subClass, superClass); }
 function Comparator_setPrototypeOf(o, p) { var _context2; Comparator_setPrototypeOf = (set_prototype_of_default()) ? bind_default()(_context2 = (set_prototype_of_default())).call(_context2) : function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return Comparator_setPrototypeOf(o, p); }
 function Comparator_defineProperty(obj, key, value) { key = Comparator_toPropertyKey(key); if (key in obj) { define_property_default()(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-function Comparator_toPropertyKey(t) { var i = Comparator_toPrimitive(t, "string"); return "symbol" == Comparator_typeof(i) ? i : String(i); }
+function Comparator_toPropertyKey(t) { var i = Comparator_toPrimitive(t, "string"); return "symbol" == Comparator_typeof(i) ? i : i + ""; }
 function Comparator_toPrimitive(t, r) { if ("object" != Comparator_typeof(t) || !t) return t; var e = t[(to_primitive_default())]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != Comparator_typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 
 
@@ -63172,13 +63170,12 @@ function Comparator_toPrimitive(t, r) { if ("object" != Comparator_typeof(t) || 
  * @category Filtering
  */
 var Comparator = /*#__PURE__*/function (_OnmsEnum) {
-  Comparator_inherits(Comparator, _OnmsEnum);
   function Comparator(id, label) {
     var _this;
     Comparator_classCallCheck(this, Comparator);
     _this = Comparator_callSuper(this, Comparator, [id, label]);
     /** Aliases for the command-line. */
-    Comparator_defineProperty(Comparator_assertThisInitialized(_this), "aliases", []);
+    Comparator_defineProperty(_this, "aliases", []);
     for (var _len = arguments.length, aliases = new Array(_len > 2 ? _len - 2 : 0), _key = 2; _key < _len; _key++) {
       aliases[_key - 2] = arguments[_key];
     }
@@ -63187,7 +63184,8 @@ var Comparator = /*#__PURE__*/function (_OnmsEnum) {
   }
 
   /** Whether this comparator matches the given comparator string. */
-  Comparator_createClass(Comparator, [{
+  Comparator_inherits(Comparator, _OnmsEnum);
+  return Comparator_createClass(Comparator, [{
     key: "matches",
     value: function matches(comparator) {
       var _context;
@@ -63208,7 +63206,6 @@ var Comparator = /*#__PURE__*/function (_OnmsEnum) {
       return null;
     }
   }]);
-  return Comparator;
 }(OnmsEnum);
 
 /* eslint-disable */
@@ -63266,7 +63263,7 @@ function Log_classCallCheck(instance, Constructor) { if (!(instance instanceof C
 function Log_defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; define_property_default()(target, Log_toPropertyKey(descriptor.key), descriptor); } }
 function Log_createClass(Constructor, protoProps, staticProps) { if (protoProps) Log_defineProperties(Constructor.prototype, protoProps); if (staticProps) Log_defineProperties(Constructor, staticProps); define_property_default()(Constructor, "prototype", { writable: false }); return Constructor; }
 function Log_defineProperty(obj, key, value) { key = Log_toPropertyKey(key); if (key in obj) { define_property_default()(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-function Log_toPropertyKey(t) { var i = Log_toPrimitive(t, "string"); return "symbol" == Log_typeof(i) ? i : String(i); }
+function Log_toPropertyKey(t) { var i = Log_toPrimitive(t, "string"); return "symbol" == Log_typeof(i) ? i : i + ""; }
 function Log_toPrimitive(t, r) { if ("object" != Log_typeof(t) || !t) return t; var e = t[(to_primitive_default())]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != Log_typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 
 
@@ -63302,7 +63299,7 @@ var Logger = /*#__PURE__*/function () {
     /** The actual "console" implementation to use. */
     Log_defineProperty(this, "impl", console);
   }
-  Log_createClass(Logger, [{
+  return Log_createClass(Logger, [{
     key: "clear",
     value:
     /**
@@ -63476,7 +63473,6 @@ var Logger = /*#__PURE__*/function () {
       this._silent = true;
     }
   }]);
-  return Logger;
 }();
 
 /**
@@ -63504,7 +63500,7 @@ function Restriction_typeof(o) { "@babel/helpers - typeof"; return Restriction_t
 function Restriction_classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 function Restriction_defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; define_property_default()(target, Restriction_toPropertyKey(descriptor.key), descriptor); } }
 function Restriction_createClass(Constructor, protoProps, staticProps) { if (protoProps) Restriction_defineProperties(Constructor.prototype, protoProps); if (staticProps) Restriction_defineProperties(Constructor, staticProps); define_property_default()(Constructor, "prototype", { writable: false }); return Constructor; }
-function Restriction_toPropertyKey(t) { var i = Restriction_toPrimitive(t, "string"); return "symbol" == Restriction_typeof(i) ? i : String(i); }
+function Restriction_toPropertyKey(t) { var i = Restriction_toPrimitive(t, "string"); return "symbol" == Restriction_typeof(i) ? i : i + ""; }
 function Restriction_toPrimitive(t, r) { if ("object" != Restriction_typeof(t) || !t) return t; var e = t[(to_primitive_default())]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != Restriction_typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 
 
@@ -63528,7 +63524,7 @@ var Restriction = /*#__PURE__*/function () {
   }
 
   /** A human-readable string for this restriction. */
-  Restriction_createClass(Restriction, [{
+  return Restriction_createClass(Restriction, [{
     key: "toString",
     value: function toString() {
       return this.attribute + ' ' + this.comparator.label + (this.value === undefined ? '' : ' ' + this.value);
@@ -63572,7 +63568,6 @@ var Restriction = /*#__PURE__*/function () {
 
     /** The value to compare the attribute property to. */
   }]);
-  return Restriction;
 }();
 // EXTERNAL MODULE: ./node_modules/@babel/runtime-corejs3/core-js-stable/instance/for-each.js
 var for_each = __webpack_require__("./node_modules/@babel/runtime-corejs3/core-js-stable/instance/for-each.js");
@@ -63588,7 +63583,7 @@ function NestedRestriction_typeof(o) { "@babel/helpers - typeof"; return NestedR
 function NestedRestriction_classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 function NestedRestriction_defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; define_property_default()(target, NestedRestriction_toPropertyKey(descriptor.key), descriptor); } }
 function NestedRestriction_createClass(Constructor, protoProps, staticProps) { if (protoProps) NestedRestriction_defineProperties(Constructor.prototype, protoProps); if (staticProps) NestedRestriction_defineProperties(Constructor, staticProps); define_property_default()(Constructor, "prototype", { writable: false }); return Constructor; }
-function NestedRestriction_toPropertyKey(t) { var i = NestedRestriction_toPrimitive(t, "string"); return "symbol" == NestedRestriction_typeof(i) ? i : String(i); }
+function NestedRestriction_toPropertyKey(t) { var i = NestedRestriction_toPrimitive(t, "string"); return "symbol" == NestedRestriction_typeof(i) ? i : i + ""; }
 function NestedRestriction_toPrimitive(t, r) { if ("object" != NestedRestriction_typeof(t) || !t) return t; var e = t[(to_primitive_default())]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != NestedRestriction_typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 
 
@@ -63606,7 +63601,7 @@ var NestedRestriction = /*#__PURE__*/function () {
   }
 
   /** Adds an additional restriction using the logical OR operator. */
-  NestedRestriction_createClass(NestedRestriction, [{
+  return NestedRestriction_createClass(NestedRestriction, [{
     key: "withOrRestriction",
     value: function withOrRestriction(restriction) {
       return this.withClause(new Clause(restriction, Operators.OR));
@@ -63645,7 +63640,6 @@ var NestedRestriction = /*#__PURE__*/function () {
 
     /** The clauses containing the nested restrictions and their logical operators. */
   }]);
-  return NestedRestriction;
 }();
 ;// CONCATENATED MODULE: ./src/api/Clause.ts
 
@@ -63657,7 +63651,7 @@ function Clause_typeof(o) { "@babel/helpers - typeof"; return Clause_typeof = "f
 function Clause_classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 function Clause_defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; define_property_default()(target, Clause_toPropertyKey(descriptor.key), descriptor); } }
 function Clause_createClass(Constructor, protoProps, staticProps) { if (protoProps) Clause_defineProperties(Constructor.prototype, protoProps); if (staticProps) Clause_defineProperties(Constructor, staticProps); define_property_default()(Constructor, "prototype", { writable: false }); return Constructor; }
-function Clause_toPropertyKey(t) { var i = Clause_toPrimitive(t, "string"); return "symbol" == Clause_typeof(i) ? i : String(i); }
+function Clause_toPropertyKey(t) { var i = Clause_toPrimitive(t, "string"); return "symbol" == Clause_typeof(i) ? i : i + ""; }
 function Clause_toPrimitive(t, r) { if ("object" != Clause_typeof(t) || !t) return t; var e = t[(to_primitive_default())]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != Clause_typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 
 
@@ -63673,7 +63667,7 @@ var Clause = /*#__PURE__*/function () {
     this.restriction = restriction;
     this.operator = operator;
   }
-  Clause_createClass(Clause, null, [{
+  return Clause_createClass(Clause, null, [{
     key: "fromJson",
     value: /** Given a clause JSON structure, return a Clause object. */
     function fromJson(clause) {
@@ -63691,7 +63685,6 @@ var Clause = /*#__PURE__*/function () {
 
     /** The boolean operator to apply. */
   }]);
-  return Clause;
 }();
 // EXTERNAL MODULE: ./node_modules/@babel/runtime-corejs3/core-js-stable/instance/concat.js
 var concat = __webpack_require__("./node_modules/@babel/runtime-corejs3/core-js-stable/instance/concat.js");
@@ -63716,7 +63709,7 @@ function OrderBy_typeof(o) { "@babel/helpers - typeof"; return OrderBy_typeof = 
 function OrderBy_classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 function OrderBy_defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; define_property_default()(target, OrderBy_toPropertyKey(descriptor.key), descriptor); } }
 function OrderBy_createClass(Constructor, protoProps, staticProps) { if (protoProps) OrderBy_defineProperties(Constructor.prototype, protoProps); if (staticProps) OrderBy_defineProperties(Constructor, staticProps); define_property_default()(Constructor, "prototype", { writable: false }); return Constructor; }
-function OrderBy_toPropertyKey(t) { var i = OrderBy_toPrimitive(t, "string"); return "symbol" == OrderBy_typeof(i) ? i : String(i); }
+function OrderBy_toPropertyKey(t) { var i = OrderBy_toPrimitive(t, "string"); return "symbol" == OrderBy_typeof(i) ? i : i + ""; }
 function OrderBy_toPrimitive(t, r) { if ("object" != OrderBy_typeof(t) || !t) return t; var e = t[(to_primitive_default())]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != OrderBy_typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 function OrderBy_callSuper(t, o, e) { return o = OrderBy_getPrototypeOf(o), OrderBy_possibleConstructorReturn(t, OrderBy_isNativeReflectConstruct() ? construct_default()(o, e || [], OrderBy_getPrototypeOf(t).constructor) : o.apply(t, e)); }
 function OrderBy_possibleConstructorReturn(self, call) { if (call && (OrderBy_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return OrderBy_assertThisInitialized(self); }
@@ -63735,12 +63728,12 @@ function OrderBy_setPrototypeOf(o, p) { var _context; OrderBy_setPrototypeOf = (
  * @category Filtering
  */
 var Order = /*#__PURE__*/function (_OnmsEnum) {
-  OrderBy_inherits(Order, _OnmsEnum);
   function Order() {
     OrderBy_classCallCheck(this, Order);
     return OrderBy_callSuper(this, Order, arguments);
   }
-  OrderBy_createClass(Order, [{
+  OrderBy_inherits(Order, _OnmsEnum);
+  return OrderBy_createClass(Order, [{
     key: "matches",
     value: /** Whether this order matches the given order string. */
     function matches(label) {
@@ -63765,7 +63758,6 @@ var Order = /*#__PURE__*/function (_OnmsEnum) {
       return Order.forLabel(chunks[1]);
     }
   }]);
-  return Order;
 }(OnmsEnum);
 
 /**
@@ -63788,7 +63780,7 @@ var OrderBy = /*#__PURE__*/function () {
     this.attribute = attribute;
     this.order = order || Orders.ASC;
   }
-  OrderBy_createClass(OrderBy, null, [{
+  return OrderBy_createClass(OrderBy, null, [{
     key: "fromJson",
     value: /** given an OrderBy JSON structure, return an [[OrderBy]] object */
     function fromJson(orderBy) {
@@ -63814,7 +63806,6 @@ var OrderBy = /*#__PURE__*/function () {
 
     /** the order to sort */
   }]);
-  return OrderBy;
 }();
 ;// CONCATENATED MODULE: ./src/api/Filter.ts
 
@@ -63835,13 +63826,13 @@ function Filter_defineProperties(target, props) { for (var i = 0; i < props.leng
 function Filter_createClass(Constructor, protoProps, staticProps) { if (protoProps) Filter_defineProperties(Constructor.prototype, protoProps); if (staticProps) Filter_defineProperties(Constructor, staticProps); define_property_default()(Constructor, "prototype", { writable: false }); return Constructor; }
 function Filter_callSuper(t, o, e) { return o = Filter_getPrototypeOf(o), Filter_possibleConstructorReturn(t, Filter_isNativeReflectConstruct() ? construct_default()(o, e || [], Filter_getPrototypeOf(t).constructor) : o.apply(t, e)); }
 function Filter_possibleConstructorReturn(self, call) { if (call && (Filter_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return Filter_assertThisInitialized(self); }
+function Filter_assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 function Filter_isNativeReflectConstruct() { try { var t = !Boolean.prototype.valueOf.call(construct_default()(Boolean, [], function () {})); } catch (t) {} return (Filter_isNativeReflectConstruct = function _isNativeReflectConstruct() { return !!t; })(); }
 function Filter_getPrototypeOf(o) { var _context4; Filter_getPrototypeOf = (set_prototype_of_default()) ? bind_default()(_context4 = (get_prototype_of_default())).call(_context4) : function _getPrototypeOf(o) { return o.__proto__ || get_prototype_of_default()(o); }; return Filter_getPrototypeOf(o); }
-function Filter_assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 function Filter_inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = create_default()(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); define_property_default()(subClass, "prototype", { writable: false }); if (superClass) Filter_setPrototypeOf(subClass, superClass); }
 function Filter_setPrototypeOf(o, p) { var _context3; Filter_setPrototypeOf = (set_prototype_of_default()) ? bind_default()(_context3 = (set_prototype_of_default())).call(_context3) : function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return Filter_setPrototypeOf(o, p); }
 function Filter_defineProperty(obj, key, value) { key = Filter_toPropertyKey(key); if (key in obj) { define_property_default()(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-function Filter_toPropertyKey(t) { var i = Filter_toPrimitive(t, "string"); return "symbol" == Filter_typeof(i) ? i : String(i); }
+function Filter_toPropertyKey(t) { var i = Filter_toPrimitive(t, "string"); return "symbol" == Filter_typeof(i) ? i : i + ""; }
 function Filter_toPrimitive(t, r) { if ("object" != Filter_typeof(t) || !t) return t; var e = t[(to_primitive_default())]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != Filter_typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 
 
@@ -63851,7 +63842,6 @@ function Filter_toPrimitive(t, r) { if ("object" != Filter_typeof(t) || !t) retu
  * @category Filtering
  */
 var Filter = /*#__PURE__*/function (_NestedRestriction) {
-  Filter_inherits(Filter, _NestedRestriction);
   function Filter() {
     var _context;
     var _this;
@@ -63861,12 +63851,13 @@ var Filter = /*#__PURE__*/function (_NestedRestriction) {
     }
     _this = Filter_callSuper(this, Filter, concat_default()(_context = []).call(_context, args));
     /** how many results to get back by default */
-    Filter_defineProperty(Filter_assertThisInitialized(_this), "limit", 1000);
+    Filter_defineProperty(_this, "limit", 1000);
     /** how to sort results */
-    Filter_defineProperty(Filter_assertThisInitialized(_this), "orderBy", []);
+    Filter_defineProperty(_this, "orderBy", []);
     return _this;
   }
-  Filter_createClass(Filter, [{
+  Filter_inherits(Filter, _NestedRestriction);
+  return Filter_createClass(Filter, [{
     key: "withOrderBy",
     value: /** Add the given order criteria to the filter. */
     function withOrderBy(order) {
@@ -63892,7 +63883,6 @@ var Filter = /*#__PURE__*/function (_NestedRestriction) {
       return newFilter;
     }
   }]);
-  return Filter;
 }(NestedRestriction);
 ;// CONCATENATED MODULE: ./src/api/OnmsAuthConfig.ts
 
@@ -63905,7 +63895,7 @@ function OnmsAuthConfig_typeof(o) { "@babel/helpers - typeof"; return OnmsAuthCo
 function OnmsAuthConfig_classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 function OnmsAuthConfig_defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; define_property_default()(target, OnmsAuthConfig_toPropertyKey(descriptor.key), descriptor); } }
 function OnmsAuthConfig_createClass(Constructor, protoProps, staticProps) { if (protoProps) OnmsAuthConfig_defineProperties(Constructor.prototype, protoProps); if (staticProps) OnmsAuthConfig_defineProperties(Constructor, staticProps); define_property_default()(Constructor, "prototype", { writable: false }); return Constructor; }
-function OnmsAuthConfig_toPropertyKey(t) { var i = OnmsAuthConfig_toPrimitive(t, "string"); return "symbol" == OnmsAuthConfig_typeof(i) ? i : String(i); }
+function OnmsAuthConfig_toPropertyKey(t) { var i = OnmsAuthConfig_toPrimitive(t, "string"); return "symbol" == OnmsAuthConfig_typeof(i) ? i : i + ""; }
 function OnmsAuthConfig_toPrimitive(t, r) { if ("object" != OnmsAuthConfig_typeof(t) || !t) return t; var e = t[(to_primitive_default())]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != OnmsAuthConfig_typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 /**
  * Represents server authentication config.
@@ -63930,7 +63920,7 @@ var OnmsAuthConfig = /*#__PURE__*/function () {
   /**
    * Whether this auth object is the same as another.
    */
-  OnmsAuthConfig_createClass(OnmsAuthConfig, [{
+  return OnmsAuthConfig_createClass(OnmsAuthConfig, [{
     key: "equals",
     value: function equals(that) {
       return that && this.username === that.username && this.password === that.password;
@@ -63945,7 +63935,6 @@ var OnmsAuthConfig = /*#__PURE__*/function () {
       return new OnmsAuthConfig(this.username, this.password);
     }
   }]);
-  return OnmsAuthConfig;
 }();
 // EXTERNAL MODULE: ./node_modules/@babel/runtime-corejs3/core-js-stable/map.js
 var core_js_stable_map = __webpack_require__("./node_modules/@babel/runtime-corejs3/core-js-stable/map.js");
@@ -63976,7 +63965,7 @@ function OnmsError_typeof(o) { "@babel/helpers - typeof"; return OnmsError_typeo
 function OnmsError_classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 function OnmsError_defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; define_property_default()(target, OnmsError_toPropertyKey(descriptor.key), descriptor); } }
 function OnmsError_createClass(Constructor, protoProps, staticProps) { if (protoProps) OnmsError_defineProperties(Constructor.prototype, protoProps); if (staticProps) OnmsError_defineProperties(Constructor, staticProps); define_property_default()(Constructor, "prototype", { writable: false }); return Constructor; }
-function OnmsError_toPropertyKey(t) { var i = OnmsError_toPrimitive(t, "string"); return "symbol" == OnmsError_typeof(i) ? i : String(i); }
+function OnmsError_toPropertyKey(t) { var i = OnmsError_toPrimitive(t, "string"); return "symbol" == OnmsError_typeof(i) ? i : i + ""; }
 function OnmsError_toPrimitive(t, r) { if ("object" != OnmsError_typeof(t) || !t) return t; var e = t[(to_primitive_default())]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != OnmsError_typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 function OnmsError_callSuper(t, o, e) { return o = OnmsError_getPrototypeOf(o), OnmsError_possibleConstructorReturn(t, OnmsError_isNativeReflectConstruct() ? construct_default()(o, e || [], OnmsError_getPrototypeOf(t).constructor) : o.apply(t, e)); }
 function OnmsError_possibleConstructorReturn(self, call) { if (call && (OnmsError_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return OnmsError_assertThisInitialized(self); }
@@ -63993,7 +63982,6 @@ function OnmsError_getPrototypeOf(o) { var _context; OnmsError_getPrototypeOf = 
  * @category Internal
  */
 var OnmsError = /*#__PURE__*/function (_Error) {
-  OnmsError_inherits(OnmsError, _Error);
   /**
    * Create a new error.
    * @constructor
@@ -64009,19 +63997,20 @@ var OnmsError = /*#__PURE__*/function (_Error) {
     _this.data = data;
     _this.options = options;
     if (typeof Error.captureStackTrace === 'function') {
-      Error.captureStackTrace(OnmsError_assertThisInitialized(_this), _this.constructor);
+      Error.captureStackTrace(_this, _this.constructor);
     } else {
       _this.stack = new Error(message).stack;
     }
     // workaround, see http://bit.ly/2vllGdD
-    set_prototype_of_default()(OnmsError_assertThisInitialized(_this), OnmsError.prototype);
+    set_prototype_of_default()(_this, OnmsError.prototype);
     return _this;
   }
 
   /**
    * Returns a string representation of this error.
    */
-  OnmsError_createClass(OnmsError, [{
+  OnmsError_inherits(OnmsError, _Error);
+  return OnmsError_createClass(OnmsError, [{
     key: "code",
     get:
     /**
@@ -64051,7 +64040,6 @@ var OnmsError = /*#__PURE__*/function (_Error) {
       }
     }
   }]);
-  return OnmsError;
 }( /*#__PURE__*/_wrapNativeSuper(Error));
 // EXTERNAL MODULE: ./node_modules/@babel/runtime-corejs3/core-js-stable/symbol/for.js
 var symbol_for = __webpack_require__("./node_modules/@babel/runtime-corejs3/core-js-stable/symbol/for.js");
@@ -64076,7 +64064,7 @@ function Util_typeof(o) { "@babel/helpers - typeof"; return Util_typeof = "funct
 function Util_classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 function Util_defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; define_property_default()(target, Util_toPropertyKey(descriptor.key), descriptor); } }
 function Util_createClass(Constructor, protoProps, staticProps) { if (protoProps) Util_defineProperties(Constructor.prototype, protoProps); if (staticProps) Util_defineProperties(Constructor, staticProps); define_property_default()(Constructor, "prototype", { writable: false }); return Constructor; }
-function Util_toPropertyKey(t) { var i = Util_toPrimitive(t, "string"); return "symbol" == Util_typeof(i) ? i : String(i); }
+function Util_toPropertyKey(t) { var i = Util_toPrimitive(t, "string"); return "symbol" == Util_typeof(i) ? i : i + ""; }
 function Util_toPrimitive(t, r) { if ("object" != Util_typeof(t) || !t) return t; var e = t[(to_primitive_default())]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != Util_typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 
 
@@ -64096,7 +64084,7 @@ var Util = /*#__PURE__*/function () {
   function Util() {
     Util_classCallCheck(this, Util);
   }
-  Util_createClass(Util, null, [{
+  return Util_createClass(Util, null, [{
     key: "toIPAddress",
     value:
     /**
@@ -64217,7 +64205,6 @@ var Util = /*#__PURE__*/function () {
       return isNaN(ret) ? undefined : ret;
     }
   }]);
-  return Util;
 }();
 // EXTERNAL MODULE: ./node_modules/lodash/cloneDeep.js
 var cloneDeep = __webpack_require__("./node_modules/lodash/cloneDeep.js");
@@ -64229,7 +64216,7 @@ function OnmsHTTPOptions_classCallCheck(instance, Constructor) { if (!(instance 
 function OnmsHTTPOptions_defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; define_property_default()(target, OnmsHTTPOptions_toPropertyKey(descriptor.key), descriptor); } }
 function OnmsHTTPOptions_createClass(Constructor, protoProps, staticProps) { if (protoProps) OnmsHTTPOptions_defineProperties(Constructor.prototype, protoProps); if (staticProps) OnmsHTTPOptions_defineProperties(Constructor, staticProps); define_property_default()(Constructor, "prototype", { writable: false }); return Constructor; }
 function OnmsHTTPOptions_defineProperty(obj, key, value) { key = OnmsHTTPOptions_toPropertyKey(key); if (key in obj) { define_property_default()(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-function OnmsHTTPOptions_toPropertyKey(t) { var i = OnmsHTTPOptions_toPrimitive(t, "string"); return "symbol" == OnmsHTTPOptions_typeof(i) ? i : String(i); }
+function OnmsHTTPOptions_toPropertyKey(t) { var i = OnmsHTTPOptions_toPrimitive(t, "string"); return "symbol" == OnmsHTTPOptions_typeof(i) ? i : i + ""; }
 function OnmsHTTPOptions_toPrimitive(t, r) { if ("object" != OnmsHTTPOptions_typeof(t) || !t) return t; var e = t[(to_primitive_default())]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != OnmsHTTPOptions_typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 
 
@@ -64292,7 +64279,7 @@ var OnmsHTTPOptionsBuilder = /*#__PURE__*/function () {
   }
 
   /** Build the [[OnmsHTTPOptions]] object. */
-  OnmsHTTPOptions_createClass(OnmsHTTPOptionsBuilder, [{
+  return OnmsHTTPOptions_createClass(OnmsHTTPOptionsBuilder, [{
     key: "build",
     value: function build() {
       return new OnmsHTTPOptions(this._timeout, this._server, this._auth, cloneDeep_default()(this._headers), cloneDeep_default()(this._parameters), this._data);
@@ -64508,7 +64495,6 @@ var OnmsHTTPOptionsBuilder = /*#__PURE__*/function () {
       return this;
     }
   }]);
-  return OnmsHTTPOptionsBuilder;
 }();
 /* eslint-enable @typescript-eslint/naming-convention, no-underscore-dangle, id-denylist, id-match */
 
@@ -64557,7 +64543,7 @@ var OnmsHTTPOptions = /*#__PURE__*/function () {
   /**
    * Convert the options to a plain JSON object.
    */
-  OnmsHTTPOptions_createClass(OnmsHTTPOptions, [{
+  return OnmsHTTPOptions_createClass(OnmsHTTPOptions, [{
     key: "timeout",
     get: /** How long to wait for ReST calls to time out. */
     function get() {
@@ -64602,7 +64588,6 @@ var OnmsHTTPOptions = /*#__PURE__*/function () {
       return new OnmsHTTPOptionsBuilder(options);
     }
   }]);
-  return OnmsHTTPOptions;
 }();
 ;// CONCATENATED MODULE: ./src/api/OnmsResult.ts
 
@@ -64614,7 +64599,7 @@ function OnmsResult_typeof(o) { "@babel/helpers - typeof"; return OnmsResult_typ
 function OnmsResult_classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 function OnmsResult_defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; define_property_default()(target, OnmsResult_toPropertyKey(descriptor.key), descriptor); } }
 function OnmsResult_createClass(Constructor, protoProps, staticProps) { if (protoProps) OnmsResult_defineProperties(Constructor.prototype, protoProps); if (staticProps) OnmsResult_defineProperties(Constructor, staticProps); define_property_default()(Constructor, "prototype", { writable: false }); return Constructor; }
-function OnmsResult_toPropertyKey(t) { var i = OnmsResult_toPrimitive(t, "string"); return "symbol" == OnmsResult_typeof(i) ? i : String(i); }
+function OnmsResult_toPropertyKey(t) { var i = OnmsResult_toPrimitive(t, "string"); return "symbol" == OnmsResult_typeof(i) ? i : i + ""; }
 function OnmsResult_toPrimitive(t, r) { if ("object" != OnmsResult_typeof(t) || !t) return t; var e = t[(to_primitive_default())]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != OnmsResult_typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 /**
  * An [[IOnmsHTTP]] query result.
@@ -64637,7 +64622,7 @@ var OnmsResult = /*#__PURE__*/function () {
   }
 
   /** Whether this result is considered successful. */
-  OnmsResult_createClass(OnmsResult, [{
+  return OnmsResult_createClass(OnmsResult, [{
     key: "isSuccess",
     value: function isSuccess() {
       return this.code === 200 || this.code === 202 || this.code === 204;
@@ -64665,7 +64650,6 @@ var OnmsResult = /*#__PURE__*/function () {
 
     /** The response code associated with this result. */
   }]);
-  return OnmsResult;
 }();
 ;// CONCATENATED MODULE: ./src/api/ServerType.ts
 
@@ -64682,7 +64666,7 @@ function ServerType_typeof(o) { "@babel/helpers - typeof"; return ServerType_typ
 
 function ServerType_defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; define_property_default()(target, ServerType_toPropertyKey(descriptor.key), descriptor); } }
 function ServerType_createClass(Constructor, protoProps, staticProps) { if (protoProps) ServerType_defineProperties(Constructor.prototype, protoProps); if (staticProps) ServerType_defineProperties(Constructor, staticProps); define_property_default()(Constructor, "prototype", { writable: false }); return Constructor; }
-function ServerType_toPropertyKey(t) { var i = ServerType_toPrimitive(t, "string"); return "symbol" == ServerType_typeof(i) ? i : String(i); }
+function ServerType_toPropertyKey(t) { var i = ServerType_toPrimitive(t, "string"); return "symbol" == ServerType_typeof(i) ? i : i + ""; }
 function ServerType_toPrimitive(t, r) { if ("object" != ServerType_typeof(t) || !t) return t; var e = t[(to_primitive_default())]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != ServerType_typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 function ServerType_classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 function ServerType_callSuper(t, o, e) { return o = ServerType_getPrototypeOf(o), ServerType_possibleConstructorReturn(t, ServerType_isNativeReflectConstruct() ? construct_default()(o, e || [], ServerType_getPrototypeOf(t).constructor) : o.apply(t, e)); }
@@ -64699,11 +64683,11 @@ function ServerType_setPrototypeOf(o, p) { var _context; ServerType_setPrototype
  * @category Rest
  */
 var ServerType = /*#__PURE__*/function (_OnmsEnum) {
-  ServerType_inherits(ServerType, _OnmsEnum);
   function ServerType() {
     ServerType_classCallCheck(this, ServerType);
     return ServerType_callSuper(this, ServerType, arguments);
   }
+  ServerType_inherits(ServerType, _OnmsEnum);
   return ServerType_createClass(ServerType);
 }(OnmsEnum);
 
@@ -64735,7 +64719,7 @@ function OnmsServer_typeof(o) { "@babel/helpers - typeof"; return OnmsServer_typ
 function OnmsServer_classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 function OnmsServer_defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; define_property_default()(target, OnmsServer_toPropertyKey(descriptor.key), descriptor); } }
 function OnmsServer_createClass(Constructor, protoProps, staticProps) { if (protoProps) OnmsServer_defineProperties(Constructor.prototype, protoProps); if (staticProps) OnmsServer_defineProperties(Constructor, staticProps); define_property_default()(Constructor, "prototype", { writable: false }); return Constructor; }
-function OnmsServer_toPropertyKey(t) { var i = OnmsServer_toPrimitive(t, "string"); return "symbol" == OnmsServer_typeof(i) ? i : String(i); }
+function OnmsServer_toPropertyKey(t) { var i = OnmsServer_toPrimitive(t, "string"); return "symbol" == OnmsServer_typeof(i) ? i : i + ""; }
 function OnmsServer_toPrimitive(t, r) { if ("object" != OnmsServer_typeof(t) || !t) return t; var e = t[(to_primitive_default())]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != OnmsServer_typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 /* eslint-disable max-classes-per-file */
 
@@ -64768,7 +64752,7 @@ var OnmsServerBuilder = /*#__PURE__*/function () {
   }
 
   /** Build the [[OnmsServer]] object. */
-  OnmsServer_createClass(OnmsServerBuilder, [{
+  return OnmsServer_createClass(OnmsServerBuilder, [{
     key: "build",
     value: function build() {
       return new OnmsServer(this);
@@ -64846,7 +64830,6 @@ var OnmsServerBuilder = /*#__PURE__*/function () {
       return this._metadata;
     }
   }]);
-  return OnmsServerBuilder;
 }();
 /* eslint-enable , @typescript-eslint/naming-convention,no-underscore-dangle,id-denylist,id-match,  */
 
@@ -64888,7 +64871,7 @@ var OnmsServer = /*#__PURE__*/function () {
    * @parm withQuery - Query parameters to be appended to the URL.
    * @returns A complete URL.
    */
-  OnmsServer_createClass(OnmsServer, [{
+  return OnmsServer_createClass(OnmsServer, [{
     key: "resolveURL",
     value: function resolveURL(forFragment, withQuery) {
       if (!this.url) {
@@ -64972,7 +64955,6 @@ var OnmsServer = /*#__PURE__*/function () {
 
     /** The capabilities of the server */
   }]);
-  return OnmsServer;
 }();
 // EXTERNAL MODULE: ./node_modules/version_compare/version_compare.js
 var version_compare = __webpack_require__("./node_modules/version_compare/version_compare.js");
@@ -64986,7 +64968,7 @@ function OnmsVersion_typeof(o) { "@babel/helpers - typeof"; return OnmsVersion_t
 function OnmsVersion_classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 function OnmsVersion_defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; define_property_default()(target, OnmsVersion_toPropertyKey(descriptor.key), descriptor); } }
 function OnmsVersion_createClass(Constructor, protoProps, staticProps) { if (protoProps) OnmsVersion_defineProperties(Constructor.prototype, protoProps); if (staticProps) OnmsVersion_defineProperties(Constructor, staticProps); define_property_default()(Constructor, "prototype", { writable: false }); return Constructor; }
-function OnmsVersion_toPropertyKey(t) { var i = OnmsVersion_toPrimitive(t, "string"); return "symbol" == OnmsVersion_typeof(i) ? i : String(i); }
+function OnmsVersion_toPropertyKey(t) { var i = OnmsVersion_toPrimitive(t, "string"); return "symbol" == OnmsVersion_typeof(i) ? i : i + ""; }
 function OnmsVersion_toPrimitive(t, r) { if ("object" != OnmsVersion_typeof(t) || !t) return t; var e = t[(to_primitive_default())]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != OnmsVersion_typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 // @ts-ignore
 
@@ -65011,7 +64993,7 @@ var OnmsVersion = /*#__PURE__*/function () {
   /**
    * Returns true if this version is less than the passed version.
    */
-  OnmsVersion_createClass(OnmsVersion, [{
+  return OnmsVersion_createClass(OnmsVersion, [{
     key: "displayVersion",
     get:
     /**
@@ -65099,7 +65081,6 @@ var OnmsVersion = /*#__PURE__*/function () {
       return 'OnmsVersion[version=' + this.version + ',displayVersion=' + this.displayVersion + ']';
     }
   }]);
-  return OnmsVersion;
 }();
 // EXTERNAL MODULE: ./node_modules/@babel/runtime-corejs3/core-js-stable/promise.js
 var promise = __webpack_require__("./node_modules/@babel/runtime-corejs3/core-js-stable/promise.js");
@@ -65123,13 +65104,13 @@ var reverse_default = /*#__PURE__*/__webpack_require__.n(reverse);
 
 
 function SearchProperty_typeof(o) { "@babel/helpers - typeof"; return SearchProperty_typeof = "function" == typeof (symbol_default()) && "symbol" == typeof (iterator_default()) ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof (symbol_default()) && o.constructor === (symbol_default()) && o !== (symbol_default()).prototype ? "symbol" : typeof o; }, SearchProperty_typeof(o); }
-function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return e; }; var t, e = {}, r = Object.prototype, n = r.hasOwnProperty, o = (define_property_default()) || function (t, e, r) { t[e] = r.value; }, i = "function" == typeof (symbol_default()) ? (symbol_default()) : {}, a = i.iterator || "@@iterator", c = i.asyncIterator || "@@asyncIterator", u = i.toStringTag || "@@toStringTag"; function define(t, e, r) { return define_property_default()(t, e, { value: r, enumerable: !0, configurable: !0, writable: !0 }), t[e]; } try { define({}, ""); } catch (t) { define = function define(t, e, r) { return t[e] = r; }; } function wrap(t, e, r, n) { var i = e && e.prototype instanceof Generator ? e : Generator, a = create_default()(i.prototype), c = new Context(n || []); return o(a, "_invoke", { value: makeInvokeMethod(t, r, c) }), a; } function tryCatch(t, e, r) { try { return { type: "normal", arg: t.call(e, r) }; } catch (t) { return { type: "throw", arg: t }; } } e.wrap = wrap; var h = "suspendedStart", l = "suspendedYield", f = "executing", s = "completed", y = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var p = {}; define(p, a, function () { return this; }); var d = (get_prototype_of_default()), v = d && d(d(values([]))); v && v !== r && n.call(v, a) && (p = v); var g = GeneratorFunctionPrototype.prototype = Generator.prototype = create_default()(p); function defineIteratorMethods(t) { var _context2; for_each_default()(_context2 = ["next", "throw", "return"]).call(_context2, function (e) { define(t, e, function (t) { return this._invoke(e, t); }); }); } function AsyncIterator(t, e) { function invoke(r, o, i, a) { var c = tryCatch(t[r], t, o); if ("throw" !== c.type) { var u = c.arg, h = u.value; return h && "object" == SearchProperty_typeof(h) && n.call(h, "__await") ? e.resolve(h.__await).then(function (t) { invoke("next", t, i, a); }, function (t) { invoke("throw", t, i, a); }) : e.resolve(h).then(function (t) { u.value = t, i(u); }, function (t) { return invoke("throw", t, i, a); }); } a(c.arg); } var r; o(this, "_invoke", { value: function value(t, n) { function callInvokeWithMethodAndArg() { return new e(function (e, r) { invoke(t, n, e, r); }); } return r = r ? r.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); } }); } function makeInvokeMethod(e, r, n) { var o = h; return function (i, a) { if (o === f) throw new Error("Generator is already running"); if (o === s) { if ("throw" === i) throw a; return { value: t, done: !0 }; } for (n.method = i, n.arg = a;;) { var c = n.delegate; if (c) { var u = maybeInvokeDelegate(c, n); if (u) { if (u === y) continue; return u; } } if ("next" === n.method) n.sent = n._sent = n.arg;else if ("throw" === n.method) { if (o === h) throw o = s, n.arg; n.dispatchException(n.arg); } else "return" === n.method && n.abrupt("return", n.arg); o = f; var p = tryCatch(e, r, n); if ("normal" === p.type) { if (o = n.done ? s : l, p.arg === y) continue; return { value: p.arg, done: n.done }; } "throw" === p.type && (o = s, n.method = "throw", n.arg = p.arg); } }; } function maybeInvokeDelegate(e, r) { var n = r.method, o = e.iterator[n]; if (o === t) return r.delegate = null, "throw" === n && e.iterator.return && (r.method = "return", r.arg = t, maybeInvokeDelegate(e, r), "throw" === r.method) || "return" !== n && (r.method = "throw", r.arg = new TypeError("The iterator does not provide a '" + n + "' method")), y; var i = tryCatch(o, e.iterator, r.arg); if ("throw" === i.type) return r.method = "throw", r.arg = i.arg, r.delegate = null, y; var a = i.arg; return a ? a.done ? (r[e.resultName] = a.value, r.next = e.nextLoc, "return" !== r.method && (r.method = "next", r.arg = t), r.delegate = null, y) : a : (r.method = "throw", r.arg = new TypeError("iterator result is not an object"), r.delegate = null, y); } function pushTryEntry(t) { var e = { tryLoc: t[0] }; 1 in t && (e.catchLoc = t[1]), 2 in t && (e.finallyLoc = t[2], e.afterLoc = t[3]), this.tryEntries.push(e); } function resetTryEntry(t) { var e = t.completion || {}; e.type = "normal", delete e.arg, t.completion = e; } function Context(t) { this.tryEntries = [{ tryLoc: "root" }], for_each_default()(t).call(t, pushTryEntry, this), this.reset(!0); } function values(e) { if (e || "" === e) { var r = e[a]; if (r) return r.call(e); if ("function" == typeof e.next) return e; if (!isNaN(e.length)) { var o = -1, i = function next() { for (; ++o < e.length;) if (n.call(e, o)) return next.value = e[o], next.done = !1, next; return next.value = t, next.done = !0, next; }; return i.next = i; } } throw new TypeError(SearchProperty_typeof(e) + " is not iterable"); } return GeneratorFunction.prototype = GeneratorFunctionPrototype, o(g, "constructor", { value: GeneratorFunctionPrototype, configurable: !0 }), o(GeneratorFunctionPrototype, "constructor", { value: GeneratorFunction, configurable: !0 }), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, u, "GeneratorFunction"), e.isGeneratorFunction = function (t) { var e = "function" == typeof t && t.constructor; return !!e && (e === GeneratorFunction || "GeneratorFunction" === (e.displayName || e.name)); }, e.mark = function (t) { return (set_prototype_of_default()) ? set_prototype_of_default()(t, GeneratorFunctionPrototype) : (t.__proto__ = GeneratorFunctionPrototype, define(t, u, "GeneratorFunction")), t.prototype = create_default()(g), t; }, e.awrap = function (t) { return { __await: t }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, c, function () { return this; }), e.AsyncIterator = AsyncIterator, e.async = function (t, r, n, o, i) { void 0 === i && (i = (promise_default())); var a = new AsyncIterator(wrap(t, r, n, o), i); return e.isGeneratorFunction(r) ? a : a.next().then(function (t) { return t.done ? t.value : a.next(); }); }, defineIteratorMethods(g), define(g, u, "Generator"), define(g, a, function () { return this; }), define(g, "toString", function () { return "[object Generator]"; }), e.keys = function (t) { var e = Object(t), r = []; for (var n in e) r.push(n); return reverse_default()(r).call(r), function next() { for (; r.length;) { var t = r.pop(); if (t in e) return next.value = t, next.done = !1, next; } return next.done = !0, next; }; }, e.values = values, Context.prototype = { constructor: Context, reset: function reset(e) { var _context3; if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = !1, this.delegate = null, this.method = "next", this.arg = t, for_each_default()(_context3 = this.tryEntries).call(_context3, resetTryEntry), !e) for (var r in this) "t" === r.charAt(0) && n.call(this, r) && !isNaN(+slice_default()(r).call(r, 1)) && (this[r] = t); }, stop: function stop() { this.done = !0; var t = this.tryEntries[0].completion; if ("throw" === t.type) throw t.arg; return this.rval; }, dispatchException: function dispatchException(e) { if (this.done) throw e; var r = this; function handle(n, o) { return a.type = "throw", a.arg = e, r.next = n, o && (r.method = "next", r.arg = t), !!o; } for (var o = this.tryEntries.length - 1; o >= 0; --o) { var i = this.tryEntries[o], a = i.completion; if ("root" === i.tryLoc) return handle("end"); if (i.tryLoc <= this.prev) { var c = n.call(i, "catchLoc"), u = n.call(i, "finallyLoc"); if (c && u) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } else if (c) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); } else { if (!u) throw new Error("try statement without catch or finally"); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } } } }, abrupt: function abrupt(t, e) { for (var r = this.tryEntries.length - 1; r >= 0; --r) { var o = this.tryEntries[r]; if (o.tryLoc <= this.prev && n.call(o, "finallyLoc") && this.prev < o.finallyLoc) { var i = o; break; } } i && ("break" === t || "continue" === t) && i.tryLoc <= e && e <= i.finallyLoc && (i = null); var a = i ? i.completion : {}; return a.type = t, a.arg = e, i ? (this.method = "next", this.next = i.finallyLoc, y) : this.complete(a); }, complete: function complete(t, e) { if ("throw" === t.type) throw t.arg; return "break" === t.type || "continue" === t.type ? this.next = t.arg : "return" === t.type ? (this.rval = this.arg = t.arg, this.method = "return", this.next = "end") : "normal" === t.type && e && (this.next = e), y; }, finish: function finish(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.finallyLoc === t) return this.complete(r.completion, r.afterLoc), resetTryEntry(r), y; } }, catch: function _catch(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.tryLoc === t) { var n = r.completion; if ("throw" === n.type) { var o = n.arg; resetTryEntry(r); } return o; } } throw new Error("illegal catch attempt"); }, delegateYield: function delegateYield(e, r, n) { return this.delegate = { iterator: values(e), resultName: r, nextLoc: n }, "next" === this.method && (this.arg = t), y; } }, e; }
+function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return e; }; var t, e = {}, r = Object.prototype, n = r.hasOwnProperty, o = (define_property_default()) || function (t, e, r) { t[e] = r.value; }, i = "function" == typeof (symbol_default()) ? (symbol_default()) : {}, a = i.iterator || "@@iterator", c = i.asyncIterator || "@@asyncIterator", u = i.toStringTag || "@@toStringTag"; function define(t, e, r) { return define_property_default()(t, e, { value: r, enumerable: !0, configurable: !0, writable: !0 }), t[e]; } try { define({}, ""); } catch (t) { define = function define(t, e, r) { return t[e] = r; }; } function wrap(t, e, r, n) { var i = e && e.prototype instanceof Generator ? e : Generator, a = create_default()(i.prototype), c = new Context(n || []); return o(a, "_invoke", { value: makeInvokeMethod(t, r, c) }), a; } function tryCatch(t, e, r) { try { return { type: "normal", arg: t.call(e, r) }; } catch (t) { return { type: "throw", arg: t }; } } e.wrap = wrap; var h = "suspendedStart", l = "suspendedYield", f = "executing", s = "completed", y = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var p = {}; define(p, a, function () { return this; }); var d = (get_prototype_of_default()), v = d && d(d(values([]))); v && v !== r && n.call(v, a) && (p = v); var g = GeneratorFunctionPrototype.prototype = Generator.prototype = create_default()(p); function defineIteratorMethods(t) { var _context2; for_each_default()(_context2 = ["next", "throw", "return"]).call(_context2, function (e) { define(t, e, function (t) { return this._invoke(e, t); }); }); } function AsyncIterator(t, e) { function invoke(r, o, i, a) { var c = tryCatch(t[r], t, o); if ("throw" !== c.type) { var u = c.arg, h = u.value; return h && "object" == SearchProperty_typeof(h) && n.call(h, "__await") ? e.resolve(h.__await).then(function (t) { invoke("next", t, i, a); }, function (t) { invoke("throw", t, i, a); }) : e.resolve(h).then(function (t) { u.value = t, i(u); }, function (t) { return invoke("throw", t, i, a); }); } a(c.arg); } var r; o(this, "_invoke", { value: function value(t, n) { function callInvokeWithMethodAndArg() { return new e(function (e, r) { invoke(t, n, e, r); }); } return r = r ? r.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); } }); } function makeInvokeMethod(e, r, n) { var o = h; return function (i, a) { if (o === f) throw Error("Generator is already running"); if (o === s) { if ("throw" === i) throw a; return { value: t, done: !0 }; } for (n.method = i, n.arg = a;;) { var c = n.delegate; if (c) { var u = maybeInvokeDelegate(c, n); if (u) { if (u === y) continue; return u; } } if ("next" === n.method) n.sent = n._sent = n.arg;else if ("throw" === n.method) { if (o === h) throw o = s, n.arg; n.dispatchException(n.arg); } else "return" === n.method && n.abrupt("return", n.arg); o = f; var p = tryCatch(e, r, n); if ("normal" === p.type) { if (o = n.done ? s : l, p.arg === y) continue; return { value: p.arg, done: n.done }; } "throw" === p.type && (o = s, n.method = "throw", n.arg = p.arg); } }; } function maybeInvokeDelegate(e, r) { var n = r.method, o = e.iterator[n]; if (o === t) return r.delegate = null, "throw" === n && e.iterator.return && (r.method = "return", r.arg = t, maybeInvokeDelegate(e, r), "throw" === r.method) || "return" !== n && (r.method = "throw", r.arg = new TypeError("The iterator does not provide a '" + n + "' method")), y; var i = tryCatch(o, e.iterator, r.arg); if ("throw" === i.type) return r.method = "throw", r.arg = i.arg, r.delegate = null, y; var a = i.arg; return a ? a.done ? (r[e.resultName] = a.value, r.next = e.nextLoc, "return" !== r.method && (r.method = "next", r.arg = t), r.delegate = null, y) : a : (r.method = "throw", r.arg = new TypeError("iterator result is not an object"), r.delegate = null, y); } function pushTryEntry(t) { var e = { tryLoc: t[0] }; 1 in t && (e.catchLoc = t[1]), 2 in t && (e.finallyLoc = t[2], e.afterLoc = t[3]), this.tryEntries.push(e); } function resetTryEntry(t) { var e = t.completion || {}; e.type = "normal", delete e.arg, t.completion = e; } function Context(t) { this.tryEntries = [{ tryLoc: "root" }], for_each_default()(t).call(t, pushTryEntry, this), this.reset(!0); } function values(e) { if (e || "" === e) { var r = e[a]; if (r) return r.call(e); if ("function" == typeof e.next) return e; if (!isNaN(e.length)) { var o = -1, i = function next() { for (; ++o < e.length;) if (n.call(e, o)) return next.value = e[o], next.done = !1, next; return next.value = t, next.done = !0, next; }; return i.next = i; } } throw new TypeError(SearchProperty_typeof(e) + " is not iterable"); } return GeneratorFunction.prototype = GeneratorFunctionPrototype, o(g, "constructor", { value: GeneratorFunctionPrototype, configurable: !0 }), o(GeneratorFunctionPrototype, "constructor", { value: GeneratorFunction, configurable: !0 }), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, u, "GeneratorFunction"), e.isGeneratorFunction = function (t) { var e = "function" == typeof t && t.constructor; return !!e && (e === GeneratorFunction || "GeneratorFunction" === (e.displayName || e.name)); }, e.mark = function (t) { return (set_prototype_of_default()) ? set_prototype_of_default()(t, GeneratorFunctionPrototype) : (t.__proto__ = GeneratorFunctionPrototype, define(t, u, "GeneratorFunction")), t.prototype = create_default()(g), t; }, e.awrap = function (t) { return { __await: t }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, c, function () { return this; }), e.AsyncIterator = AsyncIterator, e.async = function (t, r, n, o, i) { void 0 === i && (i = (promise_default())); var a = new AsyncIterator(wrap(t, r, n, o), i); return e.isGeneratorFunction(r) ? a : a.next().then(function (t) { return t.done ? t.value : a.next(); }); }, defineIteratorMethods(g), define(g, u, "Generator"), define(g, a, function () { return this; }), define(g, "toString", function () { return "[object Generator]"; }), e.keys = function (t) { var e = Object(t), r = []; for (var n in e) r.push(n); return reverse_default()(r).call(r), function next() { for (; r.length;) { var t = r.pop(); if (t in e) return next.value = t, next.done = !1, next; } return next.done = !0, next; }; }, e.values = values, Context.prototype = { constructor: Context, reset: function reset(e) { var _context3; if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = !1, this.delegate = null, this.method = "next", this.arg = t, for_each_default()(_context3 = this.tryEntries).call(_context3, resetTryEntry), !e) for (var r in this) "t" === r.charAt(0) && n.call(this, r) && !isNaN(+slice_default()(r).call(r, 1)) && (this[r] = t); }, stop: function stop() { this.done = !0; var t = this.tryEntries[0].completion; if ("throw" === t.type) throw t.arg; return this.rval; }, dispatchException: function dispatchException(e) { if (this.done) throw e; var r = this; function handle(n, o) { return a.type = "throw", a.arg = e, r.next = n, o && (r.method = "next", r.arg = t), !!o; } for (var o = this.tryEntries.length - 1; o >= 0; --o) { var i = this.tryEntries[o], a = i.completion; if ("root" === i.tryLoc) return handle("end"); if (i.tryLoc <= this.prev) { var c = n.call(i, "catchLoc"), u = n.call(i, "finallyLoc"); if (c && u) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } else if (c) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); } else { if (!u) throw Error("try statement without catch or finally"); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } } } }, abrupt: function abrupt(t, e) { for (var r = this.tryEntries.length - 1; r >= 0; --r) { var o = this.tryEntries[r]; if (o.tryLoc <= this.prev && n.call(o, "finallyLoc") && this.prev < o.finallyLoc) { var i = o; break; } } i && ("break" === t || "continue" === t) && i.tryLoc <= e && e <= i.finallyLoc && (i = null); var a = i ? i.completion : {}; return a.type = t, a.arg = e, i ? (this.method = "next", this.next = i.finallyLoc, y) : this.complete(a); }, complete: function complete(t, e) { if ("throw" === t.type) throw t.arg; return "break" === t.type || "continue" === t.type ? this.next = t.arg : "return" === t.type ? (this.rval = this.arg = t.arg, this.method = "return", this.next = "end") : "normal" === t.type && e && (this.next = e), y; }, finish: function finish(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.finallyLoc === t) return this.complete(r.completion, r.afterLoc), resetTryEntry(r), y; } }, catch: function _catch(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.tryLoc === t) { var n = r.completion; if ("throw" === n.type) { var o = n.arg; resetTryEntry(r); } return o; } } throw Error("illegal catch attempt"); }, delegateYield: function delegateYield(e, r, n) { return this.delegate = { iterator: values(e), resultName: r, nextLoc: n }, "next" === this.method && (this.arg = t), y; } }, e; }
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { promise_default().resolve(value).then(_next, _throw); } }
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new (promise_default())(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 function SearchProperty_classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 function SearchProperty_defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; define_property_default()(target, SearchProperty_toPropertyKey(descriptor.key), descriptor); } }
 function SearchProperty_createClass(Constructor, protoProps, staticProps) { if (protoProps) SearchProperty_defineProperties(Constructor.prototype, protoProps); if (staticProps) SearchProperty_defineProperties(Constructor, staticProps); define_property_default()(Constructor, "prototype", { writable: false }); return Constructor; }
-function SearchProperty_toPropertyKey(t) { var i = SearchProperty_toPrimitive(t, "string"); return "symbol" == SearchProperty_typeof(i) ? i : String(i); }
+function SearchProperty_toPropertyKey(t) { var i = SearchProperty_toPrimitive(t, "string"); return "symbol" == SearchProperty_typeof(i) ? i : i + ""; }
 function SearchProperty_toPrimitive(t, r) { if ("object" != SearchProperty_typeof(t) || !t) return t; var e = t[(to_primitive_default())]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != SearchProperty_typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 /**
  * Represents a query search property.
@@ -65159,7 +65140,7 @@ var SearchProperty = /*#__PURE__*/function () {
    * @param options Some additional options, to for example restrict the values or limit the query.
    * @returns {Promise<any>}
    */
-  SearchProperty_createClass(SearchProperty, [{
+  return SearchProperty_createClass(SearchProperty, [{
     key: "findValues",
     value: (function () {
       var _findValues = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(options) {
@@ -65183,7 +65164,6 @@ var SearchProperty = /*#__PURE__*/function () {
       return findValues;
     }())
   }]);
-  return SearchProperty;
 }();
 ;// CONCATENATED MODULE: ./src/api/SearchPropertyType.ts
 
@@ -65201,7 +65181,7 @@ function SearchPropertyType_typeof(o) { "@babel/helpers - typeof"; return Search
 function SearchPropertyType_classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 function SearchPropertyType_defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; define_property_default()(target, SearchPropertyType_toPropertyKey(descriptor.key), descriptor); } }
 function SearchPropertyType_createClass(Constructor, protoProps, staticProps) { if (protoProps) SearchPropertyType_defineProperties(Constructor.prototype, protoProps); if (staticProps) SearchPropertyType_defineProperties(Constructor, staticProps); define_property_default()(Constructor, "prototype", { writable: false }); return Constructor; }
-function SearchPropertyType_toPropertyKey(t) { var i = SearchPropertyType_toPrimitive(t, "string"); return "symbol" == SearchPropertyType_typeof(i) ? i : String(i); }
+function SearchPropertyType_toPropertyKey(t) { var i = SearchPropertyType_toPrimitive(t, "string"); return "symbol" == SearchPropertyType_typeof(i) ? i : i + ""; }
 function SearchPropertyType_toPrimitive(t, r) { if ("object" != SearchPropertyType_typeof(t) || !t) return t; var e = t[(to_primitive_default())]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != SearchPropertyType_typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 function SearchPropertyType_callSuper(t, o, e) { return o = SearchPropertyType_getPrototypeOf(o), SearchPropertyType_possibleConstructorReturn(t, SearchPropertyType_isNativeReflectConstruct() ? construct_default()(o, e || [], SearchPropertyType_getPrototypeOf(t).constructor) : o.apply(t, e)); }
 function SearchPropertyType_possibleConstructorReturn(self, call) { if (call && (SearchPropertyType_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return SearchPropertyType_assertThisInitialized(self); }
@@ -65218,7 +65198,6 @@ function SearchPropertyType_setPrototypeOf(o, p) { var _context; SearchPropertyT
  * @category Rest
  */
 var SearchPropertyType = /*#__PURE__*/function (_OnmsEnum) {
-  SearchPropertyType_inherits(SearchPropertyType, _OnmsEnum);
   function SearchPropertyType(id, label, someComparators) {
     var _this;
     SearchPropertyType_classCallCheck(this, SearchPropertyType);
@@ -65232,7 +65211,8 @@ var SearchPropertyType = /*#__PURE__*/function (_OnmsEnum) {
    *
    * @returns {Comparator[]} the supported comparators.
    */
-  SearchPropertyType_createClass(SearchPropertyType, [{
+  SearchPropertyType_inherits(SearchPropertyType, _OnmsEnum);
+  return SearchPropertyType_createClass(SearchPropertyType, [{
     key: "getComparators",
     value: function getComparators() {
       return this.comparators;
@@ -65253,7 +65233,6 @@ var SearchPropertyType = /*#__PURE__*/function (_OnmsEnum) {
 
     /** supported comparators. */
   }]);
-  return SearchPropertyType;
 }(OnmsEnum);
 
 /** @hidden */
@@ -65287,7 +65266,7 @@ function ServerMetadata_typeof(o) { "@babel/helpers - typeof"; return ServerMeta
 function ServerMetadata_classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 function ServerMetadata_defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; define_property_default()(target, ServerMetadata_toPropertyKey(descriptor.key), descriptor); } }
 function ServerMetadata_createClass(Constructor, protoProps, staticProps) { if (protoProps) ServerMetadata_defineProperties(Constructor.prototype, protoProps); if (staticProps) ServerMetadata_defineProperties(Constructor, staticProps); define_property_default()(Constructor, "prototype", { writable: false }); return Constructor; }
-function ServerMetadata_toPropertyKey(t) { var i = ServerMetadata_toPrimitive(t, "string"); return "symbol" == ServerMetadata_typeof(i) ? i : String(i); }
+function ServerMetadata_toPropertyKey(t) { var i = ServerMetadata_toPrimitive(t, "string"); return "symbol" == ServerMetadata_typeof(i) ? i : i + ""; }
 function ServerMetadata_toPrimitive(t, r) { if ("object" != ServerMetadata_typeof(t) || !t) return t; var e = t[(to_primitive_default())]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != ServerMetadata_typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 
 
@@ -65320,7 +65299,7 @@ var ServerMetadata = /*#__PURE__*/function () {
   }
 
   /** Can you ack alarms through ReST? */
-  ServerMetadata_createClass(ServerMetadata, [{
+  return ServerMetadata_createClass(ServerMetadata, [{
     key: "ackAlarms",
     value: function ackAlarms() {
       return this.version.ge('14.0.0');
@@ -65507,7 +65486,6 @@ var ServerMetadata = /*#__PURE__*/function () {
       return new ServerMetadata(this.version.clone(), this.type, ticketerConfig);
     }
   }]);
-  return ServerMetadata;
 }();
 ;// CONCATENATED MODULE: ./src/api/TicketerConfig.ts
 
@@ -65519,7 +65497,7 @@ function TicketerConfig_typeof(o) { "@babel/helpers - typeof"; return TicketerCo
 function TicketerConfig_classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 function TicketerConfig_defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; define_property_default()(target, TicketerConfig_toPropertyKey(descriptor.key), descriptor); } }
 function TicketerConfig_createClass(Constructor, protoProps, staticProps) { if (protoProps) TicketerConfig_defineProperties(Constructor.prototype, protoProps); if (staticProps) TicketerConfig_defineProperties(Constructor, staticProps); define_property_default()(Constructor, "prototype", { writable: false }); return Constructor; }
-function TicketerConfig_toPropertyKey(t) { var i = TicketerConfig_toPrimitive(t, "string"); return "symbol" == TicketerConfig_typeof(i) ? i : String(i); }
+function TicketerConfig_toPropertyKey(t) { var i = TicketerConfig_toPrimitive(t, "string"); return "symbol" == TicketerConfig_typeof(i) ? i : i + ""; }
 function TicketerConfig_toPrimitive(t, r) { if ("object" != TicketerConfig_typeof(t) || !t) return t; var e = t[(to_primitive_default())]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != TicketerConfig_typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 /**
  * States the current ticket configuration.
@@ -65539,7 +65517,7 @@ var TicketerConfig = /*#__PURE__*/function () {
   /**
    * Whether this ticketer object is the same as another.
    */
-  TicketerConfig_createClass(TicketerConfig, [{
+  return TicketerConfig_createClass(TicketerConfig, [{
     key: "equals",
     value: function equals(that) {
       return that && this.plugin === that.plugin && this.enabled === that.enabled;
@@ -65554,7 +65532,6 @@ var TicketerConfig = /*#__PURE__*/function () {
       return new TicketerConfig(this.plugin, this.enabled);
     }
   }]);
-  return TicketerConfig;
 }();
 ;// CONCATENATED MODULE: ./src/api/index.ts
 // API interfaces
@@ -65610,10 +65587,6 @@ var get_iterator_method = __webpack_require__("./node_modules/@babel/runtime-cor
 var get_iterator_method_default = /*#__PURE__*/__webpack_require__.n(get_iterator_method);
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.array.iterator.js
 var es_array_iterator = __webpack_require__("./node_modules/core-js/modules/es.array.iterator.js");
-// EXTERNAL MODULE: ./node_modules/core-js/modules/es.promise.js
-var es_promise = __webpack_require__("./node_modules/core-js/modules/es.promise.js");
-// EXTERNAL MODULE: ./node_modules/core-js/modules/es.string.iterator.js
-var es_string_iterator = __webpack_require__("./node_modules/core-js/modules/es.string.iterator.js");
 // EXTERNAL MODULE: ./node_modules/core-js/modules/web.dom-collections.iterator.js
 var web_dom_collections_iterator = __webpack_require__("./node_modules/core-js/modules/web.dom-collections.iterator.js");
 // EXTERNAL MODULE: ./node_modules/@babel/runtime-corejs3/core-js-stable/instance/values.js
@@ -65632,7 +65605,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 function V1FilterProcessor_classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 function V1FilterProcessor_defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; define_property_default()(target, V1FilterProcessor_toPropertyKey(descriptor.key), descriptor); } }
 function V1FilterProcessor_createClass(Constructor, protoProps, staticProps) { if (protoProps) V1FilterProcessor_defineProperties(Constructor.prototype, protoProps); if (staticProps) V1FilterProcessor_defineProperties(Constructor, staticProps); define_property_default()(Constructor, "prototype", { writable: false }); return Constructor; }
-function V1FilterProcessor_toPropertyKey(t) { var i = V1FilterProcessor_toPrimitive(t, "string"); return "symbol" == V1FilterProcessor_typeof(i) ? i : String(i); }
+function V1FilterProcessor_toPropertyKey(t) { var i = V1FilterProcessor_toPrimitive(t, "string"); return "symbol" == V1FilterProcessor_typeof(i) ? i : i + ""; }
 function V1FilterProcessor_toPrimitive(t, r) { if ("object" != V1FilterProcessor_typeof(t) || !t) return t; var e = t[(to_primitive_default())]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != V1FilterProcessor_typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 
 
@@ -65669,7 +65642,7 @@ var V1FilterProcessor = /*#__PURE__*/function () {
   function V1FilterProcessor() {
     V1FilterProcessor_classCallCheck(this, V1FilterProcessor);
   }
-  V1FilterProcessor_createClass(V1FilterProcessor, [{
+  return V1FilterProcessor_createClass(V1FilterProcessor, [{
     key: "getParameters",
     value: /** Given a filter, return a hash of URL parameters. */
     function getParameters(filter) {
@@ -65755,7 +65728,6 @@ var V1FilterProcessor = /*#__PURE__*/function () {
       return ret;
     }
   }]);
-  return V1FilterProcessor;
 }();
 ;// CONCATENATED MODULE: ./src/dao/V2FilterProcessor.ts
 
@@ -65785,7 +65757,7 @@ function V2FilterProcessor_classCallCheck(instance, Constructor) { if (!(instanc
 function V2FilterProcessor_defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; define_property_default()(target, V2FilterProcessor_toPropertyKey(descriptor.key), descriptor); } }
 function V2FilterProcessor_createClass(Constructor, protoProps, staticProps) { if (protoProps) V2FilterProcessor_defineProperties(Constructor.prototype, protoProps); if (staticProps) V2FilterProcessor_defineProperties(Constructor, staticProps); define_property_default()(Constructor, "prototype", { writable: false }); return Constructor; }
 function V2FilterProcessor_defineProperty(obj, key, value) { key = V2FilterProcessor_toPropertyKey(key); if (key in obj) { define_property_default()(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-function V2FilterProcessor_toPropertyKey(t) { var i = V2FilterProcessor_toPrimitive(t, "string"); return "symbol" == V2FilterProcessor_typeof(i) ? i : String(i); }
+function V2FilterProcessor_toPropertyKey(t) { var i = V2FilterProcessor_toPrimitive(t, "string"); return "symbol" == V2FilterProcessor_typeof(i) ? i : i + ""; }
 function V2FilterProcessor_toPrimitive(t, r) { if ("object" != V2FilterProcessor_typeof(t) || !t) return t; var e = t[(to_primitive_default())]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != V2FilterProcessor_typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 
 
@@ -65808,7 +65780,7 @@ var V2FilterProcessor = /*#__PURE__*/function () {
   }
 
   /** Given a filter, return a hash of URL parameters. */
-  V2FilterProcessor_createClass(V2FilterProcessor, [{
+  return V2FilterProcessor_createClass(V2FilterProcessor, [{
     key: "getParameters",
     value: function getParameters(filter) {
       var ret = {};
@@ -65971,7 +65943,6 @@ var V2FilterProcessor = /*#__PURE__*/function () {
       return value;
     }
   }]);
-  return V2FilterProcessor;
 }();
 _V2FilterProcessor = V2FilterProcessor;
 /** Constant used to represent null values in the V2 API. */
@@ -65997,7 +65968,7 @@ function BaseDAO_typeof(o) { "@babel/helpers - typeof"; return BaseDAO_typeof = 
 function BaseDAO_classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 function BaseDAO_defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; define_property_default()(target, BaseDAO_toPropertyKey(descriptor.key), descriptor); } }
 function BaseDAO_createClass(Constructor, protoProps, staticProps) { if (protoProps) BaseDAO_defineProperties(Constructor.prototype, protoProps); if (staticProps) BaseDAO_defineProperties(Constructor, staticProps); define_property_default()(Constructor, "prototype", { writable: false }); return Constructor; }
-function BaseDAO_toPropertyKey(t) { var i = BaseDAO_toPrimitive(t, "string"); return "symbol" == BaseDAO_typeof(i) ? i : String(i); }
+function BaseDAO_toPropertyKey(t) { var i = BaseDAO_toPrimitive(t, "string"); return "symbol" == BaseDAO_typeof(i) ? i : i + ""; }
 function BaseDAO_toPrimitive(t, r) { if ("object" != BaseDAO_typeof(t) || !t) return t; var e = t[(to_primitive_default())]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != BaseDAO_typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 
 
@@ -66049,7 +66020,7 @@ var BaseDAO = /*#__PURE__*/function () {
   /**
    * The HTTP implementation to use internally when making DAO requests.
    */
-  BaseDAO_createClass(BaseDAO, [{
+  return BaseDAO_createClass(BaseDAO, [{
     key: "http",
     get: function get() {
       this.validateServer();
@@ -66178,26 +66149,23 @@ var BaseDAO = /*#__PURE__*/function () {
       return Util.toNumber(from);
     }
   }]);
-  return BaseDAO;
 }();
 ;// CONCATENATED MODULE: ./src/dao/AbstractDAO.ts
+
+
+
+
+
+
+
 function AbstractDAO_typeof(o) { "@babel/helpers - typeof"; return AbstractDAO_typeof = "function" == typeof (symbol_default()) && "symbol" == typeof (iterator_default()) ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof (symbol_default()) && o.constructor === (symbol_default()) && o !== (symbol_default()).prototype ? "symbol" : typeof o; }, AbstractDAO_typeof(o); }
-
-
-
-
-
-
-
-
-
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || AbstractDAO_unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
 function AbstractDAO_unsupportedIterableToArray(o, minLen) { var _context13; if (!o) return; if (typeof o === "string") return AbstractDAO_arrayLikeToArray(o, minLen); var n = slice_default()(_context13 = Object.prototype.toString.call(o)).call(_context13, 8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return from_default()(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return AbstractDAO_arrayLikeToArray(o, minLen); }
 function AbstractDAO_arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
 function _iterableToArrayLimit(r, l) { var t = null == r ? null : "undefined" != typeof (symbol_default()) && get_iterator_method_default()(r) || r["@@iterator"]; if (null != t) { var e, n, i, u, a = [], f = !0, o = !1; try { if (i = (t = t.call(r)).next, 0 === l) { if (Object(t) !== t) return; f = !1; } else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0); } catch (r) { o = !0, n = r; } finally { try { if (!f && null != t.return && (u = t.return(), Object(u) !== u)) return; } finally { if (o) throw n; } } return a; } }
 function _arrayWithHoles(arr) { if (is_array_default()(arr)) return arr; }
-function AbstractDAO_regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ AbstractDAO_regeneratorRuntime = function _regeneratorRuntime() { return e; }; var t, e = {}, r = Object.prototype, n = r.hasOwnProperty, o = (define_property_default()) || function (t, e, r) { t[e] = r.value; }, i = "function" == typeof (symbol_default()) ? (symbol_default()) : {}, a = i.iterator || "@@iterator", c = i.asyncIterator || "@@asyncIterator", u = i.toStringTag || "@@toStringTag"; function define(t, e, r) { return define_property_default()(t, e, { value: r, enumerable: !0, configurable: !0, writable: !0 }), t[e]; } try { define({}, ""); } catch (t) { define = function define(t, e, r) { return t[e] = r; }; } function wrap(t, e, r, n) { var i = e && e.prototype instanceof Generator ? e : Generator, a = create_default()(i.prototype), c = new Context(n || []); return o(a, "_invoke", { value: makeInvokeMethod(t, r, c) }), a; } function tryCatch(t, e, r) { try { return { type: "normal", arg: t.call(e, r) }; } catch (t) { return { type: "throw", arg: t }; } } e.wrap = wrap; var h = "suspendedStart", l = "suspendedYield", f = "executing", s = "completed", y = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var p = {}; define(p, a, function () { return this; }); var d = (get_prototype_of_default()), v = d && d(d(values([]))); v && v !== r && n.call(v, a) && (p = v); var g = GeneratorFunctionPrototype.prototype = Generator.prototype = create_default()(p); function defineIteratorMethods(t) { var _context11; for_each_default()(_context11 = ["next", "throw", "return"]).call(_context11, function (e) { define(t, e, function (t) { return this._invoke(e, t); }); }); } function AsyncIterator(t, e) { function invoke(r, o, i, a) { var c = tryCatch(t[r], t, o); if ("throw" !== c.type) { var u = c.arg, h = u.value; return h && "object" == AbstractDAO_typeof(h) && n.call(h, "__await") ? e.resolve(h.__await).then(function (t) { invoke("next", t, i, a); }, function (t) { invoke("throw", t, i, a); }) : e.resolve(h).then(function (t) { u.value = t, i(u); }, function (t) { return invoke("throw", t, i, a); }); } a(c.arg); } var r; o(this, "_invoke", { value: function value(t, n) { function callInvokeWithMethodAndArg() { return new e(function (e, r) { invoke(t, n, e, r); }); } return r = r ? r.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); } }); } function makeInvokeMethod(e, r, n) { var o = h; return function (i, a) { if (o === f) throw new Error("Generator is already running"); if (o === s) { if ("throw" === i) throw a; return { value: t, done: !0 }; } for (n.method = i, n.arg = a;;) { var c = n.delegate; if (c) { var u = maybeInvokeDelegate(c, n); if (u) { if (u === y) continue; return u; } } if ("next" === n.method) n.sent = n._sent = n.arg;else if ("throw" === n.method) { if (o === h) throw o = s, n.arg; n.dispatchException(n.arg); } else "return" === n.method && n.abrupt("return", n.arg); o = f; var p = tryCatch(e, r, n); if ("normal" === p.type) { if (o = n.done ? s : l, p.arg === y) continue; return { value: p.arg, done: n.done }; } "throw" === p.type && (o = s, n.method = "throw", n.arg = p.arg); } }; } function maybeInvokeDelegate(e, r) { var n = r.method, o = e.iterator[n]; if (o === t) return r.delegate = null, "throw" === n && e.iterator.return && (r.method = "return", r.arg = t, maybeInvokeDelegate(e, r), "throw" === r.method) || "return" !== n && (r.method = "throw", r.arg = new TypeError("The iterator does not provide a '" + n + "' method")), y; var i = tryCatch(o, e.iterator, r.arg); if ("throw" === i.type) return r.method = "throw", r.arg = i.arg, r.delegate = null, y; var a = i.arg; return a ? a.done ? (r[e.resultName] = a.value, r.next = e.nextLoc, "return" !== r.method && (r.method = "next", r.arg = t), r.delegate = null, y) : a : (r.method = "throw", r.arg = new TypeError("iterator result is not an object"), r.delegate = null, y); } function pushTryEntry(t) { var e = { tryLoc: t[0] }; 1 in t && (e.catchLoc = t[1]), 2 in t && (e.finallyLoc = t[2], e.afterLoc = t[3]), this.tryEntries.push(e); } function resetTryEntry(t) { var e = t.completion || {}; e.type = "normal", delete e.arg, t.completion = e; } function Context(t) { this.tryEntries = [{ tryLoc: "root" }], for_each_default()(t).call(t, pushTryEntry, this), this.reset(!0); } function values(e) { if (e || "" === e) { var r = e[a]; if (r) return r.call(e); if ("function" == typeof e.next) return e; if (!isNaN(e.length)) { var o = -1, i = function next() { for (; ++o < e.length;) if (n.call(e, o)) return next.value = e[o], next.done = !1, next; return next.value = t, next.done = !0, next; }; return i.next = i; } } throw new TypeError(AbstractDAO_typeof(e) + " is not iterable"); } return GeneratorFunction.prototype = GeneratorFunctionPrototype, o(g, "constructor", { value: GeneratorFunctionPrototype, configurable: !0 }), o(GeneratorFunctionPrototype, "constructor", { value: GeneratorFunction, configurable: !0 }), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, u, "GeneratorFunction"), e.isGeneratorFunction = function (t) { var e = "function" == typeof t && t.constructor; return !!e && (e === GeneratorFunction || "GeneratorFunction" === (e.displayName || e.name)); }, e.mark = function (t) { return (set_prototype_of_default()) ? set_prototype_of_default()(t, GeneratorFunctionPrototype) : (t.__proto__ = GeneratorFunctionPrototype, define(t, u, "GeneratorFunction")), t.prototype = create_default()(g), t; }, e.awrap = function (t) { return { __await: t }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, c, function () { return this; }), e.AsyncIterator = AsyncIterator, e.async = function (t, r, n, o, i) { void 0 === i && (i = (promise_default())); var a = new AsyncIterator(wrap(t, r, n, o), i); return e.isGeneratorFunction(r) ? a : a.next().then(function (t) { return t.done ? t.value : a.next(); }); }, defineIteratorMethods(g), define(g, u, "Generator"), define(g, a, function () { return this; }), define(g, "toString", function () { return "[object Generator]"; }), e.keys = function (t) { var e = Object(t), r = []; for (var n in e) r.push(n); return reverse_default()(r).call(r), function next() { for (; r.length;) { var t = r.pop(); if (t in e) return next.value = t, next.done = !1, next; } return next.done = !0, next; }; }, e.values = values, Context.prototype = { constructor: Context, reset: function reset(e) { var _context12; if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = !1, this.delegate = null, this.method = "next", this.arg = t, for_each_default()(_context12 = this.tryEntries).call(_context12, resetTryEntry), !e) for (var r in this) "t" === r.charAt(0) && n.call(this, r) && !isNaN(+slice_default()(r).call(r, 1)) && (this[r] = t); }, stop: function stop() { this.done = !0; var t = this.tryEntries[0].completion; if ("throw" === t.type) throw t.arg; return this.rval; }, dispatchException: function dispatchException(e) { if (this.done) throw e; var r = this; function handle(n, o) { return a.type = "throw", a.arg = e, r.next = n, o && (r.method = "next", r.arg = t), !!o; } for (var o = this.tryEntries.length - 1; o >= 0; --o) { var i = this.tryEntries[o], a = i.completion; if ("root" === i.tryLoc) return handle("end"); if (i.tryLoc <= this.prev) { var c = n.call(i, "catchLoc"), u = n.call(i, "finallyLoc"); if (c && u) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } else if (c) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); } else { if (!u) throw new Error("try statement without catch or finally"); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } } } }, abrupt: function abrupt(t, e) { for (var r = this.tryEntries.length - 1; r >= 0; --r) { var o = this.tryEntries[r]; if (o.tryLoc <= this.prev && n.call(o, "finallyLoc") && this.prev < o.finallyLoc) { var i = o; break; } } i && ("break" === t || "continue" === t) && i.tryLoc <= e && e <= i.finallyLoc && (i = null); var a = i ? i.completion : {}; return a.type = t, a.arg = e, i ? (this.method = "next", this.next = i.finallyLoc, y) : this.complete(a); }, complete: function complete(t, e) { if ("throw" === t.type) throw t.arg; return "break" === t.type || "continue" === t.type ? this.next = t.arg : "return" === t.type ? (this.rval = this.arg = t.arg, this.method = "return", this.next = "end") : "normal" === t.type && e && (this.next = e), y; }, finish: function finish(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.finallyLoc === t) return this.complete(r.completion, r.afterLoc), resetTryEntry(r), y; } }, catch: function _catch(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.tryLoc === t) { var n = r.completion; if ("throw" === n.type) { var o = n.arg; resetTryEntry(r); } return o; } } throw new Error("illegal catch attempt"); }, delegateYield: function delegateYield(e, r, n) { return this.delegate = { iterator: values(e), resultName: r, nextLoc: n }, "next" === this.method && (this.arg = t), y; } }, e; }
+function AbstractDAO_regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ AbstractDAO_regeneratorRuntime = function _regeneratorRuntime() { return e; }; var t, e = {}, r = Object.prototype, n = r.hasOwnProperty, o = (define_property_default()) || function (t, e, r) { t[e] = r.value; }, i = "function" == typeof (symbol_default()) ? (symbol_default()) : {}, a = i.iterator || "@@iterator", c = i.asyncIterator || "@@asyncIterator", u = i.toStringTag || "@@toStringTag"; function define(t, e, r) { return define_property_default()(t, e, { value: r, enumerable: !0, configurable: !0, writable: !0 }), t[e]; } try { define({}, ""); } catch (t) { define = function define(t, e, r) { return t[e] = r; }; } function wrap(t, e, r, n) { var i = e && e.prototype instanceof Generator ? e : Generator, a = create_default()(i.prototype), c = new Context(n || []); return o(a, "_invoke", { value: makeInvokeMethod(t, r, c) }), a; } function tryCatch(t, e, r) { try { return { type: "normal", arg: t.call(e, r) }; } catch (t) { return { type: "throw", arg: t }; } } e.wrap = wrap; var h = "suspendedStart", l = "suspendedYield", f = "executing", s = "completed", y = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var p = {}; define(p, a, function () { return this; }); var d = (get_prototype_of_default()), v = d && d(d(values([]))); v && v !== r && n.call(v, a) && (p = v); var g = GeneratorFunctionPrototype.prototype = Generator.prototype = create_default()(p); function defineIteratorMethods(t) { var _context11; for_each_default()(_context11 = ["next", "throw", "return"]).call(_context11, function (e) { define(t, e, function (t) { return this._invoke(e, t); }); }); } function AsyncIterator(t, e) { function invoke(r, o, i, a) { var c = tryCatch(t[r], t, o); if ("throw" !== c.type) { var u = c.arg, h = u.value; return h && "object" == AbstractDAO_typeof(h) && n.call(h, "__await") ? e.resolve(h.__await).then(function (t) { invoke("next", t, i, a); }, function (t) { invoke("throw", t, i, a); }) : e.resolve(h).then(function (t) { u.value = t, i(u); }, function (t) { return invoke("throw", t, i, a); }); } a(c.arg); } var r; o(this, "_invoke", { value: function value(t, n) { function callInvokeWithMethodAndArg() { return new e(function (e, r) { invoke(t, n, e, r); }); } return r = r ? r.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); } }); } function makeInvokeMethod(e, r, n) { var o = h; return function (i, a) { if (o === f) throw Error("Generator is already running"); if (o === s) { if ("throw" === i) throw a; return { value: t, done: !0 }; } for (n.method = i, n.arg = a;;) { var c = n.delegate; if (c) { var u = maybeInvokeDelegate(c, n); if (u) { if (u === y) continue; return u; } } if ("next" === n.method) n.sent = n._sent = n.arg;else if ("throw" === n.method) { if (o === h) throw o = s, n.arg; n.dispatchException(n.arg); } else "return" === n.method && n.abrupt("return", n.arg); o = f; var p = tryCatch(e, r, n); if ("normal" === p.type) { if (o = n.done ? s : l, p.arg === y) continue; return { value: p.arg, done: n.done }; } "throw" === p.type && (o = s, n.method = "throw", n.arg = p.arg); } }; } function maybeInvokeDelegate(e, r) { var n = r.method, o = e.iterator[n]; if (o === t) return r.delegate = null, "throw" === n && e.iterator.return && (r.method = "return", r.arg = t, maybeInvokeDelegate(e, r), "throw" === r.method) || "return" !== n && (r.method = "throw", r.arg = new TypeError("The iterator does not provide a '" + n + "' method")), y; var i = tryCatch(o, e.iterator, r.arg); if ("throw" === i.type) return r.method = "throw", r.arg = i.arg, r.delegate = null, y; var a = i.arg; return a ? a.done ? (r[e.resultName] = a.value, r.next = e.nextLoc, "return" !== r.method && (r.method = "next", r.arg = t), r.delegate = null, y) : a : (r.method = "throw", r.arg = new TypeError("iterator result is not an object"), r.delegate = null, y); } function pushTryEntry(t) { var e = { tryLoc: t[0] }; 1 in t && (e.catchLoc = t[1]), 2 in t && (e.finallyLoc = t[2], e.afterLoc = t[3]), this.tryEntries.push(e); } function resetTryEntry(t) { var e = t.completion || {}; e.type = "normal", delete e.arg, t.completion = e; } function Context(t) { this.tryEntries = [{ tryLoc: "root" }], for_each_default()(t).call(t, pushTryEntry, this), this.reset(!0); } function values(e) { if (e || "" === e) { var r = e[a]; if (r) return r.call(e); if ("function" == typeof e.next) return e; if (!isNaN(e.length)) { var o = -1, i = function next() { for (; ++o < e.length;) if (n.call(e, o)) return next.value = e[o], next.done = !1, next; return next.value = t, next.done = !0, next; }; return i.next = i; } } throw new TypeError(AbstractDAO_typeof(e) + " is not iterable"); } return GeneratorFunction.prototype = GeneratorFunctionPrototype, o(g, "constructor", { value: GeneratorFunctionPrototype, configurable: !0 }), o(GeneratorFunctionPrototype, "constructor", { value: GeneratorFunction, configurable: !0 }), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, u, "GeneratorFunction"), e.isGeneratorFunction = function (t) { var e = "function" == typeof t && t.constructor; return !!e && (e === GeneratorFunction || "GeneratorFunction" === (e.displayName || e.name)); }, e.mark = function (t) { return (set_prototype_of_default()) ? set_prototype_of_default()(t, GeneratorFunctionPrototype) : (t.__proto__ = GeneratorFunctionPrototype, define(t, u, "GeneratorFunction")), t.prototype = create_default()(g), t; }, e.awrap = function (t) { return { __await: t }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, c, function () { return this; }), e.AsyncIterator = AsyncIterator, e.async = function (t, r, n, o, i) { void 0 === i && (i = (promise_default())); var a = new AsyncIterator(wrap(t, r, n, o), i); return e.isGeneratorFunction(r) ? a : a.next().then(function (t) { return t.done ? t.value : a.next(); }); }, defineIteratorMethods(g), define(g, u, "Generator"), define(g, a, function () { return this; }), define(g, "toString", function () { return "[object Generator]"; }), e.keys = function (t) { var e = Object(t), r = []; for (var n in e) r.push(n); return reverse_default()(r).call(r), function next() { for (; r.length;) { var t = r.pop(); if (t in e) return next.value = t, next.done = !1, next; } return next.done = !0, next; }; }, e.values = values, Context.prototype = { constructor: Context, reset: function reset(e) { var _context12; if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = !1, this.delegate = null, this.method = "next", this.arg = t, for_each_default()(_context12 = this.tryEntries).call(_context12, resetTryEntry), !e) for (var r in this) "t" === r.charAt(0) && n.call(this, r) && !isNaN(+slice_default()(r).call(r, 1)) && (this[r] = t); }, stop: function stop() { this.done = !0; var t = this.tryEntries[0].completion; if ("throw" === t.type) throw t.arg; return this.rval; }, dispatchException: function dispatchException(e) { if (this.done) throw e; var r = this; function handle(n, o) { return a.type = "throw", a.arg = e, r.next = n, o && (r.method = "next", r.arg = t), !!o; } for (var o = this.tryEntries.length - 1; o >= 0; --o) { var i = this.tryEntries[o], a = i.completion; if ("root" === i.tryLoc) return handle("end"); if (i.tryLoc <= this.prev) { var c = n.call(i, "catchLoc"), u = n.call(i, "finallyLoc"); if (c && u) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } else if (c) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); } else { if (!u) throw Error("try statement without catch or finally"); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } } } }, abrupt: function abrupt(t, e) { for (var r = this.tryEntries.length - 1; r >= 0; --r) { var o = this.tryEntries[r]; if (o.tryLoc <= this.prev && n.call(o, "finallyLoc") && this.prev < o.finallyLoc) { var i = o; break; } } i && ("break" === t || "continue" === t) && i.tryLoc <= e && e <= i.finallyLoc && (i = null); var a = i ? i.completion : {}; return a.type = t, a.arg = e, i ? (this.method = "next", this.next = i.finallyLoc, y) : this.complete(a); }, complete: function complete(t, e) { if ("throw" === t.type) throw t.arg; return "break" === t.type || "continue" === t.type ? this.next = t.arg : "return" === t.type ? (this.rval = this.arg = t.arg, this.method = "return", this.next = "end") : "normal" === t.type && e && (this.next = e), y; }, finish: function finish(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.finallyLoc === t) return this.complete(r.completion, r.afterLoc), resetTryEntry(r), y; } }, catch: function _catch(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.tryLoc === t) { var n = r.completion; if ("throw" === n.type) { var o = n.arg; resetTryEntry(r); } return o; } } throw Error("illegal catch attempt"); }, delegateYield: function delegateYield(e, r, n) { return this.delegate = { iterator: values(e), resultName: r, nextLoc: n }, "next" === this.method && (this.arg = t), y; } }, e; }
 
 
 
@@ -66223,7 +66191,7 @@ function AbstractDAO_asyncToGenerator(fn) { return function () { var self = this
 function AbstractDAO_classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 function AbstractDAO_defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; define_property_default()(target, AbstractDAO_toPropertyKey(descriptor.key), descriptor); } }
 function AbstractDAO_createClass(Constructor, protoProps, staticProps) { if (protoProps) AbstractDAO_defineProperties(Constructor.prototype, protoProps); if (staticProps) AbstractDAO_defineProperties(Constructor, staticProps); define_property_default()(Constructor, "prototype", { writable: false }); return Constructor; }
-function AbstractDAO_toPropertyKey(t) { var i = AbstractDAO_toPrimitive(t, "string"); return "symbol" == AbstractDAO_typeof(i) ? i : String(i); }
+function AbstractDAO_toPropertyKey(t) { var i = AbstractDAO_toPrimitive(t, "string"); return "symbol" == AbstractDAO_typeof(i) ? i : i + ""; }
 function AbstractDAO_toPrimitive(t, r) { if ("object" != AbstractDAO_typeof(t) || !t) return t; var e = t[(to_primitive_default())]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != AbstractDAO_typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 function AbstractDAO_callSuper(t, o, e) { return o = AbstractDAO_getPrototypeOf(o), AbstractDAO_possibleConstructorReturn(t, AbstractDAO_isNativeReflectConstruct() ? construct_default()(o, e || [], AbstractDAO_getPrototypeOf(t).constructor) : o.apply(t, e)); }
 function AbstractDAO_possibleConstructorReturn(self, call) { if (call && (AbstractDAO_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return AbstractDAO_assertThisInitialized(self); }
@@ -66253,12 +66221,12 @@ function AbstractDAO_setPrototypeOf(o, p) { var _context9; AbstractDAO_setProtot
  * @typeparam T the model type (OnmsAlarm, OnmsEvent, etc.)
  */
 var AbstractDAO = /*#__PURE__*/function (_BaseDAO) {
-  AbstractDAO_inherits(AbstractDAO, _BaseDAO);
   function AbstractDAO() {
     AbstractDAO_classCallCheck(this, AbstractDAO);
     return AbstractDAO_callSuper(this, AbstractDAO, arguments);
   }
-  AbstractDAO_createClass(AbstractDAO, [{
+  AbstractDAO_inherits(AbstractDAO, _BaseDAO);
+  return AbstractDAO_createClass(AbstractDAO, [{
     key: "getFilterProcessor",
     value: (
     /** A local cache of v2 DAO properties (`api/v2/DAO/properties`) */
@@ -66619,7 +66587,6 @@ var AbstractDAO = /*#__PURE__*/function (_BaseDAO) {
       return this.server.metadata.apiVersion();
     }
   }]);
-  return AbstractDAO;
 }(BaseDAO);
 ;// CONCATENATED MODULE: ./src/model/OnmsParm.ts
 function OnmsParm_typeof(o) { "@babel/helpers - typeof"; return OnmsParm_typeof = "function" == typeof (symbol_default()) && "symbol" == typeof (iterator_default()) ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof (symbol_default()) && o.constructor === (symbol_default()) && o !== (symbol_default()).prototype ? "symbol" : typeof o; }, OnmsParm_typeof(o); }
@@ -66633,7 +66600,7 @@ function OnmsParm_typeof(o) { "@babel/helpers - typeof"; return OnmsParm_typeof 
 function OnmsParm_classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 function OnmsParm_defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; define_property_default()(target, OnmsParm_toPropertyKey(descriptor.key), descriptor); } }
 function OnmsParm_createClass(Constructor, protoProps, staticProps) { if (protoProps) OnmsParm_defineProperties(Constructor.prototype, protoProps); if (staticProps) OnmsParm_defineProperties(Constructor, staticProps); define_property_default()(Constructor, "prototype", { writable: false }); return Constructor; }
-function OnmsParm_toPropertyKey(t) { var i = OnmsParm_toPrimitive(t, "string"); return "symbol" == OnmsParm_typeof(i) ? i : String(i); }
+function OnmsParm_toPropertyKey(t) { var i = OnmsParm_toPrimitive(t, "string"); return "symbol" == OnmsParm_typeof(i) ? i : i + ""; }
 function OnmsParm_toPrimitive(t, r) { if ("object" != OnmsParm_typeof(t) || !t) return t; var e = t[(to_primitive_default())]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != OnmsParm_typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 
 
@@ -66652,7 +66619,7 @@ var OnmsParm = /*#__PURE__*/function () {
   /**
    * The string value of this parameter.
    */
-  OnmsParm_createClass(OnmsParm, [{
+  return OnmsParm_createClass(OnmsParm, [{
     key: "value",
     get: /** the name of the parm */
 
@@ -66703,7 +66670,6 @@ var OnmsParm = /*#__PURE__*/function () {
       return this.valueString;
     }
   }]);
-  return OnmsParm;
 }();
 ;// CONCATENATED MODULE: ./src/model/OnmsServiceType.ts
 
@@ -66716,7 +66682,7 @@ function OnmsServiceType_typeof(o) { "@babel/helpers - typeof"; return OnmsServi
 function OnmsServiceType_classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 function OnmsServiceType_defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; define_property_default()(target, OnmsServiceType_toPropertyKey(descriptor.key), descriptor); } }
 function OnmsServiceType_createClass(Constructor, protoProps, staticProps) { if (protoProps) OnmsServiceType_defineProperties(Constructor.prototype, protoProps); if (staticProps) OnmsServiceType_defineProperties(Constructor, staticProps); define_property_default()(Constructor, "prototype", { writable: false }); return Constructor; }
-function OnmsServiceType_toPropertyKey(t) { var i = OnmsServiceType_toPrimitive(t, "string"); return "symbol" == OnmsServiceType_typeof(i) ? i : String(i); }
+function OnmsServiceType_toPropertyKey(t) { var i = OnmsServiceType_toPrimitive(t, "string"); return "symbol" == OnmsServiceType_typeof(i) ? i : i + ""; }
 function OnmsServiceType_toPrimitive(t, r) { if ("object" != OnmsServiceType_typeof(t) || !t) return t; var e = t[(to_primitive_default())]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != OnmsServiceType_typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 
 
@@ -66736,7 +66702,7 @@ var OnmsServiceType = /*#__PURE__*/function () {
   }
 
   /** @inheritdoc */
-  OnmsServiceType_createClass(OnmsServiceType, [{
+  return OnmsServiceType_createClass(OnmsServiceType, [{
     key: "urlValue",
     get: function get() {
       return this.name;
@@ -66760,7 +66726,6 @@ var OnmsServiceType = /*#__PURE__*/function () {
 
     /** The service name. */
   }]);
-  return OnmsServiceType;
 }();
 ;// CONCATENATED MODULE: ./src/model/OnmsSeverity.ts
 
@@ -66778,7 +66743,7 @@ function OnmsSeverity_typeof(o) { "@babel/helpers - typeof"; return OnmsSeverity
 function OnmsSeverity_classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 function OnmsSeverity_defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; define_property_default()(target, OnmsSeverity_toPropertyKey(descriptor.key), descriptor); } }
 function OnmsSeverity_createClass(Constructor, protoProps, staticProps) { if (protoProps) OnmsSeverity_defineProperties(Constructor.prototype, protoProps); if (staticProps) OnmsSeverity_defineProperties(Constructor, staticProps); define_property_default()(Constructor, "prototype", { writable: false }); return Constructor; }
-function OnmsSeverity_toPropertyKey(t) { var i = OnmsSeverity_toPrimitive(t, "string"); return "symbol" == OnmsSeverity_typeof(i) ? i : String(i); }
+function OnmsSeverity_toPropertyKey(t) { var i = OnmsSeverity_toPrimitive(t, "string"); return "symbol" == OnmsSeverity_typeof(i) ? i : i + ""; }
 function OnmsSeverity_toPrimitive(t, r) { if ("object" != OnmsSeverity_typeof(t) || !t) return t; var e = t[(to_primitive_default())]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != OnmsSeverity_typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 function OnmsSeverity_callSuper(t, o, e) { return o = OnmsSeverity_getPrototypeOf(o), OnmsSeverity_possibleConstructorReturn(t, OnmsSeverity_isNativeReflectConstruct() ? construct_default()(o, e || [], OnmsSeverity_getPrototypeOf(t).constructor) : o.apply(t, e)); }
 function OnmsSeverity_possibleConstructorReturn(self, call) { if (call && (OnmsSeverity_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return OnmsSeverity_assertThisInitialized(self); }
@@ -66793,12 +66758,12 @@ function OnmsSeverity_setPrototypeOf(o, p) { var _context; OnmsSeverity_setProto
  * @category Model
  */
 var OnmsSeverity = /*#__PURE__*/function (_OnmsEnum) {
-  OnmsSeverity_inherits(OnmsSeverity, _OnmsEnum);
   function OnmsSeverity() {
     OnmsSeverity_classCallCheck(this, OnmsSeverity);
     return OnmsSeverity_callSuper(this, OnmsSeverity, arguments);
   }
-  OnmsSeverity_createClass(OnmsSeverity, [{
+  OnmsSeverity_inherits(OnmsSeverity, _OnmsEnum);
+  return OnmsSeverity_createClass(OnmsSeverity, [{
     key: "urlValue",
     get: /** @inheritdoc */
     function get() {
@@ -66818,7 +66783,6 @@ var OnmsSeverity = /*#__PURE__*/function (_OnmsEnum) {
       return OnmsEnum_forLabel(Severities, label);
     }
   }]);
-  return OnmsSeverity;
 }(OnmsEnum);
 
 /* eslint-disable  */
@@ -66859,7 +66823,7 @@ function OnmsEvent_arrayLikeToArray(arr, len) { if (len == null || len > arr.len
 function OnmsEvent_classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 function OnmsEvent_defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; define_property_default()(target, OnmsEvent_toPropertyKey(descriptor.key), descriptor); } }
 function OnmsEvent_createClass(Constructor, protoProps, staticProps) { if (protoProps) OnmsEvent_defineProperties(Constructor.prototype, protoProps); if (staticProps) OnmsEvent_defineProperties(Constructor, staticProps); define_property_default()(Constructor, "prototype", { writable: false }); return Constructor; }
-function OnmsEvent_toPropertyKey(t) { var i = OnmsEvent_toPrimitive(t, "string"); return "symbol" == OnmsEvent_typeof(i) ? i : String(i); }
+function OnmsEvent_toPropertyKey(t) { var i = OnmsEvent_toPrimitive(t, "string"); return "symbol" == OnmsEvent_typeof(i) ? i : i + ""; }
 function OnmsEvent_toPrimitive(t, r) { if ("object" != OnmsEvent_typeof(t) || !t) return t; var e = t[(to_primitive_default())]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != OnmsEvent_typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 
 
@@ -66874,7 +66838,7 @@ var OnmsEvent = /*#__PURE__*/function () {
   function OnmsEvent() {
     OnmsEvent_classCallCheck(this, OnmsEvent);
   }
-  OnmsEvent_createClass(OnmsEvent, [{
+  return OnmsEvent_createClass(OnmsEvent, [{
     key: "serviceName",
     get: /** the event ID */
 
@@ -66974,7 +66938,6 @@ var OnmsEvent = /*#__PURE__*/function () {
       return event;
     }
   }]);
-  return OnmsEvent;
 }();
 ;// CONCATENATED MODULE: ./src/dao/EventDAO.ts
 
@@ -66997,13 +66960,13 @@ function EventDAO_typeof(o) { "@babel/helpers - typeof"; return EventDAO_typeof 
 
 
 
-function EventDAO_regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ EventDAO_regeneratorRuntime = function _regeneratorRuntime() { return e; }; var t, e = {}, r = Object.prototype, n = r.hasOwnProperty, o = (define_property_default()) || function (t, e, r) { t[e] = r.value; }, i = "function" == typeof (symbol_default()) ? (symbol_default()) : {}, a = i.iterator || "@@iterator", c = i.asyncIterator || "@@asyncIterator", u = i.toStringTag || "@@toStringTag"; function define(t, e, r) { return define_property_default()(t, e, { value: r, enumerable: !0, configurable: !0, writable: !0 }), t[e]; } try { define({}, ""); } catch (t) { define = function define(t, e, r) { return t[e] = r; }; } function wrap(t, e, r, n) { var i = e && e.prototype instanceof Generator ? e : Generator, a = create_default()(i.prototype), c = new Context(n || []); return o(a, "_invoke", { value: makeInvokeMethod(t, r, c) }), a; } function tryCatch(t, e, r) { try { return { type: "normal", arg: t.call(e, r) }; } catch (t) { return { type: "throw", arg: t }; } } e.wrap = wrap; var h = "suspendedStart", l = "suspendedYield", f = "executing", s = "completed", y = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var p = {}; define(p, a, function () { return this; }); var d = (get_prototype_of_default()), v = d && d(d(values([]))); v && v !== r && n.call(v, a) && (p = v); var g = GeneratorFunctionPrototype.prototype = Generator.prototype = create_default()(p); function defineIteratorMethods(t) { var _context5; for_each_default()(_context5 = ["next", "throw", "return"]).call(_context5, function (e) { define(t, e, function (t) { return this._invoke(e, t); }); }); } function AsyncIterator(t, e) { function invoke(r, o, i, a) { var c = tryCatch(t[r], t, o); if ("throw" !== c.type) { var u = c.arg, h = u.value; return h && "object" == EventDAO_typeof(h) && n.call(h, "__await") ? e.resolve(h.__await).then(function (t) { invoke("next", t, i, a); }, function (t) { invoke("throw", t, i, a); }) : e.resolve(h).then(function (t) { u.value = t, i(u); }, function (t) { return invoke("throw", t, i, a); }); } a(c.arg); } var r; o(this, "_invoke", { value: function value(t, n) { function callInvokeWithMethodAndArg() { return new e(function (e, r) { invoke(t, n, e, r); }); } return r = r ? r.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); } }); } function makeInvokeMethod(e, r, n) { var o = h; return function (i, a) { if (o === f) throw new Error("Generator is already running"); if (o === s) { if ("throw" === i) throw a; return { value: t, done: !0 }; } for (n.method = i, n.arg = a;;) { var c = n.delegate; if (c) { var u = maybeInvokeDelegate(c, n); if (u) { if (u === y) continue; return u; } } if ("next" === n.method) n.sent = n._sent = n.arg;else if ("throw" === n.method) { if (o === h) throw o = s, n.arg; n.dispatchException(n.arg); } else "return" === n.method && n.abrupt("return", n.arg); o = f; var p = tryCatch(e, r, n); if ("normal" === p.type) { if (o = n.done ? s : l, p.arg === y) continue; return { value: p.arg, done: n.done }; } "throw" === p.type && (o = s, n.method = "throw", n.arg = p.arg); } }; } function maybeInvokeDelegate(e, r) { var n = r.method, o = e.iterator[n]; if (o === t) return r.delegate = null, "throw" === n && e.iterator.return && (r.method = "return", r.arg = t, maybeInvokeDelegate(e, r), "throw" === r.method) || "return" !== n && (r.method = "throw", r.arg = new TypeError("The iterator does not provide a '" + n + "' method")), y; var i = tryCatch(o, e.iterator, r.arg); if ("throw" === i.type) return r.method = "throw", r.arg = i.arg, r.delegate = null, y; var a = i.arg; return a ? a.done ? (r[e.resultName] = a.value, r.next = e.nextLoc, "return" !== r.method && (r.method = "next", r.arg = t), r.delegate = null, y) : a : (r.method = "throw", r.arg = new TypeError("iterator result is not an object"), r.delegate = null, y); } function pushTryEntry(t) { var e = { tryLoc: t[0] }; 1 in t && (e.catchLoc = t[1]), 2 in t && (e.finallyLoc = t[2], e.afterLoc = t[3]), this.tryEntries.push(e); } function resetTryEntry(t) { var e = t.completion || {}; e.type = "normal", delete e.arg, t.completion = e; } function Context(t) { this.tryEntries = [{ tryLoc: "root" }], for_each_default()(t).call(t, pushTryEntry, this), this.reset(!0); } function values(e) { if (e || "" === e) { var r = e[a]; if (r) return r.call(e); if ("function" == typeof e.next) return e; if (!isNaN(e.length)) { var o = -1, i = function next() { for (; ++o < e.length;) if (n.call(e, o)) return next.value = e[o], next.done = !1, next; return next.value = t, next.done = !0, next; }; return i.next = i; } } throw new TypeError(EventDAO_typeof(e) + " is not iterable"); } return GeneratorFunction.prototype = GeneratorFunctionPrototype, o(g, "constructor", { value: GeneratorFunctionPrototype, configurable: !0 }), o(GeneratorFunctionPrototype, "constructor", { value: GeneratorFunction, configurable: !0 }), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, u, "GeneratorFunction"), e.isGeneratorFunction = function (t) { var e = "function" == typeof t && t.constructor; return !!e && (e === GeneratorFunction || "GeneratorFunction" === (e.displayName || e.name)); }, e.mark = function (t) { return (set_prototype_of_default()) ? set_prototype_of_default()(t, GeneratorFunctionPrototype) : (t.__proto__ = GeneratorFunctionPrototype, define(t, u, "GeneratorFunction")), t.prototype = create_default()(g), t; }, e.awrap = function (t) { return { __await: t }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, c, function () { return this; }), e.AsyncIterator = AsyncIterator, e.async = function (t, r, n, o, i) { void 0 === i && (i = (promise_default())); var a = new AsyncIterator(wrap(t, r, n, o), i); return e.isGeneratorFunction(r) ? a : a.next().then(function (t) { return t.done ? t.value : a.next(); }); }, defineIteratorMethods(g), define(g, u, "Generator"), define(g, a, function () { return this; }), define(g, "toString", function () { return "[object Generator]"; }), e.keys = function (t) { var e = Object(t), r = []; for (var n in e) r.push(n); return reverse_default()(r).call(r), function next() { for (; r.length;) { var t = r.pop(); if (t in e) return next.value = t, next.done = !1, next; } return next.done = !0, next; }; }, e.values = values, Context.prototype = { constructor: Context, reset: function reset(e) { var _context6; if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = !1, this.delegate = null, this.method = "next", this.arg = t, for_each_default()(_context6 = this.tryEntries).call(_context6, resetTryEntry), !e) for (var r in this) "t" === r.charAt(0) && n.call(this, r) && !isNaN(+slice_default()(r).call(r, 1)) && (this[r] = t); }, stop: function stop() { this.done = !0; var t = this.tryEntries[0].completion; if ("throw" === t.type) throw t.arg; return this.rval; }, dispatchException: function dispatchException(e) { if (this.done) throw e; var r = this; function handle(n, o) { return a.type = "throw", a.arg = e, r.next = n, o && (r.method = "next", r.arg = t), !!o; } for (var o = this.tryEntries.length - 1; o >= 0; --o) { var i = this.tryEntries[o], a = i.completion; if ("root" === i.tryLoc) return handle("end"); if (i.tryLoc <= this.prev) { var c = n.call(i, "catchLoc"), u = n.call(i, "finallyLoc"); if (c && u) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } else if (c) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); } else { if (!u) throw new Error("try statement without catch or finally"); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } } } }, abrupt: function abrupt(t, e) { for (var r = this.tryEntries.length - 1; r >= 0; --r) { var o = this.tryEntries[r]; if (o.tryLoc <= this.prev && n.call(o, "finallyLoc") && this.prev < o.finallyLoc) { var i = o; break; } } i && ("break" === t || "continue" === t) && i.tryLoc <= e && e <= i.finallyLoc && (i = null); var a = i ? i.completion : {}; return a.type = t, a.arg = e, i ? (this.method = "next", this.next = i.finallyLoc, y) : this.complete(a); }, complete: function complete(t, e) { if ("throw" === t.type) throw t.arg; return "break" === t.type || "continue" === t.type ? this.next = t.arg : "return" === t.type ? (this.rval = this.arg = t.arg, this.method = "return", this.next = "end") : "normal" === t.type && e && (this.next = e), y; }, finish: function finish(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.finallyLoc === t) return this.complete(r.completion, r.afterLoc), resetTryEntry(r), y; } }, catch: function _catch(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.tryLoc === t) { var n = r.completion; if ("throw" === n.type) { var o = n.arg; resetTryEntry(r); } return o; } } throw new Error("illegal catch attempt"); }, delegateYield: function delegateYield(e, r, n) { return this.delegate = { iterator: values(e), resultName: r, nextLoc: n }, "next" === this.method && (this.arg = t), y; } }, e; }
+function EventDAO_regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ EventDAO_regeneratorRuntime = function _regeneratorRuntime() { return e; }; var t, e = {}, r = Object.prototype, n = r.hasOwnProperty, o = (define_property_default()) || function (t, e, r) { t[e] = r.value; }, i = "function" == typeof (symbol_default()) ? (symbol_default()) : {}, a = i.iterator || "@@iterator", c = i.asyncIterator || "@@asyncIterator", u = i.toStringTag || "@@toStringTag"; function define(t, e, r) { return define_property_default()(t, e, { value: r, enumerable: !0, configurable: !0, writable: !0 }), t[e]; } try { define({}, ""); } catch (t) { define = function define(t, e, r) { return t[e] = r; }; } function wrap(t, e, r, n) { var i = e && e.prototype instanceof Generator ? e : Generator, a = create_default()(i.prototype), c = new Context(n || []); return o(a, "_invoke", { value: makeInvokeMethod(t, r, c) }), a; } function tryCatch(t, e, r) { try { return { type: "normal", arg: t.call(e, r) }; } catch (t) { return { type: "throw", arg: t }; } } e.wrap = wrap; var h = "suspendedStart", l = "suspendedYield", f = "executing", s = "completed", y = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var p = {}; define(p, a, function () { return this; }); var d = (get_prototype_of_default()), v = d && d(d(values([]))); v && v !== r && n.call(v, a) && (p = v); var g = GeneratorFunctionPrototype.prototype = Generator.prototype = create_default()(p); function defineIteratorMethods(t) { var _context5; for_each_default()(_context5 = ["next", "throw", "return"]).call(_context5, function (e) { define(t, e, function (t) { return this._invoke(e, t); }); }); } function AsyncIterator(t, e) { function invoke(r, o, i, a) { var c = tryCatch(t[r], t, o); if ("throw" !== c.type) { var u = c.arg, h = u.value; return h && "object" == EventDAO_typeof(h) && n.call(h, "__await") ? e.resolve(h.__await).then(function (t) { invoke("next", t, i, a); }, function (t) { invoke("throw", t, i, a); }) : e.resolve(h).then(function (t) { u.value = t, i(u); }, function (t) { return invoke("throw", t, i, a); }); } a(c.arg); } var r; o(this, "_invoke", { value: function value(t, n) { function callInvokeWithMethodAndArg() { return new e(function (e, r) { invoke(t, n, e, r); }); } return r = r ? r.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); } }); } function makeInvokeMethod(e, r, n) { var o = h; return function (i, a) { if (o === f) throw Error("Generator is already running"); if (o === s) { if ("throw" === i) throw a; return { value: t, done: !0 }; } for (n.method = i, n.arg = a;;) { var c = n.delegate; if (c) { var u = maybeInvokeDelegate(c, n); if (u) { if (u === y) continue; return u; } } if ("next" === n.method) n.sent = n._sent = n.arg;else if ("throw" === n.method) { if (o === h) throw o = s, n.arg; n.dispatchException(n.arg); } else "return" === n.method && n.abrupt("return", n.arg); o = f; var p = tryCatch(e, r, n); if ("normal" === p.type) { if (o = n.done ? s : l, p.arg === y) continue; return { value: p.arg, done: n.done }; } "throw" === p.type && (o = s, n.method = "throw", n.arg = p.arg); } }; } function maybeInvokeDelegate(e, r) { var n = r.method, o = e.iterator[n]; if (o === t) return r.delegate = null, "throw" === n && e.iterator.return && (r.method = "return", r.arg = t, maybeInvokeDelegate(e, r), "throw" === r.method) || "return" !== n && (r.method = "throw", r.arg = new TypeError("The iterator does not provide a '" + n + "' method")), y; var i = tryCatch(o, e.iterator, r.arg); if ("throw" === i.type) return r.method = "throw", r.arg = i.arg, r.delegate = null, y; var a = i.arg; return a ? a.done ? (r[e.resultName] = a.value, r.next = e.nextLoc, "return" !== r.method && (r.method = "next", r.arg = t), r.delegate = null, y) : a : (r.method = "throw", r.arg = new TypeError("iterator result is not an object"), r.delegate = null, y); } function pushTryEntry(t) { var e = { tryLoc: t[0] }; 1 in t && (e.catchLoc = t[1]), 2 in t && (e.finallyLoc = t[2], e.afterLoc = t[3]), this.tryEntries.push(e); } function resetTryEntry(t) { var e = t.completion || {}; e.type = "normal", delete e.arg, t.completion = e; } function Context(t) { this.tryEntries = [{ tryLoc: "root" }], for_each_default()(t).call(t, pushTryEntry, this), this.reset(!0); } function values(e) { if (e || "" === e) { var r = e[a]; if (r) return r.call(e); if ("function" == typeof e.next) return e; if (!isNaN(e.length)) { var o = -1, i = function next() { for (; ++o < e.length;) if (n.call(e, o)) return next.value = e[o], next.done = !1, next; return next.value = t, next.done = !0, next; }; return i.next = i; } } throw new TypeError(EventDAO_typeof(e) + " is not iterable"); } return GeneratorFunction.prototype = GeneratorFunctionPrototype, o(g, "constructor", { value: GeneratorFunctionPrototype, configurable: !0 }), o(GeneratorFunctionPrototype, "constructor", { value: GeneratorFunction, configurable: !0 }), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, u, "GeneratorFunction"), e.isGeneratorFunction = function (t) { var e = "function" == typeof t && t.constructor; return !!e && (e === GeneratorFunction || "GeneratorFunction" === (e.displayName || e.name)); }, e.mark = function (t) { return (set_prototype_of_default()) ? set_prototype_of_default()(t, GeneratorFunctionPrototype) : (t.__proto__ = GeneratorFunctionPrototype, define(t, u, "GeneratorFunction")), t.prototype = create_default()(g), t; }, e.awrap = function (t) { return { __await: t }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, c, function () { return this; }), e.AsyncIterator = AsyncIterator, e.async = function (t, r, n, o, i) { void 0 === i && (i = (promise_default())); var a = new AsyncIterator(wrap(t, r, n, o), i); return e.isGeneratorFunction(r) ? a : a.next().then(function (t) { return t.done ? t.value : a.next(); }); }, defineIteratorMethods(g), define(g, u, "Generator"), define(g, a, function () { return this; }), define(g, "toString", function () { return "[object Generator]"; }), e.keys = function (t) { var e = Object(t), r = []; for (var n in e) r.push(n); return reverse_default()(r).call(r), function next() { for (; r.length;) { var t = r.pop(); if (t in e) return next.value = t, next.done = !1, next; } return next.done = !0, next; }; }, e.values = values, Context.prototype = { constructor: Context, reset: function reset(e) { var _context6; if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = !1, this.delegate = null, this.method = "next", this.arg = t, for_each_default()(_context6 = this.tryEntries).call(_context6, resetTryEntry), !e) for (var r in this) "t" === r.charAt(0) && n.call(this, r) && !isNaN(+slice_default()(r).call(r, 1)) && (this[r] = t); }, stop: function stop() { this.done = !0; var t = this.tryEntries[0].completion; if ("throw" === t.type) throw t.arg; return this.rval; }, dispatchException: function dispatchException(e) { if (this.done) throw e; var r = this; function handle(n, o) { return a.type = "throw", a.arg = e, r.next = n, o && (r.method = "next", r.arg = t), !!o; } for (var o = this.tryEntries.length - 1; o >= 0; --o) { var i = this.tryEntries[o], a = i.completion; if ("root" === i.tryLoc) return handle("end"); if (i.tryLoc <= this.prev) { var c = n.call(i, "catchLoc"), u = n.call(i, "finallyLoc"); if (c && u) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } else if (c) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); } else { if (!u) throw Error("try statement without catch or finally"); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } } } }, abrupt: function abrupt(t, e) { for (var r = this.tryEntries.length - 1; r >= 0; --r) { var o = this.tryEntries[r]; if (o.tryLoc <= this.prev && n.call(o, "finallyLoc") && this.prev < o.finallyLoc) { var i = o; break; } } i && ("break" === t || "continue" === t) && i.tryLoc <= e && e <= i.finallyLoc && (i = null); var a = i ? i.completion : {}; return a.type = t, a.arg = e, i ? (this.method = "next", this.next = i.finallyLoc, y) : this.complete(a); }, complete: function complete(t, e) { if ("throw" === t.type) throw t.arg; return "break" === t.type || "continue" === t.type ? this.next = t.arg : "return" === t.type ? (this.rval = this.arg = t.arg, this.method = "return", this.next = "end") : "normal" === t.type && e && (this.next = e), y; }, finish: function finish(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.finallyLoc === t) return this.complete(r.completion, r.afterLoc), resetTryEntry(r), y; } }, catch: function _catch(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.tryLoc === t) { var n = r.completion; if ("throw" === n.type) { var o = n.arg; resetTryEntry(r); } return o; } } throw Error("illegal catch attempt"); }, delegateYield: function delegateYield(e, r, n) { return this.delegate = { iterator: values(e), resultName: r, nextLoc: n }, "next" === this.method && (this.arg = t), y; } }, e; }
 function EventDAO_asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { promise_default().resolve(value).then(_next, _throw); } }
 function EventDAO_asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new (promise_default())(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { EventDAO_asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { EventDAO_asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 function EventDAO_classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 function EventDAO_defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; define_property_default()(target, EventDAO_toPropertyKey(descriptor.key), descriptor); } }
 function EventDAO_createClass(Constructor, protoProps, staticProps) { if (protoProps) EventDAO_defineProperties(Constructor.prototype, protoProps); if (staticProps) EventDAO_defineProperties(Constructor, staticProps); define_property_default()(Constructor, "prototype", { writable: false }); return Constructor; }
-function EventDAO_toPropertyKey(t) { var i = EventDAO_toPrimitive(t, "string"); return "symbol" == EventDAO_typeof(i) ? i : String(i); }
+function EventDAO_toPropertyKey(t) { var i = EventDAO_toPrimitive(t, "string"); return "symbol" == EventDAO_typeof(i) ? i : i + ""; }
 function EventDAO_toPrimitive(t, r) { if ("object" != EventDAO_typeof(t) || !t) return t; var e = t[(to_primitive_default())]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != EventDAO_typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 function EventDAO_callSuper(t, o, e) { return o = EventDAO_getPrototypeOf(o), EventDAO_possibleConstructorReturn(t, EventDAO_isNativeReflectConstruct() ? construct_default()(o, e || [], EventDAO_getPrototypeOf(t).constructor) : o.apply(t, e)); }
 function EventDAO_possibleConstructorReturn(self, call) { if (call && (EventDAO_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return EventDAO_assertThisInitialized(self); }
@@ -67022,14 +66985,14 @@ function EventDAO_setPrototypeOf(o, p) { var _context3; EventDAO_setPrototypeOf 
  * @category DAO
  */
 var EventDAO = /*#__PURE__*/function (_AbstractDAO) {
-  EventDAO_inherits(EventDAO, _AbstractDAO);
   function EventDAO(impl) {
     EventDAO_classCallCheck(this, EventDAO);
     return EventDAO_callSuper(this, EventDAO, [impl]);
   }
 
   /** Get an event, given the event's ID. */
-  EventDAO_createClass(EventDAO, [{
+  EventDAO_inherits(EventDAO, _AbstractDAO);
+  return EventDAO_createClass(EventDAO, [{
     key: "get",
     value: (function () {
       var _get = EventDAO_asyncToGenerator( /*#__PURE__*/EventDAO_regeneratorRuntime().mark(function _callee(id) {
@@ -67135,7 +67098,6 @@ var EventDAO = /*#__PURE__*/function (_AbstractDAO) {
       return this.getApiVersion() === 2 ? 'api/v2/events' : 'rest/events';
     }
   }]);
-  return EventDAO;
 }(AbstractDAO);
 ;// CONCATENATED MODULE: ./src/model/OnmsAlarm.ts
 
@@ -67147,7 +67109,7 @@ function OnmsAlarm_typeof(o) { "@babel/helpers - typeof"; return OnmsAlarm_typeo
 function OnmsAlarm_classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 function OnmsAlarm_defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; define_property_default()(target, OnmsAlarm_toPropertyKey(descriptor.key), descriptor); } }
 function OnmsAlarm_createClass(Constructor, protoProps, staticProps) { if (protoProps) OnmsAlarm_defineProperties(Constructor.prototype, protoProps); if (staticProps) OnmsAlarm_defineProperties(Constructor, staticProps); define_property_default()(Constructor, "prototype", { writable: false }); return Constructor; }
-function OnmsAlarm_toPropertyKey(t) { var i = OnmsAlarm_toPrimitive(t, "string"); return "symbol" == OnmsAlarm_typeof(i) ? i : String(i); }
+function OnmsAlarm_toPropertyKey(t) { var i = OnmsAlarm_toPrimitive(t, "string"); return "symbol" == OnmsAlarm_typeof(i) ? i : i + ""; }
 function OnmsAlarm_toPrimitive(t, r) { if ("object" != OnmsAlarm_typeof(t) || !t) return t; var e = t[(to_primitive_default())]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != OnmsAlarm_typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 /**
  * Represents an OpenNMS alarm.
@@ -67157,7 +67119,7 @@ var OnmsAlarm = /*#__PURE__*/function () {
   function OnmsAlarm() {
     OnmsAlarm_classCallCheck(this, OnmsAlarm);
   }
-  OnmsAlarm_createClass(OnmsAlarm, [{
+  return OnmsAlarm_createClass(OnmsAlarm, [{
     key: "lastEventTime",
     get: /** the alarm ID */
 
@@ -67249,7 +67211,6 @@ var OnmsAlarm = /*#__PURE__*/function () {
       return String(this.id);
     }
   }]);
-  return OnmsAlarm;
 }();
 ;// CONCATENATED MODULE: ./src/model/OnmsAlarmType.ts
 
@@ -67267,7 +67228,7 @@ function OnmsAlarmType_typeof(o) { "@babel/helpers - typeof"; return OnmsAlarmTy
 function OnmsAlarmType_classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 function OnmsAlarmType_defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; define_property_default()(target, OnmsAlarmType_toPropertyKey(descriptor.key), descriptor); } }
 function OnmsAlarmType_createClass(Constructor, protoProps, staticProps) { if (protoProps) OnmsAlarmType_defineProperties(Constructor.prototype, protoProps); if (staticProps) OnmsAlarmType_defineProperties(Constructor, staticProps); define_property_default()(Constructor, "prototype", { writable: false }); return Constructor; }
-function OnmsAlarmType_toPropertyKey(t) { var i = OnmsAlarmType_toPrimitive(t, "string"); return "symbol" == OnmsAlarmType_typeof(i) ? i : String(i); }
+function OnmsAlarmType_toPropertyKey(t) { var i = OnmsAlarmType_toPrimitive(t, "string"); return "symbol" == OnmsAlarmType_typeof(i) ? i : i + ""; }
 function OnmsAlarmType_toPrimitive(t, r) { if ("object" != OnmsAlarmType_typeof(t) || !t) return t; var e = t[(to_primitive_default())]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != OnmsAlarmType_typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 function OnmsAlarmType_callSuper(t, o, e) { return o = OnmsAlarmType_getPrototypeOf(o), OnmsAlarmType_possibleConstructorReturn(t, OnmsAlarmType_isNativeReflectConstruct() ? construct_default()(o, e || [], OnmsAlarmType_getPrototypeOf(t).constructor) : o.apply(t, e)); }
 function OnmsAlarmType_possibleConstructorReturn(self, call) { if (call && (OnmsAlarmType_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return OnmsAlarmType_assertThisInitialized(self); }
@@ -67283,12 +67244,12 @@ function OnmsAlarmType_setPrototypeOf(o, p) { var _context; OnmsAlarmType_setPro
  * @category Model
  */
 var OnmsAlarmType = /*#__PURE__*/function (_OnmsEnum) {
-  OnmsAlarmType_inherits(OnmsAlarmType, _OnmsEnum);
   function OnmsAlarmType() {
     OnmsAlarmType_classCallCheck(this, OnmsAlarmType);
     return OnmsAlarmType_callSuper(this, OnmsAlarmType, arguments);
   }
-  OnmsAlarmType_createClass(OnmsAlarmType, [{
+  OnmsAlarmType_inherits(OnmsAlarmType, _OnmsEnum);
+  return OnmsAlarmType_createClass(OnmsAlarmType, [{
     key: "urlValue",
     get: /** @inheritdoc */
     function get() {
@@ -67301,7 +67262,6 @@ var OnmsAlarmType = /*#__PURE__*/function (_OnmsEnum) {
       return OnmsEnum_forId(AlarmTypes, id);
     }
   }]);
-  return OnmsAlarmType;
 }(OnmsEnum);
 
 /**
@@ -67333,7 +67293,7 @@ function OnmsTroubleTicketState_typeof(o) { "@babel/helpers - typeof"; return On
 function OnmsTroubleTicketState_classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 function OnmsTroubleTicketState_defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; define_property_default()(target, OnmsTroubleTicketState_toPropertyKey(descriptor.key), descriptor); } }
 function OnmsTroubleTicketState_createClass(Constructor, protoProps, staticProps) { if (protoProps) OnmsTroubleTicketState_defineProperties(Constructor.prototype, protoProps); if (staticProps) OnmsTroubleTicketState_defineProperties(Constructor, staticProps); define_property_default()(Constructor, "prototype", { writable: false }); return Constructor; }
-function OnmsTroubleTicketState_toPropertyKey(t) { var i = OnmsTroubleTicketState_toPrimitive(t, "string"); return "symbol" == OnmsTroubleTicketState_typeof(i) ? i : String(i); }
+function OnmsTroubleTicketState_toPropertyKey(t) { var i = OnmsTroubleTicketState_toPrimitive(t, "string"); return "symbol" == OnmsTroubleTicketState_typeof(i) ? i : i + ""; }
 function OnmsTroubleTicketState_toPrimitive(t, r) { if ("object" != OnmsTroubleTicketState_typeof(t) || !t) return t; var e = t[(to_primitive_default())]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != OnmsTroubleTicketState_typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 function OnmsTroubleTicketState_callSuper(t, o, e) { return o = OnmsTroubleTicketState_getPrototypeOf(o), OnmsTroubleTicketState_possibleConstructorReturn(t, OnmsTroubleTicketState_isNativeReflectConstruct() ? construct_default()(o, e || [], OnmsTroubleTicketState_getPrototypeOf(t).constructor) : o.apply(t, e)); }
 function OnmsTroubleTicketState_possibleConstructorReturn(self, call) { if (call && (OnmsTroubleTicketState_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return OnmsTroubleTicketState_assertThisInitialized(self); }
@@ -67349,12 +67309,12 @@ function OnmsTroubleTicketState_setPrototypeOf(o, p) { var _context; OnmsTrouble
  * @category Model
  */
 var OnmsTroubleTicketState = /*#__PURE__*/function (_OnmsEnum) {
-  OnmsTroubleTicketState_inherits(OnmsTroubleTicketState, _OnmsEnum);
   function OnmsTroubleTicketState() {
     OnmsTroubleTicketState_classCallCheck(this, OnmsTroubleTicketState);
     return OnmsTroubleTicketState_callSuper(this, OnmsTroubleTicketState, arguments);
   }
-  OnmsTroubleTicketState_createClass(OnmsTroubleTicketState, [{
+  OnmsTroubleTicketState_inherits(OnmsTroubleTicketState, _OnmsEnum);
+  return OnmsTroubleTicketState_createClass(OnmsTroubleTicketState, [{
     key: "urlValue",
     get: /** @inheritdoc */
     function get() {
@@ -67374,7 +67334,6 @@ var OnmsTroubleTicketState = /*#__PURE__*/function (_OnmsEnum) {
       return OnmsEnum_forLabel(TroubleTicketStates, label);
     }
   }]);
-  return OnmsTroubleTicketState;
 }(OnmsEnum);
 
 /* eslint-disable  */
@@ -67422,7 +67381,7 @@ freeze_default()(TroubleTicketStates);
 function OnmsMemo_typeof(o) { "@babel/helpers - typeof"; return OnmsMemo_typeof = "function" == typeof (symbol_default()) && "symbol" == typeof (iterator_default()) ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof (symbol_default()) && o.constructor === (symbol_default()) && o !== (symbol_default()).prototype ? "symbol" : typeof o; }, OnmsMemo_typeof(o); }
 function OnmsMemo_defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; define_property_default()(target, OnmsMemo_toPropertyKey(descriptor.key), descriptor); } }
 function OnmsMemo_createClass(Constructor, protoProps, staticProps) { if (protoProps) OnmsMemo_defineProperties(Constructor.prototype, protoProps); if (staticProps) OnmsMemo_defineProperties(Constructor, staticProps); define_property_default()(Constructor, "prototype", { writable: false }); return Constructor; }
-function OnmsMemo_toPropertyKey(t) { var i = OnmsMemo_toPrimitive(t, "string"); return "symbol" == OnmsMemo_typeof(i) ? i : String(i); }
+function OnmsMemo_toPropertyKey(t) { var i = OnmsMemo_toPrimitive(t, "string"); return "symbol" == OnmsMemo_typeof(i) ? i : i + ""; }
 function OnmsMemo_toPrimitive(t, r) { if ("object" != OnmsMemo_typeof(t) || !t) return t; var e = t[(to_primitive_default())]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != OnmsMemo_typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 function OnmsMemo_classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 /**
@@ -67464,13 +67423,13 @@ function AlarmDAO_typeof(o) { "@babel/helpers - typeof"; return AlarmDAO_typeof 
 
 
 
-function AlarmDAO_regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ AlarmDAO_regeneratorRuntime = function _regeneratorRuntime() { return e; }; var t, e = {}, r = Object.prototype, n = r.hasOwnProperty, o = (define_property_default()) || function (t, e, r) { t[e] = r.value; }, i = "function" == typeof (symbol_default()) ? (symbol_default()) : {}, a = i.iterator || "@@iterator", c = i.asyncIterator || "@@asyncIterator", u = i.toStringTag || "@@toStringTag"; function define(t, e, r) { return define_property_default()(t, e, { value: r, enumerable: !0, configurable: !0, writable: !0 }), t[e]; } try { define({}, ""); } catch (t) { define = function define(t, e, r) { return t[e] = r; }; } function wrap(t, e, r, n) { var i = e && e.prototype instanceof Generator ? e : Generator, a = create_default()(i.prototype), c = new Context(n || []); return o(a, "_invoke", { value: makeInvokeMethod(t, r, c) }), a; } function tryCatch(t, e, r) { try { return { type: "normal", arg: t.call(e, r) }; } catch (t) { return { type: "throw", arg: t }; } } e.wrap = wrap; var h = "suspendedStart", l = "suspendedYield", f = "executing", s = "completed", y = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var p = {}; define(p, a, function () { return this; }); var d = (get_prototype_of_default()), v = d && d(d(values([]))); v && v !== r && n.call(v, a) && (p = v); var g = GeneratorFunctionPrototype.prototype = Generator.prototype = create_default()(p); function defineIteratorMethods(t) { var _context24; for_each_default()(_context24 = ["next", "throw", "return"]).call(_context24, function (e) { define(t, e, function (t) { return this._invoke(e, t); }); }); } function AsyncIterator(t, e) { function invoke(r, o, i, a) { var c = tryCatch(t[r], t, o); if ("throw" !== c.type) { var u = c.arg, h = u.value; return h && "object" == AlarmDAO_typeof(h) && n.call(h, "__await") ? e.resolve(h.__await).then(function (t) { invoke("next", t, i, a); }, function (t) { invoke("throw", t, i, a); }) : e.resolve(h).then(function (t) { u.value = t, i(u); }, function (t) { return invoke("throw", t, i, a); }); } a(c.arg); } var r; o(this, "_invoke", { value: function value(t, n) { function callInvokeWithMethodAndArg() { return new e(function (e, r) { invoke(t, n, e, r); }); } return r = r ? r.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); } }); } function makeInvokeMethod(e, r, n) { var o = h; return function (i, a) { if (o === f) throw new Error("Generator is already running"); if (o === s) { if ("throw" === i) throw a; return { value: t, done: !0 }; } for (n.method = i, n.arg = a;;) { var c = n.delegate; if (c) { var u = maybeInvokeDelegate(c, n); if (u) { if (u === y) continue; return u; } } if ("next" === n.method) n.sent = n._sent = n.arg;else if ("throw" === n.method) { if (o === h) throw o = s, n.arg; n.dispatchException(n.arg); } else "return" === n.method && n.abrupt("return", n.arg); o = f; var p = tryCatch(e, r, n); if ("normal" === p.type) { if (o = n.done ? s : l, p.arg === y) continue; return { value: p.arg, done: n.done }; } "throw" === p.type && (o = s, n.method = "throw", n.arg = p.arg); } }; } function maybeInvokeDelegate(e, r) { var n = r.method, o = e.iterator[n]; if (o === t) return r.delegate = null, "throw" === n && e.iterator.return && (r.method = "return", r.arg = t, maybeInvokeDelegate(e, r), "throw" === r.method) || "return" !== n && (r.method = "throw", r.arg = new TypeError("The iterator does not provide a '" + n + "' method")), y; var i = tryCatch(o, e.iterator, r.arg); if ("throw" === i.type) return r.method = "throw", r.arg = i.arg, r.delegate = null, y; var a = i.arg; return a ? a.done ? (r[e.resultName] = a.value, r.next = e.nextLoc, "return" !== r.method && (r.method = "next", r.arg = t), r.delegate = null, y) : a : (r.method = "throw", r.arg = new TypeError("iterator result is not an object"), r.delegate = null, y); } function pushTryEntry(t) { var e = { tryLoc: t[0] }; 1 in t && (e.catchLoc = t[1]), 2 in t && (e.finallyLoc = t[2], e.afterLoc = t[3]), this.tryEntries.push(e); } function resetTryEntry(t) { var e = t.completion || {}; e.type = "normal", delete e.arg, t.completion = e; } function Context(t) { this.tryEntries = [{ tryLoc: "root" }], for_each_default()(t).call(t, pushTryEntry, this), this.reset(!0); } function values(e) { if (e || "" === e) { var r = e[a]; if (r) return r.call(e); if ("function" == typeof e.next) return e; if (!isNaN(e.length)) { var o = -1, i = function next() { for (; ++o < e.length;) if (n.call(e, o)) return next.value = e[o], next.done = !1, next; return next.value = t, next.done = !0, next; }; return i.next = i; } } throw new TypeError(AlarmDAO_typeof(e) + " is not iterable"); } return GeneratorFunction.prototype = GeneratorFunctionPrototype, o(g, "constructor", { value: GeneratorFunctionPrototype, configurable: !0 }), o(GeneratorFunctionPrototype, "constructor", { value: GeneratorFunction, configurable: !0 }), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, u, "GeneratorFunction"), e.isGeneratorFunction = function (t) { var e = "function" == typeof t && t.constructor; return !!e && (e === GeneratorFunction || "GeneratorFunction" === (e.displayName || e.name)); }, e.mark = function (t) { return (set_prototype_of_default()) ? set_prototype_of_default()(t, GeneratorFunctionPrototype) : (t.__proto__ = GeneratorFunctionPrototype, define(t, u, "GeneratorFunction")), t.prototype = create_default()(g), t; }, e.awrap = function (t) { return { __await: t }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, c, function () { return this; }), e.AsyncIterator = AsyncIterator, e.async = function (t, r, n, o, i) { void 0 === i && (i = (promise_default())); var a = new AsyncIterator(wrap(t, r, n, o), i); return e.isGeneratorFunction(r) ? a : a.next().then(function (t) { return t.done ? t.value : a.next(); }); }, defineIteratorMethods(g), define(g, u, "Generator"), define(g, a, function () { return this; }), define(g, "toString", function () { return "[object Generator]"; }), e.keys = function (t) { var e = Object(t), r = []; for (var n in e) r.push(n); return reverse_default()(r).call(r), function next() { for (; r.length;) { var t = r.pop(); if (t in e) return next.value = t, next.done = !1, next; } return next.done = !0, next; }; }, e.values = values, Context.prototype = { constructor: Context, reset: function reset(e) { var _context25; if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = !1, this.delegate = null, this.method = "next", this.arg = t, for_each_default()(_context25 = this.tryEntries).call(_context25, resetTryEntry), !e) for (var r in this) "t" === r.charAt(0) && n.call(this, r) && !isNaN(+slice_default()(r).call(r, 1)) && (this[r] = t); }, stop: function stop() { this.done = !0; var t = this.tryEntries[0].completion; if ("throw" === t.type) throw t.arg; return this.rval; }, dispatchException: function dispatchException(e) { if (this.done) throw e; var r = this; function handle(n, o) { return a.type = "throw", a.arg = e, r.next = n, o && (r.method = "next", r.arg = t), !!o; } for (var o = this.tryEntries.length - 1; o >= 0; --o) { var i = this.tryEntries[o], a = i.completion; if ("root" === i.tryLoc) return handle("end"); if (i.tryLoc <= this.prev) { var c = n.call(i, "catchLoc"), u = n.call(i, "finallyLoc"); if (c && u) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } else if (c) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); } else { if (!u) throw new Error("try statement without catch or finally"); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } } } }, abrupt: function abrupt(t, e) { for (var r = this.tryEntries.length - 1; r >= 0; --r) { var o = this.tryEntries[r]; if (o.tryLoc <= this.prev && n.call(o, "finallyLoc") && this.prev < o.finallyLoc) { var i = o; break; } } i && ("break" === t || "continue" === t) && i.tryLoc <= e && e <= i.finallyLoc && (i = null); var a = i ? i.completion : {}; return a.type = t, a.arg = e, i ? (this.method = "next", this.next = i.finallyLoc, y) : this.complete(a); }, complete: function complete(t, e) { if ("throw" === t.type) throw t.arg; return "break" === t.type || "continue" === t.type ? this.next = t.arg : "return" === t.type ? (this.rval = this.arg = t.arg, this.method = "return", this.next = "end") : "normal" === t.type && e && (this.next = e), y; }, finish: function finish(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.finallyLoc === t) return this.complete(r.completion, r.afterLoc), resetTryEntry(r), y; } }, catch: function _catch(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.tryLoc === t) { var n = r.completion; if ("throw" === n.type) { var o = n.arg; resetTryEntry(r); } return o; } } throw new Error("illegal catch attempt"); }, delegateYield: function delegateYield(e, r, n) { return this.delegate = { iterator: values(e), resultName: r, nextLoc: n }, "next" === this.method && (this.arg = t), y; } }, e; }
+function AlarmDAO_regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ AlarmDAO_regeneratorRuntime = function _regeneratorRuntime() { return e; }; var t, e = {}, r = Object.prototype, n = r.hasOwnProperty, o = (define_property_default()) || function (t, e, r) { t[e] = r.value; }, i = "function" == typeof (symbol_default()) ? (symbol_default()) : {}, a = i.iterator || "@@iterator", c = i.asyncIterator || "@@asyncIterator", u = i.toStringTag || "@@toStringTag"; function define(t, e, r) { return define_property_default()(t, e, { value: r, enumerable: !0, configurable: !0, writable: !0 }), t[e]; } try { define({}, ""); } catch (t) { define = function define(t, e, r) { return t[e] = r; }; } function wrap(t, e, r, n) { var i = e && e.prototype instanceof Generator ? e : Generator, a = create_default()(i.prototype), c = new Context(n || []); return o(a, "_invoke", { value: makeInvokeMethod(t, r, c) }), a; } function tryCatch(t, e, r) { try { return { type: "normal", arg: t.call(e, r) }; } catch (t) { return { type: "throw", arg: t }; } } e.wrap = wrap; var h = "suspendedStart", l = "suspendedYield", f = "executing", s = "completed", y = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var p = {}; define(p, a, function () { return this; }); var d = (get_prototype_of_default()), v = d && d(d(values([]))); v && v !== r && n.call(v, a) && (p = v); var g = GeneratorFunctionPrototype.prototype = Generator.prototype = create_default()(p); function defineIteratorMethods(t) { var _context24; for_each_default()(_context24 = ["next", "throw", "return"]).call(_context24, function (e) { define(t, e, function (t) { return this._invoke(e, t); }); }); } function AsyncIterator(t, e) { function invoke(r, o, i, a) { var c = tryCatch(t[r], t, o); if ("throw" !== c.type) { var u = c.arg, h = u.value; return h && "object" == AlarmDAO_typeof(h) && n.call(h, "__await") ? e.resolve(h.__await).then(function (t) { invoke("next", t, i, a); }, function (t) { invoke("throw", t, i, a); }) : e.resolve(h).then(function (t) { u.value = t, i(u); }, function (t) { return invoke("throw", t, i, a); }); } a(c.arg); } var r; o(this, "_invoke", { value: function value(t, n) { function callInvokeWithMethodAndArg() { return new e(function (e, r) { invoke(t, n, e, r); }); } return r = r ? r.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); } }); } function makeInvokeMethod(e, r, n) { var o = h; return function (i, a) { if (o === f) throw Error("Generator is already running"); if (o === s) { if ("throw" === i) throw a; return { value: t, done: !0 }; } for (n.method = i, n.arg = a;;) { var c = n.delegate; if (c) { var u = maybeInvokeDelegate(c, n); if (u) { if (u === y) continue; return u; } } if ("next" === n.method) n.sent = n._sent = n.arg;else if ("throw" === n.method) { if (o === h) throw o = s, n.arg; n.dispatchException(n.arg); } else "return" === n.method && n.abrupt("return", n.arg); o = f; var p = tryCatch(e, r, n); if ("normal" === p.type) { if (o = n.done ? s : l, p.arg === y) continue; return { value: p.arg, done: n.done }; } "throw" === p.type && (o = s, n.method = "throw", n.arg = p.arg); } }; } function maybeInvokeDelegate(e, r) { var n = r.method, o = e.iterator[n]; if (o === t) return r.delegate = null, "throw" === n && e.iterator.return && (r.method = "return", r.arg = t, maybeInvokeDelegate(e, r), "throw" === r.method) || "return" !== n && (r.method = "throw", r.arg = new TypeError("The iterator does not provide a '" + n + "' method")), y; var i = tryCatch(o, e.iterator, r.arg); if ("throw" === i.type) return r.method = "throw", r.arg = i.arg, r.delegate = null, y; var a = i.arg; return a ? a.done ? (r[e.resultName] = a.value, r.next = e.nextLoc, "return" !== r.method && (r.method = "next", r.arg = t), r.delegate = null, y) : a : (r.method = "throw", r.arg = new TypeError("iterator result is not an object"), r.delegate = null, y); } function pushTryEntry(t) { var e = { tryLoc: t[0] }; 1 in t && (e.catchLoc = t[1]), 2 in t && (e.finallyLoc = t[2], e.afterLoc = t[3]), this.tryEntries.push(e); } function resetTryEntry(t) { var e = t.completion || {}; e.type = "normal", delete e.arg, t.completion = e; } function Context(t) { this.tryEntries = [{ tryLoc: "root" }], for_each_default()(t).call(t, pushTryEntry, this), this.reset(!0); } function values(e) { if (e || "" === e) { var r = e[a]; if (r) return r.call(e); if ("function" == typeof e.next) return e; if (!isNaN(e.length)) { var o = -1, i = function next() { for (; ++o < e.length;) if (n.call(e, o)) return next.value = e[o], next.done = !1, next; return next.value = t, next.done = !0, next; }; return i.next = i; } } throw new TypeError(AlarmDAO_typeof(e) + " is not iterable"); } return GeneratorFunction.prototype = GeneratorFunctionPrototype, o(g, "constructor", { value: GeneratorFunctionPrototype, configurable: !0 }), o(GeneratorFunctionPrototype, "constructor", { value: GeneratorFunction, configurable: !0 }), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, u, "GeneratorFunction"), e.isGeneratorFunction = function (t) { var e = "function" == typeof t && t.constructor; return !!e && (e === GeneratorFunction || "GeneratorFunction" === (e.displayName || e.name)); }, e.mark = function (t) { return (set_prototype_of_default()) ? set_prototype_of_default()(t, GeneratorFunctionPrototype) : (t.__proto__ = GeneratorFunctionPrototype, define(t, u, "GeneratorFunction")), t.prototype = create_default()(g), t; }, e.awrap = function (t) { return { __await: t }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, c, function () { return this; }), e.AsyncIterator = AsyncIterator, e.async = function (t, r, n, o, i) { void 0 === i && (i = (promise_default())); var a = new AsyncIterator(wrap(t, r, n, o), i); return e.isGeneratorFunction(r) ? a : a.next().then(function (t) { return t.done ? t.value : a.next(); }); }, defineIteratorMethods(g), define(g, u, "Generator"), define(g, a, function () { return this; }), define(g, "toString", function () { return "[object Generator]"; }), e.keys = function (t) { var e = Object(t), r = []; for (var n in e) r.push(n); return reverse_default()(r).call(r), function next() { for (; r.length;) { var t = r.pop(); if (t in e) return next.value = t, next.done = !1, next; } return next.done = !0, next; }; }, e.values = values, Context.prototype = { constructor: Context, reset: function reset(e) { var _context25; if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = !1, this.delegate = null, this.method = "next", this.arg = t, for_each_default()(_context25 = this.tryEntries).call(_context25, resetTryEntry), !e) for (var r in this) "t" === r.charAt(0) && n.call(this, r) && !isNaN(+slice_default()(r).call(r, 1)) && (this[r] = t); }, stop: function stop() { this.done = !0; var t = this.tryEntries[0].completion; if ("throw" === t.type) throw t.arg; return this.rval; }, dispatchException: function dispatchException(e) { if (this.done) throw e; var r = this; function handle(n, o) { return a.type = "throw", a.arg = e, r.next = n, o && (r.method = "next", r.arg = t), !!o; } for (var o = this.tryEntries.length - 1; o >= 0; --o) { var i = this.tryEntries[o], a = i.completion; if ("root" === i.tryLoc) return handle("end"); if (i.tryLoc <= this.prev) { var c = n.call(i, "catchLoc"), u = n.call(i, "finallyLoc"); if (c && u) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } else if (c) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); } else { if (!u) throw Error("try statement without catch or finally"); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } } } }, abrupt: function abrupt(t, e) { for (var r = this.tryEntries.length - 1; r >= 0; --r) { var o = this.tryEntries[r]; if (o.tryLoc <= this.prev && n.call(o, "finallyLoc") && this.prev < o.finallyLoc) { var i = o; break; } } i && ("break" === t || "continue" === t) && i.tryLoc <= e && e <= i.finallyLoc && (i = null); var a = i ? i.completion : {}; return a.type = t, a.arg = e, i ? (this.method = "next", this.next = i.finallyLoc, y) : this.complete(a); }, complete: function complete(t, e) { if ("throw" === t.type) throw t.arg; return "break" === t.type || "continue" === t.type ? this.next = t.arg : "return" === t.type ? (this.rval = this.arg = t.arg, this.method = "return", this.next = "end") : "normal" === t.type && e && (this.next = e), y; }, finish: function finish(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.finallyLoc === t) return this.complete(r.completion, r.afterLoc), resetTryEntry(r), y; } }, catch: function _catch(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.tryLoc === t) { var n = r.completion; if ("throw" === n.type) { var o = n.arg; resetTryEntry(r); } return o; } } throw Error("illegal catch attempt"); }, delegateYield: function delegateYield(e, r, n) { return this.delegate = { iterator: values(e), resultName: r, nextLoc: n }, "next" === this.method && (this.arg = t), y; } }, e; }
 function AlarmDAO_asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { promise_default().resolve(value).then(_next, _throw); } }
 function AlarmDAO_asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new (promise_default())(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { AlarmDAO_asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { AlarmDAO_asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 function AlarmDAO_classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 function AlarmDAO_defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; define_property_default()(target, AlarmDAO_toPropertyKey(descriptor.key), descriptor); } }
 function AlarmDAO_createClass(Constructor, protoProps, staticProps) { if (protoProps) AlarmDAO_defineProperties(Constructor.prototype, protoProps); if (staticProps) AlarmDAO_defineProperties(Constructor, staticProps); define_property_default()(Constructor, "prototype", { writable: false }); return Constructor; }
-function AlarmDAO_toPropertyKey(t) { var i = AlarmDAO_toPrimitive(t, "string"); return "symbol" == AlarmDAO_typeof(i) ? i : String(i); }
+function AlarmDAO_toPropertyKey(t) { var i = AlarmDAO_toPrimitive(t, "string"); return "symbol" == AlarmDAO_typeof(i) ? i : i + ""; }
 function AlarmDAO_toPrimitive(t, r) { if ("object" != AlarmDAO_typeof(t) || !t) return t; var e = t[(to_primitive_default())]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != AlarmDAO_typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 function AlarmDAO_callSuper(t, o, e) { return o = AlarmDAO_getPrototypeOf(o), AlarmDAO_possibleConstructorReturn(t, AlarmDAO_isNativeReflectConstruct() ? construct_default()(o, e || [], AlarmDAO_getPrototypeOf(t).constructor) : o.apply(t, e)); }
 function AlarmDAO_possibleConstructorReturn(self, call) { if (call && (AlarmDAO_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return AlarmDAO_assertThisInitialized(self); }
@@ -67500,7 +67459,6 @@ function AlarmDAO_setPrototypeOf(o, p) { var _context21; AlarmDAO_setPrototypeOf
  * @category DAO
  */
 var AlarmDAO = /*#__PURE__*/function (_AbstractDAO) {
-  AlarmDAO_inherits(AlarmDAO, _AbstractDAO);
   /**
    * an event DAO to be used for creating events attached to alarms from API/JSON data.
    * @hidden
@@ -67521,7 +67479,8 @@ var AlarmDAO = /*#__PURE__*/function (_AbstractDAO) {
    * @param {number} id - The alarm's ID.
    * @return An [[OnmsAlarm]].
    */
-  AlarmDAO_createClass(AlarmDAO, [{
+  AlarmDAO_inherits(AlarmDAO, _AbstractDAO);
+  return AlarmDAO_createClass(AlarmDAO, [{
     key: "get",
     value: (function () {
       var _get2 = AlarmDAO_asyncToGenerator( /*#__PURE__*/AlarmDAO_regeneratorRuntime().mark(function _callee(id) {
@@ -68381,7 +68340,6 @@ var AlarmDAO = /*#__PURE__*/function (_AbstractDAO) {
       throw err;
     }
   }]);
-  return AlarmDAO;
 }(AbstractDAO);
 ;// CONCATENATED MODULE: ./src/model/OnmsFlowSeries.ts
 
@@ -68392,7 +68350,7 @@ var AlarmDAO = /*#__PURE__*/function (_AbstractDAO) {
 function OnmsFlowSeries_typeof(o) { "@babel/helpers - typeof"; return OnmsFlowSeries_typeof = "function" == typeof (symbol_default()) && "symbol" == typeof (iterator_default()) ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof (symbol_default()) && o.constructor === (symbol_default()) && o !== (symbol_default()).prototype ? "symbol" : typeof o; }, OnmsFlowSeries_typeof(o); }
 function OnmsFlowSeries_defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; define_property_default()(target, OnmsFlowSeries_toPropertyKey(descriptor.key), descriptor); } }
 function OnmsFlowSeries_createClass(Constructor, protoProps, staticProps) { if (protoProps) OnmsFlowSeries_defineProperties(Constructor.prototype, protoProps); if (staticProps) OnmsFlowSeries_defineProperties(Constructor, staticProps); define_property_default()(Constructor, "prototype", { writable: false }); return Constructor; }
-function OnmsFlowSeries_toPropertyKey(t) { var i = OnmsFlowSeries_toPrimitive(t, "string"); return "symbol" == OnmsFlowSeries_typeof(i) ? i : String(i); }
+function OnmsFlowSeries_toPropertyKey(t) { var i = OnmsFlowSeries_toPrimitive(t, "string"); return "symbol" == OnmsFlowSeries_typeof(i) ? i : i + ""; }
 function OnmsFlowSeries_toPrimitive(t, r) { if ("object" != OnmsFlowSeries_typeof(t) || !t) return t; var e = t[(to_primitive_default())]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != OnmsFlowSeries_typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 function OnmsFlowSeries_classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 /**
@@ -68411,7 +68369,7 @@ var OnmsFlowSeries = /*#__PURE__*/OnmsFlowSeries_createClass(function OnmsFlowSe
 function OnmsFlowSeriesColumn_typeof(o) { "@babel/helpers - typeof"; return OnmsFlowSeriesColumn_typeof = "function" == typeof (symbol_default()) && "symbol" == typeof (iterator_default()) ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof (symbol_default()) && o.constructor === (symbol_default()) && o !== (symbol_default()).prototype ? "symbol" : typeof o; }, OnmsFlowSeriesColumn_typeof(o); }
 function OnmsFlowSeriesColumn_defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; define_property_default()(target, OnmsFlowSeriesColumn_toPropertyKey(descriptor.key), descriptor); } }
 function OnmsFlowSeriesColumn_createClass(Constructor, protoProps, staticProps) { if (protoProps) OnmsFlowSeriesColumn_defineProperties(Constructor.prototype, protoProps); if (staticProps) OnmsFlowSeriesColumn_defineProperties(Constructor, staticProps); define_property_default()(Constructor, "prototype", { writable: false }); return Constructor; }
-function OnmsFlowSeriesColumn_toPropertyKey(t) { var i = OnmsFlowSeriesColumn_toPrimitive(t, "string"); return "symbol" == OnmsFlowSeriesColumn_typeof(i) ? i : String(i); }
+function OnmsFlowSeriesColumn_toPropertyKey(t) { var i = OnmsFlowSeriesColumn_toPrimitive(t, "string"); return "symbol" == OnmsFlowSeriesColumn_typeof(i) ? i : i + ""; }
 function OnmsFlowSeriesColumn_toPrimitive(t, r) { if ("object" != OnmsFlowSeriesColumn_typeof(t) || !t) return t; var e = t[(to_primitive_default())]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != OnmsFlowSeriesColumn_typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 function OnmsFlowSeriesColumn_classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 /**
@@ -68436,7 +68394,7 @@ function OnmsFlowSeriesColumn(label, ingress) {
 function OnmsFlowExporterSummary_typeof(o) { "@babel/helpers - typeof"; return OnmsFlowExporterSummary_typeof = "function" == typeof (symbol_default()) && "symbol" == typeof (iterator_default()) ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof (symbol_default()) && o.constructor === (symbol_default()) && o !== (symbol_default()).prototype ? "symbol" : typeof o; }, OnmsFlowExporterSummary_typeof(o); }
 function OnmsFlowExporterSummary_defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; define_property_default()(target, OnmsFlowExporterSummary_toPropertyKey(descriptor.key), descriptor); } }
 function OnmsFlowExporterSummary_createClass(Constructor, protoProps, staticProps) { if (protoProps) OnmsFlowExporterSummary_defineProperties(Constructor.prototype, protoProps); if (staticProps) OnmsFlowExporterSummary_defineProperties(Constructor, staticProps); define_property_default()(Constructor, "prototype", { writable: false }); return Constructor; }
-function OnmsFlowExporterSummary_toPropertyKey(t) { var i = OnmsFlowExporterSummary_toPrimitive(t, "string"); return "symbol" == OnmsFlowExporterSummary_typeof(i) ? i : String(i); }
+function OnmsFlowExporterSummary_toPropertyKey(t) { var i = OnmsFlowExporterSummary_toPrimitive(t, "string"); return "symbol" == OnmsFlowExporterSummary_typeof(i) ? i : i + ""; }
 function OnmsFlowExporterSummary_toPrimitive(t, r) { if ("object" != OnmsFlowExporterSummary_typeof(t) || !t) return t; var e = t[(to_primitive_default())]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != OnmsFlowExporterSummary_typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 function OnmsFlowExporterSummary_classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 /**
@@ -68455,7 +68413,7 @@ var OnmsFlowExporterSummary = /*#__PURE__*/OnmsFlowExporterSummary_createClass(f
 function OnmsFlowSnmpInterface_typeof(o) { "@babel/helpers - typeof"; return OnmsFlowSnmpInterface_typeof = "function" == typeof (symbol_default()) && "symbol" == typeof (iterator_default()) ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof (symbol_default()) && o.constructor === (symbol_default()) && o !== (symbol_default()).prototype ? "symbol" : typeof o; }, OnmsFlowSnmpInterface_typeof(o); }
 function OnmsFlowSnmpInterface_defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; define_property_default()(target, OnmsFlowSnmpInterface_toPropertyKey(descriptor.key), descriptor); } }
 function OnmsFlowSnmpInterface_createClass(Constructor, protoProps, staticProps) { if (protoProps) OnmsFlowSnmpInterface_defineProperties(Constructor.prototype, protoProps); if (staticProps) OnmsFlowSnmpInterface_defineProperties(Constructor, staticProps); define_property_default()(Constructor, "prototype", { writable: false }); return Constructor; }
-function OnmsFlowSnmpInterface_toPropertyKey(t) { var i = OnmsFlowSnmpInterface_toPrimitive(t, "string"); return "symbol" == OnmsFlowSnmpInterface_typeof(i) ? i : String(i); }
+function OnmsFlowSnmpInterface_toPropertyKey(t) { var i = OnmsFlowSnmpInterface_toPrimitive(t, "string"); return "symbol" == OnmsFlowSnmpInterface_typeof(i) ? i : i + ""; }
 function OnmsFlowSnmpInterface_toPrimitive(t, r) { if ("object" != OnmsFlowSnmpInterface_typeof(t) || !t) return t; var e = t[(to_primitive_default())]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != OnmsFlowSnmpInterface_typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 function OnmsFlowSnmpInterface_classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 /**
@@ -68479,7 +68437,7 @@ function OnmsFlowExporter_typeof(o) { "@babel/helpers - typeof"; return OnmsFlow
 
 function OnmsFlowExporter_defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; define_property_default()(target, OnmsFlowExporter_toPropertyKey(descriptor.key), descriptor); } }
 function OnmsFlowExporter_createClass(Constructor, protoProps, staticProps) { if (protoProps) OnmsFlowExporter_defineProperties(Constructor.prototype, protoProps); if (staticProps) OnmsFlowExporter_defineProperties(Constructor, staticProps); define_property_default()(Constructor, "prototype", { writable: false }); return Constructor; }
-function OnmsFlowExporter_toPropertyKey(t) { var i = OnmsFlowExporter_toPrimitive(t, "string"); return "symbol" == OnmsFlowExporter_typeof(i) ? i : String(i); }
+function OnmsFlowExporter_toPropertyKey(t) { var i = OnmsFlowExporter_toPrimitive(t, "string"); return "symbol" == OnmsFlowExporter_typeof(i) ? i : i + ""; }
 function OnmsFlowExporter_toPrimitive(t, r) { if ("object" != OnmsFlowExporter_typeof(t) || !t) return t; var e = t[(to_primitive_default())]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != OnmsFlowExporter_typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 function OnmsFlowExporter_classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 function OnmsFlowExporter_callSuper(t, o, e) { return o = OnmsFlowExporter_getPrototypeOf(o), OnmsFlowExporter_possibleConstructorReturn(t, OnmsFlowExporter_isNativeReflectConstruct() ? construct_default()(o, e || [], OnmsFlowExporter_getPrototypeOf(t).constructor) : o.apply(t, e)); }
@@ -68496,11 +68454,11 @@ function OnmsFlowExporter_setPrototypeOf(o, p) { var _context; OnmsFlowExporter_
  * @category Model
  */
 var OnmsFlowExporter = /*#__PURE__*/function (_OnmsFlowExporterSumm) {
-  OnmsFlowExporter_inherits(OnmsFlowExporter, _OnmsFlowExporterSumm);
   function OnmsFlowExporter() {
     OnmsFlowExporter_classCallCheck(this, OnmsFlowExporter);
     return OnmsFlowExporter_callSuper(this, OnmsFlowExporter, arguments);
   }
+  OnmsFlowExporter_inherits(OnmsFlowExporter, _OnmsFlowExporterSumm);
   return OnmsFlowExporter_createClass(OnmsFlowExporter);
 }(OnmsFlowExporterSummary);
 ;// CONCATENATED MODULE: ./src/model/OnmsFlowTable.ts
@@ -68512,7 +68470,7 @@ var OnmsFlowExporter = /*#__PURE__*/function (_OnmsFlowExporterSumm) {
 function OnmsFlowTable_typeof(o) { "@babel/helpers - typeof"; return OnmsFlowTable_typeof = "function" == typeof (symbol_default()) && "symbol" == typeof (iterator_default()) ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof (symbol_default()) && o.constructor === (symbol_default()) && o !== (symbol_default()).prototype ? "symbol" : typeof o; }, OnmsFlowTable_typeof(o); }
 function OnmsFlowTable_defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; define_property_default()(target, OnmsFlowTable_toPropertyKey(descriptor.key), descriptor); } }
 function OnmsFlowTable_createClass(Constructor, protoProps, staticProps) { if (protoProps) OnmsFlowTable_defineProperties(Constructor.prototype, protoProps); if (staticProps) OnmsFlowTable_defineProperties(Constructor, staticProps); define_property_default()(Constructor, "prototype", { writable: false }); return Constructor; }
-function OnmsFlowTable_toPropertyKey(t) { var i = OnmsFlowTable_toPrimitive(t, "string"); return "symbol" == OnmsFlowTable_typeof(i) ? i : String(i); }
+function OnmsFlowTable_toPropertyKey(t) { var i = OnmsFlowTable_toPrimitive(t, "string"); return "symbol" == OnmsFlowTable_typeof(i) ? i : i + ""; }
 function OnmsFlowTable_toPrimitive(t, r) { if ("object" != OnmsFlowTable_typeof(t) || !t) return t; var e = t[(to_primitive_default())]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != OnmsFlowTable_typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 function OnmsFlowTable_classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 /**
@@ -68535,7 +68493,7 @@ function FlowDAO_arrayLikeToArray(arr, len) { if (len == null || len > arr.lengt
 
 
 
-function FlowDAO_regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ FlowDAO_regeneratorRuntime = function _regeneratorRuntime() { return e; }; var t, e = {}, r = Object.prototype, n = r.hasOwnProperty, o = (define_property_default()) || function (t, e, r) { t[e] = r.value; }, i = "function" == typeof (symbol_default()) ? (symbol_default()) : {}, a = i.iterator || "@@iterator", c = i.asyncIterator || "@@asyncIterator", u = i.toStringTag || "@@toStringTag"; function define(t, e, r) { return define_property_default()(t, e, { value: r, enumerable: !0, configurable: !0, writable: !0 }), t[e]; } try { define({}, ""); } catch (t) { define = function define(t, e, r) { return t[e] = r; }; } function wrap(t, e, r, n) { var i = e && e.prototype instanceof Generator ? e : Generator, a = create_default()(i.prototype), c = new Context(n || []); return o(a, "_invoke", { value: makeInvokeMethod(t, r, c) }), a; } function tryCatch(t, e, r) { try { return { type: "normal", arg: t.call(e, r) }; } catch (t) { return { type: "throw", arg: t }; } } e.wrap = wrap; var h = "suspendedStart", l = "suspendedYield", f = "executing", s = "completed", y = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var p = {}; define(p, a, function () { return this; }); var d = (get_prototype_of_default()), v = d && d(d(values([]))); v && v !== r && n.call(v, a) && (p = v); var g = GeneratorFunctionPrototype.prototype = Generator.prototype = create_default()(p); function defineIteratorMethods(t) { var _context24; for_each_default()(_context24 = ["next", "throw", "return"]).call(_context24, function (e) { define(t, e, function (t) { return this._invoke(e, t); }); }); } function AsyncIterator(t, e) { function invoke(r, o, i, a) { var c = tryCatch(t[r], t, o); if ("throw" !== c.type) { var u = c.arg, h = u.value; return h && "object" == FlowDAO_typeof(h) && n.call(h, "__await") ? e.resolve(h.__await).then(function (t) { invoke("next", t, i, a); }, function (t) { invoke("throw", t, i, a); }) : e.resolve(h).then(function (t) { u.value = t, i(u); }, function (t) { return invoke("throw", t, i, a); }); } a(c.arg); } var r; o(this, "_invoke", { value: function value(t, n) { function callInvokeWithMethodAndArg() { return new e(function (e, r) { invoke(t, n, e, r); }); } return r = r ? r.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); } }); } function makeInvokeMethod(e, r, n) { var o = h; return function (i, a) { if (o === f) throw new Error("Generator is already running"); if (o === s) { if ("throw" === i) throw a; return { value: t, done: !0 }; } for (n.method = i, n.arg = a;;) { var c = n.delegate; if (c) { var u = maybeInvokeDelegate(c, n); if (u) { if (u === y) continue; return u; } } if ("next" === n.method) n.sent = n._sent = n.arg;else if ("throw" === n.method) { if (o === h) throw o = s, n.arg; n.dispatchException(n.arg); } else "return" === n.method && n.abrupt("return", n.arg); o = f; var p = tryCatch(e, r, n); if ("normal" === p.type) { if (o = n.done ? s : l, p.arg === y) continue; return { value: p.arg, done: n.done }; } "throw" === p.type && (o = s, n.method = "throw", n.arg = p.arg); } }; } function maybeInvokeDelegate(e, r) { var n = r.method, o = e.iterator[n]; if (o === t) return r.delegate = null, "throw" === n && e.iterator.return && (r.method = "return", r.arg = t, maybeInvokeDelegate(e, r), "throw" === r.method) || "return" !== n && (r.method = "throw", r.arg = new TypeError("The iterator does not provide a '" + n + "' method")), y; var i = tryCatch(o, e.iterator, r.arg); if ("throw" === i.type) return r.method = "throw", r.arg = i.arg, r.delegate = null, y; var a = i.arg; return a ? a.done ? (r[e.resultName] = a.value, r.next = e.nextLoc, "return" !== r.method && (r.method = "next", r.arg = t), r.delegate = null, y) : a : (r.method = "throw", r.arg = new TypeError("iterator result is not an object"), r.delegate = null, y); } function pushTryEntry(t) { var e = { tryLoc: t[0] }; 1 in t && (e.catchLoc = t[1]), 2 in t && (e.finallyLoc = t[2], e.afterLoc = t[3]), this.tryEntries.push(e); } function resetTryEntry(t) { var e = t.completion || {}; e.type = "normal", delete e.arg, t.completion = e; } function Context(t) { this.tryEntries = [{ tryLoc: "root" }], for_each_default()(t).call(t, pushTryEntry, this), this.reset(!0); } function values(e) { if (e || "" === e) { var r = e[a]; if (r) return r.call(e); if ("function" == typeof e.next) return e; if (!isNaN(e.length)) { var o = -1, i = function next() { for (; ++o < e.length;) if (n.call(e, o)) return next.value = e[o], next.done = !1, next; return next.value = t, next.done = !0, next; }; return i.next = i; } } throw new TypeError(FlowDAO_typeof(e) + " is not iterable"); } return GeneratorFunction.prototype = GeneratorFunctionPrototype, o(g, "constructor", { value: GeneratorFunctionPrototype, configurable: !0 }), o(GeneratorFunctionPrototype, "constructor", { value: GeneratorFunction, configurable: !0 }), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, u, "GeneratorFunction"), e.isGeneratorFunction = function (t) { var e = "function" == typeof t && t.constructor; return !!e && (e === GeneratorFunction || "GeneratorFunction" === (e.displayName || e.name)); }, e.mark = function (t) { return (set_prototype_of_default()) ? set_prototype_of_default()(t, GeneratorFunctionPrototype) : (t.__proto__ = GeneratorFunctionPrototype, define(t, u, "GeneratorFunction")), t.prototype = create_default()(g), t; }, e.awrap = function (t) { return { __await: t }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, c, function () { return this; }), e.AsyncIterator = AsyncIterator, e.async = function (t, r, n, o, i) { void 0 === i && (i = (promise_default())); var a = new AsyncIterator(wrap(t, r, n, o), i); return e.isGeneratorFunction(r) ? a : a.next().then(function (t) { return t.done ? t.value : a.next(); }); }, defineIteratorMethods(g), define(g, u, "Generator"), define(g, a, function () { return this; }), define(g, "toString", function () { return "[object Generator]"; }), e.keys = function (t) { var e = Object(t), r = []; for (var n in e) r.push(n); return reverse_default()(r).call(r), function next() { for (; r.length;) { var t = r.pop(); if (t in e) return next.value = t, next.done = !1, next; } return next.done = !0, next; }; }, e.values = values, Context.prototype = { constructor: Context, reset: function reset(e) { var _context25; if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = !1, this.delegate = null, this.method = "next", this.arg = t, for_each_default()(_context25 = this.tryEntries).call(_context25, resetTryEntry), !e) for (var r in this) "t" === r.charAt(0) && n.call(this, r) && !isNaN(+slice_default()(r).call(r, 1)) && (this[r] = t); }, stop: function stop() { this.done = !0; var t = this.tryEntries[0].completion; if ("throw" === t.type) throw t.arg; return this.rval; }, dispatchException: function dispatchException(e) { if (this.done) throw e; var r = this; function handle(n, o) { return a.type = "throw", a.arg = e, r.next = n, o && (r.method = "next", r.arg = t), !!o; } for (var o = this.tryEntries.length - 1; o >= 0; --o) { var i = this.tryEntries[o], a = i.completion; if ("root" === i.tryLoc) return handle("end"); if (i.tryLoc <= this.prev) { var c = n.call(i, "catchLoc"), u = n.call(i, "finallyLoc"); if (c && u) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } else if (c) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); } else { if (!u) throw new Error("try statement without catch or finally"); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } } } }, abrupt: function abrupt(t, e) { for (var r = this.tryEntries.length - 1; r >= 0; --r) { var o = this.tryEntries[r]; if (o.tryLoc <= this.prev && n.call(o, "finallyLoc") && this.prev < o.finallyLoc) { var i = o; break; } } i && ("break" === t || "continue" === t) && i.tryLoc <= e && e <= i.finallyLoc && (i = null); var a = i ? i.completion : {}; return a.type = t, a.arg = e, i ? (this.method = "next", this.next = i.finallyLoc, y) : this.complete(a); }, complete: function complete(t, e) { if ("throw" === t.type) throw t.arg; return "break" === t.type || "continue" === t.type ? this.next = t.arg : "return" === t.type ? (this.rval = this.arg = t.arg, this.method = "return", this.next = "end") : "normal" === t.type && e && (this.next = e), y; }, finish: function finish(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.finallyLoc === t) return this.complete(r.completion, r.afterLoc), resetTryEntry(r), y; } }, catch: function _catch(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.tryLoc === t) { var n = r.completion; if ("throw" === n.type) { var o = n.arg; resetTryEntry(r); } return o; } } throw new Error("illegal catch attempt"); }, delegateYield: function delegateYield(e, r, n) { return this.delegate = { iterator: values(e), resultName: r, nextLoc: n }, "next" === this.method && (this.arg = t), y; } }, e; }
+function FlowDAO_regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ FlowDAO_regeneratorRuntime = function _regeneratorRuntime() { return e; }; var t, e = {}, r = Object.prototype, n = r.hasOwnProperty, o = (define_property_default()) || function (t, e, r) { t[e] = r.value; }, i = "function" == typeof (symbol_default()) ? (symbol_default()) : {}, a = i.iterator || "@@iterator", c = i.asyncIterator || "@@asyncIterator", u = i.toStringTag || "@@toStringTag"; function define(t, e, r) { return define_property_default()(t, e, { value: r, enumerable: !0, configurable: !0, writable: !0 }), t[e]; } try { define({}, ""); } catch (t) { define = function define(t, e, r) { return t[e] = r; }; } function wrap(t, e, r, n) { var i = e && e.prototype instanceof Generator ? e : Generator, a = create_default()(i.prototype), c = new Context(n || []); return o(a, "_invoke", { value: makeInvokeMethod(t, r, c) }), a; } function tryCatch(t, e, r) { try { return { type: "normal", arg: t.call(e, r) }; } catch (t) { return { type: "throw", arg: t }; } } e.wrap = wrap; var h = "suspendedStart", l = "suspendedYield", f = "executing", s = "completed", y = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var p = {}; define(p, a, function () { return this; }); var d = (get_prototype_of_default()), v = d && d(d(values([]))); v && v !== r && n.call(v, a) && (p = v); var g = GeneratorFunctionPrototype.prototype = Generator.prototype = create_default()(p); function defineIteratorMethods(t) { var _context24; for_each_default()(_context24 = ["next", "throw", "return"]).call(_context24, function (e) { define(t, e, function (t) { return this._invoke(e, t); }); }); } function AsyncIterator(t, e) { function invoke(r, o, i, a) { var c = tryCatch(t[r], t, o); if ("throw" !== c.type) { var u = c.arg, h = u.value; return h && "object" == FlowDAO_typeof(h) && n.call(h, "__await") ? e.resolve(h.__await).then(function (t) { invoke("next", t, i, a); }, function (t) { invoke("throw", t, i, a); }) : e.resolve(h).then(function (t) { u.value = t, i(u); }, function (t) { return invoke("throw", t, i, a); }); } a(c.arg); } var r; o(this, "_invoke", { value: function value(t, n) { function callInvokeWithMethodAndArg() { return new e(function (e, r) { invoke(t, n, e, r); }); } return r = r ? r.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); } }); } function makeInvokeMethod(e, r, n) { var o = h; return function (i, a) { if (o === f) throw Error("Generator is already running"); if (o === s) { if ("throw" === i) throw a; return { value: t, done: !0 }; } for (n.method = i, n.arg = a;;) { var c = n.delegate; if (c) { var u = maybeInvokeDelegate(c, n); if (u) { if (u === y) continue; return u; } } if ("next" === n.method) n.sent = n._sent = n.arg;else if ("throw" === n.method) { if (o === h) throw o = s, n.arg; n.dispatchException(n.arg); } else "return" === n.method && n.abrupt("return", n.arg); o = f; var p = tryCatch(e, r, n); if ("normal" === p.type) { if (o = n.done ? s : l, p.arg === y) continue; return { value: p.arg, done: n.done }; } "throw" === p.type && (o = s, n.method = "throw", n.arg = p.arg); } }; } function maybeInvokeDelegate(e, r) { var n = r.method, o = e.iterator[n]; if (o === t) return r.delegate = null, "throw" === n && e.iterator.return && (r.method = "return", r.arg = t, maybeInvokeDelegate(e, r), "throw" === r.method) || "return" !== n && (r.method = "throw", r.arg = new TypeError("The iterator does not provide a '" + n + "' method")), y; var i = tryCatch(o, e.iterator, r.arg); if ("throw" === i.type) return r.method = "throw", r.arg = i.arg, r.delegate = null, y; var a = i.arg; return a ? a.done ? (r[e.resultName] = a.value, r.next = e.nextLoc, "return" !== r.method && (r.method = "next", r.arg = t), r.delegate = null, y) : a : (r.method = "throw", r.arg = new TypeError("iterator result is not an object"), r.delegate = null, y); } function pushTryEntry(t) { var e = { tryLoc: t[0] }; 1 in t && (e.catchLoc = t[1]), 2 in t && (e.finallyLoc = t[2], e.afterLoc = t[3]), this.tryEntries.push(e); } function resetTryEntry(t) { var e = t.completion || {}; e.type = "normal", delete e.arg, t.completion = e; } function Context(t) { this.tryEntries = [{ tryLoc: "root" }], for_each_default()(t).call(t, pushTryEntry, this), this.reset(!0); } function values(e) { if (e || "" === e) { var r = e[a]; if (r) return r.call(e); if ("function" == typeof e.next) return e; if (!isNaN(e.length)) { var o = -1, i = function next() { for (; ++o < e.length;) if (n.call(e, o)) return next.value = e[o], next.done = !1, next; return next.value = t, next.done = !0, next; }; return i.next = i; } } throw new TypeError(FlowDAO_typeof(e) + " is not iterable"); } return GeneratorFunction.prototype = GeneratorFunctionPrototype, o(g, "constructor", { value: GeneratorFunctionPrototype, configurable: !0 }), o(GeneratorFunctionPrototype, "constructor", { value: GeneratorFunction, configurable: !0 }), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, u, "GeneratorFunction"), e.isGeneratorFunction = function (t) { var e = "function" == typeof t && t.constructor; return !!e && (e === GeneratorFunction || "GeneratorFunction" === (e.displayName || e.name)); }, e.mark = function (t) { return (set_prototype_of_default()) ? set_prototype_of_default()(t, GeneratorFunctionPrototype) : (t.__proto__ = GeneratorFunctionPrototype, define(t, u, "GeneratorFunction")), t.prototype = create_default()(g), t; }, e.awrap = function (t) { return { __await: t }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, c, function () { return this; }), e.AsyncIterator = AsyncIterator, e.async = function (t, r, n, o, i) { void 0 === i && (i = (promise_default())); var a = new AsyncIterator(wrap(t, r, n, o), i); return e.isGeneratorFunction(r) ? a : a.next().then(function (t) { return t.done ? t.value : a.next(); }); }, defineIteratorMethods(g), define(g, u, "Generator"), define(g, a, function () { return this; }), define(g, "toString", function () { return "[object Generator]"; }), e.keys = function (t) { var e = Object(t), r = []; for (var n in e) r.push(n); return reverse_default()(r).call(r), function next() { for (; r.length;) { var t = r.pop(); if (t in e) return next.value = t, next.done = !1, next; } return next.done = !0, next; }; }, e.values = values, Context.prototype = { constructor: Context, reset: function reset(e) { var _context25; if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = !1, this.delegate = null, this.method = "next", this.arg = t, for_each_default()(_context25 = this.tryEntries).call(_context25, resetTryEntry), !e) for (var r in this) "t" === r.charAt(0) && n.call(this, r) && !isNaN(+slice_default()(r).call(r, 1)) && (this[r] = t); }, stop: function stop() { this.done = !0; var t = this.tryEntries[0].completion; if ("throw" === t.type) throw t.arg; return this.rval; }, dispatchException: function dispatchException(e) { if (this.done) throw e; var r = this; function handle(n, o) { return a.type = "throw", a.arg = e, r.next = n, o && (r.method = "next", r.arg = t), !!o; } for (var o = this.tryEntries.length - 1; o >= 0; --o) { var i = this.tryEntries[o], a = i.completion; if ("root" === i.tryLoc) return handle("end"); if (i.tryLoc <= this.prev) { var c = n.call(i, "catchLoc"), u = n.call(i, "finallyLoc"); if (c && u) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } else if (c) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); } else { if (!u) throw Error("try statement without catch or finally"); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } } } }, abrupt: function abrupt(t, e) { for (var r = this.tryEntries.length - 1; r >= 0; --r) { var o = this.tryEntries[r]; if (o.tryLoc <= this.prev && n.call(o, "finallyLoc") && this.prev < o.finallyLoc) { var i = o; break; } } i && ("break" === t || "continue" === t) && i.tryLoc <= e && e <= i.finallyLoc && (i = null); var a = i ? i.completion : {}; return a.type = t, a.arg = e, i ? (this.method = "next", this.next = i.finallyLoc, y) : this.complete(a); }, complete: function complete(t, e) { if ("throw" === t.type) throw t.arg; return "break" === t.type || "continue" === t.type ? this.next = t.arg : "return" === t.type ? (this.rval = this.arg = t.arg, this.method = "return", this.next = "end") : "normal" === t.type && e && (this.next = e), y; }, finish: function finish(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.finallyLoc === t) return this.complete(r.completion, r.afterLoc), resetTryEntry(r), y; } }, catch: function _catch(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.tryLoc === t) { var n = r.completion; if ("throw" === n.type) { var o = n.arg; resetTryEntry(r); } return o; } } throw Error("illegal catch attempt"); }, delegateYield: function delegateYield(e, r, n) { return this.delegate = { iterator: values(e), resultName: r, nextLoc: n }, "next" === this.method && (this.arg = t), y; } }, e; }
 function FlowDAO_typeof(o) { "@babel/helpers - typeof"; return FlowDAO_typeof = "function" == typeof (symbol_default()) && "symbol" == typeof (iterator_default()) ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof (symbol_default()) && o.constructor === (symbol_default()) && o !== (symbol_default()).prototype ? "symbol" : typeof o; }, FlowDAO_typeof(o); }
 
 
@@ -68561,7 +68519,7 @@ function FlowDAO_asyncToGenerator(fn) { return function () { var self = this, ar
 function FlowDAO_classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 function FlowDAO_defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; define_property_default()(target, FlowDAO_toPropertyKey(descriptor.key), descriptor); } }
 function FlowDAO_createClass(Constructor, protoProps, staticProps) { if (protoProps) FlowDAO_defineProperties(Constructor.prototype, protoProps); if (staticProps) FlowDAO_defineProperties(Constructor, staticProps); define_property_default()(Constructor, "prototype", { writable: false }); return Constructor; }
-function FlowDAO_toPropertyKey(t) { var i = FlowDAO_toPrimitive(t, "string"); return "symbol" == FlowDAO_typeof(i) ? i : String(i); }
+function FlowDAO_toPropertyKey(t) { var i = FlowDAO_toPrimitive(t, "string"); return "symbol" == FlowDAO_typeof(i) ? i : i + ""; }
 function FlowDAO_toPrimitive(t, r) { if ("object" != FlowDAO_typeof(t) || !t) return t; var e = t[(to_primitive_default())]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != FlowDAO_typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 function FlowDAO_callSuper(t, o, e) { return o = FlowDAO_getPrototypeOf(o), FlowDAO_possibleConstructorReturn(t, FlowDAO_isNativeReflectConstruct() ? construct_default()(o, e || [], FlowDAO_getPrototypeOf(t).constructor) : o.apply(t, e)); }
 function FlowDAO_possibleConstructorReturn(self, call) { if (call && (FlowDAO_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return FlowDAO_assertThisInitialized(self); }
@@ -68589,12 +68547,12 @@ var FlowDAO_moment = __webpack_require__("./node_modules/moment/moment.js");
  * @category DAO
  */
 var FlowDAO = /*#__PURE__*/function (_BaseDAO) {
-  FlowDAO_inherits(FlowDAO, _BaseDAO);
   function FlowDAO() {
     FlowDAO_classCallCheck(this, FlowDAO);
     return FlowDAO_callSuper(this, FlowDAO, arguments);
   }
-  FlowDAO_createClass(FlowDAO, [{
+  FlowDAO_inherits(FlowDAO, _BaseDAO);
+  return FlowDAO_createClass(FlowDAO, [{
     key: "getExporters",
     value: (
     /**
@@ -69502,7 +69460,6 @@ var FlowDAO = /*#__PURE__*/function (_BaseDAO) {
       }
     }
   }]);
-  return FlowDAO;
 }(BaseDAO);
 
 /**
@@ -69525,7 +69482,7 @@ function OnmsManagedType_typeof(o) { "@babel/helpers - typeof"; return OnmsManag
 function OnmsManagedType_classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 function OnmsManagedType_defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; define_property_default()(target, OnmsManagedType_toPropertyKey(descriptor.key), descriptor); } }
 function OnmsManagedType_createClass(Constructor, protoProps, staticProps) { if (protoProps) OnmsManagedType_defineProperties(Constructor.prototype, protoProps); if (staticProps) OnmsManagedType_defineProperties(Constructor, staticProps); define_property_default()(Constructor, "prototype", { writable: false }); return Constructor; }
-function OnmsManagedType_toPropertyKey(t) { var i = OnmsManagedType_toPrimitive(t, "string"); return "symbol" == OnmsManagedType_typeof(i) ? i : String(i); }
+function OnmsManagedType_toPropertyKey(t) { var i = OnmsManagedType_toPrimitive(t, "string"); return "symbol" == OnmsManagedType_typeof(i) ? i : i + ""; }
 function OnmsManagedType_toPrimitive(t, r) { if ("object" != OnmsManagedType_typeof(t) || !t) return t; var e = t[(to_primitive_default())]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != OnmsManagedType_typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 function OnmsManagedType_callSuper(t, o, e) { return o = OnmsManagedType_getPrototypeOf(o), OnmsManagedType_possibleConstructorReturn(t, OnmsManagedType_isNativeReflectConstruct() ? construct_default()(o, e || [], OnmsManagedType_getPrototypeOf(t).constructor) : o.apply(t, e)); }
 function OnmsManagedType_possibleConstructorReturn(self, call) { if (call && (OnmsManagedType_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return OnmsManagedType_assertThisInitialized(self); }
@@ -69541,12 +69498,12 @@ function OnmsManagedType_setPrototypeOf(o, p) { var _context; OnmsManagedType_se
  * @category Model
  */
 var OnmsManagedType = /*#__PURE__*/function (_OnmsEnum) {
-  OnmsManagedType_inherits(OnmsManagedType, _OnmsEnum);
   function OnmsManagedType() {
     OnmsManagedType_classCallCheck(this, OnmsManagedType);
     return OnmsManagedType_callSuper(this, OnmsManagedType, arguments);
   }
-  OnmsManagedType_createClass(OnmsManagedType, [{
+  OnmsManagedType_inherits(OnmsManagedType, _OnmsEnum);
+  return OnmsManagedType_createClass(OnmsManagedType, [{
     key: "isManaged",
     value: /** Whether or not the node is managed. */
     function isManaged() {
@@ -69573,7 +69530,6 @@ var OnmsManagedType = /*#__PURE__*/function (_OnmsEnum) {
       return OnmsEnum_forLabel(ManagedTypes, label);
     }
   }]);
-  return OnmsManagedType;
 }(OnmsEnum);
 
 /* eslint-disable  */
@@ -69614,7 +69570,7 @@ function OnmsPrimaryType_typeof(o) { "@babel/helpers - typeof"; return OnmsPrima
 function OnmsPrimaryType_classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 function OnmsPrimaryType_defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; define_property_default()(target, OnmsPrimaryType_toPropertyKey(descriptor.key), descriptor); } }
 function OnmsPrimaryType_createClass(Constructor, protoProps, staticProps) { if (protoProps) OnmsPrimaryType_defineProperties(Constructor.prototype, protoProps); if (staticProps) OnmsPrimaryType_defineProperties(Constructor, staticProps); define_property_default()(Constructor, "prototype", { writable: false }); return Constructor; }
-function OnmsPrimaryType_toPropertyKey(t) { var i = OnmsPrimaryType_toPrimitive(t, "string"); return "symbol" == OnmsPrimaryType_typeof(i) ? i : String(i); }
+function OnmsPrimaryType_toPropertyKey(t) { var i = OnmsPrimaryType_toPrimitive(t, "string"); return "symbol" == OnmsPrimaryType_typeof(i) ? i : i + ""; }
 function OnmsPrimaryType_toPrimitive(t, r) { if ("object" != OnmsPrimaryType_typeof(t) || !t) return t; var e = t[(to_primitive_default())]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != OnmsPrimaryType_typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 function OnmsPrimaryType_callSuper(t, o, e) { return o = OnmsPrimaryType_getPrototypeOf(o), OnmsPrimaryType_possibleConstructorReturn(t, OnmsPrimaryType_isNativeReflectConstruct() ? construct_default()(o, e || [], OnmsPrimaryType_getPrototypeOf(t).constructor) : o.apply(t, e)); }
 function OnmsPrimaryType_possibleConstructorReturn(self, call) { if (call && (OnmsPrimaryType_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return OnmsPrimaryType_assertThisInitialized(self); }
@@ -69630,12 +69586,12 @@ function OnmsPrimaryType_setPrototypeOf(o, p) { var _context; OnmsPrimaryType_se
  * @category Model
  */
 var OnmsPrimaryType = /*#__PURE__*/function (_OnmsEnum) {
-  OnmsPrimaryType_inherits(OnmsPrimaryType, _OnmsEnum);
   function OnmsPrimaryType() {
     OnmsPrimaryType_classCallCheck(this, OnmsPrimaryType);
     return OnmsPrimaryType_callSuper(this, OnmsPrimaryType, arguments);
   }
-  OnmsPrimaryType_createClass(OnmsPrimaryType, [{
+  OnmsPrimaryType_inherits(OnmsPrimaryType, _OnmsEnum);
+  return OnmsPrimaryType_createClass(OnmsPrimaryType, [{
     key: "isPrimary",
     value: /** Whether or not the interface is a primary SNMP interface. */
     function isPrimary() {
@@ -69662,7 +69618,6 @@ var OnmsPrimaryType = /*#__PURE__*/function (_OnmsEnum) {
       return OnmsEnum_forLabel(PrimaryTypes, label);
     }
   }]);
-  return OnmsPrimaryType;
 }(OnmsEnum);
 
 /* eslint-disable  */
@@ -69681,8 +69636,6 @@ var PrimaryTypes = {
 freeze_default()(PrimaryTypes);
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.date.to-json.js
 var es_date_to_json = __webpack_require__("./node_modules/core-js/modules/es.date.to-json.js");
-// EXTERNAL MODULE: ./node_modules/core-js/modules/web.url.to-json.js
-var web_url_to_json = __webpack_require__("./node_modules/core-js/modules/web.url.to-json.js");
 ;// CONCATENATED MODULE: ./src/model/OnmsCollectType.ts
 
 function OnmsCollectType_typeof(o) { "@babel/helpers - typeof"; return OnmsCollectType_typeof = "function" == typeof (symbol_default()) && "symbol" == typeof (iterator_default()) ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof (symbol_default()) && o.constructor === (symbol_default()) && o !== (symbol_default()).prototype ? "symbol" : typeof o; }, OnmsCollectType_typeof(o); }
@@ -69699,7 +69652,7 @@ function OnmsCollectType_typeof(o) { "@babel/helpers - typeof"; return OnmsColle
 function OnmsCollectType_classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 function OnmsCollectType_defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; define_property_default()(target, OnmsCollectType_toPropertyKey(descriptor.key), descriptor); } }
 function OnmsCollectType_createClass(Constructor, protoProps, staticProps) { if (protoProps) OnmsCollectType_defineProperties(Constructor.prototype, protoProps); if (staticProps) OnmsCollectType_defineProperties(Constructor, staticProps); define_property_default()(Constructor, "prototype", { writable: false }); return Constructor; }
-function OnmsCollectType_toPropertyKey(t) { var i = OnmsCollectType_toPrimitive(t, "string"); return "symbol" == OnmsCollectType_typeof(i) ? i : String(i); }
+function OnmsCollectType_toPropertyKey(t) { var i = OnmsCollectType_toPrimitive(t, "string"); return "symbol" == OnmsCollectType_typeof(i) ? i : i + ""; }
 function OnmsCollectType_toPrimitive(t, r) { if ("object" != OnmsCollectType_typeof(t) || !t) return t; var e = t[(to_primitive_default())]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != OnmsCollectType_typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 function OnmsCollectType_callSuper(t, o, e) { return o = OnmsCollectType_getPrototypeOf(o), OnmsCollectType_possibleConstructorReturn(t, OnmsCollectType_isNativeReflectConstruct() ? construct_default()(o, e || [], OnmsCollectType_getPrototypeOf(t).constructor) : o.apply(t, e)); }
 function OnmsCollectType_possibleConstructorReturn(self, call) { if (call && (OnmsCollectType_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return OnmsCollectType_assertThisInitialized(self); }
@@ -69715,12 +69668,12 @@ function OnmsCollectType_setPrototypeOf(o, p) { var _context; OnmsCollectType_se
  * @category Model
  */
 var OnmsCollectType = /*#__PURE__*/function (_OnmsEnum) {
-  OnmsCollectType_inherits(OnmsCollectType, _OnmsEnum);
   function OnmsCollectType() {
     OnmsCollectType_classCallCheck(this, OnmsCollectType);
     return OnmsCollectType_callSuper(this, OnmsCollectType, arguments);
   }
-  OnmsCollectType_createClass(OnmsCollectType, [{
+  OnmsCollectType_inherits(OnmsCollectType, _OnmsEnum);
+  return OnmsCollectType_createClass(OnmsCollectType, [{
     key: "isCollectionEnabled",
     value: /** whether or not collection is enabled on the SNMP interface */
     function isCollectionEnabled() {
@@ -69747,7 +69700,6 @@ var OnmsCollectType = /*#__PURE__*/function (_OnmsEnum) {
       return OnmsEnum_forLabel(CollectTypes, label);
     }
   }]);
-  return OnmsCollectType;
 }(OnmsEnum);
 
 /* eslint-disable  */
@@ -69782,7 +69734,7 @@ function OnmsSnmpStatusType_typeof(o) { "@babel/helpers - typeof"; return OnmsSn
 function OnmsSnmpStatusType_classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 function OnmsSnmpStatusType_defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; define_property_default()(target, OnmsSnmpStatusType_toPropertyKey(descriptor.key), descriptor); } }
 function OnmsSnmpStatusType_createClass(Constructor, protoProps, staticProps) { if (protoProps) OnmsSnmpStatusType_defineProperties(Constructor.prototype, protoProps); if (staticProps) OnmsSnmpStatusType_defineProperties(Constructor, staticProps); define_property_default()(Constructor, "prototype", { writable: false }); return Constructor; }
-function OnmsSnmpStatusType_toPropertyKey(t) { var i = OnmsSnmpStatusType_toPrimitive(t, "string"); return "symbol" == OnmsSnmpStatusType_typeof(i) ? i : String(i); }
+function OnmsSnmpStatusType_toPropertyKey(t) { var i = OnmsSnmpStatusType_toPrimitive(t, "string"); return "symbol" == OnmsSnmpStatusType_typeof(i) ? i : i + ""; }
 function OnmsSnmpStatusType_toPrimitive(t, r) { if ("object" != OnmsSnmpStatusType_typeof(t) || !t) return t; var e = t[(to_primitive_default())]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != OnmsSnmpStatusType_typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 function OnmsSnmpStatusType_callSuper(t, o, e) { return o = OnmsSnmpStatusType_getPrototypeOf(o), OnmsSnmpStatusType_possibleConstructorReturn(t, OnmsSnmpStatusType_isNativeReflectConstruct() ? construct_default()(o, e || [], OnmsSnmpStatusType_getPrototypeOf(t).constructor) : o.apply(t, e)); }
 function OnmsSnmpStatusType_possibleConstructorReturn(self, call) { if (call && (OnmsSnmpStatusType_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return OnmsSnmpStatusType_assertThisInitialized(self); }
@@ -69798,12 +69750,12 @@ function OnmsSnmpStatusType_setPrototypeOf(o, p) { var _context; OnmsSnmpStatusT
  * @category Model
  */
 var OnmsSnmpStatusType = /*#__PURE__*/function (_OnmsEnum) {
-  OnmsSnmpStatusType_inherits(OnmsSnmpStatusType, _OnmsEnum);
   function OnmsSnmpStatusType() {
     OnmsSnmpStatusType_classCallCheck(this, OnmsSnmpStatusType);
     return OnmsSnmpStatusType_callSuper(this, OnmsSnmpStatusType, arguments);
   }
-  OnmsSnmpStatusType_createClass(OnmsSnmpStatusType, [{
+  OnmsSnmpStatusType_inherits(OnmsSnmpStatusType, _OnmsEnum);
+  return OnmsSnmpStatusType_createClass(OnmsSnmpStatusType, [{
     key: "urlValue",
     get: /** @inheritdoc */
     function get() {
@@ -69823,7 +69775,6 @@ var OnmsSnmpStatusType = /*#__PURE__*/function (_OnmsEnum) {
       return OnmsEnum_forLabel(SnmpStatusTypes, label);
     }
   }]);
-  return OnmsSnmpStatusType;
 }(OnmsEnum);
 
 /* eslint-disable  */
@@ -69856,7 +69807,7 @@ function PhysAddr_typeof(o) { "@babel/helpers - typeof"; return PhysAddr_typeof 
 function PhysAddr_classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 function PhysAddr_defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; define_property_default()(target, PhysAddr_toPropertyKey(descriptor.key), descriptor); } }
 function PhysAddr_createClass(Constructor, protoProps, staticProps) { if (protoProps) PhysAddr_defineProperties(Constructor.prototype, protoProps); if (staticProps) PhysAddr_defineProperties(Constructor, staticProps); define_property_default()(Constructor, "prototype", { writable: false }); return Constructor; }
-function PhysAddr_toPropertyKey(t) { var i = PhysAddr_toPrimitive(t, "string"); return "symbol" == PhysAddr_typeof(i) ? i : String(i); }
+function PhysAddr_toPropertyKey(t) { var i = PhysAddr_toPrimitive(t, "string"); return "symbol" == PhysAddr_typeof(i) ? i : i + ""; }
 function PhysAddr_toPrimitive(t, r) { if ("object" != PhysAddr_typeof(t) || !t) return t; var e = t[(to_primitive_default())]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != PhysAddr_typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 /**
  * Represents a physical (MAC) address.
@@ -69871,7 +69822,7 @@ var PhysAddr = /*#__PURE__*/function () {
   }
 
   /** A human-readable string suitable for display. */
-  PhysAddr_createClass(PhysAddr, [{
+  return PhysAddr_createClass(PhysAddr, [{
     key: "toString",
     value: function toString() {
       var asArray = this.addr.split('');
@@ -69889,7 +69840,6 @@ var PhysAddr = /*#__PURE__*/function () {
       return this.toString();
     }
   }]);
-  return PhysAddr;
 }();
 ;// CONCATENATED MODULE: ./src/model/OnmsSnmpInterface.ts
 
@@ -69899,11 +69849,10 @@ var PhysAddr = /*#__PURE__*/function () {
 function OnmsSnmpInterface_typeof(o) { "@babel/helpers - typeof"; return OnmsSnmpInterface_typeof = "function" == typeof (symbol_default()) && "symbol" == typeof (iterator_default()) ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof (symbol_default()) && o.constructor === (symbol_default()) && o !== (symbol_default()).prototype ? "symbol" : typeof o; }, OnmsSnmpInterface_typeof(o); }
 
 
-
 function OnmsSnmpInterface_classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 function OnmsSnmpInterface_defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; define_property_default()(target, OnmsSnmpInterface_toPropertyKey(descriptor.key), descriptor); } }
 function OnmsSnmpInterface_createClass(Constructor, protoProps, staticProps) { if (protoProps) OnmsSnmpInterface_defineProperties(Constructor.prototype, protoProps); if (staticProps) OnmsSnmpInterface_defineProperties(Constructor, staticProps); define_property_default()(Constructor, "prototype", { writable: false }); return Constructor; }
-function OnmsSnmpInterface_toPropertyKey(t) { var i = OnmsSnmpInterface_toPrimitive(t, "string"); return "symbol" == OnmsSnmpInterface_typeof(i) ? i : String(i); }
+function OnmsSnmpInterface_toPropertyKey(t) { var i = OnmsSnmpInterface_toPrimitive(t, "string"); return "symbol" == OnmsSnmpInterface_typeof(i) ? i : i + ""; }
 function OnmsSnmpInterface_toPrimitive(t, r) { if ("object" != OnmsSnmpInterface_typeof(t) || !t) return t; var e = t[(to_primitive_default())]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != OnmsSnmpInterface_typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 
 
@@ -69918,7 +69867,7 @@ var OnmsSnmpInterface = /*#__PURE__*/function () {
   function OnmsSnmpInterface() {
     OnmsSnmpInterface_classCallCheck(this, OnmsSnmpInterface);
   }
-  OnmsSnmpInterface_createClass(OnmsSnmpInterface, [{
+  return OnmsSnmpInterface_createClass(OnmsSnmpInterface, [{
     key: "urlValue",
     get: /** the interface ID */
 
@@ -70008,7 +69957,6 @@ var OnmsSnmpInterface = /*#__PURE__*/function () {
       return iface;
     }
   }]);
-  return OnmsSnmpInterface;
 }();
 ;// CONCATENATED MODULE: ./src/model/OnmsIpInterface.ts
 
@@ -70032,7 +69980,7 @@ function OnmsIpInterface_classCallCheck(instance, Constructor) { if (!(instance 
 function OnmsIpInterface_defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; define_property_default()(target, OnmsIpInterface_toPropertyKey(descriptor.key), descriptor); } }
 function OnmsIpInterface_createClass(Constructor, protoProps, staticProps) { if (protoProps) OnmsIpInterface_defineProperties(Constructor.prototype, protoProps); if (staticProps) OnmsIpInterface_defineProperties(Constructor, staticProps); define_property_default()(Constructor, "prototype", { writable: false }); return Constructor; }
 function OnmsIpInterface_defineProperty(obj, key, value) { key = OnmsIpInterface_toPropertyKey(key); if (key in obj) { define_property_default()(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-function OnmsIpInterface_toPropertyKey(t) { var i = OnmsIpInterface_toPrimitive(t, "string"); return "symbol" == OnmsIpInterface_typeof(i) ? i : String(i); }
+function OnmsIpInterface_toPropertyKey(t) { var i = OnmsIpInterface_toPrimitive(t, "string"); return "symbol" == OnmsIpInterface_typeof(i) ? i : i + ""; }
 function OnmsIpInterface_toPrimitive(t, r) { if ("object" != OnmsIpInterface_typeof(t) || !t) return t; var e = t[(to_primitive_default())]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != OnmsIpInterface_typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 
 
@@ -70049,7 +69997,7 @@ var OnmsIpInterface = /*#__PURE__*/function () {
     /** the services on this interface */
     OnmsIpInterface_defineProperty(this, "services", []);
   }
-  OnmsIpInterface_createClass(OnmsIpInterface, [{
+  return OnmsIpInterface_createClass(OnmsIpInterface, [{
     key: "snmpInterface",
     get: /** store the interface's associated SNMP interface, used by get/set `.snmpInterface` */
 
@@ -70139,7 +70087,6 @@ var OnmsIpInterface = /*#__PURE__*/function () {
       return iface;
     }
   }]);
-  return OnmsIpInterface;
 }();
 ;// CONCATENATED MODULE: ./src/dao/IpInterfaceDAO.ts
 
@@ -70161,13 +70108,13 @@ function IpInterfaceDAO_typeof(o) { "@babel/helpers - typeof"; return IpInterfac
 
 
 
-function IpInterfaceDAO_regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ IpInterfaceDAO_regeneratorRuntime = function _regeneratorRuntime() { return e; }; var t, e = {}, r = Object.prototype, n = r.hasOwnProperty, o = (define_property_default()) || function (t, e, r) { t[e] = r.value; }, i = "function" == typeof (symbol_default()) ? (symbol_default()) : {}, a = i.iterator || "@@iterator", c = i.asyncIterator || "@@asyncIterator", u = i.toStringTag || "@@toStringTag"; function define(t, e, r) { return define_property_default()(t, e, { value: r, enumerable: !0, configurable: !0, writable: !0 }), t[e]; } try { define({}, ""); } catch (t) { define = function define(t, e, r) { return t[e] = r; }; } function wrap(t, e, r, n) { var i = e && e.prototype instanceof Generator ? e : Generator, a = create_default()(i.prototype), c = new Context(n || []); return o(a, "_invoke", { value: makeInvokeMethod(t, r, c) }), a; } function tryCatch(t, e, r) { try { return { type: "normal", arg: t.call(e, r) }; } catch (t) { return { type: "throw", arg: t }; } } e.wrap = wrap; var h = "suspendedStart", l = "suspendedYield", f = "executing", s = "completed", y = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var p = {}; define(p, a, function () { return this; }); var d = (get_prototype_of_default()), v = d && d(d(values([]))); v && v !== r && n.call(v, a) && (p = v); var g = GeneratorFunctionPrototype.prototype = Generator.prototype = create_default()(p); function defineIteratorMethods(t) { var _context5; for_each_default()(_context5 = ["next", "throw", "return"]).call(_context5, function (e) { define(t, e, function (t) { return this._invoke(e, t); }); }); } function AsyncIterator(t, e) { function invoke(r, o, i, a) { var c = tryCatch(t[r], t, o); if ("throw" !== c.type) { var u = c.arg, h = u.value; return h && "object" == IpInterfaceDAO_typeof(h) && n.call(h, "__await") ? e.resolve(h.__await).then(function (t) { invoke("next", t, i, a); }, function (t) { invoke("throw", t, i, a); }) : e.resolve(h).then(function (t) { u.value = t, i(u); }, function (t) { return invoke("throw", t, i, a); }); } a(c.arg); } var r; o(this, "_invoke", { value: function value(t, n) { function callInvokeWithMethodAndArg() { return new e(function (e, r) { invoke(t, n, e, r); }); } return r = r ? r.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); } }); } function makeInvokeMethod(e, r, n) { var o = h; return function (i, a) { if (o === f) throw new Error("Generator is already running"); if (o === s) { if ("throw" === i) throw a; return { value: t, done: !0 }; } for (n.method = i, n.arg = a;;) { var c = n.delegate; if (c) { var u = maybeInvokeDelegate(c, n); if (u) { if (u === y) continue; return u; } } if ("next" === n.method) n.sent = n._sent = n.arg;else if ("throw" === n.method) { if (o === h) throw o = s, n.arg; n.dispatchException(n.arg); } else "return" === n.method && n.abrupt("return", n.arg); o = f; var p = tryCatch(e, r, n); if ("normal" === p.type) { if (o = n.done ? s : l, p.arg === y) continue; return { value: p.arg, done: n.done }; } "throw" === p.type && (o = s, n.method = "throw", n.arg = p.arg); } }; } function maybeInvokeDelegate(e, r) { var n = r.method, o = e.iterator[n]; if (o === t) return r.delegate = null, "throw" === n && e.iterator.return && (r.method = "return", r.arg = t, maybeInvokeDelegate(e, r), "throw" === r.method) || "return" !== n && (r.method = "throw", r.arg = new TypeError("The iterator does not provide a '" + n + "' method")), y; var i = tryCatch(o, e.iterator, r.arg); if ("throw" === i.type) return r.method = "throw", r.arg = i.arg, r.delegate = null, y; var a = i.arg; return a ? a.done ? (r[e.resultName] = a.value, r.next = e.nextLoc, "return" !== r.method && (r.method = "next", r.arg = t), r.delegate = null, y) : a : (r.method = "throw", r.arg = new TypeError("iterator result is not an object"), r.delegate = null, y); } function pushTryEntry(t) { var e = { tryLoc: t[0] }; 1 in t && (e.catchLoc = t[1]), 2 in t && (e.finallyLoc = t[2], e.afterLoc = t[3]), this.tryEntries.push(e); } function resetTryEntry(t) { var e = t.completion || {}; e.type = "normal", delete e.arg, t.completion = e; } function Context(t) { this.tryEntries = [{ tryLoc: "root" }], for_each_default()(t).call(t, pushTryEntry, this), this.reset(!0); } function values(e) { if (e || "" === e) { var r = e[a]; if (r) return r.call(e); if ("function" == typeof e.next) return e; if (!isNaN(e.length)) { var o = -1, i = function next() { for (; ++o < e.length;) if (n.call(e, o)) return next.value = e[o], next.done = !1, next; return next.value = t, next.done = !0, next; }; return i.next = i; } } throw new TypeError(IpInterfaceDAO_typeof(e) + " is not iterable"); } return GeneratorFunction.prototype = GeneratorFunctionPrototype, o(g, "constructor", { value: GeneratorFunctionPrototype, configurable: !0 }), o(GeneratorFunctionPrototype, "constructor", { value: GeneratorFunction, configurable: !0 }), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, u, "GeneratorFunction"), e.isGeneratorFunction = function (t) { var e = "function" == typeof t && t.constructor; return !!e && (e === GeneratorFunction || "GeneratorFunction" === (e.displayName || e.name)); }, e.mark = function (t) { return (set_prototype_of_default()) ? set_prototype_of_default()(t, GeneratorFunctionPrototype) : (t.__proto__ = GeneratorFunctionPrototype, define(t, u, "GeneratorFunction")), t.prototype = create_default()(g), t; }, e.awrap = function (t) { return { __await: t }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, c, function () { return this; }), e.AsyncIterator = AsyncIterator, e.async = function (t, r, n, o, i) { void 0 === i && (i = (promise_default())); var a = new AsyncIterator(wrap(t, r, n, o), i); return e.isGeneratorFunction(r) ? a : a.next().then(function (t) { return t.done ? t.value : a.next(); }); }, defineIteratorMethods(g), define(g, u, "Generator"), define(g, a, function () { return this; }), define(g, "toString", function () { return "[object Generator]"; }), e.keys = function (t) { var e = Object(t), r = []; for (var n in e) r.push(n); return reverse_default()(r).call(r), function next() { for (; r.length;) { var t = r.pop(); if (t in e) return next.value = t, next.done = !1, next; } return next.done = !0, next; }; }, e.values = values, Context.prototype = { constructor: Context, reset: function reset(e) { var _context6; if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = !1, this.delegate = null, this.method = "next", this.arg = t, for_each_default()(_context6 = this.tryEntries).call(_context6, resetTryEntry), !e) for (var r in this) "t" === r.charAt(0) && n.call(this, r) && !isNaN(+slice_default()(r).call(r, 1)) && (this[r] = t); }, stop: function stop() { this.done = !0; var t = this.tryEntries[0].completion; if ("throw" === t.type) throw t.arg; return this.rval; }, dispatchException: function dispatchException(e) { if (this.done) throw e; var r = this; function handle(n, o) { return a.type = "throw", a.arg = e, r.next = n, o && (r.method = "next", r.arg = t), !!o; } for (var o = this.tryEntries.length - 1; o >= 0; --o) { var i = this.tryEntries[o], a = i.completion; if ("root" === i.tryLoc) return handle("end"); if (i.tryLoc <= this.prev) { var c = n.call(i, "catchLoc"), u = n.call(i, "finallyLoc"); if (c && u) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } else if (c) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); } else { if (!u) throw new Error("try statement without catch or finally"); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } } } }, abrupt: function abrupt(t, e) { for (var r = this.tryEntries.length - 1; r >= 0; --r) { var o = this.tryEntries[r]; if (o.tryLoc <= this.prev && n.call(o, "finallyLoc") && this.prev < o.finallyLoc) { var i = o; break; } } i && ("break" === t || "continue" === t) && i.tryLoc <= e && e <= i.finallyLoc && (i = null); var a = i ? i.completion : {}; return a.type = t, a.arg = e, i ? (this.method = "next", this.next = i.finallyLoc, y) : this.complete(a); }, complete: function complete(t, e) { if ("throw" === t.type) throw t.arg; return "break" === t.type || "continue" === t.type ? this.next = t.arg : "return" === t.type ? (this.rval = this.arg = t.arg, this.method = "return", this.next = "end") : "normal" === t.type && e && (this.next = e), y; }, finish: function finish(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.finallyLoc === t) return this.complete(r.completion, r.afterLoc), resetTryEntry(r), y; } }, catch: function _catch(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.tryLoc === t) { var n = r.completion; if ("throw" === n.type) { var o = n.arg; resetTryEntry(r); } return o; } } throw new Error("illegal catch attempt"); }, delegateYield: function delegateYield(e, r, n) { return this.delegate = { iterator: values(e), resultName: r, nextLoc: n }, "next" === this.method && (this.arg = t), y; } }, e; }
+function IpInterfaceDAO_regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ IpInterfaceDAO_regeneratorRuntime = function _regeneratorRuntime() { return e; }; var t, e = {}, r = Object.prototype, n = r.hasOwnProperty, o = (define_property_default()) || function (t, e, r) { t[e] = r.value; }, i = "function" == typeof (symbol_default()) ? (symbol_default()) : {}, a = i.iterator || "@@iterator", c = i.asyncIterator || "@@asyncIterator", u = i.toStringTag || "@@toStringTag"; function define(t, e, r) { return define_property_default()(t, e, { value: r, enumerable: !0, configurable: !0, writable: !0 }), t[e]; } try { define({}, ""); } catch (t) { define = function define(t, e, r) { return t[e] = r; }; } function wrap(t, e, r, n) { var i = e && e.prototype instanceof Generator ? e : Generator, a = create_default()(i.prototype), c = new Context(n || []); return o(a, "_invoke", { value: makeInvokeMethod(t, r, c) }), a; } function tryCatch(t, e, r) { try { return { type: "normal", arg: t.call(e, r) }; } catch (t) { return { type: "throw", arg: t }; } } e.wrap = wrap; var h = "suspendedStart", l = "suspendedYield", f = "executing", s = "completed", y = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var p = {}; define(p, a, function () { return this; }); var d = (get_prototype_of_default()), v = d && d(d(values([]))); v && v !== r && n.call(v, a) && (p = v); var g = GeneratorFunctionPrototype.prototype = Generator.prototype = create_default()(p); function defineIteratorMethods(t) { var _context5; for_each_default()(_context5 = ["next", "throw", "return"]).call(_context5, function (e) { define(t, e, function (t) { return this._invoke(e, t); }); }); } function AsyncIterator(t, e) { function invoke(r, o, i, a) { var c = tryCatch(t[r], t, o); if ("throw" !== c.type) { var u = c.arg, h = u.value; return h && "object" == IpInterfaceDAO_typeof(h) && n.call(h, "__await") ? e.resolve(h.__await).then(function (t) { invoke("next", t, i, a); }, function (t) { invoke("throw", t, i, a); }) : e.resolve(h).then(function (t) { u.value = t, i(u); }, function (t) { return invoke("throw", t, i, a); }); } a(c.arg); } var r; o(this, "_invoke", { value: function value(t, n) { function callInvokeWithMethodAndArg() { return new e(function (e, r) { invoke(t, n, e, r); }); } return r = r ? r.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); } }); } function makeInvokeMethod(e, r, n) { var o = h; return function (i, a) { if (o === f) throw Error("Generator is already running"); if (o === s) { if ("throw" === i) throw a; return { value: t, done: !0 }; } for (n.method = i, n.arg = a;;) { var c = n.delegate; if (c) { var u = maybeInvokeDelegate(c, n); if (u) { if (u === y) continue; return u; } } if ("next" === n.method) n.sent = n._sent = n.arg;else if ("throw" === n.method) { if (o === h) throw o = s, n.arg; n.dispatchException(n.arg); } else "return" === n.method && n.abrupt("return", n.arg); o = f; var p = tryCatch(e, r, n); if ("normal" === p.type) { if (o = n.done ? s : l, p.arg === y) continue; return { value: p.arg, done: n.done }; } "throw" === p.type && (o = s, n.method = "throw", n.arg = p.arg); } }; } function maybeInvokeDelegate(e, r) { var n = r.method, o = e.iterator[n]; if (o === t) return r.delegate = null, "throw" === n && e.iterator.return && (r.method = "return", r.arg = t, maybeInvokeDelegate(e, r), "throw" === r.method) || "return" !== n && (r.method = "throw", r.arg = new TypeError("The iterator does not provide a '" + n + "' method")), y; var i = tryCatch(o, e.iterator, r.arg); if ("throw" === i.type) return r.method = "throw", r.arg = i.arg, r.delegate = null, y; var a = i.arg; return a ? a.done ? (r[e.resultName] = a.value, r.next = e.nextLoc, "return" !== r.method && (r.method = "next", r.arg = t), r.delegate = null, y) : a : (r.method = "throw", r.arg = new TypeError("iterator result is not an object"), r.delegate = null, y); } function pushTryEntry(t) { var e = { tryLoc: t[0] }; 1 in t && (e.catchLoc = t[1]), 2 in t && (e.finallyLoc = t[2], e.afterLoc = t[3]), this.tryEntries.push(e); } function resetTryEntry(t) { var e = t.completion || {}; e.type = "normal", delete e.arg, t.completion = e; } function Context(t) { this.tryEntries = [{ tryLoc: "root" }], for_each_default()(t).call(t, pushTryEntry, this), this.reset(!0); } function values(e) { if (e || "" === e) { var r = e[a]; if (r) return r.call(e); if ("function" == typeof e.next) return e; if (!isNaN(e.length)) { var o = -1, i = function next() { for (; ++o < e.length;) if (n.call(e, o)) return next.value = e[o], next.done = !1, next; return next.value = t, next.done = !0, next; }; return i.next = i; } } throw new TypeError(IpInterfaceDAO_typeof(e) + " is not iterable"); } return GeneratorFunction.prototype = GeneratorFunctionPrototype, o(g, "constructor", { value: GeneratorFunctionPrototype, configurable: !0 }), o(GeneratorFunctionPrototype, "constructor", { value: GeneratorFunction, configurable: !0 }), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, u, "GeneratorFunction"), e.isGeneratorFunction = function (t) { var e = "function" == typeof t && t.constructor; return !!e && (e === GeneratorFunction || "GeneratorFunction" === (e.displayName || e.name)); }, e.mark = function (t) { return (set_prototype_of_default()) ? set_prototype_of_default()(t, GeneratorFunctionPrototype) : (t.__proto__ = GeneratorFunctionPrototype, define(t, u, "GeneratorFunction")), t.prototype = create_default()(g), t; }, e.awrap = function (t) { return { __await: t }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, c, function () { return this; }), e.AsyncIterator = AsyncIterator, e.async = function (t, r, n, o, i) { void 0 === i && (i = (promise_default())); var a = new AsyncIterator(wrap(t, r, n, o), i); return e.isGeneratorFunction(r) ? a : a.next().then(function (t) { return t.done ? t.value : a.next(); }); }, defineIteratorMethods(g), define(g, u, "Generator"), define(g, a, function () { return this; }), define(g, "toString", function () { return "[object Generator]"; }), e.keys = function (t) { var e = Object(t), r = []; for (var n in e) r.push(n); return reverse_default()(r).call(r), function next() { for (; r.length;) { var t = r.pop(); if (t in e) return next.value = t, next.done = !1, next; } return next.done = !0, next; }; }, e.values = values, Context.prototype = { constructor: Context, reset: function reset(e) { var _context6; if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = !1, this.delegate = null, this.method = "next", this.arg = t, for_each_default()(_context6 = this.tryEntries).call(_context6, resetTryEntry), !e) for (var r in this) "t" === r.charAt(0) && n.call(this, r) && !isNaN(+slice_default()(r).call(r, 1)) && (this[r] = t); }, stop: function stop() { this.done = !0; var t = this.tryEntries[0].completion; if ("throw" === t.type) throw t.arg; return this.rval; }, dispatchException: function dispatchException(e) { if (this.done) throw e; var r = this; function handle(n, o) { return a.type = "throw", a.arg = e, r.next = n, o && (r.method = "next", r.arg = t), !!o; } for (var o = this.tryEntries.length - 1; o >= 0; --o) { var i = this.tryEntries[o], a = i.completion; if ("root" === i.tryLoc) return handle("end"); if (i.tryLoc <= this.prev) { var c = n.call(i, "catchLoc"), u = n.call(i, "finallyLoc"); if (c && u) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } else if (c) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); } else { if (!u) throw Error("try statement without catch or finally"); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } } } }, abrupt: function abrupt(t, e) { for (var r = this.tryEntries.length - 1; r >= 0; --r) { var o = this.tryEntries[r]; if (o.tryLoc <= this.prev && n.call(o, "finallyLoc") && this.prev < o.finallyLoc) { var i = o; break; } } i && ("break" === t || "continue" === t) && i.tryLoc <= e && e <= i.finallyLoc && (i = null); var a = i ? i.completion : {}; return a.type = t, a.arg = e, i ? (this.method = "next", this.next = i.finallyLoc, y) : this.complete(a); }, complete: function complete(t, e) { if ("throw" === t.type) throw t.arg; return "break" === t.type || "continue" === t.type ? this.next = t.arg : "return" === t.type ? (this.rval = this.arg = t.arg, this.method = "return", this.next = "end") : "normal" === t.type && e && (this.next = e), y; }, finish: function finish(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.finallyLoc === t) return this.complete(r.completion, r.afterLoc), resetTryEntry(r), y; } }, catch: function _catch(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.tryLoc === t) { var n = r.completion; if ("throw" === n.type) { var o = n.arg; resetTryEntry(r); } return o; } } throw Error("illegal catch attempt"); }, delegateYield: function delegateYield(e, r, n) { return this.delegate = { iterator: values(e), resultName: r, nextLoc: n }, "next" === this.method && (this.arg = t), y; } }, e; }
 function IpInterfaceDAO_asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { promise_default().resolve(value).then(_next, _throw); } }
 function IpInterfaceDAO_asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new (promise_default())(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { IpInterfaceDAO_asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { IpInterfaceDAO_asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 function IpInterfaceDAO_classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 function IpInterfaceDAO_defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; define_property_default()(target, IpInterfaceDAO_toPropertyKey(descriptor.key), descriptor); } }
 function IpInterfaceDAO_createClass(Constructor, protoProps, staticProps) { if (protoProps) IpInterfaceDAO_defineProperties(Constructor.prototype, protoProps); if (staticProps) IpInterfaceDAO_defineProperties(Constructor, staticProps); define_property_default()(Constructor, "prototype", { writable: false }); return Constructor; }
-function IpInterfaceDAO_toPropertyKey(t) { var i = IpInterfaceDAO_toPrimitive(t, "string"); return "symbol" == IpInterfaceDAO_typeof(i) ? i : String(i); }
+function IpInterfaceDAO_toPropertyKey(t) { var i = IpInterfaceDAO_toPrimitive(t, "string"); return "symbol" == IpInterfaceDAO_typeof(i) ? i : i + ""; }
 function IpInterfaceDAO_toPrimitive(t, r) { if ("object" != IpInterfaceDAO_typeof(t) || !t) return t; var e = t[(to_primitive_default())]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != IpInterfaceDAO_typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 function IpInterfaceDAO_callSuper(t, o, e) { return o = IpInterfaceDAO_getPrototypeOf(o), IpInterfaceDAO_possibleConstructorReturn(t, IpInterfaceDAO_isNativeReflectConstruct() ? construct_default()(o, e || [], IpInterfaceDAO_getPrototypeOf(t).constructor) : o.apply(t, e)); }
 function IpInterfaceDAO_possibleConstructorReturn(self, call) { if (call && (IpInterfaceDAO_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return IpInterfaceDAO_assertThisInitialized(self); }
@@ -70185,7 +70132,6 @@ function IpInterfaceDAO_setPrototypeOf(o, p) { var _context3; IpInterfaceDAO_set
  * @category DAO
  */
 var IpInterfaceDAO = /*#__PURE__*/function (_AbstractDAO) {
-  IpInterfaceDAO_inherits(IpInterfaceDAO, _AbstractDAO);
   function IpInterfaceDAO(impl) {
     IpInterfaceDAO_classCallCheck(this, IpInterfaceDAO);
     return IpInterfaceDAO_callSuper(this, IpInterfaceDAO, [impl]);
@@ -70196,7 +70142,8 @@ var IpInterfaceDAO = /*#__PURE__*/function (_AbstractDAO) {
    *
    * @param id - The interface's ID.
    */
-  IpInterfaceDAO_createClass(IpInterfaceDAO, [{
+  IpInterfaceDAO_inherits(IpInterfaceDAO, _AbstractDAO);
+  return IpInterfaceDAO_createClass(IpInterfaceDAO, [{
     key: "get",
     value: (function () {
       var _get = IpInterfaceDAO_asyncToGenerator( /*#__PURE__*/IpInterfaceDAO_regeneratorRuntime().mark(function _callee(id) {
@@ -70297,7 +70244,6 @@ var IpInterfaceDAO = /*#__PURE__*/function (_AbstractDAO) {
       }
     }
   }]);
-  return IpInterfaceDAO;
 }(AbstractDAO);
 ;// CONCATENATED MODULE: ./src/model/OnmsServiceStatusType.ts
 
@@ -70315,7 +70261,7 @@ function OnmsServiceStatusType_typeof(o) { "@babel/helpers - typeof"; return Onm
 function OnmsServiceStatusType_classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 function OnmsServiceStatusType_defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; define_property_default()(target, OnmsServiceStatusType_toPropertyKey(descriptor.key), descriptor); } }
 function OnmsServiceStatusType_createClass(Constructor, protoProps, staticProps) { if (protoProps) OnmsServiceStatusType_defineProperties(Constructor.prototype, protoProps); if (staticProps) OnmsServiceStatusType_defineProperties(Constructor, staticProps); define_property_default()(Constructor, "prototype", { writable: false }); return Constructor; }
-function OnmsServiceStatusType_toPropertyKey(t) { var i = OnmsServiceStatusType_toPrimitive(t, "string"); return "symbol" == OnmsServiceStatusType_typeof(i) ? i : String(i); }
+function OnmsServiceStatusType_toPropertyKey(t) { var i = OnmsServiceStatusType_toPrimitive(t, "string"); return "symbol" == OnmsServiceStatusType_typeof(i) ? i : i + ""; }
 function OnmsServiceStatusType_toPrimitive(t, r) { if ("object" != OnmsServiceStatusType_typeof(t) || !t) return t; var e = t[(to_primitive_default())]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != OnmsServiceStatusType_typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 function OnmsServiceStatusType_callSuper(t, o, e) { return o = OnmsServiceStatusType_getPrototypeOf(o), OnmsServiceStatusType_possibleConstructorReturn(t, OnmsServiceStatusType_isNativeReflectConstruct() ? construct_default()(o, e || [], OnmsServiceStatusType_getPrototypeOf(t).constructor) : o.apply(t, e)); }
 function OnmsServiceStatusType_possibleConstructorReturn(self, call) { if (call && (OnmsServiceStatusType_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return OnmsServiceStatusType_assertThisInitialized(self); }
@@ -70331,12 +70277,12 @@ function OnmsServiceStatusType_setPrototypeOf(o, p) { var _context; OnmsServiceS
  * @category Model
  */
 var OnmsServiceStatusType = /*#__PURE__*/function (_OnmsEnum) {
-  OnmsServiceStatusType_inherits(OnmsServiceStatusType, _OnmsEnum);
   function OnmsServiceStatusType() {
     OnmsServiceStatusType_classCallCheck(this, OnmsServiceStatusType);
     return OnmsServiceStatusType_callSuper(this, OnmsServiceStatusType, arguments);
   }
-  OnmsServiceStatusType_createClass(OnmsServiceStatusType, [{
+  OnmsServiceStatusType_inherits(OnmsServiceStatusType, _OnmsEnum);
+  return OnmsServiceStatusType_createClass(OnmsServiceStatusType, [{
     key: "isManaged",
     value: /** Whether or not the service is managed. */
     function isManaged() {
@@ -70363,7 +70309,6 @@ var OnmsServiceStatusType = /*#__PURE__*/function (_OnmsEnum) {
       return OnmsEnum_forLabel(ServiceStatusTypes, label);
     }
   }]);
-  return OnmsServiceStatusType;
 }(OnmsEnum);
 
 /* eslint-disable  */
@@ -70401,7 +70346,7 @@ function OnmsMonitoredService_typeof(o) { "@babel/helpers - typeof"; return Onms
 function OnmsMonitoredService_classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 function OnmsMonitoredService_defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; define_property_default()(target, OnmsMonitoredService_toPropertyKey(descriptor.key), descriptor); } }
 function OnmsMonitoredService_createClass(Constructor, protoProps, staticProps) { if (protoProps) OnmsMonitoredService_defineProperties(Constructor.prototype, protoProps); if (staticProps) OnmsMonitoredService_defineProperties(Constructor, staticProps); define_property_default()(Constructor, "prototype", { writable: false }); return Constructor; }
-function OnmsMonitoredService_toPropertyKey(t) { var i = OnmsMonitoredService_toPrimitive(t, "string"); return "symbol" == OnmsMonitoredService_typeof(i) ? i : String(i); }
+function OnmsMonitoredService_toPropertyKey(t) { var i = OnmsMonitoredService_toPrimitive(t, "string"); return "symbol" == OnmsMonitoredService_typeof(i) ? i : i + ""; }
 function OnmsMonitoredService_toPrimitive(t, r) { if ("object" != OnmsMonitoredService_typeof(t) || !t) return t; var e = t[(to_primitive_default())]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != OnmsMonitoredService_typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 
 
@@ -70415,7 +70360,7 @@ var OnmsMonitoredService = /*#__PURE__*/function () {
   function OnmsMonitoredService() {
     OnmsMonitoredService_classCallCheck(this, OnmsMonitoredService);
   }
-  OnmsMonitoredService_createClass(OnmsMonitoredService, [{
+  return OnmsMonitoredService_createClass(OnmsMonitoredService, [{
     key: "urlValue",
     get: /** the service ID */
 
@@ -70471,7 +70416,6 @@ var OnmsMonitoredService = /*#__PURE__*/function () {
       return service;
     }
   }]);
-  return OnmsMonitoredService;
 }();
 ;// CONCATENATED MODULE: ./src/dao/MonitoredServiceDAO.ts
 
@@ -70493,13 +70437,13 @@ function MonitoredServiceDAO_typeof(o) { "@babel/helpers - typeof"; return Monit
 
 
 
-function MonitoredServiceDAO_regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ MonitoredServiceDAO_regeneratorRuntime = function _regeneratorRuntime() { return e; }; var t, e = {}, r = Object.prototype, n = r.hasOwnProperty, o = (define_property_default()) || function (t, e, r) { t[e] = r.value; }, i = "function" == typeof (symbol_default()) ? (symbol_default()) : {}, a = i.iterator || "@@iterator", c = i.asyncIterator || "@@asyncIterator", u = i.toStringTag || "@@toStringTag"; function define(t, e, r) { return define_property_default()(t, e, { value: r, enumerable: !0, configurable: !0, writable: !0 }), t[e]; } try { define({}, ""); } catch (t) { define = function define(t, e, r) { return t[e] = r; }; } function wrap(t, e, r, n) { var i = e && e.prototype instanceof Generator ? e : Generator, a = create_default()(i.prototype), c = new Context(n || []); return o(a, "_invoke", { value: makeInvokeMethod(t, r, c) }), a; } function tryCatch(t, e, r) { try { return { type: "normal", arg: t.call(e, r) }; } catch (t) { return { type: "throw", arg: t }; } } e.wrap = wrap; var h = "suspendedStart", l = "suspendedYield", f = "executing", s = "completed", y = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var p = {}; define(p, a, function () { return this; }); var d = (get_prototype_of_default()), v = d && d(d(values([]))); v && v !== r && n.call(v, a) && (p = v); var g = GeneratorFunctionPrototype.prototype = Generator.prototype = create_default()(p); function defineIteratorMethods(t) { var _context5; for_each_default()(_context5 = ["next", "throw", "return"]).call(_context5, function (e) { define(t, e, function (t) { return this._invoke(e, t); }); }); } function AsyncIterator(t, e) { function invoke(r, o, i, a) { var c = tryCatch(t[r], t, o); if ("throw" !== c.type) { var u = c.arg, h = u.value; return h && "object" == MonitoredServiceDAO_typeof(h) && n.call(h, "__await") ? e.resolve(h.__await).then(function (t) { invoke("next", t, i, a); }, function (t) { invoke("throw", t, i, a); }) : e.resolve(h).then(function (t) { u.value = t, i(u); }, function (t) { return invoke("throw", t, i, a); }); } a(c.arg); } var r; o(this, "_invoke", { value: function value(t, n) { function callInvokeWithMethodAndArg() { return new e(function (e, r) { invoke(t, n, e, r); }); } return r = r ? r.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); } }); } function makeInvokeMethod(e, r, n) { var o = h; return function (i, a) { if (o === f) throw new Error("Generator is already running"); if (o === s) { if ("throw" === i) throw a; return { value: t, done: !0 }; } for (n.method = i, n.arg = a;;) { var c = n.delegate; if (c) { var u = maybeInvokeDelegate(c, n); if (u) { if (u === y) continue; return u; } } if ("next" === n.method) n.sent = n._sent = n.arg;else if ("throw" === n.method) { if (o === h) throw o = s, n.arg; n.dispatchException(n.arg); } else "return" === n.method && n.abrupt("return", n.arg); o = f; var p = tryCatch(e, r, n); if ("normal" === p.type) { if (o = n.done ? s : l, p.arg === y) continue; return { value: p.arg, done: n.done }; } "throw" === p.type && (o = s, n.method = "throw", n.arg = p.arg); } }; } function maybeInvokeDelegate(e, r) { var n = r.method, o = e.iterator[n]; if (o === t) return r.delegate = null, "throw" === n && e.iterator.return && (r.method = "return", r.arg = t, maybeInvokeDelegate(e, r), "throw" === r.method) || "return" !== n && (r.method = "throw", r.arg = new TypeError("The iterator does not provide a '" + n + "' method")), y; var i = tryCatch(o, e.iterator, r.arg); if ("throw" === i.type) return r.method = "throw", r.arg = i.arg, r.delegate = null, y; var a = i.arg; return a ? a.done ? (r[e.resultName] = a.value, r.next = e.nextLoc, "return" !== r.method && (r.method = "next", r.arg = t), r.delegate = null, y) : a : (r.method = "throw", r.arg = new TypeError("iterator result is not an object"), r.delegate = null, y); } function pushTryEntry(t) { var e = { tryLoc: t[0] }; 1 in t && (e.catchLoc = t[1]), 2 in t && (e.finallyLoc = t[2], e.afterLoc = t[3]), this.tryEntries.push(e); } function resetTryEntry(t) { var e = t.completion || {}; e.type = "normal", delete e.arg, t.completion = e; } function Context(t) { this.tryEntries = [{ tryLoc: "root" }], for_each_default()(t).call(t, pushTryEntry, this), this.reset(!0); } function values(e) { if (e || "" === e) { var r = e[a]; if (r) return r.call(e); if ("function" == typeof e.next) return e; if (!isNaN(e.length)) { var o = -1, i = function next() { for (; ++o < e.length;) if (n.call(e, o)) return next.value = e[o], next.done = !1, next; return next.value = t, next.done = !0, next; }; return i.next = i; } } throw new TypeError(MonitoredServiceDAO_typeof(e) + " is not iterable"); } return GeneratorFunction.prototype = GeneratorFunctionPrototype, o(g, "constructor", { value: GeneratorFunctionPrototype, configurable: !0 }), o(GeneratorFunctionPrototype, "constructor", { value: GeneratorFunction, configurable: !0 }), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, u, "GeneratorFunction"), e.isGeneratorFunction = function (t) { var e = "function" == typeof t && t.constructor; return !!e && (e === GeneratorFunction || "GeneratorFunction" === (e.displayName || e.name)); }, e.mark = function (t) { return (set_prototype_of_default()) ? set_prototype_of_default()(t, GeneratorFunctionPrototype) : (t.__proto__ = GeneratorFunctionPrototype, define(t, u, "GeneratorFunction")), t.prototype = create_default()(g), t; }, e.awrap = function (t) { return { __await: t }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, c, function () { return this; }), e.AsyncIterator = AsyncIterator, e.async = function (t, r, n, o, i) { void 0 === i && (i = (promise_default())); var a = new AsyncIterator(wrap(t, r, n, o), i); return e.isGeneratorFunction(r) ? a : a.next().then(function (t) { return t.done ? t.value : a.next(); }); }, defineIteratorMethods(g), define(g, u, "Generator"), define(g, a, function () { return this; }), define(g, "toString", function () { return "[object Generator]"; }), e.keys = function (t) { var e = Object(t), r = []; for (var n in e) r.push(n); return reverse_default()(r).call(r), function next() { for (; r.length;) { var t = r.pop(); if (t in e) return next.value = t, next.done = !1, next; } return next.done = !0, next; }; }, e.values = values, Context.prototype = { constructor: Context, reset: function reset(e) { var _context6; if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = !1, this.delegate = null, this.method = "next", this.arg = t, for_each_default()(_context6 = this.tryEntries).call(_context6, resetTryEntry), !e) for (var r in this) "t" === r.charAt(0) && n.call(this, r) && !isNaN(+slice_default()(r).call(r, 1)) && (this[r] = t); }, stop: function stop() { this.done = !0; var t = this.tryEntries[0].completion; if ("throw" === t.type) throw t.arg; return this.rval; }, dispatchException: function dispatchException(e) { if (this.done) throw e; var r = this; function handle(n, o) { return a.type = "throw", a.arg = e, r.next = n, o && (r.method = "next", r.arg = t), !!o; } for (var o = this.tryEntries.length - 1; o >= 0; --o) { var i = this.tryEntries[o], a = i.completion; if ("root" === i.tryLoc) return handle("end"); if (i.tryLoc <= this.prev) { var c = n.call(i, "catchLoc"), u = n.call(i, "finallyLoc"); if (c && u) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } else if (c) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); } else { if (!u) throw new Error("try statement without catch or finally"); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } } } }, abrupt: function abrupt(t, e) { for (var r = this.tryEntries.length - 1; r >= 0; --r) { var o = this.tryEntries[r]; if (o.tryLoc <= this.prev && n.call(o, "finallyLoc") && this.prev < o.finallyLoc) { var i = o; break; } } i && ("break" === t || "continue" === t) && i.tryLoc <= e && e <= i.finallyLoc && (i = null); var a = i ? i.completion : {}; return a.type = t, a.arg = e, i ? (this.method = "next", this.next = i.finallyLoc, y) : this.complete(a); }, complete: function complete(t, e) { if ("throw" === t.type) throw t.arg; return "break" === t.type || "continue" === t.type ? this.next = t.arg : "return" === t.type ? (this.rval = this.arg = t.arg, this.method = "return", this.next = "end") : "normal" === t.type && e && (this.next = e), y; }, finish: function finish(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.finallyLoc === t) return this.complete(r.completion, r.afterLoc), resetTryEntry(r), y; } }, catch: function _catch(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.tryLoc === t) { var n = r.completion; if ("throw" === n.type) { var o = n.arg; resetTryEntry(r); } return o; } } throw new Error("illegal catch attempt"); }, delegateYield: function delegateYield(e, r, n) { return this.delegate = { iterator: values(e), resultName: r, nextLoc: n }, "next" === this.method && (this.arg = t), y; } }, e; }
+function MonitoredServiceDAO_regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ MonitoredServiceDAO_regeneratorRuntime = function _regeneratorRuntime() { return e; }; var t, e = {}, r = Object.prototype, n = r.hasOwnProperty, o = (define_property_default()) || function (t, e, r) { t[e] = r.value; }, i = "function" == typeof (symbol_default()) ? (symbol_default()) : {}, a = i.iterator || "@@iterator", c = i.asyncIterator || "@@asyncIterator", u = i.toStringTag || "@@toStringTag"; function define(t, e, r) { return define_property_default()(t, e, { value: r, enumerable: !0, configurable: !0, writable: !0 }), t[e]; } try { define({}, ""); } catch (t) { define = function define(t, e, r) { return t[e] = r; }; } function wrap(t, e, r, n) { var i = e && e.prototype instanceof Generator ? e : Generator, a = create_default()(i.prototype), c = new Context(n || []); return o(a, "_invoke", { value: makeInvokeMethod(t, r, c) }), a; } function tryCatch(t, e, r) { try { return { type: "normal", arg: t.call(e, r) }; } catch (t) { return { type: "throw", arg: t }; } } e.wrap = wrap; var h = "suspendedStart", l = "suspendedYield", f = "executing", s = "completed", y = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var p = {}; define(p, a, function () { return this; }); var d = (get_prototype_of_default()), v = d && d(d(values([]))); v && v !== r && n.call(v, a) && (p = v); var g = GeneratorFunctionPrototype.prototype = Generator.prototype = create_default()(p); function defineIteratorMethods(t) { var _context5; for_each_default()(_context5 = ["next", "throw", "return"]).call(_context5, function (e) { define(t, e, function (t) { return this._invoke(e, t); }); }); } function AsyncIterator(t, e) { function invoke(r, o, i, a) { var c = tryCatch(t[r], t, o); if ("throw" !== c.type) { var u = c.arg, h = u.value; return h && "object" == MonitoredServiceDAO_typeof(h) && n.call(h, "__await") ? e.resolve(h.__await).then(function (t) { invoke("next", t, i, a); }, function (t) { invoke("throw", t, i, a); }) : e.resolve(h).then(function (t) { u.value = t, i(u); }, function (t) { return invoke("throw", t, i, a); }); } a(c.arg); } var r; o(this, "_invoke", { value: function value(t, n) { function callInvokeWithMethodAndArg() { return new e(function (e, r) { invoke(t, n, e, r); }); } return r = r ? r.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); } }); } function makeInvokeMethod(e, r, n) { var o = h; return function (i, a) { if (o === f) throw Error("Generator is already running"); if (o === s) { if ("throw" === i) throw a; return { value: t, done: !0 }; } for (n.method = i, n.arg = a;;) { var c = n.delegate; if (c) { var u = maybeInvokeDelegate(c, n); if (u) { if (u === y) continue; return u; } } if ("next" === n.method) n.sent = n._sent = n.arg;else if ("throw" === n.method) { if (o === h) throw o = s, n.arg; n.dispatchException(n.arg); } else "return" === n.method && n.abrupt("return", n.arg); o = f; var p = tryCatch(e, r, n); if ("normal" === p.type) { if (o = n.done ? s : l, p.arg === y) continue; return { value: p.arg, done: n.done }; } "throw" === p.type && (o = s, n.method = "throw", n.arg = p.arg); } }; } function maybeInvokeDelegate(e, r) { var n = r.method, o = e.iterator[n]; if (o === t) return r.delegate = null, "throw" === n && e.iterator.return && (r.method = "return", r.arg = t, maybeInvokeDelegate(e, r), "throw" === r.method) || "return" !== n && (r.method = "throw", r.arg = new TypeError("The iterator does not provide a '" + n + "' method")), y; var i = tryCatch(o, e.iterator, r.arg); if ("throw" === i.type) return r.method = "throw", r.arg = i.arg, r.delegate = null, y; var a = i.arg; return a ? a.done ? (r[e.resultName] = a.value, r.next = e.nextLoc, "return" !== r.method && (r.method = "next", r.arg = t), r.delegate = null, y) : a : (r.method = "throw", r.arg = new TypeError("iterator result is not an object"), r.delegate = null, y); } function pushTryEntry(t) { var e = { tryLoc: t[0] }; 1 in t && (e.catchLoc = t[1]), 2 in t && (e.finallyLoc = t[2], e.afterLoc = t[3]), this.tryEntries.push(e); } function resetTryEntry(t) { var e = t.completion || {}; e.type = "normal", delete e.arg, t.completion = e; } function Context(t) { this.tryEntries = [{ tryLoc: "root" }], for_each_default()(t).call(t, pushTryEntry, this), this.reset(!0); } function values(e) { if (e || "" === e) { var r = e[a]; if (r) return r.call(e); if ("function" == typeof e.next) return e; if (!isNaN(e.length)) { var o = -1, i = function next() { for (; ++o < e.length;) if (n.call(e, o)) return next.value = e[o], next.done = !1, next; return next.value = t, next.done = !0, next; }; return i.next = i; } } throw new TypeError(MonitoredServiceDAO_typeof(e) + " is not iterable"); } return GeneratorFunction.prototype = GeneratorFunctionPrototype, o(g, "constructor", { value: GeneratorFunctionPrototype, configurable: !0 }), o(GeneratorFunctionPrototype, "constructor", { value: GeneratorFunction, configurable: !0 }), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, u, "GeneratorFunction"), e.isGeneratorFunction = function (t) { var e = "function" == typeof t && t.constructor; return !!e && (e === GeneratorFunction || "GeneratorFunction" === (e.displayName || e.name)); }, e.mark = function (t) { return (set_prototype_of_default()) ? set_prototype_of_default()(t, GeneratorFunctionPrototype) : (t.__proto__ = GeneratorFunctionPrototype, define(t, u, "GeneratorFunction")), t.prototype = create_default()(g), t; }, e.awrap = function (t) { return { __await: t }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, c, function () { return this; }), e.AsyncIterator = AsyncIterator, e.async = function (t, r, n, o, i) { void 0 === i && (i = (promise_default())); var a = new AsyncIterator(wrap(t, r, n, o), i); return e.isGeneratorFunction(r) ? a : a.next().then(function (t) { return t.done ? t.value : a.next(); }); }, defineIteratorMethods(g), define(g, u, "Generator"), define(g, a, function () { return this; }), define(g, "toString", function () { return "[object Generator]"; }), e.keys = function (t) { var e = Object(t), r = []; for (var n in e) r.push(n); return reverse_default()(r).call(r), function next() { for (; r.length;) { var t = r.pop(); if (t in e) return next.value = t, next.done = !1, next; } return next.done = !0, next; }; }, e.values = values, Context.prototype = { constructor: Context, reset: function reset(e) { var _context6; if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = !1, this.delegate = null, this.method = "next", this.arg = t, for_each_default()(_context6 = this.tryEntries).call(_context6, resetTryEntry), !e) for (var r in this) "t" === r.charAt(0) && n.call(this, r) && !isNaN(+slice_default()(r).call(r, 1)) && (this[r] = t); }, stop: function stop() { this.done = !0; var t = this.tryEntries[0].completion; if ("throw" === t.type) throw t.arg; return this.rval; }, dispatchException: function dispatchException(e) { if (this.done) throw e; var r = this; function handle(n, o) { return a.type = "throw", a.arg = e, r.next = n, o && (r.method = "next", r.arg = t), !!o; } for (var o = this.tryEntries.length - 1; o >= 0; --o) { var i = this.tryEntries[o], a = i.completion; if ("root" === i.tryLoc) return handle("end"); if (i.tryLoc <= this.prev) { var c = n.call(i, "catchLoc"), u = n.call(i, "finallyLoc"); if (c && u) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } else if (c) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); } else { if (!u) throw Error("try statement without catch or finally"); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } } } }, abrupt: function abrupt(t, e) { for (var r = this.tryEntries.length - 1; r >= 0; --r) { var o = this.tryEntries[r]; if (o.tryLoc <= this.prev && n.call(o, "finallyLoc") && this.prev < o.finallyLoc) { var i = o; break; } } i && ("break" === t || "continue" === t) && i.tryLoc <= e && e <= i.finallyLoc && (i = null); var a = i ? i.completion : {}; return a.type = t, a.arg = e, i ? (this.method = "next", this.next = i.finallyLoc, y) : this.complete(a); }, complete: function complete(t, e) { if ("throw" === t.type) throw t.arg; return "break" === t.type || "continue" === t.type ? this.next = t.arg : "return" === t.type ? (this.rval = this.arg = t.arg, this.method = "return", this.next = "end") : "normal" === t.type && e && (this.next = e), y; }, finish: function finish(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.finallyLoc === t) return this.complete(r.completion, r.afterLoc), resetTryEntry(r), y; } }, catch: function _catch(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.tryLoc === t) { var n = r.completion; if ("throw" === n.type) { var o = n.arg; resetTryEntry(r); } return o; } } throw Error("illegal catch attempt"); }, delegateYield: function delegateYield(e, r, n) { return this.delegate = { iterator: values(e), resultName: r, nextLoc: n }, "next" === this.method && (this.arg = t), y; } }, e; }
 function MonitoredServiceDAO_asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { promise_default().resolve(value).then(_next, _throw); } }
 function MonitoredServiceDAO_asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new (promise_default())(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { MonitoredServiceDAO_asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { MonitoredServiceDAO_asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 function MonitoredServiceDAO_classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 function MonitoredServiceDAO_defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; define_property_default()(target, MonitoredServiceDAO_toPropertyKey(descriptor.key), descriptor); } }
 function MonitoredServiceDAO_createClass(Constructor, protoProps, staticProps) { if (protoProps) MonitoredServiceDAO_defineProperties(Constructor.prototype, protoProps); if (staticProps) MonitoredServiceDAO_defineProperties(Constructor, staticProps); define_property_default()(Constructor, "prototype", { writable: false }); return Constructor; }
-function MonitoredServiceDAO_toPropertyKey(t) { var i = MonitoredServiceDAO_toPrimitive(t, "string"); return "symbol" == MonitoredServiceDAO_typeof(i) ? i : String(i); }
+function MonitoredServiceDAO_toPropertyKey(t) { var i = MonitoredServiceDAO_toPrimitive(t, "string"); return "symbol" == MonitoredServiceDAO_typeof(i) ? i : i + ""; }
 function MonitoredServiceDAO_toPrimitive(t, r) { if ("object" != MonitoredServiceDAO_typeof(t) || !t) return t; var e = t[(to_primitive_default())]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != MonitoredServiceDAO_typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 function MonitoredServiceDAO_callSuper(t, o, e) { return o = MonitoredServiceDAO_getPrototypeOf(o), MonitoredServiceDAO_possibleConstructorReturn(t, MonitoredServiceDAO_isNativeReflectConstruct() ? construct_default()(o, e || [], MonitoredServiceDAO_getPrototypeOf(t).constructor) : o.apply(t, e)); }
 function MonitoredServiceDAO_possibleConstructorReturn(self, call) { if (call && (MonitoredServiceDAO_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return MonitoredServiceDAO_assertThisInitialized(self); }
@@ -70517,7 +70461,6 @@ function MonitoredServiceDAO_setPrototypeOf(o, p) { var _context3; MonitoredServ
  * @category DAO
  */
 var MonitoredServiceDAO = /*#__PURE__*/function (_AbstractDAO) {
-  MonitoredServiceDAO_inherits(MonitoredServiceDAO, _AbstractDAO);
   function MonitoredServiceDAO(impl) {
     MonitoredServiceDAO_classCallCheck(this, MonitoredServiceDAO);
     return MonitoredServiceDAO_callSuper(this, MonitoredServiceDAO, [impl]);
@@ -70528,7 +70471,8 @@ var MonitoredServiceDAO = /*#__PURE__*/function (_AbstractDAO) {
    *
    * @param id - The service's ID.
    */
-  MonitoredServiceDAO_createClass(MonitoredServiceDAO, [{
+  MonitoredServiceDAO_inherits(MonitoredServiceDAO, _AbstractDAO);
+  return MonitoredServiceDAO_createClass(MonitoredServiceDAO, [{
     key: "get",
     value: (function () {
       var _get = MonitoredServiceDAO_asyncToGenerator( /*#__PURE__*/MonitoredServiceDAO_regeneratorRuntime().mark(function _callee(id) {
@@ -70629,7 +70573,6 @@ var MonitoredServiceDAO = /*#__PURE__*/function (_AbstractDAO) {
       }
     }
   }]);
-  return MonitoredServiceDAO;
 }(AbstractDAO);
 ;// CONCATENATED MODULE: ./src/model/OnmsCategory.ts
 
@@ -70642,7 +70585,7 @@ function OnmsCategory_typeof(o) { "@babel/helpers - typeof"; return OnmsCategory
 function OnmsCategory_classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 function OnmsCategory_defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; define_property_default()(target, OnmsCategory_toPropertyKey(descriptor.key), descriptor); } }
 function OnmsCategory_createClass(Constructor, protoProps, staticProps) { if (protoProps) OnmsCategory_defineProperties(Constructor.prototype, protoProps); if (staticProps) OnmsCategory_defineProperties(Constructor, staticProps); define_property_default()(Constructor, "prototype", { writable: false }); return Constructor; }
-function OnmsCategory_toPropertyKey(t) { var i = OnmsCategory_toPrimitive(t, "string"); return "symbol" == OnmsCategory_typeof(i) ? i : String(i); }
+function OnmsCategory_toPropertyKey(t) { var i = OnmsCategory_toPrimitive(t, "string"); return "symbol" == OnmsCategory_typeof(i) ? i : i + ""; }
 function OnmsCategory_toPrimitive(t, r) { if ("object" != OnmsCategory_typeof(t) || !t) return t; var e = t[(to_primitive_default())]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != OnmsCategory_typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 
 
@@ -70662,7 +70605,7 @@ var OnmsCategory = /*#__PURE__*/function () {
   }
 
   /** @inheritdoc */
-  OnmsCategory_createClass(OnmsCategory, [{
+  return OnmsCategory_createClass(OnmsCategory, [{
     key: "urlValue",
     get: function get() {
       return this.name;
@@ -70686,7 +70629,6 @@ var OnmsCategory = /*#__PURE__*/function () {
 
     /** The service name. */
   }]);
-  return OnmsCategory;
 }();
 ;// CONCATENATED MODULE: ./src/model/OnmsNodeLabelSource.ts
 
@@ -70704,7 +70646,7 @@ function OnmsNodeLabelSource_typeof(o) { "@babel/helpers - typeof"; return OnmsN
 function OnmsNodeLabelSource_classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 function OnmsNodeLabelSource_defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; define_property_default()(target, OnmsNodeLabelSource_toPropertyKey(descriptor.key), descriptor); } }
 function OnmsNodeLabelSource_createClass(Constructor, protoProps, staticProps) { if (protoProps) OnmsNodeLabelSource_defineProperties(Constructor.prototype, protoProps); if (staticProps) OnmsNodeLabelSource_defineProperties(Constructor, staticProps); define_property_default()(Constructor, "prototype", { writable: false }); return Constructor; }
-function OnmsNodeLabelSource_toPropertyKey(t) { var i = OnmsNodeLabelSource_toPrimitive(t, "string"); return "symbol" == OnmsNodeLabelSource_typeof(i) ? i : String(i); }
+function OnmsNodeLabelSource_toPropertyKey(t) { var i = OnmsNodeLabelSource_toPrimitive(t, "string"); return "symbol" == OnmsNodeLabelSource_typeof(i) ? i : i + ""; }
 function OnmsNodeLabelSource_toPrimitive(t, r) { if ("object" != OnmsNodeLabelSource_typeof(t) || !t) return t; var e = t[(to_primitive_default())]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != OnmsNodeLabelSource_typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 function OnmsNodeLabelSource_callSuper(t, o, e) { return o = OnmsNodeLabelSource_getPrototypeOf(o), OnmsNodeLabelSource_possibleConstructorReturn(t, OnmsNodeLabelSource_isNativeReflectConstruct() ? construct_default()(o, e || [], OnmsNodeLabelSource_getPrototypeOf(t).constructor) : o.apply(t, e)); }
 function OnmsNodeLabelSource_possibleConstructorReturn(self, call) { if (call && (OnmsNodeLabelSource_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return OnmsNodeLabelSource_assertThisInitialized(self); }
@@ -70720,12 +70662,12 @@ function OnmsNodeLabelSource_setPrototypeOf(o, p) { var _context; OnmsNodeLabelS
  * @category Model
  */
 var OnmsNodeLabelSource = /*#__PURE__*/function (_OnmsEnum) {
-  OnmsNodeLabelSource_inherits(OnmsNodeLabelSource, _OnmsEnum);
   function OnmsNodeLabelSource() {
     OnmsNodeLabelSource_classCallCheck(this, OnmsNodeLabelSource);
     return OnmsNodeLabelSource_callSuper(this, OnmsNodeLabelSource, arguments);
   }
-  OnmsNodeLabelSource_createClass(OnmsNodeLabelSource, [{
+  OnmsNodeLabelSource_inherits(OnmsNodeLabelSource, _OnmsEnum);
+  return OnmsNodeLabelSource_createClass(OnmsNodeLabelSource, [{
     key: "urlValue",
     get: /** @inheritdoc */
     function get() {
@@ -70745,7 +70687,6 @@ var OnmsNodeLabelSource = /*#__PURE__*/function (_OnmsEnum) {
       return OnmsEnum_forLabel(NodeLabelSources, label);
     }
   }]);
-  return OnmsNodeLabelSource;
 }(OnmsEnum);
 
 /* eslint-disable  */
@@ -70784,7 +70725,7 @@ function OnmsNodeType_typeof(o) { "@babel/helpers - typeof"; return OnmsNodeType
 function OnmsNodeType_classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 function OnmsNodeType_defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; define_property_default()(target, OnmsNodeType_toPropertyKey(descriptor.key), descriptor); } }
 function OnmsNodeType_createClass(Constructor, protoProps, staticProps) { if (protoProps) OnmsNodeType_defineProperties(Constructor.prototype, protoProps); if (staticProps) OnmsNodeType_defineProperties(Constructor, staticProps); define_property_default()(Constructor, "prototype", { writable: false }); return Constructor; }
-function OnmsNodeType_toPropertyKey(t) { var i = OnmsNodeType_toPrimitive(t, "string"); return "symbol" == OnmsNodeType_typeof(i) ? i : String(i); }
+function OnmsNodeType_toPropertyKey(t) { var i = OnmsNodeType_toPrimitive(t, "string"); return "symbol" == OnmsNodeType_typeof(i) ? i : i + ""; }
 function OnmsNodeType_toPrimitive(t, r) { if ("object" != OnmsNodeType_typeof(t) || !t) return t; var e = t[(to_primitive_default())]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != OnmsNodeType_typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 function OnmsNodeType_callSuper(t, o, e) { return o = OnmsNodeType_getPrototypeOf(o), OnmsNodeType_possibleConstructorReturn(t, OnmsNodeType_isNativeReflectConstruct() ? construct_default()(o, e || [], OnmsNodeType_getPrototypeOf(t).constructor) : o.apply(t, e)); }
 function OnmsNodeType_possibleConstructorReturn(self, call) { if (call && (OnmsNodeType_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return OnmsNodeType_assertThisInitialized(self); }
@@ -70800,12 +70741,12 @@ function OnmsNodeType_setPrototypeOf(o, p) { var _context; OnmsNodeType_setProto
  * @category Model
  */
 var OnmsNodeType = /*#__PURE__*/function (_OnmsEnum) {
-  OnmsNodeType_inherits(OnmsNodeType, _OnmsEnum);
   function OnmsNodeType() {
     OnmsNodeType_classCallCheck(this, OnmsNodeType);
     return OnmsNodeType_callSuper(this, OnmsNodeType, arguments);
   }
-  OnmsNodeType_createClass(OnmsNodeType, [{
+  OnmsNodeType_inherits(OnmsNodeType, _OnmsEnum);
+  return OnmsNodeType_createClass(OnmsNodeType, [{
     key: "urlValue",
     get: /** @inheritdoc */
     function get() {
@@ -70825,7 +70766,6 @@ var OnmsNodeType = /*#__PURE__*/function (_OnmsEnum) {
       return OnmsEnum_forLabel(NodeTypes, label);
     }
   }]);
-  return OnmsNodeType;
 }(OnmsEnum);
 
 /* eslint-disable  */
@@ -70855,7 +70795,7 @@ function OnmsNode_classCallCheck(instance, Constructor) { if (!(instance instanc
 function OnmsNode_defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; define_property_default()(target, OnmsNode_toPropertyKey(descriptor.key), descriptor); } }
 function OnmsNode_createClass(Constructor, protoProps, staticProps) { if (protoProps) OnmsNode_defineProperties(Constructor.prototype, protoProps); if (staticProps) OnmsNode_defineProperties(Constructor, staticProps); define_property_default()(Constructor, "prototype", { writable: false }); return Constructor; }
 function OnmsNode_defineProperty(obj, key, value) { key = OnmsNode_toPropertyKey(key); if (key in obj) { define_property_default()(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-function OnmsNode_toPropertyKey(t) { var i = OnmsNode_toPrimitive(t, "string"); return "symbol" == OnmsNode_typeof(i) ? i : String(i); }
+function OnmsNode_toPropertyKey(t) { var i = OnmsNode_toPrimitive(t, "string"); return "symbol" == OnmsNode_typeof(i) ? i : i + ""; }
 function OnmsNode_toPrimitive(t, r) { if ("object" != OnmsNode_typeof(t) || !t) return t; var e = t[(to_primitive_default())]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != OnmsNode_typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 
 
@@ -70905,7 +70845,7 @@ var OnmsNode = /*#__PURE__*/function () {
     /** the assets of the node */
     OnmsNode_defineProperty(this, "assets", {});
   }
-  OnmsNode_createClass(OnmsNode, [{
+  return OnmsNode_createClass(OnmsNode, [{
     key: "urlValue",
     get: /** @inheritdoc */
     function get() {
@@ -70960,13 +70900,8 @@ var OnmsNode = /*#__PURE__*/function () {
       return node;
     }
   }]);
-  return OnmsNode;
 }();
 ;// CONCATENATED MODULE: ./src/dao/NodeDAO.ts
-
-
-
-
 
 
 
@@ -70986,13 +70921,13 @@ function NodeDAO_typeof(o) { "@babel/helpers - typeof"; return NodeDAO_typeof = 
 
 
 
-function NodeDAO_regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ NodeDAO_regeneratorRuntime = function _regeneratorRuntime() { return e; }; var t, e = {}, r = Object.prototype, n = r.hasOwnProperty, o = (define_property_default()) || function (t, e, r) { t[e] = r.value; }, i = "function" == typeof (symbol_default()) ? (symbol_default()) : {}, a = i.iterator || "@@iterator", c = i.asyncIterator || "@@asyncIterator", u = i.toStringTag || "@@toStringTag"; function define(t, e, r) { return define_property_default()(t, e, { value: r, enumerable: !0, configurable: !0, writable: !0 }), t[e]; } try { define({}, ""); } catch (t) { define = function define(t, e, r) { return t[e] = r; }; } function wrap(t, e, r, n) { var i = e && e.prototype instanceof Generator ? e : Generator, a = create_default()(i.prototype), c = new Context(n || []); return o(a, "_invoke", { value: makeInvokeMethod(t, r, c) }), a; } function tryCatch(t, e, r) { try { return { type: "normal", arg: t.call(e, r) }; } catch (t) { return { type: "throw", arg: t }; } } e.wrap = wrap; var h = "suspendedStart", l = "suspendedYield", f = "executing", s = "completed", y = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var p = {}; define(p, a, function () { return this; }); var d = (get_prototype_of_default()), v = d && d(d(values([]))); v && v !== r && n.call(v, a) && (p = v); var g = GeneratorFunctionPrototype.prototype = Generator.prototype = create_default()(p); function defineIteratorMethods(t) { var _context9; for_each_default()(_context9 = ["next", "throw", "return"]).call(_context9, function (e) { define(t, e, function (t) { return this._invoke(e, t); }); }); } function AsyncIterator(t, e) { function invoke(r, o, i, a) { var c = tryCatch(t[r], t, o); if ("throw" !== c.type) { var u = c.arg, h = u.value; return h && "object" == NodeDAO_typeof(h) && n.call(h, "__await") ? e.resolve(h.__await).then(function (t) { invoke("next", t, i, a); }, function (t) { invoke("throw", t, i, a); }) : e.resolve(h).then(function (t) { u.value = t, i(u); }, function (t) { return invoke("throw", t, i, a); }); } a(c.arg); } var r; o(this, "_invoke", { value: function value(t, n) { function callInvokeWithMethodAndArg() { return new e(function (e, r) { invoke(t, n, e, r); }); } return r = r ? r.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); } }); } function makeInvokeMethod(e, r, n) { var o = h; return function (i, a) { if (o === f) throw new Error("Generator is already running"); if (o === s) { if ("throw" === i) throw a; return { value: t, done: !0 }; } for (n.method = i, n.arg = a;;) { var c = n.delegate; if (c) { var u = maybeInvokeDelegate(c, n); if (u) { if (u === y) continue; return u; } } if ("next" === n.method) n.sent = n._sent = n.arg;else if ("throw" === n.method) { if (o === h) throw o = s, n.arg; n.dispatchException(n.arg); } else "return" === n.method && n.abrupt("return", n.arg); o = f; var p = tryCatch(e, r, n); if ("normal" === p.type) { if (o = n.done ? s : l, p.arg === y) continue; return { value: p.arg, done: n.done }; } "throw" === p.type && (o = s, n.method = "throw", n.arg = p.arg); } }; } function maybeInvokeDelegate(e, r) { var n = r.method, o = e.iterator[n]; if (o === t) return r.delegate = null, "throw" === n && e.iterator.return && (r.method = "return", r.arg = t, maybeInvokeDelegate(e, r), "throw" === r.method) || "return" !== n && (r.method = "throw", r.arg = new TypeError("The iterator does not provide a '" + n + "' method")), y; var i = tryCatch(o, e.iterator, r.arg); if ("throw" === i.type) return r.method = "throw", r.arg = i.arg, r.delegate = null, y; var a = i.arg; return a ? a.done ? (r[e.resultName] = a.value, r.next = e.nextLoc, "return" !== r.method && (r.method = "next", r.arg = t), r.delegate = null, y) : a : (r.method = "throw", r.arg = new TypeError("iterator result is not an object"), r.delegate = null, y); } function pushTryEntry(t) { var e = { tryLoc: t[0] }; 1 in t && (e.catchLoc = t[1]), 2 in t && (e.finallyLoc = t[2], e.afterLoc = t[3]), this.tryEntries.push(e); } function resetTryEntry(t) { var e = t.completion || {}; e.type = "normal", delete e.arg, t.completion = e; } function Context(t) { this.tryEntries = [{ tryLoc: "root" }], for_each_default()(t).call(t, pushTryEntry, this), this.reset(!0); } function values(e) { if (e || "" === e) { var r = e[a]; if (r) return r.call(e); if ("function" == typeof e.next) return e; if (!isNaN(e.length)) { var o = -1, i = function next() { for (; ++o < e.length;) if (n.call(e, o)) return next.value = e[o], next.done = !1, next; return next.value = t, next.done = !0, next; }; return i.next = i; } } throw new TypeError(NodeDAO_typeof(e) + " is not iterable"); } return GeneratorFunction.prototype = GeneratorFunctionPrototype, o(g, "constructor", { value: GeneratorFunctionPrototype, configurable: !0 }), o(GeneratorFunctionPrototype, "constructor", { value: GeneratorFunction, configurable: !0 }), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, u, "GeneratorFunction"), e.isGeneratorFunction = function (t) { var e = "function" == typeof t && t.constructor; return !!e && (e === GeneratorFunction || "GeneratorFunction" === (e.displayName || e.name)); }, e.mark = function (t) { return (set_prototype_of_default()) ? set_prototype_of_default()(t, GeneratorFunctionPrototype) : (t.__proto__ = GeneratorFunctionPrototype, define(t, u, "GeneratorFunction")), t.prototype = create_default()(g), t; }, e.awrap = function (t) { return { __await: t }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, c, function () { return this; }), e.AsyncIterator = AsyncIterator, e.async = function (t, r, n, o, i) { void 0 === i && (i = (promise_default())); var a = new AsyncIterator(wrap(t, r, n, o), i); return e.isGeneratorFunction(r) ? a : a.next().then(function (t) { return t.done ? t.value : a.next(); }); }, defineIteratorMethods(g), define(g, u, "Generator"), define(g, a, function () { return this; }), define(g, "toString", function () { return "[object Generator]"; }), e.keys = function (t) { var e = Object(t), r = []; for (var n in e) r.push(n); return reverse_default()(r).call(r), function next() { for (; r.length;) { var t = r.pop(); if (t in e) return next.value = t, next.done = !1, next; } return next.done = !0, next; }; }, e.values = values, Context.prototype = { constructor: Context, reset: function reset(e) { var _context10; if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = !1, this.delegate = null, this.method = "next", this.arg = t, for_each_default()(_context10 = this.tryEntries).call(_context10, resetTryEntry), !e) for (var r in this) "t" === r.charAt(0) && n.call(this, r) && !isNaN(+slice_default()(r).call(r, 1)) && (this[r] = t); }, stop: function stop() { this.done = !0; var t = this.tryEntries[0].completion; if ("throw" === t.type) throw t.arg; return this.rval; }, dispatchException: function dispatchException(e) { if (this.done) throw e; var r = this; function handle(n, o) { return a.type = "throw", a.arg = e, r.next = n, o && (r.method = "next", r.arg = t), !!o; } for (var o = this.tryEntries.length - 1; o >= 0; --o) { var i = this.tryEntries[o], a = i.completion; if ("root" === i.tryLoc) return handle("end"); if (i.tryLoc <= this.prev) { var c = n.call(i, "catchLoc"), u = n.call(i, "finallyLoc"); if (c && u) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } else if (c) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); } else { if (!u) throw new Error("try statement without catch or finally"); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } } } }, abrupt: function abrupt(t, e) { for (var r = this.tryEntries.length - 1; r >= 0; --r) { var o = this.tryEntries[r]; if (o.tryLoc <= this.prev && n.call(o, "finallyLoc") && this.prev < o.finallyLoc) { var i = o; break; } } i && ("break" === t || "continue" === t) && i.tryLoc <= e && e <= i.finallyLoc && (i = null); var a = i ? i.completion : {}; return a.type = t, a.arg = e, i ? (this.method = "next", this.next = i.finallyLoc, y) : this.complete(a); }, complete: function complete(t, e) { if ("throw" === t.type) throw t.arg; return "break" === t.type || "continue" === t.type ? this.next = t.arg : "return" === t.type ? (this.rval = this.arg = t.arg, this.method = "return", this.next = "end") : "normal" === t.type && e && (this.next = e), y; }, finish: function finish(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.finallyLoc === t) return this.complete(r.completion, r.afterLoc), resetTryEntry(r), y; } }, catch: function _catch(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.tryLoc === t) { var n = r.completion; if ("throw" === n.type) { var o = n.arg; resetTryEntry(r); } return o; } } throw new Error("illegal catch attempt"); }, delegateYield: function delegateYield(e, r, n) { return this.delegate = { iterator: values(e), resultName: r, nextLoc: n }, "next" === this.method && (this.arg = t), y; } }, e; }
+function NodeDAO_regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ NodeDAO_regeneratorRuntime = function _regeneratorRuntime() { return e; }; var t, e = {}, r = Object.prototype, n = r.hasOwnProperty, o = (define_property_default()) || function (t, e, r) { t[e] = r.value; }, i = "function" == typeof (symbol_default()) ? (symbol_default()) : {}, a = i.iterator || "@@iterator", c = i.asyncIterator || "@@asyncIterator", u = i.toStringTag || "@@toStringTag"; function define(t, e, r) { return define_property_default()(t, e, { value: r, enumerable: !0, configurable: !0, writable: !0 }), t[e]; } try { define({}, ""); } catch (t) { define = function define(t, e, r) { return t[e] = r; }; } function wrap(t, e, r, n) { var i = e && e.prototype instanceof Generator ? e : Generator, a = create_default()(i.prototype), c = new Context(n || []); return o(a, "_invoke", { value: makeInvokeMethod(t, r, c) }), a; } function tryCatch(t, e, r) { try { return { type: "normal", arg: t.call(e, r) }; } catch (t) { return { type: "throw", arg: t }; } } e.wrap = wrap; var h = "suspendedStart", l = "suspendedYield", f = "executing", s = "completed", y = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var p = {}; define(p, a, function () { return this; }); var d = (get_prototype_of_default()), v = d && d(d(values([]))); v && v !== r && n.call(v, a) && (p = v); var g = GeneratorFunctionPrototype.prototype = Generator.prototype = create_default()(p); function defineIteratorMethods(t) { var _context9; for_each_default()(_context9 = ["next", "throw", "return"]).call(_context9, function (e) { define(t, e, function (t) { return this._invoke(e, t); }); }); } function AsyncIterator(t, e) { function invoke(r, o, i, a) { var c = tryCatch(t[r], t, o); if ("throw" !== c.type) { var u = c.arg, h = u.value; return h && "object" == NodeDAO_typeof(h) && n.call(h, "__await") ? e.resolve(h.__await).then(function (t) { invoke("next", t, i, a); }, function (t) { invoke("throw", t, i, a); }) : e.resolve(h).then(function (t) { u.value = t, i(u); }, function (t) { return invoke("throw", t, i, a); }); } a(c.arg); } var r; o(this, "_invoke", { value: function value(t, n) { function callInvokeWithMethodAndArg() { return new e(function (e, r) { invoke(t, n, e, r); }); } return r = r ? r.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); } }); } function makeInvokeMethod(e, r, n) { var o = h; return function (i, a) { if (o === f) throw Error("Generator is already running"); if (o === s) { if ("throw" === i) throw a; return { value: t, done: !0 }; } for (n.method = i, n.arg = a;;) { var c = n.delegate; if (c) { var u = maybeInvokeDelegate(c, n); if (u) { if (u === y) continue; return u; } } if ("next" === n.method) n.sent = n._sent = n.arg;else if ("throw" === n.method) { if (o === h) throw o = s, n.arg; n.dispatchException(n.arg); } else "return" === n.method && n.abrupt("return", n.arg); o = f; var p = tryCatch(e, r, n); if ("normal" === p.type) { if (o = n.done ? s : l, p.arg === y) continue; return { value: p.arg, done: n.done }; } "throw" === p.type && (o = s, n.method = "throw", n.arg = p.arg); } }; } function maybeInvokeDelegate(e, r) { var n = r.method, o = e.iterator[n]; if (o === t) return r.delegate = null, "throw" === n && e.iterator.return && (r.method = "return", r.arg = t, maybeInvokeDelegate(e, r), "throw" === r.method) || "return" !== n && (r.method = "throw", r.arg = new TypeError("The iterator does not provide a '" + n + "' method")), y; var i = tryCatch(o, e.iterator, r.arg); if ("throw" === i.type) return r.method = "throw", r.arg = i.arg, r.delegate = null, y; var a = i.arg; return a ? a.done ? (r[e.resultName] = a.value, r.next = e.nextLoc, "return" !== r.method && (r.method = "next", r.arg = t), r.delegate = null, y) : a : (r.method = "throw", r.arg = new TypeError("iterator result is not an object"), r.delegate = null, y); } function pushTryEntry(t) { var e = { tryLoc: t[0] }; 1 in t && (e.catchLoc = t[1]), 2 in t && (e.finallyLoc = t[2], e.afterLoc = t[3]), this.tryEntries.push(e); } function resetTryEntry(t) { var e = t.completion || {}; e.type = "normal", delete e.arg, t.completion = e; } function Context(t) { this.tryEntries = [{ tryLoc: "root" }], for_each_default()(t).call(t, pushTryEntry, this), this.reset(!0); } function values(e) { if (e || "" === e) { var r = e[a]; if (r) return r.call(e); if ("function" == typeof e.next) return e; if (!isNaN(e.length)) { var o = -1, i = function next() { for (; ++o < e.length;) if (n.call(e, o)) return next.value = e[o], next.done = !1, next; return next.value = t, next.done = !0, next; }; return i.next = i; } } throw new TypeError(NodeDAO_typeof(e) + " is not iterable"); } return GeneratorFunction.prototype = GeneratorFunctionPrototype, o(g, "constructor", { value: GeneratorFunctionPrototype, configurable: !0 }), o(GeneratorFunctionPrototype, "constructor", { value: GeneratorFunction, configurable: !0 }), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, u, "GeneratorFunction"), e.isGeneratorFunction = function (t) { var e = "function" == typeof t && t.constructor; return !!e && (e === GeneratorFunction || "GeneratorFunction" === (e.displayName || e.name)); }, e.mark = function (t) { return (set_prototype_of_default()) ? set_prototype_of_default()(t, GeneratorFunctionPrototype) : (t.__proto__ = GeneratorFunctionPrototype, define(t, u, "GeneratorFunction")), t.prototype = create_default()(g), t; }, e.awrap = function (t) { return { __await: t }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, c, function () { return this; }), e.AsyncIterator = AsyncIterator, e.async = function (t, r, n, o, i) { void 0 === i && (i = (promise_default())); var a = new AsyncIterator(wrap(t, r, n, o), i); return e.isGeneratorFunction(r) ? a : a.next().then(function (t) { return t.done ? t.value : a.next(); }); }, defineIteratorMethods(g), define(g, u, "Generator"), define(g, a, function () { return this; }), define(g, "toString", function () { return "[object Generator]"; }), e.keys = function (t) { var e = Object(t), r = []; for (var n in e) r.push(n); return reverse_default()(r).call(r), function next() { for (; r.length;) { var t = r.pop(); if (t in e) return next.value = t, next.done = !1, next; } return next.done = !0, next; }; }, e.values = values, Context.prototype = { constructor: Context, reset: function reset(e) { var _context10; if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = !1, this.delegate = null, this.method = "next", this.arg = t, for_each_default()(_context10 = this.tryEntries).call(_context10, resetTryEntry), !e) for (var r in this) "t" === r.charAt(0) && n.call(this, r) && !isNaN(+slice_default()(r).call(r, 1)) && (this[r] = t); }, stop: function stop() { this.done = !0; var t = this.tryEntries[0].completion; if ("throw" === t.type) throw t.arg; return this.rval; }, dispatchException: function dispatchException(e) { if (this.done) throw e; var r = this; function handle(n, o) { return a.type = "throw", a.arg = e, r.next = n, o && (r.method = "next", r.arg = t), !!o; } for (var o = this.tryEntries.length - 1; o >= 0; --o) { var i = this.tryEntries[o], a = i.completion; if ("root" === i.tryLoc) return handle("end"); if (i.tryLoc <= this.prev) { var c = n.call(i, "catchLoc"), u = n.call(i, "finallyLoc"); if (c && u) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } else if (c) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); } else { if (!u) throw Error("try statement without catch or finally"); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } } } }, abrupt: function abrupt(t, e) { for (var r = this.tryEntries.length - 1; r >= 0; --r) { var o = this.tryEntries[r]; if (o.tryLoc <= this.prev && n.call(o, "finallyLoc") && this.prev < o.finallyLoc) { var i = o; break; } } i && ("break" === t || "continue" === t) && i.tryLoc <= e && e <= i.finallyLoc && (i = null); var a = i ? i.completion : {}; return a.type = t, a.arg = e, i ? (this.method = "next", this.next = i.finallyLoc, y) : this.complete(a); }, complete: function complete(t, e) { if ("throw" === t.type) throw t.arg; return "break" === t.type || "continue" === t.type ? this.next = t.arg : "return" === t.type ? (this.rval = this.arg = t.arg, this.method = "return", this.next = "end") : "normal" === t.type && e && (this.next = e), y; }, finish: function finish(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.finallyLoc === t) return this.complete(r.completion, r.afterLoc), resetTryEntry(r), y; } }, catch: function _catch(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.tryLoc === t) { var n = r.completion; if ("throw" === n.type) { var o = n.arg; resetTryEntry(r); } return o; } } throw Error("illegal catch attempt"); }, delegateYield: function delegateYield(e, r, n) { return this.delegate = { iterator: values(e), resultName: r, nextLoc: n }, "next" === this.method && (this.arg = t), y; } }, e; }
 function NodeDAO_asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { promise_default().resolve(value).then(_next, _throw); } }
 function NodeDAO_asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new (promise_default())(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { NodeDAO_asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { NodeDAO_asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 function NodeDAO_classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 function NodeDAO_defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; define_property_default()(target, NodeDAO_toPropertyKey(descriptor.key), descriptor); } }
 function NodeDAO_createClass(Constructor, protoProps, staticProps) { if (protoProps) NodeDAO_defineProperties(Constructor.prototype, protoProps); if (staticProps) NodeDAO_defineProperties(Constructor, staticProps); define_property_default()(Constructor, "prototype", { writable: false }); return Constructor; }
-function NodeDAO_toPropertyKey(t) { var i = NodeDAO_toPrimitive(t, "string"); return "symbol" == NodeDAO_typeof(i) ? i : String(i); }
+function NodeDAO_toPropertyKey(t) { var i = NodeDAO_toPrimitive(t, "string"); return "symbol" == NodeDAO_typeof(i) ? i : i + ""; }
 function NodeDAO_toPrimitive(t, r) { if ("object" != NodeDAO_typeof(t) || !t) return t; var e = t[(to_primitive_default())]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != NodeDAO_typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 function NodeDAO_callSuper(t, o, e) { return o = NodeDAO_getPrototypeOf(o), NodeDAO_possibleConstructorReturn(t, NodeDAO_isNativeReflectConstruct() ? construct_default()(o, e || [], NodeDAO_getPrototypeOf(t).constructor) : o.apply(t, e)); }
 function NodeDAO_possibleConstructorReturn(self, call) { if (call && (NodeDAO_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return NodeDAO_assertThisInitialized(self); }
@@ -71013,7 +70948,6 @@ function NodeDAO_setPrototypeOf(o, p) { var _context7; NodeDAO_setPrototypeOf = 
  * @category DAO
  */
 var NodeDAO = /*#__PURE__*/function (_AbstractDAO) {
-  NodeDAO_inherits(NodeDAO, _AbstractDAO);
   function NodeDAO(impl) {
     NodeDAO_classCallCheck(this, NodeDAO);
     return NodeDAO_callSuper(this, NodeDAO, [impl]);
@@ -71025,7 +70959,8 @@ var NodeDAO = /*#__PURE__*/function (_AbstractDAO) {
    * @param id - The node's ID.
    * @param recurse - Optionally fetch all sub-model objects. (ipInterface, etc.)
    */
-  NodeDAO_createClass(NodeDAO, [{
+  NodeDAO_inherits(NodeDAO, _AbstractDAO);
+  return NodeDAO_createClass(NodeDAO, [{
     key: "get",
     value: (function () {
       var _get = NodeDAO_asyncToGenerator( /*#__PURE__*/NodeDAO_regeneratorRuntime().mark(function _callee(id) {
@@ -71348,7 +71283,6 @@ var NodeDAO = /*#__PURE__*/function (_AbstractDAO) {
       return this.getApiVersion() === 2 ? 'api/v2/nodes' : 'rest/nodes';
     }
   }]);
-  return NodeDAO;
 }(AbstractDAO);
 ;// CONCATENATED MODULE: ./src/model/OnmsOutage.ts
 
@@ -71360,7 +71294,7 @@ function OnmsOutage_typeof(o) { "@babel/helpers - typeof"; return OnmsOutage_typ
 function OnmsOutage_classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 function OnmsOutage_defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; define_property_default()(target, OnmsOutage_toPropertyKey(descriptor.key), descriptor); } }
 function OnmsOutage_createClass(Constructor, protoProps, staticProps) { if (protoProps) OnmsOutage_defineProperties(Constructor.prototype, protoProps); if (staticProps) OnmsOutage_defineProperties(Constructor, staticProps); define_property_default()(Constructor, "prototype", { writable: false }); return Constructor; }
-function OnmsOutage_toPropertyKey(t) { var i = OnmsOutage_toPrimitive(t, "string"); return "symbol" == OnmsOutage_typeof(i) ? i : String(i); }
+function OnmsOutage_toPropertyKey(t) { var i = OnmsOutage_toPrimitive(t, "string"); return "symbol" == OnmsOutage_typeof(i) ? i : i + ""; }
 function OnmsOutage_toPrimitive(t, r) { if ("object" != OnmsOutage_typeof(t) || !t) return t; var e = t[(to_primitive_default())]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != OnmsOutage_typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 
 
@@ -71374,7 +71308,7 @@ var OnmsOutage = /*#__PURE__*/function () {
   function OnmsOutage() {
     OnmsOutage_classCallCheck(this, OnmsOutage);
   }
-  OnmsOutage_createClass(OnmsOutage, [{
+  return OnmsOutage_createClass(OnmsOutage, [{
     key: "urlValue",
     get: /** the node ID */
 
@@ -71437,7 +71371,6 @@ var OnmsOutage = /*#__PURE__*/function () {
       return outage;
     }
   }]);
-  return OnmsOutage;
 }();
 ;// CONCATENATED MODULE: ./src/dao/OutageDAO.ts
 
@@ -71459,13 +71392,13 @@ function OutageDAO_typeof(o) { "@babel/helpers - typeof"; return OutageDAO_typeo
 
 
 
-function OutageDAO_regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ OutageDAO_regeneratorRuntime = function _regeneratorRuntime() { return e; }; var t, e = {}, r = Object.prototype, n = r.hasOwnProperty, o = (define_property_default()) || function (t, e, r) { t[e] = r.value; }, i = "function" == typeof (symbol_default()) ? (symbol_default()) : {}, a = i.iterator || "@@iterator", c = i.asyncIterator || "@@asyncIterator", u = i.toStringTag || "@@toStringTag"; function define(t, e, r) { return define_property_default()(t, e, { value: r, enumerable: !0, configurable: !0, writable: !0 }), t[e]; } try { define({}, ""); } catch (t) { define = function define(t, e, r) { return t[e] = r; }; } function wrap(t, e, r, n) { var i = e && e.prototype instanceof Generator ? e : Generator, a = create_default()(i.prototype), c = new Context(n || []); return o(a, "_invoke", { value: makeInvokeMethod(t, r, c) }), a; } function tryCatch(t, e, r) { try { return { type: "normal", arg: t.call(e, r) }; } catch (t) { return { type: "throw", arg: t }; } } e.wrap = wrap; var h = "suspendedStart", l = "suspendedYield", f = "executing", s = "completed", y = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var p = {}; define(p, a, function () { return this; }); var d = (get_prototype_of_default()), v = d && d(d(values([]))); v && v !== r && n.call(v, a) && (p = v); var g = GeneratorFunctionPrototype.prototype = Generator.prototype = create_default()(p); function defineIteratorMethods(t) { var _context5; for_each_default()(_context5 = ["next", "throw", "return"]).call(_context5, function (e) { define(t, e, function (t) { return this._invoke(e, t); }); }); } function AsyncIterator(t, e) { function invoke(r, o, i, a) { var c = tryCatch(t[r], t, o); if ("throw" !== c.type) { var u = c.arg, h = u.value; return h && "object" == OutageDAO_typeof(h) && n.call(h, "__await") ? e.resolve(h.__await).then(function (t) { invoke("next", t, i, a); }, function (t) { invoke("throw", t, i, a); }) : e.resolve(h).then(function (t) { u.value = t, i(u); }, function (t) { return invoke("throw", t, i, a); }); } a(c.arg); } var r; o(this, "_invoke", { value: function value(t, n) { function callInvokeWithMethodAndArg() { return new e(function (e, r) { invoke(t, n, e, r); }); } return r = r ? r.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); } }); } function makeInvokeMethod(e, r, n) { var o = h; return function (i, a) { if (o === f) throw new Error("Generator is already running"); if (o === s) { if ("throw" === i) throw a; return { value: t, done: !0 }; } for (n.method = i, n.arg = a;;) { var c = n.delegate; if (c) { var u = maybeInvokeDelegate(c, n); if (u) { if (u === y) continue; return u; } } if ("next" === n.method) n.sent = n._sent = n.arg;else if ("throw" === n.method) { if (o === h) throw o = s, n.arg; n.dispatchException(n.arg); } else "return" === n.method && n.abrupt("return", n.arg); o = f; var p = tryCatch(e, r, n); if ("normal" === p.type) { if (o = n.done ? s : l, p.arg === y) continue; return { value: p.arg, done: n.done }; } "throw" === p.type && (o = s, n.method = "throw", n.arg = p.arg); } }; } function maybeInvokeDelegate(e, r) { var n = r.method, o = e.iterator[n]; if (o === t) return r.delegate = null, "throw" === n && e.iterator.return && (r.method = "return", r.arg = t, maybeInvokeDelegate(e, r), "throw" === r.method) || "return" !== n && (r.method = "throw", r.arg = new TypeError("The iterator does not provide a '" + n + "' method")), y; var i = tryCatch(o, e.iterator, r.arg); if ("throw" === i.type) return r.method = "throw", r.arg = i.arg, r.delegate = null, y; var a = i.arg; return a ? a.done ? (r[e.resultName] = a.value, r.next = e.nextLoc, "return" !== r.method && (r.method = "next", r.arg = t), r.delegate = null, y) : a : (r.method = "throw", r.arg = new TypeError("iterator result is not an object"), r.delegate = null, y); } function pushTryEntry(t) { var e = { tryLoc: t[0] }; 1 in t && (e.catchLoc = t[1]), 2 in t && (e.finallyLoc = t[2], e.afterLoc = t[3]), this.tryEntries.push(e); } function resetTryEntry(t) { var e = t.completion || {}; e.type = "normal", delete e.arg, t.completion = e; } function Context(t) { this.tryEntries = [{ tryLoc: "root" }], for_each_default()(t).call(t, pushTryEntry, this), this.reset(!0); } function values(e) { if (e || "" === e) { var r = e[a]; if (r) return r.call(e); if ("function" == typeof e.next) return e; if (!isNaN(e.length)) { var o = -1, i = function next() { for (; ++o < e.length;) if (n.call(e, o)) return next.value = e[o], next.done = !1, next; return next.value = t, next.done = !0, next; }; return i.next = i; } } throw new TypeError(OutageDAO_typeof(e) + " is not iterable"); } return GeneratorFunction.prototype = GeneratorFunctionPrototype, o(g, "constructor", { value: GeneratorFunctionPrototype, configurable: !0 }), o(GeneratorFunctionPrototype, "constructor", { value: GeneratorFunction, configurable: !0 }), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, u, "GeneratorFunction"), e.isGeneratorFunction = function (t) { var e = "function" == typeof t && t.constructor; return !!e && (e === GeneratorFunction || "GeneratorFunction" === (e.displayName || e.name)); }, e.mark = function (t) { return (set_prototype_of_default()) ? set_prototype_of_default()(t, GeneratorFunctionPrototype) : (t.__proto__ = GeneratorFunctionPrototype, define(t, u, "GeneratorFunction")), t.prototype = create_default()(g), t; }, e.awrap = function (t) { return { __await: t }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, c, function () { return this; }), e.AsyncIterator = AsyncIterator, e.async = function (t, r, n, o, i) { void 0 === i && (i = (promise_default())); var a = new AsyncIterator(wrap(t, r, n, o), i); return e.isGeneratorFunction(r) ? a : a.next().then(function (t) { return t.done ? t.value : a.next(); }); }, defineIteratorMethods(g), define(g, u, "Generator"), define(g, a, function () { return this; }), define(g, "toString", function () { return "[object Generator]"; }), e.keys = function (t) { var e = Object(t), r = []; for (var n in e) r.push(n); return reverse_default()(r).call(r), function next() { for (; r.length;) { var t = r.pop(); if (t in e) return next.value = t, next.done = !1, next; } return next.done = !0, next; }; }, e.values = values, Context.prototype = { constructor: Context, reset: function reset(e) { var _context6; if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = !1, this.delegate = null, this.method = "next", this.arg = t, for_each_default()(_context6 = this.tryEntries).call(_context6, resetTryEntry), !e) for (var r in this) "t" === r.charAt(0) && n.call(this, r) && !isNaN(+slice_default()(r).call(r, 1)) && (this[r] = t); }, stop: function stop() { this.done = !0; var t = this.tryEntries[0].completion; if ("throw" === t.type) throw t.arg; return this.rval; }, dispatchException: function dispatchException(e) { if (this.done) throw e; var r = this; function handle(n, o) { return a.type = "throw", a.arg = e, r.next = n, o && (r.method = "next", r.arg = t), !!o; } for (var o = this.tryEntries.length - 1; o >= 0; --o) { var i = this.tryEntries[o], a = i.completion; if ("root" === i.tryLoc) return handle("end"); if (i.tryLoc <= this.prev) { var c = n.call(i, "catchLoc"), u = n.call(i, "finallyLoc"); if (c && u) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } else if (c) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); } else { if (!u) throw new Error("try statement without catch or finally"); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } } } }, abrupt: function abrupt(t, e) { for (var r = this.tryEntries.length - 1; r >= 0; --r) { var o = this.tryEntries[r]; if (o.tryLoc <= this.prev && n.call(o, "finallyLoc") && this.prev < o.finallyLoc) { var i = o; break; } } i && ("break" === t || "continue" === t) && i.tryLoc <= e && e <= i.finallyLoc && (i = null); var a = i ? i.completion : {}; return a.type = t, a.arg = e, i ? (this.method = "next", this.next = i.finallyLoc, y) : this.complete(a); }, complete: function complete(t, e) { if ("throw" === t.type) throw t.arg; return "break" === t.type || "continue" === t.type ? this.next = t.arg : "return" === t.type ? (this.rval = this.arg = t.arg, this.method = "return", this.next = "end") : "normal" === t.type && e && (this.next = e), y; }, finish: function finish(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.finallyLoc === t) return this.complete(r.completion, r.afterLoc), resetTryEntry(r), y; } }, catch: function _catch(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.tryLoc === t) { var n = r.completion; if ("throw" === n.type) { var o = n.arg; resetTryEntry(r); } return o; } } throw new Error("illegal catch attempt"); }, delegateYield: function delegateYield(e, r, n) { return this.delegate = { iterator: values(e), resultName: r, nextLoc: n }, "next" === this.method && (this.arg = t), y; } }, e; }
+function OutageDAO_regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ OutageDAO_regeneratorRuntime = function _regeneratorRuntime() { return e; }; var t, e = {}, r = Object.prototype, n = r.hasOwnProperty, o = (define_property_default()) || function (t, e, r) { t[e] = r.value; }, i = "function" == typeof (symbol_default()) ? (symbol_default()) : {}, a = i.iterator || "@@iterator", c = i.asyncIterator || "@@asyncIterator", u = i.toStringTag || "@@toStringTag"; function define(t, e, r) { return define_property_default()(t, e, { value: r, enumerable: !0, configurable: !0, writable: !0 }), t[e]; } try { define({}, ""); } catch (t) { define = function define(t, e, r) { return t[e] = r; }; } function wrap(t, e, r, n) { var i = e && e.prototype instanceof Generator ? e : Generator, a = create_default()(i.prototype), c = new Context(n || []); return o(a, "_invoke", { value: makeInvokeMethod(t, r, c) }), a; } function tryCatch(t, e, r) { try { return { type: "normal", arg: t.call(e, r) }; } catch (t) { return { type: "throw", arg: t }; } } e.wrap = wrap; var h = "suspendedStart", l = "suspendedYield", f = "executing", s = "completed", y = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var p = {}; define(p, a, function () { return this; }); var d = (get_prototype_of_default()), v = d && d(d(values([]))); v && v !== r && n.call(v, a) && (p = v); var g = GeneratorFunctionPrototype.prototype = Generator.prototype = create_default()(p); function defineIteratorMethods(t) { var _context5; for_each_default()(_context5 = ["next", "throw", "return"]).call(_context5, function (e) { define(t, e, function (t) { return this._invoke(e, t); }); }); } function AsyncIterator(t, e) { function invoke(r, o, i, a) { var c = tryCatch(t[r], t, o); if ("throw" !== c.type) { var u = c.arg, h = u.value; return h && "object" == OutageDAO_typeof(h) && n.call(h, "__await") ? e.resolve(h.__await).then(function (t) { invoke("next", t, i, a); }, function (t) { invoke("throw", t, i, a); }) : e.resolve(h).then(function (t) { u.value = t, i(u); }, function (t) { return invoke("throw", t, i, a); }); } a(c.arg); } var r; o(this, "_invoke", { value: function value(t, n) { function callInvokeWithMethodAndArg() { return new e(function (e, r) { invoke(t, n, e, r); }); } return r = r ? r.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); } }); } function makeInvokeMethod(e, r, n) { var o = h; return function (i, a) { if (o === f) throw Error("Generator is already running"); if (o === s) { if ("throw" === i) throw a; return { value: t, done: !0 }; } for (n.method = i, n.arg = a;;) { var c = n.delegate; if (c) { var u = maybeInvokeDelegate(c, n); if (u) { if (u === y) continue; return u; } } if ("next" === n.method) n.sent = n._sent = n.arg;else if ("throw" === n.method) { if (o === h) throw o = s, n.arg; n.dispatchException(n.arg); } else "return" === n.method && n.abrupt("return", n.arg); o = f; var p = tryCatch(e, r, n); if ("normal" === p.type) { if (o = n.done ? s : l, p.arg === y) continue; return { value: p.arg, done: n.done }; } "throw" === p.type && (o = s, n.method = "throw", n.arg = p.arg); } }; } function maybeInvokeDelegate(e, r) { var n = r.method, o = e.iterator[n]; if (o === t) return r.delegate = null, "throw" === n && e.iterator.return && (r.method = "return", r.arg = t, maybeInvokeDelegate(e, r), "throw" === r.method) || "return" !== n && (r.method = "throw", r.arg = new TypeError("The iterator does not provide a '" + n + "' method")), y; var i = tryCatch(o, e.iterator, r.arg); if ("throw" === i.type) return r.method = "throw", r.arg = i.arg, r.delegate = null, y; var a = i.arg; return a ? a.done ? (r[e.resultName] = a.value, r.next = e.nextLoc, "return" !== r.method && (r.method = "next", r.arg = t), r.delegate = null, y) : a : (r.method = "throw", r.arg = new TypeError("iterator result is not an object"), r.delegate = null, y); } function pushTryEntry(t) { var e = { tryLoc: t[0] }; 1 in t && (e.catchLoc = t[1]), 2 in t && (e.finallyLoc = t[2], e.afterLoc = t[3]), this.tryEntries.push(e); } function resetTryEntry(t) { var e = t.completion || {}; e.type = "normal", delete e.arg, t.completion = e; } function Context(t) { this.tryEntries = [{ tryLoc: "root" }], for_each_default()(t).call(t, pushTryEntry, this), this.reset(!0); } function values(e) { if (e || "" === e) { var r = e[a]; if (r) return r.call(e); if ("function" == typeof e.next) return e; if (!isNaN(e.length)) { var o = -1, i = function next() { for (; ++o < e.length;) if (n.call(e, o)) return next.value = e[o], next.done = !1, next; return next.value = t, next.done = !0, next; }; return i.next = i; } } throw new TypeError(OutageDAO_typeof(e) + " is not iterable"); } return GeneratorFunction.prototype = GeneratorFunctionPrototype, o(g, "constructor", { value: GeneratorFunctionPrototype, configurable: !0 }), o(GeneratorFunctionPrototype, "constructor", { value: GeneratorFunction, configurable: !0 }), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, u, "GeneratorFunction"), e.isGeneratorFunction = function (t) { var e = "function" == typeof t && t.constructor; return !!e && (e === GeneratorFunction || "GeneratorFunction" === (e.displayName || e.name)); }, e.mark = function (t) { return (set_prototype_of_default()) ? set_prototype_of_default()(t, GeneratorFunctionPrototype) : (t.__proto__ = GeneratorFunctionPrototype, define(t, u, "GeneratorFunction")), t.prototype = create_default()(g), t; }, e.awrap = function (t) { return { __await: t }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, c, function () { return this; }), e.AsyncIterator = AsyncIterator, e.async = function (t, r, n, o, i) { void 0 === i && (i = (promise_default())); var a = new AsyncIterator(wrap(t, r, n, o), i); return e.isGeneratorFunction(r) ? a : a.next().then(function (t) { return t.done ? t.value : a.next(); }); }, defineIteratorMethods(g), define(g, u, "Generator"), define(g, a, function () { return this; }), define(g, "toString", function () { return "[object Generator]"; }), e.keys = function (t) { var e = Object(t), r = []; for (var n in e) r.push(n); return reverse_default()(r).call(r), function next() { for (; r.length;) { var t = r.pop(); if (t in e) return next.value = t, next.done = !1, next; } return next.done = !0, next; }; }, e.values = values, Context.prototype = { constructor: Context, reset: function reset(e) { var _context6; if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = !1, this.delegate = null, this.method = "next", this.arg = t, for_each_default()(_context6 = this.tryEntries).call(_context6, resetTryEntry), !e) for (var r in this) "t" === r.charAt(0) && n.call(this, r) && !isNaN(+slice_default()(r).call(r, 1)) && (this[r] = t); }, stop: function stop() { this.done = !0; var t = this.tryEntries[0].completion; if ("throw" === t.type) throw t.arg; return this.rval; }, dispatchException: function dispatchException(e) { if (this.done) throw e; var r = this; function handle(n, o) { return a.type = "throw", a.arg = e, r.next = n, o && (r.method = "next", r.arg = t), !!o; } for (var o = this.tryEntries.length - 1; o >= 0; --o) { var i = this.tryEntries[o], a = i.completion; if ("root" === i.tryLoc) return handle("end"); if (i.tryLoc <= this.prev) { var c = n.call(i, "catchLoc"), u = n.call(i, "finallyLoc"); if (c && u) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } else if (c) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); } else { if (!u) throw Error("try statement without catch or finally"); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } } } }, abrupt: function abrupt(t, e) { for (var r = this.tryEntries.length - 1; r >= 0; --r) { var o = this.tryEntries[r]; if (o.tryLoc <= this.prev && n.call(o, "finallyLoc") && this.prev < o.finallyLoc) { var i = o; break; } } i && ("break" === t || "continue" === t) && i.tryLoc <= e && e <= i.finallyLoc && (i = null); var a = i ? i.completion : {}; return a.type = t, a.arg = e, i ? (this.method = "next", this.next = i.finallyLoc, y) : this.complete(a); }, complete: function complete(t, e) { if ("throw" === t.type) throw t.arg; return "break" === t.type || "continue" === t.type ? this.next = t.arg : "return" === t.type ? (this.rval = this.arg = t.arg, this.method = "return", this.next = "end") : "normal" === t.type && e && (this.next = e), y; }, finish: function finish(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.finallyLoc === t) return this.complete(r.completion, r.afterLoc), resetTryEntry(r), y; } }, catch: function _catch(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.tryLoc === t) { var n = r.completion; if ("throw" === n.type) { var o = n.arg; resetTryEntry(r); } return o; } } throw Error("illegal catch attempt"); }, delegateYield: function delegateYield(e, r, n) { return this.delegate = { iterator: values(e), resultName: r, nextLoc: n }, "next" === this.method && (this.arg = t), y; } }, e; }
 function OutageDAO_asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { promise_default().resolve(value).then(_next, _throw); } }
 function OutageDAO_asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new (promise_default())(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { OutageDAO_asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { OutageDAO_asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 function OutageDAO_classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 function OutageDAO_defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; define_property_default()(target, OutageDAO_toPropertyKey(descriptor.key), descriptor); } }
 function OutageDAO_createClass(Constructor, protoProps, staticProps) { if (protoProps) OutageDAO_defineProperties(Constructor.prototype, protoProps); if (staticProps) OutageDAO_defineProperties(Constructor, staticProps); define_property_default()(Constructor, "prototype", { writable: false }); return Constructor; }
-function OutageDAO_toPropertyKey(t) { var i = OutageDAO_toPrimitive(t, "string"); return "symbol" == OutageDAO_typeof(i) ? i : String(i); }
+function OutageDAO_toPropertyKey(t) { var i = OutageDAO_toPrimitive(t, "string"); return "symbol" == OutageDAO_typeof(i) ? i : i + ""; }
 function OutageDAO_toPrimitive(t, r) { if ("object" != OutageDAO_typeof(t) || !t) return t; var e = t[(to_primitive_default())]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != OutageDAO_typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 function OutageDAO_callSuper(t, o, e) { return o = OutageDAO_getPrototypeOf(o), OutageDAO_possibleConstructorReturn(t, OutageDAO_isNativeReflectConstruct() ? construct_default()(o, e || [], OutageDAO_getPrototypeOf(t).constructor) : o.apply(t, e)); }
 function OutageDAO_possibleConstructorReturn(self, call) { if (call && (OutageDAO_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return OutageDAO_assertThisInitialized(self); }
@@ -71483,7 +71416,6 @@ function OutageDAO_setPrototypeOf(o, p) { var _context3; OutageDAO_setPrototypeO
  * @category DAO
  */
 var OutageDAO = /*#__PURE__*/function (_AbstractDAO) {
-  OutageDAO_inherits(OutageDAO, _AbstractDAO);
   function OutageDAO(impl) {
     OutageDAO_classCallCheck(this, OutageDAO);
     return OutageDAO_callSuper(this, OutageDAO, [impl]);
@@ -71494,7 +71426,8 @@ var OutageDAO = /*#__PURE__*/function (_AbstractDAO) {
    *
    * @param id - The outage's ID.
    */
-  OutageDAO_createClass(OutageDAO, [{
+  OutageDAO_inherits(OutageDAO, _AbstractDAO);
+  return OutageDAO_createClass(OutageDAO, [{
     key: "get",
     value: (function () {
       var _get = OutageDAO_asyncToGenerator( /*#__PURE__*/OutageDAO_regeneratorRuntime().mark(function _callee(id) {
@@ -71595,7 +71528,6 @@ var OutageDAO = /*#__PURE__*/function (_AbstractDAO) {
       }
     }
   }]);
-  return OutageDAO;
 }(AbstractDAO);
 ;// CONCATENATED MODULE: ./src/model/OnmsSituationFeedback.ts
 
@@ -71607,7 +71539,7 @@ function OnmsSituationFeedback_typeof(o) { "@babel/helpers - typeof"; return Onm
 function OnmsSituationFeedback_classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 function OnmsSituationFeedback_defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; define_property_default()(target, OnmsSituationFeedback_toPropertyKey(descriptor.key), descriptor); } }
 function OnmsSituationFeedback_createClass(Constructor, protoProps, staticProps) { if (protoProps) OnmsSituationFeedback_defineProperties(Constructor.prototype, protoProps); if (staticProps) OnmsSituationFeedback_defineProperties(Constructor, staticProps); define_property_default()(Constructor, "prototype", { writable: false }); return Constructor; }
-function OnmsSituationFeedback_toPropertyKey(t) { var i = OnmsSituationFeedback_toPrimitive(t, "string"); return "symbol" == OnmsSituationFeedback_typeof(i) ? i : String(i); }
+function OnmsSituationFeedback_toPropertyKey(t) { var i = OnmsSituationFeedback_toPrimitive(t, "string"); return "symbol" == OnmsSituationFeedback_typeof(i) ? i : i + ""; }
 function OnmsSituationFeedback_toPrimitive(t, r) { if ("object" != OnmsSituationFeedback_typeof(t) || !t) return t; var e = t[(to_primitive_default())]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != OnmsSituationFeedback_typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 /**
  * Represents an OpenNMS alarm.
@@ -71617,7 +71549,7 @@ var OnmsSituationFeedback = /*#__PURE__*/function () {
   function OnmsSituationFeedback() {
     OnmsSituationFeedback_classCallCheck(this, OnmsSituationFeedback);
   }
-  OnmsSituationFeedback_createClass(OnmsSituationFeedback, [{
+  return OnmsSituationFeedback_createClass(OnmsSituationFeedback, [{
     key: "urlValue",
     get: /** the situation reduction key */
 
@@ -71642,7 +71574,6 @@ var OnmsSituationFeedback = /*#__PURE__*/function () {
       return String(this.situationKey);
     }
   }]);
-  return OnmsSituationFeedback;
 }();
 ;// CONCATENATED MODULE: ./src/model/OnmsSituationFeedbackType.ts
 
@@ -71660,7 +71591,7 @@ function OnmsSituationFeedbackType_typeof(o) { "@babel/helpers - typeof"; return
 function OnmsSituationFeedbackType_classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 function OnmsSituationFeedbackType_defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; define_property_default()(target, OnmsSituationFeedbackType_toPropertyKey(descriptor.key), descriptor); } }
 function OnmsSituationFeedbackType_createClass(Constructor, protoProps, staticProps) { if (protoProps) OnmsSituationFeedbackType_defineProperties(Constructor.prototype, protoProps); if (staticProps) OnmsSituationFeedbackType_defineProperties(Constructor, staticProps); define_property_default()(Constructor, "prototype", { writable: false }); return Constructor; }
-function OnmsSituationFeedbackType_toPropertyKey(t) { var i = OnmsSituationFeedbackType_toPrimitive(t, "string"); return "symbol" == OnmsSituationFeedbackType_typeof(i) ? i : String(i); }
+function OnmsSituationFeedbackType_toPropertyKey(t) { var i = OnmsSituationFeedbackType_toPrimitive(t, "string"); return "symbol" == OnmsSituationFeedbackType_typeof(i) ? i : i + ""; }
 function OnmsSituationFeedbackType_toPrimitive(t, r) { if ("object" != OnmsSituationFeedbackType_typeof(t) || !t) return t; var e = t[(to_primitive_default())]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != OnmsSituationFeedbackType_typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 function OnmsSituationFeedbackType_callSuper(t, o, e) { return o = OnmsSituationFeedbackType_getPrototypeOf(o), OnmsSituationFeedbackType_possibleConstructorReturn(t, OnmsSituationFeedbackType_isNativeReflectConstruct() ? construct_default()(o, e || [], OnmsSituationFeedbackType_getPrototypeOf(t).constructor) : o.apply(t, e)); }
 function OnmsSituationFeedbackType_possibleConstructorReturn(self, call) { if (call && (OnmsSituationFeedbackType_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return OnmsSituationFeedbackType_assertThisInitialized(self); }
@@ -71676,12 +71607,12 @@ function OnmsSituationFeedbackType_setPrototypeOf(o, p) { var _context; OnmsSitu
  * @category Model
  */
 var OnmsSituationFeedbackType = /*#__PURE__*/function (_OnmsEnum) {
-  OnmsSituationFeedbackType_inherits(OnmsSituationFeedbackType, _OnmsEnum);
   function OnmsSituationFeedbackType() {
     OnmsSituationFeedbackType_classCallCheck(this, OnmsSituationFeedbackType);
     return OnmsSituationFeedbackType_callSuper(this, OnmsSituationFeedbackType, arguments);
   }
-  OnmsSituationFeedbackType_createClass(OnmsSituationFeedbackType, [{
+  OnmsSituationFeedbackType_inherits(OnmsSituationFeedbackType, _OnmsEnum);
+  return OnmsSituationFeedbackType_createClass(OnmsSituationFeedbackType, [{
     key: "urlValue",
     get: /** @inheritdoc */
     function get() {
@@ -71701,7 +71632,6 @@ var OnmsSituationFeedbackType = /*#__PURE__*/function (_OnmsEnum) {
       return OnmsEnum_forLabel(FeedbackTypes, label);
     }
   }]);
-  return OnmsSituationFeedbackType;
 }(OnmsEnum);
 
 /* eslint-disable  */
@@ -71724,7 +71654,7 @@ freeze_default()(FeedbackTypes);
 
 
 
-function SituationFeedbackDAO_regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ SituationFeedbackDAO_regeneratorRuntime = function _regeneratorRuntime() { return e; }; var t, e = {}, r = Object.prototype, n = r.hasOwnProperty, o = (define_property_default()) || function (t, e, r) { t[e] = r.value; }, i = "function" == typeof (symbol_default()) ? (symbol_default()) : {}, a = i.iterator || "@@iterator", c = i.asyncIterator || "@@asyncIterator", u = i.toStringTag || "@@toStringTag"; function define(t, e, r) { return define_property_default()(t, e, { value: r, enumerable: !0, configurable: !0, writable: !0 }), t[e]; } try { define({}, ""); } catch (t) { define = function define(t, e, r) { return t[e] = r; }; } function wrap(t, e, r, n) { var i = e && e.prototype instanceof Generator ? e : Generator, a = create_default()(i.prototype), c = new Context(n || []); return o(a, "_invoke", { value: makeInvokeMethod(t, r, c) }), a; } function tryCatch(t, e, r) { try { return { type: "normal", arg: t.call(e, r) }; } catch (t) { return { type: "throw", arg: t }; } } e.wrap = wrap; var h = "suspendedStart", l = "suspendedYield", f = "executing", s = "completed", y = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var p = {}; define(p, a, function () { return this; }); var d = (get_prototype_of_default()), v = d && d(d(values([]))); v && v !== r && n.call(v, a) && (p = v); var g = GeneratorFunctionPrototype.prototype = Generator.prototype = create_default()(p); function defineIteratorMethods(t) { var _context7; for_each_default()(_context7 = ["next", "throw", "return"]).call(_context7, function (e) { define(t, e, function (t) { return this._invoke(e, t); }); }); } function AsyncIterator(t, e) { function invoke(r, o, i, a) { var c = tryCatch(t[r], t, o); if ("throw" !== c.type) { var u = c.arg, h = u.value; return h && "object" == SituationFeedbackDAO_typeof(h) && n.call(h, "__await") ? e.resolve(h.__await).then(function (t) { invoke("next", t, i, a); }, function (t) { invoke("throw", t, i, a); }) : e.resolve(h).then(function (t) { u.value = t, i(u); }, function (t) { return invoke("throw", t, i, a); }); } a(c.arg); } var r; o(this, "_invoke", { value: function value(t, n) { function callInvokeWithMethodAndArg() { return new e(function (e, r) { invoke(t, n, e, r); }); } return r = r ? r.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); } }); } function makeInvokeMethod(e, r, n) { var o = h; return function (i, a) { if (o === f) throw new Error("Generator is already running"); if (o === s) { if ("throw" === i) throw a; return { value: t, done: !0 }; } for (n.method = i, n.arg = a;;) { var c = n.delegate; if (c) { var u = maybeInvokeDelegate(c, n); if (u) { if (u === y) continue; return u; } } if ("next" === n.method) n.sent = n._sent = n.arg;else if ("throw" === n.method) { if (o === h) throw o = s, n.arg; n.dispatchException(n.arg); } else "return" === n.method && n.abrupt("return", n.arg); o = f; var p = tryCatch(e, r, n); if ("normal" === p.type) { if (o = n.done ? s : l, p.arg === y) continue; return { value: p.arg, done: n.done }; } "throw" === p.type && (o = s, n.method = "throw", n.arg = p.arg); } }; } function maybeInvokeDelegate(e, r) { var n = r.method, o = e.iterator[n]; if (o === t) return r.delegate = null, "throw" === n && e.iterator.return && (r.method = "return", r.arg = t, maybeInvokeDelegate(e, r), "throw" === r.method) || "return" !== n && (r.method = "throw", r.arg = new TypeError("The iterator does not provide a '" + n + "' method")), y; var i = tryCatch(o, e.iterator, r.arg); if ("throw" === i.type) return r.method = "throw", r.arg = i.arg, r.delegate = null, y; var a = i.arg; return a ? a.done ? (r[e.resultName] = a.value, r.next = e.nextLoc, "return" !== r.method && (r.method = "next", r.arg = t), r.delegate = null, y) : a : (r.method = "throw", r.arg = new TypeError("iterator result is not an object"), r.delegate = null, y); } function pushTryEntry(t) { var e = { tryLoc: t[0] }; 1 in t && (e.catchLoc = t[1]), 2 in t && (e.finallyLoc = t[2], e.afterLoc = t[3]), this.tryEntries.push(e); } function resetTryEntry(t) { var e = t.completion || {}; e.type = "normal", delete e.arg, t.completion = e; } function Context(t) { this.tryEntries = [{ tryLoc: "root" }], for_each_default()(t).call(t, pushTryEntry, this), this.reset(!0); } function values(e) { if (e || "" === e) { var r = e[a]; if (r) return r.call(e); if ("function" == typeof e.next) return e; if (!isNaN(e.length)) { var o = -1, i = function next() { for (; ++o < e.length;) if (n.call(e, o)) return next.value = e[o], next.done = !1, next; return next.value = t, next.done = !0, next; }; return i.next = i; } } throw new TypeError(SituationFeedbackDAO_typeof(e) + " is not iterable"); } return GeneratorFunction.prototype = GeneratorFunctionPrototype, o(g, "constructor", { value: GeneratorFunctionPrototype, configurable: !0 }), o(GeneratorFunctionPrototype, "constructor", { value: GeneratorFunction, configurable: !0 }), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, u, "GeneratorFunction"), e.isGeneratorFunction = function (t) { var e = "function" == typeof t && t.constructor; return !!e && (e === GeneratorFunction || "GeneratorFunction" === (e.displayName || e.name)); }, e.mark = function (t) { return (set_prototype_of_default()) ? set_prototype_of_default()(t, GeneratorFunctionPrototype) : (t.__proto__ = GeneratorFunctionPrototype, define(t, u, "GeneratorFunction")), t.prototype = create_default()(g), t; }, e.awrap = function (t) { return { __await: t }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, c, function () { return this; }), e.AsyncIterator = AsyncIterator, e.async = function (t, r, n, o, i) { void 0 === i && (i = (promise_default())); var a = new AsyncIterator(wrap(t, r, n, o), i); return e.isGeneratorFunction(r) ? a : a.next().then(function (t) { return t.done ? t.value : a.next(); }); }, defineIteratorMethods(g), define(g, u, "Generator"), define(g, a, function () { return this; }), define(g, "toString", function () { return "[object Generator]"; }), e.keys = function (t) { var e = Object(t), r = []; for (var n in e) r.push(n); return reverse_default()(r).call(r), function next() { for (; r.length;) { var t = r.pop(); if (t in e) return next.value = t, next.done = !1, next; } return next.done = !0, next; }; }, e.values = values, Context.prototype = { constructor: Context, reset: function reset(e) { var _context8; if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = !1, this.delegate = null, this.method = "next", this.arg = t, for_each_default()(_context8 = this.tryEntries).call(_context8, resetTryEntry), !e) for (var r in this) "t" === r.charAt(0) && n.call(this, r) && !isNaN(+slice_default()(r).call(r, 1)) && (this[r] = t); }, stop: function stop() { this.done = !0; var t = this.tryEntries[0].completion; if ("throw" === t.type) throw t.arg; return this.rval; }, dispatchException: function dispatchException(e) { if (this.done) throw e; var r = this; function handle(n, o) { return a.type = "throw", a.arg = e, r.next = n, o && (r.method = "next", r.arg = t), !!o; } for (var o = this.tryEntries.length - 1; o >= 0; --o) { var i = this.tryEntries[o], a = i.completion; if ("root" === i.tryLoc) return handle("end"); if (i.tryLoc <= this.prev) { var c = n.call(i, "catchLoc"), u = n.call(i, "finallyLoc"); if (c && u) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } else if (c) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); } else { if (!u) throw new Error("try statement without catch or finally"); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } } } }, abrupt: function abrupt(t, e) { for (var r = this.tryEntries.length - 1; r >= 0; --r) { var o = this.tryEntries[r]; if (o.tryLoc <= this.prev && n.call(o, "finallyLoc") && this.prev < o.finallyLoc) { var i = o; break; } } i && ("break" === t || "continue" === t) && i.tryLoc <= e && e <= i.finallyLoc && (i = null); var a = i ? i.completion : {}; return a.type = t, a.arg = e, i ? (this.method = "next", this.next = i.finallyLoc, y) : this.complete(a); }, complete: function complete(t, e) { if ("throw" === t.type) throw t.arg; return "break" === t.type || "continue" === t.type ? this.next = t.arg : "return" === t.type ? (this.rval = this.arg = t.arg, this.method = "return", this.next = "end") : "normal" === t.type && e && (this.next = e), y; }, finish: function finish(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.finallyLoc === t) return this.complete(r.completion, r.afterLoc), resetTryEntry(r), y; } }, catch: function _catch(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.tryLoc === t) { var n = r.completion; if ("throw" === n.type) { var o = n.arg; resetTryEntry(r); } return o; } } throw new Error("illegal catch attempt"); }, delegateYield: function delegateYield(e, r, n) { return this.delegate = { iterator: values(e), resultName: r, nextLoc: n }, "next" === this.method && (this.arg = t), y; } }, e; }
+function SituationFeedbackDAO_regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ SituationFeedbackDAO_regeneratorRuntime = function _regeneratorRuntime() { return e; }; var t, e = {}, r = Object.prototype, n = r.hasOwnProperty, o = (define_property_default()) || function (t, e, r) { t[e] = r.value; }, i = "function" == typeof (symbol_default()) ? (symbol_default()) : {}, a = i.iterator || "@@iterator", c = i.asyncIterator || "@@asyncIterator", u = i.toStringTag || "@@toStringTag"; function define(t, e, r) { return define_property_default()(t, e, { value: r, enumerable: !0, configurable: !0, writable: !0 }), t[e]; } try { define({}, ""); } catch (t) { define = function define(t, e, r) { return t[e] = r; }; } function wrap(t, e, r, n) { var i = e && e.prototype instanceof Generator ? e : Generator, a = create_default()(i.prototype), c = new Context(n || []); return o(a, "_invoke", { value: makeInvokeMethod(t, r, c) }), a; } function tryCatch(t, e, r) { try { return { type: "normal", arg: t.call(e, r) }; } catch (t) { return { type: "throw", arg: t }; } } e.wrap = wrap; var h = "suspendedStart", l = "suspendedYield", f = "executing", s = "completed", y = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var p = {}; define(p, a, function () { return this; }); var d = (get_prototype_of_default()), v = d && d(d(values([]))); v && v !== r && n.call(v, a) && (p = v); var g = GeneratorFunctionPrototype.prototype = Generator.prototype = create_default()(p); function defineIteratorMethods(t) { var _context7; for_each_default()(_context7 = ["next", "throw", "return"]).call(_context7, function (e) { define(t, e, function (t) { return this._invoke(e, t); }); }); } function AsyncIterator(t, e) { function invoke(r, o, i, a) { var c = tryCatch(t[r], t, o); if ("throw" !== c.type) { var u = c.arg, h = u.value; return h && "object" == SituationFeedbackDAO_typeof(h) && n.call(h, "__await") ? e.resolve(h.__await).then(function (t) { invoke("next", t, i, a); }, function (t) { invoke("throw", t, i, a); }) : e.resolve(h).then(function (t) { u.value = t, i(u); }, function (t) { return invoke("throw", t, i, a); }); } a(c.arg); } var r; o(this, "_invoke", { value: function value(t, n) { function callInvokeWithMethodAndArg() { return new e(function (e, r) { invoke(t, n, e, r); }); } return r = r ? r.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); } }); } function makeInvokeMethod(e, r, n) { var o = h; return function (i, a) { if (o === f) throw Error("Generator is already running"); if (o === s) { if ("throw" === i) throw a; return { value: t, done: !0 }; } for (n.method = i, n.arg = a;;) { var c = n.delegate; if (c) { var u = maybeInvokeDelegate(c, n); if (u) { if (u === y) continue; return u; } } if ("next" === n.method) n.sent = n._sent = n.arg;else if ("throw" === n.method) { if (o === h) throw o = s, n.arg; n.dispatchException(n.arg); } else "return" === n.method && n.abrupt("return", n.arg); o = f; var p = tryCatch(e, r, n); if ("normal" === p.type) { if (o = n.done ? s : l, p.arg === y) continue; return { value: p.arg, done: n.done }; } "throw" === p.type && (o = s, n.method = "throw", n.arg = p.arg); } }; } function maybeInvokeDelegate(e, r) { var n = r.method, o = e.iterator[n]; if (o === t) return r.delegate = null, "throw" === n && e.iterator.return && (r.method = "return", r.arg = t, maybeInvokeDelegate(e, r), "throw" === r.method) || "return" !== n && (r.method = "throw", r.arg = new TypeError("The iterator does not provide a '" + n + "' method")), y; var i = tryCatch(o, e.iterator, r.arg); if ("throw" === i.type) return r.method = "throw", r.arg = i.arg, r.delegate = null, y; var a = i.arg; return a ? a.done ? (r[e.resultName] = a.value, r.next = e.nextLoc, "return" !== r.method && (r.method = "next", r.arg = t), r.delegate = null, y) : a : (r.method = "throw", r.arg = new TypeError("iterator result is not an object"), r.delegate = null, y); } function pushTryEntry(t) { var e = { tryLoc: t[0] }; 1 in t && (e.catchLoc = t[1]), 2 in t && (e.finallyLoc = t[2], e.afterLoc = t[3]), this.tryEntries.push(e); } function resetTryEntry(t) { var e = t.completion || {}; e.type = "normal", delete e.arg, t.completion = e; } function Context(t) { this.tryEntries = [{ tryLoc: "root" }], for_each_default()(t).call(t, pushTryEntry, this), this.reset(!0); } function values(e) { if (e || "" === e) { var r = e[a]; if (r) return r.call(e); if ("function" == typeof e.next) return e; if (!isNaN(e.length)) { var o = -1, i = function next() { for (; ++o < e.length;) if (n.call(e, o)) return next.value = e[o], next.done = !1, next; return next.value = t, next.done = !0, next; }; return i.next = i; } } throw new TypeError(SituationFeedbackDAO_typeof(e) + " is not iterable"); } return GeneratorFunction.prototype = GeneratorFunctionPrototype, o(g, "constructor", { value: GeneratorFunctionPrototype, configurable: !0 }), o(GeneratorFunctionPrototype, "constructor", { value: GeneratorFunction, configurable: !0 }), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, u, "GeneratorFunction"), e.isGeneratorFunction = function (t) { var e = "function" == typeof t && t.constructor; return !!e && (e === GeneratorFunction || "GeneratorFunction" === (e.displayName || e.name)); }, e.mark = function (t) { return (set_prototype_of_default()) ? set_prototype_of_default()(t, GeneratorFunctionPrototype) : (t.__proto__ = GeneratorFunctionPrototype, define(t, u, "GeneratorFunction")), t.prototype = create_default()(g), t; }, e.awrap = function (t) { return { __await: t }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, c, function () { return this; }), e.AsyncIterator = AsyncIterator, e.async = function (t, r, n, o, i) { void 0 === i && (i = (promise_default())); var a = new AsyncIterator(wrap(t, r, n, o), i); return e.isGeneratorFunction(r) ? a : a.next().then(function (t) { return t.done ? t.value : a.next(); }); }, defineIteratorMethods(g), define(g, u, "Generator"), define(g, a, function () { return this; }), define(g, "toString", function () { return "[object Generator]"; }), e.keys = function (t) { var e = Object(t), r = []; for (var n in e) r.push(n); return reverse_default()(r).call(r), function next() { for (; r.length;) { var t = r.pop(); if (t in e) return next.value = t, next.done = !1, next; } return next.done = !0, next; }; }, e.values = values, Context.prototype = { constructor: Context, reset: function reset(e) { var _context8; if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = !1, this.delegate = null, this.method = "next", this.arg = t, for_each_default()(_context8 = this.tryEntries).call(_context8, resetTryEntry), !e) for (var r in this) "t" === r.charAt(0) && n.call(this, r) && !isNaN(+slice_default()(r).call(r, 1)) && (this[r] = t); }, stop: function stop() { this.done = !0; var t = this.tryEntries[0].completion; if ("throw" === t.type) throw t.arg; return this.rval; }, dispatchException: function dispatchException(e) { if (this.done) throw e; var r = this; function handle(n, o) { return a.type = "throw", a.arg = e, r.next = n, o && (r.method = "next", r.arg = t), !!o; } for (var o = this.tryEntries.length - 1; o >= 0; --o) { var i = this.tryEntries[o], a = i.completion; if ("root" === i.tryLoc) return handle("end"); if (i.tryLoc <= this.prev) { var c = n.call(i, "catchLoc"), u = n.call(i, "finallyLoc"); if (c && u) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } else if (c) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); } else { if (!u) throw Error("try statement without catch or finally"); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } } } }, abrupt: function abrupt(t, e) { for (var r = this.tryEntries.length - 1; r >= 0; --r) { var o = this.tryEntries[r]; if (o.tryLoc <= this.prev && n.call(o, "finallyLoc") && this.prev < o.finallyLoc) { var i = o; break; } } i && ("break" === t || "continue" === t) && i.tryLoc <= e && e <= i.finallyLoc && (i = null); var a = i ? i.completion : {}; return a.type = t, a.arg = e, i ? (this.method = "next", this.next = i.finallyLoc, y) : this.complete(a); }, complete: function complete(t, e) { if ("throw" === t.type) throw t.arg; return "break" === t.type || "continue" === t.type ? this.next = t.arg : "return" === t.type ? (this.rval = this.arg = t.arg, this.method = "return", this.next = "end") : "normal" === t.type && e && (this.next = e), y; }, finish: function finish(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.finallyLoc === t) return this.complete(r.completion, r.afterLoc), resetTryEntry(r), y; } }, catch: function _catch(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.tryLoc === t) { var n = r.completion; if ("throw" === n.type) { var o = n.arg; resetTryEntry(r); } return o; } } throw Error("illegal catch attempt"); }, delegateYield: function delegateYield(e, r, n) { return this.delegate = { iterator: values(e), resultName: r, nextLoc: n }, "next" === this.method && (this.arg = t), y; } }, e; }
 function SituationFeedbackDAO_typeof(o) { "@babel/helpers - typeof"; return SituationFeedbackDAO_typeof = "function" == typeof (symbol_default()) && "symbol" == typeof (iterator_default()) ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof (symbol_default()) && o.constructor === (symbol_default()) && o !== (symbol_default()).prototype ? "symbol" : typeof o; }, SituationFeedbackDAO_typeof(o); }
 
 
@@ -71747,7 +71677,7 @@ function SituationFeedbackDAO_asyncToGenerator(fn) { return function () { var se
 function SituationFeedbackDAO_classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 function SituationFeedbackDAO_defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; define_property_default()(target, SituationFeedbackDAO_toPropertyKey(descriptor.key), descriptor); } }
 function SituationFeedbackDAO_createClass(Constructor, protoProps, staticProps) { if (protoProps) SituationFeedbackDAO_defineProperties(Constructor.prototype, protoProps); if (staticProps) SituationFeedbackDAO_defineProperties(Constructor, staticProps); define_property_default()(Constructor, "prototype", { writable: false }); return Constructor; }
-function SituationFeedbackDAO_toPropertyKey(t) { var i = SituationFeedbackDAO_toPrimitive(t, "string"); return "symbol" == SituationFeedbackDAO_typeof(i) ? i : String(i); }
+function SituationFeedbackDAO_toPropertyKey(t) { var i = SituationFeedbackDAO_toPrimitive(t, "string"); return "symbol" == SituationFeedbackDAO_typeof(i) ? i : i + ""; }
 function SituationFeedbackDAO_toPrimitive(t, r) { if ("object" != SituationFeedbackDAO_typeof(t) || !t) return t; var e = t[(to_primitive_default())]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != SituationFeedbackDAO_typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 function SituationFeedbackDAO_callSuper(t, o, e) { return o = SituationFeedbackDAO_getPrototypeOf(o), SituationFeedbackDAO_possibleConstructorReturn(t, SituationFeedbackDAO_isNativeReflectConstruct() ? construct_default()(o, e || [], SituationFeedbackDAO_getPrototypeOf(t).constructor) : o.apply(t, e)); }
 function SituationFeedbackDAO_possibleConstructorReturn(self, call) { if (call && (SituationFeedbackDAO_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return SituationFeedbackDAO_assertThisInitialized(self); }
@@ -71767,7 +71697,6 @@ function SituationFeedbackDAO_setPrototypeOf(o, p) { var _context5; SituationFee
  * @category DAO
  */
 var SituationFeedbackDAO = /*#__PURE__*/function (_BaseDAO) {
-  SituationFeedbackDAO_inherits(SituationFeedbackDAO, _BaseDAO);
   function SituationFeedbackDAO(impl) {
     SituationFeedbackDAO_classCallCheck(this, SituationFeedbackDAO);
     return SituationFeedbackDAO_callSuper(this, SituationFeedbackDAO, [impl]);
@@ -71780,7 +71709,8 @@ var SituationFeedbackDAO = /*#__PURE__*/function (_BaseDAO) {
    * @param {number} situationId - The alarmId of the Situation to use when querying.
    * @return An array of [[OnmsSituationFeedback]] objects.
    */
-  SituationFeedbackDAO_createClass(SituationFeedbackDAO, [{
+  SituationFeedbackDAO_inherits(SituationFeedbackDAO, _BaseDAO);
+  return SituationFeedbackDAO_createClass(SituationFeedbackDAO, [{
     key: "getFeedback",
     value: (function () {
       var _getFeedback = SituationFeedbackDAO_asyncToGenerator( /*#__PURE__*/SituationFeedbackDAO_regeneratorRuntime().mark(function _callee(situationId) {
@@ -71976,7 +71906,6 @@ var SituationFeedbackDAO = /*#__PURE__*/function (_BaseDAO) {
       return 'rest/situation-feedback';
     }
   }]);
-  return SituationFeedbackDAO;
 }(BaseDAO);
 ;// CONCATENATED MODULE: ./src/dao/SnmpInterfaceDAO.ts
 
@@ -71998,13 +71927,13 @@ function SnmpInterfaceDAO_typeof(o) { "@babel/helpers - typeof"; return SnmpInte
 
 
 
-function SnmpInterfaceDAO_regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ SnmpInterfaceDAO_regeneratorRuntime = function _regeneratorRuntime() { return e; }; var t, e = {}, r = Object.prototype, n = r.hasOwnProperty, o = (define_property_default()) || function (t, e, r) { t[e] = r.value; }, i = "function" == typeof (symbol_default()) ? (symbol_default()) : {}, a = i.iterator || "@@iterator", c = i.asyncIterator || "@@asyncIterator", u = i.toStringTag || "@@toStringTag"; function define(t, e, r) { return define_property_default()(t, e, { value: r, enumerable: !0, configurable: !0, writable: !0 }), t[e]; } try { define({}, ""); } catch (t) { define = function define(t, e, r) { return t[e] = r; }; } function wrap(t, e, r, n) { var i = e && e.prototype instanceof Generator ? e : Generator, a = create_default()(i.prototype), c = new Context(n || []); return o(a, "_invoke", { value: makeInvokeMethod(t, r, c) }), a; } function tryCatch(t, e, r) { try { return { type: "normal", arg: t.call(e, r) }; } catch (t) { return { type: "throw", arg: t }; } } e.wrap = wrap; var h = "suspendedStart", l = "suspendedYield", f = "executing", s = "completed", y = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var p = {}; define(p, a, function () { return this; }); var d = (get_prototype_of_default()), v = d && d(d(values([]))); v && v !== r && n.call(v, a) && (p = v); var g = GeneratorFunctionPrototype.prototype = Generator.prototype = create_default()(p); function defineIteratorMethods(t) { var _context5; for_each_default()(_context5 = ["next", "throw", "return"]).call(_context5, function (e) { define(t, e, function (t) { return this._invoke(e, t); }); }); } function AsyncIterator(t, e) { function invoke(r, o, i, a) { var c = tryCatch(t[r], t, o); if ("throw" !== c.type) { var u = c.arg, h = u.value; return h && "object" == SnmpInterfaceDAO_typeof(h) && n.call(h, "__await") ? e.resolve(h.__await).then(function (t) { invoke("next", t, i, a); }, function (t) { invoke("throw", t, i, a); }) : e.resolve(h).then(function (t) { u.value = t, i(u); }, function (t) { return invoke("throw", t, i, a); }); } a(c.arg); } var r; o(this, "_invoke", { value: function value(t, n) { function callInvokeWithMethodAndArg() { return new e(function (e, r) { invoke(t, n, e, r); }); } return r = r ? r.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); } }); } function makeInvokeMethod(e, r, n) { var o = h; return function (i, a) { if (o === f) throw new Error("Generator is already running"); if (o === s) { if ("throw" === i) throw a; return { value: t, done: !0 }; } for (n.method = i, n.arg = a;;) { var c = n.delegate; if (c) { var u = maybeInvokeDelegate(c, n); if (u) { if (u === y) continue; return u; } } if ("next" === n.method) n.sent = n._sent = n.arg;else if ("throw" === n.method) { if (o === h) throw o = s, n.arg; n.dispatchException(n.arg); } else "return" === n.method && n.abrupt("return", n.arg); o = f; var p = tryCatch(e, r, n); if ("normal" === p.type) { if (o = n.done ? s : l, p.arg === y) continue; return { value: p.arg, done: n.done }; } "throw" === p.type && (o = s, n.method = "throw", n.arg = p.arg); } }; } function maybeInvokeDelegate(e, r) { var n = r.method, o = e.iterator[n]; if (o === t) return r.delegate = null, "throw" === n && e.iterator.return && (r.method = "return", r.arg = t, maybeInvokeDelegate(e, r), "throw" === r.method) || "return" !== n && (r.method = "throw", r.arg = new TypeError("The iterator does not provide a '" + n + "' method")), y; var i = tryCatch(o, e.iterator, r.arg); if ("throw" === i.type) return r.method = "throw", r.arg = i.arg, r.delegate = null, y; var a = i.arg; return a ? a.done ? (r[e.resultName] = a.value, r.next = e.nextLoc, "return" !== r.method && (r.method = "next", r.arg = t), r.delegate = null, y) : a : (r.method = "throw", r.arg = new TypeError("iterator result is not an object"), r.delegate = null, y); } function pushTryEntry(t) { var e = { tryLoc: t[0] }; 1 in t && (e.catchLoc = t[1]), 2 in t && (e.finallyLoc = t[2], e.afterLoc = t[3]), this.tryEntries.push(e); } function resetTryEntry(t) { var e = t.completion || {}; e.type = "normal", delete e.arg, t.completion = e; } function Context(t) { this.tryEntries = [{ tryLoc: "root" }], for_each_default()(t).call(t, pushTryEntry, this), this.reset(!0); } function values(e) { if (e || "" === e) { var r = e[a]; if (r) return r.call(e); if ("function" == typeof e.next) return e; if (!isNaN(e.length)) { var o = -1, i = function next() { for (; ++o < e.length;) if (n.call(e, o)) return next.value = e[o], next.done = !1, next; return next.value = t, next.done = !0, next; }; return i.next = i; } } throw new TypeError(SnmpInterfaceDAO_typeof(e) + " is not iterable"); } return GeneratorFunction.prototype = GeneratorFunctionPrototype, o(g, "constructor", { value: GeneratorFunctionPrototype, configurable: !0 }), o(GeneratorFunctionPrototype, "constructor", { value: GeneratorFunction, configurable: !0 }), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, u, "GeneratorFunction"), e.isGeneratorFunction = function (t) { var e = "function" == typeof t && t.constructor; return !!e && (e === GeneratorFunction || "GeneratorFunction" === (e.displayName || e.name)); }, e.mark = function (t) { return (set_prototype_of_default()) ? set_prototype_of_default()(t, GeneratorFunctionPrototype) : (t.__proto__ = GeneratorFunctionPrototype, define(t, u, "GeneratorFunction")), t.prototype = create_default()(g), t; }, e.awrap = function (t) { return { __await: t }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, c, function () { return this; }), e.AsyncIterator = AsyncIterator, e.async = function (t, r, n, o, i) { void 0 === i && (i = (promise_default())); var a = new AsyncIterator(wrap(t, r, n, o), i); return e.isGeneratorFunction(r) ? a : a.next().then(function (t) { return t.done ? t.value : a.next(); }); }, defineIteratorMethods(g), define(g, u, "Generator"), define(g, a, function () { return this; }), define(g, "toString", function () { return "[object Generator]"; }), e.keys = function (t) { var e = Object(t), r = []; for (var n in e) r.push(n); return reverse_default()(r).call(r), function next() { for (; r.length;) { var t = r.pop(); if (t in e) return next.value = t, next.done = !1, next; } return next.done = !0, next; }; }, e.values = values, Context.prototype = { constructor: Context, reset: function reset(e) { var _context6; if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = !1, this.delegate = null, this.method = "next", this.arg = t, for_each_default()(_context6 = this.tryEntries).call(_context6, resetTryEntry), !e) for (var r in this) "t" === r.charAt(0) && n.call(this, r) && !isNaN(+slice_default()(r).call(r, 1)) && (this[r] = t); }, stop: function stop() { this.done = !0; var t = this.tryEntries[0].completion; if ("throw" === t.type) throw t.arg; return this.rval; }, dispatchException: function dispatchException(e) { if (this.done) throw e; var r = this; function handle(n, o) { return a.type = "throw", a.arg = e, r.next = n, o && (r.method = "next", r.arg = t), !!o; } for (var o = this.tryEntries.length - 1; o >= 0; --o) { var i = this.tryEntries[o], a = i.completion; if ("root" === i.tryLoc) return handle("end"); if (i.tryLoc <= this.prev) { var c = n.call(i, "catchLoc"), u = n.call(i, "finallyLoc"); if (c && u) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } else if (c) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); } else { if (!u) throw new Error("try statement without catch or finally"); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } } } }, abrupt: function abrupt(t, e) { for (var r = this.tryEntries.length - 1; r >= 0; --r) { var o = this.tryEntries[r]; if (o.tryLoc <= this.prev && n.call(o, "finallyLoc") && this.prev < o.finallyLoc) { var i = o; break; } } i && ("break" === t || "continue" === t) && i.tryLoc <= e && e <= i.finallyLoc && (i = null); var a = i ? i.completion : {}; return a.type = t, a.arg = e, i ? (this.method = "next", this.next = i.finallyLoc, y) : this.complete(a); }, complete: function complete(t, e) { if ("throw" === t.type) throw t.arg; return "break" === t.type || "continue" === t.type ? this.next = t.arg : "return" === t.type ? (this.rval = this.arg = t.arg, this.method = "return", this.next = "end") : "normal" === t.type && e && (this.next = e), y; }, finish: function finish(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.finallyLoc === t) return this.complete(r.completion, r.afterLoc), resetTryEntry(r), y; } }, catch: function _catch(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.tryLoc === t) { var n = r.completion; if ("throw" === n.type) { var o = n.arg; resetTryEntry(r); } return o; } } throw new Error("illegal catch attempt"); }, delegateYield: function delegateYield(e, r, n) { return this.delegate = { iterator: values(e), resultName: r, nextLoc: n }, "next" === this.method && (this.arg = t), y; } }, e; }
+function SnmpInterfaceDAO_regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ SnmpInterfaceDAO_regeneratorRuntime = function _regeneratorRuntime() { return e; }; var t, e = {}, r = Object.prototype, n = r.hasOwnProperty, o = (define_property_default()) || function (t, e, r) { t[e] = r.value; }, i = "function" == typeof (symbol_default()) ? (symbol_default()) : {}, a = i.iterator || "@@iterator", c = i.asyncIterator || "@@asyncIterator", u = i.toStringTag || "@@toStringTag"; function define(t, e, r) { return define_property_default()(t, e, { value: r, enumerable: !0, configurable: !0, writable: !0 }), t[e]; } try { define({}, ""); } catch (t) { define = function define(t, e, r) { return t[e] = r; }; } function wrap(t, e, r, n) { var i = e && e.prototype instanceof Generator ? e : Generator, a = create_default()(i.prototype), c = new Context(n || []); return o(a, "_invoke", { value: makeInvokeMethod(t, r, c) }), a; } function tryCatch(t, e, r) { try { return { type: "normal", arg: t.call(e, r) }; } catch (t) { return { type: "throw", arg: t }; } } e.wrap = wrap; var h = "suspendedStart", l = "suspendedYield", f = "executing", s = "completed", y = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var p = {}; define(p, a, function () { return this; }); var d = (get_prototype_of_default()), v = d && d(d(values([]))); v && v !== r && n.call(v, a) && (p = v); var g = GeneratorFunctionPrototype.prototype = Generator.prototype = create_default()(p); function defineIteratorMethods(t) { var _context5; for_each_default()(_context5 = ["next", "throw", "return"]).call(_context5, function (e) { define(t, e, function (t) { return this._invoke(e, t); }); }); } function AsyncIterator(t, e) { function invoke(r, o, i, a) { var c = tryCatch(t[r], t, o); if ("throw" !== c.type) { var u = c.arg, h = u.value; return h && "object" == SnmpInterfaceDAO_typeof(h) && n.call(h, "__await") ? e.resolve(h.__await).then(function (t) { invoke("next", t, i, a); }, function (t) { invoke("throw", t, i, a); }) : e.resolve(h).then(function (t) { u.value = t, i(u); }, function (t) { return invoke("throw", t, i, a); }); } a(c.arg); } var r; o(this, "_invoke", { value: function value(t, n) { function callInvokeWithMethodAndArg() { return new e(function (e, r) { invoke(t, n, e, r); }); } return r = r ? r.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); } }); } function makeInvokeMethod(e, r, n) { var o = h; return function (i, a) { if (o === f) throw Error("Generator is already running"); if (o === s) { if ("throw" === i) throw a; return { value: t, done: !0 }; } for (n.method = i, n.arg = a;;) { var c = n.delegate; if (c) { var u = maybeInvokeDelegate(c, n); if (u) { if (u === y) continue; return u; } } if ("next" === n.method) n.sent = n._sent = n.arg;else if ("throw" === n.method) { if (o === h) throw o = s, n.arg; n.dispatchException(n.arg); } else "return" === n.method && n.abrupt("return", n.arg); o = f; var p = tryCatch(e, r, n); if ("normal" === p.type) { if (o = n.done ? s : l, p.arg === y) continue; return { value: p.arg, done: n.done }; } "throw" === p.type && (o = s, n.method = "throw", n.arg = p.arg); } }; } function maybeInvokeDelegate(e, r) { var n = r.method, o = e.iterator[n]; if (o === t) return r.delegate = null, "throw" === n && e.iterator.return && (r.method = "return", r.arg = t, maybeInvokeDelegate(e, r), "throw" === r.method) || "return" !== n && (r.method = "throw", r.arg = new TypeError("The iterator does not provide a '" + n + "' method")), y; var i = tryCatch(o, e.iterator, r.arg); if ("throw" === i.type) return r.method = "throw", r.arg = i.arg, r.delegate = null, y; var a = i.arg; return a ? a.done ? (r[e.resultName] = a.value, r.next = e.nextLoc, "return" !== r.method && (r.method = "next", r.arg = t), r.delegate = null, y) : a : (r.method = "throw", r.arg = new TypeError("iterator result is not an object"), r.delegate = null, y); } function pushTryEntry(t) { var e = { tryLoc: t[0] }; 1 in t && (e.catchLoc = t[1]), 2 in t && (e.finallyLoc = t[2], e.afterLoc = t[3]), this.tryEntries.push(e); } function resetTryEntry(t) { var e = t.completion || {}; e.type = "normal", delete e.arg, t.completion = e; } function Context(t) { this.tryEntries = [{ tryLoc: "root" }], for_each_default()(t).call(t, pushTryEntry, this), this.reset(!0); } function values(e) { if (e || "" === e) { var r = e[a]; if (r) return r.call(e); if ("function" == typeof e.next) return e; if (!isNaN(e.length)) { var o = -1, i = function next() { for (; ++o < e.length;) if (n.call(e, o)) return next.value = e[o], next.done = !1, next; return next.value = t, next.done = !0, next; }; return i.next = i; } } throw new TypeError(SnmpInterfaceDAO_typeof(e) + " is not iterable"); } return GeneratorFunction.prototype = GeneratorFunctionPrototype, o(g, "constructor", { value: GeneratorFunctionPrototype, configurable: !0 }), o(GeneratorFunctionPrototype, "constructor", { value: GeneratorFunction, configurable: !0 }), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, u, "GeneratorFunction"), e.isGeneratorFunction = function (t) { var e = "function" == typeof t && t.constructor; return !!e && (e === GeneratorFunction || "GeneratorFunction" === (e.displayName || e.name)); }, e.mark = function (t) { return (set_prototype_of_default()) ? set_prototype_of_default()(t, GeneratorFunctionPrototype) : (t.__proto__ = GeneratorFunctionPrototype, define(t, u, "GeneratorFunction")), t.prototype = create_default()(g), t; }, e.awrap = function (t) { return { __await: t }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, c, function () { return this; }), e.AsyncIterator = AsyncIterator, e.async = function (t, r, n, o, i) { void 0 === i && (i = (promise_default())); var a = new AsyncIterator(wrap(t, r, n, o), i); return e.isGeneratorFunction(r) ? a : a.next().then(function (t) { return t.done ? t.value : a.next(); }); }, defineIteratorMethods(g), define(g, u, "Generator"), define(g, a, function () { return this; }), define(g, "toString", function () { return "[object Generator]"; }), e.keys = function (t) { var e = Object(t), r = []; for (var n in e) r.push(n); return reverse_default()(r).call(r), function next() { for (; r.length;) { var t = r.pop(); if (t in e) return next.value = t, next.done = !1, next; } return next.done = !0, next; }; }, e.values = values, Context.prototype = { constructor: Context, reset: function reset(e) { var _context6; if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = !1, this.delegate = null, this.method = "next", this.arg = t, for_each_default()(_context6 = this.tryEntries).call(_context6, resetTryEntry), !e) for (var r in this) "t" === r.charAt(0) && n.call(this, r) && !isNaN(+slice_default()(r).call(r, 1)) && (this[r] = t); }, stop: function stop() { this.done = !0; var t = this.tryEntries[0].completion; if ("throw" === t.type) throw t.arg; return this.rval; }, dispatchException: function dispatchException(e) { if (this.done) throw e; var r = this; function handle(n, o) { return a.type = "throw", a.arg = e, r.next = n, o && (r.method = "next", r.arg = t), !!o; } for (var o = this.tryEntries.length - 1; o >= 0; --o) { var i = this.tryEntries[o], a = i.completion; if ("root" === i.tryLoc) return handle("end"); if (i.tryLoc <= this.prev) { var c = n.call(i, "catchLoc"), u = n.call(i, "finallyLoc"); if (c && u) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } else if (c) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); } else { if (!u) throw Error("try statement without catch or finally"); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } } } }, abrupt: function abrupt(t, e) { for (var r = this.tryEntries.length - 1; r >= 0; --r) { var o = this.tryEntries[r]; if (o.tryLoc <= this.prev && n.call(o, "finallyLoc") && this.prev < o.finallyLoc) { var i = o; break; } } i && ("break" === t || "continue" === t) && i.tryLoc <= e && e <= i.finallyLoc && (i = null); var a = i ? i.completion : {}; return a.type = t, a.arg = e, i ? (this.method = "next", this.next = i.finallyLoc, y) : this.complete(a); }, complete: function complete(t, e) { if ("throw" === t.type) throw t.arg; return "break" === t.type || "continue" === t.type ? this.next = t.arg : "return" === t.type ? (this.rval = this.arg = t.arg, this.method = "return", this.next = "end") : "normal" === t.type && e && (this.next = e), y; }, finish: function finish(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.finallyLoc === t) return this.complete(r.completion, r.afterLoc), resetTryEntry(r), y; } }, catch: function _catch(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.tryLoc === t) { var n = r.completion; if ("throw" === n.type) { var o = n.arg; resetTryEntry(r); } return o; } } throw Error("illegal catch attempt"); }, delegateYield: function delegateYield(e, r, n) { return this.delegate = { iterator: values(e), resultName: r, nextLoc: n }, "next" === this.method && (this.arg = t), y; } }, e; }
 function SnmpInterfaceDAO_asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { promise_default().resolve(value).then(_next, _throw); } }
 function SnmpInterfaceDAO_asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new (promise_default())(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { SnmpInterfaceDAO_asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { SnmpInterfaceDAO_asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 function SnmpInterfaceDAO_classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 function SnmpInterfaceDAO_defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; define_property_default()(target, SnmpInterfaceDAO_toPropertyKey(descriptor.key), descriptor); } }
 function SnmpInterfaceDAO_createClass(Constructor, protoProps, staticProps) { if (protoProps) SnmpInterfaceDAO_defineProperties(Constructor.prototype, protoProps); if (staticProps) SnmpInterfaceDAO_defineProperties(Constructor, staticProps); define_property_default()(Constructor, "prototype", { writable: false }); return Constructor; }
-function SnmpInterfaceDAO_toPropertyKey(t) { var i = SnmpInterfaceDAO_toPrimitive(t, "string"); return "symbol" == SnmpInterfaceDAO_typeof(i) ? i : String(i); }
+function SnmpInterfaceDAO_toPropertyKey(t) { var i = SnmpInterfaceDAO_toPrimitive(t, "string"); return "symbol" == SnmpInterfaceDAO_typeof(i) ? i : i + ""; }
 function SnmpInterfaceDAO_toPrimitive(t, r) { if ("object" != SnmpInterfaceDAO_typeof(t) || !t) return t; var e = t[(to_primitive_default())]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != SnmpInterfaceDAO_typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 function SnmpInterfaceDAO_callSuper(t, o, e) { return o = SnmpInterfaceDAO_getPrototypeOf(o), SnmpInterfaceDAO_possibleConstructorReturn(t, SnmpInterfaceDAO_isNativeReflectConstruct() ? construct_default()(o, e || [], SnmpInterfaceDAO_getPrototypeOf(t).constructor) : o.apply(t, e)); }
 function SnmpInterfaceDAO_possibleConstructorReturn(self, call) { if (call && (SnmpInterfaceDAO_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return SnmpInterfaceDAO_assertThisInitialized(self); }
@@ -72021,7 +71950,6 @@ function SnmpInterfaceDAO_setPrototypeOf(o, p) { var _context3; SnmpInterfaceDAO
  * @category DAO
  */
 var SnmpInterfaceDAO = /*#__PURE__*/function (_AbstractDAO) {
-  SnmpInterfaceDAO_inherits(SnmpInterfaceDAO, _AbstractDAO);
   function SnmpInterfaceDAO(impl) {
     SnmpInterfaceDAO_classCallCheck(this, SnmpInterfaceDAO);
     return SnmpInterfaceDAO_callSuper(this, SnmpInterfaceDAO, [impl]);
@@ -72032,7 +71960,8 @@ var SnmpInterfaceDAO = /*#__PURE__*/function (_AbstractDAO) {
    *
    * @param id - The interface's ID.
    */
-  SnmpInterfaceDAO_createClass(SnmpInterfaceDAO, [{
+  SnmpInterfaceDAO_inherits(SnmpInterfaceDAO, _AbstractDAO);
+  return SnmpInterfaceDAO_createClass(SnmpInterfaceDAO, [{
     key: "get",
     value: (function () {
       var _get = SnmpInterfaceDAO_asyncToGenerator( /*#__PURE__*/SnmpInterfaceDAO_regeneratorRuntime().mark(function _callee(id) {
@@ -72133,7 +72062,6 @@ var SnmpInterfaceDAO = /*#__PURE__*/function (_AbstractDAO) {
       }
     }
   }]);
-  return SnmpInterfaceDAO;
 }(AbstractDAO);
 ;// CONCATENATED MODULE: ./src/dao/index.ts
 
@@ -72158,7 +72086,7 @@ function OnmsAlarmSummary_typeof(o) { "@babel/helpers - typeof"; return OnmsAlar
 function OnmsAlarmSummary_classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 function OnmsAlarmSummary_defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; define_property_default()(target, OnmsAlarmSummary_toPropertyKey(descriptor.key), descriptor); } }
 function OnmsAlarmSummary_createClass(Constructor, protoProps, staticProps) { if (protoProps) OnmsAlarmSummary_defineProperties(Constructor.prototype, protoProps); if (staticProps) OnmsAlarmSummary_defineProperties(Constructor, staticProps); define_property_default()(Constructor, "prototype", { writable: false }); return Constructor; }
-function OnmsAlarmSummary_toPropertyKey(t) { var i = OnmsAlarmSummary_toPrimitive(t, "string"); return "symbol" == OnmsAlarmSummary_typeof(i) ? i : String(i); }
+function OnmsAlarmSummary_toPropertyKey(t) { var i = OnmsAlarmSummary_toPrimitive(t, "string"); return "symbol" == OnmsAlarmSummary_typeof(i) ? i : i + ""; }
 function OnmsAlarmSummary_toPrimitive(t, r) { if ("object" != OnmsAlarmSummary_typeof(t) || !t) return t; var e = t[(to_primitive_default())]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != OnmsAlarmSummary_typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 /**
  * Represents an OpenNMS alarm.
@@ -72168,7 +72096,7 @@ var OnmsAlarmSummary = /*#__PURE__*/function () {
   function OnmsAlarmSummary() {
     OnmsAlarmSummary_classCallCheck(this, OnmsAlarmSummary);
   }
-  OnmsAlarmSummary_createClass(OnmsAlarmSummary, [{
+  return OnmsAlarmSummary_createClass(OnmsAlarmSummary, [{
     key: "urlValue",
     get: /** the alarm ID */
 
@@ -72189,7 +72117,6 @@ var OnmsAlarmSummary = /*#__PURE__*/function () {
       return String(this.id);
     }
   }]);
-  return OnmsAlarmSummary;
 }();
 ;// CONCATENATED MODULE: ./src/model/index.ts
 
@@ -72233,7 +72160,7 @@ function XmlTransformer_typeof(o) { "@babel/helpers - typeof"; return XmlTransfo
 function XmlTransformer_classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 function XmlTransformer_defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; define_property_default()(target, XmlTransformer_toPropertyKey(descriptor.key), descriptor); } }
 function XmlTransformer_createClass(Constructor, protoProps, staticProps) { if (protoProps) XmlTransformer_defineProperties(Constructor.prototype, protoProps); if (staticProps) XmlTransformer_defineProperties(Constructor, staticProps); define_property_default()(Constructor, "prototype", { writable: false }); return Constructor; }
-function XmlTransformer_toPropertyKey(t) { var i = XmlTransformer_toPrimitive(t, "string"); return "symbol" == XmlTransformer_typeof(i) ? i : String(i); }
+function XmlTransformer_toPropertyKey(t) { var i = XmlTransformer_toPrimitive(t, "string"); return "symbol" == XmlTransformer_typeof(i) ? i : i + ""; }
 function XmlTransformer_toPrimitive(t, r) { if ("object" != XmlTransformer_typeof(t) || !t) return t; var e = t[(to_primitive_default())]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != XmlTransformer_typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 // If running under Node, use `xmldom`'s DOM parser.
 if (__webpack_require__.g && !__webpack_require__.g.window) {
@@ -72264,7 +72191,7 @@ var XmlTransformer = /*#__PURE__*/function () {
   function XmlTransformer() {
     XmlTransformer_classCallCheck(this, XmlTransformer);
   }
-  XmlTransformer_createClass(XmlTransformer, [{
+  return XmlTransformer_createClass(XmlTransformer, [{
     key: "transform",
     value:
     /**
@@ -72284,7 +72211,6 @@ var XmlTransformer = /*#__PURE__*/function () {
       }
     }
   }]);
-  return XmlTransformer;
 }();
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.object.keys.js
 var es_object_keys = __webpack_require__("./node_modules/core-js/modules/es.object.keys.js");
@@ -72299,7 +72225,7 @@ function JsonTransformer_typeof(o) { "@babel/helpers - typeof"; return JsonTrans
 function JsonTransformer_classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 function JsonTransformer_defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; define_property_default()(target, JsonTransformer_toPropertyKey(descriptor.key), descriptor); } }
 function JsonTransformer_createClass(Constructor, protoProps, staticProps) { if (protoProps) JsonTransformer_defineProperties(Constructor.prototype, protoProps); if (staticProps) JsonTransformer_defineProperties(Constructor, staticProps); define_property_default()(Constructor, "prototype", { writable: false }); return Constructor; }
-function JsonTransformer_toPropertyKey(t) { var i = JsonTransformer_toPrimitive(t, "string"); return "symbol" == JsonTransformer_typeof(i) ? i : String(i); }
+function JsonTransformer_toPropertyKey(t) { var i = JsonTransformer_toPrimitive(t, "string"); return "symbol" == JsonTransformer_typeof(i) ? i : i + ""; }
 function JsonTransformer_toPrimitive(t, r) { if ("object" != JsonTransformer_typeof(t) || !t) return t; var e = t[(to_primitive_default())]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != JsonTransformer_typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 
 
@@ -72311,7 +72237,7 @@ var JsonTransformer = /*#__PURE__*/function () {
   function JsonTransformer() {
     JsonTransformer_classCallCheck(this, JsonTransformer);
   }
-  JsonTransformer_createClass(JsonTransformer, [{
+  return JsonTransformer_createClass(JsonTransformer, [{
     key: "transform",
     value:
     /**
@@ -72335,7 +72261,6 @@ var JsonTransformer = /*#__PURE__*/function () {
       }
     }
   }]);
-  return JsonTransformer;
 }();
 ;// CONCATENATED MODULE: ./src/rest/AbstractHTTP.ts
 function AbstractHTTP_typeof(o) { "@babel/helpers - typeof"; return AbstractHTTP_typeof = "function" == typeof (symbol_default()) && "symbol" == typeof (iterator_default()) ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof (symbol_default()) && o.constructor === (symbol_default()) && o !== (symbol_default()).prototype ? "symbol" : typeof o; }, AbstractHTTP_typeof(o); }
@@ -72346,7 +72271,7 @@ function AbstractHTTP_classCallCheck(instance, Constructor) { if (!(instance ins
 function AbstractHTTP_defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; define_property_default()(target, AbstractHTTP_toPropertyKey(descriptor.key), descriptor); } }
 function AbstractHTTP_createClass(Constructor, protoProps, staticProps) { if (protoProps) AbstractHTTP_defineProperties(Constructor.prototype, protoProps); if (staticProps) AbstractHTTP_defineProperties(Constructor, staticProps); define_property_default()(Constructor, "prototype", { writable: false }); return Constructor; }
 function AbstractHTTP_defineProperty(obj, key, value) { key = AbstractHTTP_toPropertyKey(key); if (key in obj) { define_property_default()(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-function AbstractHTTP_toPropertyKey(t) { var i = AbstractHTTP_toPrimitive(t, "string"); return "symbol" == AbstractHTTP_typeof(i) ? i : String(i); }
+function AbstractHTTP_toPropertyKey(t) { var i = AbstractHTTP_toPrimitive(t, "string"); return "symbol" == AbstractHTTP_typeof(i) ? i : i + ""; }
 function AbstractHTTP_toPrimitive(t, r) { if ("object" != AbstractHTTP_typeof(t) || !t) return t; var e = t[(to_primitive_default())]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != AbstractHTTP_typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 
 
@@ -72405,7 +72330,7 @@ var AbstractHTTP = /*#__PURE__*/function () {
   }
 
   /** Make an HTTP GET call. This must be implemented by the concrete implementation. */
-  AbstractHTTP_createClass(AbstractHTTP, [{
+  return AbstractHTTP_createClass(AbstractHTTP, [{
     key: "options",
     get: /** The default set of HTTP options associated with this ReST client. */
     function get() {
@@ -72594,7 +72519,6 @@ var AbstractHTTP = /*#__PURE__*/function () {
       return undefined;
     }
   }]);
-  return AbstractHTTP;
 }();
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.string.search.js
 var es_string_search = __webpack_require__("./node_modules/core-js/modules/es.string.search.js");
@@ -75661,7 +75585,7 @@ function AxiosHTTP_typeof(o) { "@babel/helpers - typeof"; return AxiosHTTP_typeo
 function AxiosHTTP_classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 function AxiosHTTP_defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; define_property_default()(target, AxiosHTTP_toPropertyKey(descriptor.key), descriptor); } }
 function AxiosHTTP_createClass(Constructor, protoProps, staticProps) { if (protoProps) AxiosHTTP_defineProperties(Constructor.prototype, protoProps); if (staticProps) AxiosHTTP_defineProperties(Constructor, staticProps); define_property_default()(Constructor, "prototype", { writable: false }); return Constructor; }
-function AxiosHTTP_toPropertyKey(t) { var i = AxiosHTTP_toPrimitive(t, "string"); return "symbol" == AxiosHTTP_typeof(i) ? i : String(i); }
+function AxiosHTTP_toPropertyKey(t) { var i = AxiosHTTP_toPrimitive(t, "string"); return "symbol" == AxiosHTTP_typeof(i) ? i : i + ""; }
 function AxiosHTTP_toPrimitive(t, r) { if ("object" != AxiosHTTP_typeof(t) || !t) return t; var e = t[(to_primitive_default())]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != AxiosHTTP_typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 function AxiosHTTP_callSuper(t, o, e) { return o = AxiosHTTP_getPrototypeOf(o), AxiosHTTP_possibleConstructorReturn(t, AxiosHTTP_isNativeReflectConstruct() ? construct_default()(o, e || [], AxiosHTTP_getPrototypeOf(t).constructor) : o.apply(t, e)); }
 function AxiosHTTP_possibleConstructorReturn(self, call) { if (call && (AxiosHTTP_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return AxiosHTTP_assertThisInitialized(self); }
@@ -75690,7 +75614,6 @@ var AxiosHTTP_URI = __webpack_require__("./node_modules/urijs/src/URI.js");
  * @implements IOnmsHTTP
  */
 var AxiosHTTP = /*#__PURE__*/function (_AbstractHTTP) {
-  AxiosHTTP_inherits(AxiosHTTP, _AbstractHTTP);
   /**
    * The Axios implementation class we'll use for making ReST calls.  This is necessary
    * to make sure we end up with the correct backend (XMLHttpRequest or Node.js 'http')
@@ -75721,7 +75644,8 @@ var AxiosHTTP = /*#__PURE__*/function (_AbstractHTTP) {
   /**
    * Make an HTTP GET call using `axios.request({method:'get'})`.
    */
-  AxiosHTTP_createClass(AxiosHTTP, [{
+  AxiosHTTP_inherits(AxiosHTTP, _AbstractHTTP);
+  return AxiosHTTP_createClass(AxiosHTTP, [{
     key: "get",
     value: function get(url, options) {
       var _this2 = this;
@@ -75944,7 +75868,6 @@ var AxiosHTTP = /*#__PURE__*/function (_AbstractHTTP) {
       return this.axiosObj;
     }
   }]);
-  return AxiosHTTP;
 }(AbstractHTTP);
 ;// CONCATENATED MODULE: ./src/rest/GrafanaError.ts
 
@@ -75960,7 +75883,7 @@ function GrafanaError_typeof(o) { "@babel/helpers - typeof"; return GrafanaError
 
 function GrafanaError_defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; define_property_default()(target, GrafanaError_toPropertyKey(descriptor.key), descriptor); } }
 function GrafanaError_createClass(Constructor, protoProps, staticProps) { if (protoProps) GrafanaError_defineProperties(Constructor.prototype, protoProps); if (staticProps) GrafanaError_defineProperties(Constructor, staticProps); define_property_default()(Constructor, "prototype", { writable: false }); return Constructor; }
-function GrafanaError_toPropertyKey(t) { var i = GrafanaError_toPrimitive(t, "string"); return "symbol" == GrafanaError_typeof(i) ? i : String(i); }
+function GrafanaError_toPropertyKey(t) { var i = GrafanaError_toPrimitive(t, "string"); return "symbol" == GrafanaError_typeof(i) ? i : i + ""; }
 function GrafanaError_toPrimitive(t, r) { if ("object" != GrafanaError_typeof(t) || !t) return t; var e = t[(to_primitive_default())]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != GrafanaError_typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 function GrafanaError_classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 function GrafanaError_callSuper(t, o, e) { return o = GrafanaError_getPrototypeOf(o), GrafanaError_possibleConstructorReturn(t, GrafanaError_isNativeReflectConstruct() ? construct_default()(o, e || [], GrafanaError_getPrototypeOf(t).constructor) : o.apply(t, e)); }
@@ -75977,7 +75900,6 @@ function GrafanaError_setPrototypeOf(o, p) { var _context; GrafanaError_setProto
  * @category Rest
  */
 var GrafanaError = /*#__PURE__*/function (_OnmsError) {
-  GrafanaError_inherits(GrafanaError, _OnmsError);
   /**
    * The request options (configuration).
    * @hidden
@@ -75999,6 +75921,7 @@ var GrafanaError = /*#__PURE__*/function (_OnmsError) {
     }
     return _this;
   }
+  GrafanaError_inherits(GrafanaError, _OnmsError);
   return GrafanaError_createClass(GrafanaError);
 }(OnmsError);
 // EXTERNAL MODULE: ./node_modules/btoa/index.js
@@ -76020,7 +75943,7 @@ function GrafanaHTTP_typeof(o) { "@babel/helpers - typeof"; return GrafanaHTTP_t
 function GrafanaHTTP_classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 function GrafanaHTTP_defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; define_property_default()(target, GrafanaHTTP_toPropertyKey(descriptor.key), descriptor); } }
 function GrafanaHTTP_createClass(Constructor, protoProps, staticProps) { if (protoProps) GrafanaHTTP_defineProperties(Constructor.prototype, protoProps); if (staticProps) GrafanaHTTP_defineProperties(Constructor, staticProps); define_property_default()(Constructor, "prototype", { writable: false }); return Constructor; }
-function GrafanaHTTP_toPropertyKey(t) { var i = GrafanaHTTP_toPrimitive(t, "string"); return "symbol" == GrafanaHTTP_typeof(i) ? i : String(i); }
+function GrafanaHTTP_toPropertyKey(t) { var i = GrafanaHTTP_toPrimitive(t, "string"); return "symbol" == GrafanaHTTP_typeof(i) ? i : i + ""; }
 function GrafanaHTTP_toPrimitive(t, r) { if ("object" != GrafanaHTTP_typeof(t) || !t) return t; var e = t[(to_primitive_default())]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != GrafanaHTTP_typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 function GrafanaHTTP_callSuper(t, o, e) { return o = GrafanaHTTP_getPrototypeOf(o), GrafanaHTTP_possibleConstructorReturn(t, GrafanaHTTP_isNativeReflectConstruct() ? construct_default()(o, e || [], GrafanaHTTP_getPrototypeOf(t).constructor) : o.apply(t, e)); }
 function GrafanaHTTP_possibleConstructorReturn(self, call) { if (call && (GrafanaHTTP_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return GrafanaHTTP_assertThisInitialized(self); }
@@ -76042,7 +75965,6 @@ function GrafanaHTTP_setPrototypeOf(o, p) { var _context; GrafanaHTTP_setPrototy
  * @implements IOnmsHTTP
  */
 var GrafanaHTTP = /*#__PURE__*/function (_AbstractHTTP) {
-  GrafanaHTTP_inherits(GrafanaHTTP, _AbstractHTTP);
   /**
    * The Grafana backend object we'll use for making ReST calls.
    * @hidden
@@ -76063,7 +75985,8 @@ var GrafanaHTTP = /*#__PURE__*/function (_AbstractHTTP) {
   }
 
   /** Make an HTTP GET call using the Grafana `BackendSrv`. */
-  GrafanaHTTP_createClass(GrafanaHTTP, [{
+  GrafanaHTTP_inherits(GrafanaHTTP, _AbstractHTTP);
+  return GrafanaHTTP_createClass(GrafanaHTTP, [{
     key: "get",
     value: function get(url, options) {
       var _this2 = this;
@@ -76219,7 +76142,6 @@ var GrafanaHTTP = /*#__PURE__*/function (_AbstractHTTP) {
       return ret;
     }
   }]);
-  return GrafanaHTTP;
 }(AbstractHTTP);
 ;// CONCATENATED MODULE: ./src/rest/index.ts
 // HTTP implementations
@@ -76238,7 +76160,7 @@ var GrafanaHTTP = /*#__PURE__*/function (_AbstractHTTP) {
 
 
 function Client_typeof(o) { "@babel/helpers - typeof"; return Client_typeof = "function" == typeof (symbol_default()) && "symbol" == typeof (iterator_default()) ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof (symbol_default()) && o.constructor === (symbol_default()) && o !== (symbol_default()).prototype ? "symbol" : typeof o; }, Client_typeof(o); }
-function Client_regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ Client_regeneratorRuntime = function _regeneratorRuntime() { return e; }; var t, e = {}, r = Object.prototype, n = r.hasOwnProperty, o = (define_property_default()) || function (t, e, r) { t[e] = r.value; }, i = "function" == typeof (symbol_default()) ? (symbol_default()) : {}, a = i.iterator || "@@iterator", c = i.asyncIterator || "@@asyncIterator", u = i.toStringTag || "@@toStringTag"; function define(t, e, r) { return define_property_default()(t, e, { value: r, enumerable: !0, configurable: !0, writable: !0 }), t[e]; } try { define({}, ""); } catch (t) { define = function define(t, e, r) { return t[e] = r; }; } function wrap(t, e, r, n) { var i = e && e.prototype instanceof Generator ? e : Generator, a = create_default()(i.prototype), c = new Context(n || []); return o(a, "_invoke", { value: makeInvokeMethod(t, r, c) }), a; } function tryCatch(t, e, r) { try { return { type: "normal", arg: t.call(e, r) }; } catch (t) { return { type: "throw", arg: t }; } } e.wrap = wrap; var h = "suspendedStart", l = "suspendedYield", f = "executing", s = "completed", y = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var p = {}; define(p, a, function () { return this; }); var d = (get_prototype_of_default()), v = d && d(d(values([]))); v && v !== r && n.call(v, a) && (p = v); var g = GeneratorFunctionPrototype.prototype = Generator.prototype = create_default()(p); function defineIteratorMethods(t) { var _context4; for_each_default()(_context4 = ["next", "throw", "return"]).call(_context4, function (e) { define(t, e, function (t) { return this._invoke(e, t); }); }); } function AsyncIterator(t, e) { function invoke(r, o, i, a) { var c = tryCatch(t[r], t, o); if ("throw" !== c.type) { var u = c.arg, h = u.value; return h && "object" == Client_typeof(h) && n.call(h, "__await") ? e.resolve(h.__await).then(function (t) { invoke("next", t, i, a); }, function (t) { invoke("throw", t, i, a); }) : e.resolve(h).then(function (t) { u.value = t, i(u); }, function (t) { return invoke("throw", t, i, a); }); } a(c.arg); } var r; o(this, "_invoke", { value: function value(t, n) { function callInvokeWithMethodAndArg() { return new e(function (e, r) { invoke(t, n, e, r); }); } return r = r ? r.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); } }); } function makeInvokeMethod(e, r, n) { var o = h; return function (i, a) { if (o === f) throw new Error("Generator is already running"); if (o === s) { if ("throw" === i) throw a; return { value: t, done: !0 }; } for (n.method = i, n.arg = a;;) { var c = n.delegate; if (c) { var u = maybeInvokeDelegate(c, n); if (u) { if (u === y) continue; return u; } } if ("next" === n.method) n.sent = n._sent = n.arg;else if ("throw" === n.method) { if (o === h) throw o = s, n.arg; n.dispatchException(n.arg); } else "return" === n.method && n.abrupt("return", n.arg); o = f; var p = tryCatch(e, r, n); if ("normal" === p.type) { if (o = n.done ? s : l, p.arg === y) continue; return { value: p.arg, done: n.done }; } "throw" === p.type && (o = s, n.method = "throw", n.arg = p.arg); } }; } function maybeInvokeDelegate(e, r) { var n = r.method, o = e.iterator[n]; if (o === t) return r.delegate = null, "throw" === n && e.iterator.return && (r.method = "return", r.arg = t, maybeInvokeDelegate(e, r), "throw" === r.method) || "return" !== n && (r.method = "throw", r.arg = new TypeError("The iterator does not provide a '" + n + "' method")), y; var i = tryCatch(o, e.iterator, r.arg); if ("throw" === i.type) return r.method = "throw", r.arg = i.arg, r.delegate = null, y; var a = i.arg; return a ? a.done ? (r[e.resultName] = a.value, r.next = e.nextLoc, "return" !== r.method && (r.method = "next", r.arg = t), r.delegate = null, y) : a : (r.method = "throw", r.arg = new TypeError("iterator result is not an object"), r.delegate = null, y); } function pushTryEntry(t) { var e = { tryLoc: t[0] }; 1 in t && (e.catchLoc = t[1]), 2 in t && (e.finallyLoc = t[2], e.afterLoc = t[3]), this.tryEntries.push(e); } function resetTryEntry(t) { var e = t.completion || {}; e.type = "normal", delete e.arg, t.completion = e; } function Context(t) { this.tryEntries = [{ tryLoc: "root" }], for_each_default()(t).call(t, pushTryEntry, this), this.reset(!0); } function values(e) { if (e || "" === e) { var r = e[a]; if (r) return r.call(e); if ("function" == typeof e.next) return e; if (!isNaN(e.length)) { var o = -1, i = function next() { for (; ++o < e.length;) if (n.call(e, o)) return next.value = e[o], next.done = !1, next; return next.value = t, next.done = !0, next; }; return i.next = i; } } throw new TypeError(Client_typeof(e) + " is not iterable"); } return GeneratorFunction.prototype = GeneratorFunctionPrototype, o(g, "constructor", { value: GeneratorFunctionPrototype, configurable: !0 }), o(GeneratorFunctionPrototype, "constructor", { value: GeneratorFunction, configurable: !0 }), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, u, "GeneratorFunction"), e.isGeneratorFunction = function (t) { var e = "function" == typeof t && t.constructor; return !!e && (e === GeneratorFunction || "GeneratorFunction" === (e.displayName || e.name)); }, e.mark = function (t) { return (set_prototype_of_default()) ? set_prototype_of_default()(t, GeneratorFunctionPrototype) : (t.__proto__ = GeneratorFunctionPrototype, define(t, u, "GeneratorFunction")), t.prototype = create_default()(g), t; }, e.awrap = function (t) { return { __await: t }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, c, function () { return this; }), e.AsyncIterator = AsyncIterator, e.async = function (t, r, n, o, i) { void 0 === i && (i = (promise_default())); var a = new AsyncIterator(wrap(t, r, n, o), i); return e.isGeneratorFunction(r) ? a : a.next().then(function (t) { return t.done ? t.value : a.next(); }); }, defineIteratorMethods(g), define(g, u, "Generator"), define(g, a, function () { return this; }), define(g, "toString", function () { return "[object Generator]"; }), e.keys = function (t) { var e = Object(t), r = []; for (var n in e) r.push(n); return reverse_default()(r).call(r), function next() { for (; r.length;) { var t = r.pop(); if (t in e) return next.value = t, next.done = !1, next; } return next.done = !0, next; }; }, e.values = values, Context.prototype = { constructor: Context, reset: function reset(e) { var _context5; if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = !1, this.delegate = null, this.method = "next", this.arg = t, for_each_default()(_context5 = this.tryEntries).call(_context5, resetTryEntry), !e) for (var r in this) "t" === r.charAt(0) && n.call(this, r) && !isNaN(+slice_default()(r).call(r, 1)) && (this[r] = t); }, stop: function stop() { this.done = !0; var t = this.tryEntries[0].completion; if ("throw" === t.type) throw t.arg; return this.rval; }, dispatchException: function dispatchException(e) { if (this.done) throw e; var r = this; function handle(n, o) { return a.type = "throw", a.arg = e, r.next = n, o && (r.method = "next", r.arg = t), !!o; } for (var o = this.tryEntries.length - 1; o >= 0; --o) { var i = this.tryEntries[o], a = i.completion; if ("root" === i.tryLoc) return handle("end"); if (i.tryLoc <= this.prev) { var c = n.call(i, "catchLoc"), u = n.call(i, "finallyLoc"); if (c && u) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } else if (c) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); } else { if (!u) throw new Error("try statement without catch or finally"); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } } } }, abrupt: function abrupt(t, e) { for (var r = this.tryEntries.length - 1; r >= 0; --r) { var o = this.tryEntries[r]; if (o.tryLoc <= this.prev && n.call(o, "finallyLoc") && this.prev < o.finallyLoc) { var i = o; break; } } i && ("break" === t || "continue" === t) && i.tryLoc <= e && e <= i.finallyLoc && (i = null); var a = i ? i.completion : {}; return a.type = t, a.arg = e, i ? (this.method = "next", this.next = i.finallyLoc, y) : this.complete(a); }, complete: function complete(t, e) { if ("throw" === t.type) throw t.arg; return "break" === t.type || "continue" === t.type ? this.next = t.arg : "return" === t.type ? (this.rval = this.arg = t.arg, this.method = "return", this.next = "end") : "normal" === t.type && e && (this.next = e), y; }, finish: function finish(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.finallyLoc === t) return this.complete(r.completion, r.afterLoc), resetTryEntry(r), y; } }, catch: function _catch(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.tryLoc === t) { var n = r.completion; if ("throw" === n.type) { var o = n.arg; resetTryEntry(r); } return o; } } throw new Error("illegal catch attempt"); }, delegateYield: function delegateYield(e, r, n) { return this.delegate = { iterator: values(e), resultName: r, nextLoc: n }, "next" === this.method && (this.arg = t), y; } }, e; }
+function Client_regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ Client_regeneratorRuntime = function _regeneratorRuntime() { return e; }; var t, e = {}, r = Object.prototype, n = r.hasOwnProperty, o = (define_property_default()) || function (t, e, r) { t[e] = r.value; }, i = "function" == typeof (symbol_default()) ? (symbol_default()) : {}, a = i.iterator || "@@iterator", c = i.asyncIterator || "@@asyncIterator", u = i.toStringTag || "@@toStringTag"; function define(t, e, r) { return define_property_default()(t, e, { value: r, enumerable: !0, configurable: !0, writable: !0 }), t[e]; } try { define({}, ""); } catch (t) { define = function define(t, e, r) { return t[e] = r; }; } function wrap(t, e, r, n) { var i = e && e.prototype instanceof Generator ? e : Generator, a = create_default()(i.prototype), c = new Context(n || []); return o(a, "_invoke", { value: makeInvokeMethod(t, r, c) }), a; } function tryCatch(t, e, r) { try { return { type: "normal", arg: t.call(e, r) }; } catch (t) { return { type: "throw", arg: t }; } } e.wrap = wrap; var h = "suspendedStart", l = "suspendedYield", f = "executing", s = "completed", y = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var p = {}; define(p, a, function () { return this; }); var d = (get_prototype_of_default()), v = d && d(d(values([]))); v && v !== r && n.call(v, a) && (p = v); var g = GeneratorFunctionPrototype.prototype = Generator.prototype = create_default()(p); function defineIteratorMethods(t) { var _context4; for_each_default()(_context4 = ["next", "throw", "return"]).call(_context4, function (e) { define(t, e, function (t) { return this._invoke(e, t); }); }); } function AsyncIterator(t, e) { function invoke(r, o, i, a) { var c = tryCatch(t[r], t, o); if ("throw" !== c.type) { var u = c.arg, h = u.value; return h && "object" == Client_typeof(h) && n.call(h, "__await") ? e.resolve(h.__await).then(function (t) { invoke("next", t, i, a); }, function (t) { invoke("throw", t, i, a); }) : e.resolve(h).then(function (t) { u.value = t, i(u); }, function (t) { return invoke("throw", t, i, a); }); } a(c.arg); } var r; o(this, "_invoke", { value: function value(t, n) { function callInvokeWithMethodAndArg() { return new e(function (e, r) { invoke(t, n, e, r); }); } return r = r ? r.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); } }); } function makeInvokeMethod(e, r, n) { var o = h; return function (i, a) { if (o === f) throw Error("Generator is already running"); if (o === s) { if ("throw" === i) throw a; return { value: t, done: !0 }; } for (n.method = i, n.arg = a;;) { var c = n.delegate; if (c) { var u = maybeInvokeDelegate(c, n); if (u) { if (u === y) continue; return u; } } if ("next" === n.method) n.sent = n._sent = n.arg;else if ("throw" === n.method) { if (o === h) throw o = s, n.arg; n.dispatchException(n.arg); } else "return" === n.method && n.abrupt("return", n.arg); o = f; var p = tryCatch(e, r, n); if ("normal" === p.type) { if (o = n.done ? s : l, p.arg === y) continue; return { value: p.arg, done: n.done }; } "throw" === p.type && (o = s, n.method = "throw", n.arg = p.arg); } }; } function maybeInvokeDelegate(e, r) { var n = r.method, o = e.iterator[n]; if (o === t) return r.delegate = null, "throw" === n && e.iterator.return && (r.method = "return", r.arg = t, maybeInvokeDelegate(e, r), "throw" === r.method) || "return" !== n && (r.method = "throw", r.arg = new TypeError("The iterator does not provide a '" + n + "' method")), y; var i = tryCatch(o, e.iterator, r.arg); if ("throw" === i.type) return r.method = "throw", r.arg = i.arg, r.delegate = null, y; var a = i.arg; return a ? a.done ? (r[e.resultName] = a.value, r.next = e.nextLoc, "return" !== r.method && (r.method = "next", r.arg = t), r.delegate = null, y) : a : (r.method = "throw", r.arg = new TypeError("iterator result is not an object"), r.delegate = null, y); } function pushTryEntry(t) { var e = { tryLoc: t[0] }; 1 in t && (e.catchLoc = t[1]), 2 in t && (e.finallyLoc = t[2], e.afterLoc = t[3]), this.tryEntries.push(e); } function resetTryEntry(t) { var e = t.completion || {}; e.type = "normal", delete e.arg, t.completion = e; } function Context(t) { this.tryEntries = [{ tryLoc: "root" }], for_each_default()(t).call(t, pushTryEntry, this), this.reset(!0); } function values(e) { if (e || "" === e) { var r = e[a]; if (r) return r.call(e); if ("function" == typeof e.next) return e; if (!isNaN(e.length)) { var o = -1, i = function next() { for (; ++o < e.length;) if (n.call(e, o)) return next.value = e[o], next.done = !1, next; return next.value = t, next.done = !0, next; }; return i.next = i; } } throw new TypeError(Client_typeof(e) + " is not iterable"); } return GeneratorFunction.prototype = GeneratorFunctionPrototype, o(g, "constructor", { value: GeneratorFunctionPrototype, configurable: !0 }), o(GeneratorFunctionPrototype, "constructor", { value: GeneratorFunction, configurable: !0 }), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, u, "GeneratorFunction"), e.isGeneratorFunction = function (t) { var e = "function" == typeof t && t.constructor; return !!e && (e === GeneratorFunction || "GeneratorFunction" === (e.displayName || e.name)); }, e.mark = function (t) { return (set_prototype_of_default()) ? set_prototype_of_default()(t, GeneratorFunctionPrototype) : (t.__proto__ = GeneratorFunctionPrototype, define(t, u, "GeneratorFunction")), t.prototype = create_default()(g), t; }, e.awrap = function (t) { return { __await: t }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, c, function () { return this; }), e.AsyncIterator = AsyncIterator, e.async = function (t, r, n, o, i) { void 0 === i && (i = (promise_default())); var a = new AsyncIterator(wrap(t, r, n, o), i); return e.isGeneratorFunction(r) ? a : a.next().then(function (t) { return t.done ? t.value : a.next(); }); }, defineIteratorMethods(g), define(g, u, "Generator"), define(g, a, function () { return this; }), define(g, "toString", function () { return "[object Generator]"; }), e.keys = function (t) { var e = Object(t), r = []; for (var n in e) r.push(n); return reverse_default()(r).call(r), function next() { for (; r.length;) { var t = r.pop(); if (t in e) return next.value = t, next.done = !1, next; } return next.done = !0, next; }; }, e.values = values, Context.prototype = { constructor: Context, reset: function reset(e) { var _context5; if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = !1, this.delegate = null, this.method = "next", this.arg = t, for_each_default()(_context5 = this.tryEntries).call(_context5, resetTryEntry), !e) for (var r in this) "t" === r.charAt(0) && n.call(this, r) && !isNaN(+slice_default()(r).call(r, 1)) && (this[r] = t); }, stop: function stop() { this.done = !0; var t = this.tryEntries[0].completion; if ("throw" === t.type) throw t.arg; return this.rval; }, dispatchException: function dispatchException(e) { if (this.done) throw e; var r = this; function handle(n, o) { return a.type = "throw", a.arg = e, r.next = n, o && (r.method = "next", r.arg = t), !!o; } for (var o = this.tryEntries.length - 1; o >= 0; --o) { var i = this.tryEntries[o], a = i.completion; if ("root" === i.tryLoc) return handle("end"); if (i.tryLoc <= this.prev) { var c = n.call(i, "catchLoc"), u = n.call(i, "finallyLoc"); if (c && u) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } else if (c) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); } else { if (!u) throw Error("try statement without catch or finally"); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } } } }, abrupt: function abrupt(t, e) { for (var r = this.tryEntries.length - 1; r >= 0; --r) { var o = this.tryEntries[r]; if (o.tryLoc <= this.prev && n.call(o, "finallyLoc") && this.prev < o.finallyLoc) { var i = o; break; } } i && ("break" === t || "continue" === t) && i.tryLoc <= e && e <= i.finallyLoc && (i = null); var a = i ? i.completion : {}; return a.type = t, a.arg = e, i ? (this.method = "next", this.next = i.finallyLoc, y) : this.complete(a); }, complete: function complete(t, e) { if ("throw" === t.type) throw t.arg; return "break" === t.type || "continue" === t.type ? this.next = t.arg : "return" === t.type ? (this.rval = this.arg = t.arg, this.method = "return", this.next = "end") : "normal" === t.type && e && (this.next = e), y; }, finish: function finish(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.finallyLoc === t) return this.complete(r.completion, r.afterLoc), resetTryEntry(r), y; } }, catch: function _catch(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.tryLoc === t) { var n = r.completion; if ("throw" === n.type) { var o = n.arg; resetTryEntry(r); } return o; } } throw Error("illegal catch attempt"); }, delegateYield: function delegateYield(e, r, n) { return this.delegate = { iterator: values(e), resultName: r, nextLoc: n }, "next" === this.method && (this.arg = t), y; } }, e; }
 function Client_asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { promise_default().resolve(value).then(_next, _throw); } }
 function Client_asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new (promise_default())(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { Client_asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { Client_asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
@@ -76257,7 +76179,7 @@ function Client_classCallCheck(instance, Constructor) { if (!(instance instanceo
 function Client_defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; define_property_default()(target, Client_toPropertyKey(descriptor.key), descriptor); } }
 function Client_createClass(Constructor, protoProps, staticProps) { if (protoProps) Client_defineProperties(Constructor.prototype, protoProps); if (staticProps) Client_defineProperties(Constructor, staticProps); define_property_default()(Constructor, "prototype", { writable: false }); return Constructor; }
 function Client_defineProperty(obj, key, value) { key = Client_toPropertyKey(key); if (key in obj) { define_property_default()(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-function Client_toPropertyKey(t) { var i = Client_toPrimitive(t, "string"); return "symbol" == Client_typeof(i) ? i : String(i); }
+function Client_toPropertyKey(t) { var i = Client_toPrimitive(t, "string"); return "symbol" == Client_typeof(i) ? i : i + ""; }
 function Client_toPrimitive(t, r) { if ("object" != Client_typeof(t) || !t) return t; var e = t[(to_primitive_default())]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != Client_typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 
 
@@ -76310,7 +76232,7 @@ var Client = /*#__PURE__*/function () {
    * server to the _existing_ [[IOnmsHTTP]] implementation associated
    * with this client (or the default impl, if one has not yet been provided).
    */
-  Client_createClass(Client, [{
+  return Client_createClass(Client, [{
     key: "connect",
     value: (function () {
       var _connect = Client_asyncToGenerator( /*#__PURE__*/Client_regeneratorRuntime().mark(function _callee(name, url, username, password, timeout) {
@@ -76532,7 +76454,6 @@ var Client = /*#__PURE__*/function () {
       return getMetadata;
     }() /** The default OnmsHTTP implementation to be used when making requests */)
   }]);
-  return Client;
 }();
 Client_defineProperty(Client, "defaultHttp", AxiosHTTP);
 ;// CONCATENATED MODULE: ./src/API.ts
