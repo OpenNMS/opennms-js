@@ -46454,9 +46454,9 @@ module.exports = function from(arrayLike /* , mapfn = undefined, thisArg = undef
   var length, result, step, iterator, next, value;
   // if the target is not iterable or it's an array with the default iterator - use a simple case
   if (iteratorMethod && !(this === $Array && isArrayIteratorMethod(iteratorMethod))) {
+    result = IS_CONSTRUCTOR ? new this() : [];
     iterator = getIterator(O, iteratorMethod);
     next = iterator.next;
-    result = IS_CONSTRUCTOR ? new this() : [];
     for (; !(step = call(next, iterator)).done; index++) {
       value = mapping ? callWithSafeIterationClosing(iterator, mapfn, [step.value, index], true) : step.value;
       createProperty(result, index, value);
@@ -51065,7 +51065,8 @@ module.exports = IS_PURE || !fails(function () {
 
 /* eslint-disable no-proto -- safe */
 var uncurryThisAccessor = __webpack_require__("./node_modules/core-js/internals/function-uncurry-this-accessor.js");
-var anObject = __webpack_require__("./node_modules/core-js/internals/an-object.js");
+var isObject = __webpack_require__("./node_modules/core-js/internals/is-object.js");
+var requireObjectCoercible = __webpack_require__("./node_modules/core-js/internals/require-object-coercible.js");
 var aPossiblePrototype = __webpack_require__("./node_modules/core-js/internals/a-possible-prototype.js");
 
 // `Object.setPrototypeOf` method
@@ -51082,8 +51083,9 @@ module.exports = Object.setPrototypeOf || ('__proto__' in {} ? function () {
     CORRECT_SETTER = test instanceof Array;
   } catch (error) {/* empty */}
   return function setPrototypeOf(O, proto) {
-    anObject(O);
+    requireObjectCoercible(O);
     aPossiblePrototype(proto);
+    if (!isObject(O)) return O;
     if (CORRECT_SETTER) setter(O, proto);else O.__proto__ = proto;
     return O;
   };
@@ -51862,10 +51864,10 @@ var defineGlobalProperty = __webpack_require__("./node_modules/core-js/internals
 var SHARED = '__core-js_shared__';
 var store = module.exports = globalThis[SHARED] || defineGlobalProperty(SHARED, {});
 (store.versions || (store.versions = [])).push({
-  version: '3.36.0',
+  version: '3.36.1',
   mode: IS_PURE ? 'pure' : 'global',
   copyright: '© 2014-2024 Denis Pushkarev (zloirock.ru)',
-  license: 'https://github.com/zloirock/core-js/blob/v3.36.0/LICENSE',
+  license: 'https://github.com/zloirock/core-js/blob/v3.36.1/LICENSE',
   source: 'https://github.com/zloirock/core-js'
 });
 
@@ -62999,16 +63001,28 @@ __webpack_require__("./node_modules/core-js/modules/web.set-immediate.js");
 
 
 var $ = __webpack_require__("./node_modules/core-js/internals/export.js");
+var globalThis = __webpack_require__("./node_modules/core-js/internals/global.js");
 var microtask = __webpack_require__("./node_modules/core-js/internals/microtask.js");
 var aCallable = __webpack_require__("./node_modules/core-js/internals/a-callable.js");
 var validateArgumentsLength = __webpack_require__("./node_modules/core-js/internals/validate-arguments-length.js");
+var fails = __webpack_require__("./node_modules/core-js/internals/fails.js");
+var DESCRIPTORS = __webpack_require__("./node_modules/core-js/internals/descriptors.js");
+
+// Bun ~ 1.0.30 bug
+// https://github.com/oven-sh/bun/issues/9249
+var WRONG_ARITY = fails(function () {
+  // getOwnPropertyDescriptor for prevent experimental warning in Node 11
+  // eslint-disable-next-line es/no-object-getownpropertydescriptor -- safe
+  return DESCRIPTORS && Object.getOwnPropertyDescriptor(globalThis, 'queueMicrotask').value.length !== 1;
+});
 
 // `queueMicrotask` method
 // https://html.spec.whatwg.org/multipage/timers-and-user-prompts.html#dom-queuemicrotask
 $({
   global: true,
   enumerable: true,
-  dontCallGetSet: true
+  dontCallGetSet: true,
+  forced: WRONG_ARITY
 }, {
   queueMicrotask: function queueMicrotask(fn) {
     validateArgumentsLength(arguments.length, 1);
@@ -64258,12 +64272,18 @@ var THROWS_WITHOUT_ARGUMENTS = USE_NATIVE_URL && fails(function () {
   URL.canParse();
 });
 
+// Bun ~ 1.0.30 bug
+// https://github.com/oven-sh/bun/issues/9250
+var WRONG_ARITY = fails(function () {
+  return URL.canParse.length !== 1;
+});
+
 // `URL.canParse` method
 // https://url.spec.whatwg.org/#dom-url-canparse
 $({
   target: 'URL',
   stat: true,
-  forced: !THROWS_WITHOUT_ARGUMENTS
+  forced: !THROWS_WITHOUT_ARGUMENTS || WRONG_ARITY
 }, {
   canParse: function canParse(url) {
     var length = validateArgumentsLength(arguments.length, 1);
@@ -76999,7 +77019,7 @@ var follow_redirects = __webpack_require__("./node_modules/follow-redirects/inde
 ;// CONCATENATED MODULE: external "zlib"
 const external_zlib_namespaceObject = require("zlib");
 ;// CONCATENATED MODULE: ./node_modules/axios/lib/env/data.js
-const VERSION = "1.6.7";
+const VERSION = "1.6.8";
 ;// CONCATENATED MODULE: ./node_modules/axios/lib/helpers/parseProtocol.js
 
 
@@ -77612,7 +77632,7 @@ const buildAddressEntry = (address, family) => resolveFamily(utils.isObject(addr
     }
 
     // temporary internal emitter until the AxiosRequest class will be implemented
-    const emitter = new external_events_();
+    const emitter = new external_events_.EventEmitter();
     const onFinished = () => {
       if (config.cancelToken) {
         config.cancelToken.unsubscribe(abort);
@@ -78469,7 +78489,9 @@ function dispatchRequest(config) {
 
 
 
-const headersToObject = thing => thing instanceof core_AxiosHeaders ? thing.toJSON() : thing;
+const headersToObject = thing => thing instanceof core_AxiosHeaders ? {
+  ...thing
+} : thing;
 
 /**
  * Config-specific merge-function which creates a new config-object
