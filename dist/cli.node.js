@@ -48363,10 +48363,11 @@ const createSpanningCellManager = parameters => {
   });
   const rangeCache = {};
   let rowHeights = [];
+  let rowIndexMapping = [];
   return {
     getContainingRange: (cell, options) => {
       var _a;
-      const originalRow = (options === null || options === void 0 ? void 0 : options.mapped) ? (0, utils_1.findOriginalRowIndex)(rowHeights, cell.row) : cell.row;
+      const originalRow = (options === null || options === void 0 ? void 0 : options.mapped) ? rowIndexMapping[cell.row] : cell.row;
       const range = findRangeConfig({
         ...cell,
         row: originalRow
@@ -48391,8 +48392,18 @@ const createSpanningCellManager = parameters => {
       return inSameRange(cell1, cell2, ranges);
     },
     rowHeights,
+    rowIndexMapping,
     setRowHeights: _rowHeights => {
       rowHeights = _rowHeights;
+    },
+    setRowIndexMapping: mappedRowHeights => {
+      rowIndexMapping = (0, utils_1.flatten)(mappedRowHeights.map((height, index) => {
+        return Array.from({
+          length: height
+        }, () => {
+          return index;
+        });
+      }));
     }
   };
 };
@@ -48452,6 +48463,7 @@ const table = (data, userConfig = {}) => {
   rows = (0, truncateTableData_1.truncateTableData)(injectedRows, (0, utils_1.extractTruncates)(config));
   const rowHeights = (0, calculateRowHeights_1.calculateRowHeights)(rows, config);
   config.spanningCellManager.setRowHeights(rowHeights);
+  config.spanningCellManager.setRowIndexMapping(rowHeights);
   rows = (0, mapDataUsingRowHeights_1.mapDataUsingRowHeights)(rows, rowHeights, config);
   rows = (0, alignTableData_1.alignTableData)(rows, config);
   rows = (0, padTableData_1.padTableData)(rows, config);
@@ -48525,7 +48537,7 @@ var __importDefault = this && this.__importDefault || function (mod) {
 Object.defineProperty(exports, "__esModule", ({
   value: true
 }));
-exports.isCellInRange = exports.areCellEqual = exports.calculateRangeCoordinate = exports.findOriginalRowIndex = exports.flatten = exports.extractTruncates = exports.sumArray = exports.sequence = exports.distributeUnevenly = exports.countSpaceSequence = exports.groupBySizes = exports.makeBorderConfig = exports.splitAnsi = exports.normalizeString = void 0;
+exports.isCellInRange = exports.areCellEqual = exports.calculateRangeCoordinate = exports.flatten = exports.extractTruncates = exports.sumArray = exports.sequence = exports.distributeUnevenly = exports.countSpaceSequence = exports.groupBySizes = exports.makeBorderConfig = exports.splitAnsi = exports.normalizeString = void 0;
 const slice_ansi_1 = __importDefault(__webpack_require__("./node_modules/slice-ansi/index.js"));
 const string_width_1 = __importDefault(__webpack_require__("./node_modules/string-width/index.js"));
 const strip_ansi_1 = __importDefault(__webpack_require__("./node_modules/strip-ansi/index.js"));
@@ -48640,17 +48652,6 @@ const flatten = array => {
   return [].concat(...array);
 };
 exports.flatten = flatten;
-const findOriginalRowIndex = (mappedRowHeights, mappedRowIndex) => {
-  const rowIndexMapping = (0, exports.flatten)(mappedRowHeights.map((height, index) => {
-    return Array.from({
-      length: height
-    }, () => {
-      return index;
-    });
-  }));
-  return rowIndexMapping[mappedRowIndex];
-};
-exports.findOriginalRowIndex = findOriginalRowIndex;
 const calculateRangeCoordinate = spanningCellConfig => {
   const {
     row,
