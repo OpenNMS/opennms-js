@@ -5,7 +5,7 @@ updates:
     target-branch: "develop"
     versioning-strategy: "increase-if-necessary"
     reviewers:
-      - "rangerrick"
+      - "opennms/dependabot-reviewers-node"
     labels:
       - "dependabot"
     commit-message:
