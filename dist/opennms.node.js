@@ -45690,6 +45690,22 @@ module.exports = function (argument) {
 
 /***/ }),
 
+/***/ "./node_modules/core-js/internals/a-set.js":
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+
+
+var has = (__webpack_require__("./node_modules/core-js/internals/set-helpers.js").has);
+
+// Perform ? RequireInternalSlot(M, [[SetData]])
+module.exports = function (it) {
+  has(it);
+  return it;
+};
+
+/***/ }),
+
 /***/ "./node_modules/core-js/internals/add-to-unscopables.js":
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
@@ -48879,6 +48895,24 @@ module.exports = function (namespace, method) {
 
 /***/ }),
 
+/***/ "./node_modules/core-js/internals/get-iterator-direct.js":
+/***/ ((module) => {
+
+"use strict";
+
+
+// `GetIteratorDirect(obj)` abstract operation
+// https://tc39.es/proposal-iterator-helpers/#sec-getiteratordirect
+module.exports = function (obj) {
+  return {
+    iterator: obj,
+    next: obj.next,
+    done: false
+  };
+};
+
+/***/ }),
+
 /***/ "./node_modules/core-js/internals/get-iterator-method.js":
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
@@ -48966,6 +49000,51 @@ var isNullOrUndefined = __webpack_require__("./node_modules/core-js/internals/is
 module.exports = function (V, P) {
   var func = V[P];
   return isNullOrUndefined(func) ? undefined : aCallable(func);
+};
+
+/***/ }),
+
+/***/ "./node_modules/core-js/internals/get-set-record.js":
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+
+
+var aCallable = __webpack_require__("./node_modules/core-js/internals/a-callable.js");
+var anObject = __webpack_require__("./node_modules/core-js/internals/an-object.js");
+var call = __webpack_require__("./node_modules/core-js/internals/function-call.js");
+var toIntegerOrInfinity = __webpack_require__("./node_modules/core-js/internals/to-integer-or-infinity.js");
+var getIteratorDirect = __webpack_require__("./node_modules/core-js/internals/get-iterator-direct.js");
+var INVALID_SIZE = 'Invalid size';
+var $RangeError = RangeError;
+var $TypeError = TypeError;
+var max = Math.max;
+var SetRecord = function (set, intSize) {
+  this.set = set;
+  this.size = max(intSize, 0);
+  this.has = aCallable(set.has);
+  this.keys = aCallable(set.keys);
+};
+SetRecord.prototype = {
+  getIterator: function () {
+    return getIteratorDirect(anObject(call(this.keys, this.set)));
+  },
+  includes: function (it) {
+    return call(this.has, this.set, it);
+  }
+};
+
+// `GetSetRecord` abstract operation
+// https://tc39.es/proposal-set-methods/#sec-getsetrecord
+module.exports = function (obj) {
+  anObject(obj);
+  var numSize = +obj.size;
+  // NOTE: If size is undefined, then numSize will be NaN
+  // eslint-disable-next-line no-self-compare -- NaN check
+  if (numSize !== numSize) throw new $TypeError(INVALID_SIZE);
+  var intSize = toIntegerOrInfinity(numSize);
+  if (intSize < 0) throw new $RangeError(INVALID_SIZE);
+  return new SetRecord(obj, intSize);
 };
 
 /***/ }),
@@ -51746,6 +51825,58 @@ module.exports = function (scheduler, hasTimeArg) {
 
 /***/ }),
 
+/***/ "./node_modules/core-js/internals/set-clone.js":
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+
+
+var SetHelpers = __webpack_require__("./node_modules/core-js/internals/set-helpers.js");
+var iterate = __webpack_require__("./node_modules/core-js/internals/set-iterate.js");
+var Set = SetHelpers.Set;
+var add = SetHelpers.add;
+module.exports = function (set) {
+  var result = new Set();
+  iterate(set, function (it) {
+    add(result, it);
+  });
+  return result;
+};
+
+/***/ }),
+
+/***/ "./node_modules/core-js/internals/set-difference.js":
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+
+
+var aSet = __webpack_require__("./node_modules/core-js/internals/a-set.js");
+var SetHelpers = __webpack_require__("./node_modules/core-js/internals/set-helpers.js");
+var clone = __webpack_require__("./node_modules/core-js/internals/set-clone.js");
+var size = __webpack_require__("./node_modules/core-js/internals/set-size.js");
+var getSetRecord = __webpack_require__("./node_modules/core-js/internals/get-set-record.js");
+var iterateSet = __webpack_require__("./node_modules/core-js/internals/set-iterate.js");
+var iterateSimple = __webpack_require__("./node_modules/core-js/internals/iterate-simple.js");
+var has = SetHelpers.has;
+var remove = SetHelpers.remove;
+
+// `Set.prototype.difference` method
+// https://github.com/tc39/proposal-set-methods
+module.exports = function difference(other) {
+  var O = aSet(this);
+  var otherRec = getSetRecord(other);
+  var result = clone(O);
+  if (size(O) <= otherRec.size) iterateSet(O, function (e) {
+    if (otherRec.includes(e)) remove(result, e);
+  });else iterateSimple(otherRec.getIterator(), function (e) {
+    if (has(O, e)) remove(result, e);
+  });
+  return result;
+};
+
+/***/ }),
+
 /***/ "./node_modules/core-js/internals/set-helpers.js":
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
@@ -51763,6 +51894,123 @@ module.exports = {
   has: uncurryThis(SetPrototype.has),
   remove: uncurryThis(SetPrototype['delete']),
   proto: SetPrototype
+};
+
+/***/ }),
+
+/***/ "./node_modules/core-js/internals/set-intersection.js":
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+
+
+var aSet = __webpack_require__("./node_modules/core-js/internals/a-set.js");
+var SetHelpers = __webpack_require__("./node_modules/core-js/internals/set-helpers.js");
+var size = __webpack_require__("./node_modules/core-js/internals/set-size.js");
+var getSetRecord = __webpack_require__("./node_modules/core-js/internals/get-set-record.js");
+var iterateSet = __webpack_require__("./node_modules/core-js/internals/set-iterate.js");
+var iterateSimple = __webpack_require__("./node_modules/core-js/internals/iterate-simple.js");
+var Set = SetHelpers.Set;
+var add = SetHelpers.add;
+var has = SetHelpers.has;
+
+// `Set.prototype.intersection` method
+// https://github.com/tc39/proposal-set-methods
+module.exports = function intersection(other) {
+  var O = aSet(this);
+  var otherRec = getSetRecord(other);
+  var result = new Set();
+  if (size(O) > otherRec.size) {
+    iterateSimple(otherRec.getIterator(), function (e) {
+      if (has(O, e)) add(result, e);
+    });
+  } else {
+    iterateSet(O, function (e) {
+      if (otherRec.includes(e)) add(result, e);
+    });
+  }
+  return result;
+};
+
+/***/ }),
+
+/***/ "./node_modules/core-js/internals/set-is-disjoint-from.js":
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+
+
+var aSet = __webpack_require__("./node_modules/core-js/internals/a-set.js");
+var has = (__webpack_require__("./node_modules/core-js/internals/set-helpers.js").has);
+var size = __webpack_require__("./node_modules/core-js/internals/set-size.js");
+var getSetRecord = __webpack_require__("./node_modules/core-js/internals/get-set-record.js");
+var iterateSet = __webpack_require__("./node_modules/core-js/internals/set-iterate.js");
+var iterateSimple = __webpack_require__("./node_modules/core-js/internals/iterate-simple.js");
+var iteratorClose = __webpack_require__("./node_modules/core-js/internals/iterator-close.js");
+
+// `Set.prototype.isDisjointFrom` method
+// https://tc39.github.io/proposal-set-methods/#Set.prototype.isDisjointFrom
+module.exports = function isDisjointFrom(other) {
+  var O = aSet(this);
+  var otherRec = getSetRecord(other);
+  if (size(O) <= otherRec.size) return iterateSet(O, function (e) {
+    if (otherRec.includes(e)) return false;
+  }, true) !== false;
+  var iterator = otherRec.getIterator();
+  return iterateSimple(iterator, function (e) {
+    if (has(O, e)) return iteratorClose(iterator, 'normal', false);
+  }) !== false;
+};
+
+/***/ }),
+
+/***/ "./node_modules/core-js/internals/set-is-subset-of.js":
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+
+
+var aSet = __webpack_require__("./node_modules/core-js/internals/a-set.js");
+var size = __webpack_require__("./node_modules/core-js/internals/set-size.js");
+var iterate = __webpack_require__("./node_modules/core-js/internals/set-iterate.js");
+var getSetRecord = __webpack_require__("./node_modules/core-js/internals/get-set-record.js");
+
+// `Set.prototype.isSubsetOf` method
+// https://tc39.github.io/proposal-set-methods/#Set.prototype.isSubsetOf
+module.exports = function isSubsetOf(other) {
+  var O = aSet(this);
+  var otherRec = getSetRecord(other);
+  if (size(O) > otherRec.size) return false;
+  return iterate(O, function (e) {
+    if (!otherRec.includes(e)) return false;
+  }, true) !== false;
+};
+
+/***/ }),
+
+/***/ "./node_modules/core-js/internals/set-is-superset-of.js":
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+
+
+var aSet = __webpack_require__("./node_modules/core-js/internals/a-set.js");
+var has = (__webpack_require__("./node_modules/core-js/internals/set-helpers.js").has);
+var size = __webpack_require__("./node_modules/core-js/internals/set-size.js");
+var getSetRecord = __webpack_require__("./node_modules/core-js/internals/get-set-record.js");
+var iterateSimple = __webpack_require__("./node_modules/core-js/internals/iterate-simple.js");
+var iteratorClose = __webpack_require__("./node_modules/core-js/internals/iterator-close.js");
+
+// `Set.prototype.isSupersetOf` method
+// https://tc39.github.io/proposal-set-methods/#Set.prototype.isSupersetOf
+module.exports = function isSupersetOf(other) {
+  var O = aSet(this);
+  var otherRec = getSetRecord(other);
+  if (size(O) < otherRec.size) return false;
+  var iterator = otherRec.getIterator();
+  return iterateSimple(iterator, function (e) {
+    if (!has(O, e)) return iteratorClose(iterator, 'normal', false);
+  }) !== false;
 };
 
 /***/ }),
@@ -51786,6 +52034,63 @@ module.exports = function (set, fn, interruptible) {
     iterator: keys(set),
     next: next
   }, fn) : forEach(set, fn);
+};
+
+/***/ }),
+
+/***/ "./node_modules/core-js/internals/set-method-accept-set-like.js":
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+
+
+var getBuiltIn = __webpack_require__("./node_modules/core-js/internals/get-built-in.js");
+var createSetLike = function (size) {
+  return {
+    size: size,
+    has: function () {
+      return false;
+    },
+    keys: function () {
+      return {
+        next: function () {
+          return {
+            done: true
+          };
+        }
+      };
+    }
+  };
+};
+module.exports = function (name) {
+  var Set = getBuiltIn('Set');
+  try {
+    new Set()[name](createSetLike(0));
+    try {
+      // late spec change, early WebKit ~ Safari 17.0 beta implementation does not pass it
+      // https://github.com/tc39/proposal-set-methods/pull/88
+      new Set()[name](createSetLike(-1));
+      return false;
+    } catch (error2) {
+      return true;
+    }
+  } catch (error) {
+    return false;
+  }
+};
+
+/***/ }),
+
+/***/ "./node_modules/core-js/internals/set-size.js":
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+
+
+var uncurryThisAccessor = __webpack_require__("./node_modules/core-js/internals/function-uncurry-this-accessor.js");
+var SetHelpers = __webpack_require__("./node_modules/core-js/internals/set-helpers.js");
+module.exports = uncurryThisAccessor(SetHelpers.proto, 'size', 'get') || function (set) {
+  return set.size;
 };
 
 /***/ }),
@@ -51815,6 +52120,35 @@ module.exports = function (CONSTRUCTOR_NAME) {
 
 /***/ }),
 
+/***/ "./node_modules/core-js/internals/set-symmetric-difference.js":
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+
+
+var aSet = __webpack_require__("./node_modules/core-js/internals/a-set.js");
+var SetHelpers = __webpack_require__("./node_modules/core-js/internals/set-helpers.js");
+var clone = __webpack_require__("./node_modules/core-js/internals/set-clone.js");
+var getSetRecord = __webpack_require__("./node_modules/core-js/internals/get-set-record.js");
+var iterateSimple = __webpack_require__("./node_modules/core-js/internals/iterate-simple.js");
+var add = SetHelpers.add;
+var has = SetHelpers.has;
+var remove = SetHelpers.remove;
+
+// `Set.prototype.symmetricDifference` method
+// https://github.com/tc39/proposal-set-methods
+module.exports = function symmetricDifference(other) {
+  var O = aSet(this);
+  var keysIter = getSetRecord(other).getIterator();
+  var result = clone(O);
+  iterateSimple(keysIter, function (e) {
+    if (has(O, e)) remove(result, e);else add(result, e);
+  });
+  return result;
+};
+
+/***/ }),
+
 /***/ "./node_modules/core-js/internals/set-to-string-tag.js":
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
@@ -51833,6 +52167,32 @@ module.exports = function (target, TAG, STATIC) {
       value: TAG
     });
   }
+};
+
+/***/ }),
+
+/***/ "./node_modules/core-js/internals/set-union.js":
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+
+
+var aSet = __webpack_require__("./node_modules/core-js/internals/a-set.js");
+var add = (__webpack_require__("./node_modules/core-js/internals/set-helpers.js").add);
+var clone = __webpack_require__("./node_modules/core-js/internals/set-clone.js");
+var getSetRecord = __webpack_require__("./node_modules/core-js/internals/get-set-record.js");
+var iterateSimple = __webpack_require__("./node_modules/core-js/internals/iterate-simple.js");
+
+// `Set.prototype.union` method
+// https://github.com/tc39/proposal-set-methods
+module.exports = function union(other) {
+  var O = aSet(this);
+  var keysIter = getSetRecord(other).getIterator();
+  var result = clone(O);
+  iterateSimple(keysIter, function (it) {
+    add(result, it);
+  });
+  return result;
 };
 
 /***/ }),
@@ -51864,10 +52224,10 @@ var defineGlobalProperty = __webpack_require__("./node_modules/core-js/internals
 var SHARED = '__core-js_shared__';
 var store = module.exports = globalThis[SHARED] || defineGlobalProperty(SHARED, {});
 (store.versions || (store.versions = [])).push({
-  version: '3.36.1',
+  version: '3.37.0',
   mode: IS_PURE ? 'pure' : 'global',
   copyright: '© 2014-2024 Denis Pushkarev (zloirock.ru)',
-  license: 'https://github.com/zloirock/core-js/blob/v3.36.1/LICENSE',
+  license: 'https://github.com/zloirock/core-js/blob/v3.37.0/LICENSE',
   source: 'https://github.com/zloirock/core-js'
 });
 
@@ -55680,18 +56040,24 @@ var requireObjectCoercible = __webpack_require__("./node_modules/core-js/interna
 var iterate = __webpack_require__("./node_modules/core-js/internals/iterate.js");
 var MapHelpers = __webpack_require__("./node_modules/core-js/internals/map-helpers.js");
 var IS_PURE = __webpack_require__("./node_modules/core-js/internals/is-pure.js");
+var fails = __webpack_require__("./node_modules/core-js/internals/fails.js");
 var Map = MapHelpers.Map;
 var has = MapHelpers.has;
 var get = MapHelpers.get;
 var set = MapHelpers.set;
 var push = uncurryThis([].push);
+var DOES_NOT_WORK_WITH_PRIMITIVES = IS_PURE || fails(function () {
+  return Map.groupBy('ab', function (it) {
+    return it;
+  }).get('a').length !== 1;
+});
 
 // `Map.groupBy` method
 // https://github.com/tc39/proposal-array-grouping
 $({
   target: 'Map',
   stat: true,
-  forced: IS_PURE
+  forced: IS_PURE || DOES_NOT_WORK_WITH_PRIMITIVES
 }, {
   groupBy: function groupBy(items, callbackfn) {
     requireObjectCoercible(items);
@@ -57206,14 +57572,24 @@ var aCallable = __webpack_require__("./node_modules/core-js/internals/a-callable
 var requireObjectCoercible = __webpack_require__("./node_modules/core-js/internals/require-object-coercible.js");
 var toPropertyKey = __webpack_require__("./node_modules/core-js/internals/to-property-key.js");
 var iterate = __webpack_require__("./node_modules/core-js/internals/iterate.js");
+var fails = __webpack_require__("./node_modules/core-js/internals/fails.js");
+
+// eslint-disable-next-line es/no-object-map-groupby -- testing
+var nativeGroupBy = Object.groupBy;
 var create = getBuiltIn('Object', 'create');
 var push = uncurryThis([].push);
+var DOES_NOT_WORK_WITH_PRIMITIVES = !nativeGroupBy || fails(function () {
+  return nativeGroupBy('ab', function (it) {
+    return it;
+  }).a.length !== 1;
+});
 
 // `Object.groupBy` method
 // https://github.com/tc39/proposal-array-grouping
 $({
   target: 'Object',
-  stat: true
+  stat: true,
+  forced: DOES_NOT_WORK_WITH_PRIMITIVES
 }, {
   groupBy: function groupBy(items, callbackfn) {
     requireObjectCoercible(items);
@@ -59262,6 +59638,126 @@ collection('Set', function (init) {
 
 /***/ }),
 
+/***/ "./node_modules/core-js/modules/es.set.difference.v2.js":
+/***/ ((__unused_webpack_module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+
+
+var $ = __webpack_require__("./node_modules/core-js/internals/export.js");
+var difference = __webpack_require__("./node_modules/core-js/internals/set-difference.js");
+var setMethodAcceptSetLike = __webpack_require__("./node_modules/core-js/internals/set-method-accept-set-like.js");
+
+// `Set.prototype.difference` method
+// https://github.com/tc39/proposal-set-methods
+$({
+  target: 'Set',
+  proto: true,
+  real: true,
+  forced: !setMethodAcceptSetLike('difference')
+}, {
+  difference: difference
+});
+
+/***/ }),
+
+/***/ "./node_modules/core-js/modules/es.set.intersection.v2.js":
+/***/ ((__unused_webpack_module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+
+
+var $ = __webpack_require__("./node_modules/core-js/internals/export.js");
+var fails = __webpack_require__("./node_modules/core-js/internals/fails.js");
+var intersection = __webpack_require__("./node_modules/core-js/internals/set-intersection.js");
+var setMethodAcceptSetLike = __webpack_require__("./node_modules/core-js/internals/set-method-accept-set-like.js");
+var INCORRECT = !setMethodAcceptSetLike('intersection') || fails(function () {
+  // eslint-disable-next-line es/no-array-from, es/no-set -- testing
+  return String(Array.from(new Set([1, 2, 3]).intersection(new Set([3, 2])))) !== '3,2';
+});
+
+// `Set.prototype.intersection` method
+// https://github.com/tc39/proposal-set-methods
+$({
+  target: 'Set',
+  proto: true,
+  real: true,
+  forced: INCORRECT
+}, {
+  intersection: intersection
+});
+
+/***/ }),
+
+/***/ "./node_modules/core-js/modules/es.set.is-disjoint-from.v2.js":
+/***/ ((__unused_webpack_module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+
+
+var $ = __webpack_require__("./node_modules/core-js/internals/export.js");
+var isDisjointFrom = __webpack_require__("./node_modules/core-js/internals/set-is-disjoint-from.js");
+var setMethodAcceptSetLike = __webpack_require__("./node_modules/core-js/internals/set-method-accept-set-like.js");
+
+// `Set.prototype.isDisjointFrom` method
+// https://github.com/tc39/proposal-set-methods
+$({
+  target: 'Set',
+  proto: true,
+  real: true,
+  forced: !setMethodAcceptSetLike('isDisjointFrom')
+}, {
+  isDisjointFrom: isDisjointFrom
+});
+
+/***/ }),
+
+/***/ "./node_modules/core-js/modules/es.set.is-subset-of.v2.js":
+/***/ ((__unused_webpack_module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+
+
+var $ = __webpack_require__("./node_modules/core-js/internals/export.js");
+var isSubsetOf = __webpack_require__("./node_modules/core-js/internals/set-is-subset-of.js");
+var setMethodAcceptSetLike = __webpack_require__("./node_modules/core-js/internals/set-method-accept-set-like.js");
+
+// `Set.prototype.isSubsetOf` method
+// https://github.com/tc39/proposal-set-methods
+$({
+  target: 'Set',
+  proto: true,
+  real: true,
+  forced: !setMethodAcceptSetLike('isSubsetOf')
+}, {
+  isSubsetOf: isSubsetOf
+});
+
+/***/ }),
+
+/***/ "./node_modules/core-js/modules/es.set.is-superset-of.v2.js":
+/***/ ((__unused_webpack_module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+
+
+var $ = __webpack_require__("./node_modules/core-js/internals/export.js");
+var isSupersetOf = __webpack_require__("./node_modules/core-js/internals/set-is-superset-of.js");
+var setMethodAcceptSetLike = __webpack_require__("./node_modules/core-js/internals/set-method-accept-set-like.js");
+
+// `Set.prototype.isSupersetOf` method
+// https://github.com/tc39/proposal-set-methods
+$({
+  target: 'Set',
+  proto: true,
+  real: true,
+  forced: !setMethodAcceptSetLike('isSupersetOf')
+}, {
+  isSupersetOf: isSupersetOf
+});
+
+/***/ }),
+
 /***/ "./node_modules/core-js/modules/es.set.js":
 /***/ ((__unused_webpack_module, __unused_webpack_exports, __webpack_require__) => {
 
@@ -59270,6 +59766,52 @@ collection('Set', function (init) {
 
 // TODO: Remove this module from `core-js@4` since it's replaced to module below
 __webpack_require__("./node_modules/core-js/modules/es.set.constructor.js");
+
+/***/ }),
+
+/***/ "./node_modules/core-js/modules/es.set.symmetric-difference.v2.js":
+/***/ ((__unused_webpack_module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+
+
+var $ = __webpack_require__("./node_modules/core-js/internals/export.js");
+var symmetricDifference = __webpack_require__("./node_modules/core-js/internals/set-symmetric-difference.js");
+var setMethodAcceptSetLike = __webpack_require__("./node_modules/core-js/internals/set-method-accept-set-like.js");
+
+// `Set.prototype.symmetricDifference` method
+// https://github.com/tc39/proposal-set-methods
+$({
+  target: 'Set',
+  proto: true,
+  real: true,
+  forced: !setMethodAcceptSetLike('symmetricDifference')
+}, {
+  symmetricDifference: symmetricDifference
+});
+
+/***/ }),
+
+/***/ "./node_modules/core-js/modules/es.set.union.v2.js":
+/***/ ((__unused_webpack_module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+
+
+var $ = __webpack_require__("./node_modules/core-js/internals/export.js");
+var union = __webpack_require__("./node_modules/core-js/internals/set-union.js");
+var setMethodAcceptSetLike = __webpack_require__("./node_modules/core-js/internals/set-method-accept-set-like.js");
+
+// `Set.prototype.union` method
+// https://github.com/tc39/proposal-set-methods
+$({
+  target: 'Set',
+  proto: true,
+  real: true,
+  forced: !setMethodAcceptSetLike('union')
+}, {
+  union: union
+});
 
 /***/ }),
 
@@ -65328,6 +65870,38 @@ __webpack_require__("./node_modules/core-js/modules/web.url.constructor.js");
 
 /***/ }),
 
+/***/ "./node_modules/core-js/modules/web.url.parse.js":
+/***/ ((__unused_webpack_module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+
+
+var $ = __webpack_require__("./node_modules/core-js/internals/export.js");
+var getBuiltIn = __webpack_require__("./node_modules/core-js/internals/get-built-in.js");
+var validateArgumentsLength = __webpack_require__("./node_modules/core-js/internals/validate-arguments-length.js");
+var toString = __webpack_require__("./node_modules/core-js/internals/to-string.js");
+var URL = getBuiltIn('URL');
+
+// `URL.parse` method
+// https://url.spec.whatwg.org/#dom-url-canparse
+$({
+  target: 'URL',
+  stat: true
+}, {
+  parse: function parse(url) {
+    var length = validateArgumentsLength(arguments.length, 1);
+    var urlString = toString(url);
+    var base = length < 2 || arguments[1] === undefined ? undefined : toString(arguments[1]);
+    try {
+      return new URL(urlString, base);
+    } catch (error) {
+      return null;
+    }
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/core-js/modules/web.url.to-json.js":
 /***/ ((__unused_webpack_module, __unused_webpack_exports, __webpack_require__) => {
 
@@ -65526,6 +66100,13 @@ __webpack_require__("./node_modules/core-js/modules/es.regexp.sticky.js");
 __webpack_require__("./node_modules/core-js/modules/es.regexp.test.js");
 __webpack_require__("./node_modules/core-js/modules/es.regexp.to-string.js");
 __webpack_require__("./node_modules/core-js/modules/es.set.js");
+__webpack_require__("./node_modules/core-js/modules/es.set.difference.v2.js");
+__webpack_require__("./node_modules/core-js/modules/es.set.intersection.v2.js");
+__webpack_require__("./node_modules/core-js/modules/es.set.is-disjoint-from.v2.js");
+__webpack_require__("./node_modules/core-js/modules/es.set.is-subset-of.v2.js");
+__webpack_require__("./node_modules/core-js/modules/es.set.is-superset-of.v2.js");
+__webpack_require__("./node_modules/core-js/modules/es.set.symmetric-difference.v2.js");
+__webpack_require__("./node_modules/core-js/modules/es.set.union.v2.js");
 __webpack_require__("./node_modules/core-js/modules/es.string.at-alternative.js");
 __webpack_require__("./node_modules/core-js/modules/es.string.code-point-at.js");
 __webpack_require__("./node_modules/core-js/modules/es.string.ends-with.js");
@@ -65619,6 +66200,7 @@ __webpack_require__("./node_modules/core-js/modules/web.structured-clone.js");
 __webpack_require__("./node_modules/core-js/modules/web.timers.js");
 __webpack_require__("./node_modules/core-js/modules/web.url.js");
 __webpack_require__("./node_modules/core-js/modules/web.url.can-parse.js");
+__webpack_require__("./node_modules/core-js/modules/web.url.parse.js");
 __webpack_require__("./node_modules/core-js/modules/web.url.to-json.js");
 __webpack_require__("./node_modules/core-js/modules/web.url-search-params.js");
 __webpack_require__("./node_modules/core-js/modules/web.url-search-params.delete.js");
