@@ -1,4 +1,4 @@
-## [2.5.10-SNAPSHOT](https://github.com/OpenNMS/opennms-js/compare/v2.5.8...v2.5.10-SNAPSHOT) (2024-04-19)
+## [2.5.10-SNAPSHOT](https://github.com/OpenNMS/opennms-js/compare/v2.5.8...v2.5.10-SNAPSHOT) (2024-04-23)
 
 
 
