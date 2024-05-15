@@ -49141,10 +49141,10 @@ var defineGlobalProperty = __webpack_require__("./node_modules/core-js/internals
 var SHARED = '__core-js_shared__';
 var store = module.exports = globalThis[SHARED] || defineGlobalProperty(SHARED, {});
 (store.versions || (store.versions = [])).push({
-  version: '3.37.0',
+  version: '3.37.1',
   mode: IS_PURE ? 'pure' : 'global',
   copyright: '© 2014-2024 Denis Pushkarev (zloirock.ru)',
-  license: 'https://github.com/zloirock/core-js/blob/v3.37.0/LICENSE',
+  license: 'https://github.com/zloirock/core-js/blob/v3.37.1/LICENSE',
   source: 'https://github.com/zloirock/core-js'
 });
 
@@ -62797,13 +62797,15 @@ var $ = __webpack_require__("./node_modules/core-js/internals/export.js");
 var getBuiltIn = __webpack_require__("./node_modules/core-js/internals/get-built-in.js");
 var validateArgumentsLength = __webpack_require__("./node_modules/core-js/internals/validate-arguments-length.js");
 var toString = __webpack_require__("./node_modules/core-js/internals/to-string.js");
+var USE_NATIVE_URL = __webpack_require__("./node_modules/core-js/internals/url-constructor-detection.js");
 var URL = getBuiltIn('URL');
 
 // `URL.parse` method
 // https://url.spec.whatwg.org/#dom-url-canparse
 $({
   target: 'URL',
-  stat: true
+  stat: true,
+  forced: !USE_NATIVE_URL
 }, {
   parse: function parse(url) {
     var length = validateArgumentsLength(arguments.length, 1);

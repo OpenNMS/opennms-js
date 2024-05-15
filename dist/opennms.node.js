@@ -39566,47 +39566,55 @@ function PassThrough() {
 /***/ "./node_modules/picocolors/picocolors.js":
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
-let tty = __webpack_require__("tty");
-let isColorSupported = !("NO_COLOR" in process.env || process.argv.includes("--no-color")) && ("FORCE_COLOR" in process.env || process.argv.includes("--color") || process.platform === "win32" || tty.isatty(1) && process.env.TERM !== "dumb" || "CI" in process.env);
+let argv = process.argv || [],
+  env = process.env;
+let isColorSupported = !("NO_COLOR" in env || argv.includes("--no-color")) && ("FORCE_COLOR" in env || argv.includes("--color") || process.platform === "win32" || __webpack_require__("./node_modules/picocolors sync recursive") != null && (__webpack_require__("tty").isatty)(1) && env.TERM !== "dumb" || "CI" in env);
 let formatter = (open, close, replace = open) => input => {
   let string = "" + input;
   let index = string.indexOf(close, open.length);
   return ~index ? open + replaceClose(string, close, replace, index) + close : open + string + close;
 };
 let replaceClose = (string, close, replace, index) => {
-  let start = string.substring(0, index) + replace;
-  let end = string.substring(index + close.length);
-  let nextIndex = end.indexOf(close);
-  return ~nextIndex ? start + replaceClose(end, close, replace, nextIndex) : start + end;
+  let result = "";
+  let cursor = 0;
+  do {
+    result += string.substring(cursor, index) + replace;
+    cursor = index + close.length;
+    index = string.indexOf(close, cursor);
+  } while (~index);
+  return result + string.substring(cursor);
 };
-let createColors = (enabled = isColorSupported) => ({
-  isColorSupported: enabled,
-  reset: enabled ? s => `\x1b[0m${s}\x1b[0m` : String,
-  bold: enabled ? formatter("\x1b[1m", "\x1b[22m", "\x1b[22m\x1b[1m") : String,
-  dim: enabled ? formatter("\x1b[2m", "\x1b[22m", "\x1b[22m\x1b[2m") : String,
-  italic: enabled ? formatter("\x1b[3m", "\x1b[23m") : String,
-  underline: enabled ? formatter("\x1b[4m", "\x1b[24m") : String,
-  inverse: enabled ? formatter("\x1b[7m", "\x1b[27m") : String,
-  hidden: enabled ? formatter("\x1b[8m", "\x1b[28m") : String,
-  strikethrough: enabled ? formatter("\x1b[9m", "\x1b[29m") : String,
-  black: enabled ? formatter("\x1b[30m", "\x1b[39m") : String,
-  red: enabled ? formatter("\x1b[31m", "\x1b[39m") : String,
-  green: enabled ? formatter("\x1b[32m", "\x1b[39m") : String,
-  yellow: enabled ? formatter("\x1b[33m", "\x1b[39m") : String,
-  blue: enabled ? formatter("\x1b[34m", "\x1b[39m") : String,
-  magenta: enabled ? formatter("\x1b[35m", "\x1b[39m") : String,
-  cyan: enabled ? formatter("\x1b[36m", "\x1b[39m") : String,
-  white: enabled ? formatter("\x1b[37m", "\x1b[39m") : String,
-  gray: enabled ? formatter("\x1b[90m", "\x1b[39m") : String,
-  bgBlack: enabled ? formatter("\x1b[40m", "\x1b[49m") : String,
-  bgRed: enabled ? formatter("\x1b[41m", "\x1b[49m") : String,
-  bgGreen: enabled ? formatter("\x1b[42m", "\x1b[49m") : String,
-  bgYellow: enabled ? formatter("\x1b[43m", "\x1b[49m") : String,
-  bgBlue: enabled ? formatter("\x1b[44m", "\x1b[49m") : String,
-  bgMagenta: enabled ? formatter("\x1b[45m", "\x1b[49m") : String,
-  bgCyan: enabled ? formatter("\x1b[46m", "\x1b[49m") : String,
-  bgWhite: enabled ? formatter("\x1b[47m", "\x1b[49m") : String
-});
+let createColors = (enabled = isColorSupported) => {
+  let init = enabled ? formatter : () => String;
+  return {
+    isColorSupported: enabled,
+    reset: init("\x1b[0m", "\x1b[0m"),
+    bold: init("\x1b[1m", "\x1b[22m", "\x1b[22m\x1b[1m"),
+    dim: init("\x1b[2m", "\x1b[22m", "\x1b[22m\x1b[2m"),
+    italic: init("\x1b[3m", "\x1b[23m"),
+    underline: init("\x1b[4m", "\x1b[24m"),
+    inverse: init("\x1b[7m", "\x1b[27m"),
+    hidden: init("\x1b[8m", "\x1b[28m"),
+    strikethrough: init("\x1b[9m", "\x1b[29m"),
+    black: init("\x1b[30m", "\x1b[39m"),
+    red: init("\x1b[31m", "\x1b[39m"),
+    green: init("\x1b[32m", "\x1b[39m"),
+    yellow: init("\x1b[33m", "\x1b[39m"),
+    blue: init("\x1b[34m", "\x1b[39m"),
+    magenta: init("\x1b[35m", "\x1b[39m"),
+    cyan: init("\x1b[36m", "\x1b[39m"),
+    white: init("\x1b[37m", "\x1b[39m"),
+    gray: init("\x1b[90m", "\x1b[39m"),
+    bgBlack: init("\x1b[40m", "\x1b[49m"),
+    bgRed: init("\x1b[41m", "\x1b[49m"),
+    bgGreen: init("\x1b[42m", "\x1b[49m"),
+    bgYellow: init("\x1b[43m", "\x1b[49m"),
+    bgBlue: init("\x1b[44m", "\x1b[49m"),
+    bgMagenta: init("\x1b[45m", "\x1b[49m"),
+    bgCyan: init("\x1b[46m", "\x1b[49m"),
+    bgWhite: init("\x1b[47m", "\x1b[49m")
+  };
+};
 module.exports = createColors();
 module.exports.createColors = createColors;
 
@@ -45315,6 +45323,21 @@ webpackContext.keys = function webpackContextKeys() {
 webpackContext.resolve = webpackContextResolve;
 module.exports = webpackContext;
 webpackContext.id = "./node_modules/moment/locale sync recursive ^\\.\\/.*$";
+
+/***/ }),
+
+/***/ "./node_modules/picocolors sync recursive":
+/***/ ((module) => {
+
+function webpackEmptyContext(req) {
+	var e = new Error("Cannot find module '" + req + "'");
+	e.code = 'MODULE_NOT_FOUND';
+	throw e;
+}
+webpackEmptyContext.keys = () => ([]);
+webpackEmptyContext.resolve = webpackEmptyContext;
+webpackEmptyContext.id = "./node_modules/picocolors sync recursive";
+module.exports = webpackEmptyContext;
 
 /***/ }),
 
@@ -52224,10 +52247,10 @@ var defineGlobalProperty = __webpack_require__("./node_modules/core-js/internals
 var SHARED = '__core-js_shared__';
 var store = module.exports = globalThis[SHARED] || defineGlobalProperty(SHARED, {});
 (store.versions || (store.versions = [])).push({
-  version: '3.37.0',
+  version: '3.37.1',
   mode: IS_PURE ? 'pure' : 'global',
   copyright: '© 2014-2024 Denis Pushkarev (zloirock.ru)',
-  license: 'https://github.com/zloirock/core-js/blob/v3.37.0/LICENSE',
+  license: 'https://github.com/zloirock/core-js/blob/v3.37.1/LICENSE',
   source: 'https://github.com/zloirock/core-js'
 });
 
@@ -65880,13 +65903,15 @@ var $ = __webpack_require__("./node_modules/core-js/internals/export.js");
 var getBuiltIn = __webpack_require__("./node_modules/core-js/internals/get-built-in.js");
 var validateArgumentsLength = __webpack_require__("./node_modules/core-js/internals/validate-arguments-length.js");
 var toString = __webpack_require__("./node_modules/core-js/internals/to-string.js");
+var USE_NATIVE_URL = __webpack_require__("./node_modules/core-js/internals/url-constructor-detection.js");
 var URL = getBuiltIn('URL');
 
 // `URL.parse` method
 // https://url.spec.whatwg.org/#dom-url-canparse
 $({
   target: 'URL',
-  stat: true
+  stat: true,
+  forced: !USE_NATIVE_URL
 }, {
   parse: function parse(url) {
     var length = validateArgumentsLength(arguments.length, 1);
