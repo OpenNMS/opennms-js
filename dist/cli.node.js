@@ -64210,8 +64210,8 @@ class AxiosTransformStream extends external_stream_.Transform {
   }
 }
 /* harmony default export */ const helpers_AxiosTransformStream = (AxiosTransformStream);
-// EXTERNAL MODULE: external "events"
-var external_events_ = __webpack_require__("events");
+;// CONCATENATED MODULE: external "events"
+const external_events_namespaceObject = require("events");
 ;// CONCATENATED MODULE: ./node_modules/axios/lib/helpers/readBlob.js
 const {
   asyncIterator
@@ -64536,7 +64536,7 @@ const buildAddressEntry = (address, family) => resolveFamily(utils.isObject(addr
     }
 
     // temporary internal emitter until the AxiosRequest class will be implemented
-    const emitter = new external_events_.EventEmitter();
+    const emitter = new external_events_namespaceObject.EventEmitter();
     const onFinished = () => {
       if (config.cancelToken) {
         config.cancelToken.unsubscribe(abort);
@@ -68167,27 +68167,11 @@ module.exports = require("assert");
 
 /***/ }),
 
-/***/ "child_process":
-/***/ ((module) => {
-
-"use strict";
-module.exports = require("child_process");
-
-/***/ }),
-
 /***/ "crypto":
 /***/ ((module) => {
 
 "use strict";
 module.exports = require("crypto");
-
-/***/ }),
-
-/***/ "events":
-/***/ ((module) => {
-
-"use strict";
-module.exports = require("events");
 
 /***/ }),
 
@@ -68215,6 +68199,46 @@ module.exports = require("https");
 
 /***/ }),
 
+/***/ "node:child_process":
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("node:child_process");
+
+/***/ }),
+
+/***/ "node:events":
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("node:events");
+
+/***/ }),
+
+/***/ "node:fs":
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("node:fs");
+
+/***/ }),
+
+/***/ "node:path":
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("node:path");
+
+/***/ }),
+
+/***/ "node:process":
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("node:process");
+
+/***/ }),
+
 /***/ "os":
 /***/ ((module) => {
 
@@ -68228,14 +68252,6 @@ module.exports = require("os");
 
 "use strict";
 module.exports = require("path");
-
-/***/ }),
-
-/***/ "process":
-/***/ ((module) => {
-
-"use strict";
-module.exports = require("process");
 
 /***/ }),
 
@@ -68610,7 +68626,7 @@ class Argument {
   }
 
   /**
-   * @package internal use only
+   * @package
    */
 
   _concatValue(value, previous) {
@@ -68669,6 +68685,8 @@ class Argument {
 
   /**
    * Make argument required.
+   *
+   * @returns {Argument}
    */
   argRequired() {
     this.required = true;
@@ -68677,6 +68695,8 @@ class Argument {
 
   /**
    * Make argument optional.
+   *
+   * @returns {Argument}
    */
   argOptional() {
     this.required = false;
@@ -68704,11 +68724,11 @@ exports.humanReadableArgName = humanReadableArgName;
 /***/ "./node_modules/commander/lib/command.js":
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
-const EventEmitter = (__webpack_require__("events").EventEmitter);
-const childProcess = __webpack_require__("child_process");
-const path = __webpack_require__("path");
-const fs = __webpack_require__("fs");
-const process = __webpack_require__("process");
+const EventEmitter = (__webpack_require__("node:events").EventEmitter);
+const childProcess = __webpack_require__("node:child_process");
+const path = __webpack_require__("node:path");
+const fs = __webpack_require__("node:fs");
+const process = __webpack_require__("node:process");
 const {
   Argument,
   humanReadableArgName
@@ -68819,6 +68839,7 @@ class Command extends EventEmitter {
 
   _getCommandAndAncestors() {
     const result = [];
+    // eslint-disable-next-line @typescript-eslint/no-this-alias
     for (let command = this; command; command = command.parent) {
       result.push(command);
     }
@@ -68845,8 +68866,8 @@ class Command extends EventEmitter {
    *   .command('stop [service]', 'stop named service, or all if no name supplied');
    *
    * @param {string} nameAndArgs - command name and arguments, args are `<required>` or `[optional]` and last may also be `variadic...`
-   * @param {(Object|string)} [actionOptsOrExecDesc] - configuration options (for action), or description (for executable)
-   * @param {Object} [execOpts] - configuration options (for executable)
+   * @param {(object | string)} [actionOptsOrExecDesc] - configuration options (for action), or description (for executable)
+   * @param {object} [execOpts] - configuration options (for executable)
    * @return {Command} returns new command for action handler, or `this` for executable command
    */
 
@@ -68904,8 +68925,8 @@ class Command extends EventEmitter {
    * You can customise the help by overriding Help properties using configureHelp(),
    * or with a subclass of Help by overriding createHelp().
    *
-   * @param {Object} [configuration] - configuration options
-   * @return {(Command|Object)} `this` command for chaining, or stored configuration
+   * @param {object} [configuration] - configuration options
+   * @return {(Command | object)} `this` command for chaining, or stored configuration
    */
 
   configureHelp(configuration) {
@@ -68929,8 +68950,8 @@ class Command extends EventEmitter {
    *     // functions based on what is being written out
    *     outputError(str, write) // used for displaying errors, and not used for displaying help
    *
-   * @param {Object} [configuration] - configuration options
-   * @return {(Command|Object)} `this` command for chaining, or stored configuration
+   * @param {object} [configuration] - configuration options
+   * @return {(Command | object)} `this` command for chaining, or stored configuration
    */
 
   configureOutput(configuration) {
@@ -68968,7 +68989,7 @@ class Command extends EventEmitter {
    * See .command() for creating an attached subcommand which inherits settings from its parent.
    *
    * @param {Command} cmd - new subcommand
-   * @param {Object} [opts] - configuration options
+   * @param {object} [opts] - configuration options
    * @return {Command} `this` command for chaining
    */
 
@@ -69069,6 +69090,7 @@ class Command extends EventEmitter {
   /**
    * Customise or override default help command. By default a help command is automatically added if your command has subcommands.
    *
+   * @example
    *    program.helpCommand('help [cmd]');
    *    program.helpCommand('help [cmd]', 'show help');
    *    program.helpCommand(false); // suppress default help command
@@ -69271,7 +69293,7 @@ Expecting one of '${allowedValues.join("', '")}'`);
    * Register option if no conflicts found, or throw on conflict.
    *
    * @param {Option} option
-   * @api private
+   * @private
    */
 
   _registerOption(option) {
@@ -69289,7 +69311,7 @@ Expecting one of '${allowedValues.join("', '")}'`);
    * Register command if no conflicts found, or throw on conflict.
    *
    * @param {Command} command
-   * @api private
+   * @private
    */
 
   _registerCommand(command) {
@@ -69371,6 +69393,7 @@ Expecting one of '${allowedValues.join("', '")}'`);
   /**
    * Internal implementation shared by .option() and .requiredOption()
    *
+   * @return {Command} `this` command for chaining
    * @private
    */
   _optionEx(config, flags, description, fn, defaultValue) {
@@ -69422,17 +69445,17 @@ Expecting one of '${allowedValues.join("', '")}'`);
   }
 
   /**
-  * Add a required option which must have a value after parsing. This usually means
-  * the option must be specified on the command line. (Otherwise the same as .option().)
-  *
-  * The `flags` string contains the short and/or long flags, separated by comma, a pipe or space.
-  *
-  * @param {string} flags
-  * @param {string} [description]
-  * @param {(Function|*)} [parseArg] - custom option processing function or default value
-  * @param {*} [defaultValue]
-  * @return {Command} `this` command for chaining
-  */
+   * Add a required option which must have a value after parsing. This usually means
+   * the option must be specified on the command line. (Otherwise the same as .option().)
+   *
+   * The `flags` string contains the short and/or long flags, separated by comma, a pipe or space.
+   *
+   * @param {string} flags
+   * @param {string} [description]
+   * @param {(Function|*)} [parseArg] - custom option processing function or default value
+   * @param {*} [defaultValue]
+   * @return {Command} `this` command for chaining
+   */
 
   requiredOption(flags, description, parseArg, defaultValue) {
     return this._optionEx({
@@ -69448,7 +69471,8 @@ Expecting one of '${allowedValues.join("', '")}'`);
    * program.combineFlagAndOptionalValue(true);  // `-f80` is treated like `--flag=80`, this is the default behaviour
    * program.combineFlagAndOptionalValue(false) // `-fb` is treated like `-f -b`
    *
-   * @param {boolean} [combine=true] - if `true` or omitted, an optional value can be specified directly after the flag.
+   * @param {boolean} [combine] - if `true` or omitted, an optional value can be specified directly after the flag.
+   * @return {Command} `this` command for chaining
    */
   combineFlagAndOptionalValue(combine = true) {
     this._combineFlagAndOptionalValue = !!combine;
@@ -69458,8 +69482,8 @@ Expecting one of '${allowedValues.join("', '")}'`);
   /**
    * Allow unknown options on the command line.
    *
-   * @param {boolean} [allowUnknown=true] - if `true` or omitted, no error will be thrown
-   * for unknown options.
+   * @param {boolean} [allowUnknown] - if `true` or omitted, no error will be thrown for unknown options.
+   * @return {Command} `this` command for chaining
    */
   allowUnknownOption(allowUnknown = true) {
     this._allowUnknownOption = !!allowUnknown;
@@ -69469,8 +69493,8 @@ Expecting one of '${allowedValues.join("', '")}'`);
   /**
    * Allow excess command-arguments on the command line. Pass false to make excess arguments an error.
    *
-   * @param {boolean} [allowExcess=true] - if `true` or omitted, no error will be thrown
-   * for excess arguments.
+   * @param {boolean} [allowExcess] - if `true` or omitted, no error will be thrown for excess arguments.
+   * @return {Command} `this` command for chaining
    */
   allowExcessArguments(allowExcess = true) {
     this._allowExcessArguments = !!allowExcess;
@@ -69482,7 +69506,8 @@ Expecting one of '${allowedValues.join("', '")}'`);
    * subcommands reuse the same option names, and also enables subcommands to turn on passThroughOptions.
    * The default behaviour is non-positional and global options may appear anywhere on the command line.
    *
-   * @param {boolean} [positional=true]
+   * @param {boolean} [positional]
+   * @return {Command} `this` command for chaining
    */
   enablePositionalOptions(positional = true) {
     this._enablePositionalOptions = !!positional;
@@ -69495,8 +69520,8 @@ Expecting one of '${allowedValues.join("', '")}'`);
    * positional options to have been enabled on the program (parent commands).
    * The default behaviour is non-positional and options may appear before or after command-arguments.
    *
-   * @param {boolean} [passThrough=true]
-   * for unknown options.
+   * @param {boolean} [passThrough] for unknown options.
+   * @return {Command} `this` command for chaining
    */
   passThroughOptions(passThrough = true) {
     this._passThroughOptions = !!passThrough;
@@ -69515,12 +69540,12 @@ Expecting one of '${allowedValues.join("', '")}'`);
   }
 
   /**
-    * Whether to store option values as properties on command object,
-    * or store separately (specify false). In both cases the option values can be accessed using .opts().
-    *
-    * @param {boolean} [storeAsProperties=true]
-    * @return {Command} `this` command for chaining
-    */
+   * Whether to store option values as properties on command object,
+   * or store separately (specify false). In both cases the option values can be accessed using .opts().
+   *
+   * @param {boolean} [storeAsProperties=true]
+   * @return {Command} `this` command for chaining
+   */
 
   storeOptionsAsProperties(storeAsProperties = true) {
     if (this.options.length) {
@@ -69537,7 +69562,7 @@ Expecting one of '${allowedValues.join("', '")}'`);
    * Retrieve option value.
    *
    * @param {string} key
-   * @return {Object} value
+   * @return {object} value
    */
 
   getOptionValue(key) {
@@ -69551,7 +69576,7 @@ Expecting one of '${allowedValues.join("', '")}'`);
    * Store option value.
    *
    * @param {string} key
-   * @param {Object} value
+   * @param {object} value
    * @return {Command} `this` command for chaining
    */
 
@@ -69560,13 +69585,13 @@ Expecting one of '${allowedValues.join("', '")}'`);
   }
 
   /**
-    * Store option value and where the value came from.
-    *
-    * @param {string} key
-    * @param {Object} value
-    * @param {string} source - expected values are default/config/env/cli/implied
-    * @return {Command} `this` command for chaining
-    */
+   * Store option value and where the value came from.
+   *
+   * @param {string} key
+   * @param {object} value
+   * @param {string} source - expected values are default/config/env/cli/implied
+   * @return {Command} `this` command for chaining
+   */
 
   setOptionValueWithSource(key, value, source) {
     if (this._storeOptionsAsProperties) {
@@ -69579,24 +69604,24 @@ Expecting one of '${allowedValues.join("', '")}'`);
   }
 
   /**
-    * Get source of option value.
-    * Expected values are default | config | env | cli | implied
-    *
-    * @param {string} key
-    * @return {string}
-    */
+   * Get source of option value.
+   * Expected values are default | config | env | cli | implied
+   *
+   * @param {string} key
+   * @return {string}
+   */
 
   getOptionValueSource(key) {
     return this._optionValueSources[key];
   }
 
   /**
-    * Get source of option value. See also .optsWithGlobals().
-    * Expected values are default | config | env | cli | implied
-    *
-    * @param {string} key
-    * @return {string}
-    */
+   * Get source of option value. See also .optsWithGlobals().
+   * Expected values are default | config | env | cli | implied
+   *
+   * @param {string} key
+   * @return {string}
+   */
 
   getOptionValueSourceWithGlobals(key) {
     // global overwrites local, like optsWithGlobals
@@ -69622,17 +69647,25 @@ Expecting one of '${allowedValues.join("', '")}'`);
     }
     parseOptions = parseOptions || {};
 
-    // Default to using process.argv
-    if (argv === undefined) {
-      argv = process.argv;
-      // @ts-ignore: unknown property
-      if (process.versions && process.versions.electron) {
+    // auto-detect argument conventions if nothing supplied
+    if (argv === undefined && parseOptions.from === undefined) {
+      if (process.versions?.electron) {
         parseOptions.from = 'electron';
       }
+      // check node specific options for scenarios where user CLI args follow executable without scriptname
+      const execArgv = process.execArgv ?? [];
+      if (execArgv.includes('-e') || execArgv.includes('--eval') || execArgv.includes('-p') || execArgv.includes('--print')) {
+        parseOptions.from = 'eval'; // internal usage, not documented
+      }
+    }
+
+    // default to using process.argv
+    if (argv === undefined) {
+      argv = process.argv;
     }
     this.rawArgs = argv.slice();
 
-    // make it a little easier for callers by supporting various argv conventions
+    // extract the user args and scriptPath
     let userArgs;
     switch (parseOptions.from) {
       case undefined:
@@ -69641,7 +69674,7 @@ Expecting one of '${allowedValues.join("', '")}'`);
         userArgs = argv.slice(2);
         break;
       case 'electron':
-        // @ts-ignore: unknown property
+        // @ts-ignore: because defaultApp is an unknown property
         if (process.defaultApp) {
           this._scriptPath = argv[1];
           userArgs = argv.slice(2);
@@ -69651,6 +69684,9 @@ Expecting one of '${allowedValues.join("', '")}'`);
         break;
       case 'user':
         userArgs = argv.slice(0);
+        break;
+      case 'eval':
+        userArgs = argv.slice(1);
         break;
       default:
         throw new Error(`unexpected parse option { from: '${parseOptions.from}' }`);
@@ -69665,16 +69701,22 @@ Expecting one of '${allowedValues.join("', '")}'`);
   /**
    * Parse `argv`, setting options and invoking commands when defined.
    *
-   * The default expectation is that the arguments are from node and have the application as argv[0]
-   * and the script being run in argv[1], with user parameters after that.
+   * Use parseAsync instead of parse if any of your action handlers are async.
+   *
+   * Call with no parameters to parse `process.argv`. Detects Electron and special node options like `node --eval`. Easy mode!
+   *
+   * Or call with an array of strings to parse, and optionally where the user arguments start by specifying where the arguments are `from`:
+   * - `'node'`: default, `argv[0]` is the application and `argv[1]` is the script being run, with user arguments after that
+   * - `'electron'`: `argv[0]` is the application and `argv[1]` varies depending on whether the electron application is packaged
+   * - `'user'`: just user arguments
    *
    * @example
-   * program.parse(process.argv);
-   * program.parse(); // implicitly use process.argv and auto-detect node vs electron conventions
+   * program.parse(); // parse process.argv and auto-detect electron and special node flags
+   * program.parse(process.argv); // assume argv[0] is app and argv[1] is script
    * program.parse(my-args, { from: 'user' }); // just user supplied arguments, nothing special about argv[0]
    *
    * @param {string[]} [argv] - optional, defaults to process.argv
-   * @param {Object} [parseOptions] - optionally specify style of options with from: node/user/electron
+   * @param {object} [parseOptions] - optionally specify style of options with from: node/user/electron
    * @param {string} [parseOptions.from] - where the args are from: 'node', 'user', 'electron'
    * @return {Command} `this` command for chaining
    */
@@ -69688,18 +69730,20 @@ Expecting one of '${allowedValues.join("', '")}'`);
   /**
    * Parse `argv`, setting options and invoking commands when defined.
    *
-   * Use parseAsync instead of parse if any of your action handlers are async. Returns a Promise.
+   * Call with no parameters to parse `process.argv`. Detects Electron and special node options like `node --eval`. Easy mode!
    *
-   * The default expectation is that the arguments are from node and have the application as argv[0]
-   * and the script being run in argv[1], with user parameters after that.
+   * Or call with an array of strings to parse, and optionally where the user arguments start by specifying where the arguments are `from`:
+   * - `'node'`: default, `argv[0]` is the application and `argv[1]` is the script being run, with user arguments after that
+   * - `'electron'`: `argv[0]` is the application and `argv[1]` varies depending on whether the electron application is packaged
+   * - `'user'`: just user arguments
    *
    * @example
-   * await program.parseAsync(process.argv);
-   * await program.parseAsync(); // implicitly use process.argv and auto-detect node vs electron conventions
+   * await program.parseAsync(); // parse process.argv and auto-detect electron and special node flags
+   * await program.parseAsync(process.argv); // assume argv[0] is app and argv[1] is script
    * await program.parseAsync(my-args, { from: 'user' }); // just user supplied arguments, nothing special about argv[0]
    *
    * @param {string[]} [argv]
-   * @param {Object} [parseOptions]
+   * @param {object} [parseOptions]
    * @param {string} parseOptions.from - where the args are from: 'node', 'user', 'electron'
    * @return {Promise}
    */
@@ -69791,9 +69835,9 @@ Expecting one of '${allowedValues.join("', '")}'`);
       // testing mainly to avoid leak warnings during unit tests with mocked spawn
       const signals = ['SIGUSR1', 'SIGUSR2', 'SIGTERM', 'SIGINT', 'SIGHUP'];
       signals.forEach(signal => {
-        // @ts-ignore
         process.on(signal, () => {
           if (proc.killed === false && proc.exitCode === null) {
+            // @ts-ignore because signals not typed to known strings
             proc.kill(signal);
           }
         });
@@ -69802,7 +69846,7 @@ Expecting one of '${allowedValues.join("', '")}'`);
 
     // By default terminate process when spawned process terminates.
     const exitCallback = this._exitCallback;
-    proc.on('close', (code, _signal) => {
+    proc.on('close', code => {
       code = code ?? 1; // code is null if spawned process terminated due to a signal
       if (!exitCallback) {
         process.exit(code);
@@ -69811,7 +69855,7 @@ Expecting one of '${allowedValues.join("', '")}'`);
       }
     });
     proc.on('error', err => {
-      // @ts-ignore
+      // @ts-ignore: because err.code is an unknown property
       if (err.code === 'ENOENT') {
         const executableDirMessage = executableDir ? `searched for local subcommand relative to directory '${executableDir}'` : 'no directory for search for local subcommand, use .executableDir() to supply a custom directory';
         const executableMissing = `'${executableFile}' does not exist
@@ -69819,7 +69863,7 @@ Expecting one of '${allowedValues.join("', '")}'`);
  - if the default executable name is not suitable, use the executableFile option to supply a custom name or path
  - ${executableDirMessage}`;
         throw new Error(executableMissing);
-        // @ts-ignore
+        // @ts-ignore: because err.code is an unknown property
       } else if (err.code === 'EACCES') {
         throw new Error(`'${executableFile}' not executable`);
       }
@@ -70102,6 +70146,7 @@ Expecting one of '${allowedValues.join("', '")}'`);
    * Find matching command.
    *
    * @private
+   * @return {Command | undefined}
    */
   _findCommand(name) {
     if (!name) return undefined;
@@ -70113,7 +70158,7 @@ Expecting one of '${allowedValues.join("', '")}'`);
    *
    * @param {string} arg
    * @return {Option}
-   * @package internal use only
+   * @package
    */
 
   _findOption(arg) {
@@ -70308,7 +70353,7 @@ Expecting one of '${allowedValues.join("', '")}'`);
   /**
    * Return an object containing local option values as key-value pairs.
    *
-   * @return {Object}
+   * @return {object}
    */
   opts() {
     if (this._storeOptionsAsProperties) {
@@ -70327,7 +70372,7 @@ Expecting one of '${allowedValues.join("', '")}'`);
   /**
    * Return an object containing merged local and global option values as key-value pairs.
    *
-   * @return {Object}
+   * @return {object}
    */
   optsWithGlobals() {
     // globals overwrite locals
@@ -70338,7 +70383,7 @@ Expecting one of '${allowedValues.join("', '")}'`);
    * Display error message and exit (or call exitOverride).
    *
    * @param {string} message
-   * @param {Object} [errorOptions]
+   * @param {object} [errorOptions]
    * @param {string} [errorOptions.code] - an id string representing the error
    * @param {number} [errorOptions.exitCode] - used with process.exit
    */
@@ -70494,6 +70539,7 @@ Expecting one of '${allowedValues.join("', '")}'`);
     if (flag.startsWith('--') && this._showSuggestionAfterError) {
       // Looping to pick up the global options too
       let candidateFlags = [];
+      // eslint-disable-next-line @typescript-eslint/no-this-alias
       let command = this;
       do {
         const moreFlags = command.createHelp().visibleOptions(command).filter(option => option.long).map(option => option.long);
@@ -70582,7 +70628,7 @@ Expecting one of '${allowedValues.join("', '")}'`);
    * Set the description.
    *
    * @param {string} [str]
-   * @param {Object} [argsDescription]
+   * @param {object} [argsDescription]
    * @return {(string|Command)}
    */
   description(str, argsDescription) {
@@ -70619,12 +70665,13 @@ Expecting one of '${allowedValues.join("', '")}'`);
     if (alias === undefined) return this._aliases[0]; // just return first, for backwards compatibility
 
     /** @type {Command} */
+    // eslint-disable-next-line @typescript-eslint/no-this-alias
     let command = this;
     if (this.commands.length !== 0 && this.commands[this.commands.length - 1]._executableHandler) {
       // assume adding alias for last added executable subcommand, rather than this
       command = this.commands[this.commands.length - 1];
     }
-    if (alias === command._name) throw new Error('Command alias can\'t be the same as its name');
+    if (alias === command._name) throw new Error("Command alias can't be the same as its name");
     const matchingCommand = this.parent?._findCommand(alias);
     if (matchingCommand) {
       // c.f. _registerCommand
@@ -70822,7 +70869,7 @@ Expecting one of '${allowedValues.join("', '")}'`);
    * Returns null if has been disabled with .helpOption(false).
    *
    * @returns {(Option | null)} the help option
-   * @package internal use only
+   * @package
    */
   _getHelpOption() {
     // Lazy create help option on demand.
@@ -70969,7 +71016,6 @@ exports.Command = Command;
 
 /**
  * CommanderError class
- * @class
  */
 class CommanderError extends Error {
   /**
@@ -70977,7 +71023,6 @@ class CommanderError extends Error {
    * @param {number} exitCode suggested exit code which could be used with process.exit
    * @param {string} code an id string representing the error
    * @param {string} message human-readable description of the error
-   * @constructor
    */
   constructor(exitCode, code, message) {
     super(message);
@@ -70992,13 +71037,11 @@ class CommanderError extends Error {
 
 /**
  * InvalidArgumentError class
- * @class
  */
 class InvalidArgumentError extends CommanderError {
   /**
    * Constructs the InvalidArgumentError class
    * @param {string} [message] explanation of why argument is invalid
-   * @constructor
    */
   constructor(message) {
     super(1, 'commander.invalidArgument', message);
@@ -71051,7 +71094,7 @@ class Help {
     }
     if (this.sortSubcommands) {
       visibleCommands.sort((a, b) => {
-        // @ts-ignore: overloaded return type
+        // @ts-ignore: because overloaded return type
         return a.name().localeCompare(b.name());
       });
     }
@@ -71063,7 +71106,7 @@ class Help {
    *
    * @param {Option} a
    * @param {Option} b
-   * @returns number
+   * @returns {number}
    */
   compareOptions(a, b) {
     const getSortKey = option => {
@@ -71265,7 +71308,7 @@ class Help {
    */
 
   commandDescription(cmd) {
-    // @ts-ignore: overloaded return type
+    // @ts-ignore: because overloaded return type
     return cmd.description();
   }
 
@@ -71278,7 +71321,7 @@ class Help {
    */
 
   subcommandDescription(cmd) {
-    // @ts-ignore: overloaded return type
+    // @ts-ignore: because overloaded return type
     return cmd.summary() || cmd.description();
   }
 
@@ -71561,7 +71604,7 @@ class Option {
    *   .addOption(new Option('--log', 'write logging information to file'))
    *   .addOption(new Option('--trace', 'log extra details').implies({ log: 'trace.txt' }));
    *
-   * @param {Object} impliedOptionValues
+   * @param {object} impliedOptionValues
    * @return {Option}
    */
   implies(impliedOptionValues) {
@@ -71628,7 +71671,7 @@ class Option {
   }
 
   /**
-   * @package internal use only
+   * @package
    */
 
   _concatValue(value, previous) {
@@ -71688,7 +71731,7 @@ class Option {
    *
    * @param {string} arg
    * @return {boolean}
-   * @package internal use only
+   * @package
    */
 
   is(arg) {
@@ -71701,7 +71744,7 @@ class Option {
    * Options are one of boolean, negated, required argument, or optional argument.
    *
    * @return {boolean}
-   * @package internal use only
+   * @package
    */
 
   isBoolean() {
