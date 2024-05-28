@@ -45357,14 +45357,6 @@ module.exports = require("crypto");
 
 /***/ }),
 
-/***/ "events":
-/***/ ((module) => {
-
-"use strict";
-module.exports = require("events");
-
-/***/ }),
-
 /***/ "fs":
 /***/ ((module) => {
 
@@ -77928,8 +77920,8 @@ class AxiosTransformStream extends external_stream_.Transform {
   }
 }
 /* harmony default export */ const helpers_AxiosTransformStream = (AxiosTransformStream);
-// EXTERNAL MODULE: external "events"
-var external_events_ = __webpack_require__("events");
+;// CONCATENATED MODULE: external "events"
+const external_events_namespaceObject = require("events");
 ;// CONCATENATED MODULE: ./node_modules/axios/lib/helpers/readBlob.js
 const {
   asyncIterator
@@ -78254,7 +78246,7 @@ const buildAddressEntry = (address, family) => resolveFamily(utils.isObject(addr
     }
 
     // temporary internal emitter until the AxiosRequest class will be implemented
-    const emitter = new external_events_.EventEmitter();
+    const emitter = new external_events_namespaceObject.EventEmitter();
     const onFinished = () => {
       if (config.cancelToken) {
         config.cancelToken.unsubscribe(abort);
