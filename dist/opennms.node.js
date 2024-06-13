@@ -76927,14 +76927,14 @@ var external_url_ = __webpack_require__("url");
 
 
 
-/* harmony default export */ const URLSearchParams = (external_url_.URLSearchParams);
+/* harmony default export */ const API_URLSearchParams = (external_url_.URLSearchParams);
 ;// CONCATENATED MODULE: ./node_modules/axios/lib/platform/node/index.js
 
 
 /* harmony default export */ const node = ({
   isNode: true,
   classes: {
-    URLSearchParams: URLSearchParams,
+    URLSearchParams: API_URLSearchParams,
     FormData: classes_FormData,
     Blob: typeof Blob !== 'undefined' && Blob || null
   },
