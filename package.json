@@ -59,7 +59,7 @@
     "terser-webpack-plugin": "^5.3.0",
     "ts-jest": "^29.0.3",
     "ts-node": "^10.4.0",
-    "typedoc": "^0.25.0",
+    "typedoc": "^0.26.2",
     "typescript": "~5.4.2",
     "urijs": "^1.19.1",
     "webpack": "^5.66.0",
