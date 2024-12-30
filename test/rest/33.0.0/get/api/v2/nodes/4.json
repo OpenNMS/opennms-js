@@ -1,0 +1,16 @@
+{
+  "down": true,
+  "notify": null,
+  "status": "A",
+  "source": null,
+  "qualifier": null,
+  "lastGood": 1681862554301,
+  "lastFail": 1693000042923,
+  "statusLong": "Managed",
+  "ipInterfaceId": 1,
+  "serviceType": {
+    "id": 1,
+    "name": "DeviceConfig-default"
+  },
+  "id": 4
+}
