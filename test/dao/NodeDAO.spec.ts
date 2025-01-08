@@ -17,6 +17,7 @@ import {NodeDAO} from '../../src/dao/NodeDAO';
 
 import {MockHTTP19} from '../rest/MockHTTP19';
 import {MockHTTP21} from '../rest/MockHTTP21';
+import {MockHTTP33} from '../rest/MockHTTP33';
 
 /** @hidden */
 // tslint:disable-next-line
@@ -43,9 +44,11 @@ describe('NodeDAO with v1 API', () => {
       done();
     });
   });
+
   it('NodeDAO.get(43, [recurse=false])', () => {
     return dao.get(43).then((node) => {
       expect(node.id).toEqual(43);
+      expect(node.nodeParentId).toBeUndefined();
       expect(node.categories.length).toEqual(2);
       expect(node.categories[0]).toBeInstanceOf(OnmsCategory);
       expect(node.foreignSource).toBeUndefined();
@@ -54,9 +57,11 @@ describe('NodeDAO with v1 API', () => {
       expect(node.type).toBeInstanceOf(OnmsNodeType);
     });
   });
+
   it('NodeDAO.get(43, recurse=true)', () => {
     return dao.get(43, true).then((node) => {
       expect(node.id).toEqual(43);
+      expect(node.nodeParentId).toBeUndefined();
       expect(node.categories.length).toEqual(2);
       expect(node.categories[0]).toBeInstanceOf(OnmsCategory);
       expect(node.foreignSource).toBeUndefined();
@@ -73,23 +78,26 @@ describe('NodeDAO with v1 API', () => {
       expect(snmp.ifOperStatus).toEqual(SnmpStatusTypes['1']);
       expect(snmp.ifName).toEqual('br0');
       expect(snmp.physAddr).toBeDefined();
-      expect(snmp.physAddr.toString()).toEqual('40:8D:5C:55:55:A2');
+      expect(snmp.physAddr?.toString()).toEqual('40:8D:5C:55:55:A2');
 
       expect(node.ipInterfaces.length).toEqual(2);
       const ip = node.ipInterfaces[0];
       expect(ip.hostname).toEqual('butters.internal.opennms.com');
       expect(ip.services.length).toEqual(5);
 
-      expect(ip.snmpInterface.toJSON()).toEqual(snmp.toJSON());
+      expect(ip.snmpInterface?.toJSON()).toEqual(snmp.toJSON());
     });
   });
+
   it('NodeDAO.find(id=43)', () => {
     const filter = new Filter();
     filter.withOrRestriction(new Restriction('id', Comparators.EQ, 43));
+
     return dao.find(filter).then((nodes) => {
       expect(nodes.length).toEqual(1);
     });
   });
+
   it('NodeDAO.properties() should reject', () => {
     return expect(dao.searchProperties()).rejects.toBeDefined();
   });
@@ -109,9 +117,11 @@ describe('NodeDAO with v2 API', () => {
       done();
     });
   });
+
   it('NodeDAO.get(81, [recurse=false])', () => {
     return dao.get(81).then((node) => {
       expect(node.id).toEqual(81);
+      expect(node.nodeParentId).toBeUndefined();
       expect(node.categories.length).toEqual(1);
       expect(node.categories[0]).toBeInstanceOf(OnmsCategory);
       expect(node.foreignSource).toEqual('test');
@@ -120,9 +130,11 @@ describe('NodeDAO with v2 API', () => {
       expect(node.type).toBeInstanceOf(OnmsNodeType);
     });
   });
+
   it('NodeDAO.get(81, recurse=true)', () => {
     return dao.get(81, true).then((node) => {
       expect(node.id).toEqual(81);
+      expect(node.nodeParentId).toBeUndefined();
       expect(node.categories.length).toEqual(1);
       expect(node.categories[0]).toBeInstanceOf(OnmsCategory);
       expect(node.foreignSource).toEqual('test');
@@ -145,9 +157,10 @@ describe('NodeDAO with v2 API', () => {
       expect(ip.services.length).toEqual(3);
 
       expect(ip.snmpInterface).toBeDefined();
-      expect(ip.snmpInterface.id).toEqual(2018);
+      expect(ip.snmpInterface?.id).toEqual(2018);
     });
   });
+
   /* find is currently broken in v2
   it('NodeDAO.find(id=81)', () => {
     const filter = new Filter();
@@ -161,3 +174,33 @@ describe('NodeDAO with v2 API', () => {
     return expect(dao.searchProperties()).rejects.toBeDefined();
   });
 });
+
+describe('NodeDAO with v2 API, OpenNMS v33', () => {
+  beforeEach((done) => {
+    auth = new OnmsAuthConfig(SERVER_USER, SERVER_PASSWORD);
+    const builder = OnmsServer.newBuilder(SERVER_URL).setName(SERVER_NAME).setAuth(auth);
+    server = builder.build();
+    mockHTTP = new MockHTTP33(server);
+    opennms = new Client(mockHTTP);
+    dao = new NodeDAO(mockHTTP);
+    Client.getMetadata(server, mockHTTP).then((metadata) => {
+      server = builder.setMetadata(metadata).build();
+      mockHTTP.server = server;
+      done();
+    });
+  });
+
+  it('NodeDAO.get(81, [recurse=false])', () => {
+    return dao.get(81).then((node) => {
+      expect(node.id).toEqual(81);
+      expect(node.nodeParentId).toEqual(181);
+      expect(node.categories.length).toEqual(1);
+      expect(node.categories[0]).toBeInstanceOf(OnmsCategory);
+      expect(node.foreignSource).toEqual('test');
+      expect(node.createTime).toBeInstanceOf(moment);
+      expect(node.type).toBeDefined();
+      expect(node.type).toBeInstanceOf(OnmsNodeType);
+    });
+  });
+});
+ 

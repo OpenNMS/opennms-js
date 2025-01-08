@@ -1,0 +1,19 @@
+{
+  "down": true,
+  "notify": null,
+  "status": "A",
+  "source": null,
+  "qualifier": null,
+  "lastGood": 1681862554301,
+  "lastFail": 1693000042923,
+  "statusLong": "Managed",
+  "ipInterfaceId": 101,
+  "ipAddress": "192.168.1.119",
+  "nodeId": 142,
+  "nodeLabel": "node119",
+  "serviceType": {
+    "id": 1,
+    "name": "DeviceConfig-default"
+  },
+  "id": 99
+}
