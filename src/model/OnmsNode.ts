@@ -36,6 +36,9 @@ export class OnmsNode implements IHasUrlValue {
   /** the time the node was created */
   public createTime?: Moment;
 
+  /** the ID of the parent node, if any */
+  public nodeParentId?: number;
+
   /** the parent of this node */
   public parent?: OnmsNode;
 
@@ -117,6 +120,7 @@ export class OnmsNode implements IHasUrlValue {
     node.location = data.location;
     node.foreignSource = data.foreignSource || undefined;
     node.foreignId = data.foreignId || undefined;
+    node.nodeParentId = data.nodeParentID || undefined;
     node.sysContact = data.sysContact;
     node.sysDescription = data.sysDescription;
     node.sysLocation = data.sysLocation;
