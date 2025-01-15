@@ -22,6 +22,10 @@ OpenNMS.js follows [semantic versioning](https://semver.org/).
 
 ### Release Notes
 
+#### 2.5.11
+
+OpenNMS.js v2.5.11 is a code-identical release to 2.5.11.
+
 #### 2.5.10
 
 OpenNMS.js v2.5.10 contains a bunch of dependency updates, as well as an improvement to the OpenNMS node model for OpenNMS and OPG versions that support it (expected to be part of Horizon 33 and Meridian 2024).
