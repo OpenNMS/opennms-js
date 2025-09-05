@@ -40906,7 +40906,7 @@ function shouldProxy(hostname, port) {
 function getEnv(key) {
   return process.env[key.toLowerCase()] || process.env[key.toUpperCase()] || '';
 }
-exports.T = getProxyForUrl;
+exports.getProxyForUrl = getProxyForUrl;
 
 /***/ }),
 
@@ -77893,7 +77893,7 @@ function buildURL_encode(val) {
  *
  * @param {string} url The base of the url (e.g., http://www.google.com)
  * @param {object} [params] The params to be appended
- * @param {?object} options
+ * @param {?(object|Function)} options
  *
  * @returns {string} The formatted url
  */
@@ -77903,6 +77903,11 @@ function buildURL(url, params, options) {
     return url;
   }
   const _encode = options && options.encode || buildURL_encode;
+  if (utils.isFunction(options)) {
+    options = {
+      serialize: options
+    };
+  }
   const serializeFn = options && options.serialize;
   let serializedParams;
   if (serializeFn) {
@@ -78706,7 +78711,7 @@ var follow_redirects = __webpack_require__("./node_modules/follow-redirects/inde
 ;// external "zlib"
 const external_zlib_namespaceObject = require("zlib");
 ;// ./node_modules/axios/lib/env/data.js
-const VERSION = "1.7.7";
+const VERSION = "1.7.9";
 ;// ./node_modules/axios/lib/helpers/parseProtocol.js
 
 
@@ -78904,7 +78909,7 @@ const readBlob = async function* (blob) {
 
 
 const BOUNDARY_ALPHABET = utils.ALPHABET.ALPHA_DIGIT + '-_';
-const textEncoder = new external_util_.TextEncoder();
+const textEncoder = typeof TextEncoder === 'function' ? new TextEncoder() : new external_util_.TextEncoder();
 const CRLF = '\r\n';
 const CRLF_BYTES = textEncoder.encode(CRLF);
 const CRLF_BYTES_COUNT = 2;
@@ -79224,7 +79229,7 @@ function dispatchBeforeRedirect(options, responseDetails) {
 function setProxy(options, configProxy, location) {
   let proxy = configProxy;
   if (!proxy && proxy !== false) {
-    const proxyUrl = (0,proxy_from_env/* getProxyForUrl */.T)(location);
+    const proxyUrl = proxy_from_env.getProxyForUrl(location);
     if (proxyUrl) {
       proxy = new URL(proxyUrl);
     }
@@ -79433,7 +79438,7 @@ const buildAddressEntry = (address, family) => resolveFamily(utils.isObject(addr
           /*eslint no-empty:0*/
         } catch (e) {}
       }
-    } else if (utils.isBlob(data)) {
+    } else if (utils.isBlob(data) || utils.isFile(data)) {
       data.size && headers.setContentType(data.type || 'application/octet-stream');
       headers.setContentLength(data.size || 0);
       data = external_stream_.Readable.from(helpers_readBlob(data));
@@ -79635,7 +79640,7 @@ const buildAddressEntry = (address, family) => resolveFamily(utils.isObject(addr
           if (rejected) {
             return;
           }
-          const err = new core_AxiosError('maxContentLength size of ' + config.maxContentLength + ' exceeded', core_AxiosError.ERR_BAD_RESPONSE, config, lastRequest);
+          const err = new core_AxiosError('stream has been aborted', core_AxiosError.ERR_BAD_RESPONSE, config, lastRequest);
           responseStream.destroy(err);
           reject(err);
         });
@@ -79735,63 +79740,10 @@ const buildAddressEntry = (address, family) => resolveFamily(utils.isObject(addr
 const __setProxy = (/* unused pure expression or super */ null && (setProxy));
 ;// ./node_modules/axios/lib/helpers/isURLSameOrigin.js
 
-
-
-
-/* harmony default export */ const isURLSameOrigin = (platform.hasStandardBrowserEnv ?
-// Standard browser envs have full support of the APIs needed to test
-// whether the request URL is of the same origin as current location.
-function standardBrowserEnv() {
-  const msie = platform.navigator && /(msie|trident)/i.test(platform.navigator.userAgent);
-  const urlParsingNode = document.createElement('a');
-  let originURL;
-
-  /**
-  * Parse a URL to discover its components
-  *
-  * @param {String} url The URL to be parsed
-  * @returns {Object}
-  */
-  function resolveURL(url) {
-    let href = url;
-    if (msie) {
-      // IE needs attribute set twice to normalize properties
-      urlParsingNode.setAttribute('href', href);
-      href = urlParsingNode.href;
-    }
-    urlParsingNode.setAttribute('href', href);
-
-    // urlParsingNode provides the UrlUtils interface - http://url.spec.whatwg.org/#urlutils
-    return {
-      href: urlParsingNode.href,
-      protocol: urlParsingNode.protocol ? urlParsingNode.protocol.replace(/:$/, '') : '',
-      host: urlParsingNode.host,
-      search: urlParsingNode.search ? urlParsingNode.search.replace(/^\?/, '') : '',
-      hash: urlParsingNode.hash ? urlParsingNode.hash.replace(/^#/, '') : '',
-      hostname: urlParsingNode.hostname,
-      port: urlParsingNode.port,
-      pathname: urlParsingNode.pathname.charAt(0) === '/' ? urlParsingNode.pathname : '/' + urlParsingNode.pathname
-    };
-  }
-  originURL = resolveURL(window.location.href);
-
-  /**
-  * Determine if a URL shares the same origin as the current location
-  *
-  * @param {String} requestURL The URL to test
-  * @returns {boolean} True if URL shares the same origin, otherwise false
-  */
-  return function isURLSameOrigin(requestURL) {
-    const parsed = utils.isString(requestURL) ? resolveURL(requestURL) : requestURL;
-    return parsed.protocol === originURL.protocol && parsed.host === originURL.host;
-  };
-}() :
-// Non standard browser envs (web workers, react-native) lack needed support.
-function nonStandardBrowserEnv() {
-  return function isURLSameOrigin() {
-    return true;
-  };
-}());
+/* harmony default export */ const isURLSameOrigin = (platform.hasStandardBrowserEnv ? ((origin, isMSIE) => url => {
+  url = new URL(url, platform.origin);
+  return origin.protocol === url.protocol && origin.host === url.host && (isMSIE || origin.port === url.port);
+})(new URL(platform.origin), platform.navigator && /(msie|trident)/i.test(platform.navigator.userAgent)) : () => true);
 ;// ./node_modules/axios/lib/helpers/cookies.js
 
 
@@ -79844,7 +79796,7 @@ function mergeConfig(config1, config2) {
   // eslint-disable-next-line no-param-reassign
   config2 = config2 || {};
   const config = {};
-  function getMergedValue(target, source, caseless) {
+  function getMergedValue(target, source, prop, caseless) {
     if (utils.isPlainObject(target) && utils.isPlainObject(source)) {
       return utils.merge.call({
         caseless
@@ -79858,11 +79810,11 @@ function mergeConfig(config1, config2) {
   }
 
   // eslint-disable-next-line consistent-return
-  function mergeDeepProperties(a, b, caseless) {
+  function mergeDeepProperties(a, b, prop, caseless) {
     if (!utils.isUndefined(b)) {
-      return getMergedValue(a, b, caseless);
+      return getMergedValue(a, b, prop, caseless);
     } else if (!utils.isUndefined(a)) {
-      return getMergedValue(undefined, a, caseless);
+      return getMergedValue(undefined, a, prop, caseless);
     }
   }
 
@@ -79919,7 +79871,7 @@ function mergeConfig(config1, config2) {
     socketPath: defaultToConfig2,
     responseEncoding: defaultToConfig2,
     validateStatus: mergeDirectKeys,
-    headers: (a, b) => mergeDeepProperties(headersToObject(a), headersToObject(b), true)
+    headers: (a, b, prop) => mergeDeepProperties(headersToObject(a), headersToObject(b), prop, true)
   };
   utils.forEach(Object.keys(Object.assign({}, config1, config2)), function computeConfigValue(prop) {
     const merge = mergeMap[prop] || mergeDeepProperties;
@@ -80613,6 +80565,13 @@ validators.transitional = function transitional(validator, version, message) {
     return validator ? validator(value, opt, opts) : true;
   };
 };
+validators.spelling = function spelling(correctSpelling) {
+  return (value, opt) => {
+    // eslint-disable-next-line no-console
+    console.warn(`${opt} is likely a misspelling of ${correctSpelling}`);
+    return true;
+  };
+};
 
 /**
  * Assert object's properties type
@@ -80692,8 +80651,8 @@ class Axios {
       return await this._request(configOrUrl, config);
     } catch (err) {
       if (err instanceof Error) {
-        let dummy;
-        Error.captureStackTrace ? Error.captureStackTrace(dummy = {}) : dummy = new Error();
+        let dummy = {};
+        Error.captureStackTrace ? Error.captureStackTrace(dummy) : dummy = new Error();
 
         // slice off the Error: ... line
         const stack = dummy.stack ? dummy.stack.replace(/^.+\n/, '') : '';
@@ -80745,6 +80704,10 @@ class Axios {
         }, true);
       }
     }
+    validator.assertOptions(config, {
+      baseUrl: Axios_validators.spelling('baseURL'),
+      withXsrfToken: Axios_validators.spelling('withXSRFToken')
+    }, true);
 
     // Set config.method
     config.method = (config.method || this.defaults.method || 'get').toLowerCase();
