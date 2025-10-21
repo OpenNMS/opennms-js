@@ -1,6 +1,7 @@
 import {Moment} from 'moment';
 
 import {IHasUrlValue} from '../api/IHasUrlValue';
+import { toJsonAwareReplace } from '../api/objUtils';
 import { Util } from '../internal/Util';
 
 import {OnmsCollectType} from './OnmsCollectType';
@@ -111,7 +112,12 @@ export class OnmsSnmpInterface implements IHasUrlValue {
       poll: this.poll,
       lastSnmpPoll: this.lastSnmpPoll?.toJSON(),
       physAddr: this.physAddr?.urlValue,
-      nodeId: this.nodeId
+      nodeId: this.nodeId,
+      replace: this.replace
     }
+  }
+
+  public replace(pattern: RegExp | string, replaceWith: string) {
+    return toJsonAwareReplace(this, pattern, replaceWith);
   }
 }
