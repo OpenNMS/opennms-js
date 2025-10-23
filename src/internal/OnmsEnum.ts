@@ -1,3 +1,5 @@
+import { toJsonAwareReplace } from '../api/objUtils';
+
 /**
  * Represents an enumerated type.
  * @category Internal
@@ -45,7 +47,12 @@ export class OnmsEnum<T> {
     return {
       id: this.i,
       label: this.l,
+      replace: this.replace
     };
+  }
+
+  public replace(pattern: RegExp | string, replaceWith: string) {
+    return toJsonAwareReplace(this, pattern, replaceWith);
   }
 }
 

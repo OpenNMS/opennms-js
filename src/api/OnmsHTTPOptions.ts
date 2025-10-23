@@ -2,6 +2,7 @@
 
 import {OnmsAuthConfig} from './OnmsAuthConfig';
 import {OnmsServer} from './OnmsServer';
+import { toJsonAwareReplace } from '../api/objUtils';
 import {IHash} from '../internal/IHash';
 import {Util} from '../internal/Util';
 
@@ -348,6 +349,12 @@ export class OnmsHTTPOptions {
     if (this[AUTH_PROP]) {
       ret.auth = this[AUTH_PROP];
     }
+
+    ret.replace = this.replace;
     return ret;
+  }
+
+  public replace(pattern: RegExp | string, replaceWith: string) {
+    return toJsonAwareReplace(this, pattern, replaceWith);
   }
 }
