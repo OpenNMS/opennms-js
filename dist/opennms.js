@@ -64590,15 +64590,46 @@ var get_prototype_of_default = /*#__PURE__*/__webpack_require__.n(get_prototype_
 // EXTERNAL MODULE: ./node_modules/@babel/runtime-corejs3/core-js-stable/reflect/construct.js
 var construct = __webpack_require__("./node_modules/@babel/runtime-corejs3/core-js-stable/reflect/construct.js");
 var construct_default = /*#__PURE__*/__webpack_require__.n(construct);
+// EXTERNAL MODULE: ./node_modules/core-js/modules/es.regexp.exec.js
+var es_regexp_exec = __webpack_require__("./node_modules/core-js/modules/es.regexp.exec.js");
+// EXTERNAL MODULE: ./node_modules/core-js/modules/es.string.replace.js
+var es_string_replace = __webpack_require__("./node_modules/core-js/modules/es.string.replace.js");
 // EXTERNAL MODULE: ./node_modules/@babel/runtime-corejs3/core-js-stable/instance/slice.js
 var slice = __webpack_require__("./node_modules/@babel/runtime-corejs3/core-js-stable/instance/slice.js");
 var slice_default = /*#__PURE__*/__webpack_require__.n(slice);
 // EXTERNAL MODULE: ./node_modules/@babel/runtime-corejs3/core-js-stable/number/parse-int.js
 var parse_int = __webpack_require__("./node_modules/@babel/runtime-corejs3/core-js-stable/number/parse-int.js");
 var parse_int_default = /*#__PURE__*/__webpack_require__.n(parse_int);
-;// ./src/internal/OnmsEnum.ts
+// EXTERNAL MODULE: ./node_modules/@babel/runtime-corejs3/core-js-stable/json/stringify.js
+var stringify = __webpack_require__("./node_modules/@babel/runtime-corejs3/core-js-stable/json/stringify.js");
+var stringify_default = /*#__PURE__*/__webpack_require__.n(stringify);
+// EXTERNAL MODULE: ./node_modules/core-js/modules/es.date.to-json.js
+var es_date_to_json = __webpack_require__("./node_modules/core-js/modules/es.date.to-json.js");
+;// ./src/api/objUtils.ts
 
+
+
+
+/**
+ * Fake 'replace' that converts this object to a string, then does a String.replace.
+ * This is to handle a bug in Grafana and json-source-map. See OPG-502.
+ * 
+ * Any objects defined in this library that have defined a toJSON() function which returns an 
+ * object (example: OnmsEnum), should also define a 'replace(pattern: RegExp | string, replaceWith: string)'
+ * method which just calls this (with self: this).
+ * Then in `toJSON`, make sure to add 'obj.replace = this.replace'.
+ * See OnmsEnum for implementation.
+ */
+var toJsonAwareReplace = function toJsonAwareReplace(self, pattern, replaceWith) {
+  var obj = self.hasOwnProperty('toJSON') && typeof self.toJSON === 'function' ? self.toJSON() : self;
+  var str = stringify_default()(obj);
+  return str.replace(pattern, replaceWith);
+};
+;// ./src/internal/OnmsEnum.ts
 function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof (symbol_default()) && "symbol" == typeof (iterator_default()) ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof (symbol_default()) && o.constructor === (symbol_default()) && o !== (symbol_default()).prototype ? "symbol" : typeof o; }, _typeof(o); }
+
+
+
 
 
 
@@ -64610,6 +64641,8 @@ function _defineProperties(e, r) { for (var t = 0; t < r.length; t++) { var o = 
 function _createClass(e, r, t) { return r && _defineProperties(e.prototype, r), t && _defineProperties(e, t), define_property_default()(e, "prototype", { writable: !1 }), e; }
 function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
 function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[(to_primitive_default())]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
+
+
 /**
  * Represents an enumerated type.
  * @category Internal
@@ -64667,8 +64700,14 @@ var OnmsEnum = /*#__PURE__*/function () {
     value: function toJSON() {
       return {
         id: this.i,
-        label: this.l
+        label: this.l,
+        replace: this.replace
       };
+    }
+  }, {
+    key: "replace",
+    value: function replace(pattern, replaceWith) {
+      return toJsonAwareReplace(this, pattern, replaceWith);
     }
   }]);
 }();
@@ -64781,16 +64820,11 @@ var Operators = {
   OR: new Operator(2, 'OR')
 };
 freeze_default()(Operators);
-// EXTERNAL MODULE: ./node_modules/core-js/modules/es.regexp.exec.js
-var es_regexp_exec = __webpack_require__("./node_modules/core-js/modules/es.regexp.exec.js");
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.string.match.js
 var es_string_match = __webpack_require__("./node_modules/core-js/modules/es.string.match.js");
 // EXTERNAL MODULE: ./node_modules/@babel/runtime-corejs3/core-js-stable/instance/find.js
 var find = __webpack_require__("./node_modules/@babel/runtime-corejs3/core-js-stable/instance/find.js");
 var find_default = /*#__PURE__*/__webpack_require__.n(find);
-// EXTERNAL MODULE: ./node_modules/@babel/runtime-corejs3/core-js-stable/json/stringify.js
-var stringify = __webpack_require__("./node_modules/@babel/runtime-corejs3/core-js-stable/json/stringify.js");
-var stringify_default = /*#__PURE__*/__webpack_require__.n(stringify);
 // EXTERNAL MODULE: ./node_modules/@babel/runtime-corejs3/core-js-stable/object/keys.js
 var keys = __webpack_require__("./node_modules/@babel/runtime-corejs3/core-js-stable/object/keys.js");
 var keys_default = /*#__PURE__*/__webpack_require__.n(keys);
@@ -65869,8 +65903,10 @@ var Util = /*#__PURE__*/function () {
 var cloneDeep = __webpack_require__("./node_modules/lodash/cloneDeep.js");
 var cloneDeep_default = /*#__PURE__*/__webpack_require__.n(cloneDeep);
 ;// ./src/api/OnmsHTTPOptions.ts
-
 function OnmsHTTPOptions_typeof(o) { "@babel/helpers - typeof"; return OnmsHTTPOptions_typeof = "function" == typeof (symbol_default()) && "symbol" == typeof (iterator_default()) ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof (symbol_default()) && o.constructor === (symbol_default()) && o !== (symbol_default()).prototype ? "symbol" : typeof o; }, OnmsHTTPOptions_typeof(o); }
+
+
+
 function OnmsHTTPOptions_classCallCheck(a, n) { if (!(a instanceof n)) throw new TypeError("Cannot call a class as a function"); }
 function OnmsHTTPOptions_defineProperties(e, r) { for (var t = 0; t < r.length; t++) { var o = r[t]; o.enumerable = o.enumerable || !1, o.configurable = !0, "value" in o && (o.writable = !0), define_property_default()(e, OnmsHTTPOptions_toPropertyKey(o.key), o); } }
 function OnmsHTTPOptions_createClass(e, r, t) { return r && OnmsHTTPOptions_defineProperties(e.prototype, r), t && OnmsHTTPOptions_defineProperties(e, t), define_property_default()(e, "prototype", { writable: !1 }), e; }
@@ -65887,6 +65923,7 @@ function OnmsHTTPOptions_toPrimitive(t, r) { if ("object" != OnmsHTTPOptions_typ
 
 
 /* eslint-disable max-classes-per-file */
+
 
 
 
@@ -66234,7 +66271,13 @@ var OnmsHTTPOptions = /*#__PURE__*/function () {
       if (this[AUTH_PROP]) {
         ret.auth = this[AUTH_PROP];
       }
+      ret.replace = this.replace;
       return ret;
+    }
+  }, {
+    key: "replace",
+    value: function replace(pattern, replaceWith) {
+      return toJsonAwareReplace(this, pattern, replaceWith);
     }
   }], [{
     key: "newBuilder",
@@ -71294,8 +71337,6 @@ var PrimaryTypes = {
   NOT_ELIGIBLE: new OnmsPrimaryType('N', 'NOT_ELIGIBLE')
 };
 freeze_default()(PrimaryTypes);
-// EXTERNAL MODULE: ./node_modules/core-js/modules/es.date.to-json.js
-var es_date_to_json = __webpack_require__("./node_modules/core-js/modules/es.date.to-json.js");
 ;// ./src/model/OnmsCollectType.ts
 
 function OnmsCollectType_typeof(o) { "@babel/helpers - typeof"; return OnmsCollectType_typeof = "function" == typeof (symbol_default()) && "symbol" == typeof (iterator_default()) ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof (symbol_default()) && o.constructor === (symbol_default()) && o !== (symbol_default()).prototype ? "symbol" : typeof o; }, OnmsCollectType_typeof(o); }
@@ -71451,8 +71492,6 @@ var SnmpStatusTypes = {
   3: new OnmsSnmpStatusType(3, 'TESTING')
 };
 freeze_default()(SnmpStatusTypes);
-// EXTERNAL MODULE: ./node_modules/core-js/modules/es.string.replace.js
-var es_string_replace = __webpack_require__("./node_modules/core-js/modules/es.string.replace.js");
 ;// ./src/model/PhysAddr.ts
 
 
@@ -71509,11 +71548,14 @@ var PhysAddr = /*#__PURE__*/function () {
 function OnmsSnmpInterface_typeof(o) { "@babel/helpers - typeof"; return OnmsSnmpInterface_typeof = "function" == typeof (symbol_default()) && "symbol" == typeof (iterator_default()) ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof (symbol_default()) && o.constructor === (symbol_default()) && o !== (symbol_default()).prototype ? "symbol" : typeof o; }, OnmsSnmpInterface_typeof(o); }
 
 
+
+
 function OnmsSnmpInterface_classCallCheck(a, n) { if (!(a instanceof n)) throw new TypeError("Cannot call a class as a function"); }
 function OnmsSnmpInterface_defineProperties(e, r) { for (var t = 0; t < r.length; t++) { var o = r[t]; o.enumerable = o.enumerable || !1, o.configurable = !0, "value" in o && (o.writable = !0), define_property_default()(e, OnmsSnmpInterface_toPropertyKey(o.key), o); } }
 function OnmsSnmpInterface_createClass(e, r, t) { return r && OnmsSnmpInterface_defineProperties(e.prototype, r), t && OnmsSnmpInterface_defineProperties(e, t), define_property_default()(e, "prototype", { writable: !1 }), e; }
 function OnmsSnmpInterface_toPropertyKey(t) { var i = OnmsSnmpInterface_toPrimitive(t, "string"); return "symbol" == OnmsSnmpInterface_typeof(i) ? i : i + ""; }
 function OnmsSnmpInterface_toPrimitive(t, r) { if ("object" != OnmsSnmpInterface_typeof(t) || !t) return t; var e = t[(to_primitive_default())]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != OnmsSnmpInterface_typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
+
 
 
 
@@ -71590,8 +71632,14 @@ var OnmsSnmpInterface = /*#__PURE__*/function () {
         poll: this.poll,
         lastSnmpPoll: (_this$lastSnmpPoll = this.lastSnmpPoll) === null || _this$lastSnmpPoll === void 0 ? void 0 : _this$lastSnmpPoll.toJSON(),
         physAddr: (_this$physAddr = this.physAddr) === null || _this$physAddr === void 0 ? void 0 : _this$physAddr.urlValue,
-        nodeId: this.nodeId
+        nodeId: this.nodeId,
+        replace: this.replace
       };
+    }
+  }, {
+    key: "replace",
+    value: function replace(pattern, replaceWith) {
+      return toJsonAwareReplace(this, pattern, replaceWith);
     }
   }], [{
     key: "fromData",

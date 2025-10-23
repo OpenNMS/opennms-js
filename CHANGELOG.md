@@ -1,4 +1,9 @@
-## [2.5.12-SNAPSHOT](https://github.com/OpenNMS/opennms-js/compare/v2.5.11...v2.5.12-SNAPSHOT) (2025-09-05)
+# [2.6.0-SNAPSHOT](https://github.com/OpenNMS/opennms-js/compare/v2.5.11...v2.6.0-SNAPSHOT) (2025-10-23)
+
+
+### Bug Fixes
+
+* opg-502 add fake 'replace' method when toJSON is defined ([#1118](https://github.com/OpenNMS/opennms-js/issues/1118)) ([97fe85b](https://github.com/OpenNMS/opennms-js/commit/97fe85baee28685829636369d8c8c49f72d1b977))
 
 
 
