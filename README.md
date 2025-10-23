@@ -22,6 +22,10 @@ OpenNMS.js follows [semantic versioning](https://semver.org/).
 
 ### Release Notes
 
+#### 2.6.0
+
+OpenNMS.js v2.6.0 added a small fix to improve with compatibility with Grafana
+
 #### 2.5.11
 
 OpenNMS.js v2.5.11 is a code-identical release to 2.5.11.
