@@ -44,7 +44,7 @@ commands:
 jobs:
   build:
     docker:
-      - image: cimg/node:16.14
+      - image: cimg/node:20.19
     steps:
       - checkout
       - build-dist
@@ -58,7 +58,7 @@ jobs:
           destination: api-docs.zip
   build-docs:
     docker:
-      - image: opennms/antora:2.3.4-b7274
+      - image: opennms/antora:3.1.4-b10433
     steps:
       - checkout
       - run:
@@ -74,7 +74,7 @@ jobs:
           destination: antora-docs.zip
   merge:
     docker:
-      - image: cimg/node:16.14
+      - image: cimg/node:20.19
     steps:
       #- add_ssh_keys:
       #    fingerprints:
@@ -97,7 +97,7 @@ jobs:
           command: git push --no-verify origin main:main
   pages:
     docker:
-      - image: cimg/node:16.14
+      - image: cimg/node:20.19
     steps:
       #- add_ssh_keys:
       #    fingerprints:

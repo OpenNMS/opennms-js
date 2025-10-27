@@ -85,8 +85,6 @@ export class FlowDAO extends BaseDAO {
      * Summarize the the dscp values based on parameters.
      * @param start - the start of the timespan to query (defaults to 4 hours ago)
      * @param end - the end of the timespan to query (defaults to now)
-     * @param includeOther - include an additional "other" result that
-     *                       represents everything that does not match the given applications
      * @param exporterNodeCriteria - the node ID or foreignSource:foreignId tuple
      * @param ifIndex - filter for flows that came through this SNMP interface
      * @param dscp - filter for flows with this Dscp value
@@ -110,8 +108,6 @@ export class FlowDAO extends BaseDAO {
      * @param start - the start of the timespan to query (defaults to 4 hours ago)
      * @param end - the end of the timespan to query (defaults to now)
      * @param step - the requested time interval between rows
-     * @param includeOther - include an additional "other" result that
-     *                       represents everything that does not match the given applications
      * @param exporterNodeCriteria - the node ID or foreignSource:foreignId tuple
      * @param ifIndex - filter for flows that came through this SNMP interface
      * @param dscp - filter for flows with this Dscp value

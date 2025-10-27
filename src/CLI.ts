@@ -1,29 +1,25 @@
 import 'core-js/stable';
 import 'regenerator-runtime/runtime';
 
-import {API, Rest, DAO, Client} from './API';
-
-import {log} from './api/Log';
-
+import { program } from 'commander';
+import * as fs from 'node:fs';
+import htmlToFormattedText from 'html-to-formatted-text';
 import cloneDeep from 'lodash/cloneDeep';
 import startCase from 'lodash/startCase';
+import path from 'path';
 import pc from 'picocolors';
-import {table, getBorderCharacters} from 'table';
+import { table, getBorderCharacters } from 'table';
+
+import { API, Rest, DAO, Client } from './API';
+import { log } from './api/Log';
 import { OrderBy, Order, Orders } from './api/OrderBy';
 
 /** @hidden */
 const CLI = () => {
   const version = (global as any).OPENNMS_JS_VERSION || require('../package.json').version || 'unknown';
 
-  /* eslint-disable */
-  const fs = require('fs');
-  const htmlToFormattedText = require("html-to-formatted-text");
-  const path = require('path');
-  const program = require('commander');
-  /* eslint-enable */
-
   const homedir = process.env[(process.platform === 'win32') ? 'USERPROFILE' : 'HOME'];
-  const defaultConfigFile = path.join(homedir, '.opennms-cli.config.json');
+  const defaultConfigFile = path.join(homedir ?? './', '.opennms-cli.config.json');
 
   const tableConfig = {
     border: getBorderCharacters(`void`),
@@ -37,10 +33,13 @@ const CLI = () => {
   };
 
   const readConfig = () => {
-    const configfile = program.config || defaultConfigFile;
+    const opts = program.opts();
+    const configfile = String(opts.config ?? '') || defaultConfigFile;
+
     let config;
+
     if (fs.existsSync(configfile)) {
-      config = JSON.parse(fs.readFileSync(configfile));
+      config = JSON.parse(fs.readFileSync(configfile).toString());
     } else {
       config = {
         password: 'admin',
@@ -48,11 +47,13 @@ const CLI = () => {
         username: 'admin',
       };
     }
+
     return config;
   };
 
   const handleError = (message: string, err: any) => {
     let realError: any = new Error(message);
+
     if (err instanceof API.OnmsResult) {
       realError = new API.OnmsError(message + ': ' + err.message, err.code);
     } else if (err.message) {
@@ -60,7 +61,10 @@ const CLI = () => {
     } else if (Object.prototype.toString.call(err) === '[object String]') {
       realError = new API.OnmsError(message + ': ' + err);
     }
-    if (program.debug) {
+
+    const opts = program.opts();
+
+    if (opts.debug) {
       log.error(realError.message, realError);
     } else {
       log.error(realError.message);
@@ -85,10 +89,11 @@ const CLI = () => {
     .description('Connect to an OpenNMS Horizon or Meridian server')
     .option('-u, --username <username>', 'The username to authenticate as (default: admin)')
     .option('-p, --password <password>', 'The password to authenticate with (default: admin)')
-    .action((url: string, options: any) => {
+    .action(async (url: string, options: any) => {
       log.warn('WARNING: This command saves your login'
         + ' information to ~/.opennms-cli.config.json in clear text.');
       const config = readConfig();
+
       if (url) {
         // the user is passing a URL, reset the config
         config.url = url;
@@ -102,18 +107,20 @@ const CLI = () => {
       if (options.password) {
         config.password = options.password;
       }
+
       const auth = new API.OnmsAuthConfig(config.username, config.password);
       const server = API.OnmsServer.newBuilder(config.url).setName('OpenNMS').setAuth(auth).build();
       const http = new Rest.AxiosHTTP(server);
+
       return Client.checkServer(server, http).then(() => {
         log.info('Connection succeeded.');
-        if (!program.config) { // don't write the config if a config was passed in
+
+        if (!program.opts().config) { // don't write the config if a config was passed in
           log.debug('Saving configuration to ' + defaultConfigFile);
           fs.writeFileSync(defaultConfigFile, JSON.stringify(config, undefined, 2), { mode: 0o600 });
         }
-        return true;
       }).catch((err) => {
-        return handleError('Server check failed', err);
+        handleError('Server check failed', err);
       });
     });
 
@@ -121,11 +128,12 @@ const CLI = () => {
   program
     .command('capabilities')
     .description('List the API capabilities of the OpenNMS server')
-    .action(() => {
+    .action(async () => {
       const config = readConfig();
       const auth = new API.OnmsAuthConfig(config.username, config.password);
       const server = API.OnmsServer.newBuilder(config.url).setName('OpenNMS').setAuth(auth).build();
       const http = new Rest.AxiosHTTP();
+
       return Client.getMetadata(server, http).then((res) => {
         let c = pc.green;
         if (res.type === API.ServerTypes.MERIDIAN) {
@@ -138,6 +146,7 @@ const CLI = () => {
 
         const data = [];
         const caps = res.capabilities();
+
         for (const cap in caps) {
           if (cap === 'type') {
             continue;
@@ -146,10 +155,8 @@ const CLI = () => {
         }
         log.log(table(data, tableConfig));
         log.log('');
-
-        return res;
       }).catch((err) => {
-        return handleError('Capabilities check failed', err);
+        handleError('Capabilities check failed', err);
       });
     });
 
@@ -203,8 +210,9 @@ const CLI = () => {
     .command('alarms [filters...]')
     // eslint-disable-next-line max-len
     .description('List current alarms with optional filters (eg: "severity eq MAJOR", "node.label like dns*", "orderBy=lastEventTime")')
-    .action((filters: string[]) => {
+    .action(async (filters: string[]) => {
       const config = readConfig();
+
       return new Client().connect('OpenNMS', config.url, config.username, config.password).then((client) => {
         const dao = new DAO.AlarmDAO(client);
 
@@ -301,9 +309,10 @@ const CLI = () => {
       p.alias(alias);
     }
     p.description(description);
-    p.action((passedId: string) => {
+    p.action(async (passedId: string) => {
       const id = parseInt(passedId, 10);
       const config = readConfig();
+
       return new Client().connect('OpenNMS', config.url, config.username, config.password).then((client) => {
         const dao = client.alarms();
         return (dao as any)[name](id).then(() => {
@@ -322,16 +331,16 @@ const CLI = () => {
     .alias('ack')
     .description('Acknowledge an alarm')
     .option('-u, --user <user>', 'Which user to acknowledge as (only administrators can do this)')
-    .action((passedId: string, options: any) => {
+    .action(async (passedId: string, options: any) => {
       const id = parseInt(passedId, 10);
       const config = readConfig();
+
       return new Client().connect('OpenNMS', config.url, config.username, config.password).then((client) => {
         return client.alarms().acknowledge(id, options.user).then(() => {
           log.log(pc.green('Success!'));
-          return true;
         });
       }).catch((err) => {
-        return handleError('Acknowledge failed', err);
+        handleError('Acknowledge failed', err);
       });
     });
 
@@ -342,16 +351,15 @@ const CLI = () => {
       .description('Create or update the sticky memo associated with the alarm')
       .option('-u, --user <user>', 'Which user to update the memo as (only administrators can do this)')
       .option('-b, --body <body>', 'Memo body')
-      .action((passedId: string, options: any) => {
+      .action(async (passedId: string, options: any) => {
           const id = parseInt(passedId, 10);
           const config = readConfig();
           return new Client().connect('OpenNMS', config.url, config.username, config.password).then((client) => {
               return client.alarms().saveStickyMemo(id, options.body, options.user).then(() => {
                   log.log(pc.green('Success!'));
-                  return true;
               });
           }).catch((err) => {
-              return handleError('Save failed', err);
+              handleError('Save failed', err);
           });
       });
 
@@ -362,16 +370,15 @@ const CLI = () => {
       .description('Create or update the journal memo associated with the alarm')
       .option('-u, --user <user>', 'Which user to update the memo as (only administrators can do this)')
       .option('-b, --body <body>', 'Memo body')
-      .action((passedId: string, options: any) => {
+      .action(async (passedId: string, options: any) => {
           const id = parseInt(passedId, 10);
           const config = readConfig();
           return new Client().connect('OpenNMS', config.url, config.username, config.password).then((client) => {
               return client.alarms().saveJournalMemo(id, options.body, options.user).then(() => {
                   log.log(pc.green('Success!'));
-                  return true;
               });
           }).catch((err) => {
-              return handleError('Save failed', err);
+              handleError('Save failed', err);
           });
       });
 

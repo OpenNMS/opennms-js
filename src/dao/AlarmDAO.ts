@@ -116,7 +116,7 @@ export class AlarmDAO extends AbstractDAO<number, OnmsAlarm> {
    * Acknowledge an alarm.
    *
    * @version ReST v1+
-   * @param {number|OnmsAlarm} id - The [[OnmsAlarm]] or alarm ID.
+   * @param {number|OnmsAlarm} alarm - The [[OnmsAlarm]] or alarm ID.
    * @param {string=} user - The user to ack the alarm as.
    *                  (Only administrators have the right to do this.)
    */

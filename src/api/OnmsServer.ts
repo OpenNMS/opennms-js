@@ -106,7 +106,6 @@ export class OnmsServerBuilder {
 export class OnmsServer {
   /**
    * Create a new builder for an [[OnmsServer]] object.
-   * @param server if an existing server object is passed, the builder will be pre-populated
    */
   public static newBuilder(url?: string) {
     return new OnmsServerBuilder(url);
@@ -136,11 +135,7 @@ export class OnmsServer {
    * ```
    *
    * @constructor
-   * @param name - A name for the server suitable for display.
-   * @param url - The URL to the server.
-   * @param auth - An [[OnmsAuthConfig]], or the username to authorize as.
-   * @param password - The password to authorize with if a username was
-   *                   supplied to the `auth` parameter.
+   * @param serverBuilder - A builder for the server params, see [[OnmsServerBuilder]]
    */
   public constructor(serverBuilder: OnmsServerBuilder) {
     if (!serverBuilder.url) {
@@ -156,7 +151,7 @@ export class OnmsServer {
   /**
    * Given a relative URL fragment, construct a URL for that fragment on the server.
    * @param forFragment - The URL fragment to append to the server URL.
-   * @parm withQuery - Query parameters to be appended to the URL.
+   * @param withQuery - Query parameters to be appended to the URL.
    * @returns A complete URL.
    */
   public resolveURL(forFragment?: string, withQuery?: any) {
