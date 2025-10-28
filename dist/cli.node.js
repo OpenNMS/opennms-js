@@ -99172,7 +99172,7 @@ function _asyncToGenerator(n) { return function () { var t = this, e = arguments
 /** @hidden */
 var CLI = function CLI() {
   var _context10;
-  var version = "2.6.1" || 0 || 0;
+  var version = "2.6.2-SNAPSHOT" || 0 || 0;
   var homedir = process.env[process.platform === 'win32' ? 'USERPROFILE' : 'HOME'];
   var defaultConfigFile = path__WEBPACK_IMPORTED_MODULE_38___default().join(homedir !== null && homedir !== void 0 ? homedir : './', '.opennms-cli.config.json');
   var tableConfig = {
