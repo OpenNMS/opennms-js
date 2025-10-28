@@ -37,4 +37,4 @@ export const addParameter = (hash: IHash<string|string[]>, key: string, value: a
   if (hash[key] !== String(value)) {
     hash[key] = [hash[key] as string, String(value)];
   }
-};
+}

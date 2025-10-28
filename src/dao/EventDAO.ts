@@ -1,17 +1,9 @@
 import {AbstractDAO} from './AbstractDAO';
-
 import {Filter} from '../api/Filter';
 import {IHasHTTP} from '../api/IHasHTTP';
 import {IOnmsHTTP} from '../api/IOnmsHTTP';
 import {OnmsError} from '../api/OnmsError';
-
-import {Util} from '../internal/Util';
-
 import {OnmsEvent} from '../model/OnmsEvent';
-import {OnmsParm} from '../model/OnmsParm';
-import {OnmsServiceType} from '../model/OnmsServiceType';
-import {OnmsSeverity} from '../model/OnmsSeverity';
-
 import {log} from '../api/Log';
 
 /**
@@ -91,5 +83,4 @@ export class EventDAO extends AbstractDAO<number, OnmsEvent> {
   private pathToEventsEndpoint() {
     return this.getApiVersion() === 2 ? 'api/v2/events' : 'rest/events';
   }
-
 }

@@ -11,3 +11,5 @@ declare module NodeJS {
     OPENNMS_JS_VERSION: string;
   }
 }
+
+declare module 'html-to-formatted-text'
