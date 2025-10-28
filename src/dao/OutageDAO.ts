@@ -4,8 +4,6 @@ import {Filter} from '../api/Filter';
 import {IHasHTTP} from '../api/IHasHTTP';
 import {IOnmsHTTP} from '../api/IOnmsHTTP';
 import {OnmsError} from '../api/OnmsError';
-
-import { OnmsIpInterface } from '../model/OnmsIpInterface';
 import { OnmsOutage } from '../model/OnmsOutage';
 
 /**
