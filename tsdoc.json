@@ -1,0 +1,17 @@
+{
+  "extends": ["typedoc/tsdoc.json"],
+  "tagDefinitions": [
+    {
+      "tagName": "@version",
+      "syntaxKind": "block"
+    },
+    {
+      "tagName": "@constructor",
+      "syntaxKind": "block"
+    },
+    {
+      "tagName": "@implements",
+      "syntaxKind": "block"
+    }
+  ]
+}

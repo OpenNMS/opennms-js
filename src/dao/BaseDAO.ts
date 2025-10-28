@@ -156,7 +156,7 @@ export abstract class BaseDAO {
 
   /**
    * Convert the given value to a date, or undefined if it cannot be converted.
-   * @deprecated use {@link Util.toDate} instead.
+   * @deprecated use [[Util.toDate]] instead.
    */
   protected toDate(from: any): Moment|undefined {
     return Util.toDate(from);
@@ -164,7 +164,7 @@ export abstract class BaseDAO {
 
   /**
    * Convert the given value to a number, or undefined if it cannot be converted.
-   * @deprecated use {@link Util.toNumber} instead.
+   * @deprecated use [[Util.toNumber]] instead.
    */
   protected toNumber(from: any): number|undefined {
     return Util.toNumber(from);

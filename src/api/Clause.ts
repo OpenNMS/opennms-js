@@ -29,5 +29,4 @@ export class Clause {
     this.restriction = restriction;
     this.operator = operator;
   }
-
 }
