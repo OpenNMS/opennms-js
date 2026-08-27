@@ -22,7 +22,7 @@ export class SituationFeedbackDAO extends BaseDAO {
    * Retrieve feedback.
    *
    * @version ReST v1
-   * @param {number} situationId - The alarmId of the Situation to use when querying.
+   * @param situationId - The alarmId of the Situation to use when querying.
    * @return An array of [[OnmsSituationFeedback]] objects.
    */
   public async getFeedback(situationId: number): Promise<OnmsSituationFeedback[]> {
@@ -43,7 +43,7 @@ export class SituationFeedbackDAO extends BaseDAO {
 
   /**
    * Retrieve the tags for a given prefix
-   * @param prefix the prefix associated with the tags
+   * @param prefix - the prefix associated with the tags
    */
   public async getTags(prefix: string): Promise<string[]> {
     const builder = OnmsHTTPOptions.newBuilder().setHeader('Accept', 'application/json');
@@ -63,8 +63,8 @@ export class SituationFeedbackDAO extends BaseDAO {
    * Submit Correlation Feedback for a Situation.
    *
    * @version ReST v1
-   * @param {number} situationId - The alarmId of the Situation to use when querying.
-   * @param {OnmsSituationFeedback[]} feedback - The [[OnmsSituationFeedback]].
+   * @param situationId - The alarmId of the Situation to use when querying.
+   * @param feedback - The [[OnmsSituationFeedback]].
    */
   public async saveFeedback(feedback: OnmsSituationFeedback[], situationId: number): Promise<void> {
     return this.post(this.pathToEndpoint() + '/' + situationId, this.serializeFeedback(feedback));
@@ -73,7 +73,7 @@ export class SituationFeedbackDAO extends BaseDAO {
     /**
      * Extracts the data from an HTTP Request result.
      *
-     * @param result the HTTP Request result.
+     * @param result - the HTTP Request result.
      * @returns An array of [[OnmsSituationFeedback]] objects.
      */
   public getData(result: any): OnmsSituationFeedback[] {

@@ -25,8 +25,8 @@ import {BaseDAO} from './BaseDAO';
  * OpenNMS ReST API in a consistent way.
  *
  * @category DAO
- * @typeparam K the ID/key type (number, string, etc.)
- * @typeparam T the model type (OnmsAlarm, OnmsEvent, etc.)
+ * @typeParam K - the ID/key type (number, string, etc.)
+ * @typeParam T - the model type (OnmsAlarm, OnmsEvent, etc.)
  */
 export abstract class AbstractDAO<K, T> extends BaseDAO implements IValueProvider {
   /** A local cache of v2 DAO properties (`api/v2/DAO/properties`) */
@@ -34,7 +34,6 @@ export abstract class AbstractDAO<K, T> extends BaseDAO implements IValueProvide
 
   /**
    * Returns the Promise for a [[IFilterProcessor]].
-   * @returns {Promise}
    */
   public async getFilterProcessor(): Promise<IFilterProcessor> {
       switch (this.getApiVersion()) {
@@ -70,7 +69,7 @@ export abstract class AbstractDAO<K, T> extends BaseDAO implements IValueProvide
     /**
      * Gets the property identified by the id if it exists.
      *
-     * @param id The id to search the property by.
+     * @param id - The id to search the property by.
      */
   public async searchProperty(id: string): Promise<SearchProperty | undefined> {
       const cache = await this.getPropertiesCache();
@@ -101,9 +100,9 @@ export abstract class AbstractDAO<K, T> extends BaseDAO implements IValueProvide
   /**
    * Finds the values for the given propertyId, if it exists.
    *
-   * @param {string} propertyId The propertyId to find the values for
-   * @param options Some additional options. May be implementer dependent, such as limit, or value restrictions
-   * @returns {Promise<any>} A promise containing the values.
+   * @param propertyId - The propertyId to find the values for
+   * @param options - Some additional options. May be implementer dependent, such as limit, or value restrictions
+   * @returns A promise containing the values.
    */
   public async findValues(propertyId: string, options?: any): Promise<any> {
     // FIXME get rid of the "as" bit once https://github.com/microsoft/TypeScript/issues/33752 is closed
@@ -120,7 +119,7 @@ export abstract class AbstractDAO<K, T> extends BaseDAO implements IValueProvide
     return this.parseResultList(result, 'value', path, (value: any) => value);
   }
 
-  /** @inheritdoc */
+  /** {@inheritDoc} */
   protected onSetServer(server: OnmsServer) {
     log.debug('Server has changed, invalidating DAO cache:' + JSON.stringify(server));
     this.propertiesCache = undefined;
@@ -135,10 +134,10 @@ export abstract class AbstractDAO<K, T> extends BaseDAO implements IValueProvide
    * Fetches the data from the result and verfifes that the <code>dataFieldName</code> exists in the data property.
    * If it does not exist, an exception is thrown.
    *
-   * @param result The result to fetch the data from
-   * @param dataFieldName The property name (basically <code>result.data[dataFieldName]</code>.
-   * @param path The path where the result was fetched from. This is for error handling
-   * @param mapCallbackFunction Callback function to convert each entry from <code>result.data[dataFieldName]</code>.
+   * @param result - The result to fetch the data from
+   * @param dataFieldName - The property name (basically <code>result.data[dataFieldName]</code>.
+   * @param path - The path where the result was fetched from. This is for error handling
+   * @param mapCallbackFunction - Callback function to convert each entry from <code>result.data[dataFieldName]</code>.
    */
   protected parseResultList(result: any, dataFieldName: string, path: string, mapCallbackFunction: any): any[] {
       let ret = [] as any[];
@@ -159,8 +158,8 @@ export abstract class AbstractDAO<K, T> extends BaseDAO implements IValueProvide
 
   /**
    * "visits" a filter clause, applying it to the filter visitor
-   * @param clause the clause to visit
-   * @param visitor the visitor impl to invoke
+   * @param clause - the clause to visit
+   * @param visitor - the visitor impl to invoke
    */
   protected visitClause(clause: Clause, visitor: IFilterVisitor) {
     if (visitor.onClause) { visitor.onClause(clause); }
@@ -181,8 +180,8 @@ export abstract class AbstractDAO<K, T> extends BaseDAO implements IValueProvide
 
   /**
    * Iterate over a Filter object and its children.
-   * @param filter the filter to visit
-   * @param visitor the class to invoke while visiting the filter
+   * @param filter - the filter to visit
+   * @param visitor - the class to invoke while visiting the filter
    */
   protected visitFilter(filter: Filter, visitor: IFilterVisitor) {
     if (visitor.onFilter) { visitor.onFilter(filter); }

@@ -75,7 +75,7 @@ export class OnmsIpInterface implements IHasUrlValue {
   /** the services on this interface */
   public services = [] as OnmsMonitoredService[];
 
-  /** @inheritdoc */
+  /** {@inheritDoc} */
   public get urlValue() {
     return String(this.id);
   }

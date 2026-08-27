@@ -161,7 +161,7 @@ export class V2FilterProcessor implements IFilterProcessor {
   * If the given value is a date value, it is converted to be properly parsed by the OpenNMS ReST API,
   * otherwise it is not modified.
   *
-  * @param value Any value which may need conversion.
+  * @param value - Any value which may need conversion.
   */
   private applyDateConversion(value: any): any {
       if (Util.isDateObject(value)) {

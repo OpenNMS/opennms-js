@@ -43,7 +43,7 @@ export class OnmsMonitoredService implements IHasUrlValue {
 
   public nodeLabel?: string;
 
-  /** @inheritdoc */
+  /** {@inheritDoc} */
   public get urlValue() {
     return this.type ? this.type.name : 'null';
   }

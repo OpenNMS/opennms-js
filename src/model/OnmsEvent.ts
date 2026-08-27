@@ -67,7 +67,7 @@ export class OnmsEvent implements IHasUrlValue {
     return undefined;
   }
 
-  /** @inheritdoc */
+  /** {@inheritDoc} */
   public get urlValue() {
     return String(this.id);
   }

@@ -14,7 +14,6 @@ import {MD5} from 'object-hash';
  * A builder for [[OnmsServer]].  Create a new one with [[OnmsServer.newBuilder]].
  * @category Rest
  */
-/* eslint-disable , @typescript-eslint/naming-convention,no-underscore-dangle,id-denylist,id-match,  */
 export class OnmsServerBuilder {
   /** @hidden */
   private _name?: string;
@@ -41,7 +40,7 @@ export class OnmsServerBuilder {
    * The display name of the server.
    *
    * If `undefined` is passed, the name will be unset.
-   * @param name the server name
+   * @param name - the server name
    */
   public setName(name?: string) {
     this._name = name;
@@ -52,7 +51,7 @@ export class OnmsServerBuilder {
    * The URL of the server.
    *
    * If `undefined` is passed, the URL will be unset.
-   * @param url the server's URL
+   * @param url - the server's URL
    */
   public setUrl(url?: string) {
     this._url = url;
@@ -63,7 +62,7 @@ export class OnmsServerBuilder {
    * The authentication config to use when connecting.
    *
    * If `undefined` is passed, the default authentication settings will be used.
-   * @param auth the authentication config
+   * @param auth - the authentication config
    */
   public setAuth(auth?: OnmsAuthConfig) {
     this._auth = auth;
@@ -74,7 +73,7 @@ export class OnmsServerBuilder {
    * The server metadata to associate with the server.
    *
    * If `undefined` is passed, no metadata will be used.
-   * @param metadata the metadata
+   * @param metadata - the metadata
    */
   public setMetadata(metadata?: ServerMetadata) {
     this._metadata = metadata;
@@ -97,7 +96,6 @@ export class OnmsServerBuilder {
     return this._metadata;
   }
 }
-/* eslint-enable , @typescript-eslint/naming-convention,no-underscore-dangle,id-denylist,id-match,  */
 
 /**
  * Represents a remote OpenNMS server.

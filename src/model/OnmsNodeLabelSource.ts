@@ -17,13 +17,12 @@ export class OnmsNodeLabelSource extends OnmsEnum<string> implements IHasUrlValu
     return forLabel(NodeLabelSources, label);
   }
 
-  /** @inheritdoc */
+  /** {@inheritDoc} */
   public get urlValue() {
     return this.id;
   }
 }
 
-/* eslint-disable  */
 /**
  * Contains constant instances of all available node label sources.
  * @category Model

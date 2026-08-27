@@ -99,7 +99,7 @@ export class OnmsNode implements IHasUrlValue {
   /** the assets of the node */
   public assets = {} as any;
 
-  /** @inheritdoc */
+  /** {@inheritDoc} */
   public get urlValue() {
     return String(this.id);
   }

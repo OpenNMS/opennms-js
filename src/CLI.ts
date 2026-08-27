@@ -73,7 +73,6 @@ const CLI = () => {
     process.exit(1);
   };
 
-  /* eslint-disable no-console */
 
   // global options
   program
@@ -208,7 +207,6 @@ const CLI = () => {
   // list current alarms
   program
     .command('alarms [filters...]')
-    // eslint-disable-next-line max-len
     .description('List current alarms with optional filters (eg: "severity eq MAJOR", "node.label like dns*", "orderBy=lastEventTime")')
     .action(async (filters: string[]) => {
       const config = readConfig();

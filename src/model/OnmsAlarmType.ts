@@ -6,12 +6,12 @@ import {OnmsEnum, forId} from '../internal/OnmsEnum';
  * @category Model
  */
 export class OnmsAlarmType extends OnmsEnum<number> implements IHasUrlValue {
-  /** @inheritdoc */
+  /** {@inheritDoc} */
   public static forId(id?: number) {
     return forId(AlarmTypes, id);
   }
 
-  /** @inheritdoc */
+  /** {@inheritDoc} */
   public get urlValue() {
     return String(this.id);
   }

@@ -34,7 +34,7 @@ export class OnmsSituationFeedback implements IHasUrlValue {
   /** the related alarm reduction key  */
   public timestamp?: number;
 
-  /** @inheritdoc */
+  /** {@inheritDoc} */
   public get urlValue() {
     return String(this.situationKey);
   }

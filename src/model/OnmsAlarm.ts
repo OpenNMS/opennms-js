@@ -126,7 +126,7 @@ export class OnmsAlarm implements IHasUrlValue {
     return this.relatedAlarms && this.relatedAlarms.length > 0;
   }
 
-  /** @inheritdoc */
+  /** {@inheritDoc} */
   public get urlValue() {
     return String(this.id);
   }

@@ -19,8 +19,8 @@ export class ServerMetadata {
   /**
    * Construct a ServerMetadata object.
    * @constructor
-   * @param version the version of the server
-   * @param type the type of server (Horizon, Meridian)
+   * @param version - the version of the server
+   * @param type - the type of server (Horizon, Meridian)
    */
   constructor(version: string | OnmsVersion, type: ServerType, ticketerConfig?: TicketerConfig) {
     if (version instanceof OnmsVersion) {
