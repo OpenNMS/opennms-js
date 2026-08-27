@@ -38,6 +38,7 @@ module.exports = [
                     globalReturn: false,
                 },
                 project: './tsconfig-prod.json',
+                tsconfigRootDir: __dirname,
             },
         },
         plugins: {
