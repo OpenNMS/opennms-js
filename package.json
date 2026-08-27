@@ -75,7 +75,6 @@
     "babel-plugin-module-resolver": "^5.0.0",
     "cache-loader": "^4.1.0",
     "chai": "^5.0.0",
-    "child_process": "^1.0.2",
     "core-js": "^3.46.0",
     "eslint": "^9.39.5",
     "eslint-plugin-import": "^2.32.0",
@@ -99,18 +98,17 @@
     "webpack-cli": "^6.0.1"
   },
   "dependencies": {
-    "@xmldom/xmldom": "^0.9.3",
-    "axios": "^1.13.0",
+    "@xmldom/xmldom": "^0.9.12",
+    "axios": "^1.20.0",
     "btoa": "^1.2.1",
     "commander": "^12.1.0",
-    "fs": "^0.0.2",
     "html-to-formatted-text": "^2.7.0",
-    "ip-address": "^10.0.1",
-    "lodash": "^4.17.21",
+    "ip-address": "^10.5.0",
+    "lodash": "^4.18.1",
     "moment": "^2.30.1",
     "object-hash": "^3.0.0",
     "picocolors": "^1.1.1",
-    "qs": "^6.13.1",
+    "qs": "^6.15.3",
     "regenerator-runtime": "^0.14.1",
     "table": "^6.9.0",
     "version_compare": "^0.0.3",
@@ -140,19 +138,40 @@
     "@antora/logger": {
       "pino": "^10.1.0"
     },
+    "@babel/plugin-transform-modules-systemjs": "^7.29.4",
+    "@isaacs/brace-expansion": "^5.0.1",
+    "@xmldom/xmldom@0.8": "^0.8.13",
+    "ajv@8": "^8.18.0",
+    "brace-expansion@1": "^1.1.18",
+    "brace-expansion@2": "^2.1.4",
     "cache-loader": {
       "ajv": "^6.12.3",
       "webpack": "^5.66.0"
     },
+    "convict": "^6.2.5",
+    "fast-uri": "^3.1.5",
+    "follow-redirects": "^1.16.0",
+    "form-data": "^4.0.6",
+    "glob@11": "^11.1.0",
     "html-to-formatted-text": {
       "striptags": "^3.2.0"
     },
     "jest": {
       "micromatch": "^4.0.8"
     },
+    "js-yaml@3": "^3.15.1",
+    "js-yaml@4": "^4.3.1",
+    "linkify-it": "^5.0.2",
+    "markdown-it": "^14.2.0",
+    "minimatch@10": "^10.2.3",
+    "minimatch@8": "^8.0.6",
+    "minimatch@9": "^9.0.7",
     "parallel-webpack": {
       "ajv": "^6.12.3",
       "webpack": "^5.66.0"
-    }
+    },
+    "picomatch@2": "^2.3.2",
+    "picomatch@4": "^4.0.4",
+    "yaml": "^2.8.3"
   }
 }
