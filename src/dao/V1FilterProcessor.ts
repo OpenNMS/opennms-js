@@ -5,22 +5,11 @@ import {Util} from '../internal/Util';
 import {addParameter, IFilterProcessor} from '../api/IFilterProcessor';
 
 import {Filter} from '../api/Filter';
-import {Comparator, Comparators} from '../api/Comparator';
+import {Comparators} from '../api/Comparator';
 import {Operators} from '../api/Operator';
 import {OnmsError} from '../api/OnmsError';
 import {Restriction} from '../api/Restriction';
 import {NestedRestriction} from '../api/NestedRestriction';
-
-/** @hidden */
-const nonExclusiveComparators = [
-  Comparators.NULL,
-  Comparators.NOTNULL,
-];
-
-/** @hidden */
-const isExclusive = (comparator: Comparator) => {
-  return nonExclusiveComparators.indexOf(comparator) < 0;
-};
 
 /**
  * Converts a [[Filter]] into ReSTv1 parameters.

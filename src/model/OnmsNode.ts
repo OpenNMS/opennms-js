@@ -148,7 +148,7 @@ export class OnmsNode implements IHasUrlValue {
     }
 
     for (const key in data.assetRecord) {
-      if (data.assetRecord.hasOwnProperty(key)
+      if (Object.prototype.hasOwnProperty.call(data.assetRecord, key)
         && data.assetRecord[key] !== null
         && data.assetRecord[key] !== undefined) {
         node.assets[key] = data.assetRecord[key];

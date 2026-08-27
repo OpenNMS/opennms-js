@@ -38,9 +38,10 @@ export abstract class AbstractDAO<K, T> extends BaseDAO implements IValueProvide
    */
   public async getFilterProcessor(): Promise<IFilterProcessor> {
       switch (this.getApiVersion()) {
-          case 2:
+          case 2: {
             const cache = await this.getPropertiesCache();
             return new V2FilterProcessor(cache);
+          }
           default:
             return Promise.resolve(new V1FilterProcessor());
       }
@@ -162,7 +163,6 @@ export abstract class AbstractDAO<K, T> extends BaseDAO implements IValueProvide
    * @param visitor the visitor impl to invoke
    */
   protected visitClause(clause: Clause, visitor: IFilterVisitor) {
-    const self = this;
     if (visitor.onClause) { visitor.onClause(clause); }
     const restriction = clause.restriction;
     if (restriction instanceof Restriction) {
@@ -171,7 +171,7 @@ export abstract class AbstractDAO<K, T> extends BaseDAO implements IValueProvide
       if (visitor.onNestedRestriction) { visitor.onNestedRestriction(restriction); }
       if (restriction.clauses) {
         restriction.clauses.forEach((c) => {
-          self.visitClause(c, visitor);
+          this.visitClause(c, visitor);
         });
       }
     } else {
@@ -185,11 +185,10 @@ export abstract class AbstractDAO<K, T> extends BaseDAO implements IValueProvide
    * @param visitor the class to invoke while visiting the filter
    */
   protected visitFilter(filter: Filter, visitor: IFilterVisitor) {
-    const self = this;
     if (visitor.onFilter) { visitor.onFilter(filter); }
     if (filter.clauses) {
       filter.clauses.forEach((clause) => {
-        self.visitClause(clause, visitor);
+        this.visitClause(clause, visitor);
       });
     }
   }

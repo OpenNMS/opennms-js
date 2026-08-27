@@ -1,4 +1,3 @@
-import { IpInterfaceDAO } from './../dao/IpInterfaceDAO';
 import {Moment} from 'moment';
 
 import {IHasUrlValue} from '../api/IHasUrlValue';
