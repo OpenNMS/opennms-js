@@ -1,5 +1,4 @@
 /** @hidden */
-declare const require;
 
 import {cloneDeep} from 'lodash';
 
@@ -9,7 +8,7 @@ import {OnmsResult} from '../../src/api/OnmsResult';
 
 /** Mock OpenNMS 19.x HTTP implementation */
 export class MockHTTP19 extends AbstractMockHTTP {
-  /** @inheritdoc */
+  /** {@inheritDoc} */
   public onGet(url: string, options?: OnmsHTTPOptions) {
     switch (url) {
       case 'http://demo.opennms.org/opennms/rest/info': {
@@ -63,7 +62,7 @@ export class MockHTTP19 extends AbstractMockHTTP {
     }
   }
 
-  /** @inheritdoc */
+  /** {@inheritDoc} */
   public onPut(url: string, options?: OnmsHTTPOptions) {
     switch(url) {
       case 'rest/alarms/404725?ack=true': {

@@ -1,4 +1,3 @@
-declare const await, describe, beforeEach, it, xit, expect, jest, require;
 
 import {Client} from '../../src/Client';
 
@@ -28,7 +27,7 @@ const SERVER_URL = 'http://demo.opennms.org/opennms/';
 const SERVER_USER = 'demo';
 const SERVER_PASSWORD = 'demo';
 
-let opennms: Client, server, auth, mockHTTP, dao: NodeDAO;
+let server, auth, mockHTTP, dao: NodeDAO;
 
 describe('NodeDAO with v1 API', () => {
   beforeEach((done) => {
@@ -36,7 +35,6 @@ describe('NodeDAO with v1 API', () => {
     const builder = OnmsServer.newBuilder(SERVER_URL).setName(SERVER_NAME).setAuth(auth);
     server = builder.build();
     mockHTTP = new MockHTTP19(server);
-    opennms = new Client(mockHTTP);
     dao = new NodeDAO(mockHTTP);
     Client.getMetadata(server, mockHTTP).then((metadata) => {
       server = builder.setMetadata(metadata).build();
@@ -109,7 +107,6 @@ describe('NodeDAO with v2 API', () => {
     const builder = OnmsServer.newBuilder(SERVER_URL).setName(SERVER_NAME).setAuth(auth);
     server = builder.build();
     mockHTTP = new MockHTTP21(server);
-    opennms = new Client(mockHTTP);
     dao = new NodeDAO(mockHTTP);
     Client.getMetadata(server, mockHTTP).then((metadata) => {
       server = builder.setMetadata(metadata).build();
@@ -181,7 +178,6 @@ describe('NodeDAO with v2 API, OpenNMS v33', () => {
     const builder = OnmsServer.newBuilder(SERVER_URL).setName(SERVER_NAME).setAuth(auth);
     server = builder.build();
     mockHTTP = new MockHTTP33(server);
-    opennms = new Client(mockHTTP);
     dao = new NodeDAO(mockHTTP);
     Client.getMetadata(server, mockHTTP).then((metadata) => {
       server = builder.setMetadata(metadata).build();
@@ -203,4 +199,3 @@ describe('NodeDAO with v2 API, OpenNMS v33', () => {
     });
   });
 });
- 

@@ -1,4 +1,3 @@
-declare const describe, beforeEach, it, expect;
 
 import {Client} from '../../src/Client';
 
@@ -27,7 +26,7 @@ const SERVER_URL = 'http://demo.opennms.org/opennms/';
 const SERVER_USER = 'demo';
 const SERVER_PASSWORD = 'demo';
 
-let opennms: Client, server, auth, mockHTTP, dao: AlarmDAO;
+let server, auth, mockHTTP, dao: AlarmDAO;
 
 describe('AlarmDAO with v1 API', () => {
   beforeEach((done) => {
@@ -35,7 +34,6 @@ describe('AlarmDAO with v1 API', () => {
     const builder = OnmsServer.newBuilder(SERVER_URL).setName(SERVER_NAME).setAuth(auth);
     server = builder.build();
     mockHTTP = new MockHTTP19(server);
-    opennms = new Client(mockHTTP);
     dao = new AlarmDAO(mockHTTP);
     Client.getMetadata(server, mockHTTP).then((metadata) => {
       server = builder.setMetadata(metadata).build();
@@ -235,7 +233,6 @@ describe('AlarmDAO with v2 API', () => {
     const builder = OnmsServer.newBuilder(SERVER_URL).setName(SERVER_NAME).setAuth(auth);
     server = builder.build();
     mockHTTP = new MockHTTP21(server);
-    opennms = new Client(mockHTTP);
     dao = new AlarmDAO(mockHTTP);
     Client.getMetadata(server, mockHTTP).then((metadata) => {
       server = builder.setMetadata(metadata).build();
@@ -441,7 +438,6 @@ describe('AlarmDAO with AlarmSummaryDTO', () => {
     const builder = OnmsServer.newBuilder(SERVER_URL).setName(SERVER_NAME).setAuth(auth);
     server = builder.build();
     mockHTTP = new MockHTTP23(server);
-    opennms = new Client(mockHTTP);
     dao = new AlarmDAO(mockHTTP);
     Client.getMetadata(server, mockHTTP).then((metadata) => {
       server = builder.setMetadata(metadata).build();
@@ -473,7 +469,6 @@ describe('Server and property caching', () => {
     const builder = OnmsServer.newBuilder(SERVER_URL).setName(SERVER_NAME).setAuth(auth);
     server = builder.build();
     mockHTTP = new MockHTTP23(server);
-    opennms = new Client(mockHTTP);
     dao = new AlarmDAO(mockHTTP);
     Client.getMetadata(server, mockHTTP).then((metadata) => {
       server = builder.setMetadata(metadata).build();
@@ -516,7 +511,6 @@ describe('Extended Situation tests', () => {
     const builder = OnmsServer.newBuilder(SERVER_URL).setName(SERVER_NAME).setAuth(auth);
     server = builder.build();
     mockHTTP = new MockHTTP23(server);
-    opennms = new Client(mockHTTP);
     dao = new AlarmDAO(mockHTTP);
     Client.getMetadata(server, mockHTTP).then((metadata) => {
       server = builder.setMetadata(metadata).build();

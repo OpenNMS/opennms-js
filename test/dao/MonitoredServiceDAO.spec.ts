@@ -1,4 +1,3 @@
-declare const describe, beforeEach, it, expect;
 
 import { Client} from '../../src/Client';
 
@@ -13,7 +12,7 @@ const SERVER_URL = 'http://demo.opennms.org/opennms/';
 const SERVER_USER = 'demo';
 const SERVER_PASSWORD = 'demo';
 
-let opennms: Client, server, auth, mockHTTP, dao: MonitoredServiceDAO;
+let server, auth, mockHTTP, dao: MonitoredServiceDAO;
 
 describe('MonitoredServiceDAO with v2 API', () => {
   beforeEach((done) => {
@@ -21,7 +20,6 @@ describe('MonitoredServiceDAO with v2 API', () => {
     const builder = OnmsServer.newBuilder(SERVER_URL).setName(SERVER_NAME).setAuth(auth);
     server = builder.build();
     mockHTTP = new MockHTTP32(server);
-    opennms = new Client(mockHTTP);
     dao = new MonitoredServiceDAO(mockHTTP);
     Client.getMetadata(server, mockHTTP).then((metadata) => {
       server = builder.setMetadata(metadata).build();
@@ -99,7 +97,7 @@ describe('MonitoredServiceDAO with v2 API', () => {
       expect(service.status?.id).toEqual('A');
       expect(service.status?.label).toEqual('MANAGED');
       expect(service.urlValue).toEqual('DeviceConfig-default');
- 
+
       service = services[1]
       expect(service.id).toEqual(5);
       expect(service.down).toBeTruthy();
@@ -114,7 +112,6 @@ describe('MonitoredServiceDAO with v2 API', () => {
       service = services[5]
       expect(service.id).toEqual(39);
       expect(service.down).toEqual(false);
-      expect(service.lastFail?.valueOf()).toEqual();
       expect(service.lastGood?.valueOf()).toEqual(1663000345039);
       expect(service.lastFail).not.toBeDefined();
       expect(service.type?.id).toEqual(3);

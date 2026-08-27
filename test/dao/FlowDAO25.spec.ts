@@ -1,14 +1,11 @@
 import {MockHTTP25} from '../rest/MockHTTP25';
 
-declare const await, describe, beforeEach, it, xit, expect, jest, require;
 
 import {Client} from '../../src/Client';
 
 import {OnmsAuthConfig} from '../../src/api/OnmsAuthConfig';
 import {OnmsServer} from '../../src/api/OnmsServer';
 
-import {OnmsFlowExporter} from '../../src/model/OnmsFlowExporter';
-import {OnmsFlowExporterSummary} from '../../src/model/OnmsFlowExporterSummary';
 import {OnmsFlowTable} from '../../src/model/OnmsFlowTable';
 
 import {FlowDAO} from '../../src/dao/FlowDAO';
@@ -22,7 +19,7 @@ const SERVER_URL = 'http://demo.opennms.org/opennms/';
 const SERVER_USER = 'demo';
 const SERVER_PASSWORD = 'demo';
 
-let opennms: Client, server, auth, mockHTTP, dao: FlowDAO;
+let server, auth, mockHTTP, dao: FlowDAO;
 
 describe('FlowDAO25', () => {
     beforeEach((done) => {
@@ -30,7 +27,6 @@ describe('FlowDAO25', () => {
         const builder = OnmsServer.newBuilder(SERVER_URL).setName(SERVER_NAME).setAuth(auth);
         server = builder.build();
         mockHTTP = new MockHTTP25(server);
-        opennms = new Client(mockHTTP);
         dao = new FlowDAO(mockHTTP);
         Client.getMetadata(server, mockHTTP).then((metadata) => {
             server = builder.setMetadata(metadata).build();

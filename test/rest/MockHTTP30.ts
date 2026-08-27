@@ -3,7 +3,7 @@ import {OnmsHTTPOptions} from '../../src/api/OnmsHTTPOptions';
 
 /** Mock OpenNMS 30.x HTTP implementation */
 export class MockHTTP30 extends AbstractMockHTTP {
-  /** @inheritdoc */
+  /** {@inheritDoc} */
   public onGet(url: string, options?: OnmsHTTPOptions) {
     switch(url) {
       case 'http://demo.opennms.org/opennms/rest/info': {
@@ -14,16 +14,16 @@ export class MockHTTP30 extends AbstractMockHTTP {
           version: '30.0.0',
         });
       }
-      // Use the v30 responses   
+      // Use the v30 responses
       case 'api/v2/snmpinterfaces': {
         return this.okJsonFile('./30.0.0/get/api/v2/snmpinterfaces.json');
-      } 
+      }
       case 'api/v2/snmpinterfaces/properties': {
         return this.okJsonFile('./30.0.0/get/api/v2/snmpinterfaces.properties.json');
-      } 
+      }
       case 'api/v2/snmpinterfaces?limit=1000&_s=ifName%3D%3Dsome-test':{
         return this.okJsonFile('./30.0.0/get/api/v2/snmpinterfaces.filtered.json');
-      }    
+      }
     }
   }
 }

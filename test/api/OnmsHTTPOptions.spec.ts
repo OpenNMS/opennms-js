@@ -1,4 +1,3 @@
-declare const describe, beforeEach, it, expect;
 
 import {OnmsHTTPOptions, OnmsHTTPOptionsBuilder} from '../../src/api/OnmsHTTPOptions';
 

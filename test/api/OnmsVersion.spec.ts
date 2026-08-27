@@ -1,4 +1,3 @@
-declare const describe, beforeEach, it, expect;
 
 import {OnmsVersion} from '../../src/api/OnmsVersion';
 

@@ -1,4 +1,3 @@
-declare const describe, beforeEach, it, expect;
 
 import {OnmsAuthConfig} from '../../src/api/OnmsAuthConfig';
 import {OnmsServer} from '../../src/api/OnmsServer';
