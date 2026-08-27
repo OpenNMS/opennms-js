@@ -139,7 +139,7 @@
     "@antora/logger": {
       "pino": "^10.1.0"
     },
-    "@babel/plugin-transform-modules-systemjs": "^7.29.4",
+    "@babel/plugin-transform-modules-systemjs@7": "^7.29.4",
     "@isaacs/brace-expansion": "^5.0.1",
     "@xmldom/xmldom@0.8": "^0.8.13",
     "ajv@8": "^8.18.0",
@@ -149,10 +149,10 @@
       "ajv": "^6.12.3",
       "webpack": "^5.66.0"
     },
-    "convict": "^6.2.5",
-    "fast-uri": "^3.1.5",
-    "follow-redirects": "^1.16.0",
-    "form-data": "^4.0.6",
+    "convict@6.2": "~6.2.5",
+    "fast-uri@3": "^3.1.5",
+    "follow-redirects@1": "^1.16.0",
+    "form-data@4": "^4.0.6",
     "glob@11": "^11.1.0",
     "html-to-formatted-text": {
       "striptags": "^3.2.0"
@@ -162,8 +162,8 @@
     },
     "js-yaml@3": "^3.15.1",
     "js-yaml@4": "^4.3.1",
-    "linkify-it": "^5.0.2",
-    "markdown-it": "^14.2.0",
+    "linkify-it@5": "^5.0.2",
+    "markdown-it@14": "^14.2.0",
     "minimatch@10": "^10.2.3",
     "minimatch@8": "^8.0.6",
     "minimatch@9": "^9.0.7",
@@ -173,6 +173,6 @@
     },
     "picomatch@2": "^2.3.2",
     "picomatch@4": "^4.0.4",
-    "yaml": "^2.8.3"
+    "yaml@2": "^2.8.3"
   }
 }
