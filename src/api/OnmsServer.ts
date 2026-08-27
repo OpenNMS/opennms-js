@@ -183,10 +183,12 @@ export class OnmsServer {
    * Create a new server object from this existing one, with the same ID.
    */
   public clone() {
+    const auth = this.auth ? this.auth.clone() : undefined;
+    const metadata = this.metadata ? this.metadata.clone() : undefined;
     return new OnmsServerBuilder(this.url)
       .setName(this.name)
-      .setAuth(this.auth || undefined)
-      .setMetadata(this.metadata || undefined)
+      .setAuth(auth)
+      .setMetadata(metadata)
       .build();
   }
 
