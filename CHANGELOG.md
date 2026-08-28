@@ -1,10 +1,6 @@
-## [2.6.2-SNAPSHOT](https://github.com/OpenNMS/opennms-js/compare/v2.6.1...v2.6.2-SNAPSHOT) (2025-10-28)
-
-
+## [2.6.2-SNAPSHOT](https://github.com/OpenNMS/opennms-js/compare/v2.6.1...v2.6.2-SNAPSHOT) (2026-08-28)
 
 ## [2.6.1](https://github.com/OpenNMS/opennms-js/compare/v2.6.0...v2.6.1) (2025-10-28)
-
-
 
 # [2.6.0](https://github.com/OpenNMS/opennms-js/compare/v2.5.11...v2.6.0) (2025-10-23)
 
@@ -13,11 +9,7 @@
 
 * opg-502 add fake 'replace' method when toJSON is defined ([#1118](https://github.com/OpenNMS/opennms-js/issues/1118)) ([97fe85b](https://github.com/OpenNMS/opennms-js/commit/97fe85baee28685829636369d8c8c49f72d1b977))
 
-
-
 ## [2.5.11](https://github.com/OpenNMS/opennms-js/compare/v2.5.10...v2.5.11) (2025-01-15)
-
-
 
 ## [2.5.8](https://github.com/OpenNMS/opennms-js/compare/v2.5.7...v2.5.8) (2023-10-10)
 
@@ -26,115 +18,59 @@
 
 * add fields to monitored services ([ad3d90d](https://github.com/OpenNMS/opennms-js/commit/ad3d90d8a7c423dd0946fcfb98c7decd68de84f1))
 
-
-
 ## [2.5.6](https://github.com/OpenNMS/opennms-js/compare/v2.5.5...v2.5.6) (2023-06-09)
-
-
 
 ## [2.5.5](https://github.com/OpenNMS/opennms-js/compare/v2.5.4...v2.5.5) (2023-03-21)
 
-
-
 ## [2.5.4](https://github.com/OpenNMS/opennms-js/compare/v2.5.3...v2.5.4) (2023-03-15)
-
-
 
 ## [2.5.3](https://github.com/OpenNMS/opennms-js/compare/v2.5.2...v2.5.3) (2023-03-15)
 
-
-
 ## [2.5.2](https://github.com/OpenNMS/opennms-js/compare/v2.5.1...v2.5.2) (2022-12-13)
-
-
 
 ## [2.5.1](https://github.com/OpenNMS/opennms-js/compare/v2.5.0...v2.5.1) (2022-09-21)
 
-
-
 # [2.5.0](https://github.com/OpenNMS/opennms-js/compare/v2.4.1...v2.5.0) (2022-09-06)
-
-
 
 ## [2.4.1](https://github.com/OpenNMS/opennms-js/compare/v2.4.0...v2.4.1) (2022-01-13)
 
-
-
 # [2.4.0](https://github.com/OpenNMS/opennms-js/compare/v2.3.0...v2.4.0) (2022-01-13)
-
-
 
 # [2.3.0](https://github.com/OpenNMS/opennms-js/compare/v2.2.0...v2.3.0) (2021-08-24)
 
-
-
 # [2.2.0](https://github.com/OpenNMS/opennms-js/compare/v2.1.1...v2.2.0) (2021-08-18)
-
-
 
 ## [2.1.1](https://github.com/OpenNMS/opennms-js/compare/v2.1.0...v2.1.1) (2021-05-03)
 
-
-
 # [2.1.0](https://github.com/OpenNMS/opennms-js/compare/v2.0.2...v2.1.0) (2021-05-03)
-
-
 
 ## [2.0.2](https://github.com/OpenNMS/opennms-js/compare/v2.0.1...v2.0.2) (2020-04-13)
 
-
-
 ## [2.0.1](https://github.com/OpenNMS/opennms-js/compare/v2.0.0...v2.0.1) (2019-10-25)
-
-
 
 # [2.0.0](https://github.com/OpenNMS/opennms-js/compare/v1.5.0...v2.0.0) (2019-09-30)
 
-
-
 # [1.5.0](https://github.com/OpenNMS/opennms-js/compare/v1.4.0...v1.5.0) (2019-06-07)
-
-
 
 # [1.4.0](https://github.com/OpenNMS/opennms-js/compare/v1.3.1...v1.4.0) (2019-04-09)
 
-
-
 ## [1.3.1](https://github.com/OpenNMS/opennms-js/compare/v1.3.0...v1.3.1) (2019-03-27)
-
-
 
 # [1.3.0](https://github.com/OpenNMS/opennms-js/compare/v1.2.2...v1.3.0) (2018-12-07)
 
-
-
 ## [1.2.2](https://github.com/OpenNMS/opennms-js/compare/v1.2.1...v1.2.2) (2018-05-17)
-
-
 
 ## [1.2.1](https://github.com/OpenNMS/opennms-js/compare/v1.2.0...v1.2.1) (2018-04-13)
 
-
-
 # [1.2.0](https://github.com/OpenNMS/opennms-js/compare/v1.1.1...v1.2.0) (2018-03-30)
-
-
 
 ## [1.1.1](https://github.com/OpenNMS/opennms-js/compare/v1.1.0...v1.1.1) (2018-03-16)
 
-
-
 ## [1.0.3](https://github.com/OpenNMS/opennms-js/compare/v1.0.2...v1.0.3) (2018-02-13)
-
-
 
 ## [1.0.2](https://github.com/OpenNMS/opennms-js/compare/v1.0.1...v1.0.2) (2017-09-25)
 
-
-
 ## [1.0.1](https://github.com/OpenNMS/opennms-js/compare/v1.0.0...v1.0.1) (2017-09-13)
-
-
 
 # [1.0.0](https://github.com/OpenNMS/opennms-js/compare/v1.0.0-beta.1...v1.0.0) (2017-09-08)
 
@@ -143,11 +79,7 @@
 
 * **cli:** add --version, also a warning about passwords ([1c07be9](https://github.com/OpenNMS/opennms-js/commit/1c07be9e541253af7717240825f73a7586f30e12))
 
-
-
 # [0.1.0-alpha.3](https://github.com/OpenNMS/opennms-js/compare/v0.1.0-alpha.2...v0.1.0-alpha.3) (2017-07-21)
-
-
 
 ## [2.5.7](https://github.com/OpenNMS/opennms-js/compare/v2.5.6...v2.5.7) (2023-09-11)
 
@@ -157,8 +89,6 @@
 * add down to monitored services response ([ae8835e](https://github.com/OpenNMS/opennms-js/commit/ae8835edf74b0b54fa331442967439c4a023b94b))
 * document public property ([8bc343d](https://github.com/OpenNMS/opennms-js/commit/8bc343d88818162ada5dd14a3be65d35f4999b31))
 
-
-
 ## [2.5.6](https://github.com/OpenNMS/opennms-js/compare/v2.5.5...v2.5.6) (2023-06-09)
 
 
@@ -167,15 +97,9 @@
 * **deps-dev:** repair overly-messed-with antora deps ([4eef88e](https://github.com/OpenNMS/opennms-js/commit/4eef88ed37aed43aa6eee41fbf737bd7a92c66c8))
 * **deps:** fix typedoc dependency to allow ts 5.1 ([1c0c2d0](https://github.com/OpenNMS/opennms-js/commit/1c0c2d037075b20562f4901802d05adedfeac418))
 
-
-
 ## [2.5.5](https://github.com/OpenNMS/opennms-js/compare/v2.5.4...v2.5.5) (2023-03-21)
 
-
-
 ## [2.5.4](https://github.com/OpenNMS/opennms-js/compare/v2.5.3...v2.5.4) (2023-03-15)
-
-
 
 ## [2.5.3](https://github.com/OpenNMS/opennms-js/compare/v2.5.2...v2.5.3) (2023-03-15)
 
@@ -183,8 +107,6 @@
 ### Bug Fixes
 
 * handle stricter typing in updated axios ([cfd42e3](https://github.com/OpenNMS/opennms-js/commit/cfd42e32e4fcb61a4730946fa06e926d0b30d3d5))
-
-
 
 ## [2.5.2](https://github.com/OpenNMS/opennms-js/compare/v2.5.1...v2.5.2) (2022-12-13)
 
@@ -194,11 +116,7 @@
 * **server:** make sure input is always just a string for hashing ([3022964](https://github.com/OpenNMS/opennms-js/commit/30229646161f26a1c3c200d3dbd4455d6ed91979))
 * update axios code to match 1.x ([2378662](https://github.com/OpenNMS/opennms-js/commit/2378662f393c4a009649251d8523f297378fe7ee))
 
-
-
 ## [2.5.1](https://github.com/OpenNMS/opennms-js/compare/v2.5.0...v2.5.1) (2022-09-21)
-
-
 
 # [2.5.0](https://github.com/OpenNMS/opennms-js/compare/v2.4.1...v2.5.0) (2022-09-06)
 
@@ -213,11 +131,7 @@
 
 * Revert "build: always merge the specific revision being tested" ([8e320cf](https://github.com/OpenNMS/opennms-js/commit/8e320cf3ab5783800f155bab60318c924b3e596a))
 
-
-
 ## [2.4.1](https://github.com/OpenNMS/opennms-js/compare/v2.4.0...v2.4.1) (2022-01-13)
-
-
 
 # [2.4.0](https://github.com/OpenNMS/opennms-js/compare/v2.3.0...v2.4.0) (2022-01-13)
 
@@ -226,16 +140,12 @@
 
 * Revert "build(deps): fix a number of dependencies from npm audit" ([e01de80](https://github.com/OpenNMS/opennms-js/commit/e01de80f64c92b10210fa8c522971dfb71dea3d2))
 
-
-
 # [2.3.0](https://github.com/OpenNMS/opennms-js/compare/v2.2.0...v2.3.0) (2021-08-24)
 
 
 ### Features
 
 * add SNMP interface, service, and outage support (HELM-228) ([c74b7fb](https://github.com/OpenNMS/opennms-js/commit/c74b7fbc12398b0f643e8414893042d1f3e0f0c8))
-
-
 
 # [2.2.0](https://github.com/OpenNMS/opennms-js/compare/v2.1.1...v2.2.0) (2021-08-18)
 
@@ -249,11 +159,7 @@
 
 * **dao:** implement /api/v2/ipinterfaces (HELM-188) ([394afce](https://github.com/OpenNMS/opennms-js/commit/394afcea5c370f8cf0eebe14678d16dd2e2c2696))
 
-
-
 ## [2.1.1](https://github.com/OpenNMS/opennms-js/compare/v2.1.0...v2.1.1) (2021-05-03)
-
-
 
 # [2.1.0](https://github.com/OpenNMS/opennms-js/compare/v2.0.2...v2.1.0) (2021-05-03)
 
@@ -272,16 +178,12 @@
 * **tos:** fix required versions, refactor meta name ([1817dc8](https://github.com/OpenNMS/opennms-js/commit/1817dc8f2c07c9cdf3309b657677d98d178f6b9b))
 * **tos:** remove ecn related code ([1e27742](https://github.com/OpenNMS/opennms-js/commit/1e277423f2be52d45bdd29fa7d40ef62668c92d2))
 
-
-
 ## [2.0.2](https://github.com/OpenNMS/opennms-js/compare/v2.0.1...v2.0.2) (2020-04-13)
 
 
 ### Bug Fixes
 
 * **rest:** fix response type handling in grafana 6.7 (HELM-232) ([874cd80](https://github.com/OpenNMS/opennms-js/commit/874cd801bc76683b41bd4dda75565e3d9a43f84f))
-
-
 
 ## [2.0.1](https://github.com/OpenNMS/opennms-js/compare/v2.0.0...v2.0.1) (2019-10-25)
 
@@ -290,8 +192,6 @@
 
 * **dao:** handle .fromData when data is undefined (JS-45) ([efe6858](https://github.com/OpenNMS/opennms-js/commit/efe6858229fd56a61bba224653f9c1e0c250aa01))
 * **dao:** warn if lastEvent is missing on an alarm (JS-45) ([e4af27d](https://github.com/OpenNMS/opennms-js/commit/e4af27d2391aa20a10d47465c2fabb8d77dc451d))
-
-
 
 # [2.0.0](https://github.com/OpenNMS/opennms-js/compare/v1.5.0...v2.0.0) (2019-09-30)
 
@@ -337,8 +237,6 @@
 * **rest:** AbstractHTTP.getServer now throws an error if a
 server cannot be returned when it is called.
 
-
-
 # [1.5.0](https://github.com/OpenNMS/opennms-js/compare/v1.4.0...v1.5.0) (2019-06-07)
 
 
@@ -356,8 +254,6 @@ server cannot be returned when it is called.
 * **drift2:** HZN-1559,HZN-1570,HZN-1571 ([1f0fd21](https://github.com/OpenNMS/opennms-js/commit/1f0fd214349e656a225e0bcdcd47861c61c79453))
 * **drift2:** HZN-1559,HZN-1570,HZN-1571 ([77b094d](https://github.com/OpenNMS/opennms-js/commit/77b094d16e7406a36e7f830ed9e8364327e4a4f2))
 
-
-
 # [1.4.0](https://github.com/OpenNMS/opennms-js/compare/v1.3.1...v1.4.0) (2019-04-09)
 
 
@@ -365,8 +261,6 @@ server cannot be returned when it is called.
 
 * **alarms:** HZN-1492 : Add RootCause and Tags to SituationFeedback ([#35](https://github.com/OpenNMS/opennms-js/issues/35)) ([3790072](https://github.com/OpenNMS/opennms-js/commit/37900725f5f97fb4ff22114ea411018686c03243))
 * **dao:** JS-29 - add support for "isAcknowledged" on alarms ([ff1515a](https://github.com/OpenNMS/opennms-js/commit/ff1515ab0588e2e978169f5a146e0497cbee9096))
-
-
 
 ## [1.3.1](https://github.com/OpenNMS/opennms-js/compare/v1.3.0...v1.3.1) (2019-03-27)
 
@@ -381,8 +275,6 @@ server cannot be returned when it is called.
 ### Features
 
 * **api:** JS-30 - reconstitute Filter/Clause/Restrictions from JSON ([891bbd1](https://github.com/OpenNMS/opennms-js/commit/891bbd1cb69e6accaf69f0d4eb6b135dbdd7c422))
-
-
 
 # [1.3.0](https://github.com/OpenNMS/opennms-js/compare/v1.2.2...v1.3.0) (2018-12-07)
 
@@ -413,8 +305,6 @@ server cannot be returned when it is called.
 * **cli:** improve table rendering ([da92bdb](https://github.com/OpenNMS/opennms-js/commit/da92bdb09fe1f33160f8fead5669fe7024aa420a))
 * **feedback:** Expose the feedback type enum values ([500632a](https://github.com/OpenNMS/opennms-js/commit/500632a4e5efcdb6fcefca27df0afc6ac3d676d4))
 
-
-
 ## [1.2.2](https://github.com/OpenNMS/opennms-js/compare/v1.2.1...v1.2.2) (2018-05-17)
 
 
@@ -422,16 +312,12 @@ server cannot be returned when it is called.
 
 * **dao:** HELM-91: fix handling non-array results ([0707ac7](https://github.com/OpenNMS/opennms-js/commit/0707ac78bb68a47f33693cf81776bdaa5b90fb1c))
 
-
-
 ## [1.2.1](https://github.com/OpenNMS/opennms-js/compare/v1.2.0...v1.2.1) (2018-04-13)
 
 
 ### Bug Fixes
 
 * **rest:** fix HTTP timeout configuration to be more consistent ([c8e7162](https://github.com/OpenNMS/opennms-js/commit/c8e71628e7d9c76559d2cec1efe369fe726db130))
-
-
 
 # [1.2.0](https://github.com/OpenNMS/opennms-js/compare/v1.1.1...v1.2.0) (2018-03-30)
 
@@ -445,23 +331,13 @@ server cannot be returned when it is called.
 
 * **rest:** NMS-9783: add X-Requested-With header to requests ([e803726](https://github.com/OpenNMS/opennms-js/commit/e80372616c08422e5f6c805c12de31366af455b3))
 
-
-
 ## [1.1.1](https://github.com/OpenNMS/opennms-js/compare/v1.1.0...v1.1.1) (2018-03-16)
-
-
 
 ## [1.0.3](https://github.com/OpenNMS/opennms-js/compare/v1.0.2...v1.0.3) (2018-02-13)
 
-
-
 ## [1.0.2](https://github.com/OpenNMS/opennms-js/compare/v1.0.1...v1.0.2) (2017-09-25)
 
-
-
 ## [1.0.1](https://github.com/OpenNMS/opennms-js/compare/v1.0.0...v1.0.1) (2017-09-13)
-
-
 
 # [1.0.0](https://github.com/OpenNMS/opennms-js/compare/v1.0.0-beta.1...v1.0.0) (2017-09-08)
 
@@ -470,11 +346,7 @@ server cannot be returned when it is called.
 
 * **cli:** add --version, also a warning about passwords ([1c07be9](https://github.com/OpenNMS/opennms-js/commit/1c07be9e541253af7717240825f73a7586f30e12))
 
-
-
 # [0.1.0-alpha.3](https://github.com/OpenNMS/opennms-js/compare/v0.1.0-alpha.2...v0.1.0-alpha.3) (2017-07-21)
-
-
 
 # [1.1.0](https://github.com/OpenNMS/opennms-js/compare/v1.0.3...v1.1.0) (2018-03-16)
 
@@ -482,8 +354,6 @@ server cannot be returned when it is called.
 ### Features
 
 * **dao:** Add flow support ([e37e73f](https://github.com/OpenNMS/opennms-js/commit/e37e73f5cb90386eb7b5f5530494866d8fccd87f))
-
-
 
 ## [1.0.3](https://github.com/OpenNMS/opennms-js/compare/v1.0.2...v1.0.3) (2018-02-13)
 
@@ -498,8 +368,6 @@ server cannot be returned when it is called.
 
 * **model:** add interface to denote serialization to a URL parameter ([b983abf](https://github.com/OpenNMS/opennms-js/commit/b983abfdc7e55bf8c67d0da3964a6ffcf0803b2d))
 
-
-
 ## [1.0.2](https://github.com/OpenNMS/opennms-js/compare/v1.0.1...v1.0.2) (2017-09-25)
 
 
@@ -507,16 +375,12 @@ server cannot be returned when it is called.
 
 * **rest:** allow ReSTv2 for Horizon 20.1.x ([bd1dd59](https://github.com/OpenNMS/opennms-js/commit/bd1dd59e3712473c019c9b5ccdf3b3f4d652d967))
 
-
-
 ## [1.0.1](https://github.com/OpenNMS/opennms-js/compare/v1.0.0...v1.0.1) (2017-09-13)
 
 
 ### Bug Fixes
 
 * **grafana:** set the Authorization header ([d48f931](https://github.com/OpenNMS/opennms-js/commit/d48f931b3fe8c8bf76f2f4caeb1776926f24df86))
-
-
 
 # [1.0.0](https://github.com/OpenNMS/opennms-js/compare/v1.0.0-beta.1...v1.0.0) (2017-09-08)
 
@@ -574,8 +438,6 @@ server cannot be returned when it is called.
 * **rest:** only parse requests on success (JS-13) ([aa9257d](https://github.com/OpenNMS/opennms-js/commit/aa9257d7a2a2b9b618b0f27bdbb4f4d08cea8381))
 * **rest:** return a useful OnmsResult on error ([094399c](https://github.com/OpenNMS/opennms-js/commit/094399c22a77a04b94bba464359bc184bb6d1de8))
 
-
-
 # [0.1.0-alpha.3](https://github.com/OpenNMS/opennms-js/compare/v0.1.0-alpha.2...v0.1.0-alpha.3) (2017-07-21)
 
 
@@ -600,11 +462,7 @@ server cannot be returned when it is called.
 * **v2:** add support for nested restrictions with boolean operators ([09cd705](https://github.com/OpenNMS/opennms-js/commit/09cd705a82a4d78f70073c6214ec047d477dbc05))
 * **v2:** add support for the v2 api ([eb1b165](https://github.com/OpenNMS/opennms-js/commit/eb1b1658f35ade8195097c79f097dc1de34caa1c))
 
-
-
 # [0.1.0-alpha.2](https://github.com/OpenNMS/opennms-js/compare/v0.1.0-alpha.1...v0.1.0-alpha.2) (2017-06-19)
-
-
 
 # [0.1.0-alpha.1](https://github.com/OpenNMS/opennms-js/compare/725ed3ad8c4347c7d2328ab6eeca1480c837362a...v0.1.0-alpha.1) (2017-06-19)
 
@@ -665,6 +523,3 @@ server cannot be returned when it is called.
 * **server:** use URL if host does not reselve ([614e0bc](https://github.com/OpenNMS/opennms-js/commit/614e0bc81f8998c304c257f524bc1bdb8c661c44))
 * **servicetype:** make a singleton map of service types ([bed6390](https://github.com/OpenNMS/opennms-js/commit/bed6390c594357092d4570c9b8ee09aade32174e))
 * **version:** add toString() for human-readable version ([01060b6](https://github.com/OpenNMS/opennms-js/commit/01060b697b78480e8ca92e6a7e78d7065a8cb4c7))
-
-
-
