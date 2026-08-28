@@ -1,5 +1,4 @@
 /** @hidden */
-declare const require;
 
 import {cloneDeep} from 'lodash';
 
@@ -72,7 +71,7 @@ export class MockHTTP21 extends AbstractMockHTTP {
     }
   }
 
-  /** @inheritdoc */
+  /** {@inheritDoc} */
   public onPut(url: string, options?: OnmsHTTPOptions) {
     switch(url) {
       case 'api/v2/alarms/404725?ack=true': {
@@ -108,7 +107,7 @@ export class MockHTTP21 extends AbstractMockHTTP {
     }
   }
 
-  /** @inheritdoc */
+  /** {@inheritDoc} */
   public onPost(url: string, options?: OnmsHTTPOptions) {
     switch(url) {
       case 'api/v2/alarms/404725/ticket/create': {
@@ -123,7 +122,7 @@ export class MockHTTP21 extends AbstractMockHTTP {
     }
   }
 
-  /** @inheritdoc */
+  /** {@inheritDoc} */
   public onDelete(url: string, options?: OnmsHTTPOptions) {
     switch (url) {
       case 'api/v2/alarms/404725/memo': {

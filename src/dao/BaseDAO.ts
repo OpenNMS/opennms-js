@@ -10,7 +10,6 @@ import {log} from '../api/Log';
 const moment = require('moment');
 
 /** @hidden */
-// eslint-disable-next-line
 import {Moment} from 'moment';
 import { Util } from '../internal/Util';
 
@@ -32,7 +31,7 @@ export abstract class BaseDAO {
    * The [[OnmsServer]] that was last updated/retrieved.  This is used to check whether caches
    * need to be invalidated.
    * @hidden
-   * @param serverImpl The last [[OnmsServer]] seen.
+   * @param serverImpl - The last [[OnmsServer]] seen.
    */
   private serverImpl?: OnmsServer | null;
 
@@ -116,7 +115,7 @@ export abstract class BaseDAO {
 
   /**
    * Called whenever the OpenNMS server has changed.
-   * @param server the new server
+   * @param server - the new server
    */
   protected onSetServer(server?: OnmsServer) {
     // this should be overridden by implementations

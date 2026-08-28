@@ -195,8 +195,8 @@ export class Client implements IHasHTTP {
   /**
    * A convenience method to validate cached DAOs and create them if they don't exist
    * @hidden
-   * @param key a unique key used for caching the DAO
-   * @param daoClass the DAO class to retrieve or create
+   * @param key - a unique key used for caching the DAO
+   * @param daoClass - the DAO class to retrieve or create
    */
   private getDao(
     key: string,

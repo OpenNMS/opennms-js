@@ -17,13 +17,12 @@ export class OnmsNodeType extends OnmsEnum<string> implements IHasUrlValue {
     return forLabel(NodeTypes, label);
   }
 
-  /** @inheritdoc */
+  /** {@inheritDoc} */
   public get urlValue() {
     return this.id;
   }
 }
 
-/* eslint-disable  */
 /**
  * Contains constant instances of all node types.
  * @category Model

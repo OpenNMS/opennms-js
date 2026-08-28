@@ -1,4 +1,3 @@
-declare const describe, beforeEach, it, expect;
 
 import {ServerTypes} from '../../src/api/ServerType';
 import {ServerMetadata} from '../../src/api/ServerMetadata';

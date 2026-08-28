@@ -1,3 +1,6 @@
+// version_compare ships no type declarations; @ts-expect-error cannot be used here because
+// the error only occurs under the strict tsconfig-check project, not the jest one.
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import * as VersionCompare from 'version_compare';
 

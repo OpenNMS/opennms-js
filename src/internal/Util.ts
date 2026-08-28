@@ -77,8 +77,8 @@ export class Util {
 
   /**
    * Retrieve the matching key (regardless of case) in the given search object.
-   * @param key the key to search for
-   * @param search the object to search
+   * @param key - the key to search for
+   * @param search - the object to search
    */
   public static insensitiveKey(key: string, search: { [key: string]: any }) {
     if (!key || !search) {
@@ -93,8 +93,8 @@ export class Util {
 
   /**
    * Retrieve the value for the matching key (regardless of case) in the given search.
-   * @param key the key to search for
-   * @param search the object to search
+   * @param key - the key to search for
+   * @param search - the object to search
    */
   public static insensitiveValue(key: string, search: { [key: string]: any }) {
     if (!key || !search) {

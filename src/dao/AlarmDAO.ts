@@ -41,7 +41,7 @@ export class AlarmDAO extends AbstractDAO<number, OnmsAlarm> {
    * Fetch an alarm.
    *
    * @version ReST v1+
-   * @param {number} id - The alarm's ID.
+   * @param id - The alarm's ID.
    * @return An [[OnmsAlarm]].
    */
   public async get(id: number): Promise<OnmsAlarm> {
@@ -60,7 +60,7 @@ export class AlarmDAO extends AbstractDAO<number, OnmsAlarm> {
    * Find matching alarms.
    *
    * @version ReST v1+
-   * @param {Filter} filter - The filter to use when querying.
+   * @param filter - The filter to use when querying.
    * @return An array of [[OnmsAlarm]] objects.
    */
   public async find(filter?: Filter): Promise<OnmsAlarm[]> {
@@ -90,7 +90,7 @@ export class AlarmDAO extends AbstractDAO<number, OnmsAlarm> {
     /**
      * Extracts the data from an HTTP Request result.
      *
-     * @param result the HTTP Request result.
+     * @param result - the HTTP Request result.
      * @returns An array of [[OnmsAlarm]] objects.
      */
   public getData(result: OnmsResult<any>): OnmsAlarm[] {
@@ -116,8 +116,8 @@ export class AlarmDAO extends AbstractDAO<number, OnmsAlarm> {
    * Acknowledge an alarm.
    *
    * @version ReST v1+
-   * @param {number|OnmsAlarm} alarm - The [[OnmsAlarm]] or alarm ID.
-   * @param {string=} user - The user to ack the alarm as.
+   * @param alarm - The [[OnmsAlarm]] or alarm ID.
+   * @param user - The user to ack the alarm as.
    *                  (Only administrators have the right to do this.)
    */
   public async acknowledge(alarm: number|OnmsAlarm, user?: string): Promise<void> {
@@ -134,7 +134,7 @@ export class AlarmDAO extends AbstractDAO<number, OnmsAlarm> {
    * Un-acknowledge an alarm.
    *
    * @version ReST v1+
-   * @param {number|OnmsAlarm} alarm - The [[OnmsAlarm]] or alarm ID.
+   * @param alarm - The [[OnmsAlarm]] or alarm ID.
    */
   public async unacknowledge(alarm: number|OnmsAlarm, user?: string): Promise<void> {
     const alarmId = (typeof(alarm) === 'number' ? alarm : alarm.id);
@@ -150,7 +150,7 @@ export class AlarmDAO extends AbstractDAO<number, OnmsAlarm> {
    * Escalate an alarm.
    *
    * @version ReST v1+
-   * @param {number|OnsmAlarm} alarm - The [[OnmsAlarm]] or alarm ID.
+   * @param alarm - The [[OnmsAlarm]] or alarm ID.
    */
   public async escalate(alarm: number|OnmsAlarm): Promise<void> {
     const alarmId = (typeof(alarm) === 'number' ? alarm : alarm.id);
@@ -163,7 +163,7 @@ export class AlarmDAO extends AbstractDAO<number, OnmsAlarm> {
    * Clear an alarm.
    *
    * @version ReST v1+
-   * @param {number|OnmsAlarm} alarm - The [[OnmsAlarm]] or alarm ID.
+   * @param alarm - The [[OnmsAlarm]] or alarm ID.
    */
   public async clear(alarm: number|OnmsAlarm): Promise<void> {
     const alarmId = (typeof(alarm) === 'number' ? alarm : alarm.id);
@@ -176,8 +176,8 @@ export class AlarmDAO extends AbstractDAO<number, OnmsAlarm> {
    * Associate a ticket ID with the alarm.
    *
    * @version ReST v1+
-   * @param {number|OnmsAlarm} alarm - The [[OnmsAlarm]] or alarm ID.
-   * @param {string} ticketId - The ticket ID.
+   * @param alarm - The [[OnmsAlarm]] or alarm ID.
+   * @param ticketId - The ticket ID.
    */
   public async setTTicketId(alarm: number|OnmsAlarm, ticketId: string): Promise<void> {
     const alarmId = (typeof(alarm) === 'number' ? alarm : alarm.id);
@@ -190,8 +190,8 @@ export class AlarmDAO extends AbstractDAO<number, OnmsAlarm> {
    * Update the state of the ticket associated with the alarm.
    *
    * @version ReST v1+
-   * @param {number|OnmsAlarm} alarm - The [[OnmsAlarm]] or alarm ID.
-   * @param {string} state - The ticket state.
+   * @param alarm - The [[OnmsAlarm]] or alarm ID.
+   * @param state - The ticket state.
    */
   public async setTTicketState(alarm: number|OnmsAlarm, state: OnmsTroubleTicketState): Promise<void> {
     const alarmId = (typeof(alarm) === 'number' ? alarm : alarm.id);
@@ -204,7 +204,7 @@ export class AlarmDAO extends AbstractDAO<number, OnmsAlarm> {
    * Create a trouble ticket for the specified alarm.
    *
    * @version ReST v2
-   * @param {number|OnmsAlarm} alarm - The [[OnmsAlarm]] or alarm ID.
+   * @param alarm - The [[OnmsAlarm]] or alarm ID.
    */
   public async createTicket(alarm: number|OnmsAlarm): Promise<void> {
     if (this.getApiVersion() === 1) {
@@ -223,7 +223,7 @@ export class AlarmDAO extends AbstractDAO<number, OnmsAlarm> {
    * Notify OpenNMS it should fetch updated ticket state for an alarm from the remote ticketing system.
    *
    * @version ReST v2
-   * @param {number|OnmsAlarm} alarm - The [[OnmsAlarm]] or alarm ID.
+   * @param alarm - The [[OnmsAlarm]] or alarm ID.
    */
   public async triggerTicketUpdate(alarm: number|OnmsAlarm): Promise<void> {
     if (this.getApiVersion() === 1) {
@@ -242,7 +242,7 @@ export class AlarmDAO extends AbstractDAO<number, OnmsAlarm> {
    * Close the ticket associated with the given alarm.
    *
    * @version ReST v2
-   * @param {number|OnmsAlarm} alarm - The [[OnmsAlarm]] or alarm ID.
+   * @param alarm - The [[OnmsAlarm]] or alarm ID.
    */
   public async closeTicket(alarm: number|OnmsAlarm): Promise<void> {
     if (this.getApiVersion() === 1) {
@@ -261,9 +261,9 @@ export class AlarmDAO extends AbstractDAO<number, OnmsAlarm> {
    * Create or update the sticky memo associated with the alarm.
    *
    * @version ReST v2
-   * @param {number|OnmsAlarm} alarm - The [[OnmsAlarm]] or alarm ID.
-   * @param {string} body - The memo body
-   * @param {string=} user - The user to update the memo as.
+   * @param alarm - The [[OnmsAlarm]] or alarm ID.
+   * @param body - The memo body
+   * @param user - The user to update the memo as.
    *                  (Only administrators have the right to do this.)
    */
   public async saveStickyMemo(alarm: number|OnmsAlarm, body: string, user?: string): Promise<void> {
@@ -274,9 +274,9 @@ export class AlarmDAO extends AbstractDAO<number, OnmsAlarm> {
    * Create or update the journal memo associated with the alarm.
    *
    * @version ReST v2
-   * @param {number|OnmsAlarm} alarm - The [[OnmsAlarm]] or alarm ID.
-   * @param {string} body - The memo body
-   * @param {string=} user - The user to update the memo as.
+   * @param alarm - The [[OnmsAlarm]] or alarm ID.
+   * @param body - The memo body
+   * @param user - The user to update the memo as.
    *                  (Only administrators have the right to do this.)
    */
   public async saveJournalMemo(alarm: number|OnmsAlarm, body: string, user?: string): Promise<void> {
@@ -287,7 +287,7 @@ export class AlarmDAO extends AbstractDAO<number, OnmsAlarm> {
    * Delete the sticky memo ticket associated with the given alarm.
    *
    * @version ReST v2
-   * @param {number|OnmsAlarm} alarm - The [[OnmsAlarm]] or alarm ID.
+   * @param alarm - The [[OnmsAlarm]] or alarm ID.
    */
   public async deleteStickyMemo(alarm: number|OnmsAlarm): Promise<void> {
     return this.deleteMemo('memo', alarm);
@@ -297,7 +297,7 @@ export class AlarmDAO extends AbstractDAO<number, OnmsAlarm> {
    * Delete the journal memo ticket associated with the given alarm.
    *
    * @version ReST v2
-   * @param {number|OnmsAlarm} alarm - The [[OnmsAlarm]] or alarm ID.
+   * @param alarm - The [[OnmsAlarm]] or alarm ID.
    */
   public async deleteJournalMemo(alarm: number|OnmsAlarm): Promise<void> {
     return this.deleteMemo('journal', alarm);
@@ -535,8 +535,8 @@ export class AlarmDAO extends AbstractDAO<number, OnmsAlarm> {
   /**
    * Retrieves the URL to the details page for the given alarm.
    *
-   * @param {number|OnmsAlarm} alarm - The [[OnmsAlarm]] or alarm ID.
-   * @returns {URL} URL on the associated OpenNMS server for the alarm details page.
+   * @param alarm - The [[OnmsAlarm]] or alarm ID.
+   * @returns URL on the associated OpenNMS server for the alarm details page.
    */
   private getDetailsPage(alarm: number|OnmsAlarm): string {
       const alarmId = (typeof(alarm) === 'number' ? alarm : alarm.id);
@@ -545,7 +545,7 @@ export class AlarmDAO extends AbstractDAO<number, OnmsAlarm> {
 
   /**
    * Handle response errors and automatically log "ticketing not enabled" responses.
-   * @param err the HTTP result error
+   * @param err - the HTTP result error
    */
   private handleError(err: OnmsResult<OnmsAlarm>): void {
     if (err.code === 501) {

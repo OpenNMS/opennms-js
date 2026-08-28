@@ -5,7 +5,7 @@ import {log} from './Log';
 const namePattern = /^(.*?)\s+(eq|ne|ilike|like|gt|lt|ge|le|null|isnull|notnull)\s+(.*?)$/i;
 
 /** @hidden */
-const symbolPattern = /^(\w+?)\s*(\=\=|\=|\!\=|\>\=|\<\=|\>|\<)\s*(\w+?)$/;
+const symbolPattern = /^(\w+?)\s*(==|=|!=|>=|<=|>|<)\s*(\w+?)$/;
 
 /**
  * A query restriction.

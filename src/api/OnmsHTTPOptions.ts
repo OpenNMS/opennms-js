@@ -25,7 +25,6 @@ const isString = (v?: any) => {
  * A builder for [[OnmsHTTPOptions]].  Create a new one with [[OnmsHTTPOptions.newBuilder]].
  * @category Rest
  */
-/* eslint-disable , @typescript-eslint/naming-convention,no-underscore-dangle,id-denylist,id-match,  */
 export class OnmsHTTPOptionsBuilder {
   /** @hidden */
   private _timeout?: number;
@@ -73,7 +72,7 @@ export class OnmsHTTPOptionsBuilder {
    * Merge the contents of the provided [[OnmsHTTPOptions]] object, additively.
    * Timeout, server, auth, and data will be replaced only if set, and headers and parameters
    * will be overlayed on top of existing.
-   * @param options the options to merge with this builder's current values
+   * @param options - the options to merge with this builder's current values
    */
   public merge(options?: OnmsHTTPOptions) {
     if (options) {
@@ -107,7 +106,7 @@ export class OnmsHTTPOptionsBuilder {
    * The connection timeout for the request.
    *
    * If `undefined` is passed, the default timeout will be used.
-   * @param timeout the new timeout
+   * @param timeout - the new timeout
    */
   public setTimeout(timeout?: number) {
     this._timeout = timeout;
@@ -118,7 +117,7 @@ export class OnmsHTTPOptionsBuilder {
    * The [[OnmsServer]] to connect to.
    *
    * If `undefined` is passed, the default server will be used.
-   * @param server the new server
+   * @param server - the new server
    */
   public setServer(server?: OnmsServer) {
     this._server = server;
@@ -129,7 +128,7 @@ export class OnmsHTTPOptionsBuilder {
    * The authentication config to use when connecting.
    *
    * If `undefined` is passed, the default authentication settings will be used.
-   * @param auth the authentication config
+   * @param auth - the authentication config
    */
   public setAuth(auth?: OnmsAuthConfig) {
     this._auth = auth;
@@ -140,7 +139,7 @@ export class OnmsHTTPOptionsBuilder {
    * The headers to set in the request.
    *
    * If `undefined` is passed, all headers in the builder will be reset and the default headers will be used.
-   * @param headers the headers to use (or `undefined`)
+   * @param headers - the headers to use (or `undefined`)
    */
   public setHeaders(headers?: IHash<string>) {
     this._headers = headers || {};
@@ -151,8 +150,8 @@ export class OnmsHTTPOptionsBuilder {
    * A header to set in the request.
    *
    * If `undefined` is passed, that header will be reset to defaults.
-   * @param header the header name
-   * @param value the value of the header
+   * @param header - the header name
+   * @param value - the value of the header
    */
   public setHeader(header: string, value?: string | number | boolean) {
     const v = value ? String(value) : undefined;
@@ -171,8 +170,8 @@ export class OnmsHTTPOptionsBuilder {
 
   /**
    * A header to set in the request only if it is not already set.
-   * @param header the header name
-   * @param value the value of the header
+   * @param header - the header name
+   * @param value - the value of the header
    */
   public setDefaultHeader(header: string, value: string | number | boolean) {
     const actualKey = Util.insensitiveKey(header, this._headers);
@@ -186,7 +185,7 @@ export class OnmsHTTPOptionsBuilder {
    * The parameters to pass to the request.
    *
    * If `undefined` is passed, all parameters in the builder will be reset.
-   * @param parameters the parameters to use (or `undefined`)
+   * @param parameters - the parameters to use (or `undefined`)
    */
   public setParameters(parameters?: IHash<string|string[]>) {
     if (!parameters) {
@@ -204,8 +203,8 @@ export class OnmsHTTPOptionsBuilder {
    * If the value is a string array, the existing value in the builder will be replaced.
    * Otherwise, if the parameter already exists in the builder, the parameter will be converted to an array
    * if necessary and this parameter will be added to it.
-   * @param parameter the parameter name
-   * @param value the value of the parameter to add (or `undefined`)
+   * @param parameter - the parameter name
+   * @param value - the value of the parameter to add (or `undefined`)
    */
   public addParameter(parameter: string, value?: string | string[] | number | boolean) {
     // if it's already an array, coerce the contents to a string
@@ -248,14 +247,13 @@ export class OnmsHTTPOptionsBuilder {
    * The data to use in the request.
    *
    * If `undefined` is passed, the data will be cleared.
-   * @param data the data
+   * @param data - the data
    */
   public setData(data?: any) {
     this._data = data;
     return this;
   }
 }
-/* eslint-enable @typescript-eslint/naming-convention, no-underscore-dangle, id-denylist, id-match */
 
 /**
  * Options to be used when making HTTP ReST calls.
@@ -264,7 +262,7 @@ export class OnmsHTTPOptionsBuilder {
 export class OnmsHTTPOptions {
   /**
    * Create a new builder for an [[OnmsHTTPOptions]] object.
-   * @param options if an existing options object is passed, the builder will be pre-populated
+   * @param options - if an existing options object is passed, the builder will be pre-populated
    */
   public static newBuilder(options?: OnmsHTTPOptions) {
     return new OnmsHTTPOptionsBuilder(options);

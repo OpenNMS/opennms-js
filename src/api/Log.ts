@@ -1,4 +1,3 @@
-/* eslint-disable no-empty, no-empty-function, @typescript-eslint/no-empty-function, no-console, @typescript-eslint/naming-convention,no-underscore-dangle,id-denylist,id-match */
 
 import pc from 'picocolors';
 
@@ -50,7 +49,7 @@ export class Logger {
 
   /**
    * Standard console logging.
-   * @param parms logging parameters
+   * @param parms - logging parameters
    */
   public log(...parms: any[]) {
     if (!this._silent) {
@@ -60,7 +59,7 @@ export class Logger {
 
   /**
    * Chatty debug logging.  Enabled only if debug is enabled.
-   * @param parms logging parameters
+   * @param parms - logging parameters
    */
   public trace(...parms: any[]) {
     if (this._debug) {
@@ -70,7 +69,7 @@ export class Logger {
 
   /**
    * Normal debug logging.  Enabled only if debug is enabled.
-   * @param parms logging parameters
+   * @param parms - logging parameters
    */
   public debug(...parms: any[]) {
     if (this._debug) {
@@ -80,7 +79,7 @@ export class Logger {
 
   /**
    * Info logging.  Enabled by default.
-   * @param parms logging parameters
+   * @param parms - logging parameters
    */
   public info(...parms: any[]) {
     if (!this._quiet && !this._silent) {
@@ -90,7 +89,7 @@ export class Logger {
 
   /**
    * Warning logging. Enabled by default.
-   * @param parms logging parameters
+   * @param parms - logging parameters
    */
   public warn(...parms: any[]) {
     if (!this._quiet && !this._silent) {
@@ -100,7 +99,7 @@ export class Logger {
 
   /**
    * Error logging. Enabled unless in silent mode.
-   * @param parms logging parameters
+   * @param parms - logging parameters
    */
   public error(...parms: any[]) {
     if (!this._silent) {
@@ -110,7 +109,7 @@ export class Logger {
 
   /**
    * "Fatal" logging. Enabled unless in silent mode.
-   * @param parms logging parameters
+   * @param parms - logging parameters
    */
   public fatal(...parms: any[]) {
     if (!this._silent) {

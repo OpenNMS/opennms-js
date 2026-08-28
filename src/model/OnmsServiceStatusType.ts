@@ -22,13 +22,12 @@ export class OnmsServiceStatusType extends OnmsEnum<string> implements IHasUrlVa
     return this.id === 'A';
   }
 
-  /** @inheritdoc */
+  /** {@inheritDoc} */
   public get urlValue() {
     return this.id;
   }
 }
 
-/* eslint-disable  */
 /**
  * Contains constant instances of all service status types.
  * @category Model

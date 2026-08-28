@@ -1,4 +1,3 @@
-declare const describe, beforeEach, it, expect;
 
 import {Client} from '../../src/Client';
 
@@ -19,7 +18,7 @@ const SERVER_URL = 'http://demo.opennms.org/opennms/';
 const SERVER_USER = 'demo';
 const SERVER_PASSWORD = 'demo';
 
-let opennms: Client, server, auth, mockHTTP, dao: IpInterfaceDAO;
+let server, auth, mockHTTP, dao: IpInterfaceDAO;
 
 describe('IpInterfaceDAO with v2 API', () => {
   beforeEach((done) => {
@@ -27,7 +26,6 @@ describe('IpInterfaceDAO with v2 API', () => {
     const builder = OnmsServer.newBuilder(SERVER_URL).setName(SERVER_NAME).setAuth(auth);
     server = builder.build();
     mockHTTP = new MockHTTP28(server);
-    opennms = new Client(mockHTTP);
     dao = new IpInterfaceDAO(mockHTTP);
     Client.getMetadata(server, mockHTTP).then((metadata) => {
       server = builder.setMetadata(metadata).build();
@@ -51,7 +49,6 @@ describe('IpInterfaceDAO with v2 API', () => {
     });
   });
   it('IpInterfaceDAO.find()', () => {
-    const filter = new Filter();
     return dao.find().then((ifaces) => {
       expect(ifaces.length).toEqual(2);
       expect(ifaces[0].id).toEqual(1);
