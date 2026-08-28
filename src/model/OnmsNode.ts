@@ -99,7 +99,7 @@ export class OnmsNode implements IHasUrlValue {
   /** the assets of the node */
   public assets = {} as any;
 
-  /** @inheritdoc */
+  /** {@inheritDoc} */
   public get urlValue() {
     return String(this.id);
   }
@@ -148,7 +148,7 @@ export class OnmsNode implements IHasUrlValue {
     }
 
     for (const key in data.assetRecord) {
-      if (data.assetRecord.hasOwnProperty(key)
+      if (Object.prototype.hasOwnProperty.call(data.assetRecord, key)
         && data.assetRecord[key] !== null
         && data.assetRecord[key] !== undefined) {
         node.assets[key] = data.assetRecord[key];

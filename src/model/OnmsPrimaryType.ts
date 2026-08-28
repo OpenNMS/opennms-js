@@ -22,13 +22,12 @@ export class OnmsPrimaryType extends OnmsEnum<string> implements IHasUrlValue {
     return this.id === 'P';
   }
 
-  /** @inheritdoc */
+  /** {@inheritDoc} */
   public get urlValue() {
     return this.id;
   }
 }
 
-/* eslint-disable  */
 /**
  * Contains constant instances of all primary SNMP types.
  * @category Model

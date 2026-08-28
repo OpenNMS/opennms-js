@@ -1,4 +1,3 @@
-import { IpInterfaceDAO } from './../dao/IpInterfaceDAO';
 import {Moment} from 'moment';
 
 import {IHasUrlValue} from '../api/IHasUrlValue';
@@ -44,7 +43,7 @@ export class OnmsMonitoredService implements IHasUrlValue {
 
   public nodeLabel?: string;
 
-  /** @inheritdoc */
+  /** {@inheritDoc} */
   public get urlValue() {
     return this.type ? this.type.name : 'null';
   }

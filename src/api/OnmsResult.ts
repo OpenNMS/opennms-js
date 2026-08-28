@@ -28,10 +28,10 @@ export class OnmsResult<T> {
 
   /**
    * Construct a new result.
-   * @param data The payload of the response.
-   * @param message The status message associated with the result.
-   * @param code The response code of the response.
-   * @param type The request type of the response.
+   * @param data - The payload of the response.
+   * @param message - The status message associated with the result.
+   * @param code - The response code of the response.
+   * @param type - The request type of the response.
    */
   constructor(data: T, message?: string, code?: number, type?: string) {
     this.data = data;

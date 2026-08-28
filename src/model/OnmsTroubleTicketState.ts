@@ -7,23 +7,22 @@ import {OnmsEnum, forId, forLabel} from '../internal/OnmsEnum';
  * @category Model
  */
 export class OnmsTroubleTicketState extends OnmsEnum<number> implements IHasUrlValue {
-  /** @inheritdoc */
+  /** {@inheritDoc} */
   public static forId(id?: string) {
     return forId(TroubleTicketStates, id);
   }
 
-  /** @inheritdoc */
+  /** {@inheritDoc} */
   public static forLabel(label?: string) {
     return forLabel(TroubleTicketStates, label);
   }
 
-  /** @inheritdoc */
+  /** {@inheritDoc} */
   public get urlValue() {
     return this.label;
   }
 }
 
-/* eslint-disable  */
 /**
  * Contains constant instances of all trouble ticket states.
  * @category Model

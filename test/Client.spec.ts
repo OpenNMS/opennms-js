@@ -1,4 +1,3 @@
-declare const await, describe, beforeEach, it, expect, jest;
 
 import {Client} from '../src/Client';
 import {OnmsAuthConfig} from '../src/api/OnmsAuthConfig';
@@ -7,7 +6,7 @@ import {ServerMetadata} from '../src/api/ServerMetadata';
 
 import {MockHTTP19} from './rest/MockHTTP19';
 
-import {ServerType, ServerTypes} from '../src/api/ServerType';
+import {ServerTypes} from '../src/api/ServerType';
 
 const SERVER_NAME = 'Demo';
 const SERVER_URL = 'http://demo.opennms.org/opennms/';

@@ -242,7 +242,7 @@ export class NodeDAO extends AbstractDAO<number, OnmsNode> {
 
   /**
    * Get the node's ID
-   * @param node the node
+   * @param node - the node
    */
   private getNodeId(node: number | OnmsNode): number | undefined {
     if (node instanceof OnmsNode) {

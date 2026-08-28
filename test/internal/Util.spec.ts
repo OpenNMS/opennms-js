@@ -1,4 +1,3 @@
-declare const describe, beforeEach, it, expect, require;
 
 import {Util} from '../../src/internal/Util';
 

@@ -22,13 +22,12 @@ export class OnmsCollectType extends OnmsEnum<string> implements IHasUrlValue {
     return this.id === 'C' || this.id === 'UC';
   }
 
-  /** @inheritdoc */
+  /** {@inheritDoc} */
   public get urlValue() {
     return this.id;
   }
 }
 
-/* eslint-disable  */
 /**
  * Contains constant instances of all available collect types.
  * @category Model

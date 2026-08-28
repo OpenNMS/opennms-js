@@ -17,13 +17,12 @@ export class OnmsSnmpStatusType extends OnmsEnum<number> implements IHasUrlValue
     return forLabel(SnmpStatusTypes, label);
   }
 
-  /** @inheritdoc */
+  /** {@inheritDoc} */
   public get urlValue() {
     return String(this.id);
   }
 }
 
-/* eslint-disable  */
 /**
  * Contains constant instances of all SNMP status types.
  * @category Model

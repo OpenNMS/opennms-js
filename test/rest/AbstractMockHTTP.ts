@@ -1,5 +1,4 @@
 /** @hidden */
-declare const Promise, require;
 
 /** @hidden */
 // tslint:disable-next-line

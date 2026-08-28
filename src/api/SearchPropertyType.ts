@@ -6,12 +6,12 @@ import {Comparator, Comparators} from './Comparator';
  * @category Rest
  */
 export class SearchPropertyType extends OnmsEnum<string> {
-  /** @inheritdoc */
+  /** {@inheritDoc} */
   public static forId(id?: string) {
     return forId(SearchPropertyTypes, id);
   }
 
-  /** @inheritdoc */
+  /** {@inheritDoc} */
   public static forLabel(label?: string) {
     return forLabel(SearchPropertyTypes, label);
   }
@@ -27,7 +27,7 @@ export class SearchPropertyType extends OnmsEnum<string> {
   /**
    * Returns the comparators supported by this type.
    *
-   * @returns {Comparator[]} the supported comparators.
+   * @returns the supported comparators.
    */
   public getComparators() {
     return this.comparators;

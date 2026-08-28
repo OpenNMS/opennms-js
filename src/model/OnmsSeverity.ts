@@ -6,23 +6,22 @@ import {OnmsEnum, forId, forLabel} from '../internal/OnmsEnum';
  * @category Model
  */
 export class OnmsSeverity extends OnmsEnum<number> implements IHasUrlValue {
-  /** @inheritdoc */
+  /** {@inheritDoc} */
   public static forId(id?: string) {
     return forId(Severities, id);
   }
 
-  /** @inheritdoc */
+  /** {@inheritDoc} */
   public static forLabel(label?: string) {
     return forLabel(Severities, label);
   }
 
-  /** @inheritdoc */
+  /** {@inheritDoc} */
   public get urlValue() {
     return this.label;
   }
 }
 
-/* eslint-disable  */
 /**
  * Contains constant instances of all severities.
  * @category Model

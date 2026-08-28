@@ -1,9 +1,7 @@
-declare const describe, beforeEach, it, expect;
 
 import {Comparators} from '../../src/api/Comparator';
 import {Restriction} from '../../src/api/Restriction';
 
-import {Util} from '../../src/internal/Util';
 
 const filterMatches = {
   '': null,

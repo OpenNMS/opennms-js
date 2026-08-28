@@ -22,13 +22,12 @@ export class OnmsManagedType extends OnmsEnum<string> implements IHasUrlValue {
     return this.id === 'M';
   }
 
-  /** @inheritdoc */
+  /** {@inheritDoc} */
   public get urlValue() {
     return this.id;
   }
 }
 
-/* eslint-disable  */
 /**
  * Contains constant instances of all managed types.
  * @category Model

@@ -1,5 +1,4 @@
 // tslint:disable-next-line:one-variable-per-declaration
-declare const await, describe, beforeEach, it, xit, expect, jest;
 
 import { Client } from '../../src/Client';
 
@@ -20,7 +19,7 @@ const SERVER_USER = 'demo';
 const SERVER_PASSWORD = 'demo';
 
 // tslint:disable-next-line:one-variable-per-declaration
-let opennms: Client, server, auth, mockHTTP, dao: SituationFeedbackDAO;
+let server, auth, mockHTTP, dao: SituationFeedbackDAO;
 
 describe('SituationfeedbackDAO via 23', () => {
     beforeEach((done) => {
@@ -28,7 +27,6 @@ describe('SituationfeedbackDAO via 23', () => {
         const builder = OnmsServer.newBuilder(SERVER_URL).setName(SERVER_NAME).setAuth(auth);
         server = builder.build();
         mockHTTP = new MockHTTP23(server);
-        opennms = new Client(mockHTTP);
         dao = new SituationFeedbackDAO(mockHTTP);
         Client.getMetadata(server, mockHTTP).then((metadata) => {
             server = builder.setMetadata(metadata).build();
@@ -69,7 +67,6 @@ describe('SituationfeedbackDAO via 24', () => {
         const builder = OnmsServer.newBuilder(SERVER_URL).setName(SERVER_NAME).setAuth(auth);
         server = builder.build();
         mockHTTP = new MockHTTP24(server);
-        opennms = new Client(mockHTTP);
         dao = new SituationFeedbackDAO(mockHTTP);
         Client.getMetadata(server, mockHTTP).then((metadata) => {
             server = builder.setMetadata(metadata).build();

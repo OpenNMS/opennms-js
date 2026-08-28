@@ -55,7 +55,7 @@ export class OnmsOutage implements IHasUrlValue {
   /** the perspective of the outage */
   public perspective?: string;
 
-  /** @inheritdoc */
+  /** {@inheritDoc} */
   public get urlValue() {
     return String(this.id);
   }
