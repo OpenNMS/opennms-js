@@ -1,6 +1,5 @@
-declare const describe, beforeEach, it, expect;
 
-import {Comparator, Comparators} from '../../src/api/Comparator';
+import {Comparators} from '../../src/api/Comparator';
 
 /* tslint:disable:object-literal-sort-keys */
 const matches = {

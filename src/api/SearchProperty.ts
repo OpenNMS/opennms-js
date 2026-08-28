@@ -31,8 +31,7 @@ export class SearchProperty {
   /**
    * Hook to gather all the values for this property.
    *
-   * @param options Some additional options, to for example restrict the values or limit the query.
-   * @returns {Promise<any>}
+   * @param options - Some additional options, to for example restrict the values or limit the query.
    */
   public async findValues(options: any): Promise<any> {
     if (this.id) {

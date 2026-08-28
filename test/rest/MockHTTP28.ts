@@ -3,7 +3,7 @@ import {OnmsHTTPOptions} from '../../src/api/OnmsHTTPOptions';
 
 /** Mock OpenNMS 28.x HTTP implementation */
 export class MockHTTP28 extends AbstractMockHTTP {
-  /** @inheritdoc */
+  /** {@inheritDoc} */
   public onGet(url: string, options?: OnmsHTTPOptions) {
     switch(url) {
       case 'http://demo.opennms.org/opennms/rest/info': {

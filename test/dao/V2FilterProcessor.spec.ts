@@ -1,4 +1,3 @@
-declare const describe, it, expect;
 
 import {Comparators} from '../../src/api/Comparator';
 import {Filter} from '../../src/api/Filter';
@@ -15,12 +14,12 @@ import { Clause } from '../../src/api/Clause';
 import { Operators } from '../../src/api/Operator';
 
 describe('V2FilterProcessor', () => {
-  function toSearch(filter: Filter, processor?: V2FilterProcessor) {
+  const toSearch = (filter: Filter, processor?: V2FilterProcessor) => {
     if (!processor) {
       processor = new V2FilterProcessor();
     }
     return processor.getParameters(filter)._s;
-  }
+  };
 
   it('default alarm filter', () => {
     const filter = new Filter();
@@ -124,10 +123,6 @@ describe('V2FilterProcessor', () => {
     });
   });
   it('alarm filter: orderBy=lastEventTime&order=DESC&orderBy=id&order=ASC', () => {
-    const clauses = [ 1, 2, 3 ].map((id) => {
-      return new Clause(new Restriction('node.id', Comparators.EQ, id), Operators.OR);
-    });
-
     const filter = new Filter();
     filter
       .withOrderBy(new OrderBy('lastEventTime', Orders.DESC))

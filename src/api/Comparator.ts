@@ -32,7 +32,6 @@ export class Comparator extends OnmsEnum<number> {
   }
 }
 
-/* eslint-disable */
 
 /**
  * Contains constant instances of all available comparators.

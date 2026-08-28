@@ -58,10 +58,10 @@ export class OnmsEnum<T> {
 
 /** convenience function for implementing id-based lookup in enums */
 /** @hidden */
-export function forId(collection: any, id?: any) {
+export const forId = (collection: any, id?: any) => {
   if (id || (!isNaN(id) && Number.parseInt(id, 10) >= 0)) {
     for (const type in collection) {
-      if (collection.hasOwnProperty(type)) {
+      if (Object.prototype.hasOwnProperty.call(collection, type)) {
         const collectionId = collection[type].id;
         if (('' + collectionId) === ('' + id)) {
           return collection[type];
@@ -70,14 +70,14 @@ export function forId(collection: any, id?: any) {
     }
   }
   return undefined;
-}
+};
 
 /** convenience function for implementing label-based lookup in enums */
 /** @hidden */
-export function forLabel(collection: any, label?: string) {
+export const forLabel = (collection: any, label?: string) => {
   if (label) {
     for (const type in collection) {
-      if (collection.hasOwnProperty(type)) {
+      if (Object.prototype.hasOwnProperty.call(collection, type)) {
         const collectionLabel = collection[type].label;
         if (collectionLabel && collectionLabel.toLowerCase() === label.toLowerCase()) {
           return collection[type];
@@ -86,4 +86,4 @@ export function forLabel(collection: any, label?: string) {
     }
   }
   return undefined;
-}
+};

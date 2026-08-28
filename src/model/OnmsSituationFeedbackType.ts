@@ -17,13 +17,12 @@ export class OnmsSituationFeedbackType extends OnmsEnum<string> implements IHasU
     return forLabel(FeedbackTypes, label);
   }
 
-  /** @inheritdoc */
+  /** {@inheritDoc} */
   public get urlValue() {
     return String(this.id);
   }
 }
 
-/* eslint-disable  */
 /**
  * Contains constant instances of all feedback types.
  * @category Model

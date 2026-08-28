@@ -27,7 +27,7 @@ export class PhysAddr implements IHasUrlValue {
     }
   }
 
-  /** @inheritdoc */
+  /** {@inheritDoc} */
   public get urlValue() {
     return this.toString();
   }

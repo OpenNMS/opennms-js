@@ -61,7 +61,7 @@ export class OnmsSnmpInterface implements IHasUrlValue {
   /** The node associated to this snmpInterface */
   public nodeId?: number;
 
-  /** @inheritdoc */
+  /** {@inheritDoc} */
   public get urlValue() {
     return String(this.id);
   }

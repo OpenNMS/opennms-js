@@ -37,7 +37,7 @@ export class OnmsCategory implements IHasUrlValue {
     this.name = name;
   }
 
-  /** @inheritdoc */
+  /** {@inheritDoc} */
   public get urlValue() {
     return this.name;
   }

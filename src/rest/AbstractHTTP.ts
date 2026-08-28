@@ -1,4 +1,3 @@
-// eslint-disable-next-line
 /// <reference path="../../typings/index.d.ts" />
 
 import {IOnmsHTTP} from '../api/IOnmsHTTP';
@@ -159,7 +158,7 @@ export abstract class AbstractHTTP implements IOnmsHTTP {
   /**
    * Get the union of [[OnmsHTTPOptions]] based on the passed options, defaults,
    * and options in the [[OnmsServer]] associated with this request.  Order of
-   * precedence is passed options -> server options -> default options.
+   * precedence is passed options, then server options, then default options.
    */
   protected getOptions(options?: OnmsHTTPOptions): OnmsHTTPOptions {
     return OnmsHTTPOptions.newBuilder().setServer(this.serverObj || undefined)
@@ -190,7 +189,6 @@ export abstract class AbstractHTTP implements IOnmsHTTP {
     return new OnmsError(message, status, options, data);
   }
 
-  /* eslint-disable @typescript-eslint/member-ordering */
 
   /**
    * Attempt to determine an error message from an error response.

@@ -16,6 +16,7 @@ import { OrderBy, Order, Orders } from './api/OrderBy';
 
 /** @hidden */
 const CLI = () => {
+  // eslint-disable-next-line @typescript-eslint/no-require-imports
   const version = (global as any).OPENNMS_JS_VERSION || require('../package.json').version || 'unknown';
 
   const homedir = process.env[(process.platform === 'win32') ? 'USERPROFILE' : 'HOME'];
@@ -72,7 +73,6 @@ const CLI = () => {
     process.exit(1);
   };
 
-  /* eslint-disable no-console */
 
   // global options
   program
@@ -135,10 +135,8 @@ const CLI = () => {
       const http = new Rest.AxiosHTTP();
 
       return Client.getMetadata(server, http).then((res) => {
-        let c = pc.green;
         if (res.type === API.ServerTypes.MERIDIAN) {
           log.log(pc.blue('OpenNMS Meridian ' + res.version.displayVersion + ' Capabilities:'));
-          c = pc.blue;
         } else {
           log.log(pc.green('OpenNMS Horizon ' + res.version.displayVersion + ' Capabilities:'));
         }
@@ -188,6 +186,7 @@ const CLI = () => {
       let logMessage = '';
       if (alarm.logMessage) {
         logMessage = alarm.logMessage
+          // eslint-disable-next-line no-control-regex
           .replace(new RegExp('[\r\n]+', 'gs'), ' ')
           .replace(new RegExp('\\s+', 'gs'), ' ')
           .trim();
@@ -208,7 +207,6 @@ const CLI = () => {
   // list current alarms
   program
     .command('alarms [filters...]')
-    // eslint-disable-next-line max-len
     .description('List current alarms with optional filters (eg: "severity eq MAJOR", "node.label like dns*", "orderBy=lastEventTime")')
     .action(async (filters: string[]) => {
       const config = readConfig();

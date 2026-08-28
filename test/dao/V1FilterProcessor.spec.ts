@@ -1,4 +1,3 @@
-declare const describe, it, expect;
 
 import {Comparators} from '../../src/api/Comparator';
 import {Filter} from '../../src/api/Filter';

@@ -1,4 +1,3 @@
-declare const describe, beforeEach, it, expect;
 
 import {OnmsError} from '../../src/api/OnmsError';
 

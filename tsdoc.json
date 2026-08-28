@@ -1,13 +1,30 @@
 {
-  "extends": ["typedoc/tsdoc.json"],
+  "$schema": "https://developer.microsoft.com/json-schemas/tsdoc/v0/tsdoc.schema.json",
   "tagDefinitions": [
+    {
+      "tagName": "@category",
+      "syntaxKind": "block",
+      "allowMultiple": true
+    },
+    {
+      "tagName": "@hidden",
+      "syntaxKind": "modifier"
+    },
+    {
+      "tagName": "@interface",
+      "syntaxKind": "modifier"
+    },
+    {
+      "tagName": "@return",
+      "syntaxKind": "block"
+    },
     {
       "tagName": "@version",
       "syntaxKind": "block"
     },
     {
       "tagName": "@constructor",
-      "syntaxKind": "block"
+      "syntaxKind": "modifier"
     },
     {
       "tagName": "@implements",

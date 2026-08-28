@@ -9,8 +9,6 @@ var createVariants = require('parallel-webpack').createVariants;
 
 var cloneDeep = require('lodash').cloneDeep;
 
-var libraryName = 'opennms';
-
 var variants = {
   target: [ 'web', 'node' ],
 };
