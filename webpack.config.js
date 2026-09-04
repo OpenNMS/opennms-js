@@ -65,7 +65,7 @@ const config = {
   }
 };
 
-function createConfig(options) {
+function createConfig(options, argv) {
   const myconf = cloneDeep(config);
   myconf.output.filename = '[name]';
   const defs = {
@@ -82,14 +82,23 @@ function createConfig(options) {
     myconf.target = 'node';
   }
 
-  // Webpack 5's built-in persistent cache, replacing cache-loader. Every variant needs its
-  // own `name`: the default is derived from mode alone, so a production run -- which builds
-  // four variants at once -- would have them share and clobber a single cache entry.
+  // Webpack 5's built-in persistent cache, replacing cache-loader. The name has to pin down
+  // every input that changes the output, or two different compilations share one entry:
+  //
+  //   - target and the production flag, which drive different optimization, plugins and
+  //     DefinePlugin values;
+  //   - the mode that actually takes effect, which is argv.mode. webpack-cli's --mode
+  //     overrides whatever `mode` this config sets, so during `npm run build` even the
+  //     non-minified variants compile in production mode while myconf.mode still reads
+  //     'development'. Keying on myconf.mode put those production-compiled modules into the
+  //     web-development/node-development entries `npm run dev` reads back, and dev then
+  //     failed with "No template for dependency: PureExpressionDependency".
+  //
+  // These bundles are large and there are four of them; uncompressed the cache runs to
+  // ~500MB. Gzip trades a little CPU to keep it to a fraction of that.
   myconf.cache = {
     type: 'filesystem',
-    name: options.target + '-' + myconf.mode,
-    // These bundles are large and there are four of them; uncompressed the cache runs to
-    // ~500MB. Gzip trades a little CPU to keep it to a fraction of that.
+    name: options.target + '-' + (argv.mode || myconf.mode) + '-' + (options.production ? 'min' : 'full'),
     compression: 'gzip',
     buildDependencies: {
       // package.json is a build input, not just a dependency manifest: the version string
@@ -168,7 +177,7 @@ module.exports = (env, argv) => {
   if (argv.mode === 'production') {
     variants.production = [ true, false ];
   }
-  const config = createVariants(variants, createConfig);
+  const config = createVariants(variants, (options) => createConfig(options, argv));
   // console.debug('webpack config: ' + JSON.stringify(config, undefined, 2));
   return config;
 };
