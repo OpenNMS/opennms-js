@@ -46,13 +46,13 @@ export class AlarmDAO extends AbstractDAO<number, OnmsAlarm> {
    */
   public async get(id: number): Promise<OnmsAlarm> {
     return this.getOptions().then((opts) => {
-        return this.http.get(this.pathToAlarmsEndpoint() + '/' + id, opts.build()).then((result) => {
-            const alarm = this.fromData(result.data);
-            if (!alarm) {
-              throw new OnmsError(`AlarmDAO.get id={id} ReST request succeeded, but did not return a valid alarm.`);
-            }
-            return alarm;
-        });
+      return this.http.get(this.pathToAlarmsEndpoint() + '/' + id, opts.build()).then((result) => {
+        const alarm = this.fromData(result.data);
+        if (!alarm) {
+          throw new OnmsError(`AlarmDAO.get id=${id} ReST request succeeded, but did not return a valid alarm.`);
+        }
+        return alarm;
+      });
     });
   }
 
@@ -65,51 +65,51 @@ export class AlarmDAO extends AbstractDAO<number, OnmsAlarm> {
    */
   public async find(filter?: Filter): Promise<OnmsAlarm[]> {
     return this.getOptions(filter).then((opts) => {
-        return this.http.get(this.pathToAlarmsEndpoint(), opts.build()).then((result) => {
-            const data = this.getData(result);
-            if (!Array.isArray(data)) {
-              if (!data) {
-                return [] as OnmsAlarm[];
-              }
-              throw new OnmsError('Expected an array of alarms but got "' + (typeof data) + '" instead.');
-            }
-            const alarms = data.map((alarmData) => {
-                return this.fromData(alarmData);
-            });
-            // ugh, this cast is necessary to make tsc know there's nothing but OnmsAlarm objects
-            const ret = alarms.filter((alarm: OnmsAlarm | undefined) => alarm !== undefined) as OnmsAlarm[];
-            const diff = alarms.length - ret.length;
-            if (diff > 0) {
-              log.warn(`AlarmDAO.find ReST request succeeded, but {diff} alarms could not be parsed.`);
-            }
-            return ret;
+      return this.http.get(this.pathToAlarmsEndpoint(), opts.build()).then((result) => {
+        const data = this.getData(result);
+        if (!Array.isArray(data)) {
+          if (!data) {
+            return [] as OnmsAlarm[];
+          }
+          throw new OnmsError('Expected an array of alarms but got "' + (typeof data) + '" instead.');
+        }
+        const alarms = data.map((alarmData) => {
+          return this.fromData(alarmData);
         });
+        // ugh, this cast is necessary to make tsc know there's nothing but OnmsAlarm objects
+        const ret = alarms.filter((alarm: OnmsAlarm | undefined) => alarm !== undefined) as OnmsAlarm[];
+        const diff = alarms.length - ret.length;
+        if (diff > 0) {
+          log.warn(`AlarmDAO.find ReST request succeeded, but ${diff} alarms could not be parsed.`);
+        }
+        return ret;
+      });
     });
   }
 
-    /**
+  /**
      * Extracts the data from an HTTP Request result.
      *
      * @param result - the HTTP Request result.
      * @returns An array of [[OnmsAlarm]] objects.
      */
   public getData(result: OnmsResult<any>): OnmsAlarm[] {
-      let data = result.data;
+    let data = result.data;
 
-      if (data !== null && this.getCount(data, result.code) > 0 && data.alarm) {
-        data = data.alarm;
+    if (data !== null && this.getCount(data, result.code) > 0 && data.alarm) {
+      data = data.alarm;
+    } else {
+      data = [];
+    }
+
+    if (!Array.isArray(data)) {
+      if (data.id) {
+        data = [data];
       } else {
-        data = [];
+        throw new OnmsError('Expected an array of alarms but got "' + (typeof data) + '" instead.');
       }
-
-      if (!Array.isArray(data)) {
-        if (data.id) {
-          data = [data];
-        } else {
-          throw new OnmsError('Expected an array of alarms but got "' + (typeof data) + '" instead.');
-        }
-      }
-      return data;
+    }
+    return data;
   }
 
   /**
@@ -322,7 +322,7 @@ export class AlarmDAO extends AbstractDAO<number, OnmsAlarm> {
     alarm.firstEventTime = this.toDate(data.firstEventTime);
 
     if (!data.lastEvent) {
-      log.warn(`"lastEvent" missing on alarm id={alarm.id}.`);
+      log.warn(`"lastEvent" missing on alarm id=${alarm.id}.`);
     }
     alarm.lastEvent = this.eventDao.fromData(data.lastEvent);
 
@@ -448,11 +448,11 @@ export class AlarmDAO extends AbstractDAO<number, OnmsAlarm> {
     }
 
     return super.getOptions(filter).then((options) => {
-        // always use application/json for v2 calls
-        if (this.getApiVersion() === 2) {
-          return options.setHeader('Accept', 'application/json');
-        }
-        return options;
+      // always use application/json for v2 calls
+      if (this.getApiVersion() === 2) {
+        return options.setHeader('Accept', 'application/json');
+      }
+      return options;
     });
   }
 
@@ -467,10 +467,10 @@ export class AlarmDAO extends AbstractDAO<number, OnmsAlarm> {
       .setParameters(parameters);
 
     return this.http.put(url, builder.build()).then((result) => {
-        if (!result.isSuccess) {
-            throw result;
-        }
-        return;
+      if (!result.isSuccess) {
+        throw result;
+      }
+      return;
     });
   }
 
@@ -484,10 +484,10 @@ export class AlarmDAO extends AbstractDAO<number, OnmsAlarm> {
       .setHeader('Accept', undefined)
       .setParameters(parameters);
     return this.http.httpDelete(url, builder.build()).then((result) => {
-        if (!result.isSuccess) {
-            throw result;
-        }
-        return;
+      if (!result.isSuccess) {
+        throw result;
+      }
+      return;
     });
   }
 
@@ -539,8 +539,8 @@ export class AlarmDAO extends AbstractDAO<number, OnmsAlarm> {
    * @returns URL on the associated OpenNMS server for the alarm details page.
    */
   private getDetailsPage(alarm: number|OnmsAlarm): string {
-      const alarmId = (typeof(alarm) === 'number' ? alarm : alarm.id);
-      return this.server.resolveURL(`alarm/detail.htm`, {id: alarmId});
+    const alarmId = (typeof(alarm) === 'number' ? alarm : alarm.id);
+    return this.server.resolveURL('alarm/detail.htm', {id: alarmId});
   }
 
   /**

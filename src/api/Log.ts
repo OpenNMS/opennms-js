@@ -3,15 +3,15 @@ import pc from 'picocolors';
 
 const arrayToString = (parms: any[]) => {
   return parms
-           .map(val => {
-             if (val === undefined) {
-               return '';
-             }
-             if (val instanceof String || typeof val === 'string') {
-               return val;
-             }
-             return JSON.stringify(val, null, 2)
-           }).join(' ');
+    .map(val => {
+      if (val === undefined) {
+        return '';
+      }
+      if (val instanceof String || typeof val === 'string') {
+        return val;
+      }
+      return JSON.stringify(val, null, 2)
+    }).join(' ');
 };
 
 /**

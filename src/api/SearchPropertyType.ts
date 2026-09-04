@@ -36,14 +36,14 @@ export class SearchPropertyType extends OnmsEnum<string> {
 
 /** @hidden */
 const StringComparators = [
-    Comparators.EQ, Comparators.NE,
+  Comparators.EQ, Comparators.NE,
 ];
 
 /** @hidden */
 const NumberComparators = [
-    Comparators.EQ, Comparators.NE,
-    Comparators.GE, Comparators.GT,
-    Comparators.LE, Comparators.LT,
+  Comparators.EQ, Comparators.NE,
+  Comparators.GE, Comparators.GT,
+  Comparators.LE, Comparators.LT,
 ];
 
 /**

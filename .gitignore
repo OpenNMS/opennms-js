@@ -8,7 +8,6 @@ awsconfig
 /public_gen
 /tmp
 /build
-/.cache-loader
 vendor/phantomjs/phantomjs
 
 docs/AWS_S3_BUCKET

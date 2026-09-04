@@ -36,14 +36,14 @@ export abstract class AbstractDAO<K, T> extends BaseDAO implements IValueProvide
    * Returns the Promise for a [[IFilterProcessor]].
    */
   public async getFilterProcessor(): Promise<IFilterProcessor> {
-      switch (this.getApiVersion()) {
-          case 2: {
-            const cache = await this.getPropertiesCache();
-            return new V2FilterProcessor(cache);
-          }
-          default:
-            return Promise.resolve(new V1FilterProcessor());
+    switch (this.getApiVersion()) {
+      case 2: {
+        const cache = await this.getPropertiesCache();
+        return new V2FilterProcessor(cache);
       }
+      default:
+        return Promise.resolve(new V1FilterProcessor());
+    }
   }
 
   /**
@@ -66,14 +66,14 @@ export abstract class AbstractDAO<K, T> extends BaseDAO implements IValueProvide
     return await this.getPropertiesCache();
   }
 
-    /**
+  /**
      * Gets the property identified by the id if it exists.
      *
      * @param id - The id to search the property by.
      */
   public async searchProperty(id: string): Promise<SearchProperty | undefined> {
-      const cache = await this.getPropertiesCache();
-      return cache.find((prop: any) => prop.id === id);
+    const cache = await this.getPropertiesCache();
+    return cache.find((prop: any) => prop.id === id);
   }
 
   /**
@@ -82,19 +82,19 @@ export abstract class AbstractDAO<K, T> extends BaseDAO implements IValueProvide
    * @return the cache for this dao. It is created if it does not exist.
    */
   public async getPropertiesCache(): Promise<any> {
-      if (this.getApiVersion() === 1) {
-          throw new OnmsError('Search property metadata is only available in OpenNMS ' +
+    if (this.getApiVersion() === 1) {
+      throw new OnmsError('Search property metadata is only available in OpenNMS ' +
               'versions that support the ReSTv2 API.');
-      }
+    }
 
-      if  (!this.propertiesCache) {
-        const opts = (await this.getOptions()).setHeader('Accept', 'application/json');
-        const result = await this.http.get(this.searchPropertyPath(), opts.build());
-        this.propertiesCache = this.parseResultList(result, 'searchProperty',
-          this.searchPropertyPath(), (prop: any) => this.toSearchProperty(prop));
-      }
+    if  (!this.propertiesCache) {
+      const opts = (await this.getOptions()).setHeader('Accept', 'application/json');
+      const result = await this.http.get(this.searchPropertyPath(), opts.build());
+      this.propertiesCache = this.parseResultList(result, 'searchProperty',
+        this.searchPropertyPath(), (prop: any) => this.toSearchProperty(prop));
+    }
 
-      return this.propertiesCache;
+    return this.propertiesCache;
   }
 
   /**
@@ -140,20 +140,20 @@ export abstract class AbstractDAO<K, T> extends BaseDAO implements IValueProvide
    * @param mapCallbackFunction - Callback function to convert each entry from <code>result.data[dataFieldName]</code>.
    */
   protected parseResultList(result: any, dataFieldName: string, path: string, mapCallbackFunction: any): any[] {
-      let ret = [] as any[];
+    let ret = [] as any[];
 
-      const data = result.data;
-      if (this.getCount(data) > 0 && data[dataFieldName]) {
-          ret = data[dataFieldName];
-      }
+    const data = result.data;
+    if (this.getCount(data) > 0 && data[dataFieldName]) {
+      ret = data[dataFieldName];
+    }
 
-      if (!Array.isArray(ret)) {
-          throw new OnmsError('Expected an array but got "' + (typeof ret) + '" instead: ' + path);
-      }
-      if (mapCallbackFunction) {
-          return ret.map(mapCallbackFunction);
-      }
-      return ret;
+    if (!Array.isArray(ret)) {
+      throw new OnmsError('Expected an array but got "' + (typeof ret) + '" instead: ' + path);
+    }
+    if (mapCallbackFunction) {
+      return ret.map(mapCallbackFunction);
+    }
+    return ret;
   }
 
   /**
