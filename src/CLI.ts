@@ -23,7 +23,7 @@ const CLI = () => {
   const defaultConfigFile = path.join(homedir ?? './', '.opennms-cli.config.json');
 
   const tableConfig = {
-    border: getBorderCharacters(`void`),
+    border: getBorderCharacters('void'),
     columnDefault: {
       paddingLeft: 0,
       paddingRight: 2,

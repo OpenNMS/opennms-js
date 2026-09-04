@@ -21,7 +21,7 @@ export class EventDAO extends AbstractDAO<number, OnmsEvent> {
       return this.http.get(this.pathToEventsEndpoint() + '/' + id, builder.build()).then((result) => {
         const ev = this.fromData(result.data);
         if (!ev) {
-          throw new OnmsError(`EventDAO.get id={id} ReST request succeeded, but did not return a valid event.`);
+          throw new OnmsError('EventDAO.get id={id} ReST request succeeded, but did not return a valid event.');
         }
         return ev;
       });
@@ -54,7 +54,7 @@ export class EventDAO extends AbstractDAO<number, OnmsEvent> {
         const ret = events.filter((event: OnmsEvent | undefined) => event !== undefined) as OnmsEvent[];
         const diff = events.length - ret.length;
         if (diff > 0) {
-          log.warn(`EventDAO.find ReST request succeeded, but {diff} events could not be parsed.`);
+          log.warn('EventDAO.find ReST request succeeded, but {diff} events could not be parsed.');
         }
         return ret;
       });

@@ -5,12 +5,17 @@ const tsparser = require('@typescript-eslint/parser');
 const tsdoc = require('eslint-plugin-tsdoc');
 const importPlugin = require('eslint-plugin-import');
 const preferArrow = require('eslint-plugin-prefer-arrow');
+const stylistic = require('@stylistic/eslint-plugin');
 
 const SOURCES = ['src/**/*.ts'];
 const TESTS = ['test/**/*.ts'];
 const TYPESCRIPT = [...SOURCES, ...TESTS];
-// Build and lint configuration living at the repo root: plain CommonJS, no TypeScript program.
-const CONFIGS = ['*.js'];
+// Plain CommonJS scripts: the build and lint configuration at the repo root, plus the
+// standalone smoke runner under test/. No TypeScript program backs these.
+//
+// SOURCES, TESTS and SCRIPTS together are the authoritative lint scope -- `npm run lint`
+// passes no patterns of its own, so anything not matched here is linted with no rules.
+const SCRIPTS = ['*.js', 'test/**/*.js'];
 
 /** Scope a shared config (or array of them) to the given file patterns. */
 const scoped = (configs, files) => [].concat(configs).map((config) => ({ ...config, files }));
@@ -38,12 +43,18 @@ const typescript = {
     },
   },
   plugins: {
+    '@stylistic': stylistic,
     'tsdoc': tsdoc,
     'import': importPlugin,
     'prefer-arrow': preferArrow,
     '@typescript-eslint': tseslint,
   },
   rules: {
+    // Restored via @stylistic: @typescript-eslint/indent and @typescript-eslint/quotes
+    // were deleted in typescript-eslint v6, so the entries that used to carry these
+    // two had silently stopped enforcing anything.
+    '@stylistic/indent': ['error', 2, { SwitchCase: 1 }],
+    '@stylistic/quotes': ['error', 'single', { avoidEscape: true }],
     '@typescript-eslint/adjacent-overload-signatures': 'error',
     '@typescript-eslint/array-type': [
       'error',
@@ -177,7 +188,6 @@ const typescript = {
         ],
       },
     ],
-    'indent': 'off',
     'linebreak-style': [
       'error',
       'unix',
@@ -211,7 +221,6 @@ const typescript = {
     'object-shorthand': 'error',
     'prefer-arrow/prefer-arrow-functions': 'error',
     'prefer-const': 'error',
-    'quotes': 'off',
     'radix': 'error',
     'spaced-comment': [
       'error',
@@ -261,15 +270,20 @@ module.exports = [
     },
   },
   {
-    files: CONFIGS,
+    files: SCRIPTS,
     languageOptions: {
       sourceType: 'commonjs',
       globals: {
         ...globals.node,
       },
     },
+    plugins: {
+      '@stylistic': stylistic,
+    },
     rules: {
       ...js.configs.recommended.rules,
+      '@stylistic/indent': ['error', 2, { SwitchCase: 1 }],
+      '@stylistic/quotes': ['error', 'single', { avoidEscape: true }],
       'no-unused-vars': [
         'error',
         {

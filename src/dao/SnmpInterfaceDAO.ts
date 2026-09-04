@@ -27,7 +27,7 @@ export class SnmpInterfaceDAO extends AbstractDAO<number, OnmsSnmpInterface> {
         const node = OnmsSnmpInterface.fromData(result.data);
 
         if (!node) {
-          throw new OnmsError(`SnmpInterfaceDAO.get id={id} ReST request succeeded, but did not return a valid node.`);
+          throw new OnmsError('SnmpInterfaceDAO.get id={id} ReST request succeeded, but did not return a valid node.');
         }
 
         return node;

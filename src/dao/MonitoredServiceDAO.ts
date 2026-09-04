@@ -28,7 +28,7 @@ export class MonitoredServiceDAO extends AbstractDAO<number, OnmsMonitoredServic
         const node = OnmsMonitoredService.fromData(result.data);
 
         if (!node) {
-          throw new OnmsError(`MonitoredServiceDAO.get id={id} ReST request succeeded, but did not return a valid node.`);
+          throw new OnmsError('MonitoredServiceDAO.get id={id} ReST request succeeded, but did not return a valid node.');
         }
 
         return node;

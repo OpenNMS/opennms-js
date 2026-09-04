@@ -49,7 +49,7 @@ export class AlarmDAO extends AbstractDAO<number, OnmsAlarm> {
       return this.http.get(this.pathToAlarmsEndpoint() + '/' + id, opts.build()).then((result) => {
         const alarm = this.fromData(result.data);
         if (!alarm) {
-          throw new OnmsError(`AlarmDAO.get id={id} ReST request succeeded, but did not return a valid alarm.`);
+          throw new OnmsError('AlarmDAO.get id={id} ReST request succeeded, but did not return a valid alarm.');
         }
         return alarm;
       });
@@ -80,7 +80,7 @@ export class AlarmDAO extends AbstractDAO<number, OnmsAlarm> {
         const ret = alarms.filter((alarm: OnmsAlarm | undefined) => alarm !== undefined) as OnmsAlarm[];
         const diff = alarms.length - ret.length;
         if (diff > 0) {
-          log.warn(`AlarmDAO.find ReST request succeeded, but {diff} alarms could not be parsed.`);
+          log.warn('AlarmDAO.find ReST request succeeded, but {diff} alarms could not be parsed.');
         }
         return ret;
       });
@@ -322,7 +322,7 @@ export class AlarmDAO extends AbstractDAO<number, OnmsAlarm> {
     alarm.firstEventTime = this.toDate(data.firstEventTime);
 
     if (!data.lastEvent) {
-      log.warn(`"lastEvent" missing on alarm id={alarm.id}.`);
+      log.warn('"lastEvent" missing on alarm id={alarm.id}.');
     }
     alarm.lastEvent = this.eventDao.fromData(data.lastEvent);
 
@@ -540,7 +540,7 @@ export class AlarmDAO extends AbstractDAO<number, OnmsAlarm> {
    */
   private getDetailsPage(alarm: number|OnmsAlarm): string {
     const alarmId = (typeof(alarm) === 'number' ? alarm : alarm.id);
-    return this.server.resolveURL(`alarm/detail.htm`, {id: alarmId});
+    return this.server.resolveURL('alarm/detail.htm', {id: alarmId});
   }
 
   /**
