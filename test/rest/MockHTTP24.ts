@@ -8,10 +8,10 @@ export class MockHTTP24 extends AbstractMockHTTP {
     switch (url) {
       case 'http://demo.opennms.org/opennms/rest/info': {
         return this.okJson({
-            displayVersion: '24.0.0',
-            packageDescription: 'OpenNMS',
-            packageName: 'opennms', version: '24.0.0'
-          });
+          displayVersion: '24.0.0',
+          packageDescription: 'OpenNMS',
+          packageName: 'opennms', version: '24.0.0'
+        });
       }
       case 'rest/situation-feedback/616': {
         return this.okJsonFile('./24.0.0/get/rest/situation-feedback/616.json');

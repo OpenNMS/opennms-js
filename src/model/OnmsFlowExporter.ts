@@ -6,7 +6,7 @@ import {OnmsFlowExporterSummary} from './OnmsFlowExporterSummary';
  * @category Model
  */
 export class OnmsFlowExporter extends OnmsFlowExporterSummary {
-    /** a collection of interface information */
-    public interfaces?: OnmsFlowSnmpInterface[];
+  /** a collection of interface information */
+  public interfaces?: OnmsFlowSnmpInterface[];
 
 }

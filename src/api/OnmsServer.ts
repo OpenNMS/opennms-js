@@ -166,7 +166,7 @@ export class OnmsServer {
       uri = uri.segment(forFragment);
     }
     if (withQuery !== undefined) {
-        uri = uri.addQuery(withQuery);
+      uri = uri.addQuery(withQuery);
     }
     return uri.toString();
   }

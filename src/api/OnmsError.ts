@@ -31,18 +31,18 @@ export class OnmsError extends Error {
    * @param code - An optional error code to associate with the error.
    */
   constructor(message: string, code?: number, options?: any, data?: any) {
-      super(message);
-      this.name = this.constructor.name;
-      this.statusCode = code;
-      this.data = data;
-      this.options = options;
-      if (typeof Error.captureStackTrace === 'function') {
-          Error.captureStackTrace(this, this.constructor);
-      } else {
-          this.stack = (new Error(message)).stack;
-      }
-      // workaround, see http://bit.ly/2vllGdD
-      Object.setPrototypeOf(this, OnmsError.prototype);
+    super(message);
+    this.name = this.constructor.name;
+    this.statusCode = code;
+    this.data = data;
+    this.options = options;
+    if (typeof Error.captureStackTrace === 'function') {
+      Error.captureStackTrace(this, this.constructor);
+    } else {
+      this.stack = (new Error(message)).stack;
+    }
+    // workaround, see http://bit.ly/2vllGdD
+    Object.setPrototypeOf(this, OnmsError.prototype);
   }
 
   /**

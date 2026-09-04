@@ -1,4 +1,3 @@
-.cache-loader
 .circleci/config.yml
 .dependabot/config.yml
 .github

@@ -3,14 +3,14 @@
  * @category Model
  */
 export class OnmsFlowSeriesColumn {
-    /** label */
-    public label: string;
+  /** label */
+  public label: string;
 
-    /** direction */
-    public ingress: boolean;
+  /** direction */
+  public ingress: boolean;
 
-    constructor(label: string, ingress: boolean) {
-        this.label = label;
-        this.ingress = ingress;
-    }
+  constructor(label: string, ingress: boolean) {
+    this.label = label;
+    this.ingress = ingress;
+  }
 }

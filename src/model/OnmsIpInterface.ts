@@ -84,7 +84,11 @@ export class OnmsIpInterface implements IHasUrlValue {
    * create an IP interface object from a JSON object
    * @hidden
    */
-   public static fromData(data: any) {
+  public static fromData(data: any) {
+    if (!data) {
+      return undefined;
+    }
+
     const iface = new OnmsIpInterface();
 
     iface.id = Util.toNumber(data.id);

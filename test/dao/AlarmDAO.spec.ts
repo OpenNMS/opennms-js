@@ -193,11 +193,11 @@ describe('AlarmDAO with v1 API', () => {
     return expect(dao.deleteStickyMemo(404725)).rejects.toBeDefined();
   });
   it('AlarmDAO.deleteJournalMemo(404725) should reject', () => {
-      return expect(dao.deleteJournalMemo(404725)).rejects.toBeDefined();
+    return expect(dao.deleteJournalMemo(404725)).rejects.toBeDefined();
   });
   describe('getData()', () => {
-      it('Can handle single alarm. See JS-10', () => {
-          const rawData = '<?xml version="1.0" encoding="UTF-8"?>\n' +
+    it('Can handle single alarm. See JS-10', () => {
+      const rawData = '<?xml version="1.0" encoding="UTF-8"?>\n' +
           '<alarms count="1" totalCount="1">\n' +
           '    <alarm type="1" count="1" id="1" severity="CRITICAL">\n' +
           '        <description>A problem has been triggered.</description>\n' +
@@ -219,11 +219,11 @@ describe('AlarmDAO with v1 API', () => {
           '        <x733ProbableCause>0</x733ProbableCause>\n' +
           '    </alarm>\n' +
           '</alarms>';
-          const jsonObject = new XmlTransformer().transform(rawData);
+      const jsonObject = new XmlTransformer().transform(rawData);
 
-          // if this passes, no exception was thrown
-          dao.getData({ data: jsonObject } as OnmsResult<any>);
-      });
+      // if this passes, no exception was thrown
+      dao.getData({ data: jsonObject } as OnmsResult<any>);
+    });
   });
 });
 
