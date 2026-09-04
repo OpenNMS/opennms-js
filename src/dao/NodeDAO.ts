@@ -10,6 +10,8 @@ import {OnmsMonitoredService} from '../model/OnmsMonitoredService';
 import {OnmsNode} from '../model/OnmsNode';
 import {OnmsSnmpInterface} from '../model/OnmsSnmpInterface';
 
+import {log} from '../api/Log';
+
 /**
  * Data access for [[OnmsNode]] objects.
  * @category DAO
@@ -27,45 +29,45 @@ export class NodeDAO extends AbstractDAO<number, OnmsNode> {
    */
   public async get(id: number, recurse = false): Promise<OnmsNode> {
     return this.getOptions().then((builder) => {
-        return this.http.get(this.pathToNodesEndpoint() + '/' + id, builder.build()).then((result) => {
-            const node = this.fromData(result.data);
+      return this.http.get(this.pathToNodesEndpoint() + '/' + id, builder.build()).then((result) => {
+        const node = this.fromData(result.data);
 
-            if (!node) {
-              throw new OnmsError(`NodeDAO.get id={id} ReST request succeeded, but did not return a valid node.`);
-            }
+        if (!node) {
+          throw new OnmsError(`NodeDAO.get id=${id} ReST request succeeded, but did not return a valid node.`);
+        }
 
-            if (recurse) {
-                return this.fetch(node);
-            } else {
-                return node;
-            }
-        });
+        if (recurse) {
+          return this.fetch(node);
+        } else {
+          return node;
+        }
+      });
     });
   }
 
   /** Search for nodes, given an optional filter. */
   public async find(filter?: Filter): Promise<OnmsNode[]> {
     return this.getOptions(filter).then((builder) => {
-        return this.http.get(this.pathToNodesEndpoint(), builder.build()).then((result) => {
-            let data = result.data;
+      return this.http.get(this.pathToNodesEndpoint(), builder.build()).then((result) => {
+        let data = result.data;
 
-            if (data !== null && this.getCount(data, result.code) > 0 && data.node) {
-                data = data.node;
-            } else {
-                data = [];
-            }
+        if (data !== null && this.getCount(data, result.code) > 0 && data.node) {
+          data = data.node;
+        } else {
+          data = [];
+        }
 
-            if (!Array.isArray(data)) {
-                if (data.id) {
-                    data = [data];
-                } else {
-                    throw new OnmsError('Expected an array of nodes but got "' + (typeof data) + '" instead.');
-                }
-            }
-            return data.map((nodeData: any) => {
-                return this.fromData(nodeData);
-            });
+        if (!Array.isArray(data)) {
+          if (data.id) {
+            data = [data];
+          } else {
+            throw new OnmsError('Expected an array of nodes but got "' + (typeof data) + '" instead.');
+          }
+        }
+        return data.map((nodeData: any) => {
+          return this.fromData(nodeData);
         });
+      });
     });
   }
 
@@ -98,36 +100,42 @@ export class NodeDAO extends AbstractDAO<number, OnmsNode> {
 
   /** Given a node, get the IP interfaces for that node. */
   public async ipInterfaces(passedNode: number | OnmsNode, filter?: Filter): Promise<OnmsIpInterface[]> {
-      let node: string;
-      if (passedNode instanceof OnmsNode) {
-          node = String(passedNode.id);
-      } else {
-        node = String(passedNode);
-      }
-      return this.getOptions(filter).then((builder) => {
-        return this.http.get(
-            this.pathToNodesEndpoint() + '/' + node + '/ipinterfaces',
-            builder.build(),
-        ).then((result) => {
-            let data = result.data;
+    let node: string;
+    if (passedNode instanceof OnmsNode) {
+      node = String(passedNode.id);
+    } else {
+      node = String(passedNode);
+    }
+    return this.getOptions(filter).then((builder) => {
+      return this.http.get(
+        this.pathToNodesEndpoint() + '/' + node + '/ipinterfaces',
+        builder.build(),
+      ).then((result) => {
+        let data = result.data;
 
-            if (this.getCount(data, result.code) > 0 && data.ipInterface) {
-                data = data.ipInterface;
-            } else {
-                data = [];
-            }
+        if (this.getCount(data, result.code) > 0 && data.ipInterface) {
+          data = data.ipInterface;
+        } else {
+          data = [];
+        }
 
-            if (!Array.isArray(data)) {
-                if (data.nodeId) {
-                    data = [data];
-                } else {
-                    throw new OnmsError('Expected an array of IP interfaces but got "' + (typeof data) + '" instead.');
-                }
-            }
-            return data.map((ifaceData: any) => {
-                return this.fromIpInterfaceData(ifaceData);
-            });
+        if (!Array.isArray(data)) {
+          if (data.nodeId) {
+            data = [data];
+          } else {
+            throw new OnmsError('Expected an array of IP interfaces but got "' + (typeof data) + '" instead.');
+          }
+        }
+        const ifaces = data.map((ifaceData: any) => {
+          return this.fromIpInterfaceData(ifaceData);
         });
+        const ret = ifaces.filter((iface: OnmsIpInterface | undefined) => iface !== undefined);
+        const diff = ifaces.length - ret.length;
+        if (diff > 0) {
+          log.warn(`NodeDAO.ipInterfaces ReST request succeeded, but ${diff} IP interfaces could not be parsed.`);
+        }
+        return ret;
+      });
     });
   }
 
@@ -135,30 +143,36 @@ export class NodeDAO extends AbstractDAO<number, OnmsNode> {
   public async snmpInterfaces(passedNode: number | OnmsNode, filter?: Filter): Promise<OnmsSnmpInterface[]> {
     const node = String(this.getNodeId(passedNode));
     return this.getOptions(filter).then((builder) => {
-        return this.http.get(
-            this.pathToNodesEndpoint() + '/' + node + '/snmpinterfaces',
-            builder.build(),
-        ).then((result) => {
-            let data = result.data;
+      return this.http.get(
+        this.pathToNodesEndpoint() + '/' + node + '/snmpinterfaces',
+        builder.build(),
+      ).then((result) => {
+        let data = result.data;
 
-            if (this.getCount(data, result.code) > 0 && data.snmpInterface) {
-                data = data.snmpInterface;
-            } else {
-                data = [];
-            }
+        if (this.getCount(data, result.code) > 0 && data.snmpInterface) {
+          data = data.snmpInterface;
+        } else {
+          data = [];
+        }
 
-            if (!Array.isArray(data)) {
-                if (data.ifName) {
-                    data = [data];
-                } else {
-                    throw new OnmsError('Expected an array of SNMP interfaces but got "'
+        if (!Array.isArray(data)) {
+          if (data.ifName) {
+            data = [data];
+          } else {
+            throw new OnmsError('Expected an array of SNMP interfaces but got "'
                         + (typeof data) + '" instead.');
-                }
-            }
-            return data.map((ifaceData: any) => {
-                return this.fromSnmpData(ifaceData);
-            });
+          }
+        }
+        const ifaces = data.map((ifaceData: any) => {
+          return this.fromSnmpData(ifaceData);
         });
+        const ret = ifaces.filter((iface: OnmsSnmpInterface | undefined) => iface !== undefined);
+        const diff = ifaces.length - ret.length;
+        if (diff > 0) {
+          log.warn(`NodeDAO.snmpInterfaces ReST request succeeded, but ${diff} SNMP interfaces could not be parsed.`);
+        }
+        return ret;
+      });
     });
   }
 
@@ -171,30 +185,36 @@ export class NodeDAO extends AbstractDAO<number, OnmsNode> {
     const node = String(this.getNodeId(passedNode));
 
     return this.getOptions(filter).then((builder) => {
-        if (ipInterface instanceof OnmsIpInterface && ipInterface.ipAddress) {
-            ipInterface = ipInterface.ipAddress.address;
+      if (ipInterface instanceof OnmsIpInterface && ipInterface.ipAddress) {
+        ipInterface = ipInterface.ipAddress.address;
+      }
+      const url = this.pathToNodesEndpoint() + '/' + node + '/ipinterfaces/' + ipInterface + '/services';
+      return this.http.get(url, builder.build()).then((result) => {
+        let data = result.data;
+
+        if (this.getCount(data, result.code) > 0 && data.service) {
+          data = data.service;
+        } else {
+          data = [];
         }
-        const url = this.pathToNodesEndpoint() + '/' + node + '/ipinterfaces/' + ipInterface + '/services';
-        return this.http.get(url, builder.build()).then((result) => {
-            let data = result.data;
 
-            if (this.getCount(data, result.code) > 0 && data.service) {
-                data = data.service;
-            } else {
-                data = [];
-            }
-
-            if (!Array.isArray(data)) {
-                if (data.lastGood) {
-                    data = [data];
-                } else {
-                    throw new OnmsError('Expected an array of services but got "' + (typeof data) + '" instead.');
-                }
-            }
-            return data.map((ifaceData: any) => {
-                return this.fromServiceData(ifaceData);
-            });
+        if (!Array.isArray(data)) {
+          if (data.lastGood) {
+            data = [data];
+          } else {
+            throw new OnmsError('Expected an array of services but got "' + (typeof data) + '" instead.');
+          }
+        }
+        const services = data.map((ifaceData: any) => {
+          return this.fromServiceData(ifaceData);
         });
+        const ret = services.filter((service: OnmsMonitoredService | undefined) => service !== undefined);
+        const diff = services.length - ret.length;
+        if (diff > 0) {
+          log.warn(`NodeDAO.services ReST request succeeded, but ${diff} monitored services could not be parsed.`);
+        }
+        return ret;
+      });
     });
   }
 
@@ -210,7 +230,7 @@ export class NodeDAO extends AbstractDAO<number, OnmsNode> {
    * create an IP interface object from a JSON object
    * @hidden
    */
-  public fromIpInterfaceData(data: any): OnmsIpInterface {
+  public fromIpInterfaceData(data: any): OnmsIpInterface | undefined {
     return OnmsIpInterface.fromData(data);
   }
 
@@ -218,7 +238,7 @@ export class NodeDAO extends AbstractDAO<number, OnmsNode> {
    * create an SNMP interface object from a JSON object
    * @hidden
    */
-  public fromSnmpData(data: any): OnmsSnmpInterface {
+  public fromSnmpData(data: any): OnmsSnmpInterface | undefined {
     return OnmsSnmpInterface.fromData(data);
   }
 
@@ -226,7 +246,7 @@ export class NodeDAO extends AbstractDAO<number, OnmsNode> {
    * create a monitored service object from a JSON object
    * @hidden
    */
-  public fromServiceData(data: any): OnmsMonitoredService {
+  public fromServiceData(data: any): OnmsMonitoredService | undefined {
     return OnmsMonitoredService.fromData(data);
   }
 

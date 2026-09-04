@@ -6,6 +6,8 @@ import {IOnmsHTTP} from '../api/IOnmsHTTP';
 import {OnmsError} from '../api/OnmsError';
 
 import { OnmsSnmpInterface } from '../model/OnmsSnmpInterface';
+
+import {log} from '../api/Log';
 /**
  * Data access for [[OnmsSnmpInterface]] objects.
  * @category DAO
@@ -23,15 +25,15 @@ export class SnmpInterfaceDAO extends AbstractDAO<number, OnmsSnmpInterface> {
   public async get(id: number): Promise<OnmsSnmpInterface> {
     this.assertV2();
     return this.getOptions().then((builder) => {
-        return this.http.get(this.getRoot() + '/' + id, builder.build()).then((result) => {
-            const node = OnmsSnmpInterface.fromData(result.data);
+      return this.http.get(this.getRoot() + '/' + id, builder.build()).then((result) => {
+        const node = OnmsSnmpInterface.fromData(result.data);
 
-            if (!node) {
-              throw new OnmsError(`SnmpInterfaceDAO.get id={id} ReST request succeeded, but did not return a valid node.`);
-            }
+        if (!node) {
+          throw new OnmsError(`SnmpInterfaceDAO.get id=${id} ReST request succeeded, but did not return a valid node.`);
+        }
 
-            return node;
-        });
+        return node;
+      });
     });
   }
 
@@ -39,26 +41,32 @@ export class SnmpInterfaceDAO extends AbstractDAO<number, OnmsSnmpInterface> {
   public async find(filter?: Filter): Promise<OnmsSnmpInterface[]> {
     this.assertV2();
     return this.getOptions(filter).then((builder) => {
-        return this.http.get(this.getRoot(), builder.build()).then((result) => {
-            let data = result.data;
+      return this.http.get(this.getRoot(), builder.build()).then((result) => {
+        let data = result.data;
 
-            if (data !== null && this.getCount(data, result.code) > 0 && data.snmpInterface) {
-                data = data.snmpInterface;
-            } else {
-                data = [];
-            }
+        if (data !== null && this.getCount(data, result.code) > 0 && data.snmpInterface) {
+          data = data.snmpInterface;
+        } else {
+          data = [];
+        }
 
-            if (!Array.isArray(data)) {
-                if (data.id) {
-                    data = [data];
-                } else {
-                    throw new OnmsError('Expected an array of SNMP interfaces but got "' + (typeof data) + '" instead.');
-                }
-            }
-            return data.map((ifaceData: any) => {
-                return OnmsSnmpInterface.fromData(ifaceData);
-            });
+        if (!Array.isArray(data)) {
+          if (data.id) {
+            data = [data];
+          } else {
+            throw new OnmsError('Expected an array of SNMP interfaces but got "' + (typeof data) + '" instead.');
+          }
+        }
+        const ifaces = data.map((ifaceData: any) => {
+          return OnmsSnmpInterface.fromData(ifaceData);
         });
+        const ret = ifaces.filter((iface: OnmsSnmpInterface | undefined) => iface !== undefined);
+        const diff = ifaces.length - ret.length;
+        if (diff > 0) {
+          log.warn(`SnmpInterfaceDAO.find ReST request succeeded, but ${diff} SNMP interfaces could not be parsed.`);
+        }
+        return ret;
+      });
     });
   }
 
@@ -81,7 +89,7 @@ export class SnmpInterfaceDAO extends AbstractDAO<number, OnmsSnmpInterface> {
    * Make sure v2 is supported.
    * @hidden
    */
-   private assertV2() {
+  private assertV2() {
     if (this.getApiVersion() < 2) {
       throw new OnmsError('The SNMP interface ReST API is only available on v2.');
     }

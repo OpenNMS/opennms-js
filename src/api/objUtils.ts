@@ -9,7 +9,7 @@
  * See OnmsEnum for implementation.
  */
 export const toJsonAwareReplace = (self: any, pattern: RegExp | string, replaceWith: string) => {
-    const obj = Object.prototype.hasOwnProperty.call(self, 'toJSON') && typeof self.toJSON === 'function' ? self.toJSON() : self;
-    const str = JSON.stringify(obj);
-    return str.replace(pattern, replaceWith);
+  const obj = Object.prototype.hasOwnProperty.call(self, 'toJSON') && typeof self.toJSON === 'function' ? self.toJSON() : self;
+  const str = JSON.stringify(obj);
+  return str.replace(pattern, replaceWith);
 }

@@ -99,7 +99,7 @@ export abstract class AbstractHTTP implements IOnmsHTTP {
     return jsonTransformer.transform(data);
   }
 
-    /**
+  /**
      * A convenience method for implementers to use to turn XML into a javascript object.
      * Use this to process an XML response before returning it in an [[OnmsResult]] object.
      */

@@ -3,15 +3,15 @@
  * @category Model
  */
 export class OnmsFlowSnmpInterface {
-    /** the interface's ifIndex */
-    public index?: number;
+  /** the interface's ifIndex */
+  public index?: number;
 
-    /** the interface name */
-    public name?: string;
+  /** the interface name */
+  public name?: string;
 
-    /** the interface's ifDescription */
-    public description?: string;
+  /** the interface's ifDescription */
+  public description?: string;
 
-    /** the interface's OpenNMS resource identifier */
-    public resourceId?: string;
+  /** the interface's OpenNMS resource identifier */
+  public resourceId?: string;
 }

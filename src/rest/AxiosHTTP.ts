@@ -161,11 +161,11 @@ export class AxiosHTTP extends AbstractHTTP {
     opts.url = realUrl;
 
     return this.getImpl(options).request(opts).then((response) => {
-        let type;
-        if (response.headers && response.headers['Content-Type']) {
-            type = response.headers['Content-Type'] as string;
-        }
-        return OnmsResult.ok(this.getData(response), undefined, response.status, type);
+      let type;
+      if (response.headers && response.headers['Content-Type']) {
+        type = response.headers['Content-Type'] as string;
+      }
+      return OnmsResult.ok(this.getData(response), undefined, response.status, type);
     }).catch((err) => {
       throw this.handleError(err, opts);
     });

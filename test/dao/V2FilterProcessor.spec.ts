@@ -84,11 +84,11 @@ describe('V2FilterProcessor', () => {
   });
   it('alarm filter: id!=0 AND (severity=OnmsSeverity.MINOR OR uei like *somethingWentWrong)', () => {
     const filter = new Filter()
-        .withOrRestriction(new Restriction('id', Comparators.NE, 0))
-        .withAndRestriction(new NestedRestriction()
-            .withOrRestriction(new Restriction('severity', Comparators.EQ, Severities.MINOR))
-            .withOrRestriction(new Restriction('uei', Comparators.LIKE, '*somethingWentWrong')),
-        );
+      .withOrRestriction(new Restriction('id', Comparators.NE, 0))
+      .withAndRestriction(new NestedRestriction()
+        .withOrRestriction(new Restriction('severity', Comparators.EQ, Severities.MINOR))
+        .withOrRestriction(new Restriction('uei', Comparators.LIKE, '*somethingWentWrong')),
+      );
     expect(toSearch(filter)).toEqual('id!=0;(severity==5,uei==*somethingWentWrong)');
   });
   it('alarm filter: lastEventTime=1976-04-14T00:00:00.000+0000', () => {
@@ -97,17 +97,17 @@ describe('V2FilterProcessor', () => {
     expect(toSearch(filter)).toEqual('lastEventTime==1976-04-14T00%3A00%3A00.000%2B0000');
   });
   it('alarm filter: verify null replacement for EQ and NE comparators', () => {
-      // the filter does not make any sense, but is there to verify that null replacement works correctly
-      const filter = new Filter()
-          .withAndRestriction(new Restriction('alarmAckTime', Comparators.EQ, 'null'))
-          .withAndRestriction(new Restriction('alarmAckTime', Comparators.NE, 'null'))
-          .withAndRestriction(new Restriction('id', Comparators.EQ, 'null'))
-          .withAndRestriction(new Restriction('id', Comparators.NE, 'null'));
-      const proc = new V2FilterProcessor([
-        { id: 'alarmAckTime', type: SearchPropertyTypes.TIMESTAMP } as SearchProperty,
-      ]);
-      expect(toSearch(filter, proc)).toEqual(
-          'alarmAckTime==1970-01-01T00%3A00%3A00.000%2B0000'
+    // the filter does not make any sense, but is there to verify that null replacement works correctly
+    const filter = new Filter()
+      .withAndRestriction(new Restriction('alarmAckTime', Comparators.EQ, 'null'))
+      .withAndRestriction(new Restriction('alarmAckTime', Comparators.NE, 'null'))
+      .withAndRestriction(new Restriction('id', Comparators.EQ, 'null'))
+      .withAndRestriction(new Restriction('id', Comparators.NE, 'null'));
+    const proc = new V2FilterProcessor([
+      { id: 'alarmAckTime', type: SearchPropertyTypes.TIMESTAMP } as SearchProperty,
+    ]);
+    expect(toSearch(filter, proc)).toEqual(
+      'alarmAckTime==1970-01-01T00%3A00%3A00.000%2B0000'
           + ';alarmAckTime!=1970-01-01T00%3A00%3A00.000%2B0000'
           + ';id==\u0000;id!=\u0000');
   });
