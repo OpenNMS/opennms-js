@@ -70,7 +70,11 @@ export class OnmsSnmpInterface implements IHasUrlValue {
    * create an SNMP interface object from a JSON object
    * @hidden
    */
-  public static fromData(data: any): OnmsSnmpInterface {
+  public static fromData(data: any): OnmsSnmpInterface | undefined {
+    if (!data) {
+      return undefined;
+    }
+
     const iface = new OnmsSnmpInterface();
 
     iface.id = Util.toNumber(data.id);

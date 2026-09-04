@@ -56,9 +56,11 @@ export class IpInterfaceDAO extends AbstractDAO<number, OnmsIpInterface> {
             throw new OnmsError('Expected an array of IP interfaces but got "' + (typeof data) + '" instead.');
           }
         }
-        return data.map((ifaceData: any) => {
+        const ifaces = data.map((ifaceData: any) => {
           return OnmsIpInterface.fromData(ifaceData);
         });
+        // ugh, this cast is necessary to make tsc know there's nothing but OnmsIpInterface objects
+        return ifaces.filter((iface: OnmsIpInterface | undefined) => iface !== undefined) as OnmsIpInterface[];
       });
     });
   }

@@ -6,13 +6,20 @@ import {ServerTypes} from '../../src/api/ServerType';
 
 import {AlarmDAO} from '../../src/dao/AlarmDAO';
 import {EventDAO} from '../../src/dao/EventDAO';
+import {IpInterfaceDAO} from '../../src/dao/IpInterfaceDAO';
+import {MonitoredServiceDAO} from '../../src/dao/MonitoredServiceDAO';
 import {NodeDAO} from '../../src/dao/NodeDAO';
 import {OutageDAO} from '../../src/dao/OutageDAO';
+import {SnmpInterfaceDAO} from '../../src/dao/SnmpInterfaceDAO';
 
 /**
  * These DAOs used to report `id={id}` literally: the messages were written as plain strings
  * rather than template literals, so the placeholder never interpolated. Assert the id being
  * requested actually reaches the message, so the diagnostic stays useful.
+ *
+ * IpInterfaceDAO, MonitoredServiceDAO and SnmpInterfaceDAO reach their message only because
+ * their model `fromData` now guards an empty body; before that guard they threw a TypeError
+ * first and the message below was dead code. See test/model/ModelFromData.spec.ts.
  */
 
 // 30.0.0 Horizon reports apiVersion 2, which the v2-only DAOs assert on.
@@ -25,18 +32,14 @@ const emptyBodyHTTP = () => ({
   get: () => Promise.resolve(OnmsResult.ok(null, 'OK', 200, 'application/json')),
 } as unknown as IOnmsHTTP);
 
-// IpInterfaceDAO, MonitoredServiceDAO and SnmpInterfaceDAO are deliberately absent:
-// OnmsIpInterface.fromData, OnmsMonitoredService.fromData and OnmsSnmpInterface.fromData
-// lack the `if (!data) { return undefined; }` guard their siblings have, so they dereference
-// a null body and throw a TypeError before the DAO's own `if (!x)` check can run. Those
-// three messages are unreachable today; the no-restricted-syntax lint rule covers them, and
-// the same rule covers the two `${diff}` warnings and AlarmDAO's `${alarm.id}`, which are
-// log output rather than thrown errors.
 const CASES: [string, (http: IOnmsHTTP) => any, number][] = [
   ['AlarmDAO', (http) => new AlarmDAO(http), 101],
   ['EventDAO', (http) => new EventDAO(http), 102],
   ['NodeDAO', (http) => new NodeDAO(http), 103],
+  ['IpInterfaceDAO', (http) => new IpInterfaceDAO(http), 104],
+  ['MonitoredServiceDAO', (http) => new MonitoredServiceDAO(http), 105],
   ['OutageDAO', (http) => new OutageDAO(http), 106],
+  ['SnmpInterfaceDAO', (http) => new SnmpInterfaceDAO(http), 107],
 ];
 
 describe('DAO error messages interpolate the requested id', () => {

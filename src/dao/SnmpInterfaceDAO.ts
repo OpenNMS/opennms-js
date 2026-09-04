@@ -55,9 +55,11 @@ export class SnmpInterfaceDAO extends AbstractDAO<number, OnmsSnmpInterface> {
             throw new OnmsError('Expected an array of SNMP interfaces but got "' + (typeof data) + '" instead.');
           }
         }
-        return data.map((ifaceData: any) => {
+        const ifaces = data.map((ifaceData: any) => {
           return OnmsSnmpInterface.fromData(ifaceData);
         });
+        // ugh, this cast is necessary to make tsc know there's nothing but OnmsSnmpInterface objects
+        return ifaces.filter((iface: OnmsSnmpInterface | undefined) => iface !== undefined) as OnmsSnmpInterface[];
       });
     });
   }

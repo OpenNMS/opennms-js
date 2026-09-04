@@ -56,9 +56,11 @@ export class MonitoredServiceDAO extends AbstractDAO<number, OnmsMonitoredServic
             throw new OnmsError('Expected an array of monitored services but got "' + (typeof data) + '" instead.');
           }
         }
-        return data.map((serviceData: any) => {
+        const services = data.map((serviceData: any) => {
           return OnmsMonitoredService.fromData(serviceData);
         });
+        // ugh, this cast is necessary to make tsc know there's nothing but OnmsMonitoredService objects
+        return services.filter((service: OnmsMonitoredService | undefined) => service !== undefined) as OnmsMonitoredService[];
       });
     });
   }

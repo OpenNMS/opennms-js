@@ -124,9 +124,11 @@ export class NodeDAO extends AbstractDAO<number, OnmsNode> {
             throw new OnmsError('Expected an array of IP interfaces but got "' + (typeof data) + '" instead.');
           }
         }
-        return data.map((ifaceData: any) => {
+        const ifaces = data.map((ifaceData: any) => {
           return this.fromIpInterfaceData(ifaceData);
         });
+        // ugh, this cast is necessary to make tsc know there's nothing but OnmsIpInterface objects
+        return ifaces.filter((iface: OnmsIpInterface | undefined) => iface !== undefined) as OnmsIpInterface[];
       });
     });
   }
@@ -155,9 +157,11 @@ export class NodeDAO extends AbstractDAO<number, OnmsNode> {
                         + (typeof data) + '" instead.');
           }
         }
-        return data.map((ifaceData: any) => {
+        const ifaces = data.map((ifaceData: any) => {
           return this.fromSnmpData(ifaceData);
         });
+        // ugh, this cast is necessary to make tsc know there's nothing but OnmsSnmpInterface objects
+        return ifaces.filter((iface: OnmsSnmpInterface | undefined) => iface !== undefined) as OnmsSnmpInterface[];
       });
     });
   }
@@ -191,9 +195,11 @@ export class NodeDAO extends AbstractDAO<number, OnmsNode> {
             throw new OnmsError('Expected an array of services but got "' + (typeof data) + '" instead.');
           }
         }
-        return data.map((ifaceData: any) => {
+        const services = data.map((ifaceData: any) => {
           return this.fromServiceData(ifaceData);
         });
+        // ugh, this cast is necessary to make tsc know there's nothing but OnmsMonitoredService objects
+        return services.filter((service: OnmsMonitoredService | undefined) => service !== undefined) as OnmsMonitoredService[];
       });
     });
   }
@@ -210,7 +216,7 @@ export class NodeDAO extends AbstractDAO<number, OnmsNode> {
    * create an IP interface object from a JSON object
    * @hidden
    */
-  public fromIpInterfaceData(data: any): OnmsIpInterface {
+  public fromIpInterfaceData(data: any): OnmsIpInterface | undefined {
     return OnmsIpInterface.fromData(data);
   }
 
@@ -218,7 +224,7 @@ export class NodeDAO extends AbstractDAO<number, OnmsNode> {
    * create an SNMP interface object from a JSON object
    * @hidden
    */
-  public fromSnmpData(data: any): OnmsSnmpInterface {
+  public fromSnmpData(data: any): OnmsSnmpInterface | undefined {
     return OnmsSnmpInterface.fromData(data);
   }
 
@@ -226,7 +232,7 @@ export class NodeDAO extends AbstractDAO<number, OnmsNode> {
    * create a monitored service object from a JSON object
    * @hidden
    */
-  public fromServiceData(data: any): OnmsMonitoredService {
+  public fromServiceData(data: any): OnmsMonitoredService | undefined {
     return OnmsMonitoredService.fromData(data);
   }
 
