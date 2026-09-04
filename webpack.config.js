@@ -1,19 +1,31 @@
 const webpack = require('webpack');
 const path = require('path');
-const ESLintPlugin = require('eslint-webpack-plugin');
 const LodashPlugin = require('lodash-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 const pkginfo = require('./package.json');
 
-var createVariants = require('parallel-webpack').createVariants;
+const cloneDeep = require('lodash').cloneDeep;
 
-var cloneDeep = require('lodash').cloneDeep;
-
-var variants = {
+const variants = {
   target: [ 'web', 'node' ],
 };
 
-var config = {
+/**
+ * Build the cross product of the given variant axes and map each combination through
+ * `configCallback`. This replaces `parallel-webpack`'s `createVariants`, which was the only
+ * thing this build used that package for -- the builds themselves run through plain webpack.
+ *
+ * @param {Object} axes - variant name to array of values, e.g. `{ target: ['web', 'node'] }`
+ * @param {Function} configCallback - maps one combination to a webpack configuration
+ */
+function createVariants(axes, configCallback) {
+  const combinations = Object.keys(axes).reduce((acc, key) => {
+    return acc.flatMap((combination) => axes[key].map((value) => ({ ...combination, [key]: value })));
+  }, [{}]);
+  return combinations.map(configCallback);
+}
+
+const config = {
   entry: {
     'opennms': __dirname + '/src/API.ts',
   },
@@ -25,9 +37,15 @@ var config = {
   module: {
     rules: [
       {
+        test: /(\.tsx?)$/,
+        use: [
+          'babel-loader'
+        ],
+        exclude: [/node_modules/]
+      },
+      {
         test: /(\.jsx?)$/,
         use: [
-          'cache-loader',
           'babel-loader'
         ]
       },
@@ -48,9 +66,9 @@ var config = {
 };
 
 function createConfig(options) {
-  var myconf = cloneDeep(config);
+  const myconf = cloneDeep(config);
   myconf.output.filename = '[name]';
-  var defs = {
+  const defs = {
     'IS_WEB': options.target === 'web',
     'IS_PRODUCTION': options.production,
     'global.OPENNMS_JS_VERSION': JSON.stringify(pkginfo.version),
@@ -63,6 +81,22 @@ function createConfig(options) {
   } else {
     myconf.target = 'node';
   }
+
+  // Webpack 5's built-in persistent cache, replacing cache-loader. Every variant needs its
+  // own `name`: the default is derived from mode alone, so a production run -- which builds
+  // four variants at once -- would have them share and clobber a single cache entry.
+  myconf.cache = {
+    type: 'filesystem',
+    name: options.target + '-' + myconf.mode,
+    // These bundles are large and there are four of them; uncompressed the cache runs to
+    // ~500MB. Gzip trades a little CPU to keep it to a fraction of that.
+    compression: 'gzip',
+    buildDependencies: {
+      // package.json is a build input, not just a dependency manifest: the version string
+      // below is compiled into the bundle by DefinePlugin.
+      config: [__filename, path.resolve(__dirname, 'package.json')],
+    },
+  };
 
   if (options.target === 'node') {
     myconf.output.filename += '.node';
@@ -83,17 +117,6 @@ function createConfig(options) {
   myconf.optimization.minimize = false;
   myconf.optimization.moduleIds = 'named';
   myconf.optimization.removeAvailableModules = false;
-
-  if (!options.production) {
-    myconf.module.rules.unshift({
-      test: /(\.tsx?)$/,
-      use: [
-        'cache-loader',
-        'babel-loader'
-      ],
-      exclude: [/node_modules/]
-    });
-  }
 
   if (options.production) {
     myconf.optimization.chunkIds = 'deterministic';
@@ -121,15 +144,6 @@ function createConfig(options) {
       }
     }));
 
-    myconf.module.rules.unshift({
-      test: /(\.tsx?)$/,
-      use: [
-        'cache-loader',
-        'babel-loader'
-      ],
-      exclude: [/node_modules/]
-    });
-
     defs['global.GENTLY'] = false;
 
     myconf.plugins.push(new webpack.LoaderOptionsPlugin({
@@ -137,7 +151,6 @@ function createConfig(options) {
       debug: false
     }));
     myconf.plugins.push(new LodashPlugin);
-    myconf.plugins.push(new ESLintPlugin());
     myconf.output.filename += '.min';
   }
 
@@ -155,7 +168,7 @@ module.exports = (env, argv) => {
   if (argv.mode === 'production') {
     variants.production = [ true, false ];
   }
-  const config = createVariants({}, variants, createConfig);
+  const config = createVariants(variants, createConfig);
   // console.debug('webpack config: ' + JSON.stringify(config, undefined, 2));
   return config;
 };
