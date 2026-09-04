@@ -6,6 +6,8 @@ import {IOnmsHTTP} from '../api/IOnmsHTTP';
 import {OnmsError} from '../api/OnmsError';
 
 import { OnmsSnmpInterface } from '../model/OnmsSnmpInterface';
+
+import {log} from '../api/Log';
 /**
  * Data access for [[OnmsSnmpInterface]] objects.
  * @category DAO
@@ -58,8 +60,12 @@ export class SnmpInterfaceDAO extends AbstractDAO<number, OnmsSnmpInterface> {
         const ifaces = data.map((ifaceData: any) => {
           return OnmsSnmpInterface.fromData(ifaceData);
         });
-        // ugh, this cast is necessary to make tsc know there's nothing but OnmsSnmpInterface objects
-        return ifaces.filter((iface: OnmsSnmpInterface | undefined) => iface !== undefined) as OnmsSnmpInterface[];
+        const ret = ifaces.filter((iface: OnmsSnmpInterface | undefined) => iface !== undefined);
+        const diff = ifaces.length - ret.length;
+        if (diff > 0) {
+          log.warn(`SnmpInterfaceDAO.find ReST request succeeded, but ${diff} SNMP interfaces could not be parsed.`);
+        }
+        return ret;
       });
     });
   }

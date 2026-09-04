@@ -7,6 +7,8 @@ import { OnmsError } from '../api/OnmsError';
 
 import { OnmsMonitoredService } from '../model/OnmsMonitoredService';
 
+import {log} from '../api/Log';
+
 /**
  * Data access for [[OnmsMonitoredService]] objects.
  * @category DAO
@@ -59,8 +61,12 @@ export class MonitoredServiceDAO extends AbstractDAO<number, OnmsMonitoredServic
         const services = data.map((serviceData: any) => {
           return OnmsMonitoredService.fromData(serviceData);
         });
-        // ugh, this cast is necessary to make tsc know there's nothing but OnmsMonitoredService objects
-        return services.filter((service: OnmsMonitoredService | undefined) => service !== undefined) as OnmsMonitoredService[];
+        const ret = services.filter((service: OnmsMonitoredService | undefined) => service !== undefined);
+        const diff = services.length - ret.length;
+        if (diff > 0) {
+          log.warn(`MonitoredServiceDAO.find ReST request succeeded, but ${diff} monitored services could not be parsed.`);
+        }
+        return ret;
       });
     });
   }

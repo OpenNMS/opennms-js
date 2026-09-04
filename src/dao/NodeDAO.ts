@@ -10,6 +10,8 @@ import {OnmsMonitoredService} from '../model/OnmsMonitoredService';
 import {OnmsNode} from '../model/OnmsNode';
 import {OnmsSnmpInterface} from '../model/OnmsSnmpInterface';
 
+import {log} from '../api/Log';
+
 /**
  * Data access for [[OnmsNode]] objects.
  * @category DAO
@@ -127,8 +129,12 @@ export class NodeDAO extends AbstractDAO<number, OnmsNode> {
         const ifaces = data.map((ifaceData: any) => {
           return this.fromIpInterfaceData(ifaceData);
         });
-        // ugh, this cast is necessary to make tsc know there's nothing but OnmsIpInterface objects
-        return ifaces.filter((iface: OnmsIpInterface | undefined) => iface !== undefined) as OnmsIpInterface[];
+        const ret = ifaces.filter((iface: OnmsIpInterface | undefined) => iface !== undefined);
+        const diff = ifaces.length - ret.length;
+        if (diff > 0) {
+          log.warn(`NodeDAO.ipInterfaces ReST request succeeded, but ${diff} IP interfaces could not be parsed.`);
+        }
+        return ret;
       });
     });
   }
@@ -160,8 +166,12 @@ export class NodeDAO extends AbstractDAO<number, OnmsNode> {
         const ifaces = data.map((ifaceData: any) => {
           return this.fromSnmpData(ifaceData);
         });
-        // ugh, this cast is necessary to make tsc know there's nothing but OnmsSnmpInterface objects
-        return ifaces.filter((iface: OnmsSnmpInterface | undefined) => iface !== undefined) as OnmsSnmpInterface[];
+        const ret = ifaces.filter((iface: OnmsSnmpInterface | undefined) => iface !== undefined);
+        const diff = ifaces.length - ret.length;
+        if (diff > 0) {
+          log.warn(`NodeDAO.snmpInterfaces ReST request succeeded, but ${diff} SNMP interfaces could not be parsed.`);
+        }
+        return ret;
       });
     });
   }
@@ -198,8 +208,12 @@ export class NodeDAO extends AbstractDAO<number, OnmsNode> {
         const services = data.map((ifaceData: any) => {
           return this.fromServiceData(ifaceData);
         });
-        // ugh, this cast is necessary to make tsc know there's nothing but OnmsMonitoredService objects
-        return services.filter((service: OnmsMonitoredService | undefined) => service !== undefined) as OnmsMonitoredService[];
+        const ret = services.filter((service: OnmsMonitoredService | undefined) => service !== undefined);
+        const diff = services.length - ret.length;
+        if (diff > 0) {
+          log.warn(`NodeDAO.services ReST request succeeded, but ${diff} monitored services could not be parsed.`);
+        }
+        return ret;
       });
     });
   }

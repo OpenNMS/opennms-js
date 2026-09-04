@@ -7,6 +7,8 @@ import {OnmsError} from '../api/OnmsError';
 
 import { OnmsIpInterface } from '../model/OnmsIpInterface';
 
+import {log} from '../api/Log';
+
 /**
  * Data access for [[OnmsIpInterface]] objects.
  * @category DAO
@@ -59,8 +61,12 @@ export class IpInterfaceDAO extends AbstractDAO<number, OnmsIpInterface> {
         const ifaces = data.map((ifaceData: any) => {
           return OnmsIpInterface.fromData(ifaceData);
         });
-        // ugh, this cast is necessary to make tsc know there's nothing but OnmsIpInterface objects
-        return ifaces.filter((iface: OnmsIpInterface | undefined) => iface !== undefined) as OnmsIpInterface[];
+        const ret = ifaces.filter((iface: OnmsIpInterface | undefined) => iface !== undefined);
+        const diff = ifaces.length - ret.length;
+        if (diff > 0) {
+          log.warn(`IpInterfaceDAO.find ReST request succeeded, but ${diff} IP interfaces could not be parsed.`);
+        }
+        return ret;
       });
     });
   }
