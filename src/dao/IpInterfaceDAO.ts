@@ -28,7 +28,7 @@ export class IpInterfaceDAO extends AbstractDAO<number, OnmsIpInterface> {
         const node = OnmsIpInterface.fromData(result.data);
 
         if (!node) {
-          throw new OnmsError('IpInterfaceDAO.get id={id} ReST request succeeded, but did not return a valid node.');
+          throw new OnmsError(`IpInterfaceDAO.get id=${id} ReST request succeeded, but did not return a valid node.`);
         }
 
         return node;

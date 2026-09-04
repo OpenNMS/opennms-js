@@ -31,7 +31,7 @@ export class NodeDAO extends AbstractDAO<number, OnmsNode> {
         const node = this.fromData(result.data);
 
         if (!node) {
-          throw new OnmsError('NodeDAO.get id={id} ReST request succeeded, but did not return a valid node.');
+          throw new OnmsError(`NodeDAO.get id=${id} ReST request succeeded, but did not return a valid node.`);
         }
 
         if (recurse) {

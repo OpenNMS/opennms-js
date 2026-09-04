@@ -208,6 +208,17 @@ const typescript = {
     'no-fallthrough': 'error',
     'no-invalid-this': 'off',
     'no-new-wrappers': 'error',
+    // Catches 'id={id}' -- a placeholder that never interpolated because the string is not
+    // a template literal. Ten of these had been shipping silently in the DAOs; the quotes
+    // rule above would otherwise make them harder to spot, since the stray backtick that
+    // used to hint at the mistake is now gone.
+    'no-restricted-syntax': [
+      'error',
+      {
+        selector: 'Literal[value=/\\{[a-zA-Z_][a-zA-Z0-9_.]*\\}/]',
+        message: 'Literal {placeholder} in a string; use a template literal with ${...} to interpolate.',
+      },
+    ],
     'no-shadow': 'off',
     'no-throw-literal': 'error',
     'no-trailing-spaces': 'error',

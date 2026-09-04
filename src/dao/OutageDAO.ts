@@ -27,7 +27,7 @@ export class OutageDAO extends AbstractDAO<number, OnmsOutage> {
         const node = OnmsOutage.fromData(result.data);
 
         if (!node) {
-          throw new OnmsError('OutageDAO.get id={id} ReST request succeeded, but did not return a valid node.');
+          throw new OnmsError(`OutageDAO.get id=${id} ReST request succeeded, but did not return a valid node.`);
         }
 
         return node;
