@@ -107,7 +107,7 @@ export class Util {
   /**
    * Convert the given value to a date, or undefined if it cannot be converted.
    */
-   public static toDate(from: any): Moment|undefined {
+  public static toDate(from: any): Moment|undefined {
     if (from === undefined || from === null || from === '') {
       return undefined;
     }

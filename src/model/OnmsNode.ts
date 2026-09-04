@@ -108,7 +108,7 @@ export class OnmsNode implements IHasUrlValue {
    * Create a node object from a JSON object.
    * @hidden
    */
-   public static fromData(data: any) {
+  public static fromData(data: any) {
     const node = new OnmsNode();
 
     if (!data) {

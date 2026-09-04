@@ -24,66 +24,66 @@ const SERVER_PASSWORD = 'demo';
 let server, auth, mockHTTP, dao: FlowDAO;
 
 describe('FlowDAO', () => {
-    beforeEach((done) => {
-        auth = new OnmsAuthConfig(SERVER_USER, SERVER_PASSWORD);
-        const builder = OnmsServer.newBuilder(SERVER_URL).setName(SERVER_NAME).setAuth(auth);
-        server = builder.build();
-        mockHTTP = new MockHTTP22(server);
-        dao = new FlowDAO(mockHTTP);
-        Client.getMetadata(server, mockHTTP).then((metadata) => {
-            server = builder.setMetadata(metadata).build();
-            mockHTTP.server = server;
-            done();
-        });
+  beforeEach((done) => {
+    auth = new OnmsAuthConfig(SERVER_USER, SERVER_PASSWORD);
+    const builder = OnmsServer.newBuilder(SERVER_URL).setName(SERVER_NAME).setAuth(auth);
+    server = builder.build();
+    mockHTTP = new MockHTTP22(server);
+    dao = new FlowDAO(mockHTTP);
+    Client.getMetadata(server, mockHTTP).then((metadata) => {
+      server = builder.setMetadata(metadata).build();
+      mockHTTP.server = server;
+      done();
     });
-    it('FlowDao.getExporters(1)', () => {
-        return dao.getExporters(1).then((summaries) => {
-            expect(summaries.length).toEqual(1);
-            expect(summaries[0]).toBeInstanceOf(OnmsFlowExporterSummary);
-            expect(summaries[0].id).toEqual(69); // nice
-        });
+  });
+  it('FlowDao.getExporters(1)', () => {
+    return dao.getExporters(1).then((summaries) => {
+      expect(summaries.length).toEqual(1);
+      expect(summaries[0]).toBeInstanceOf(OnmsFlowExporterSummary);
+      expect(summaries[0].id).toEqual(69); // nice
     });
-    it('FlowDao.getExporter(test:test-node)', () => {
-        return dao.getExporter('test:test-node', 1).then((summary) => {
-            expect(summary).toBeInstanceOf(OnmsFlowExporter);
-            expect(summary.id).toEqual(69); // nice
-        });
+  });
+  it('FlowDao.getExporter(test:test-node)', () => {
+    return dao.getExporter('test:test-node', 1).then((summary) => {
+      expect(summary).toBeInstanceOf(OnmsFlowExporter);
+      expect(summary.id).toEqual(69); // nice
     });
-    it('FlowDao.getSummaryForTopNApplications()', () => {
-        return dao.getSummaryForTopNApplications().then((summary) => {
-            expect(summary).toBeInstanceOf(OnmsFlowTable);
-            expect(summary.start).toBeInstanceOf(moment);
-            expect(summary.end).toBeInstanceOf(moment);
-            expect(summary.headers).toContain('Application');
-        });
+  });
+  it('FlowDao.getSummaryForTopNApplications()', () => {
+    return dao.getSummaryForTopNApplications().then((summary) => {
+      expect(summary).toBeInstanceOf(OnmsFlowTable);
+      expect(summary.start).toBeInstanceOf(moment);
+      expect(summary.end).toBeInstanceOf(moment);
+      expect(summary.headers).toContain('Application');
     });
-    it('FlowDao.getSeriesForTopNApplications()', () => {
-        return dao.getSeriesForTopNApplications().then((series) => {
-            expect(series.start).toBeInstanceOf(moment);
-            expect(series.end).toBeInstanceOf(moment);
-            expect(series.columns.length).toEqual(10);
-            expect(series.timestamps.length).toEqual(49);
-            expect(series.values.length).toEqual(10);
-            expect(series.values[0].length).toEqual(49);
-        });
+  });
+  it('FlowDao.getSeriesForTopNApplications()', () => {
+    return dao.getSeriesForTopNApplications().then((series) => {
+      expect(series.start).toBeInstanceOf(moment);
+      expect(series.end).toBeInstanceOf(moment);
+      expect(series.columns.length).toEqual(10);
+      expect(series.timestamps.length).toEqual(49);
+      expect(series.values.length).toEqual(10);
+      expect(series.values[0].length).toEqual(49);
     });
-    it('FlowDao.getSummaryForTopNConversations()', () => {
-        return dao.getSummaryForTopNConversations().then((summary) => {
-            expect(summary).toBeInstanceOf(OnmsFlowTable);
-            expect(summary.start).toBeInstanceOf(moment);
-            expect(summary.end).toBeInstanceOf(moment);
-            expect(summary.headers).toContain('Location');
-            expect(summary.rows.length).toEqual(10);
-        });
+  });
+  it('FlowDao.getSummaryForTopNConversations()', () => {
+    return dao.getSummaryForTopNConversations().then((summary) => {
+      expect(summary).toBeInstanceOf(OnmsFlowTable);
+      expect(summary.start).toBeInstanceOf(moment);
+      expect(summary.end).toBeInstanceOf(moment);
+      expect(summary.headers).toContain('Location');
+      expect(summary.rows.length).toEqual(10);
     });
-    it('FlowDao.getSeriesForTopNConversations()', () => {
-        return dao.getSeriesForTopNConversations().then((series) => {
-            expect(series.start).toBeInstanceOf(moment);
-            expect(series.end).toBeInstanceOf(moment);
-            expect(series.columns.length).toEqual(10);
-            expect(series.timestamps.length).toEqual(2);
-            expect(series.values.length).toEqual(10);
-            expect(series.values[0].length).toEqual(2);
-        });
+  });
+  it('FlowDao.getSeriesForTopNConversations()', () => {
+    return dao.getSeriesForTopNConversations().then((series) => {
+      expect(series.start).toBeInstanceOf(moment);
+      expect(series.end).toBeInstanceOf(moment);
+      expect(series.columns.length).toEqual(10);
+      expect(series.timestamps.length).toEqual(2);
+      expect(series.values.length).toEqual(10);
+      expect(series.values[0].length).toEqual(2);
     });
+  });
 });

@@ -23,15 +23,15 @@ export class OutageDAO extends AbstractDAO<number, OnmsOutage> {
   public async get(id: number): Promise<OnmsOutage> {
     this.assertV2();
     return this.getOptions().then((builder) => {
-        return this.http.get(this.getRoot() + '/' + id, builder.build()).then((result) => {
-            const node = OnmsOutage.fromData(result.data);
+      return this.http.get(this.getRoot() + '/' + id, builder.build()).then((result) => {
+        const node = OnmsOutage.fromData(result.data);
 
-            if (!node) {
-              throw new OnmsError(`OutageDAO.get id={id} ReST request succeeded, but did not return a valid node.`);
-            }
+        if (!node) {
+          throw new OnmsError(`OutageDAO.get id={id} ReST request succeeded, but did not return a valid node.`);
+        }
 
-            return node;
-        });
+        return node;
+      });
     });
   }
 
@@ -39,26 +39,26 @@ export class OutageDAO extends AbstractDAO<number, OnmsOutage> {
   public async find(filter?: Filter): Promise<OnmsOutage[]> {
     this.assertV2();
     return this.getOptions(filter).then((builder) => {
-        return this.http.get(this.getRoot(), builder.build()).then((result) => {
-            let data = result.data;
+      return this.http.get(this.getRoot(), builder.build()).then((result) => {
+        let data = result.data;
 
-            if (data !== null && this.getCount(data, result.code) > 0 && data.outage) {
-                data = data.outage;
-            } else {
-                data = [];
-            }
+        if (data !== null && this.getCount(data, result.code) > 0 && data.outage) {
+          data = data.outage;
+        } else {
+          data = [];
+        }
 
-            if (!Array.isArray(data)) {
-                if (data.id) {
-                    data = [data];
-                } else {
-                    throw new OnmsError('Expected an array of outages but got "' + (typeof data) + '" instead.');
-                }
-            }
-            return data.map((outageData: any) => {
-                return OnmsOutage.fromData(outageData);
-            });
+        if (!Array.isArray(data)) {
+          if (data.id) {
+            data = [data];
+          } else {
+            throw new OnmsError('Expected an array of outages but got "' + (typeof data) + '" instead.');
+          }
+        }
+        return data.map((outageData: any) => {
+          return OnmsOutage.fromData(outageData);
         });
+      });
     });
   }
 
@@ -81,7 +81,7 @@ export class OutageDAO extends AbstractDAO<number, OnmsOutage> {
    * Make sure v2 is supported.
    * @hidden
    */
-   private assertV2() {
+  private assertV2() {
     if (this.getApiVersion() < 2) {
       throw new OnmsError('The outage ReST API is only available on v2.');
     }

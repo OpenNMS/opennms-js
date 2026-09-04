@@ -18,46 +18,46 @@ export class EventDAO extends AbstractDAO<number, OnmsEvent> {
   /** Get an event, given the event's ID. */
   public async get(id: number): Promise<OnmsEvent> {
     return this.getOptions().then((builder) => {
-        return this.http.get(this.pathToEventsEndpoint() + '/' + id, builder.build()).then((result) => {
-            const ev = this.fromData(result.data);
-            if (!ev) {
-              throw new OnmsError(`EventDAO.get id={id} ReST request succeeded, but did not return a valid event.`);
-            }
-            return ev;
-        });
+      return this.http.get(this.pathToEventsEndpoint() + '/' + id, builder.build()).then((result) => {
+        const ev = this.fromData(result.data);
+        if (!ev) {
+          throw new OnmsError(`EventDAO.get id={id} ReST request succeeded, but did not return a valid event.`);
+        }
+        return ev;
+      });
     });
   }
 
   /** Get an event, given a filter. */
   public async find(filter?: Filter): Promise<OnmsEvent[]> {
     return this.getOptions(filter).then((builder) => {
-        return this.http.get(this.pathToEventsEndpoint(), builder.build()).then((result) => {
-            let data = result.data;
+      return this.http.get(this.pathToEventsEndpoint(), builder.build()).then((result) => {
+        let data = result.data;
 
-            if (data !== null && this.getCount(data, result.code) > 0 && data.event) {
-                data = data.event;
-            } else {
-                data = [];
-            }
+        if (data !== null && this.getCount(data, result.code) > 0 && data.event) {
+          data = data.event;
+        } else {
+          data = [];
+        }
 
-            if (!Array.isArray(data)) {
-                if (data.id) {
-                    data = [data];
-                } else {
-                    throw new OnmsError('Expected an array of events but got "' + (typeof data) + '" instead.');
-                }
-            }
-            const events = data.map((eventData: any) => {
-                return this.fromData(eventData);
-            });
-            // ugh, this cast is necessary to make tsc know there's nothing but OnmsEvent objects
-            const ret = events.filter((event: OnmsEvent | undefined) => event !== undefined) as OnmsEvent[];
-            const diff = events.length - ret.length;
-            if (diff > 0) {
-              log.warn(`EventDAO.find ReST request succeeded, but {diff} events could not be parsed.`);
-            }
-            return ret;
+        if (!Array.isArray(data)) {
+          if (data.id) {
+            data = [data];
+          } else {
+            throw new OnmsError('Expected an array of events but got "' + (typeof data) + '" instead.');
+          }
+        }
+        const events = data.map((eventData: any) => {
+          return this.fromData(eventData);
         });
+        // ugh, this cast is necessary to make tsc know there's nothing but OnmsEvent objects
+        const ret = events.filter((event: OnmsEvent | undefined) => event !== undefined) as OnmsEvent[];
+        const diff = events.length - ret.length;
+        if (diff > 0) {
+          log.warn(`EventDAO.find ReST request succeeded, but {diff} events could not be parsed.`);
+        }
+        return ret;
+      });
     });
   }
 

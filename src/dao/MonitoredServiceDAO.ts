@@ -24,15 +24,15 @@ export class MonitoredServiceDAO extends AbstractDAO<number, OnmsMonitoredServic
   public async get(id: number): Promise<OnmsMonitoredService> {
     this.assertV2();
     return this.getOptions().then((builder) => {
-        return this.http.get(this.getRoot() + '/' + id, builder.build()).then((result) => {
-            const node = OnmsMonitoredService.fromData(result.data);
+      return this.http.get(this.getRoot() + '/' + id, builder.build()).then((result) => {
+        const node = OnmsMonitoredService.fromData(result.data);
 
-            if (!node) {
-              throw new OnmsError(`MonitoredServiceDAO.get id={id} ReST request succeeded, but did not return a valid node.`);
-            }
+        if (!node) {
+          throw new OnmsError(`MonitoredServiceDAO.get id={id} ReST request succeeded, but did not return a valid node.`);
+        }
 
-            return node;
-        });
+        return node;
+      });
     });
   }
 
@@ -40,26 +40,26 @@ export class MonitoredServiceDAO extends AbstractDAO<number, OnmsMonitoredServic
   public async find(filter?: Filter): Promise<OnmsMonitoredService[]> {
     this.assertV2();
     return this.getOptions(filter).then((builder) => {
-        return this.http.get(this.getRoot(), builder.build()).then((result) => {
-            let data = result.data;
+      return this.http.get(this.getRoot(), builder.build()).then((result) => {
+        let data = result.data;
 
-            if (data !== null && this.getCount(data, result.code) > 0 && data.service) {
-                data = data.service;
-            } else {
-                data = [];
-            }
+        if (data !== null && this.getCount(data, result.code) > 0 && data.service) {
+          data = data.service;
+        } else {
+          data = [];
+        }
 
-            if (!Array.isArray(data)) {
-                if (data.id) {
-                    data = [data];
-                } else {
-                    throw new OnmsError('Expected an array of monitored services but got "' + (typeof data) + '" instead.');
-                }
-            }
-            return data.map((serviceData: any) => {
-                return OnmsMonitoredService.fromData(serviceData);
-            });
+        if (!Array.isArray(data)) {
+          if (data.id) {
+            data = [data];
+          } else {
+            throw new OnmsError('Expected an array of monitored services but got "' + (typeof data) + '" instead.');
+          }
+        }
+        return data.map((serviceData: any) => {
+          return OnmsMonitoredService.fromData(serviceData);
         });
+      });
     });
   }
 
@@ -82,7 +82,7 @@ export class MonitoredServiceDAO extends AbstractDAO<number, OnmsMonitoredServic
    * Make sure v2 is supported.
    * @hidden
    */
-   private assertV2() {
+  private assertV2() {
     if (this.getApiVersion() < 2) {
       throw new OnmsError('The monitored service ReST API is only available on v2.');
     }

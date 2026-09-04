@@ -38,7 +38,7 @@ export class V2FilterProcessor implements IFilterProcessor {
   private searchProperties?: SearchProperty[];
 
   constructor(searchProperties?: SearchProperty[]) {
-      this.searchProperties = searchProperties;
+    this.searchProperties = searchProperties;
   }
 
   /** Given a filter, return a hash of URL parameters. */
@@ -109,16 +109,16 @@ export class V2FilterProcessor implements IFilterProcessor {
     switch (restriction.comparator) {
       case Comparators.NULL:
       case Comparators.NOTNULL:
-          return restriction.value === undefined ? V2FilterProcessor.NULL_VALUE : encodeURIComponent(restriction.value);
+        return restriction.value === undefined ? V2FilterProcessor.NULL_VALUE : encodeURIComponent(restriction.value);
       default:
-          if (restriction.value === 'null' || restriction.value === void 0) {
-              const property = this.getProperty(restriction.attribute);
-              if (property && property.type === SearchPropertyTypes.TIMESTAMP) {
-                  return V2FilterProcessor.NULL_DATE_ENCODED;
-              }
-              return V2FilterProcessor.NULL_VALUE;
+        if (restriction.value === 'null' || restriction.value === void 0) {
+          const property = this.getProperty(restriction.attribute);
+          if (property && property.type === SearchPropertyTypes.TIMESTAMP) {
+            return V2FilterProcessor.NULL_DATE_ENCODED;
           }
-          return encodeURIComponent(this.applyDateConversion(restriction.value));
+          return V2FilterProcessor.NULL_VALUE;
+        }
+        return encodeURIComponent(this.applyDateConversion(restriction.value));
     }
   }
 
@@ -157,16 +157,16 @@ export class V2FilterProcessor implements IFilterProcessor {
     return search;
   }
 
- /**
+  /**
   * If the given value is a date value, it is converted to be properly parsed by the OpenNMS ReST API,
   * otherwise it is not modified.
   *
   * @param value - Any value which may need conversion.
   */
   private applyDateConversion(value: any): any {
-      if (Util.isDateObject(value)) {
-          return Util.toDateString(value);
-      }
-      return value;
+    if (Util.isDateObject(value)) {
+      return Util.toDateString(value);
+    }
+    return value;
   }
 }

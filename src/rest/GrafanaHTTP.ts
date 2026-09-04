@@ -135,7 +135,7 @@ export class GrafanaHTTP extends AbstractHTTP {
       }
       return OnmsResult.ok(this.getData(response), undefined, response.status, type);
     }).catch((e: any) => {
-        throw this.handleError(e, query);
+      throw this.handleError(e, query);
     });
   }
 
@@ -146,7 +146,7 @@ export class GrafanaHTTP extends AbstractHTTP {
   protected handleError(err: any, options?: any): never {
     let message = AbstractHTTP.extractMessage(err);
     if (err && err.data && err.data.response && (typeof (err.data.response) === 'string')) {
-        message = err.data.response;
+      message = err.data.response;
     }
     const status = AbstractHTTP.extractStatus(err);
     throw new GrafanaError(message, status, options, err);

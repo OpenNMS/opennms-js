@@ -22,40 +22,40 @@ const SERVER_PASSWORD = 'demo';
 let server, auth, mockHTTP, dao: FlowDAO;
 
 describe('FlowDAO28', () => {
-    beforeEach((done) => {
-        auth = new OnmsAuthConfig(SERVER_USER, SERVER_PASSWORD);
-        const builder = OnmsServer.newBuilder(SERVER_URL).setName(SERVER_NAME).setAuth(auth);
-        server = builder.build();
-        mockHTTP = new MockHTTP28(server);
-        dao = new FlowDAO(mockHTTP);
-        Client.getMetadata(server, mockHTTP).then((metadata) => {
-            server = builder.setMetadata(metadata).build();
-            mockHTTP.server = server;
-            dao.server = server;
-            done();
-        });
+  beforeEach((done) => {
+    auth = new OnmsAuthConfig(SERVER_USER, SERVER_PASSWORD);
+    const builder = OnmsServer.newBuilder(SERVER_URL).setName(SERVER_NAME).setAuth(auth);
+    server = builder.build();
+    mockHTTP = new MockHTTP28(server);
+    dao = new FlowDAO(mockHTTP);
+    Client.getMetadata(server, mockHTTP).then((metadata) => {
+      server = builder.setMetadata(metadata).build();
+      mockHTTP.server = server;
+      dao.server = server;
+      done();
     });
-    it('FlowDao.getSummaryForDscp()', () => {
-        return dao.getSummaryForDscps().then((summary) => {
-            expect(summary).toBeInstanceOf(OnmsFlowTable);
-            expect(summary.start).toBeInstanceOf(moment);
-            expect(summary.end).toBeInstanceOf(moment);
-            expect(summary.headers).toContain('DSCP');
-        });
+  });
+  it('FlowDao.getSummaryForDscp()', () => {
+    return dao.getSummaryForDscps().then((summary) => {
+      expect(summary).toBeInstanceOf(OnmsFlowTable);
+      expect(summary.start).toBeInstanceOf(moment);
+      expect(summary.end).toBeInstanceOf(moment);
+      expect(summary.headers).toContain('DSCP');
     });
-    it('FlowDao.getSeriesForDscp()', () => {
-        return dao.getSeriesForDscps().then((series) => {
-            expect(series.start).toBeInstanceOf(moment);
-            expect(series.end).toBeInstanceOf(moment);
-            expect(series.columns.length).toEqual(2);
-            expect(series.timestamps.length).toEqual(44);
-            expect(series.values.length).toEqual(2);
-            expect(series.values[0].length).toEqual(44);
-        });
+  });
+  it('FlowDao.getSeriesForDscp()', () => {
+    return dao.getSeriesForDscps().then((series) => {
+      expect(series.start).toBeInstanceOf(moment);
+      expect(series.end).toBeInstanceOf(moment);
+      expect(series.columns.length).toEqual(2);
+      expect(series.timestamps.length).toEqual(44);
+      expect(series.values.length).toEqual(2);
+      expect(series.values[0].length).toEqual(44);
     });
-    it('FlowDao.getDscpValues()', () => {
-        return dao.getDscpValues().then((toss) => {
-            expect([4, 5, 6]).toEqual(expect.arrayContaining(toss));
-        });
+  });
+  it('FlowDao.getDscpValues()', () => {
+    return dao.getDscpValues().then((toss) => {
+      expect([4, 5, 6]).toEqual(expect.arrayContaining(toss));
     });
+  });
 });

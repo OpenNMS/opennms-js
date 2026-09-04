@@ -6,18 +6,18 @@ import {OnmsFlowSeriesColumn} from './OnmsFlowSeriesColumn';
  * @category Model
  */
 export class OnmsFlowSeries {
-    /** start time */
-    public start?: Moment;
+  /** start time */
+  public start?: Moment;
 
-    /** end time */
-    public end?: Moment;
+  /** end time */
+  public end?: Moment;
 
-    /** columns */
-    public columns?: OnmsFlowSeriesColumn[];
+  /** columns */
+  public columns?: OnmsFlowSeriesColumn[];
 
-    /** row timestamps */
-    public timestamps?: number[];
+  /** row timestamps */
+  public timestamps?: number[];
 
-    /** cell values */
-    public values?: number[][];
+  /** cell values */
+  public values?: number[][];
 }

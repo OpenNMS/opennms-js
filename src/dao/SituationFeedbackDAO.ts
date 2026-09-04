@@ -70,7 +70,7 @@ export class SituationFeedbackDAO extends BaseDAO {
     return this.post(this.pathToEndpoint() + '/' + situationId, this.serializeFeedback(feedback));
   }
 
-    /**
+  /**
      * Extracts the data from an HTTP Request result.
      *
      * @param result - the HTTP Request result.
@@ -112,13 +112,13 @@ export class SituationFeedbackDAO extends BaseDAO {
   public serializeFeedback(feedback: OnmsSituationFeedback[]): any[] {
     const serializeFeedback = [] as any[];
     feedback.forEach((fb) => {
-        // Create a shallow clone
-        const sfb = Object.assign({}, fb) as any;
-        // Set the type to the id, to avoid serializing it as an object
-        if (sfb.feedbackType !== null) {
-            sfb.feedbackType = sfb.feedbackType.id;
-        }
-        serializeFeedback.push(sfb);
+      // Create a shallow clone
+      const sfb = Object.assign({}, fb) as any;
+      // Set the type to the id, to avoid serializing it as an object
+      if (sfb.feedbackType !== null) {
+        sfb.feedbackType = sfb.feedbackType.id;
+      }
+      serializeFeedback.push(sfb);
     });
     return serializeFeedback;
   }

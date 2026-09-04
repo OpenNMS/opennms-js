@@ -24,15 +24,15 @@ export class IpInterfaceDAO extends AbstractDAO<number, OnmsIpInterface> {
   public async get(id: number): Promise<OnmsIpInterface> {
     this.assertV2();
     return this.getOptions().then((builder) => {
-        return this.http.get(this.getRoot() + '/' + id, builder.build()).then((result) => {
-            const node = OnmsIpInterface.fromData(result.data);
+      return this.http.get(this.getRoot() + '/' + id, builder.build()).then((result) => {
+        const node = OnmsIpInterface.fromData(result.data);
 
-            if (!node) {
-              throw new OnmsError(`IpInterfaceDAO.get id={id} ReST request succeeded, but did not return a valid node.`);
-            }
+        if (!node) {
+          throw new OnmsError(`IpInterfaceDAO.get id={id} ReST request succeeded, but did not return a valid node.`);
+        }
 
-            return node;
-        });
+        return node;
+      });
     });
   }
 
@@ -40,26 +40,26 @@ export class IpInterfaceDAO extends AbstractDAO<number, OnmsIpInterface> {
   public async find(filter?: Filter): Promise<OnmsIpInterface[]> {
     this.assertV2();
     return this.getOptions(filter).then((builder) => {
-        return this.http.get(this.getRoot(), builder.build()).then((result) => {
-            let data = result.data;
+      return this.http.get(this.getRoot(), builder.build()).then((result) => {
+        let data = result.data;
 
-            if (data !== null && this.getCount(data, result.code) > 0 && data.ipInterface) {
-                data = data.ipInterface;
-            } else {
-                data = [];
-            }
+        if (data !== null && this.getCount(data, result.code) > 0 && data.ipInterface) {
+          data = data.ipInterface;
+        } else {
+          data = [];
+        }
 
-            if (!Array.isArray(data)) {
-                if (data.id) {
-                    data = [data];
-                } else {
-                    throw new OnmsError('Expected an array of IP interfaces but got "' + (typeof data) + '" instead.');
-                }
-            }
-            return data.map((ifaceData: any) => {
-                return OnmsIpInterface.fromData(ifaceData);
-            });
+        if (!Array.isArray(data)) {
+          if (data.id) {
+            data = [data];
+          } else {
+            throw new OnmsError('Expected an array of IP interfaces but got "' + (typeof data) + '" instead.');
+          }
+        }
+        return data.map((ifaceData: any) => {
+          return OnmsIpInterface.fromData(ifaceData);
         });
+      });
     });
   }
 
@@ -82,7 +82,7 @@ export class IpInterfaceDAO extends AbstractDAO<number, OnmsIpInterface> {
    * Make sure v2 is supported.
    * @hidden
    */
-   private assertV2() {
+  private assertV2() {
     if (this.getApiVersion() < 2) {
       throw new OnmsError('The IP interface ReST API is only available on v2.');
     }

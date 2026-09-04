@@ -5,16 +5,16 @@ import {Moment} from 'moment';
  * @category Model
  */
 export class OnmsFlowTable {
-    /** start time */
-    public start?: Moment;
+  /** start time */
+  public start?: Moment;
 
-    /** end time */
-    public end?: Moment;
+  /** end time */
+  public end?: Moment;
 
-    /** headers */
-    public headers?: string[];
+  /** headers */
+  public headers?: string[];
 
-    /** rows */
-    public rows?: any[][];
+  /** rows */
+  public rows?: any[][];
 
 }

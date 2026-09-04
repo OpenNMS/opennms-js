@@ -52,7 +52,7 @@ export class OnmsMonitoredService implements IHasUrlValue {
    * create a monitored service object from a JSON object
    * @hidden
    */
-   public static fromData(data: any): OnmsMonitoredService {
+  public static fromData(data: any): OnmsMonitoredService {
     const service = new OnmsMonitoredService();
 
     service.id = Util.toNumber(data.id);
