@@ -1,3 +1,5 @@
+## [2.7.1-SNAPSHOT](https://github.com/OpenNMS/opennms-js/compare/v2.7.0...v2.7.1-SNAPSHOT) (2026-09-10)
+
 # [2.7.0](https://github.com/OpenNMS/opennms-js/compare/v2.6.1...v2.7.0) (2026-09-10)
 
 ## [2.6.1](https://github.com/OpenNMS/opennms-js/compare/v2.6.0...v2.6.1) (2025-10-28)
