@@ -22,6 +22,10 @@ OpenNMS.js follows [semantic versioning](https://semver.org/).
 
 ### Release Notes
 
+#### 2.7.0
+
+OpenNMS.js v2.7.0 contains a bunch of dependency updates, along with build and lint improvements: source is now reindented to 2 spaces with `@stylistic/eslint-plugin` enforcing indent/quotes, and the unmaintained `cache-loader`/`parallel-webpack` packages have been dropped in favor of webpack 5's built-in filesystem cache and a local `createVariants` helper.
+
 #### 2.6.1
 
 OpenNMS.js v2.6.1 contains a bunch of dependency updates
