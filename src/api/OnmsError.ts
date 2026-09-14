@@ -11,11 +11,17 @@ export class OnmsError extends Error {
 
   /**
    * The data (payload) associated with a response.
+   * @hidden
    */
   public readonly data: any;
 
   /**
    * The options provided as part of the request that resulted in this error.
+   *
+   * Note: for requests that used authentication this holds the request configuration,
+   * including an `Authorization` header and the credentials it was derived from. Do not
+   * log it or serialize it into user-visible output.
+   * @hidden
    */
   public readonly options: any;
 
@@ -41,8 +47,10 @@ export class OnmsError extends Error {
     } else {
       this.stack = (new Error(message)).stack;
     }
-    // workaround, see http://bit.ly/2vllGdD
-    Object.setPrototypeOf(this, OnmsError.prototype);
+    // Restore the prototype chain, which extending a built-in like Error otherwise breaks.
+    // Use `new.target` rather than `OnmsError.prototype`, so that a subclass such as
+    // [[GrafanaError]] stays `instanceof` itself; see http://bit.ly/2vllGdD
+    Object.setPrototypeOf(this, (new.target && new.target.prototype) || OnmsError.prototype);
   }
 
   /**
