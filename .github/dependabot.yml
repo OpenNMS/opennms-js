@@ -30,7 +30,6 @@ updates:
           - "patch"
       commits:
         patterns:
-          - "*commitlint*"
           - "*changelog*"
         update-types:
           - "minor"
