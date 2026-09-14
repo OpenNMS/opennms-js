@@ -4,7 +4,10 @@
 * [ ] Have you [made an issue in the OpenNMS issue tracker](https://issues.opennms.org)?<br>If so, you should:
   1. update the title of this PR to be of the format: `${JIRA-ISSUE-NUMBER}: subject of pull request`
   2. update the JIRA link at the bottom of this comment to refer to the real issue number
-  3. prefix your commit messages with the issue number, if possible
+  3. prefix your commit messages with the issue number, if possible, placing it after the
+     commit type: `fix: ${JIRA-ISSUE-NUMBER} subject of commit`<br>The generated CHANGELOG only
+     includes `feat`, `fix`, `perf` and `revert` commits (plus anything marked `BREAKING CHANGE`);
+     commits without one of those types are silently dropped from it.
 * [ ] Have you made a comment in that issue which points back to this PR?
 * [ ] Have you updated the JIRA link at the bottom of this comment to link to your issue?
 * [ ] If this is a new feature, is there documentation?
