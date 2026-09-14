@@ -1,0 +1,15 @@
+{
+  "//": [
+    "Consumers (eg. the Grafana plugin) compile our sources with `strictNullChecks` enabled",
+    "but `noImplicitAny` disabled. That combination switches off TypeScript's evolving-array",
+    "inference, so an un-annotated `[]` becomes `never[]` instead of `any[]` and pushing to it",
+    "fails to compile. Checking that combination here keeps those errors from only ever showing",
+    "up in downstream builds.",
+    "Note: `noUnusedParameters` is deliberately left off, matching the eslint `no-unused-vars`",
+    "`args: 'none'` setting -- unused parameters document overridable/optional API surface."
+  ],
+  "extends": "./tsconfig-check.json",
+  "compilerOptions": {
+    "noImplicitAny": false
+  }
+}

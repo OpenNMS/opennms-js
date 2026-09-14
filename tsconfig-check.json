@@ -1,6 +1,9 @@
 {
   "extends": "./tsconfig-prod.json",
   "compilerOptions": {
-    "noEmit": true
+    "noEmit": true,
+    "noImplicitReturns": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true
   }
 }

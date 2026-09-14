@@ -9,7 +9,7 @@ import {OnmsResult} from '../../src/api/OnmsResult';
 /** Mock OpenNMS 21.x HTTP implementation */
 export class MockHTTP21 extends AbstractMockHTTP {
   /** make an HTTP get call -- this should be overridden by the implementation */
-  public onGet(url: string, options?: OnmsHTTPOptions) {
+  public onGet(url: string, _options?: OnmsHTTPOptions) {
     switch(url) {
       case 'http://demo.opennms.org/opennms/rest/info': {
         return this.okJson({
@@ -72,7 +72,7 @@ export class MockHTTP21 extends AbstractMockHTTP {
   }
 
   /** {@inheritDoc} */
-  public onPut(url: string, options?: OnmsHTTPOptions) {
+  public onPut(url: string, _options?: OnmsHTTPOptions) {
     switch(url) {
       case 'api/v2/alarms/404725?ack=true': {
         return OnmsResult.ok('', undefined, undefined, 'text/plain');
@@ -108,7 +108,7 @@ export class MockHTTP21 extends AbstractMockHTTP {
   }
 
   /** {@inheritDoc} */
-  public onPost(url: string, options?: OnmsHTTPOptions) {
+  public onPost(url: string, _options?: OnmsHTTPOptions) {
     switch(url) {
       case 'api/v2/alarms/404725/ticket/create': {
         return OnmsResult.ok('', undefined, 202, 'text/plain');
@@ -123,7 +123,7 @@ export class MockHTTP21 extends AbstractMockHTTP {
   }
 
   /** {@inheritDoc} */
-  public onDelete(url: string, options?: OnmsHTTPOptions) {
+  public onDelete(url: string, _options?: OnmsHTTPOptions) {
     switch (url) {
       case 'api/v2/alarms/404725/memo': {
         return OnmsResult.ok('', undefined, 204, 'text/plain');

@@ -12,12 +12,12 @@ export class OnmsError extends Error {
   /**
    * The data (payload) associated with a response.
    */
-  private readonly data: any;
+  public readonly data: any;
 
   /**
-   * The options provided as part of the request that resulted in this erro.
+   * The options provided as part of the request that resulted in this error.
    */
-  private readonly options: any;
+  public readonly options: any;
 
   /** The error code associated with this error. */
   public get code() {

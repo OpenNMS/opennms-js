@@ -6,10 +6,6 @@ import {OnmsServer} from '../api/OnmsServer';
 import {log} from '../api/Log';
 
 /** @hidden */
-// eslint-disable-next-line
-const moment = require('moment');
-
-/** @hidden */
 import {Moment} from 'moment';
 import { Util } from '../internal/Util';
 
@@ -115,9 +111,9 @@ export abstract class BaseDAO {
 
   /**
    * Called whenever the OpenNMS server has changed.
-   * @param server - the new server
+   * @param _server - the new server
    */
-  protected onSetServer(server?: OnmsServer) {
+  protected onSetServer(_server?: OnmsServer) {
     // this should be overridden by implementations
   }
 

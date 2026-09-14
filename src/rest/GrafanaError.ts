@@ -7,9 +7,8 @@ import {OnmsError} from '../api/OnmsError';
 export class GrafanaError extends OnmsError {
   /**
    * The request options (configuration).
-   * @hidden
    */
-  private config?: any;
+  public readonly config?: any;
 
   /**
    * Construct a new Grafana error.
