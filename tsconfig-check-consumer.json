@@ -5,8 +5,10 @@
     "inference, so an un-annotated `[]` becomes `never[]` instead of `any[]` and pushing to it",
     "fails to compile. Checking that combination here keeps those errors from only ever showing",
     "up in downstream builds.",
-    "Note: `noUnusedParameters` is deliberately left off, matching the eslint `no-unused-vars`",
-    "`args: 'none'` setting -- unused parameters document overridable/optional API surface."
+    "Everything else, including `noUnusedLocals`, `noUnusedParameters` and `noImplicitReturns`,",
+    "is inherited from tsconfig-check.json; this file overrides `noImplicitAny` and nothing else.",
+    "Unused parameters are opted out of with an `_` prefix, matching the eslint `no-unused-vars`",
+    "`argsIgnorePattern: '^_'` setting."
   ],
   "extends": "./tsconfig-check.json",
   "compilerOptions": {
