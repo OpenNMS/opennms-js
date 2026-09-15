@@ -14,6 +14,21 @@ The complete API list is available at [opennms.github.io](https://opennms.github
 2. run `npm install -g opennms`
 3. run `opennms --help` for a list of available commands
 
+## Developer Notes
+
+### Git hooks removed in 2.7.1
+
+`husky` and `commitlint` were removed in 2.7.1. Linting, tests and type checking all run in CI on
+every branch and pull request, so the `pre-commit` and `pre-push` hooks were duplicating work.
+
+If you cloned this repository before 2.7.1, husky set `core.hooksPath` to `.husky/_` in your local
+`.git/config`, and that directory no longer exists. It is harmless -- git simply finds no hooks --
+but you can clear the leftover setting with:
+
+```
+git config --unset core.hooksPath
+```
+
 ## Changes and Versioning
 
 Changes between versions are recorded in the [Release Notes](#release-notes) below.
