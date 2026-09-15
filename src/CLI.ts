@@ -142,7 +142,7 @@ const CLI = () => {
         }
         log.log('');
 
-        const data = [];
+        const data: any[][] = [];
         const caps = res.capabilities();
 
         for (const cap in caps) {

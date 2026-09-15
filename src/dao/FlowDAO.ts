@@ -9,10 +9,6 @@ import {OnmsHTTPOptions, OnmsHTTPOptionsBuilder} from '../api/OnmsHTTPOptions';
 
 import {BaseDAO} from './BaseDAO';
 
-/** @hidden */
-// eslint-disable-next-line
-const moment = require('moment');
-
 /**
  * DAO for accessing flow (Netflow/IPFIX/sFlow) data.
  * @category DAO
@@ -379,7 +375,7 @@ export class FlowDAO extends BaseDAO {
      */
   public async getSeriesForConversations(conversations?: string[], start?: number, end?: number,
     step?: number, includeOther?: boolean, exporterNodeCriteria?: string,
-    ifIndex?: number, dscp?: string[], ecn?: string[]): Promise<OnmsFlowSeries> {
+    ifIndex?: number, dscp?: string[]): Promise<OnmsFlowSeries> {
     this.checkForEnhancedFlows();
     const builder = this.getOptions()
       .addParameter('start', start)

@@ -4,7 +4,7 @@ import {OnmsHTTPOptions} from '../../src/api/OnmsHTTPOptions';
 /** Mock OpenNMS 23.x HTTP implementation */
 export class MockHTTP23 extends AbstractMockHTTP {
   /** {@inheritDoc} */
-  public onGet(url: string, options?: OnmsHTTPOptions) {
+  public onGet(url: string, _options?: OnmsHTTPOptions) {
     switch (url) {
       case 'http://demo.opennms.org/opennms/rest/info':
       case 'http://demo1.opennms.org/opennms/rest/info':
