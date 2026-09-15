@@ -225,7 +225,7 @@ export class OnmsHTTPOptionsBuilder {
         if (Array.isArray(currentValue)) {
           currentValue.push(String(v));
         } else {
-          const newArrayValue = [];
+          const newArrayValue: string[] = [];
           newArrayValue.push(currentValue);
           newArrayValue.push(String(v));
           this._parameters[parameter] = newArrayValue;

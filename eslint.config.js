@@ -91,12 +91,14 @@ const typescript = {
       },
     ],
     '@typescript-eslint/no-unused-expressions': 'error',
-    // Unused function parameters and catch bindings are intentional here:
-    // they document overridable/optional API surface.
+    // Mirrors tsc's `noUnusedParameters` (see tsconfig-check.json): every parameter is
+    // checked, and an `_` prefix marks one deliberately unused -- eg. a parameter that only
+    // exists to document an overridable hook's signature.
     '@typescript-eslint/no-unused-vars': [
       'error',
       {
-        args: 'none',
+        args: 'all',
+        argsIgnorePattern: '^_',
         caughtErrors: 'none',
       },
     ],
@@ -298,7 +300,8 @@ module.exports = [
       'no-unused-vars': [
         'error',
         {
-          args: 'none',
+          args: 'all',
+          argsIgnorePattern: '^_',
           caughtErrors: 'none',
         },
       ],

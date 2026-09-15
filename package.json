@@ -22,7 +22,7 @@
   "scripts": {
     "changelog": "standard-changelog -i CHANGELOG.md -s -f",
     "update-browserslist": "npx --yes browserslist@latest --update-db",
-    "build": "webpack --mode production --env production",
+    "build": "npm run typecheck && webpack --mode production --env production",
     "dev": "webpack --mode=development --progress",
     "dist": "npm run lint && npm run test && npm run update-browserslist && npm run build && npm run docs",
     "api": "typedoc",
@@ -31,7 +31,8 @@
     "test": "jest",
     "watch-test": "jest --watch",
     "smoke": "node test/smoke.js",
-    "lint": "eslint . --max-warnings 0 && tsc --project tsconfig-check.json",
+    "lint": "eslint . --max-warnings 0",
+    "typecheck": "tsc --project tsconfig-check.json && tsc --project tsconfig-check-consumer.json",
     "cli": "ts-node src/CLI.ts",
     "docker-build": "npm ci && npm run dist && npm run changelog && ./fix-ownership.sh",
     "docker": "docker run --rm --name opennms-js -v `pwd`:/build -w /build node:carbon npm run docker-build",

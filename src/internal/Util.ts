@@ -80,15 +80,16 @@ export class Util {
    * @param key - the key to search for
    * @param search - the object to search
    */
-  public static insensitiveKey(key: string, search: { [key: string]: any }) {
+  public static insensitiveKey(key: string, search: { [key: string]: any }): string | undefined {
     if (!key || !search) {
-      return;
+      return undefined;
     }
     for (const k in search) {
       if (k && k.toLowerCase() === key.toLowerCase()) {
         return k;
       }
     }
+    return undefined;
   }
 
   /**
