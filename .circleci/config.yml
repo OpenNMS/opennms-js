@@ -103,12 +103,7 @@ jobs:
             fi
       - run:
           name: "Push to Main"
-          command: |
-            if git diff --quiet origin/main..HEAD; then
-              echo "main is already up to date with HEAD; nothing to push"
-            else
-              git push --no-verify origin main:main
-            fi
+          command: git push --no-verify origin main:main
   pages:
     docker:
       - image: cimg/node:20.19
