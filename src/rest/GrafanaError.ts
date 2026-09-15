@@ -7,9 +7,13 @@ import {OnmsError} from '../api/OnmsError';
 export class GrafanaError extends OnmsError {
   /**
    * The request options (configuration).
+   *
+   * Note: this holds the same object as [[OnmsError.options]], which for authenticated
+   * requests includes an `Authorization` header and the credentials it was derived from.
+   * Do not log it or serialize it into user-visible output.
    * @hidden
    */
-  private config?: any;
+  public readonly config?: any;
 
   /**
    * Construct a new Grafana error.

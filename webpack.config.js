@@ -173,7 +173,7 @@ function createConfig(options, argv) {
   return myconf;
 }
 
-module.exports = (env, argv) => {
+module.exports = (_env, argv) => {
   if (argv.mode === 'production') {
     variants.production = [ true, false ];
   }

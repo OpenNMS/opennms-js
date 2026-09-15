@@ -9,7 +9,7 @@ import {OnmsResult} from '../../src/api/OnmsResult';
 /** Mock OpenNMS 19.x HTTP implementation */
 export class MockHTTP19 extends AbstractMockHTTP {
   /** {@inheritDoc} */
-  public onGet(url: string, options?: OnmsHTTPOptions) {
+  public onGet(url: string, _options?: OnmsHTTPOptions) {
     switch (url) {
       case 'http://demo.opennms.org/opennms/rest/info': {
         return this.okJson({
@@ -63,7 +63,7 @@ export class MockHTTP19 extends AbstractMockHTTP {
   }
 
   /** {@inheritDoc} */
-  public onPut(url: string, options?: OnmsHTTPOptions) {
+  public onPut(url: string, _options?: OnmsHTTPOptions) {
     switch(url) {
       case 'rest/alarms/404725?ack=true': {
         return OnmsResult.ok('', undefined, undefined, 'text/plain');

@@ -91,27 +91,27 @@ export abstract class AbstractMockHTTP extends AbstractHTTP {
   }
 
   /** Override in mock implementations to process GETs */
-  protected onGet(url: string, options?: OnmsHTTPOptions): OnmsResult<any> | undefined {
+  protected onGet(_url: string, _options?: OnmsHTTPOptions): OnmsResult<any> | undefined {
     return undefined;
   }
 
   /** Override in mock implementations to process PUTs */
-  protected onPut(url: string, options?: OnmsHTTPOptions): OnmsResult<any> | undefined {
+  protected onPut(_url: string, _options?: OnmsHTTPOptions): OnmsResult<any> | undefined {
     return undefined;
   }
 
   /** Override in mock implementations to process POSTs */
-  protected onPost(url: string, options?: OnmsHTTPOptions): OnmsResult<any> | undefined {
+  protected onPost(_url: string, _options?: OnmsHTTPOptions): OnmsResult<any> | undefined {
     return undefined;
   }
 
   /** Override in mock implementations to process HEADs */
-  protected onHead(url: string, options?: OnmsHTTPOptions): OnmsResult<any> | undefined {
+  protected onHead(_url: string, _options?: OnmsHTTPOptions): OnmsResult<any> | undefined {
     return undefined;
   }
 
   /** Override in mock implementations to process DELETEs */
-  protected onDelete(url: string, options?: OnmsHTTPOptions): OnmsResult<any> | undefined {
+  protected onDelete(_url: string, _options?: OnmsHTTPOptions): OnmsResult<any> | undefined {
     return undefined;
   }
 }
