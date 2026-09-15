@@ -45,12 +45,3 @@ dist/docs
 /docs/
 /build/
 /public/
-
-# A bare `tsc` run emits .js/.js.map throughout dist/, not just the bundles named
-# above. Ignore the whole tree; `.empty` is the only file in it that is tracked.
-#
-# Keep this separate from the `dist/...` lines above rather than replacing them:
-# `main` deliberately deletes those lines (8b12079 "allow committing of dist/ in
-# main"), so editing them here conflicts on every develop->main merge.
-/dist/*
-!/dist/.empty

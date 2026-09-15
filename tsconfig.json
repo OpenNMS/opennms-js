@@ -10,6 +10,7 @@
     "allowJs": true,
     "lib": [ "es6", "dom" ],
     "skipLibCheck": true,
+    "noEmit": true,
     "outDir": "dist"
   },
   "include": [
