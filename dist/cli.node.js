@@ -55376,8 +55376,10 @@ var OnmsError = /*#__PURE__*/function (_Error) {
     } else {
       _this.stack = new Error(message).stack;
     }
-    // workaround, see http://bit.ly/2vllGdD
-    set_prototype_of_default()(_this, OnmsError.prototype);
+    // Restore the prototype chain, which extending a built-in like Error otherwise breaks.
+    // Use `new.target` rather than `OnmsError.prototype`, so that a subclass such as
+    // [[GrafanaError]] stays `instanceof` itself; see http://bit.ly/2vllGdD
+    set_prototype_of_default()(_this, (this instanceof OnmsError ? this.constructor : void 0) && (this instanceof OnmsError ? this.constructor : void 0).prototype || OnmsError.prototype);
     return _this;
   }
 
@@ -55395,10 +55397,16 @@ var OnmsError = /*#__PURE__*/function (_Error) {
 
     /**
      * The data (payload) associated with a response.
+     * @hidden
      */
 
     /**
-     * The options provided as part of the request that resulted in this erro.
+     * The options provided as part of the request that resulted in this error.
+     *
+     * Note: for requests that used authentication this holds the request configuration,
+     * including an `Authorization` header and the credentials it was derived from. Do not
+     * log it or serialize it into user-visible output.
+     * @hidden
      */
 
     /** The error code associated with this error. */
@@ -55536,13 +55544,14 @@ var Util = /*#__PURE__*/function () {
     key: "insensitiveKey",
     value: function insensitiveKey(key, search) {
       if (!key || !search) {
-        return;
+        return undefined;
       }
       for (var k in search) {
         if (k && k.toLowerCase() === key.toLowerCase()) {
           return k;
         }
       }
+      return undefined;
     }
 
     /**
@@ -57344,10 +57353,6 @@ function BaseDAO_toPrimitive(t, r) { if ("object" != BaseDAO_typeof(t) || !t) re
 
 
 /** @hidden */
-// eslint-disable-next-line
-var BaseDAO_moment = (moment_namespaceFn());
-
-/** @hidden */
 
 
 
@@ -57454,11 +57459,11 @@ var BaseDAO = /*#__PURE__*/function () {
 
     /**
      * Called whenever the OpenNMS server has changed.
-     * @param server - the new server
+     * @param _server - the new server
      */
   }, {
     key: "onSetServer",
-    value: function onSetServer(server) {
+    value: function onSetServer(_server) {
       // this should be overridden by implementations
     }
 
@@ -59818,10 +59823,6 @@ function FlowDAO_setPrototypeOf(t, e) { var _context20; return FlowDAO_setProtot
 
 
 
-/** @hidden */
-// eslint-disable-next-line
-var FlowDAO_moment = (moment_namespaceFn());
-
 /**
  * DAO for accessing flow (Netflow/IPFIX/sFlow) data.
  * @category DAO
@@ -60328,7 +60329,7 @@ var FlowDAO = /*#__PURE__*/function (_BaseDAO) {
   }, {
     key: "getSeriesForConversations",
     value: (function () {
-      var _getSeriesForConversations = FlowDAO_asyncToGenerator(/*#__PURE__*/FlowDAO_regenerator().m(function _callee12(conversations, start, end, step, includeOther, exporterNodeCriteria, ifIndex, dscp, ecn) {
+      var _getSeriesForConversations = FlowDAO_asyncToGenerator(/*#__PURE__*/FlowDAO_regenerator().m(function _callee12(conversations, start, end, step, includeOther, exporterNodeCriteria, ifIndex, dscp) {
         var builder, result;
         return FlowDAO_regenerator().w(function (_context13) {
           while (1) switch (_context13.n) {
@@ -60348,7 +60349,7 @@ var FlowDAO = /*#__PURE__*/function (_BaseDAO) {
           }
         }, _callee12, this);
       }));
-      function getSeriesForConversations(_x77, _x78, _x79, _x80, _x81, _x82, _x83, _x84, _x85) {
+      function getSeriesForConversations(_x77, _x78, _x79, _x80, _x81, _x82, _x83, _x84) {
         return _getSeriesForConversations.apply(this, arguments);
       }
       return getSeriesForConversations;
@@ -60380,7 +60381,7 @@ var FlowDAO = /*#__PURE__*/function (_BaseDAO) {
           }
         }, _callee13, this);
       }));
-      function getHosts(_x86, _x87, _x88, _x89, _x90, _x91) {
+      function getHosts(_x85, _x86, _x87, _x88, _x89, _x90) {
         return _getHosts.apply(this, arguments);
       }
       return getHosts;
@@ -60420,7 +60421,7 @@ var FlowDAO = /*#__PURE__*/function (_BaseDAO) {
           }
         }, _callee14, this);
       }));
-      function getSummaryForHosts(_x92, _x93, _x94, _x95, _x96, _x97, _x98) {
+      function getSummaryForHosts(_x91, _x92, _x93, _x94, _x95, _x96, _x97) {
         return _getSummaryForHosts.apply(this, arguments);
       }
       return getSummaryForHosts;
@@ -60455,7 +60456,7 @@ var FlowDAO = /*#__PURE__*/function (_BaseDAO) {
           }
         }, _callee15, this);
       }));
-      function getSummaryForTopNHosts(_x99, _x100, _x101, _x102, _x103, _x104, _x105) {
+      function getSummaryForTopNHosts(_x98, _x99, _x100, _x101, _x102, _x103, _x104) {
         return _getSummaryForTopNHosts.apply(this, arguments);
       }
       return getSummaryForTopNHosts;
@@ -60491,7 +60492,7 @@ var FlowDAO = /*#__PURE__*/function (_BaseDAO) {
           }
         }, _callee16, this);
       }));
-      function getSeriesForTopNHosts(_x106, _x107, _x108, _x109, _x110, _x111, _x112, _x113) {
+      function getSeriesForTopNHosts(_x105, _x106, _x107, _x108, _x109, _x110, _x111, _x112) {
         return _getSeriesForTopNHosts.apply(this, arguments);
       }
       return getSeriesForTopNHosts;
@@ -60532,7 +60533,7 @@ var FlowDAO = /*#__PURE__*/function (_BaseDAO) {
           }
         }, _callee17, this);
       }));
-      function getSeriesForHosts(_x114, _x115, _x116, _x117, _x118, _x119, _x120, _x121) {
+      function getSeriesForHosts(_x113, _x114, _x115, _x116, _x117, _x118, _x119, _x120) {
         return _getSeriesForHosts.apply(this, arguments);
       }
       return getSeriesForHosts;
@@ -64072,6 +64073,10 @@ function GrafanaError_setPrototypeOf(t, e) { var _context; return GrafanaError_s
 var GrafanaError = /*#__PURE__*/function (_OnmsError) {
   /**
    * The request options (configuration).
+   *
+   * Note: this holds the same object as [[OnmsError.options]], which for authenticated
+   * requests includes an `Authorization` header and the credentials it was derived from.
+   * Do not log it or serialize it into user-visible output.
    * @hidden
    */
 
