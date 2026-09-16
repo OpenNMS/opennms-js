@@ -14,9 +14,26 @@ The complete API list is available at [opennms.github.io](https://opennms.github
 2. run `npm install -g opennms`
 3. run `opennms --help` for a list of available commands
 
+## Developer Notes
+
+### Git hooks removed in 2.7.1
+
+`husky` and `commitlint` were removed in 2.7.1. Linting, tests and type checking all run in CI on
+every branch and pull request, so the `pre-commit` and `pre-push` hooks were duplicating work.
+
+If you cloned this repository before 2.7.1, husky set `core.hooksPath` to `.husky/_` in your local
+`.git/config`, and that directory no longer exists. It is harmless -- git simply finds no hooks --
+but you can clear the leftover setting with:
+
+```
+git config --unset core.hooksPath
+```
+
 ## Changes and Versioning
 
-The CHANGELOG should always contain the complete list of changes between versions, and should always be accessible [here](https://github.com/OpenNMS/opennms-js/blob/main/CHANGELOG.md).
+Changes between versions are recorded in the [Release Notes](#release-notes) below.
+
+The [CHANGELOG](https://github.com/OpenNMS/opennms-js/blob/main/CHANGELOG.md) in the `main` branch is a historical record that was generated from git history; it is no longer updated.
 
 OpenNMS.js follows [semantic versioning](https://semver.org/).
 
