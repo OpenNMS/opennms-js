@@ -28,13 +28,6 @@ updates:
         update-types:
           - "minor"
           - "patch"
-      commits:
-        patterns:
-          - "*commitlint*"
-          - "*changelog*"
-        update-types:
-          - "minor"
-          - "patch"
       jest:
         patterns:
           - "*jest*"
