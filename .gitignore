@@ -37,10 +37,9 @@ profile.cov
 grafana
 .notouch
 
-# dist/ is entirely build output; `.empty` is the only tracked file in it.
-# (A bare `tsc` run emits .js/.js.map next to it, so ignore the whole tree.)
-/dist/*
-!/dist/.empty
+dist/cli.*
+dist/opennms.*
+dist/docs
 
 # Antora documentation
 /docs/
