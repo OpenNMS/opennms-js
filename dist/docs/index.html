@@ -19,8 +19,19 @@
 <li>run <code>npm install -g opennms</code></li>
 <li>run <code>opennms --help</code> for a list of available commands</li>
 </ol>
+<h2 id="developer-notes" class="tsd-anchor-link">Developer Notes<a href="#developer-notes" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h2>
+<h3 id="git-hooks-removed-in-271" class="tsd-anchor-link">Git hooks removed in 2.7.1<a href="#git-hooks-removed-in-271" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<p><code>husky</code> and <code>commitlint</code> were removed in 2.7.1. Linting, tests and type checking all run in CI on
+every branch and pull request, so the <code>pre-commit</code> and <code>pre-push</code> hooks were duplicating work.</p>
+<p>If you cloned this repository before 2.7.1, husky set <code>core.hooksPath</code> to <code>.husky/_</code> in your local
+<code>.git/config</code>, and that directory no longer exists. It is harmless -- git simply finds no hooks --
+but you can clear the leftover setting with:</p>
+<pre><code><span class="hl-0">git</span><span class="hl-1"> </span><span class="hl-0">config</span><span class="hl-1"> --</span><span class="hl-0">unset</span><span class="hl-1"> </span><span class="hl-0">core</span><span class="hl-1">.</span><span class="hl-0">hooksPath</span>
+</code><button>Copy</button></pre>
+
 <h2 id="changes-and-versioning" class="tsd-anchor-link">Changes and Versioning<a href="#changes-and-versioning" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h2>
-<p>The CHANGELOG should always contain the complete list of changes between versions, and should always be accessible <a href="https://github.com/OpenNMS/opennms-js/blob/main/CHANGELOG.md">here</a>.</p>
+<p>Changes between versions are recorded in the <a href="#release-notes">Release Notes</a> below.</p>
+<p>The <a href="https://github.com/OpenNMS/opennms-js/blob/main/CHANGELOG.md">CHANGELOG</a> in the <code>main</code> branch is a historical record that was generated from git history; it is no longer updated.</p>
 <p>OpenNMS.js follows <a href="https://semver.org/">semantic versioning</a>.</p>
 <h3 id="release-notes" class="tsd-anchor-link">Release Notes<a href="#release-notes" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <h4 id="270" class="tsd-anchor-link">2.7.0<a href="#270" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h4>
@@ -132,6 +143,10 @@ It also includes a number of build optimizations and updates since 1.0.</p>
 <ul>
 <li><a href="#using-the-opennmsjs-apis-in-your-code"><span>Using the <wbr/>Open<wbr/>NMS.js <wbr/>AP<wbr/>Is <wbr/>In <wbr/>Your <wbr/>Code</span></a></li>
 <li><a href="#using-the-opennmsjs-command-line"><span>Using the <wbr/>Open<wbr/>NMS.js <wbr/>Command <wbr/>Line</span></a></li>
+<li><a href="#developer-notes"><span>Developer <wbr/>Notes</span></a></li>
+<li>
+<ul>
+<li><a href="#git-hooks-removed-in-271"><span>Git hooks removed in 2.7.1</span></a></li></ul></li>
 <li><a href="#changes-and-versioning"><span>Changes and <wbr/>Versioning</span></a></li>
 <li>
 <ul>
