@@ -105461,7 +105461,7 @@ function _asyncToGenerator(n) { return function () { var t = this, e = arguments
 var CLI = function CLI() {
   var _context10;
   // eslint-disable-next-line @typescript-eslint/no-require-imports
-  var version = "2.7.1-SNAPSHOT" || 0 || 0;
+  var version = "2.7.1" || 0 || 0;
   var homedir = process.env[process.platform === 'win32' ? 'USERPROFILE' : 'HOME'];
   var defaultConfigFile = external_path_default().join(homedir !== null && homedir !== void 0 ? homedir : './', '.opennms-cli.config.json');
   var tableConfig = {
